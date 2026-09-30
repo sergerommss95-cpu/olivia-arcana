@@ -9,7 +9,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const NIGHT_ROOMS = ["/oracle", "/portrait", "/synastry", "/cosmos"];
+const NIGHT_ROOMS = ["/oracle", "/synastry", "/cosmos"];
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 function isNight(path: string): boolean {

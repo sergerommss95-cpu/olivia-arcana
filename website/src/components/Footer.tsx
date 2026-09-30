@@ -23,7 +23,7 @@ export default function Footer() {
       links: [
         { label: t("nav_academy") as string, href: "/academy" },
         { label: t("academy_card_of_day") as string, href: "/academy/card-of-the-day" },
-        { label: t("profile_celestial_portrait") as string, href: "/portrait" },
+        { label: t("profile_celestial_portrait") as string, href: "/astrology/birth-chart/" },
         { label: t("ask_title") as string, href: "/ask" },
       ],
     },

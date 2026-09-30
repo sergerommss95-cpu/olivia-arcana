@@ -18,8 +18,8 @@ const DeckStats = dynamic(() => import("../../components/DeckStats"), { ssr: fal
 const PENDING_CHECKOUT_KEY = "oa-pending-checkout";
 
 const QUICK_LINKS = [
-  { href: "/portrait", label: "Celestial Portrait", icon: "✦" },
-  { href: "/chart", label: "Birth Chart", icon: "◎" },
+  { href: "/astrology/birth-chart/", label: "Celestial Portrait", icon: "✦" },
+  { href: "/astrology/birth-chart/", label: "Birth Chart", icon: "◎" },
   { href: "/daily", label: "Daily Reading", icon: "☉" },
   { href: "/cosmos", label: "Living Cosmos", icon: "◈" },
 ];
@@ -147,7 +147,7 @@ export default function ProfilePage() {
               {/* Get started CTA */}
               <p className="alm-caption">Your Cosmic Journey</p>
               <p className="user-cta-body">Generate your celestial portrait to unlock personalized readings.</p>
-              <Link href="/portrait" className="alm-link">
+              <Link href="/astrology/birth-chart/" className="alm-link">
                 Generate Your Portrait →
               </Link>
             </section>

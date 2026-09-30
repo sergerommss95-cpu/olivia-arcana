@@ -210,7 +210,7 @@ export default function OnboardingPage() {
                   Welcome, {name}. Your stars are aligned.
                 </p>
               )}
-              <a href={checkoutIntent ? "/login/?reason=checkout" : "/chart"} className="alm-btn">
+              <a href={checkoutIntent ? "/login/?reason=checkout" : "/astrology/birth-chart/"} className="alm-btn">
                 {checkoutIntent ? "Continue to Sign In" : "View Your Birth Chart"}
               </a>
             </div>

@@ -1,0 +1,1184 @@
+{
+  "signs": {
+    "aries": {
+      "en": {
+        "name": "Aries",
+        "essence": "Aries tends to act first and learn along the way, with a taste for beginnings, plain speech and the nerve to try."
+      },
+      "uk": {
+        "name": "Овен",
+        "essence": "Овен схильний діяти першим і вчитися дорогою; йому близькі початки, пряма мова й сміливість спробувати."
+      }
+    },
+    "taurus": {
+      "en": {
+        "name": "Taurus",
+        "essence": "Taurus takes its time, trusting the senses, steady effort and whatever can be built slowly enough to last."
+      },
+      "uk": {
+        "name": "Телець",
+        "essence": "Телець не поспішає: він довіряє відчуттям, сталим зусиллям і тому, що будується досить повільно, щоб тривати."
+      }
+    },
+    "gemini": {
+      "en": {
+        "name": "Gemini",
+        "essence": "Gemini learns by moving between ideas, voices and possibilities, curious about how things connect and what else might be true."
+      },
+      "uk": {
+        "name": "Близнюки",
+        "essence": "Близнюки пізнають світ, переходячи між ідеями, голосами й можливостями, з цікавістю до того, як усе пов’язано і що ще може бути правдою."
+      }
+    },
+    "cancer": {
+      "en": {
+        "name": "Cancer",
+        "essence": "Cancer draws near to what feels like home, tending memory, belonging and the people it chooses to protect."
+      },
+      "uk": {
+        "name": "Рак",
+        "essence": "Рак тягнеться до того, що відчувається як дім, і дбає про пам’ять, належність і людей, яких обирає захищати."
+      }
+    },
+    "leo": {
+      "en": {
+        "name": "Leo",
+        "essence": "Leo brings warmth to whatever it gives its heart to, with a wish to create, to be seen and to share generously."
+      },
+      "uk": {
+        "name": "Лев",
+        "essence": "Лев приносить тепло в усе, чому віддає серце, і прагне творити, бути поміченим і щедро ділитися."
+      }
+    },
+    "virgo": {
+      "en": {
+        "name": "Virgo",
+        "essence": "Virgo notices the detail others pass over and shows care by refining, mending and making things genuinely useful."
+      },
+      "uk": {
+        "name": "Діва",
+        "essence": "Діва помічає деталі, повз які інші проходять, і виявляє турботу, вдосконалюючи, лагодячи й роблячи речі справді корисними."
+      }
+    },
+    "libra": {
+      "en": {
+        "name": "Libra",
+        "essence": "Libra seeks balance, fairness and beauty, weighing each side and paying attention to what passes between people."
+      },
+      "uk": {
+        "name": "Терези",
+        "essence": "Терези шукають рівноваги, справедливості й краси, зважують кожен бік і уважно ставляться до того, що відбувається між людьми."
+      }
+    },
+    "scorpio": {
+      "en": {
+        "name": "Scorpio",
+        "essence": "Scorpio goes beneath the surface, drawn to depth, candour and the kind of change that starts from within."
+      },
+      "uk": {
+        "name": "Скорпіон",
+        "essence": "Скорпіон занурюється під поверхню: його вабить глибина, відвертість і ті зміни, що починаються зсередини."
+      }
+    },
+    "sagittarius": {
+      "en": {
+        "name": "Sagittarius",
+        "essence": "Sagittarius reaches for the horizon, whether through travel, study or belief, in search of meaning and room to grow."
+      },
+      "uk": {
+        "name": "Стрілець",
+        "essence": "Стрілець тягнеться до обрію через подорожі, навчання чи віру, шукаючи сенсу й простору для зростання."
+      }
+    },
+    "capricorn": {
+      "en": {
+        "name": "Capricorn",
+        "essence": "Capricorn works patiently towards what matters, respecting structure, responsibility and the long climb of real achievement."
+      },
+      "uk": {
+        "name": "Козоріг",
+        "essence": "Козоріг терпляче працює задля важливого, шанує структуру, відповідальність і довге сходження до справжніх здобутків."
+      }
+    },
+    "aquarius": {
+      "en": {
+        "name": "Aquarius",
+        "essence": "Aquarius steps back to see the whole pattern, valuing independence, friendship and ideas that could serve many people."
+      },
+      "uk": {
+        "name": "Водолій",
+        "essence": "Водолій відступає на крок, щоб побачити весь візерунок, і цінує незалежність, дружбу та ідеї, що можуть служити багатьом."
+      }
+    },
+    "pisces": {
+      "en": {
+        "name": "Pisces",
+        "essence": "Pisces lets the edges soften, moving by feeling, imagination and a quiet sense of what connects everyone."
+      },
+      "uk": {
+        "name": "Риби",
+        "essence": "Риби дозволяють межам пом’якшитися й рухаються за почуттям, уявою і тихим відчуттям того, що пов’язує всіх."
+      }
+    }
+  },
+  "elements": {
+    "fire": {
+      "en": "Fire",
+      "uk": "Вогонь"
+    },
+    "earth": {
+      "en": "Earth",
+      "uk": "Земля"
+    },
+    "air": {
+      "en": "Air",
+      "uk": "Повітря"
+    },
+    "water": {
+      "en": "Water",
+      "uk": "Вода"
+    }
+  },
+  "modalities": {
+    "cardinal": {
+      "en": "Cardinal",
+      "uk": "Кардинальний"
+    },
+    "fixed": {
+      "en": "Fixed",
+      "uk": "Фіксований"
+    },
+    "mutable": {
+      "en": "Mutable",
+      "uk": "Мутабельний"
+    }
+  },
+  "bodies": {
+    "sun": {
+      "en": {
+        "name": "Sun",
+        "essence": "The Sun describes the core of your identity: what gives you life and the purpose you keep returning to.",
+        "question": "What makes you feel most like yourself, and how much room does it have in your days?"
+      },
+      "uk": {
+        "name": "Сонце",
+        "essence": "Сонце описує серцевину вашої ідентичності: те, що дає вам життя, і мету, до якої ви знову й знову повертаєтеся.",
+        "question": "Що дає вам найбільше відчуття себе і скільки місця це має у ваших днях?"
+      }
+    },
+    "moon": {
+      "en": {
+        "name": "Moon",
+        "essence": "The Moon describes your emotional life: what you need to feel safe, how feelings move through you and where you find comfort.",
+        "question": "What do you need when a day has been hard, and do you let yourself have it?"
+      },
+      "uk": {
+        "name": "Місяць",
+        "essence": "Місяць описує ваше емоційне життя: що вам потрібно, щоб почуватися в безпеці, як рухаються ваші почуття і де ви знаходите розраду.",
+        "question": "Що вам потрібно після важкого дня і чи дозволяєте ви собі це мати?"
+      }
+    },
+    "mercury": {
+      "en": {
+        "name": "Mercury",
+        "essence": "Mercury describes how you think, learn and communicate: the way you gather information, make sense of it and share it.",
+        "question": "When do your thoughts feel clearest, and who do you most enjoy thinking aloud with?"
+      },
+      "uk": {
+        "name": "Меркурій",
+        "essence": "Меркурій описує, як ви мислите, навчаєтеся й спілкуєтеся: як збираєте інформацію, осмислюєте її і ділитеся нею.",
+        "question": "Коли ваші думки найясніші і з ким вам найприємніше міркувати вголос?"
+      }
+    },
+    "venus": {
+      "en": {
+        "name": "Venus",
+        "essence": "Venus describes what you value and find beautiful, how you give and receive affection, and what brings you pleasure.",
+        "question": "What do you find beautiful that you rarely make time for?"
+      },
+      "uk": {
+        "name": "Венера",
+        "essence": "Венера описує, що ви цінуєте й вважаєте красивим, як даруєте й приймаєте прихильність і що приносить вам насолоду.",
+        "question": "Що здається вам красивим, але на що ви рідко знаходите час?"
+      }
+    },
+    "mars": {
+      "en": {
+        "name": "Mars",
+        "essence": "Mars describes how you act on desire: your drive, how you assert yourself, and what you do with anger and energy.",
+        "question": "What do you want enough to act on, and how do you go after it?"
+      },
+      "uk": {
+        "name": "Марс",
+        "essence": "Марс описує, як ви дієте, коли чогось прагнете: ваш запал, те, як ви відстоюєте себе, і що робите з гнівом та енергією.",
+        "question": "Чого ви хочете настільки, щоб діяти, і як ви цього домагаєтеся?"
+      }
+    },
+    "jupiter": {
+      "en": {
+        "name": "Jupiter",
+        "essence": "Jupiter describes where you seek growth and meaning. It stays about a year in each sign, and many your age share it.",
+        "question": "Where do you feel a pull to grow, learn or widen your view right now?"
+      },
+      "uk": {
+        "name": "Юпітер",
+        "essence": "Юпітер описує, де ви шукаєте зростання й сенсу. Він перебуває в кожному знаку близько року, тож його поділяють багато ваших однолітків.",
+        "question": "Де ви зараз відчуваєте потяг рости, вчитися чи розширювати свій погляд?"
+      }
+    },
+    "saturn": {
+      "en": {
+        "name": "Saturn",
+        "essence": "Saturn describes where you meet limits, responsibility and time. It spends two to three years in a sign, shared by your peers.",
+        "question": "Which responsibility feels heavy right now, and what would make it steadier to carry?"
+      },
+      "uk": {
+        "name": "Сатурн",
+        "essence": "Сатурн описує, де ви стикаєтеся з межами, відповідальністю й часом. Він проводить у знаку два-три роки, тож цю позицію поділяють ваші однолітки.",
+        "question": "Яка відповідальність зараз здається важкою і що допомогло б нести її стійкіше?"
+      }
+    },
+    "uranus": {
+      "en": {
+        "name": "Uranus",
+        "essence": "Uranus describes the urge to break from habit. Spending about seven years in a sign, it is shared by your generation.",
+        "question": "Where do you feel restless for change, and what would a small experiment look like?"
+      },
+      "uk": {
+        "name": "Уран",
+        "essence": "Уран описує потяг вирватися зі звичного. Він перебуває в знаку близько семи років, тож цю позицію поділяє ваше покоління.",
+        "question": "Де ви відчуваєте неспокійне бажання змін і яким міг би бути невеликий експеримент?"
+      }
+    },
+    "neptune": {
+      "en": {
+        "name": "Neptune",
+        "essence": "Neptune describes longing, imagination and what you idealise. It stays over a decade in a sign, so a whole generation shares it.",
+        "question": "What do you long for that is hard to put into words?"
+      },
+      "uk": {
+        "name": "Нептун",
+        "essence": "Нептун описує тугу, уяву й те, що ви ідеалізуєте. Він залишається в знаку понад десять років, тож цю позицію поділяє ціле покоління.",
+        "question": "За чим ви тужите, хоча це важко передати словами?"
+      }
+    },
+    "pluto": {
+      "en": {
+        "name": "Pluto",
+        "essence": "Pluto describes where power and renewal run deep. It stays one to three decades in a sign, so it marks a generation.",
+        "question": "What have you let go of that made room for something truer?"
+      },
+      "uk": {
+        "name": "Плутон",
+        "essence": "Плутон описує, де глибоко пролягають теми сили й оновлення. Він перебуває в знаку від одного до трьох десятиліть, тож позначає ціле покоління.",
+        "question": "Що ви відпустили, звільнивши місце для чогось правдивішого?"
+      }
+    },
+    "node": {
+      "en": {
+        "name": "North Node",
+        "essence": "The North Node points to a direction of growth that may feel unfamiliar, less somewhere to arrive than something to practise.",
+        "question": "What feels unfamiliar, yet quietly right, when you try it?"
+      },
+      "uk": {
+        "name": "Північний вузол",
+        "essence": "Північний вузол вказує на напрям зростання, що може здаватися незнайомим: це радше те, що практикують, ніж місце, куди треба прийти.",
+        "question": "Що здається незвичним, але, коли ви це пробуєте, тихо відчувається правильним?"
+      }
+    },
+    "ascendant": {
+      "en": {
+        "name": "Rising",
+        "essence": "Your Rising sign describes your first approach to the world: how you meet new situations and how others may first meet you.",
+        "question": "What do people tend to notice about you first, and how close is it to how you feel inside?"
+      },
+      "uk": {
+        "name": "Асцендент",
+        "essence": "Асцендент, або висхідний знак, описує ваш перший підхід до світу: як ви входите в нові ситуації і якими вас уперше бачать інші.",
+        "question": "Що люди зазвичай помічають у вас першим і наскільки це близько до того, що ви відчуваєте всередині?"
+      }
+    },
+    "midheaven": {
+      "en": {
+        "name": "Midheaven",
+        "essence": "The Midheaven describes your public direction: the work, reputation and contribution you may want to be known for.",
+        "question": "What would you like your work in the world to stand for?"
+      },
+      "uk": {
+        "name": "Середина неба",
+        "essence": "Середина неба описує ваш публічний напрям: роботу, репутацію й внесок, якими ви, можливо, хотіли б бути відомими.",
+        "question": "Що, на вашу думку, мала б означати ваша праця у світі?"
+      }
+    }
+  },
+  "houses": {
+    "1": {
+      "en": {
+        "name": "First house",
+        "area": "Self and first approach",
+        "essence": "In whole-sign houses, the first house is your Rising sign: your body, manner and way of beginning."
+      },
+      "uk": {
+        "name": "Перший будинок",
+        "area": "Особистість і перше враження",
+        "essence": "У системі цілих знаків перший будинок збігається з вашим висхідним знаком: це тіло, манера і спосіб починати."
+      }
+    },
+    "2": {
+      "en": {
+        "name": "Second house",
+        "area": "Resources and worth",
+        "essence": "The second house concerns what sustains you: money, possessions, skills and the sense of worth beneath them."
+      },
+      "uk": {
+        "name": "Другий будинок",
+        "area": "Ресурси й самоцінність",
+        "essence": "Другий будинок стосується того, що вас підтримує: грошей, речей, навичок і відчуття власної цінності, що стоїть за ними."
+      }
+    },
+    "3": {
+      "en": {
+        "name": "Third house",
+        "area": "Communication and surroundings",
+        "essence": "The third house covers everyday talk and learning, siblings and neighbours, short journeys and familiar streets."
+      },
+      "uk": {
+        "name": "Третій будинок",
+        "area": "Спілкування й довкілля",
+        "essence": "Третій будинок охоплює щоденні розмови й навчання, братів і сестер, сусідів, короткі поїздки та знайомі вулиці."
+      }
+    },
+    "4": {
+      "en": {
+        "name": "Fourth house",
+        "area": "Home and roots",
+        "essence": "The fourth house holds home, family and inner foundations: where you come from and where you rest."
+      },
+      "uk": {
+        "name": "Четвертий будинок",
+        "area": "Дім і коріння",
+        "essence": "Четвертий будинок уміщує дім, родину й внутрішні підвалини: звідки ви походите і де відпочиваєте."
+      }
+    },
+    "5": {
+      "en": {
+        "name": "Fifth house",
+        "area": "Creativity and pleasure",
+        "essence": "The fifth house gathers play, romance and creative work: whatever you make or enjoy for its own sake."
+      },
+      "uk": {
+        "name": "П’ятий будинок",
+        "area": "Творчість і задоволення",
+        "essence": "П’ятий будинок збирає гру, романтику й творчість: усе, що ви робите чи любите заради самої радості."
+      }
+    },
+    "6": {
+      "en": {
+        "name": "Sixth house",
+        "area": "Routines and care",
+        "essence": "The sixth house describes daily routines, work habits and how you look after your body and your time."
+      },
+      "uk": {
+        "name": "Шостий будинок",
+        "area": "Щоденні справи й турбота",
+        "essence": "Шостий будинок описує щоденний розпорядок, робочі звички і те, як ви дбаєте про своє тіло й свій час."
+      }
+    },
+    "7": {
+      "en": {
+        "name": "Seventh house",
+        "area": "Partnership and others",
+        "essence": "The seventh house looks at close partnerships, in love or work, and what others reflect back to you."
+      },
+      "uk": {
+        "name": "Сьомий будинок",
+        "area": "Партнерство й інші люди",
+        "essence": "Сьомий будинок розглядає близькі партнерства, у коханні чи в роботі, і те, що інші люди віддзеркалюють вам."
+      }
+    },
+    "8": {
+      "en": {
+        "name": "Eighth house",
+        "area": "Intimacy and shared resources",
+        "essence": "The eighth house concerns intimacy, trust and what is shared or inherited, along with endings and renewal."
+      },
+      "uk": {
+        "name": "Восьмий будинок",
+        "area": "Близькість і спільні ресурси",
+        "essence": "Восьмий будинок стосується близькості, довіри, спільного чи успадкованого, а також завершень і оновлення."
+      }
+    },
+    "9": {
+      "en": {
+        "name": "Ninth house",
+        "area": "Meaning and far horizons",
+        "essence": "The ninth house reaches outwards through study, travel, belief and philosophy, the ways you widen your view."
+      },
+      "uk": {
+        "name": "Дев’ятий будинок",
+        "area": "Сенс і далекі обрії",
+        "essence": "Дев’ятий будинок веде назовні через навчання, подорожі, віру й філософію, усе, що розширює ваш погляд."
+      }
+    },
+    "10": {
+      "en": {
+        "name": "Tenth house",
+        "area": "Vocation and public life",
+        "essence": "The tenth house describes vocation, reputation and public role: what you build in view of others."
+      },
+      "uk": {
+        "name": "Десятий будинок",
+        "area": "Покликання й публічне життя",
+        "essence": "Десятий будинок описує покликання, репутацію й публічну роль: те, що ви будуєте на очах в інших."
+      }
+    },
+    "11": {
+      "en": {
+        "name": "Eleventh house",
+        "area": "Friendship and community",
+        "essence": "The eleventh house holds friendship, community and the groups you belong to, along with hopes you share."
+      },
+      "uk": {
+        "name": "Одинадцятий будинок",
+        "area": "Дружба й спільнота",
+        "essence": "Одинадцятий будинок уміщує дружбу, спільноту й групи, до яких ви належите, а також надії, які ви поділяєте з іншими."
+      }
+    },
+    "12": {
+      "en": {
+        "name": "Twelfth house",
+        "area": "Solitude and the unseen",
+        "essence": "The twelfth house describes what works out of sight: rest, dreams, solitude and the slow release of old patterns."
+      },
+      "uk": {
+        "name": "Дванадцятий будинок",
+        "area": "Усамітнення й невидиме",
+        "essence": "Дванадцятий будинок описує те, що діє поза полем зору: відпочинок, сни, усамітнення й повільне звільнення від старих звичок."
+      }
+    }
+  },
+  "aspects": {
+    "conjunction": {
+      "en": {
+        "name": "Conjunction",
+        "essence": "A conjunction blends two bodies in one place, inviting you to notice where their voices merge and where they compete."
+      },
+      "uk": {
+        "name": "З’єднання",
+        "essence": "З’єднання зводить дві точки карти в одне місце і запрошує помітити, де їхні голоси зливаються, а де сперечаються."
+      }
+    },
+    "sextile": {
+      "en": {
+        "name": "Sextile",
+        "essence": "A sextile offers an easy opening between two bodies, one that tends to grow when you choose to use it."
+      },
+      "uk": {
+        "name": "Секстиль",
+        "essence": "Секстиль відкриває між двома точками карти легку можливість, яка зазвичай зростає, коли ви вирішуєте нею скористатися."
+      }
+    },
+    "square": {
+      "en": {
+        "name": "Square",
+        "essence": "A square brings two bodies into friction, asking you to work with the tension rather than choose a side."
+      },
+      "uk": {
+        "name": "Квадрат",
+        "essence": "Квадрат створює тертя між двома точками карти і просить працювати з цією напругою, а не ставати на чийсь бік."
+      }
+    },
+    "trine": {
+      "en": {
+        "name": "Trine",
+        "essence": "A trine lets two bodies flow together with ease, inviting you to notice gifts you might take for granted."
+      },
+      "uk": {
+        "name": "Тригон",
+        "essence": "Тригон дає двом точкам карти легко перетікати одна в одну і запрошує помітити дари, які ви, можливо, сприймаєте як належне."
+      }
+    },
+    "opposition": {
+      "en": {
+        "name": "Opposition",
+        "essence": "An opposition sets two bodies face to face across the chart, asking how both sides might be honoured."
+      },
+      "uk": {
+        "name": "Опозиція",
+        "essence": "Опозиція ставить дві точки карти одна навпроти одної і запитує, як віддати належне обом сторонам."
+      }
+    }
+  },
+  "bigThree": {
+    "sun": {
+      "aries": {
+        "en": "With the Sun in Aries, a sense of self often grows through beginning things: taking the first step, speaking plainly, testing your nerve. You may feel most alive at the start of something, before it is fully formed. What would you begin today if you trusted that finishing could come later?",
+        "uk": "Із Сонцем в Овні відчуття себе часто зростає через початки: перший крок, пряму мову, перевірку власної сміливості. Можливо, ви найгостріше відчуваєте життя на старті, коли щось іще не набуло форми. Що б ви почали сьогодні, якби довіряли, що завершення може прийти пізніше?"
+      },
+      "taurus": {
+        "en": "Sun in Taurus can show itself as a steady, embodied way of being, with identity rooted in what you can touch, grow and keep. Vitality often returns through the senses: a good meal, a garden, unhurried time. Where could you make more room for slowness without calling it idleness?",
+        "uk": "Сонце в Тельці може проявлятися як сталий, тілесний спосіб буття, коли ідентичність тримається на тому, що можна відчути дотиком, виростити й зберегти. Життєва сила часто повертається через відчуття: смачна їжа, сад, неквапливий час. Де ви могли б дати більше місця повільності, не називаючи її лінощами?"
+      },
+      "gemini": {
+        "en": "When the Sun is in Gemini, identity may feel less like a single thread than a conversation still under way. Curiosity, wordplay and the pleasure of learning something new can be what keeps you awake to life. Which question are you enjoying living with at the moment?",
+        "uk": "Коли Сонце в Близнюках, ідентичність може відчуватися не як одна нитка, а як розмова, що досі триває. Цікавість, гра слів і радість відкривати нове можуть бути саме тим, що пробуджує у вас смак до життя. Із яким запитанням вам зараз цікаво жити?"
+      },
+      "cancer": {
+        "en": "A Cancer Sun often finds its sense of purpose in caring: making a place, a meal or a friendship feel like shelter. Your identity may be closely woven with the people and memories you hold dear. And who, in turn, looks after you?",
+        "uk": "Сонце в Раку часто знаходить сенс у турботі: у тому, щоб місце, їжа чи дружба ставали прихистком. Ваша ідентичність може бути тісно переплетена з людьми й спогадами, які вам дорогі. А хто, своєю чергою, дбає про вас?"
+      },
+      "leo": {
+        "en": "Leo turns the Sun towards the heart as a source of creative life. You may feel most yourself when making something, performing, celebrating or encouraging others to shine, and being truly seen can matter deeply. What would you create if applause were not the point?",
+        "uk": "Лев повертає Сонце до серця як джерела творчого життя. Можливо, ви найбільше почуваєтеся собою, коли щось створюєте, виступаєте, святкуєте чи допомагаєте засяяти іншим, і для вас може багато важити, щоб вас справді побачили. Що б ви створили, якби оплески не були метою?"
+      },
+      "virgo": {
+        "en": "In Virgo, the Sun tends to place purpose in the details: the careful edit, the skill practised until it is second nature, the quiet help no one asked for. Usefulness may feel like a form of devotion. Could you offer yourself the same patient attention you give your work?",
+        "uk": "У Діві Сонце схильне шукати сенс у деталях: у ретельній правці, у навичці, відточеній до автоматизму, у тихій допомозі, про яку ніхто не просив. Корисність може відчуватися як форма відданості. Чи могли б ви приділити собі таку саму терплячу увагу, яку приділяєте своїй роботі?"
+      },
+      "libra": {
+        "en": "For a Libra Sun, identity is often shaped in relationship, through the art of listening, weighing and finding what is fair. Beauty and harmony can be genuine sources of life rather than decoration. Where might keeping the peace have quietly cost you your own view?",
+        "uk": "Для Сонця в Терезах ідентичність часто формується у стосунках, через уміння слухати, зважувати й шукати справедливе. Краса і гармонія можуть бути справжніми джерелами життя, а не прикрасою. Де прагнення зберегти мир могло непомітно коштувати вам власного погляду?"
+      },
+      "scorpio": {
+        "en": "The Sun in Scorpio asks for depth over display. A sense of self may be forged through intensity, privacy and the willingness to look at what others avoid, and loyalty, once given, can be profound. What truth have you been circling that you could name, if only to yourself?",
+        "uk": "Сонце в Скорпіоні просить глибини, а не показовості. Відчуття себе може гартуватися через інтенсивність, приватність і готовність дивитися на те, чого інші уникають, а вірність, якщо вже віддана, буває дуже глибокою. Довкола якої правди ви кружляєте і чи могли б назвати її, хоча б для себе?"
+      },
+      "sagittarius": {
+        "en": "Sagittarius lends the Sun a restless appetite for meaning. You may come alive through travel, big questions, teaching or learning, and through the honesty of saying what you believe. Where is your next horizon, and does it lie across a border or inside a book?",
+        "uk": "Стрілець дає Сонцю невгамовний апетит до сенсу. Можливо, ви оживаєте в подорожах, великих питаннях, навчанні чи викладанні, а також у чесності говорити те, у що вірите. Де ваш наступний обрій: по той бік кордону чи всередині книжки?"
+      },
+      "capricorn": {
+        "en": "Here the Sun meets Capricorn’s patience, and identity often grows through commitment: the long project, the role taken seriously, the structure built to hold others as well as you. Achievement can bring real meaning, and so can rest. What are you building, and whose idea of success is it?",
+        "uk": "Тут Сонце зустрічає терплячість Козорога, й ідентичність часто зростає через відданість справі: довгий проєкт, роль, до якої ви ставитеся серйозно, структуру, збудовану так, щоб тримати не лише вас, а й інших. Досягнення можуть давати справжній сенс, і відпочинок теж. Що ви будуєте і чиє це уявлення про успіх?"
+      },
+      "aquarius": {
+        "en": "An Aquarius Sun often looks beyond one life to ideas that serve many: fairness, invention, the good of a group. You may feel most at ease when free to think differently, and friendship can matter as much as closeness. Where does your independence connect you to others, rather than set you apart?",
+        "uk": "Сонце у Водолії часто дивиться за межі одного життя, на ідеї, що служать багатьом: справедливість, винахідливість, благо спільноти. Можливо, вам найлегше, коли ви вільні мислити інакше, а дружба може важити не менше, ніж близькість. Де ваша незалежність поєднує вас з іншими, а не відокремлює?"
+      },
+      "pisces": {
+        "en": "Placed in Pisces, the Sun can make identity feel porous, shaped by imagination, compassion and moods that move like tides. Music, art, water or quiet devotion may be where life feels most vivid. What helps you keep a gentle edge, so that you can feel with others without losing yourself?",
+        "uk": "У Рибах Сонце може робити ідентичність проникною, сформованою уявою, співчуттям і настроями, що приходять і відходять, як приплив. Музика, мистецтво, вода чи тиха відданість можуть бути тим простором, де життя відчувається найяскравіше. Що допомагає вам зберігати м’яку межу, щоб співпереживати іншим, не втрачаючи себе?"
+      }
+    },
+    "moon": {
+      "aries": {
+        "en": "The Moon in Aries tends to feel things quickly and fully, then move on. Comfort may come through action: a brisk walk, a clear decision, the freedom to say what you feel as you feel it. When emotions flare, what helps you pause for a breath before you act?",
+        "uk": "Місяць в Овні зазвичай відчуває швидко й повністю, а потім рухається далі. Розраду може давати дія: швидка прогулянка, чітке рішення, свобода говорити про почуття саме тоді, коли вони виникають. Коли емоції спалахують, що допомагає вам зробити вдих, перш ніж діяти?"
+      },
+      "taurus": {
+        "en": "With the Moon in Taurus, safety is often felt through the body and the familiar: soft fabric, good bread, a routine that holds. Change may need to arrive slowly to feel bearable. Which simple, physical comforts steady you, and do you let yourself have them without guilt?",
+        "uk": "Коли Місяць у Тельці, ви часто відчуваєте безпеку через тіло й знайоме: м’яку тканину, добрий хліб, розпорядок, який тримає. Змінам, можливо, треба приходити повільно, щоб їх було легше прийняти. Які прості тілесні втіхи вас заспокоюють і чи дозволяєте ви собі їх без почуття провини?"
+      },
+      "gemini": {
+        "en": "A Gemini Moon often processes feeling by talking, writing or thinking it through. Variety can soothe, and a good conversation may do more for your mood than silence. Are there feelings you explain well but rarely let yourself simply feel?",
+        "uk": "Місяць у Близнюках часто проживає почуття через розмову, письмо чи обмірковування. Різноманіття може заспокоювати, а добра розмова здатна зробити для вашого настрою більше, ніж тиша. Чи є почуття, які ви добре пояснюєте, але рідко дозволяєте собі просто відчути?"
+      },
+      "cancer": {
+        "en": "The Moon is at home in Cancer, and feelings here tend to be tender, protective and long remembered. To rest fully, you may need a deep sense of belonging: a place, or a few people, that feel like home. What does home mean to you now, beyond where you live?",
+        "uk": "У Раку Місяць почувається вдома, і почуття тут бувають ніжними й оберігальними, а пам’ять про них довгою. Щоб повністю відпочити, вам, можливо, потрібне глибоке відчуття належності: місце чи кілька людей, поруч із якими ви вдома. Що для вас зараз означає дім, окрім місця, де ви живете?"
+      },
+      "leo": {
+        "en": "In Leo, the Moon wants warmth returned. You may feel most secure when your feelings are met with delight rather than caution, and play, praise and affection can be real nourishment. How do you ask for attention when you need it, and how do you offer it?",
+        "uk": "У Леві Місяць прагне взаємного тепла. Можливо, ви почуваєтеся в найбільшій безпеці, коли на ваші почуття відповідають радістю, а не обережністю, а гра, похвала й прихильність можуть бути справжньою поживою. Як ви просите уваги, коли вона вам потрібна, і як даруєте її іншим?"
+      },
+      "virgo": {
+        "en": "Calm, for a Virgo Moon, often comes through order: a tidy desk, a list, a task done well. Feelings may first appear as worry or an urge to fix things, and caring for others can be how affection is shown. What would it be like to rest before everything is in its place?",
+        "uk": "Для Місяця в Діві спокій часто приходить через порядок: прибраний стіл, список, добре виконана справа. Почуття можуть спершу з’являтися як тривога чи бажання щось виправити, а турбота про інших часто і є способом виявити прихильність. Як це: відпочити ще до того, як усе стане на свої місця?"
+      },
+      "libra": {
+        "en": "Emotional balance matters to a Libra Moon, and it is often found through company, beauty and a sense that things between people are fair. Conflict can unsettle you more than it shows. When you smooth things over for others, where do your own feelings go?",
+        "uk": "Місяцю в Терезах важлива емоційна рівновага, і часто її дають товариство, краса й відчуття, що між людьми все справедливо. Конфлікт може вибивати вас із колії сильніше, ніж це видно ззовні. Коли ви згладжуєте ситуацію заради інших, куди діваються ваші власні почуття?"
+      },
+      "scorpio": {
+        "en": "Feelings under a Scorpio Moon tend to run deep and private, and trust is given carefully. You may need emotional honesty more than reassurance, and time alone to let strong feelings settle. Who has earned your trust, and do they know how much it means?",
+        "uk": "З Місяцем у Скорпіоні почуття зазвичай глибокі й особисті, а довіру ви віддаєте обережно. Можливо, емоційна чесність потрібна вам більше, ніж заспокійливі слова, а ще час на самоті, щоб сильні почуття вляглися. Хто заслужив вашу довіру і чи знають ці люди, скільки це для вас важить?"
+      },
+      "sagittarius": {
+        "en": "Room to roam is often what a Sagittarius Moon needs: space to move, to laugh, to change the subject when a feeling grows heavy. Comfort may come through open skies, long walks or a new idea. What feeling might you meet more fully if you stayed with it a little longer?",
+        "uk": "Простір часто саме те, чого потребує Місяць у Стрільці: змога рухатися, сміятися, змінити тему, коли почуття стає важким. Розраду можуть давати відкрите небо, довгі прогулянки чи нова ідея. Яке почуття ви могли б зустріти повніше, якби побули з ним трохи довше?"
+      },
+      "capricorn": {
+        "en": "Capricorn gives the Moon a reserved, capable quality: feelings may be held back until there is time and privacy to feel them. Security often comes from competence, a plan and being someone others can rely on. Who do you let see you when you are struggling, and what makes it easier to ask for support?",
+        "uk": "Козоріг надає Місяцю стриманості й зібраності: почуття можуть чекати, доки з’являться час і усамітнення, щоб їх прожити. Безпеку часто дають компетентність, план і відчуття, що на вас можна покластися. Кому ви дозволяєте бачити вас, коли вам важко, і що допомагає вам попросити про підтримку?"
+      },
+      "aquarius": {
+        "en": "An Aquarius Moon can meet feelings with a little distance, understanding them before fully entering them. Friendship, freedom and a sense of shared purpose may be deeply comforting. Where would it help to let a feeling be felt first and understood later?",
+        "uk": "Місяць у Водолії може зустрічати почуття з певної відстані: спершу зрозуміти їх, а вже потім у них увійти. Дружба, свобода й відчуття спільної мети можуть глибоко втішати. Де вам допомогло б спершу відчути почуття, а зрозуміти його вже згодом?"
+      },
+      "pisces": {
+        "en": "Moods in a room can reach a Pisces Moon almost before words do. Rest, music, water, dreams and time alone can help you find your own feelings again among everyone else’s. What helps you tell, gently, which feelings are yours to carry?",
+        "uk": "Настрої в кімнаті можуть торкатися Місяця в Рибах ще до того, як прозвучать слова. Відпочинок, музика, вода, сни й час на самоті можуть допомогти вам знову знайти власні почуття серед чужих. Що допомагає вам лагідно розрізнити, котрі почуття ваші, а котрі не вам нести?"
+      }
+    },
+    "ascendant": {
+      "aries": {
+        "en": "Aries Rising meets the world head-on. You may enter a room, a task or a conversation with directness and speed, and others may see courage or impatience before anything else. What lies beneath that quick first step, and who gets to see it?",
+        "uk": "Асцендент в Овні зустрічає світ лицем до лиця. Можливо, ви входите в кімнату, справу чи розмову прямо й швидко, а інші насамперед бачать сміливість чи нетерплячість. Що стоїть за цим швидким першим кроком і кому ви дозволяєте це побачити?"
+      },
+      "taurus": {
+        "en": "Taurus Rising brings a calm, unhurried first approach, taking the measure of a place before you move. Others may find you steady, grounded and reassuring company. What helps you settle into somewhere new at your own pace?",
+        "uk": "Асцендент у Тельці дає неквапливий, спокійний перший підхід: ви придивляєтеся до місця, перш ніж рухатися. Поруч із вами іншим може бути затишно: ви здаєтеся надійною, заземленою людиною. Що допомагає вам освоїтися в новому місці у власному темпі?"
+      },
+      "gemini": {
+        "en": "Questions often lead the way with Gemini Rising. First impressions may be of quickness, humour and easy conversation: someone who notices a great deal and moves lightly between people. While curiosity does the talking, which part of you stays quietly behind it?",
+        "uk": "Коли Асцендент у Близнюках, першими часто йдуть запитання. Перше враження нерідко складається зі швидкої думки, гумору й невимушеної розмови: людина, яка багато помічає й легко переходить від одних до інших. Поки говорить цікавість, яка частина вас тихо лишається позаду?"
+      },
+      "cancer": {
+        "en": "Cancer Rising tends to approach new people and places with care, sensing the mood before stepping in. Those meeting you for the first time may notice gentleness, attentiveness or a little reserve that softens as trust grows. What helps a new place begin to feel safe enough to open up?",
+        "uk": "З Асцендентом у Раку ви зазвичай підходите до нових людей і місць дбайливо, спершу вловлюючи настрій. Ті, хто бачить вас уперше, можуть помітити м’якість, уважність чи легку стриманість, яка тане, коли зростає довіра. Що допомагає новому місцю стати досить безпечним, щоб ви розкрилися?"
+      },
+      "leo": {
+        "en": "Warmth and presence often arrive with Leo Rising, and others may notice you before you have said much. There can be a generous, open-hearted quality to how you arrive. How does it feel when attention finds you, and when do you choose to step back from it?",
+        "uk": "Тепло й присутність часто приходять разом з Асцендентом у Леві, і вас можуть помітити ще до того, як ви щось скажете. У тому, як ви з’являєтеся, може бути щедрість і відкрите серце. Як ви почуваєтеся, коли вас знаходить увага, і коли вирішуєте відійти від неї?"
+      },
+      "virgo": {
+        "en": "Observation comes first with Virgo Rising: noticing what needs doing, what could be improved, how things actually work. Others may first meet you as thoughtful, capable and quietly helpful. Where could you let a first impression be imperfect and still be enough?",
+        "uk": "Для Асцендента в Діві спершу йде спостереження: помітити, що треба зробити, що можна покращити, як усе насправді влаштовано. З першої зустрічі інші можуть бачити у вас вдумливість, уміння й тиху готовність допомогти. Де ви могли б дозволити першому враженню бути неідеальним і все одно достатнім?"
+      },
+      "libra": {
+        "en": "Libra Rising often opens with grace and diplomacy, reading what a moment needs and offering it. People may first experience you as easy to be with, considerate and attuned to beauty. When you adapt so readily to others, how do you keep track of what you want?",
+        "uk": "Асцендент у Терезах часто відкривається витонченістю й дипломатичністю: він зчитує, чого потребує мить, і пропонує це. Люди можуть уперше сприйняти вас як делікатну людину, з якою легко і яка чутлива до краси. Коли ви так охоче пристосовуєтеся до інших, як вам не загубити з поля зору власних бажань?"
+      },
+      "scorpio": {
+        "en": "With Scorpio Rising, you may arrive quietly and take in far more than you show. Others can sense intensity, privacy or a searching gaze, and you may reveal yourself only as trust is earned. What would help you feel safe being known a little sooner?",
+        "uk": "Асцендент у Скорпіоні може проявлятися як тиха поява: ви помічаєте значно більше, ніж показуєте. Інші можуть відчувати інтенсивність, закритість чи пильний погляд, а розкриваєтеся ви лише в міру того, як зростає довіра. Що допомогло б вам почуватися в безпеці, дозволяючи іншим пізнати вас трохи раніше?"
+      },
+      "sagittarius": {
+        "en": "Sagittarius Rising greets the world with openness and appetite, as if every new place might hold a story. People often notice your frankness, humour and ease with strangers. What are you hoping to find each time you set off somewhere new?",
+        "uk": "Асцендент у Стрільці вітає світ відкрито й жадібно до вражень, наче кожне нове місце може приховувати історію. Люди часто помічають вашу відвертість, гумор і легкість у спілкуванні з незнайомцями. Що ви сподіваєтеся знайти щоразу, коли вирушаєте кудись у нове?"
+      },
+      "capricorn": {
+        "en": "Capricorn Rising can give a composed, serious first impression, as though you had arrived already knowing your responsibilities. Warmth and dry humour often show once people know you better. Where might you let yourself be seen as still learning, rather than already capable?",
+        "uk": "Асцендент у Козорозі часто дає зібране, серйозне перше враження, ніби ви прийшли, уже знаючи свої обов’язки. Тепло й сухий гумор зазвичай проявляються, коли люди знають вас краще. Де ви могли б дозволити іншим бачити, що ви ще вчитеся, а не вже все вмієте?"
+      },
+      "aquarius": {
+        "en": "Aquarius Rising may come across as friendly yet hard to place, someone who meets people as equals and does not quite follow the expected script. What people notice first may be your independence or an unusual angle on things. Which part of you do you keep at a thoughtful distance, and why?",
+        "uk": "Асцендент у Водолії може справляти враження привітної людини, яку непросто вписати в рамки: вона спілкується з усіма на рівних і не надто тримається очікуваного сценарію. Першою люди можуть помітити вашу незалежність чи незвичний погляд на речі. Яку частину себе ви тримаєте на вдумливій відстані і чому?"
+      },
+      "pisces": {
+        "en": "There is often a soft, receptive quality to Pisces Rising, as if you arrive already listening. You may come across as gentle, imaginative or hard to pin down, and the atmosphere of a place can reach you quickly. What helps you arrive as yourself, rather than as a reflection of the room?",
+        "uk": "Асценденту в Рибах часто властиві м’якість і сприйнятливість, ніби ви приходите, уже налаштовані слухати. Ви можете здаватися лагідними, мрійливими чи невловимими, а атмосфера місця швидко до вас доходить. Що допомагає вам приходити собою, а не відображенням кімнати?"
+      }
+    }
+  },
+  "ui": {
+    "timeUnknownMoon": {
+      "en": "Without a birth time, the Moon could have been in either of two signs on the day you were born, so both are shown when this applies.",
+      "uk": "Без часу народження Місяць у день вашого народження міг перебувати в одному з двох знаків, тож у такому разі ми показуємо обидва."
+    },
+    "timeUnknownRising": {
+      "en": "Your Rising sign and houses depend on the exact time of birth, so they appear once you add it.",
+      "uk": "Асцендент і будинки залежать від точного часу народження, тож вони з’являться, щойно ви його додасте."
+    },
+    "method": {
+      "en": "Houses follow the whole-sign system, in which each house is one full sign counted from your Rising sign. Positions are calculated on your device from a public astronomical model. The pairings of signs and cards come from the Golden Dawn tradition.",
+      "uk": "Будинки розраховано за системою цілих знаків: кожен будинок — це один повний знак, починаючи від вашого асцендента. Положення обчислюються на вашому пристрої за загальнодоступною астрономічною моделлю. Відповідності між знаками й картами взято з традиції Золотої Зорі."
+    },
+    "boundary": {
+      "en": "A chart to reflect with, not a forecast to follow.",
+      "uk": "Карта для роздумів, а не прогноз, якому треба слідувати."
+    }
+  },
+  "placements": {
+    "mercury": {
+      "aries": {
+        "en": "Mercury in Aries tends to think at speed and speak before a sentence is fully formed, favouring the direct word over the careful one. Ideas may arrive as sparks, and learning can come most easily by trying something and adjusting as you go. In which conversations would it help to let the second thought arrive before you answer?",
+        "uk": "Меркурій в Овні зазвичай мислить швидко й говорить ще до того, як речення остаточно складеться, віддаючи перевагу прямому слову перед обережним. Ідеї можуть спалахувати, мов іскри, а вчитися вам, можливо, найлегше, пробуючи й виправляючи на ходу. У яких розмовах вам допомогло б дочекатися другої думки, перш ніж відповісти?"
+      },
+      "taurus": {
+        "en": "Mercury in Taurus tends to think at an unhurried pace, turning an idea over until it feels solid enough to stand on. You may learn best through the hands and senses, and words, once chosen, are usually meant. Which settled opinion of yours might be worth revisiting, not to abandon it, but to see whether it still fits?",
+        "uk": "Меркурій у Тельці зазвичай мислить неквапливо й розглядає ідею з усіх боків, доки вона не стане досить твердою, щоб на неї спертися. Можливо, ви найкраще вчитеся через руки й відчуття, а якщо вже щось сказали, то зазвичай усерйоз. Котру зі своїх усталених думок варто було б переглянути — не щоб відмовитися від неї, а щоб перевірити, чи вона досі вам пасує?"
+      },
+      "gemini": {
+        "en": "Mercury is at home in Gemini, where the mind tends to be quick, curious and happiest with several threads running at once. You may learn by asking, reading widely and talking things through, gathering ideas faster than you can use them. Among all the threads you are following, which would you like to stay with long enough to go deep?",
+        "uk": "Меркурій почувається вдома в Близнюках: розум тут зазвичай швидкий, допитливий і найщасливіший, коли веде кілька ниток одночасно. Можливо, ви вчитеся, запитуючи, багато читаючи й проговорюючи думки, і збираєте ідеї швидше, ніж устигаєте ними скористатися. З якою з усіх ниток, за якими ви стежите, вам хотілося б побути досить довго, щоб заглибитися?"
+      },
+      "cancer": {
+        "en": "In Cancer, Mercury tends to think through feeling and memory, so what you know is often coloured by how you first learned it and from whom. You may listen for tone as closely as for words, and speak most freely where you feel safe. Which early lesson still shapes the way you speak, and is it one you would choose to keep?",
+        "uk": "У Раку Меркурій зазвичай мислить через почуття й пам’ять, тож знання часто забарвлені тим, як і від кого ви їх уперше отримали. Можливо, ви вслухаєтеся в тон так само уважно, як у слова, і найвільніше говорите там, де почуваєтеся в безпеці. Який давній урок досі впливає на те, як ви говорите, і чи хотіли б ви його зберегти?"
+      },
+      "leo": {
+        "en": "Mercury in Leo tends to speak with warmth and a sense of occasion, turning an idea into a story worth telling. You may think best with an audience, even an audience of one, and your conviction can be persuasive. When you share an idea you love, how much room do you leave for someone else to reshape it?",
+        "uk": "Меркурій у Леві зазвичай говорить тепло й трохи урочисто, перетворюючи ідею на історію, яку варто розповісти. Можливо, вам найкраще думається, коли є слухачі, нехай навіть один, а ваша впевненість може звучати переконливо. Коли ви ділитеся ідеєю, яку любите, скільки місця лишаєте для того, щоб хтось інший її змінив?"
+      },
+      "virgo": {
+        "en": "Virgo gives Mercury a precise, discerning mind that notices the missing comma, the flawed step, the better way to phrase it. You may learn by breaking things into parts and practising until they work, and your help often arrives as a well-made suggestion. When your inner editor speaks up, how do you tell careful attention from criticism you do not need?",
+        "uk": "У Діві Меркурій набуває точного розуму, вимогливого до деталей: він помічає пропущену кому, хибний крок, вдалішу фразу. Можливо, ви вчитеся, розкладаючи все на частини й вправляючись, доки не вийде, а ваша допомога часто приходить як добре продумана порада. Коли озивається ваш внутрішній редактор, як ви відрізняєте уважність від критики, якої вам не треба?"
+      },
+      "libra": {
+        "en": "Mercury in Libra tends to think in pairs, weighing one view against another and looking for the fair word. You may be a gifted listener and a graceful speaker, and decisions can take time because every side seems to have a point. Which decision have you been weighing for a while, and what would you choose if no one else needed to agree?",
+        "uk": "Меркурій у Терезах зазвичай мислить парами: зважує один погляд проти іншого й шукає справедливого слова. Можливо, ви вмієте чудово слухати й делікатно говорити, а рішення можуть забирати час, бо кожна сторона видається по-своєму правою. Яке рішення ви вже давно зважуєте і що обрали б, якби ніхто інший не мусив погоджуватися?"
+      },
+      "scorpio": {
+        "en": "With Mercury in Scorpio, the mind tends to investigate rather than skim, drawn to motives, secrets and what lies beneath a polite answer. You may choose words carefully, say less than you know and notice what others leave unsaid. What do you know that you have not yet said aloud, and who, if anyone, would you want to tell?",
+        "uk": "Коли Меркурій у Скорпіоні, розум зазвичай не ковзає поверхнею, а досліджує: його ваблять мотиви, таємниці й те, що ховається за чемною відповіддю. Можливо, ви обережно добираєте слова, кажете менше, ніж знаєте, і помічаєте те, чого інші не договорюють. Що ви знаєте, але досі не сказали вголос, і кому, якщо взагалі комусь, хотіли б це розповісти?"
+      },
+      "sagittarius": {
+        "en": "Sagittarius lends Mercury a wide-angle mind, more interested in the big picture than the small print. You may think aloud with enthusiasm, learn through travel, teachers and books that change your view, and speak with a frankness others find refreshing or startling. Which big idea are you carrying at the moment, and what small, practical detail would help it take root?",
+        "uk": "У Стрільці Меркурій набуває широкого кута зору: загальна картина цікавить його більше, ніж дрібний шрифт. Можливо, ви захоплено міркуєте вголос, учитеся через подорожі, наставників і книжки, що змінюють погляд, і говорите з відвертістю, яка одних освіжає, а інших заскочує. Яку велику ідею ви зараз виношуєте і яка маленька практична деталь допомогла б їй укорінитися?"
+      },
+      "capricorn": {
+        "en": "Mercury in Capricorn tends to think in plans and consequences, preferring ideas that can be tested, structured and put to use. You may speak with economy and dry humour, trusting what experience has confirmed more than what merely sounds clever. Which idea have you dismissed as impractical that might deserve a small, serious trial?",
+        "uk": "Меркурій у Козорозі зазвичай мислить планами й наслідками та віддає перевагу ідеям, які можна перевірити, упорядкувати й застосувати. Можливо, ви говорите стисло і з сухим гумором, довіряючи тому, що підтвердив досвід, більше, ніж тому, що просто гарно звучить. Яку ідею ви відкинули як непрактичну, хоча вона, можливо, заслуговує на невелику, але серйозну спробу?"
+      },
+      "aquarius": {
+        "en": "An Aquarius Mercury often thinks from a slight distance, seeing systems and patterns where others see separate events. Original ideas may come easily, along with a readiness to question the usual way of doing things. Which unusual idea of yours would you like to try out with others, and who would you invite to think it through with you?",
+        "uk": "Меркурій у Водолії часто мислить із певної відстані й бачить системи та закономірності там, де інші бачать окремі події. Оригінальні ідеї можуть приходити легко, разом із готовністю засумніватися в тому, як «заведено». Яку свою незвичну ідею вам хотілося б випробувати разом з іншими і кого ви запросили б обміркувати її з вами?"
+      },
+      "pisces": {
+        "en": "Mercury in Pisces tends to think in images, impressions and associations rather than straight lines. You may understand things intuitively before you can explain them, and words can come most easily through poetry, music or metaphor. When an insight arrives before the words for it, what helps you catch it before it drifts away?",
+        "uk": "Меркурій у Рибах зазвичай мислить образами, враженнями й асоціаціями, а не прямими лініями. Можливо, ви розумієте щось інтуїтивно ще до того, як можете це пояснити, а слова найлегше приходять через поезію, музику чи метафору. Коли осяяння приходить раніше за слова для нього, що допомагає вам його вловити, поки воно не розтануло?"
+      }
+    },
+    "venus": {
+      "aries": {
+        "en": "Venus in Aries tends to love with directness and heat, drawn to courage, candour and the thrill of the first move. Affection may be shown through action and enthusiasm more than patience, and beauty can feel most alive when it is bold. Once the excitement of a new beginning has settled, what keeps your affection warm?",
+        "uk": "Венера в Овні зазвичай любить прямо й палко: її вабить сміливість, відвертість і азарт першого кроку. Прихильність ви, можливо, виявляєте радше дією й запалом, ніж терпінням, а краса може здаватися найживішою, коли вона смілива. Коли хвилювання нового початку вщухає, що підтримує тепло вашої прихильності?"
+      },
+      "taurus": {
+        "en": "Venus is at home in Taurus, where pleasure tends to be sensual, steady and unhurried: good food, soft textures, a garden coming into season. Affection may be shown through presence and loyalty, and you may value what lasts over what dazzles. Which everyday pleasure do you rush past that could be savoured more fully?",
+        "uk": "Венера почувається вдома у Тельці, де насолода зазвичай чуттєва, стала й неквапна: смачна їжа, м’які тканини, сад, що входить у свою пору. Прихильність ви, можливо, виявляєте присутністю та вірністю і цінуєте те, що триває, більше за те, що засліплює. Повз яку буденну насолоду ви поспіхом проходите, хоча могли б посмакувати її повніше?"
+      },
+      "gemini": {
+        "en": "Venus in Gemini tends to be charmed by wit, conversation and a lively mind. Affection may be expressed through messages, shared jokes and the pleasure of discovering things together, and variety can keep curiosity alive. Whose conversation delights you most, and how do you let them know?",
+        "uk": "Коли Венера в Близнюках, її зазвичай чарують дотепність, розмова й жвавий розум. Прихильність може виявлятися в повідомленнях, спільних жартах і радості разом щось відкривати, а різноманіття може підтримувати цікавість живою. Чия розмова тішить вас найбільше і як ви даєте цій людині це відчути?"
+      },
+      "cancer": {
+        "en": "Venus in Cancer tends to love by looking after, finding beauty in the familiar: an old recipe, a kept letter, a home that holds its people well. You may value loyalty and emotional safety above excitement, and tenderness can be given long before it is spoken. How do you like to be cared for, and do the people close to you know?",
+        "uk": "Венера у Раку зазвичай любить, піклуючись, і бачить красу в знайомому: у старому рецепті, збереженому листі, домі, де всім своїм затишно. Можливо, вірність і емоційна безпека важать для вас більше, ніж хвилювання, а ніжність ви виявляєте задовго до того, як про неї скажете. Як вам подобається, щоб про вас дбали, і чи знають про це ваші близькі?"
+      },
+      "leo": {
+        "en": "In Leo, Venus tends to love generously and out loud, with a flair for play, celebration and the grand gesture. You may value loyalty and delight, and feel most cherished when affection is shown warmly rather than taken for granted. How do you show the people you love that they are special, and how would you like them to show it to you?",
+        "uk": "У Леві Венера зазвичай любить щедро й на повен голос і має смак до гри, свят і широких жестів. Можливо, ви цінуєте вірність і радість, а найглибше відчуваєте, що вас люблять, коли прихильність виявляють тепло, а не сприймають як належне. Як ви показуєте людям, яких любите, що вони особливі, і як вам хотілося б, щоб це показували вам?"
+      },
+      "virgo": {
+        "en": "Venus in Virgo tends to show love through small, practical acts: the thing remembered, the task quietly done, the care taken over details. Beauty may be found in what is simple, useful and well made, and affection can grow through shared routines. When someone cares for you in a way that is not quite perfect, how easily can you let it in?",
+        "uk": "Венера у Діві зазвичай виявляє любов у дрібних практичних учинках: у дрібниці, про яку не забули, у тихо виконаній справі, в увазі до деталей. Красу можна знаходити в простому, корисному й добре зробленому, а прихильність здатна зростати через спільні щоденні ритуали. Коли хтось дбає про вас не зовсім бездоганно, наскільки легко ви дозволяєте цій турботі до вас дійти?"
+      },
+      "libra": {
+        "en": "Venus is at home in Libra, drawn to harmony, courtesy and the art of making a room, a meal or a moment feel graceful. You may value fairness and partnership, and give affection through thoughtfulness and good company. What does a fair give and take of affection look like to you, and where do you already feel it?",
+        "uk": "Венера почувається вдома у Терезах: її вабить гармонія, чемність і вміння зробити кімнату, вечерю чи мить витонченими. Можливо, ви цінуєте справедливість і партнерство, а прихильність виявляєте через уважність і приємне товариство. Яким для вас є справедливий обмін прихильністю і де ви вже його відчуваєте?"
+      },
+      "scorpio": {
+        "en": "Venus in Scorpio tends to love deeply or not at all, valuing loyalty, privacy and the kind of closeness that can hold the whole truth. Beauty may be found in intensity and in what is hidden, and trust is often offered slowly. Who has seen you at your most unguarded, and what made it possible?",
+        "uk": "Венера у Скорпіоні зазвичай любить глибоко або ніяк, цінуючи вірність, приватність і таку близькість, що витримує всю правду. Красу можна знаходити в інтенсивності та в прихованому, а довіра часто дається повільно. Хто бачив вас цілком відкритими, без жодного захисту, і що зробило це можливим?"
+      },
+      "sagittarius": {
+        "en": "Venus in Sagittarius tends to love with openness and good humour, drawn to people who widen your world and ideas that make life feel larger. You may value honesty and freedom in affection, and find pleasure in adventure, learning and shared laughter. How do you make room for both freedom and closeness in the relationships that matter to you?",
+        "uk": "Венера у Стрільці зазвичай любить відкрито й з гумором, тягнучись до людей, які розширюють ваш світ, та ідей, з якими життя здається просторішим. Можливо, у прихильності ви цінуєте чесність і свободу, а насолоду знаходите в пригодах, навчанні й спільному сміху. Як ви знаходите місце і для свободи, і для близькості у стосунках, які для вас важливі?"
+      },
+      "capricorn": {
+        "en": "Venus in Capricorn tends to take affection seriously, showing it through commitment, reliability and effort sustained over time. You may value quality over quantity, finding beauty in the classic, the well-made and the hard-won. When did you last let yourself enjoy something simply for pleasure, without needing to earn it first?",
+        "uk": "Венера у Козорозі зазвичай серйозно ставиться до прихильності й виявляє її через відданість, надійність і зусилля, які не слабнуть із часом. Можливо, якість для вас важливіша за кількість, а красу ви бачите в класичному, добре зробленому й важко здобутому. Коли ви востаннє дозволяли собі насолоджуватися чимось просто так, не заслуживши цього спершу?"
+      },
+      "aquarius": {
+        "en": "Venus in Aquarius tends to value friendship, freedom and being liked for exactly who you are. Affection may be shown through loyalty to shared ideals and respect for each other’s independence, and you may be drawn to the unusual over the conventional. Which friendship has most shaped what you value, and does that friend know it?",
+        "uk": "Венера у Водолії зазвичай цінує дружбу, свободу й те, щоб вас приймали саме такими, якими ви є. Прихильність може виявлятися через вірність спільним ідеалам і повагу до незалежності одне одного, а незвичне, можливо, вабить вас більше, ніж усталене. Яка дружба найбільше вплинула на те, що ви цінуєте, і чи знає про це ця людина?"
+      },
+      "pisces": {
+        "en": "In Pisces, Venus tends to be tender, forgiving and a little dreamlike, finding beauty in music, water, art and quiet acts of compassion. Affection can feel boundless, sometimes more than is easy to hold, and you may offer care before anyone asks. Where might a kind boundary help your tenderness last?",
+        "uk": "У Рибах Венера зазвичай ніжна, поблажлива й трохи мрійлива, а красу знаходить у музиці, воді, мистецтві й тихих проявах співчуття. Прихильність може здаватися безмежною, часом більшою, ніж легко втримати, і ви, можливо, дбаєте про інших ще до того, як вас попросять. Де лагідна межа допомогла б вашій ніжності не вичерпатися?"
+      }
+    },
+    "mars": {
+      "aries": {
+        "en": "Mars is at home in Aries, where energy tends to be quick, direct and ready to begin. You may act on desire the moment you feel it, with courage that comes easily and anger that can flare and fade just as fast. What are you eager to start, and what would help you carry it past the first rush?",
+        "uk": "Марс почувається вдома в Овні: енергія тут зазвичай швидка, пряма й готова до початку. Можливо, ви дієте, щойно відчуваєте бажання, сміливість дається вам легко, а гнів може спалахнути й так само швидко згаснути. Що вам кортить розпочати і що допомогло б не зупинитися, коли мине перший порив?"
+      },
+      "taurus": {
+        "en": "Mars in Taurus tends to work at a steady, determined pace, slow to start and hard to stop once committed. Drive may be rooted in comfort, security and the wish to make something tangible, and anger can build quietly before it shows. Where is your persistence serving you well, and where might it simply be habit?",
+        "uk": "Марс у Тельці зазвичай працює у сталому, наполегливому темпі: повільно рушає, але, взявшись, важко зупиняється. Запал може живитися прагненням затишку, безпеки й чогось відчутного, створеного власними руками, а гнів здатен накопичуватися тихо, перш ніж проявиться. Де ваша наполегливість справді вам служить, а де, можливо, стала просто звичкою?"
+      },
+      "gemini": {
+        "en": "Mars in Gemini tends to act through words and ideas, with energy that moves quickly between projects and conversations. You may assert yourself with wit and a sharp argument, and restlessness can build when there is nothing new to engage your mind. Of everything you are juggling right now, which would you most like to see through to the end?",
+        "uk": "Марсові в Близнюках зазвичай властиво діяти через слова та ідеї, а енергія швидко переходить між проєктами й розмовами. Можливо, ви відстоюєте себе дотепністю й гострим аргументом, а неспокій може наростати, коли розумові бракує нового. З усього, за що ви зараз беретеся водночас, що вам найбільше хотілося б довести до кінця?"
+      },
+      "cancer": {
+        "en": "In Cancer, Mars tends to act on behalf of what it loves, fiercely protective of home, family and the people it holds close. Drive may rise and fall with your moods, and anger can come out sideways when expressing it directly feels unsafe. What would it be like to ask for what you want as clearly as you defend others?",
+        "uk": "У Раку Марс зазвичай діє заради того, що любить, і палко захищає дім, родину та близьких людей. Запал може наростати й спадати разом із настроєм, а гнів, коли висловити його прямо здається небезпечним, може проявлятися непрямо. Як це було б: просити про власні бажання так само ясно, як ви захищаєте інших?"
+      },
+      "leo": {
+        "en": "Mars in Leo tends to act with warmth, pride and a sense of theatre, putting its whole heart into what it takes on. You may be driven by the wish to create, lead or be recognised, and anger can flare when your dignity feels slighted. Where does your pride give you courage, and where does it make it harder to ask for help?",
+        "uk": "Марс у Леві зазвичай діє тепло, гордо й з театральним розмахом, вкладаючи всю душу в те, за що береться. Вас, можливо, рухає бажання творити, вести за собою чи здобути визнання, а гнів може спалахнути, коли зачеплено вашу гідність. Де гордість додає вам сміливості, а де через неї важче попросити про допомогу?"
+      },
+      "virgo": {
+        "en": "Mars in Virgo tends to channel energy into skill, precision and useful work, preferring a well-made plan to a grand gesture. You may assert yourself by improving things, and frustration can turn into criticism, of others or yourself, when standards are not met. Which task are you still perfecting that could already be put to use?",
+        "uk": "Марс у Діві зазвичай спрямовує енергію у вміння, точність і корисну роботу, віддаючи перевагу добре продуманому плану перед гучним жестом. Можливо, ви відстоюєте себе, покращуючи те, що вас оточує, а роздратування, коли щось не дотягує до стандартів, може перетворюватися на критику інших чи себе. Яку справу ви досі доводите до досконалості, хоча нею вже можна було б користуватися?"
+      },
+      "libra": {
+        "en": "Mars in Libra tends to act through negotiation, charm and a strong sense of what is fair. You may find it easier to stand up for someone else than for your own wants, and anger may be held back for the sake of peace until it surfaces all at once. What do you want for yourself, apart from what would keep everyone content?",
+        "uk": "Марс у Терезах зазвичай діє через перемовини, чарівність і гостре відчуття справедливості. Можливо, вам легше заступитися за когось іншого, ніж за власні бажання, а гнів, стримуваний заради миру, може потім вихлюпнутися весь одразу. Чого ви хочете для себе, окремо від того, що зробило б задоволеними всіх?"
+      },
+      "scorpio": {
+        "en": "Mars is traditionally at home in Scorpio, where drive tends to be focused, private and hard to deter. You may pursue what you want with quiet intensity, and anger can go underground rather than disappear, held until you decide what to do with it. What are you holding on to with such determination, and is it still worth the energy it takes?",
+        "uk": "Традиційно Марс почувається вдома у Скорпіоні: запал тут зазвичай зосереджений, прихований і невідступний. Можливо, ви прагнете бажаного з тихою інтенсивністю, а гнів може радше йти вглиб, ніж зникати, і чекати, доки ви вирішите, що з ним робити. За що ви тримаєтеся з такою рішучістю і чи варте це тієї енергії, яку забирає?"
+      },
+      "sagittarius": {
+        "en": "Mars in Sagittarius tends to act with enthusiasm and a restless appetite for more: more room, more truth, more of the world. You may be driven by a cause or a belief, and anger can come out as blunt honesty that lands harder than intended. Which cause or adventure has your energy now, and how do you pace yourself so it lasts?",
+        "uk": "Марс у Стрільці зазвичай діє з ентузіазмом і невгамовним прагненням більшого: більше простору, більше правди, більше світу. Можливо, вас рухає ідея чи переконання, а гнів може прориватися різкою відвертістю, яка влучає сильніше, ніж ви хотіли. Яка справа чи пригода зараз забирає вашу енергію і як ви розподіляєте сили, щоб їх вистачило надовго?"
+      },
+      "capricorn": {
+        "en": "Capricorn gives Mars a disciplined, strategic drive, patient enough to play a long game. You may assert yourself through competence and results, and anger is often kept under control and turned into effort rather than shown. Which long climb are you on, and how do you know when it is time to rest?",
+        "uk": "У Козорозі Марс набуває дисциплінованого, стратегічного запалу, якому вистачає терпіння на довгу дистанцію. Можливо, ви відстоюєте себе компетентністю й результатами, а гнів часто тримаєте під контролем і перетворюєте на зусилля, замість того щоб показувати. На яку вершину ви зараз повільно сходите і як розумієте, що настав час перепочити?"
+      },
+      "aquarius": {
+        "en": "Mars in Aquarius tends to act on principle, putting energy into ideas, groups and causes that could change how things are done. You may assert yourself by thinking independently and resisting pressure to conform, and anger can turn cool and detached rather than hot. Which cause moves you to act, and how does it connect to what you personally want?",
+        "uk": "Марс у Водолії зазвичай діє, керуючись принципами, і вкладає енергію в ідеї, спільноти й справи, що можуть змінити усталений порядок. Можливо, ви відстоюєте себе, мислячи незалежно й опираючись тиску бути як усі, а гнів може ставати радше холодним і відстороненим, ніж гарячим. Яка справа спонукає вас діяти і як вона пов’язана з тим, чого хочете особисто ви?"
+      },
+      "pisces": {
+        "en": "Mars in Pisces tends to move by intuition and feeling, with energy that ebbs and flows like a tide. You may act most wholeheartedly for others or for something you believe in, and anger can dissolve or retreat before it is voiced. When anger slips quietly into sadness, what might it have been trying to say?",
+        "uk": "Марс у Рибах зазвичай рухається за інтуїцією й почуттям, а енергія то прибуває, то відступає, наче вода. Можливо, найщиріше ви дієте заради інших чи того, у що вірите, а гнів може розчинитися чи відступити, так і не прозвучавши. Коли гнів тихо переходить у смуток, що він, можливо, намагався сказати?"
+      }
+    },
+    "jupiter": {
+      "aries": {
+        "en": "Jupiter in Aries tends to find growth through daring: starting before you feel ready, backing yourself, learning by doing. Meaning may arrive in the rush of a fresh beginning, and generosity can take the form of courage lent to others. Where would a bolder first step widen your world more than another round of planning?",
+        "uk": "Юпітер в Овні схильний шукати зростання через відвагу: починати, ще не почуваючись готовими, вірити в себе, вчитися в дії. Сенс може з’являтися в пориві нового початку, а щедрість — проявлятися в тому, що ви додаєте сміливості іншим. Де сміливіший перший крок розширив би ваш світ більше, ніж ще одне коло планування?"
+      },
+      "taurus": {
+        "en": "Jupiter in Taurus often grows meaning slowly, through the senses and through things that last: good food, patient craft, a garden tended over years. Abundance may feel most real when it can be touched and shared. What would enough look like for you, rather than more?",
+        "uk": "Юпітер у Тельці часто вирощує сенс повільно, через відчуття й те, що триває: смачну їжу, терпляче ремесло, сад, який доглядають роками. Достаток може здаватися найсправжнішим, коли його можна торкнутися й розділити з іншими. Що для вас означало б «досить», а не «більше»?"
+      },
+      "gemini": {
+        "en": "With Jupiter in Gemini, growth often comes through curiosity: reading widely, asking one more question, following a conversation wherever it leads. Meaning may be found less in a single answer than in the connections between many ideas. Which subject keeps drawing you back, and what would it take to go a little deeper?",
+        "uk": "Коли Юпітер у Близнюках, зростання часто приходить через цікавість: читати багато й різного, ставити ще одне запитання, іти за розмовою, куди б вона не вела. Сенс може ховатися не в одній відповіді, а у зв’язках між багатьма ідеями. Яка тема знову й знову вас притягує і що допомогло б заглибитися в неї трохи більше?"
+      },
+      "cancer": {
+        "en": "Jupiter in Cancer tends to find meaning close to home: in family, chosen or given, in shared meals, in remembering where you come from. Generosity may show itself as care, and growth can come from helping others feel they belong. Where could you let the warmth you offer others circle back to you?",
+        "uk": "Юпітер у Раку схильний знаходити сенс поруч із домом: у родині, обраній чи рідній, у спільних трапезах, у пам’яті про те, звідки ви родом. Щедрість може проявлятися як турбота, а зростання — приходити через уміння дати іншим відчуття, що вони свої. Де ви могли б дозволити теплу, яке даруєте іншим, повернутися до вас?"
+      },
+      "leo": {
+        "en": "In Leo, Jupiter often seeks growth through creative expression and wholehearted generosity. You may feel most expansive when making something, celebrating someone or playing a warm, visible part in shared life, and joy itself can be a teacher. Whose encouragement once helped you grow, and who might be waiting for yours?",
+        "uk": "У Леві Юпітер часто шукає зростання через творче самовираження і щедрість від щирого серця. Можливо, ви найбільше розкриваєтеся, коли щось створюєте, когось вшановуєте чи берете теплу, помітну участь у спільному житті, а сама радість тут здатна навчати. Чия підтримка колись допомогла вам вирости і хто, можливо, чекає на вашу?"
+      },
+      "virgo": {
+        "en": "Jupiter in Virgo tends to find meaning in improvement: learning a skill properly, being of real use, noticing what could work better. Growth may come in small, careful steps rather than leaps, and service can feel deeply worthwhile. Where might good enough be the more generous standard, for your work and for you?",
+        "uk": "Юпітер у Діві схильний знаходити сенс у вдосконаленні: як слід опановувати навички, бути справді корисними, помічати, що могло б працювати краще. Зростання може відбуватися малими, обережними кроками, а не стрибками, а служіння — приносити глибоке задоволення. Де «достатньо добре» могло б стати щедрішою міркою і для вашої роботи, і для вас самих?"
+      },
+      "libra": {
+        "en": "Jupiter in Libra often grows through relationship: learning from other perspectives, making things together and caring about what is fair. Meaning may be found in beauty, in good conversation and in helping people meet halfway. Which relationship, in work, love or friendship, has widened your view the most?",
+        "uk": "Юпітер у Терезах часто зростає через стосунки: через інші погляди, спільну творчість і турботу про справедливість. Сенс може відкриватися в красі, у добрій розмові й у тому, щоб допомагати людям знаходити спільну мову. Які стосунки — у роботі, коханні чи дружбі — найбільше розширили ваш погляд?"
+      },
+      "scorpio": {
+        "en": "Jupiter in Scorpio tends to seek meaning beneath the surface, through honest conversation, research and the kind of experience that changes you from within. Growth may come from staying with what is intense rather than turning away. What have you come to understand only by going all the way through something difficult?",
+        "uk": "Юпітер у Скорпіоні схильний шукати сенс під поверхнею: у чесних розмовах, дослідженнях і в тому досвіді, що змінює зсередини. Зростання може приходити, коли ви залишаєтеся з тим, що інтенсивне, а не відвертаєтеся. Що ви змогли зрозуміти, лише пройшовши щось складне до самого кінця?"
+      },
+      "sagittarius": {
+        "en": "Jupiter is at home in Sagittarius, where growth tends to mean going further: travel, study, philosophy, a faith examined and chosen. Optimism can be a genuine gift here, as can a readiness to say what you believe. Which belief have you outgrown, and what are you curious to explore in its place?",
+        "uk": "Юпітер почувається вдома у Стрільці, де зростання зазвичай означає йти далі: подорожі, навчання, філософія, віра, яку ви дослідили й обрали самі. Оптимізм тут може бути справжнім даром, як і готовність говорити те, у що ви вірите. Із якого переконання ви вже виросли і що вам цікаво дослідити замість нього?"
+      },
+      "capricorn": {
+        "en": "Jupiter in Capricorn often finds meaning in building something that endures: earning skill, accepting responsibility, climbing steadily towards a goal. Growth may feel most trustworthy when it is practical and hard-won, and wisdom can arrive with time. Which long effort feels worth continuing, even when progress is quiet?",
+        "uk": "Юпітер у Козорозі часто знаходить сенс у тому, щоб будувати щось тривке: здобувати майстерність, брати на себе відповідальність, крок за кроком підніматися до мети. Зростання може здаватися найнадійнішим, коли воно практичне й заслужене працею, а мудрість може приходити з часом. Яке тривале зусилля варто продовжувати, навіть коли поступ непомітний?"
+      },
+      "aquarius": {
+        "en": "With Jupiter in Aquarius, growth often comes through ideas that serve many: community, invention and questions about how people could live together more fairly. Friendship and shared causes may be where meaning feels fullest, for you and for many born in the same year. Which group or idea has widened your sense of the possible, and what do you bring to it?",
+        "uk": "Коли Юпітер у Водолії, зростання часто приходить через ідеї, що служать багатьом: спільноту, винахідливість і роздуми про те, як людям жити разом справедливіше. Сенс може відчуватися найповніше в дружбі й спільних справах, і так буває не лише у вас, а й у багатьох, хто народився того ж року. Яка спільнота чи ідея розширила ваше уявлення про можливе і що ви їй даєте?"
+      },
+      "pisces": {
+        "en": "Jupiter in Pisces tends to find meaning through compassion, imagination and the sense of belonging to something larger. Growth may come through art, music, quiet reflection or simply being present with someone who is struggling. Where does your generosity need a gentle boundary so that it can keep flowing?",
+        "uk": "Юпітер у Рибах схильний знаходити сенс через співчуття, уяву й відчуття причетності до чогось більшого. Зростання може приходити через мистецтво, музику, тихі роздуми чи просто присутність поруч із тим, кому важко. Де вашій щедрості потрібна м’яка межа, щоб її вистачало й надалі?"
+      }
+    },
+    "saturn": {
+      "aries": {
+        "en": "Saturn in Aries can make independence something to be learnt rather than assumed. You may meet limits around patience, anger or going it alone, and discover over time that real courage often includes waiting. Where might a deliberate pause make your next bold move steadier?",
+        "uk": "Із Сатурном в Овні самостійність може бути радше навичкою, якої вчаться, ніж чимось само собою зрозумілим. Можливо, ви стикаєтеся з межами в терпінні, гніві чи бажанні все робити самотужки й з часом виявляєте, що справжня сміливість часто вміє чекати. Де виважена пауза могла б зробити ваш наступний рішучий крок стійкішим?"
+      },
+      "taurus": {
+        "en": "Saturn in Taurus tends to bring lessons around security: what you own, what you earn and what you can rely on. Stability may be built slowly and with effort, and a worry about not having enough can be worth examining gently. What gives you a sense of security that cannot be bought or stored?",
+        "uk": "Сатурн у Тельці схильний приносити уроки, пов’язані з безпекою: з тим, чим ви володієте, що заробляєте і на що можете покластися. Стабільність може вибудовуватися повільно й ціною зусиль, а тривогу, що чогось не вистачить, варто лагідно роздивитися. Яке джерело безпеки у вашому житті не можна ні купити, ні відкласти про запас?"
+      },
+      "gemini": {
+        "en": "With Saturn in Gemini, communication can feel like serious work. You may have learnt to choose words carefully, doubted your own ideas, or felt you had to prove you knew enough, and over time that care can become real depth of thought. Where would you like to speak with more confidence, and what would help?",
+        "uk": "Коли Сатурн у Близнюках, спілкування може відчуватися серйозною працею. Можливо, ви навчилися ретельно добирати слова, сумнівалися у власних ідеях чи відчували, що мусите доводити свою обізнаність, а з часом ця ретельність може перетворитися на справжню глибину думки. Де ви хотіли б говорити впевненіше і що могло б у цьому допомогти?"
+      },
+      "cancer": {
+        "en": "Saturn in Cancer draws attention to emotional security and the work of building a home, inside and out. Care may have felt like a duty early on, or feelings may have been kept carefully in check, and over time you can become the steady shelter you once needed. What kind of care are you still learning to accept?",
+        "uk": "Сатурн у Раку звертає увагу на емоційну безпеку й на працю створення дому, зовнішнього і внутрішнього. Можливо, турбота рано стала для вас обов’язком або почуття доводилося тримати під контролем, а з часом ви можете стати тим надійним прихистком, якого колись потребували самі. Яку турботу ви досі вчитеся приймати?"
+      },
+      "leo": {
+        "en": "Saturn in Leo can make self-expression feel like something to earn. You may hesitate to take up space, or hold your creative work to exacting standards before sharing it, and with time this can grow into a quiet, grounded confidence that does not rely on applause. What would you share if it did not have to be perfect first?",
+        "uk": "Сатурн у Леві може створювати відчуття, що право на самовираження треба заслужити. Можливо, ви вагаєтеся займати простір або висуваєте своїй творчості суворі вимоги, перш ніж нею поділитися, а з часом це може перерости в тиху, заземлену впевненість, що не залежить від оплесків. Чим би ви поділилися, якби це не мусило спершу бути досконалим?"
+      },
+      "virgo": {
+        "en": "Saturn in Virgo tends to take work, health and daily routine seriously. You may hold yourself to high standards of competence and notice every flaw, and patient practice can turn this into genuine mastery. Which daily habit truly supports you, and which one mostly keeps worry at bay?",
+        "uk": "Сатурн у Діві схильний серйозно ставитися до роботи, здоров’я й щоденного розпорядку. Можливо, ви вимогливі до власної компетентності й помічаєте кожну ваду, а терпляча практика може перетворити це на справжню майстерність. Яка щоденна звичка справді вас підтримує, а яка здебільшого лише тримає тривогу на відстані?"
+      },
+      "libra": {
+        "en": "Saturn in Libra draws attention to commitment, fairness and the responsibilities of partnership. Relationships may feel like serious ground where you learn to balance your needs with another person’s, and to set boundaries that are kind as well as clear. Which agreement, spoken or unspoken, might be ready for an honest second look?",
+        "uk": "Сатурн у Терезах звертає увагу на зобов’язання, справедливість і відповідальність у партнерстві. Стосунки можуть ставати серйозною школою, де ви вчитеся врівноважувати свої потреби з потребами іншої людини й встановлювати межі, водночас добрі й чіткі. Яка домовленість, озвучена чи мовчазна, можливо, готова до чесного перегляду?"
+      },
+      "scorpio": {
+        "en": "Saturn in Scorpio tends to meet limits around trust, intimacy and control. You may keep close guard over what matters most, learning over time that letting someone in can be a form of strength and not only a risk. Where could you loosen your grip a little, and what might that make room for?",
+        "uk": "Сатурн у Скорпіоні схильний стикатися з межами в довірі, близькості й контролі. Можливо, ви пильно оберігаєте найважливіше й з часом дізнаєтеся, що впустити когось до себе може бути виявом сили, а не лише ризиком. Де ви могли б трохи розтиснути руку і для чого це звільнило б місце?"
+      },
+      "sagittarius": {
+        "en": "Saturn in Sagittarius asks that beliefs be tested rather than simply held. You may take questions of truth, education or faith seriously, and doubt can become a path to a philosophy that is genuinely your own. Which conviction have you earned through experience, and which did you simply inherit?",
+        "uk": "Сатурн у Стрільці пропонує перевіряти переконання, а не просто їх мати. Можливо, ви серйозно ставитеся до питань істини, освіти чи віри, а сумнів може стати шляхом до філософії, яка справді ваша. Які погляди ви вибороли власним досвідом, а які просто успадкували?"
+      },
+      "capricorn": {
+        "en": "Saturn is at home in Capricorn, and for many born within the same few years, responsibility may come early and ambition be taken seriously. You may feel most secure with a plan, a clear role and the regard of people you admire, and patience can turn effort into lasting achievement. What would you allow yourself to enjoy if no one were keeping score?",
+        "uk": "У Козорозі Сатурн почувається вдома, і для багатьох, хто народився в ті самі кілька років, відповідальність може приходити рано, а честолюбство — сприйматися всерйоз. Можливо, ви почуваєтеся найбезпечніше, коли маєте план, чітку роль і повагу людей, якими захоплюєтеся, а терпіння здатне перетворити зусилля на тривкі здобутки. Чим ви дозволили б собі насолодитися, якби ніхто не вів рахунок?"
+      },
+      "aquarius": {
+        "en": "Saturn in Aquarius draws attention to your place in groups and the structures people build together. You may take fairness, principle and independence seriously, sometimes feeling responsible for the whole, and can learn to belong without giving up what makes you different. Where do you feel part of something shared while remaining fully yourself?",
+        "uk": "Сатурн у Водолії звертає увагу на ваше місце в групах і на структури, які люди будують разом. Можливо, ви серйозно ставитеся до справедливості, принципів і незалежності, часом почуваючись відповідальними за ціле, і можете вчитися належати, не зрікаючись своєї інакшості. Де ви почуваєтеся частиною чогось спільного, залишаючись цілком собою?"
+      },
+      "pisces": {
+        "en": "Saturn in Pisces can give shape to sensitivity. You may find that compassion needs boundaries to last, that imagination grows stronger within a steady practice, and that faith is something worked at as much as felt. What small, regular habit helps you stay open without feeling overwhelmed?",
+        "uk": "Сатурн у Рибах може надавати чутливості форми. Можливо, ви помічаєте, що співчуттю потрібні межі, аби його вистачало надовго, що уява міцнішає завдяки сталій практиці, а віра потребує праці не менше, ніж почуття. Яка невелика регулярна звичка допомагає вам залишатися відкритими й не почуватися перевантаженими?"
+      }
+    },
+    "uranus": {
+      "aries": {
+        "en": "Uranus in Aries is shared by everyone born in those years, a generational weather of impatience with old rules and a hunger to begin again. Personally, it may show as a need to act on your own, even when waiting would be easier. Where does going your own way still feel like freedom, and where has it become habit?",
+        "uk": "Уран в Овні спільний для всіх, хто народився в ті роки: це настрій покоління, нетерплячого до старих правил і спраглого починати наново. Особисто у вас це може проявлятися як потреба діяти самостійно, навіть коли чекати було б легше. Де йти власним шляхом досі означає для вас свободу, а де це вже стало звичкою?"
+      },
+      "taurus": {
+        "en": "Your whole generation carries Uranus in Taurus, a long unsettling of what once felt solid: money, land, food, the body and how value is held. You may sense it as a quiet restlessness with a kind of security that looks fine on paper. What does feeling secure mean to you, and has that meaning changed?",
+        "uk": "Уран у Тельці поділяє все ваше покоління: це тривале розхитування звичних опор, як-от грошей, землі, їжі, тіла й самого уявлення про цінність. Ви можете відчувати це як тихий неспокій щодо безпеки, яка на папері виглядає цілком надійною. Що для вас означає почуватися захищеними і чи змінилося це значення?"
+      },
+      "gemini": {
+        "en": "Uranus in Gemini is shared by everyone born within a few years of you, a generation shaped by new ways of talking, learning and passing on news. Your own mind may leap between ideas and feel most awake in the middle of a conversation. Which way of thinking or speaking feels natural to you but still puzzles others?",
+        "uk": "Уран у Близнюках спільний для всіх, хто народився приблизно тоді ж, що й ви: це покоління, сформоване новими способами говорити, вчитися й передавати новини. Ваша думка може швидко перескакувати між ідеями й найжвавіше прокидатися посеред розмови. Який спосіб мислити чи говорити здається вам природним, але досі дивує інших?"
+      },
+      "cancer": {
+        "en": "With Uranus in Cancer, shared by everyone born in those years, a generation grew up questioning what a family or a home has to look like. You may feel both a deep need for belonging and a pull to build it differently. What kind of home have you made, or wanted to make, that no one handed down to you?",
+        "uk": "Уран у Раку поділяють усі, хто народився в ті роки: це покоління виросло, ставлячи під сумнів, якими мають бути родина й дім. Ви можете відчувати водночас глибоку потребу в належності й потяг вибудувати її по-своєму. Який дім, не успадкований від старших, ви створили чи хотіли б створити?"
+      },
+      "leo": {
+        "en": "Uranus in Leo is shared by everyone born in those years, a generation for whom self-expression became a small rebellion: louder music, bolder style, play taken seriously. In you it may appear as a need to create on your own terms. When did you last make something purely because it felt like you?",
+        "uk": "Уран у Леві спільний для всіх, хто народився в ті роки: для цього покоління самовираження стало маленьким бунтом — гучніша музика, сміливіший стиль, гра, яку сприймають серйозно. У вас це може проявлятися як потреба творити на власних умовах. Коли ви востаннє створили щось лише тому, що воно було схоже на вас?"
+      },
+      "virgo": {
+        "en": "Everyone born in those years shares Uranus in Virgo, a generation that saw work, health and daily routine reinvented by new tools and methods. You may be quick to spot a better way of doing ordinary things and impatient when no one tries it. Which everyday routine of yours quietly breaks the rules, and does it serve you well?",
+        "uk": "Уран у Діві поділяють усі, хто народився в ті роки: це покоління бачило, як нові інструменти й методи змінюють роботу, здоров’я і щоденний розпорядок. Ви можете швидко помічати кращий спосіб робити звичайні речі й втрачати терпіння, коли ніхто його не пробує. Яка ваша щоденна звичка тихо порушує правила і чи добре вона вам служить?"
+      },
+      "libra": {
+        "en": "Uranus in Libra, held in common by a whole generation, questioned the old shapes of partnership and asked for more equal terms in love and work. You may need closeness that still leaves plenty of room to breathe. In your closest relationships, what does freedom look like, and have you said so out loud?",
+        "uk": "Уран у Терезах, спільний для цілого покоління, поставив під сумнів старі форми партнерства й вимагав рівніших умов у коханні та роботі. Вам може бути потрібна близькість, у якій лишається вдосталь простору, щоб дихати. Як виглядає свобода у ваших найближчих стосунках і чи говорили ви про це вголос?"
+      },
+      "scorpio": {
+        "en": "Uranus in Scorpio is shared by everyone born in those years, a generation more willing to open doors once kept shut: intimacy, money, grief and power. You may trust most easily the people who can speak plainly about hard things. Which subject that others tiptoe around can you talk about with ease?",
+        "uk": "Уран у Скорпіоні спільний для всіх, хто народився в ті роки: це покоління охочіше відчиняє двері до тем, які колись оминали, як-от близькості, грошей, горя і влади. Можливо, ви найлегше довіряєте тим, хто вміє просто говорити про складне. Про що з того, що інші обходять стороною, ви можете говорити без зусиль?"
+      },
+      "sagittarius": {
+        "en": "Uranus in Sagittarius is common to everyone born within a few years of you, a generation for whom the world opened up through travel, new beliefs and borders that felt easier to cross. You may resist any single answer that claims to explain everything. Which belief have you outgrown, and what took its place?",
+        "uk": "Уран у Стрільці спільний для всіх, хто народився приблизно тоді ж, що й ви: для цього покоління світ відкривався через подорожі, нові переконання й кордони, які стало легше перетинати. Ви можете опиратися будь-якій єдиній відповіді, що претендує пояснити все. Із якого переконання ви виросли і що прийшло на його місце?"
+      },
+      "capricorn": {
+        "en": "Uranus in Capricorn is shared by a whole generation, born while long-standing institutions shifted and careers stopped following a single ladder. You may respect structure yet want to rebuild it around how people actually live. Which rules or ambitions did you inherit, and which have you rewritten for yourself?",
+        "uk": "Уран у Козорозі поділяє ціле покоління, яке народилося, коли давні інституції зсувалися, а кар’єра перестала бути однією драбиною. Ви можете поважати структуру і водночас хотіти перебудувати її відповідно до того, як люди живуть насправді. Які правила чи амбіції ви успадкували, а які переписали для себе?"
+      },
+      "aquarius": {
+        "en": "Uranus is at home in Aquarius, and everyone born in those years shares it: a generation that grew up alongside the internet, networks and friendships across distance. You may feel most yourself among people who think differently together. Which community has shaped you most, and did you find it or build it?",
+        "uk": "Уран у Водолії почувається вдома, і його поділяють усі, хто народився в ті роки: покоління, що виросло разом з інтернетом, мережами й дружбою на відстані. Ви можете найбільше почуватися собою серед людей, які разом мислять інакше. Яка спільнота сформувала вас найбільше і чи ви її знайшли, чи збудували самі?"
+      },
+      "pisces": {
+        "en": "Uranus in Pisces is shared by everyone born across those years, a generation for whom the line between real and imagined, online and offline, has always been porous. You may move easily between worlds and pick up other people’s moods quickly. What helps you tell which feelings are yours and which you have taken on from others?",
+        "uk": "Уран у Рибах поділяють усі, хто народився в ті роки: для цього покоління межа між реальним і уявним, онлайном і офлайном, завжди була проникною. Ви можете легко переходити між світами й швидко переймати настрій інших людей. Що допомагає вам розрізняти, які почуття ваші, а які ви перейняли від інших?"
+      }
+    },
+    "neptune": {
+      "aries": {
+        "en": "Neptune in Aries is shared by everyone born in those years, a generation that may dream of courage and idealise the one who goes first. You might feel inspired by bold beginnings and let down when action loses its shine. What kind of bravery do you admire, and where do you already practise it quietly?",
+        "uk": "Нептун в Овні спільний для всіх, хто народився в ті роки: це покоління може мріяти про сміливість та ідеалізувати тих, хто йде першим. Вас можуть надихати зухвалі початки й розчаровувати дії, що втратили свій блиск. Яку сміливість ви цінуєте і де вже тихо її практикуєте?"
+      },
+      "taurus": {
+        "en": "Neptune in Taurus, held in common by a whole generation, turns longing towards the earth: land, craft, simple abundance and beauty you can touch. You may find something close to the sacred in ordinary comfort. Which place or everyday object holds more meaning for you than it seems to?",
+        "uk": "Нептун у Тельці, спільний для цілого покоління, спрямовує тугу до землі: до ґрунту, ремесла, простого достатку й краси, якої можна торкнутися. У звичайному затишку ви можете відчувати щось близьке до священного. Яке місце чи повсякденна річ важить для вас більше, ніж здається на перший погляд?"
+      },
+      "gemini": {
+        "en": "Everyone born in those years shares Neptune in Gemini, a generation that dreamt through words, letters and new ways of carrying a voice across distance. You may find ideas themselves enchanting and a good story hard to resist. Which book, conversation or phrase still shapes the way you imagine things?",
+        "uk": "Нептун у Близнюках поділяють усі, хто народився в ті роки: покоління, яке мріяло через слова, листи й нові способи передати голос на відстань. Самі ідеї можуть вас зачаровувати, а перед доброю історією буває важко встояти. Яка книжка, розмова чи фраза досі впливає на те, як ви уявляєте світ?"
+      },
+      "cancer": {
+        "en": "Neptune in Cancer is shared by everyone born within a few years of you, a generation whose longing gathers around home, family and a sense of where you belong. You may carry an idealised picture of home that no real place quite matches. What does the home you imagine hold that you could bring into the one you have?",
+        "uk": "Нептун у Раку спільний для всіх, хто народився приблизно тоді ж, що й ви: туга цього покоління зосереджується довкола дому, родини й відчуття, звідки ви родом. Ви можете носити в собі ідеалізований образ дому, якому не відповідає жодне справжнє місце. Що є в уявному домі такого, що ви могли б перенести в той, який маєте?"
+      },
+      "leo": {
+        "en": "Neptune in Leo is shared by everyone born in those years, a generation enchanted by glamour, the silver screen and romance on a grand scale. You may be moved by performance and drawn to people who seem to shine brighter than the rest. Whose light have you admired from a distance, and what does it say about your own?",
+        "uk": "Нептун у Леві поділяють усі, хто народився в ті роки: покоління, зачароване гламуром, кіноекраном і романтикою з розмахом. Можливо, вас зворушує сцена й вабять люди, які ніби сяють яскравіше за інших. Чиїм світлом ви захоплювалися здалеку і що воно каже про ваше власне?"
+      },
+      "virgo": {
+        "en": "Neptune in Virgo is shared by everyone born across those years, a generation that idealised duty, careful work and service in hard times. You may hold a quiet belief that being useful is what makes you worthy. What would it feel like to be valued for who you are, not only for what you do?",
+        "uk": "Нептун у Діві поділяють усі, хто народився в ті роки: покоління, яке ідеалізувало обов’язок, сумлінну працю й служіння у важкі часи. Можливо, у вас живе тихе переконання, що ви гідні, лише коли корисні. Як би це було: відчувати, що вас цінують за те, ким ви є, а не лише за те, що ви робите?"
+      },
+      "libra": {
+        "en": "With Neptune in Libra, a placement your whole generation carries, longing gathers around ideal love, fairness and peace after conflict. You may hold relationships to a high, graceful standard and feel disappointed when real people fall short. Where could you let a relationship be imperfect and still find it beautiful?",
+        "uk": "Нептун у Терезах поділяє все ваше покоління: туга тут зосереджується довкола ідеального кохання, справедливості й миру після конфлікту. Ви можете мати до стосунків високі, витончені вимоги й розчаровуватися, коли живі люди їм не відповідають. Де ви могли б дозволити стосункам бути недосконалими й усе одно бачити в них красу?"
+      },
+      "scorpio": {
+        "en": "Neptune in Scorpio is common to everyone born in those years, a generation that looked for transcendence through depth: psychology, intimacy and what lies beneath the surface. You may long for a connection that holds nothing back. Which part of you do you hope someone might truly see, and do you let them look?",
+        "uk": "Нептун у Скорпіоні спільний для всіх, хто народився в ті роки: це покоління шукало виходу за межі буденного через глибину, психологію, близькість і те, що ховається під поверхнею. Ви можете прагнути зв’язку, у якому нічого не приховують. Яку частину себе ви сподіваєтеся відкрити комусь по-справжньому і чи дозволяєте іншим придивитися?"
+      },
+      "sagittarius": {
+        "en": "Everyone born in those years shares Neptune in Sagittarius, a generation that idealised freedom, far places and the search for a meaning bigger than any one tradition. You may feel most alive while seeking and a little restless once you arrive. What are you really looking for when you set out, and have you glimpsed it closer to home?",
+        "uk": "Нептун у Стрільці поділяють усі, хто народився в ті роки: покоління, яке ідеалізувало свободу, далекі краї й пошук сенсу, ширшого за будь-яку одну традицію. Ви можете почуватися найживішими в пошуку й трохи неспокійними, щойно прибуваєте. Що ви насправді шукаєте, вирушаючи в дорогу, і чи не помічали цього ближче до дому?"
+      },
+      "capricorn": {
+        "en": "Neptune in Capricorn is shared by your whole generation, born as success, status and solid structures were held up as ideals and then quietly questioned. You may dream in practical terms, building towards something you can see. Which picture of success did you absorb early, and does it still feel like your own?",
+        "uk": "Нептун у Козорозі поділяє все ваше покоління, яке народилося, коли успіх, статус і міцні структури підносили як ідеал, а згодом тихо почали ставити під сумнів. Ви можете мріяти практично, будуючи щось, що можна побачити. Який образ успіху ви засвоїли змалку і чи досі відчуваєте його своїм?"
+      },
+      "aquarius": {
+        "en": "Neptune in Aquarius is held in common by a whole generation, one that dreams in networks and idealises a future built together. You may feel a strong pull towards causes, groups and shared ideals, sometimes more than towards single people. Which collective hope moves you, and how does it show up in your own days?",
+        "uk": "Нептун у Водолії спільний для цілого покоління, яке мислить мережами й ідеалізує майбутнє, збудоване разом. Вас можуть сильно вабити суспільні справи, групи й спільні ідеали, часом більше, ніж окремі люди. Яка спільна надія вас зворушує і як вона проявляється у ваших днях?"
+      },
+      "pisces": {
+        "en": "Neptune is at home in Pisces, and everyone born in those years shares it: a generation of deep empathy, vivid imagination and very soft boundaries. You may absorb the feelings of the world around you almost without noticing. What helps your compassion rest, so that it stays a gift rather than a weight?",
+        "uk": "Нептун у Рибах почувається вдома, і його поділяють усі, хто народився в ті роки: це покоління глибокої емпатії, яскравої уяви й дуже м’яких меж. Ви можете вбирати почуття світу довкола себе, майже не помічаючи цього. Що допомагає вашому співчуттю відпочивати, щоб воно лишалося даром, а не тягарем?"
+      }
+    },
+    "pluto": {
+      "aries": {
+        "en": "Pluto in Aries is shared by everyone born in those years, a generation forged around raw willpower and the struggle to stand as an individual. You may find your strength when you are pushed to act for yourself. When has fighting for something changed you, and what did you learn about your own force?",
+        "uk": "Плутон в Овні спільний для всіх, хто народився в ті роки: це покоління, загартоване силою волі й боротьбою за право бути окремою особистістю. Ви можете ставати найсильнішими, коли обставини змушують вас діяти за себе. Коли боротьба за щось вас змінила і що ви дізналися про власну силу?"
+      },
+      "taurus": {
+        "en": "With Pluto in Taurus, a placement your whole generation shares, deep questions of ownership, land and survival run beneath ordinary life. You may hold firmly to what you have built and change slowly, but thoroughly. What are you still holding tightly, and what might your hands do if they were free?",
+        "uk": "Плутон у Тельці поділяє все ваше покоління: під буденним життям тут пролягають глибокі питання власності, землі й виживання. Ви можете міцно триматися за те, що збудували, і змінюватися повільно, але докорінно. Що ви досі тримаєте міцно і що могли б робити ваші руки, якби були вільні?"
+      },
+      "gemini": {
+        "en": "Everyone born in those years shares Pluto in Gemini, a generation that saw the power of words and information change the world. You may feel the weight of what is said and left unsaid, and use language with real force. Which words spoken to you still carry power, and which would you like to answer now?",
+        "uk": "Плутон у Близнюках поділяють усі, хто народився в ті роки: покоління, яке бачило, як сила слова й інформації змінює світ. Ви можете гостро відчувати вагу сказаного й несказаного і володіти словом справді потужно. Які сказані вам слова досі мають силу і на які з них ви хотіли б відповісти тепер?"
+      },
+      "cancer": {
+        "en": "Pluto in Cancer is held in common by a whole generation, one shaped by upheaval close to home: families, homelands and belonging were tested and rebuilt. You may carry a fierce instinct to protect the people you love. What have you inherited from your family’s history, and what have you chosen to keep?",
+        "uk": "Плутон у Раку спільний для цілого покоління, сформованого потрясіннями, що торкнулися дому: родини, батьківщини й відчуття належності випробовувалися й відбудовувалися. У вас може жити запеклий інстинкт захищати тих, кого ви любите. Що ви успадкували з історії своєї родини і що вирішили зберегти?"
+      },
+      "leo": {
+        "en": "Pluto in Leo is shared by everyone born within a few years of you, a generation that found power in self-expression, personal ambition and the freedom to shine. You may feel a deep need to leave your own mark. What do you want to create that carries your spirit, and who is it really for?",
+        "uk": "Плутон у Леві спільний для всіх, хто народився приблизно тоді ж, що й ви: покоління, яке знайшло силу в самовираженні, особистих амбіціях і свободі сяяти. У вас може бути глибока потреба залишити власний слід. Що ви хочете створити, щоб у ньому жив ваш дух, і для кого це насправді?"
+      },
+      "virgo": {
+        "en": "Pluto in Virgo, carried by your whole generation, turned deep change towards work, health and the systems that run daily life. You may have a keen eye for what is broken and a strong urge to mend it. Where does your drive to improve things truly help, and where do you turn it on yourself too harshly?",
+        "uk": "Плутон у Діві, спільний для всього вашого покоління, спрямував глибокі зміни на роботу, здоров’я й системи, що тримають щоденне життя. Ви можете гостро бачити, що зламано, і відчувати сильне бажання це полагодити. Де ваше прагнення вдосконалювати справді допомагає, а де ви надто суворо звертаєте його проти себе?"
+      },
+      "libra": {
+        "en": "Pluto in Libra is shared by everyone born in those years, a generation for whom partnership, marriage and fairness were changed from the ground up. You may meet your own depths most clearly through close relationships. What has a relationship taught you about power, and how do you share it now?",
+        "uk": "Плутон у Терезах поділяють усі, хто народився в ті роки: для цього покоління партнерство, шлюб і справедливість змінилися докорінно. Ви можете найясніше зустрічатися з власними глибинами через близькі стосунки. Чого стосунки навчили вас про владу і як ви ділитеся нею тепер?"
+      },
+      "scorpio": {
+        "en": "Pluto is at home in Scorpio, and a whole generation shares it: people who grew up facing intensity, taboo and loss with unusual frankness. You may sense what lies beneath the surface and distrust anything that comes too easily. Which hard change have you come through, and what of yourself did you keep?",
+        "uk": "Плутон у Скорпіоні почувається вдома, і його поділяє ціле покоління: люди, які зростали, з незвичною відвертістю зустрічаючи інтенсивність, табу й втрати. Ви можете відчувати, що лежить під поверхнею, і не довіряти всьому, що дається надто легко. Через яку важку зміну ви пройшли і що від себе в ній зберегли?"
+      },
+      "sagittarius": {
+        "en": "Pluto in Sagittarius is common to everyone born in those years, a generation that watched beliefs, truths and borders reshaped on a global scale. You may hold your convictions with passion and search hard for a truth you can trust. Which belief have you tested against real life, and what remained?",
+        "uk": "Плутон у Стрільці спільний для всіх, хто народився в ті роки: покоління, яке бачило, як переконання, істини й кордони змінюються у світовому масштабі. Ви можете палко обстоювати свої переконання й наполегливо шукати правду, якій можна довіряти. Яке переконання ви перевірили реальним життям і що від нього лишилося?"
+      },
+      "capricorn": {
+        "en": "Pluto in Capricorn is shared by everyone born across those years, a generation arriving as institutions, economies and authority were taken apart and rebuilt. You may be sceptical of power yet serious about building something that lasts. Which structure in your life feels truly yours, and which are you ready to redesign?",
+        "uk": "Плутон у Козорозі поділяють усі, хто народився в ті роки: покоління, що прийшло у світ, коли інституції, економіки й влада розбиралися й перебудовувалися. Ви можете скептично ставитися до влади і водночас серйозно прагнути збудувати щось тривке. Яка структура у вашому житті справді ваша, а яку ви готові перебудувати?"
+      },
+      "aquarius": {
+        "en": "Pluto in Aquarius is held in common by a whole generation, one arriving as technology and collective life reshape how power is shared. You may feel the pull of the group strongly and question who gets a voice within it. In the communities you belong to, where do you hold influence, and how do you use it?",
+        "uk": "Плутон у Водолії спільний для цілого покоління, що приходить у світ, коли технології й колективне життя змінюють те, як розподіляється влада. Ви можете сильно відчувати тяжіння групи й запитувати, хто в ній має голос. Де у ваших спільнотах ви маєте вплив і як ним користуєтеся?"
+      },
+      "pisces": {
+        "en": "Pluto in Pisces is shared by everyone born in those years, a generation for whom deep change moves through compassion, imagination and the dissolving of old boundaries. You may be changed less by force than by letting go. What have you released, gently or not, that left you feeling more connected to others?",
+        "uk": "Плутон у Рибах поділяють усі, хто народився в ті роки: для цього покоління глибокі зміни відбуваються через співчуття, уяву й розчинення старих меж. Вас може змінювати радше відпускання, ніж сила. Що ви відпустили, м’яко чи ні, і як це зблизило вас з іншими?"
+      }
+    },
+    "node": {
+      "aries": {
+        "en": "The North Node in Aries invites growth towards acting on your own behalf: making a choice without waiting for agreement, trying before you are sure. The familiar pull may be towards keeping the peace or deferring to others. What would you do this week if you did not need anyone’s approval first?",
+        "uk": "Північний вузол в Овні запрошує рости в бік самостійної дії: ухвалювати рішення, не чекаючи на згоду інших, і пробувати, ще не маючи певності. Звичним може бути потяг зберігати мир або поступатися іншим. Що б ви зробили цього тижня, якби вам не було потрібне нічиє схвалення?"
+      },
+      "taurus": {
+        "en": "With the North Node in Taurus, growth may lie in simplicity and steadiness: trusting your senses, building slowly, valuing what you already have. Intensity, crisis or other people’s emotional weather can feel more familiar than calm. What would it be like to let an ordinary, peaceful day be enough?",
+        "uk": "Коли Північний вузол у Тельці, зростання може полягати в простоті й сталості: довіряти своїм відчуттям, будувати повільно, цінувати те, що у вас уже є. Інтенсивність, кризи чи емоційна погода інших людей можуть здаватися звичнішими, ніж спокій. Як би це було — дозволити звичайному спокійному дню бути достатнім?"
+      },
+      "gemini": {
+        "en": "The North Node in Gemini points towards curiosity over certainty: asking questions, listening closely, learning from the people and details right in front of you. Grand conclusions and firm beliefs may feel more comfortable than not knowing. What might you learn today by asking rather than explaining?",
+        "uk": "Північний вузол у Близнюках вказує на цікавість замість певності: ставити запитання, уважно слухати, вчитися в людей поруч і помічати подробиці перед очима. Великі висновки й тверді переконання можуть здаватися затишнішими, ніж незнання. Чого ви могли б навчитися сьогодні, розпитуючи, а не пояснюючи?"
+      },
+      "cancer": {
+        "en": "The North Node in Cancer invites growth towards softness: letting yourself need people, making a home that feels like shelter, admitting what you feel. Competence, control and public achievement may come more easily than asking for comfort. What would change if you let a feeling be seen before it was fully under control?",
+        "uk": "Північний вузол у Раку запрошує рости в бік м’якості: дозволяти собі потребувати людей, створювати дім, що стає прихистком, визнавати свої почуття. Компетентність, контроль і публічні досягнення можуть даватися легше, ніж прохання про розраду. Що змінилося б, якби ви дозволили почуттю бути поміченим ще до того, як упоралися з ним?"
+      },
+      "leo": {
+        "en": "With the North Node in Leo, growth may mean stepping forward: making something personal, expressing warmth openly, letting yourself be seen as an individual. Blending into the group or staying detached and objective may feel safer. What would you create if it were allowed to be unmistakably yours?",
+        "uk": "Коли Північний вузол у Леві, зростання може означати крок уперед: створювати щось особисте, відкрито виявляти тепло, дозволяти іншим бачити вас як окрему особистість. Розчинитися в групі чи зберігати відсторонену об’єктивність може здаватися безпечнішим. Що б ви створили, якби дозволили йому бути впізнавано вашим?"
+      },
+      "virgo": {
+        "en": "The North Node in Virgo points towards grounded, practical care: finishing things, tending the details, turning good intentions into daily habits. Drifting, dreaming or losing yourself in others’ needs may feel more familiar than keeping a clear routine. Which small, concrete task would help your ideals take shape this week?",
+        "uk": "Північний вузол у Діві вказує на заземлену, практичну турботу: доводити справи до кінця, дбати про деталі, перетворювати добрі наміри на щоденні звички. Плисти за течією, мріяти чи розчинятися в чужих потребах може здаватися звичнішим, ніж мати чіткий розпорядок. Яка невелика конкретна справа допомогла б вашим ідеалам набути форми цього тижня?"
+      },
+      "libra": {
+        "en": "The North Node in Libra invites growth through partnership: listening fully, weighing another perspective, finding what is fair to both sides. Acting alone and quickly may come more naturally than slowing down to collaborate. Where might asking for another person’s view make a decision better rather than weaker?",
+        "uk": "Північний вузол у Терезах запрошує рости через партнерство: вислуховувати до кінця, зважувати інший погляд, шукати справедливого для обох сторін. Діяти самотужки й швидко може бути природнішим, ніж сповільнитися заради співпраці. Де думка іншої людини могла б зробити ваше рішення кращим, а не слабшим?"
+      },
+      "scorpio": {
+        "en": "With the North Node in Scorpio, growth may come through letting things change: sharing power, going deeper with someone, releasing what you have outgrown. Holding on to comfort, routine or possessions may feel safer than transformation. What are you keeping mainly because it is familiar, and what might open if you let it go?",
+        "uk": "Коли Північний вузол у Скорпіоні, зростання може приходити через готовність до змін: ділитися владою, глибше зближуватися з кимось, відпускати те, з чого ви виросли. Триматися за комфорт, розпорядок чи речі може здаватися безпечнішим, ніж перетворення. Що ви зберігаєте переважно тому, що воно звичне, і що могло б відкритися, якби ви це відпустили?"
+      },
+      "sagittarius": {
+        "en": "The North Node in Sagittarius points towards the bigger picture: trusting your own sense of meaning, exploring unfamiliar places and ideas, committing to what you believe. Gathering one more fact or opinion may feel easier than drawing a conclusion. Where would it help to stop researching and choose a direction you trust?",
+        "uk": "Північний вузол у Стрільці вказує на ширшу картину: довіряти власному відчуттю сенсу, досліджувати незнайомі місця й ідеї, триматися того, у що ви вірите. Зібрати ще один факт чи ще одну думку може здаватися легшим, ніж дійти висновку. Де вам допомогло б припинити пошуки інформації й обрати напрям, якому ви довіряєте?"
+      },
+      "capricorn": {
+        "en": "The North Node in Capricorn invites growth towards taking your place in the wider world: setting goals, accepting responsibility, letting your work be seen. The comfort of home, family roles or looking after everyone else may feel more familiar. What ambition have you kept small, and what would a first practical step towards it be?",
+        "uk": "Північний вузол у Козорозі запрошує рости в бік власного місця в ширшому світі: ставити цілі, брати відповідальність, дозволяти іншим бачити вашу роботу. Затишок дому, родинні ролі чи турбота про всіх довкола можуть здаватися звичнішими. Яку амбіцію ви тримаєте маленькою і яким міг би бути перший практичний крок до неї?"
+      },
+      "aquarius": {
+        "en": "With the North Node in Aquarius, growth may lie in widening the circle: contributing to a group, backing ideas bigger than one person, valuing friendship alongside recognition. Being at the centre, or needing personal credit, may feel more familiar. Which shared project could use your gifts without your name on it?",
+        "uk": "Коли Північний вузол у Водолії, зростання може полягати в тому, щоб розширювати коло: робити внесок у спільноту, підтримувати ідеї, більші за одну людину, цінувати дружбу поряд із визнанням. Бути в центрі уваги чи прагнути особистої заслуги може здаватися звичнішим. Якій спільній справі могли б прислужитися ваші здібності, навіть якщо ваше ім’я ніде не з’явиться?"
+      },
+      "pisces": {
+        "en": "The North Node in Pisces invites growth towards trust and surrender: letting some things remain unfinished, following intuition, making room for rest, art or quiet faith. Analysing, fixing and staying useful may feel more comfortable than simply being. Where could you set down the need to get it right and let yourself be carried a little?",
+        "uk": "Північний вузол у Рибах запрошує рости в бік довіри й відпускання: дозволяти деяким речам лишатися незавершеними, прислухатися до інтуїції, звільняти місце для відпочинку, мистецтва чи тихої віри. Аналізувати, виправляти й бути корисними може здаватися зручнішим, ніж просто бути. Де ви могли б відкласти потребу все робити правильно й дозволити течії трохи вас понести?"
+      }
+    }
+  },
+  "today": {
+    "1": {
+      "en": "How are you meeting the day so far, and how does your body feel in it?",
+      "uk": "Як ви зустрічаєте цей день і як почувається в ньому ваше тіло?"
+    },
+    "2": {
+      "en": "What feels quietly valuable to you today, whether or not it costs anything?",
+      "uk": "Що сьогодні здається вам тихо цінним, навіть якщо воно нічого не коштує?"
+    },
+    "3": {
+      "en": "Which conversation, message or familiar street catches your attention today, and what do you notice there?",
+      "uk": "Яка розмова, повідомлення чи знайома вулиця сьогодні привертає вашу увагу і що ви там помічаєте?"
+    },
+    "4": {
+      "en": "Where do you feel most at home today, and what gives you that feeling?",
+      "uk": "Де ви сьогодні найбільше почуваєтеся вдома і що дає вам це відчуття?"
+    },
+    "5": {
+      "en": "What are you enjoying today simply for its own sake?",
+      "uk": "Що сьогодні приносить вам радість саме по собі?"
+    },
+    "6": {
+      "en": "Which small daily habit is looking after you today, and which feels like a chore?",
+      "uk": "Яка маленька щоденна звичка сьогодні дбає про вас, а яка здається обов’язком?"
+    },
+    "7": {
+      "en": "Who are you close to today, and what do they reflect back to you?",
+      "uk": "З ким ви сьогодні поруч і що ці стосунки вам віддзеркалюють?"
+    },
+    "8": {
+      "en": "Where do you notice trust today, in what you share with someone or what you hold back?",
+      "uk": "Де ви сьогодні помічаєте довіру: у тому, чим ділитеся з кимось, чи в тому, що стримуєте?"
+    },
+    "9": {
+      "en": "What idea, place or belief is widening your view today, even a little?",
+      "uk": "Яка ідея, місце чи переконання сьогодні хоч трохи розширює ваш погляд?"
+    },
+    "10": {
+      "en": "How do you feel about the work you are putting into the world today?",
+      "uk": "Що ви відчуваєте щодо праці, яку сьогодні показуєте світові?"
+    },
+    "11": {
+      "en": "Which friend or group is on your mind today, and what do you share with them?",
+      "uk": "Хто з друзів чи яка спільнота сьогодні у ваших думках і що вас із ними єднає?"
+    },
+    "12": {
+      "en": "What do you notice when you give yourself a quiet moment alone today?",
+      "uk": "Що ви помічаєте сьогодні, коли дозволяєте собі тиху хвилину наодинці?"
+    }
+  }
+}

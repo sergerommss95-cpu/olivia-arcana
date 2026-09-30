@@ -228,7 +228,7 @@ export default function SamplePage() {
             personalized transits, and unlimited access to the
             AI Oracle.
           </p>
-          <TransitionLink href="/portrait" className="alm-btn">
+          <TransitionLink href="/astrology/birth-chart/" className="alm-btn">
             Generate My Portrait
           </TransitionLink>
         </section>
