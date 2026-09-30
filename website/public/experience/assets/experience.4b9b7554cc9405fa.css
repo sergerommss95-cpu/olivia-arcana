@@ -3650,3 +3650,14 @@ body[data-view=home]:not(.cinema) #intro{top:19%}
  .art-led-hero figcaption{display:none}.art-orbit{border:0}.art-orbit span{right:4%;top:-24px;font-size:8px;background:none}.art-orbit i{display:none}
  body[data-view=home]:not(.cinema) .experience-controls{bottom:40px}
 }
+.art-fan img{top:0}
+@media(min-width:701px) and (max-height:700px){
+ body[data-view=home]:not(.cinema) #intro{top:19%}
+ body[data-view=home]:not(.cinema) #intro h2{font-size:clamp(3.2rem,6vw,5.7rem);margin:14px 0 16px}
+ body[data-view=home]:not(.cinema) #intro .intro-body{font-size:14px;line-height:1.65}
+ body[data-view=home]:not(.cinema) #intro .reading-link{min-height:48px;margin-top:18px}
+ body[data-view=home]:not(.cinema) #intro .reading-facts{margin-top:10px;font-size:9px}
+ body[data-view=home]:not(.cinema) #intro .home-example-link{margin-top:0;min-height:40px}
+ body[data-view=home]:not(.cinema) .art-led-hero{top:19%;height:65%}
+ body[data-view=home]:not(.cinema) .experience-controls{bottom:8px}
+}
