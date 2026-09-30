@@ -7,8 +7,8 @@
  *
  * Implementation notes
  *  - We mirror localStorage into local React state via useState + useEffect.
- *    On SSR we return "en". On first client mount we read localStorage +
- *    navigator.language and update.
+ *    Authored EN/UK routes are authoritative on SSR and after hydration.
+ *    Other routes read localStorage/navigator only after mounting.
  *  - Changes from LanguageSwitcher / other components propagate via a
  *    CustomEvent (olivia:locale-change) and cross-tab "storage" events.
  *  - `<html lang="">` is synced whenever the locale changes.
@@ -25,6 +25,8 @@ import {
   detectLocale,
   setLocale as persistLocale,
 } from "./translations";
+
+import { routeLocale as localeForRoute } from "./route-locale";
 
 const LOCALE_CHANGE_EVENT = "olivia:locale-change";
 const STORAGE_KEY = "olivia-locale";
@@ -44,14 +46,13 @@ function applyDocumentLocale(next: Locale): void {
 }
 
 export function useLocale() {
-  // Always start at "en" — identical to the server-rendered HTML — and let
-  // the syncFromStorage effect below switch after mount. Reading
-  // localStorage/navigator in the initializer made the first client render
-  // differ from SSR for every non-English visitor: a React hydration
-  // mismatch that threw the server tree away on each cold load.
+  // Initialize from authored route language. Browser preferences are deferred
+  // until mount on routes without an explicit language edition.
   const pathname = usePathname();
-  const routeLocale = pathname === "/uk" || pathname?.startsWith("/uk/") ? "uk" : null;
-  const [locale, setLocaleState] = useState<Locale>(routeLocale || "en");
+  const routeLocale = localeForRoute(pathname);
+  const [preferredLocale, setLocaleState] = useState<Locale>(routeLocale || "en");
+  // Derive immediately during navigation too; effects must never render stale chrome.
+  const locale = routeLocale || preferredLocale;
 
   useEffect(() => {
     // Sync document attributes on mount/change
@@ -90,12 +91,12 @@ export function useLocale() {
 
   const setLocale = useCallback((next: Locale) => {
     persistLocale(next);
-    applyDocumentLocale(next);
+    applyDocumentLocale(routeLocale || next);
     setLocaleState(next);
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent(LOCALE_CHANGE_EVENT, { detail: { locale: next } }));
     }
-  }, []);
+  }, [routeLocale]);
 
   return { locale, t, setLocale };
 }

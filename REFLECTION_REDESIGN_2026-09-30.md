@@ -10,8 +10,8 @@ Branch: `codex/reflection-practice-redesign`, based on main `f6ac41c` after PR14
 
 ## Validation
 
-- Product suite: 343 tests passed.
-- Website and service suite: 96 tests passed.
+- Product suite: 352 tests passed.
+- Website and service suite: 98 tests passed.
 - TypeScript and ESLint on changed website/service files passed.
 - Experience generation and Next production export passed; generated resource paths, scripts, Ukrainian page language and both versioned 78-card Amielle manifests were validated.
 - Previous v1 artwork manifest matches main exactly. Original approved artwork and variants are preserved; raw new generation originals remain local outside the commit.
@@ -21,3 +21,9 @@ Branch: `codex/reflection-practice-redesign`, based on main `f6ac41c` after PR14
 No local-browser tool is exposed in this executor. Actual desktop/mobile EN/UK visual review, interactive export and interrupted/repeated browser flow checks remain unverified. Unit tests cover save/export invariants, dated returns, motion cancellation/reduced motion, and local astrology handoff, but do not replace browser review. Review the preview on iOS and desktop before merging.
 
 No remote journal or birth-data storage, paid service, notification schedule or production deployment was added. Existing astrology, approved WebGL hero and unrelated open PR work remain intact.
+
+## Visible art-direction follow-up
+
+After the owner found the initial preview too similar, the opening composition was rebuilt around three actual Amielle relief fronts, an editorial invitation, aubergine depth and an ivory primary action. The optional fan expansion and chosen-card separation work with HTML/CSS when WebGL is unavailable. Existing cinematic renderer infrastructure stays available through Watch the journey. Reading artwork is larger and the writing area is a distinct ivory surface; the journal introduction/navigation is compact so saved entries lead the return.
+
+Cloud QA of the previous commit verified save/reload/revisit flows, and exposed locale hydration and interrupted-ritual bugs. Authored EN/UK routes now own the language, dates follow that language, and single/spread interrupted drafts recover exact shuffled choices without restoring external-guidance consent. The new visual/recovery pass still requires cloud desktop/mobile QA. Before reference: https://6abd3f560162d100087af94f--olivia-arcana.netlify.app (commit cea92e8).

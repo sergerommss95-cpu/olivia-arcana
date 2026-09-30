@@ -292,3 +292,16 @@ export function exportSpreadRecords(records) {
 export function getLastSpreadRecord(records) {
   return validateRecords(records)[0] ?? null;
 }
+
+/** Reconstitute an interrupted draw without shuffling or choosing any new card. */
+export function restoreSpreadSession(value) {
+  validateSession(value);
+  return immutableSession({
+    id:value.id,createdAt:value.createdAt,question:value.question,intention:value.intention,
+    deckId:normalizeDeckId(value.deckId),...normalizeArtwork(value),...normalizeOrigin(value.origin),
+    spreadId:value.spreadId,count:value.count,deck:value.deck,selectedSlots:value.selectedSlots,
+    cardIds:value.cardIds,revealedCount:value.revealedCount,reversals:Boolean(value.reversals),
+    deckOrientations:deckOrientations(value),orientations:value.orientations,
+    ...(value.readingPlan?{readingPlan:value.readingPlan}:{})
+  });
+}

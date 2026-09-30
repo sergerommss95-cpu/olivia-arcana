@@ -3573,3 +3573,80 @@ body[data-view="question"] .reading-deck-switch{grid-column:1/-1}
 .single-reading-arrival .reading-touch-controls{visibility:hidden}
 @media(max-width:700px){.reading-touch-controls{margin-top:20px;transform:none;width:100%}.reading-touch-controls p{max-width:25ch;font:400 12px/1.6 'DM Sans','Onest',sans-serif}.reading-touch-controls .reading-light-action{font:500 12px/1.5 'DM Sans','Onest',sans-serif}.mobile-reading-context:has(.reading-touch-controls) .reading-art{width:min(65vw,16rem)}}
 @media(prefers-reduced-motion:reduce){.reading-touch-controls{display:none}}
+
+/* Amielle's carved faces carry the opening; the existing cinematic journey remains optional. */
+.art-led-hero{display:none}
+body[data-view=home]:not(.cinema) #stage{background:radial-gradient(ellipse at 76% 45%,#382633 0,transparent 46%),linear-gradient(120deg,#0a1726 20%,#171622 75%,#251821)}
+body[data-view=home]:not(.cinema) #opening-type,body[data-view=home]:not(.cinema) #motion-stage,body[data-view=home]:not(.cinema) #deck-caption,body[data-view=home]:not(.cinema) #intertitle{visibility:hidden!important;pointer-events:none}
+body[data-view=home]:not(.cinema) #intro{left:8%;top:23%;bottom:auto;width:44%;max-width:650px;z-index:7}
+body[data-view=home]:not(.cinema) #intro h2{font:400 clamp(4.5rem,7.4vw,8.6rem)/.89 'Cormorant Garamond',serif;letter-spacing:-.045em;margin:23px 0 28px;animation:none}
+body[data-view=home]:not(.cinema) #intro h2 em{color:#d6b99a}
+.art-invitation{font-size:10px;letter-spacing:.22em;color:#d6b99a}
+body[data-view=home]:not(.cinema) #intro .intro-body{font-size:15px;line-height:1.75;margin:0;color:#c6c1bc;display:block}
+body[data-view=home]:not(.cinema) #intro .reading-link{width:240px;min-height:54px;margin-top:25px;background:#eadfc9;color:#1b1924;padding:0 18px;border-radius:2px;font-size:13px;animation:none}
+body[data-view=home]:not(.cinema) #intro .reading-link i{border:0;width:auto;height:auto}.reading-link>span:after{display:none}
+body[data-view=home]:not(.cinema) #intro .reading-facts{display:block;font-size:10px;letter-spacing:.025em;margin:14px 0 0;color:#a99f98}
+body[data-view=home]:not(.cinema) #intro .home-example-link{margin-top:4px;font-size:12px;color:#d6b99a}
+body[data-view=home]:not(.cinema) .art-led-hero{display:block;position:absolute;right:3%;top:16%;width:51%;height:72%;margin:0;z-index:5;perspective:1400px}
+.art-fan{position:absolute;inset:0 0 12%;width:100%;height:88%;display:block;background:none;border:0;perspective:1400px;cursor:pointer}
+.art-fan img{position:absolute;height:100%;width:auto;max-width:55%;object-fit:contain;border-radius:12px;box-shadow:0 30px 75px #0009;transition:transform 1100ms cubic-bezier(.2,.7,.2,1),filter 1100ms;transform-origin:50% 80%}
+.art-heart{left:28%;z-index:3;transform:translateY(-2%) rotate(5deg)}
+.art-wing-left{left:8%;z-index:1;transform:translateY(8%) rotate(-13deg) scale(.86);filter:brightness(.7)}
+.art-wing-right{right:2%;z-index:2;transform:translateY(10%) rotate(19deg) scale(.88);filter:brightness(.75)}
+.art-fan[aria-expanded=true] .art-heart{transform:translateY(-7%) rotate(0)}
+.art-fan[aria-expanded=true] .art-wing-left{transform:translate(-12%,4%) rotate(-19deg) scale(.91);filter:brightness(.95)}
+.art-fan[aria-expanded=true] .art-wing-right{transform:translate(8%,4%) rotate(23deg) scale(.93);filter:brightness(.95)}
+.art-fan:focus-visible{outline:1px solid #d6b99a;outline-offset:8px;border-radius:14px}
+.art-led-hero figcaption{position:absolute;bottom:0;left:25%;font-size:9px;letter-spacing:.13em;color:#d6b99a;line-height:1.8}.art-led-hero figcaption p{font-size:10px;letter-spacing:0;color:#a99f98;margin-top:4px}
+.art-orbit{position:absolute;top:8%;left:0;width:100%;height:65%;border:1px solid #bca28225;border-radius:50%;transform:rotate(-22deg);pointer-events:none}.art-orbit span{position:absolute;right:12%;top:-9px;background:#251d29;padding:0 12px;font-size:9px;letter-spacing:.3em}.art-orbit i{position:absolute;left:8%;bottom:16%;width:6px;height:6px;border-radius:50%;background:#d6b99a}
+body[data-view=home]:not(.cinema) .experience-controls{bottom:18px}body[data-view=home]:not(.cinema) .site-header .today-nav,body[data-view=home]:not(.cinema) .site-header .spreads-nav,body[data-view=home]:not(.cinema) .site-header .cards-nav{display:none}
+/* A reading is an editorial object, with a quiet writing surface. */
+#reading-view .reading-layout{max-width:1180px;margin:54px auto 90px;grid-template-columns:minmax(280px,.85fr) minmax(400px,1.15fr);gap:8vw;align-items:start}
+#reading-view .reading-art{top:110px;padding:22px 0 0}#reading-view #reveal-card{width:100%;max-width:390px;filter:drop-shadow(0 22px 35px #0007)}
+#reading-view .reading-copy h1{font-size:clamp(3.6rem,5.5vw,6rem);line-height:.92;margin:24px 0 28px}#reading-view .question-quote{border-left:1px solid #c7ad8c;padding-left:20px;max-width:36rem;font:italic 1.35rem/1.45 'Cormorant Garamond'}
+#reading-view .reading-copy .meaning{font-size:17px;line-height:1.85;max-width:36rem}#reading-view .reflection-prompt{background:#30263188;border:0;border-left:2px solid #c7ad8c;padding:24px 28px;margin:32px 0}
+#reading-view #save-section{background:#f0e6d4;color:#272432;border:0;padding:28px;margin:36px 0 0;border-radius:3px;--ink:#272432;--muted:#6b6265;--rule:#c9bcab;--gold:#806347}#reading-view #save-section textarea,#reading-view #save-section input,#reading-view #save-section select{background:#fbf5ea;color:#272432;border-color:#c9bcab}#reading-view #save-section .privacy-note{color:#6b6265}#reading-view #save-section .solid-action{background:#272432;color:#f0e6d4}
+/* Entries, not an introductory billboard, lead a return visit. */
+#journal-view .journal-intro{margin:32px 0 24px;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:end}#journal-view .journal-intro h1{font-size:clamp(3rem,5vw,5rem);line-height:.95;margin:0}#journal-view .journal-intro>p{font-size:14px;line-height:1.65;max-width:34rem;margin:0}#journal-view .journal-intro>.eyebrow{grid-column:1/-1;font-size:10px}
+#journal-view .journal-row{padding:24px 0;grid-template-columns:100px 1fr auto;gap:28px;align-items:center}#journal-view .journal-row .journal-art{width:100px;border-radius:5px;box-shadow:0 12px 25px #0004}#journal-view .journal-row h2{font-size:2.3rem;line-height:1.08;margin-bottom:12px}#journal-view .journal-row p{max-width:40rem;line-height:1.7}#journal-view .journal-bottom{padding-top:24px}
+@media(max-width:900px){body[data-view=home]:not(.cinema) #intro{left:6%;width:46%;top:24%}body[data-view=home]:not(.cinema) #intro h2{font-size:7.8vw}body[data-view=home]:not(.cinema) .art-led-hero{right:0;top:23%;height:59%;width:50%}#reading-view .reading-layout{gap:5vw;grid-template-columns:1fr 1.3fr}}
+@media(max-width:700px){
+ body.mobile-experience[data-view=home]:not(.cinema) #hero-region{height:auto;min-height:980px;max-height:none}
+ body[data-view=home]:not(.cinema) #stage{height:980px;min-height:980px;position:relative}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro{top:110px;left:7%;right:7%;bottom:auto;width:auto;max-width:none;text-align:left}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro h2{font-size:clamp(56px,13vw,76px);line-height:.92;margin:16px 0 18px}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro h2 br:nth-of-type(2){display:none}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro .intro-body{font-size:14px;line-height:1.7;max-width:330px;margin:0}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro .reading-link{margin-top:18px;width:230px}
+ body.mobile-experience[data-view=home]:not(.cinema) .art-led-hero{top:490px;right:6%;width:88%;height:385px}
+ .art-fan img{max-width:56%;border-radius:8px}.art-led-hero figcaption{left:15%;bottom:-28px;font-size:8px}.art-led-hero figcaption p{font-size:9px}.art-invitation{font-size:9px}
+ body[data-view=home]:not(.cinema) .experience-controls{bottom:16px;left:7%;right:7%}.art-orbit{top:6%;height:70%}
+ #reading-view .reading-layout{display:flex;flex-direction:column;margin:24px 0 45px;gap:22px}#reading-view .reading-art{position:relative;top:auto;width:100%;padding:0}#reading-view #reveal-card{width:65%;max-width:300px;margin:auto}#reading-view .reading-copy h1{font-size:3.6rem}#reading-view .reading-copy .meaning{font-size:16px}#reading-view #save-section{padding:22px 18px;margin-top:28px}
+ #journal-view .journal-intro{display:block;margin:22px 0 18px}#journal-view .journal-intro h1{font-size:3.2rem;margin:12px 0 18px}#journal-view .journal-intro>p{font-size:13px}#journal-view .journal-row{grid-template-columns:68px 1fr auto;gap:16px;padding:20px 0}#journal-view .journal-row .journal-art{width:68px}#journal-view .journal-row h2{font-size:1.8rem}
+}
+@media(prefers-reduced-motion:reduce){.art-fan img{transition:none!important}}
+
+/* The chosen card separates from two quiet layers before its face opens. */
+.single-card-object:before,.single-card-object:after{content:'';position:absolute;inset:0;border-radius:3.8%/2.2%;background-image:var(--ritual-back);background-size:cover;box-shadow:0 16px 34px #0007;z-index:-1;opacity:0;transition:transform 700ms cubic-bezier(.2,.7,.2,1),opacity 700ms}
+body[data-single-state=held] .single-card-object:before{opacity:.65;transform:translate(-18px,12px) rotate(-5deg)}
+body[data-single-state=held] .single-card-object:after{opacity:.45;transform:translate(18px,22px) rotate(5deg)}
+body[data-single-state=revealing] .single-card-object:before{opacity:.2;transform:translate(-32px,20px) rotate(-8deg)}
+body[data-single-state=revealing] .single-card-object:after{opacity:.15;transform:translate(32px,26px) rotate(8deg)}
+.single-card-surface{z-index:1}#reading-view .reading-copy{min-width:0}
+@media(prefers-reduced-motion:reduce){.single-card-object:before,.single-card-object:after{transition:none;transform:none!important}}
+body[data-view=home] .alm-mast-nav .alm-mast-link[href*="experience=today"],body[data-view=home] .alm-mast-nav .alm-mast-link[href*="experience=spreads"],body[data-view=home] .alm-mast-nav .alm-mast-link[href$="/cards/"],body[data-view=home] .alm-mast-nav .alm-mast-link[href$="/learn/"]{display:none}
+body[data-view=home] .alm-mast-nav{gap:1.1rem}
+#journal-view .page-top{min-height:64px}#journal-view .journal-explore{margin-bottom:18px}#journal-view .journal-explore .almanac-links{margin:4px 0;gap:14px}#journal-view .almanac-links a{padding:10px 0;background:none;border:0;font-size:12px;min-height:44px;flex:none;min-width:0;text-align:left}#journal-view #journal-retrospective{font-size:12px;padding:12px 0;margin-bottom:0}
+#reading-view .page-top{min-height:64px}
+@media(max-width:700px){body[data-view=home] .alm-mast-nav{overflow:visible;mask-image:none;gap:14px}body[data-view=home] .alm-mast-nav .alm-mast-link[href$="/decks/"]{display:none}}
+body[data-view=home]:not(.cinema) #intro{top:19%}
+@media(max-width:700px){
+ body.mobile-experience[data-view=home]:not(.cinema) #hero-region,body[data-view=home]:not(.cinema) #stage{height:800px;min-height:800px}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro{top:145px}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro h2{width:46%;font-size:clamp(38px,10vw,48px);line-height:1.02;margin:16px 0 0}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro h2 br:nth-of-type(2){display:inline}
+ body.mobile-experience[data-view=home]:not(.cinema) #intro .intro-body{margin-top:44px;font-size:14px;max-width:340px}
+ body.mobile-experience[data-view=home]:not(.cinema) .art-led-hero{top:155px;right:0;width:54%;height:280px;pointer-events:auto}
+ .art-led-hero figcaption{display:none}.art-orbit{border:0}.art-orbit span{right:4%;top:-24px;font-size:8px;background:none}.art-orbit i{display:none}
+ body[data-view=home]:not(.cinema) .experience-controls{bottom:40px}
+}

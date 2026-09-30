@@ -329,3 +329,15 @@ export function exportRecords(records) {
 export function getLastRecord(records) {
   return validateRecords(records)[0] ?? null;
 }
+
+/** Restore an interrupted local draw, preserving its shuffle and chosen face. */
+export function restoreSingleSession(value) {
+  validateSession(value);
+  return Object.freeze({
+    id:value.id,createdAt:value.createdAt,question:value.question,intention:value.intention,
+    deckId:normalizeDeckId(value.deckId),...normalizeArtwork(value),...normalizeOrigin(value.origin),
+    deck:Object.freeze([...value.deck]),reversals:Boolean(value.reversals),
+    deckOrientations:Object.freeze([...deckOrientations(value)]),selectedSlot:value.selectedSlot,
+    cardId:value.cardId,orientation:value.cardId===null?null:normalizeOrientation(value.orientation)
+  });
+}

@@ -72,6 +72,7 @@ if (p / 'practice.css').exists():
 style_names.extend(name for name in ['hero-continuity.css', 'action-affordances.css', 'product-foundations.css', 'question-coach.css', 'almanac-journey.css', 'practice-journey.css', 'physical-reading.css', 'question-history.css', 'lunar-checkin.css', 'first-impression.css', 'symbol-trails.css', 'home-showcase.css', 'spread-ritual.css', 'journey-clarity.css', 'interactive-perimeter.css', 'reading-loader.css', 'reading-pending.css', 'mobile-experience.css', 'mobile-ritual.css', 'mobile-reading.css', 'action-surfaces.css', 'mobile-home-practice.css', 'mobile-home-sections.css', 'support-note.css', 'reread.css', 'survey.css', 'question-hint.css', 'sentence-first.css', 'today-pair.css', 'card-plan.css', 'pin-walk.css', 'mobile-coherence.css', 'deck-library.css', 'deck-selection.css'] if (p / name).exists())
 styles = '\n'.join((p / name).read_text() for name in style_names)
 styles += '\n' + '\n'.join((p / name).read_text() for name in ['card-material.css', 'card-unveiling.css', 'reading-keepsake.css', 'reading-touch.css'])
+styles += '\n' + (p / 'art-direction.css').read_text()
 scripts = {
     'hero': (p / 'hero.js').read_text(),
     'background': (p / 'background.bundle.js').read_text(),
@@ -160,6 +161,7 @@ replacements = {
     '/*POSTER_SOURCE*/': '',
 }
 replacements.update({f'/*HOME_CARD_{i}*/': data(major_files[i]) for i in [9,17,2]})
+replacements.update({f'/*AMIELLE_CARD_{i}*/': data(amielle_cards[i]) for i in [6,9,17]})
 portable = template
 for token, value in replacements.items():
     portable = portable.replace(token, value)
@@ -251,6 +253,8 @@ hosted = hosted.replace('/*BACK_IMG*/', hosted_back).replace('/*FIRST_FRAME*/', 
 hosted = hosted.replace('/*POSTER_SOURCE*/', '<source media="(max-width:699.98px)" srcset="' + hosted_back_phone + '">')
 for i in [9,17,2]:
     hosted = hosted.replace(f'/*HOME_CARD_{i}*/', hosted_major[i])
+for i in [6,9,17]:
+    hosted = hosted.replace(f'/*AMIELLE_CARD_{i}*/', hosted_complete_edition['cards'][i])
 # Ukrainian text is rendered into a separate entry before Next exports /uk/.
 # Script and artwork references stay identical across languages.
 localizer = subprocess.run([

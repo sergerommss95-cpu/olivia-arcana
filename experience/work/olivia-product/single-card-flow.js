@@ -179,7 +179,7 @@ export function initSingleCardFlow({assets,motion,reduced,choose,onRead,announce
   cancel();if(!record||!Number.isInteger(index))return;
   selected=record;slot=index;card.dataset.slot=index;selectedByKeyboard=true;
   unveiling.touch(.46,.62);
-  image.style.rotate='';image.src=assets.back;image.alt=words('Your chosen card, face down','Ваша обрана карта, сорочкою догори');image.style.transform='';
+  image.style.rotate='';image.src=assets.back;card.style.setProperty('--ritual-back',`url("${assets.back}")`);image.alt=words('Your chosen card, face down','Ваша обрана карта, сорочкою догори');image.style.transform='';
   actionCopy();prepareNote();layer.hidden=false;put(stageQuad());state('held');hideSource(index);material.refresh();
   choices().inert=true;document.querySelector('#random-card').disabled=true;actions.hidden=false;reveal.disabled=false;
   announce(words('Your chosen card is still here. Turn it when you are ready.','Ваша обрана карта досі тут. Переверніть її, коли будете готові.'));reveal.focus({preventScroll:true});
