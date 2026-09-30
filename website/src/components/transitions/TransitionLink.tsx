@@ -10,6 +10,8 @@ interface TransitionLinkProps {
   className?: string;
   style?: React.CSSProperties;
   onClick?: () => void;
+  /** Marks the link as the page the reader is on. */
+  current?: boolean;
 }
 
 /**
@@ -30,6 +32,7 @@ export default function TransitionLink({
   className,
   style,
   onClick,
+  current,
 }: TransitionLinkProps) {
   const router = useRouter();
   const [pressed, setPressed] = useState(false);
@@ -97,6 +100,7 @@ export default function TransitionLink({
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}
       className={className}
+      aria-current={current ? "page" : undefined}
       style={pressed ? { position: "relative", ...style } : style}
     >
       {children}

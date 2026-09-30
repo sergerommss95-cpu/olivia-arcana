@@ -18,15 +18,12 @@ function isNight(path: string): boolean {
 }
 
 /**
- * The page turn as ONE act:
- *   0ms    reader clicks — the leaving page exhales (fade + 10px sink,
- *          300ms) while the night veil starts across and the sky flight
- *          (FLIGHT_MS 950) is already under way beneath both.
- *   ~560ms the veil has covered the view — route swaps under it.
- *   arrive veil retreats (550ms); the new page inhales (fade + rise)
- *          ~220ms into the retreat, so the rise is seen, and settles at
- *          ~1.3s — just as the sky flight's own settle finishes inking
- *          the berth figure. One breath out, one breath in.
+ * Moving between inner pages, as one breath:
+ *   0ms    reader clicks — the leaving page fades while the view settles
+ *          into lapis (220 ms, opacity only).
+ *   ~230ms the route swaps under the lapis.
+ *   arrive the lapis lifts (340 ms) and the new page fades up out of it.
+ * A page that is slow to arrive is revealed after 2.5 s regardless.
  */
 export default function PageTransition({ children }: Props) {
   const pathname = usePathname() ?? "/";
@@ -79,8 +76,8 @@ export default function PageTransition({ children }: Props) {
       setLeaving(true);
       veilRef.current = true;
 
-      // Push the moment the sheet has covered the view (wipe is 550ms).
-      window.setTimeout(() => router.push(href), 560);
+      // Push once the lapis has settled over the view (its fade is 220ms).
+      window.setTimeout(() => router.push(href), 230);
 
       // Safety net for a slow chunk — cleared the instant we arrive, and
       // it tells the page its choreography was interrupted so pieces
@@ -91,7 +88,7 @@ export default function PageTransition({ children }: Props) {
         setLeaving(false);
         veilRef.current = false;
         window.dispatchEvent(new CustomEvent("page:transition-abort"));
-      }, 4000);
+      }, 2500);
     };
 
     window.addEventListener("page:transition", handleTransition);

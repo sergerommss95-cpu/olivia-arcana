@@ -139,6 +139,7 @@ export const UK_TEXT = {
   'You chose these cards around an example question. Bring your own question to this spread and keep your reading.': 'Ви обрали ці карти для прикладу запитання. Принесіть до цього розкладу власне запитання й збережіть своє читання.',
   'Ask your own question ↗': 'Поставити своє запитання ↗',
   'The cards': 'Карти',
+  'Astrology': 'Астрологія',
   'Free readings': 'Безкоштовні читання',
   'The 78 cards': 'Усі 78 карт',
   'Every reading is free: one, three, five or eight cards.': 'Усі читання безкоштовні: з однією, трьома, п’ятьма чи вісьмома картами.',

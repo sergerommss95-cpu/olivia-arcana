@@ -1,8 +1,8 @@
 .page { --ink: #eee5d4; --soft: #b1bac2; --gold: #c3ad7d; min-height: 100vh; background: #091a29; color: var(--ink); padding: clamp(24px, 5vw, 72px); font-family: var(--font-body), sans-serif; }
 .page a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .3em; }
-.header, .footer { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
-.wordmark { font-family: var(--font-heading), serif; font-size: 30px; text-decoration: none; }
-.nav { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; font-size: 14px; }
+/* The shared masthead spans the page edge to edge, like on every other page */
+.page > :global(.alm-masthead) { margin: calc(-1 * clamp(24px, 5vw, 72px)) calc(-1 * clamp(24px, 5vw, 72px)) 0; }
+.footer { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
 .main { max-width: 1200px; margin: clamp(56px, 8vw, 110px) auto; }
 .crumb { color: var(--soft); font-size: 13px; display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 44px; }
 .kicker { color: var(--gold); text-transform: uppercase; font-size: 11px; letter-spacing: .16em; line-height: 1.8; }
@@ -36,5 +36,5 @@
 .actions { margin-top: 40px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
 .button { background: var(--ink); color: #091a29 !important; display: inline-flex; align-items: center; justify-content: center; padding: 16px 24px; text-decoration: none; min-height: 48px; border-radius: 3px; font-size: 14px; }
 .footer { padding-top: 32px; border-top: 1px solid #eee5d41c; color: var(--soft); font-size: 13px; line-height: 1.8; }
-@media(max-width: 700px) { .row { grid-template-columns: 32px 1fr 16px; gap: 12px; } .row .keywords { display: none; } .hero { grid-template-columns: 1fr; gap: 38px; } .figure { max-width: 240px; margin: auto; } .title { font-size: 48px; } .groupHead { display: block; } .nav { gap: 16px; font-size: 13px; } }
+@media(max-width: 700px) { .row { grid-template-columns: 32px 1fr 16px; gap: 12px; } .row .keywords { display: none; } .hero { grid-template-columns: 1fr; gap: 38px; } .figure { max-width: 240px; margin: auto; } .title { font-size: 48px; } .groupHead { display: block; } }
 @media(max-width: 700px) { .rowArt { grid-template-columns: 36px 30px 1fr 16px; padding: 10px 0; } .thumb { width: 36px; } }
