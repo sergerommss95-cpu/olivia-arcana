@@ -52,7 +52,7 @@ const text=(selector,value)=>$(selector).textContent=selector==='#reading-questi
 const readableDate=value=>new Intl.DateTimeFormat(getLocale()==='uk'?'uk-UA':undefined,{day:'numeric',month:'long',year:'numeric'}).format(new Date(value));
 const errorText=error=>error.code==='STORAGE_CORRUPT'?'The saved almanac could not be read. Your existing data has been left untouched. You can still download this reading.':error.code==='STORAGE_LIMIT'?'This browser’s almanac is full. Download this reading to keep it.':'This browser could not save the reading. Download a copy to keep it.';
 showArt($('#sample-art'),deckController.original.cards[9]);
-if(window.OLIVIA_NATIVE||new URLSearchParams(location.search).get('site')==='1')document.querySelectorAll('[data-site]').forEach(a=>{a.href=getLocale()==='uk'&&a.dataset.site==='/cards/'?'/uk/cards/':a.dataset.site;a.target='_top';});
+if(window.OLIVIA_NATIVE||new URLSearchParams(location.search).get('site')==='1')document.querySelectorAll('[data-site]').forEach(a=>{a.href=getLocale()==='uk'&&['/cards/','/astrology/'].includes(a.dataset.site)?'/uk'+a.dataset.site:a.dataset.site;a.target='_top';});
 function refreshReturn(){try{const last=getLastRecord(loadRecords(storage()));$('#resume-link').hidden=!last;if(last){$('#resume-link').textContent=getLocale()==='uk'?`Повернутися до карти «${t(last.cardName)}» ↗`:`Return to ${last.cardName.replace(/^The /,'the ')} ↗`;$('#resume-link').dataset.record=last.id;}}catch{}}
 function preserveNote(){if(!sample&&currentRecord&&view==='reading'){currentRecord={...currentRecord,note:$('#reflection').value};drafts.set(currentRecord.id,currentRecord);try{saveDraft(storage(),currentRecord);}catch{}}}
 function receiveSingleGuidance(id,guidance){

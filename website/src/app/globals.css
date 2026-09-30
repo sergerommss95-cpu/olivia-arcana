@@ -237,26 +237,6 @@ body:has(.olivia-experience) {
   );
 }
 
-/* ── The press slips out of register while the leaf turns ─────────
-   TransitionOverlay toggles .is-turning on <html>; display type
-   briefly shows its second (oxblood) pull, then registers back. */
-h1, h2, .wordmark {
-  transition: text-shadow 240ms ease;
-}
-
-.is-turning h1,
-.is-turning h2,
-.is-turning .wordmark {
-  text-shadow: 0.16em 0.02em 0 rgba(224, 183, 104, 0.5);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .is-turning h1,
-  .is-turning h2,
-  .is-turning .wordmark {
-    text-shadow: none;
-  }
-}
 
 /* ═══════════════════════════════════════════════════════════════════
    LIQUID GLASS — the night seen through lapis
