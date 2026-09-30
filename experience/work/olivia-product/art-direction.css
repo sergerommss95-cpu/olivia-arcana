@@ -103,3 +103,9 @@ body[data-view=home]:not(.cinema) #intro .hero-secondary-actions :is(a,#resume-l
 body[data-view=home]:not(.cinema) #intro .hero-secondary-actions [hidden]{display:none}
 body[data-view=home]:not(.cinema) #intro .hero-secondary-actions a:focus-visible{outline:2px solid #eadfc9;outline-offset:3px}
 @media(min-width:701px) and (max-height:700px){body[data-view=home]:not(.cinema) #hero-region:has(#resume-link:not([hidden])),body[data-view=home]:not(.cinema) #hero-region:has(#resume-link:not([hidden])) #stage{min-height:680px}}
+#reading-view #save-section :is(.text-action,.quiet-link,.keepsake-text-action){background:none;box-shadow:none;border-color:#857361;color:#403541}
+#reading-view #save-section :is(.text-action,.quiet-link,.keepsake-text-action):hover{background:#e0d2c0;color:#272432}
+#reading-view #save-section .reread-panel{background:#e5d8c8;color:#272432;box-shadow:none;border:1px solid #a99a88}
+#reading-view #save-section .reread-panel :is(h2,p,span,time,.reread-status){color:#403541}
+#reading-view #save-section .reading-keepsake{--keepsake-ink:#272432;--keepsake-muted:#594a55;--keepsake-surface:#fbf5ea;--keepsake-metal:#725238}
+#reading-view #save-section button:disabled{color:#5b4e59;background:#ded5c8;border-color:#a99a88;cursor:not-allowed;box-shadow:none}

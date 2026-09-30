@@ -3,7 +3,7 @@
   "html": {
     "path": "index.html",
     "bytes": 43364,
-    "sha256": "e6eb26122998ff549b825631e7a4fedca2bbe4b099699ebce108940b2cd79fff"
+    "sha256": "daf2a30742fbd3430a48635356187e49cf29de12ded6478715b27ee72a09d26c"
   },
   "locales": {
     "en": "index.html",
@@ -17,7 +17,7 @@
       "app": "assets/app.f8926b12cb21de9f.js",
       "app-en": "assets/app-en.1df886f589488849.js"
     },
-    "stylesheet": "assets/experience.a00dee29ce92fd53.css"
+    "stylesheet": "assets/experience.51c5ac818b630cb2.css"
   },
   "deck": {
     "major": 22,
@@ -1499,9 +1499,9 @@
       "bytes": 411080,
       "sha256": "2af34aff92a71c31a7ff7812ff44d95e3b5d9a192eb176d8e8ef970a18e1ec03"
     },
-    "assets/experience.a00dee29ce92fd53.css": {
-      "bytes": 417966,
-      "sha256": "a00dee29ce92fd535ff622885cfe14748270ef92126b23adebae438a1a7ede54"
+    "assets/experience.51c5ac818b630cb2.css": {
+      "bytes": 418724,
+      "sha256": "51c5ac818b630cb21b5a0596b5cadf79c6c8f43ae83b69a0995d33698a509239"
     },
     "assets/card-assets.4582bfbabe3482a0.js": {
       "bytes": 20144,
