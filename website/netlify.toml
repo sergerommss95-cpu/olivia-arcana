@@ -43,6 +43,14 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 
+# The Telegram Mini App. Telegram Web shows Mini Apps inside a frame, so these
+# pages (and only these) may be framed by web.telegram.org.
+[[headers]]
+  for = "/tg/*"
+  [headers.values]
+    Content-Security-Policy = "frame-ancestors 'self' https://web.telegram.org"
+    X-Robots-Tag = "noindex"
+
 [[headers]]
   for = "/experience/*"
   [headers.values]

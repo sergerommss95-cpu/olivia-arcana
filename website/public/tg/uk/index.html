@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b192a">
+  <meta name="robots" content="noindex">
+  <script src="https://telegram.org/js/telegram-web-app.js?63"></script>
+  <script>/* Olivia inside Telegram: runs in <head> after telegram-web-app.js and before
+   the reading app. It turns Telegram's launch hash into the app's own route,
+   paints Telegram's chrome in the site's lapis, drives the Back button, and
+   sends links that leave the Mini App to the browser (other pages refuse to be
+   framed by Telegram Web). */
+function oliviaTelegramLink(href, origin, language) {
+  var url;
+  try { url = new URL(href, origin + '/tg/' + language + '/'); } catch (error) { return { type: 'ignore' }; }
+  if (url.protocol === 'tel:' || url.protocol === 'mailto:') return { type: 'ignore' };
+  if (url.protocol !== 'https:' && url.protocol !== 'http:') return { type: 'ignore' };
+  if (url.hostname === 't.me' || url.hostname === 'telegram.me') return { type: 'telegram', url: url.href };
+  var site = url.origin === origin || url.hostname === 'oliviaarcana.com' || url.hostname === 'www.oliviaarcana.com';
+  if (site && url.pathname.indexOf('/tg/') === 0) return { type: 'ignore' };
+  if (site && (url.pathname === '/' || url.pathname === '/uk' || url.pathname === '/uk/')) {
+    var target = url.pathname.indexOf('/uk') === 0 ? 'uk' : 'en';
+    var experience = url.searchParams.get('experience');
+    var route = (url.hash || '').replace(/^#/, '') || experience || 'today';
+    if (route === 'home') route = 'today';
+    return target === language ? { type: 'route', route: route } : { type: 'language', language: target, route: route };
+  }
+  return { type: 'external', url: url.href };
+}
+if (typeof module !== 'undefined') module.exports = { oliviaTelegramLink: oliviaTelegramLink };
+
+(function () {
+  if (typeof window === 'undefined') return;
+  var tg = window.Telegram && window.Telegram.WebApp;
+  var language = document.documentElement.lang === 'uk' ? 'uk' : 'en';
+  var query = new URLSearchParams(location.search);
+  var first = (query.get('r') || 'today').replace(/[^a-z0-9/_-]/gi, '') || 'today';
+  if (!location.hash || location.hash.indexOf('#tgWebApp') === 0) history.replaceState(null, '', location.pathname + location.search + '#' + first);
+  window.OLIVIA_TELEGRAM = true;
+  document.documentElement.setAttribute('data-telegram', 'true');
+  // Home on the site is the cinematic arrival, left out here; Today is home.
+  var style = document.createElement('style');
+  style.textContent = '[data-telegram] .mobile-dock{grid-template-columns:repeat(3,1fr)}[data-telegram] .mobile-dock a[href="#home"]{display:none}';
+  document.head.appendChild(style);
+
+  var at = function (version) { return !!(tg && tg.isVersionAtLeast && tg.isVersionAtLeast(version)); };
+  var ground = '#0b192a';
+  if (tg) {
+    try {
+      if (at('6.1')) { tg.setHeaderColor(ground); tg.setBackgroundColor(ground); }
+      if (at('7.10')) tg.setBottomBarColor(ground);
+      tg.expand();
+      if (at('7.7')) tg.disableVerticalSwipes();
+    } catch (error) { /* older clients: keep Telegram's defaults */ }
+  }
+
+  var depth = 0, goingBack = false, synthetic = false;
+  var refresh = function () { synthetic = true; window.dispatchEvent(new HashChangeEvent('hashchange')); synthetic = false; };
+  var go = function (route) {
+    if (location.hash === '#' + route) refresh();
+    else location.hash = route;
+  };
+  var root = function () { var view = location.hash.replace(/^#/, '').split(/[/?]/)[0]; return view === '' || view === 'today'; };
+  var syncBack = function () { if (!at('6.1')) return; if (root()) tg.BackButton.hide(); else tg.BackButton.show(); };
+  if (at('6.1')) tg.BackButton.onClick(function () {
+    if (depth > 0) { goingBack = true; history.back(); } else go('today');
+  });
+  window.addEventListener('hashchange', function () {
+    if (!synthetic) { if (goingBack) { depth = Math.max(0, depth - 1); goingBack = false; } else depth += 1; }
+    if (location.hash === '#home' || location.hash === '#') { history.replaceState(null, '', location.pathname + location.search + '#today'); refresh(); return; }
+    syncBack();
+  });
+
+  document.addEventListener('click', function (event) {
+    var link = event.target && event.target.closest && event.target.closest('a[href]');
+    if (!link || event.defaultPrevented) return;
+    var action = oliviaTelegramLink(link.getAttribute('href'), location.origin, language);
+    if (action.type === 'ignore') return;
+    event.preventDefault();
+    if (action.type === 'route') go(action.route);
+    else if (action.type === 'language') { try { localStorage.setItem('olivia-tg-language', action.language); } catch (error) { /* ignore */ } location.replace('/tg/' + action.language + '/?r=' + encodeURIComponent(action.route)); }
+    else if (action.type === 'telegram' && tg) tg.openTelegramLink(action.url);
+    else if (tg) tg.openLink(action.url);
+    else window.open(action.url, '_blank', 'noopener');
+  }, true);
+
+  // The site's own home is the cinematic arrival, which this build leaves out: Today is home here.
+  document.addEventListener('DOMContentLoaded', function () {
+    new MutationObserver(function () { if (document.body.dataset.view === 'home') go('today'); }).observe(document.body, { attributes: true, attributeFilter: ['data-view'] });
+    syncBack();
+    requestAnimationFrame(function () { if (tg) tg.ready(); });
+  });
+})();
+</script>
+  <title>Olivia Arcana — простір для ваших запитань</title>
+  <meta name="description" content="For the questions that stay with you. Explore Olivia Arcana, an invitation to pause, draw a card, and find a new perspective.">
+  <link rel="stylesheet" href="/experience/assets/experience.ac323dc3446247a9.css">
+  <noscript><style>body{height:100svh}.poster{display:block!important}.journey-control,.motion-control,.scroll-cue{display:none!important}</style></noscript>
+<!-- Embedded font licenses
+Copyright 2015 the Cormorant Project Authors (github.com/CatharsisFonts/Cormorant)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://scripts.sil.org/OFL
+
+
+—————————————————————————————-
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+—————————————————————————————-
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting — in part or in whole — any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+Copyright 2014 The DM Sans Project Authors (https://github.com/googlefonts/dm-fonts)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://scripts.sil.org/OFL
+
+
+—————————————————————————————-
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+—————————————————————————————-
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting — in part or in whole — any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+Copyright 2021 The Onest Project Authors (https://github.com/simpals/onest)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+—————————————————————————————-
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+—————————————————————————————-
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded,
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting — in part or in whole — any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+Astronomy Engine 2.1.19
+Astronomy library for JavaScript (browser and Node.js).
+    https://github.com/cosinekitty/astronomy
+
+    MIT License
+
+    Copyright (c) 2019-2023 Don Cross <cosinekitty@gmail.com>
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+-->
+</head>
+<body id="top" data-view="home">
+<script data-first-frame>(()=>{var m={en:"Explore",uk:"Досліджуйте"};function p(r="en"){let a=m[r==="uk"?"uk":"en"];return`<a class="mobile-signature" href="#home" aria-label="Olivia Arcana">Olivia <span>ARCANA</span></a><button type="button" class="mobile-menu-toggle" aria-label="${a}" aria-haspopup="dialog" aria-controls="mobile-explore"><span>${a}</span><i aria-hidden="true"><b></b><b></b></i></button>`}function A(r,a="en"){let e=r.createElement("header");return e.className="mobile-masthead",e.dataset.noTranslate="true",e.innerHTML=p(a),e}var l="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";function f(r=document,a=window){if(!a.matchMedia?.("(max-width:700px)").matches)return!1;let e=r.body;if(e.classList.add("mobile-experience"),e.dataset.view||(e.dataset.view="home"),e.dataset.mobileImmersive="true",!r.querySelector("header.mobile-masthead")){let s=A(r,r.documentElement.lang.startsWith("uk")?"uk":"en");s.dataset.arrival="true",s.addEventListener("animationend",()=>delete s.dataset.arrival,{once:!0}),e.append(s)}return!0}function h(r=document,a=window){let e=new Set,s=n=>{!n.matches("img[data-home-art]")||n.dataset.heldSrc!==void 0||(n.dataset.heldSrc=n.getAttribute("src")||"",n.src=l,e.add(n))},u=new a.MutationObserver(n=>{for(let d of n)for(let t of d.addedNodes)t.nodeType===1&&(t.tagName==="IMG"?s(t):t.querySelectorAll("img[data-home-art]").forEach(s))});u.observe(r.documentElement,{childList:!0,subtree:!0}),r.addEventListener("DOMContentLoaded",()=>{if(u.disconnect(),!e.size)return;let n=t=>{let c=t.dataset.heldSrc;delete t.dataset.heldSrc,c&&t.getAttribute("src")===l&&(t.src=c)},d=()=>{if(!("IntersectionObserver"in a)){e.forEach(n);return}let t=new Map;for(let i of e){let o=i.closest("section")||i;t.set(o,[...t.get(o)||[],i])}let c=new a.IntersectionObserver(i=>{for(let o of i)o.isIntersecting&&(c.unobserve(o.target),t.get(o.target).forEach(n))},{rootMargin:"0px 0px 100% 0px"});t.forEach((i,o)=>c.observe(o))};a.addEventListener("scroll",d,{once:!0,passive:!0})},{once:!0})}f()&&h();})();</script>
+<div id="hero-region">
+  <a class="skip-link" href="#question">Перейти до читання</a>
+  <main id="stage" aria-label="Світ Olivia Arcana">
+    <canvas id="atmosphere" aria-hidden="true" data-state="loading"></canvas>
+    <div id="motion-stage">
+    <picture><source media="(max-width:699.98px)" srcset="/experience/assets/card-back-phone.1742ebc0ff8a7430.webp"><img class="poster" src="/experience/assets/card-back.ce80d77b8f0d78be.webp" alt="Зворот карти Olivia Arcana: світлі оливкові гілки на лазуритовому тлі"></picture>
+    <canvas id="cards" aria-hidden="true"></canvas>
+    <div id="card-choices" aria-label="Оберіть карту з колоди"></div></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Olivia Arcana — повернутися на початок">Olivia<span>ARCANA</span></a>
+      <p class="header-note">Таро для особистих роздумів</p>
+      <nav aria-label="Головна навігація">
+        <a class="language-link" href="/" lang="en" hreflang="en" data-language="en">English</a><a class="today-nav" href="#today">Сьогодні</a><a class="almanac-link" href="#journal">Мій альманах</a><a class="spreads-nav" href="#spreads">Розклади</a><a class="cards-nav" data-site="/cards/" href="https://oliviaarcana.com/cards/">Карти</a><a class="astrology-nav" data-site="/astrology/" href="https://oliviaarcana.com/astrology/">Астрологія</a>
+        <a class="nav-reading" id="reading" href="#question">Почати читання <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <div class="identity" id="opening-type">
+      <p class="eyebrow identity-kicker">Особиста практика Таро</p>
+      <h1 class="wordmark" aria-label="Olivia Arcana">
+        <span class="wordmark-name" aria-hidden="true"><span class="letter l-o"><span>O</span></span><span class="letter l-l"><span>l</span></span><span class="letter l-i"><span>i</span></span><span class="letter l-v"><span>v</span></span><span class="letter l-i2"><span>i</span></span><span class="letter l-a"><span>a</span></span></span>
+        <span class="wordmark-secondary" aria-hidden="true"><i></i><span>ARCANA</span></span>
+      </h1>
+    </div>
+
+    <section class="intro" id="intro" aria-label="Запрошення">
+      <h2>Для запитань,<br>які <em>залишаються з вами.</em></h2>
+      <p class="intro-body">Одна карта. Простір для роздумів.<br>Можливість краще почути себе.</p>
+      <a class="reading-link" href="#question"><span>Оберіть свою карту</span><i aria-hidden="true">↗</i></a>
+    <p class="reading-facts">78 карт · Старші та Молодші Аркани</p><a id="resume-link" class="quiet-link" href="#journal" hidden>Повернутися до останнього запису ↗</a></section>
+
+    <div class="deck-caption" id="deck-caption" aria-hidden="true"><span class="caption-rule"></span><span>Колода Olivia<br><em>Олива, слонова кістка й лазурит.</em></span></div>
+    <aside class="moon-caption" id="intertitle" aria-hidden="true"><span class="eyebrow">Місяць</span><p>В іншому світлі.</p></aside>
+
+    <section class="closing" id="closing" inert aria-hidden="true">
+      <p class="eyebrow">Мить для себе</p>
+      <h2>Усе починається<br>з <em>вас.</em></h2>
+      <p>Принесіть запитання.<br>Залиште місце для іншого погляду.</p>
+      <a class="reading-link" href="#question"><span>Почати читання</span><i aria-hidden="true">↗</i></a>
+      <button class="replay" id="replay" type="button">Повернутися на початок <span aria-hidden="true">↑</span></button>
+    </section>
+
+    <footer class="experience-controls" aria-label="Керування переглядом">
+      <a class="scroll-cue" href="#discover"><i aria-hidden="true">↓</i><span id="scroll-label">Гортайте, щоб розгорнути</span></a>
+      <button class="journey-control" id="journey" aria-pressed="false">Переглянути подорож</button>
+      <button class="motion-control" id="motion" aria-pressed="false" title="Призупинити фоновий рух; гортання залишається доступним"><i class="motion-bars" aria-hidden="true"><b></b><b></b><b></b></i><span>Рух увімкнено</span></button>
+    </footer>
+    <div id="line" class="progress" aria-hidden="true"></div>
+    <p id="render-note" role="status"></p>
+    <button id="leave-cinema" class="quiet-link" hidden>← Назад до Olivia</button>
+    <section id="question-view" class="ritual-copy" hidden aria-labelledby="question-title">
+      <p class="eyebrow">Мить для вас</p><h2 id="question-title" tabindex="-1">Що у вас<br><em>на думці?</em></h2>
+      <p>Можна прийти із запитанням або просто зупинитися на мить.</p>
+      <form id="question-form"><label for="question">Ваше запитання <span>(необов’язково)</span></label><textarea id="question" rows="2" maxlength="1600" placeholder="Що я хочу побачити ясніше?"></textarea>
+      <fieldset><legend>З чого почати</legend><div class="intention-options"><label><input type="radio" name="intention" value="open" checked><span>Без визначеної теми</span></label><label><input type="radio" name="intention" value="relationships"><span>Стосунки</span></label><label><input type="radio" name="intention" value="work"><span>Робота</span></label><label><input type="radio" name="intention" value="change"><span>Зміни</span></label></div></fieldset>
+      <label class="orientation-option"><input type="checkbox" id="allow-reversals"><span>Включити перевернуті карти<small>Дослідіть внутрішній, стриманий або мінливий прояв карти.</small></span></label><div id="question-coach"></div><button class="solid-action" type="submit">Обрати одну карту <span>↗</span></button></form>
+      <a class="quiet-link" href="#spreads">Усі формати читання ↗</a><br><button class="quiet-link" data-home>← Повернутися до Olivia</button>
+    </section>
+    <section id="choose-view" hidden aria-labelledby="choose-title"><div class="choose-heading"><p class="eyebrow">Дозвольте увазі зосередитися</p><h2 id="choose-title" tabindex="-1">Одна карта.<br><em>Вам її відкрити.</em></h2><p>Оберіть карту, яка привертає вашу увагу.</p></div><div class="choose-footer"><nav class="single-deck-navigation" id="choice-navigation" aria-label="Переглянути всю колоду" hidden><button type="button" class="quiet-link" id="choice-previous" aria-label="Попередні карти">←</button><span id="choice-range" aria-live="polite"></span><button type="button" class="quiet-link" id="choice-next" aria-label="Наступні карти">→</button></nav><button id="random-card" class="text-action">Оберіть за мене <span>↗</span></button><button class="quiet-link" id="change-question">← Ваше запитання</button><p id="choose-status" role="status"></p></div></section>
+  </main></div>
+  <div id="home-content" class="home-showcase" data-no-translate="true">
+    <section id="discover" class="home-practice" aria-labelledby="home-practice-title">
+      <div class="home-section-heading"><div><p class="home-kicker" data-home-copy="practiceKicker">Особиста практика у трьох моментах</p><h2 id="home-practice-title" data-home-copy="practiceTitle">Залиште місце<br><em>для іншого погляду.</em></h2></div><a class="home-link" href="#question"><span data-home-copy="begin">Почніть зі свого запитання</span><i aria-hidden="true">↗</i></a></div>
+      <ol class="home-ritual-scenes">
+        <li><a class="home-scene home-question-scene" href="#question" aria-label="Принесіть запитання." data-home-aria="bringQuestion"><div class="home-question-paper"><span class="home-mini-label" data-home-copy="yourQuestion">ВАШЕ ЗАПИТАННЯ</span><p data-home-copy="exampleQuestion">Що потребує моєї уваги,<br>поки я обмірковую зміни?</p><span class="home-paper-line"></span><span class="home-handmark" aria-hidden="true">?</span></div></a><div class="home-step-copy"><span>01</span><div><h3 data-home-copy="bringQuestion">Принесіть запитання.</h3><p data-home-copy="questionCaption">Щось незавершене. Або просто те, як ви почуваєтеся сьогодні.</p></div></div></li>
+        <li><a class="home-scene home-card-scene" href="#question" aria-label="Оберіть свою карту." data-home-aria="chooseCard"><img class="home-fan-back home-fan-left" src="/experience/assets/card-back.ce80d77b8f0d78be.webp" data-home-art="back" alt="" loading="lazy"><img class="home-fan-back home-fan-right" src="/experience/assets/card-back.ce80d77b8f0d78be.webp" data-home-art="back" alt="" loading="lazy"><img class="home-fan-face" src="/experience/assets/17-the-star.98eb02a074a74196.webp" data-home-art="17" alt="Зірка з колоди Olivia Arcana" data-home-alt="starAlt" loading="lazy"><span class="home-art-annotation" data-home-copy="fullDeck">78 карт. Ваш власний вибір.</span></a><div class="home-step-copy"><span>02</span><div><h3 data-home-copy="chooseCard">Оберіть свою карту.</h3><p data-home-copy="cardCaption">Відкрийте її. Прочитайте значення поруч зі своїм запитанням.</p></div></div></li>
+        <li><a class="home-scene home-note-scene" href="#journal" aria-label="Збережіть помічене." data-home-aria="keepDiscovery"><div class="home-note-paper"><span class="home-mini-label" data-home-copy="smallStep">МАЛЕНЬКИЙ НАСТУПНИЙ КРОК</span><p data-home-copy="exampleStep">Трохи простору,<br>перш ніж ухвалити рішення.</p><div class="home-note-rule"></div><span class="home-mini-label" data-home-copy="returnLater">ЗБЕРЕГТИ · ПОВЕРНУТИСЯ · ПОМІТИТИ</span><span class="home-paper-corner" aria-hidden="true">↗</span></div></a><div class="home-step-copy"><span>03</span><div><h3 data-home-copy="keepDiscovery">Збережіть помічене.</h3><p data-home-copy="keepCaption">Думку, наступний крок і місце, куди можна повернутися.</p></div></div></li>
+      </ol><p class="home-sample-caption" data-home-copy="illustratedExample">Ілюстровані приклади · ваше читання починається з вашого запитання та власного вибору карти.</p>
+    </section>
+
+    <section class="home-spreads" aria-labelledby="home-spreads-title">
+      <div class="home-spread-intro"><p class="home-kicker" data-home-copy="spreadKicker">Форма запитання</p><h2 id="home-spreads-title" data-home-copy="spreadTitle">Трохи ясності.<br><em>Або ширший погляд.</em></h2><p class="home-body" data-home-copy="spreadIntro">Дайте кожній частині запитання своє місце на столі.</p></div>
+      <div class="home-spread-workspace">
+        <div class="home-table-wrap"><div class="home-spread-tabs" role="tablist" aria-label="Переглянути розклади різного розміру" data-home-aria="spreadTabs"><button id="home-spread-tab-3" type="button" role="tab" aria-selected="true" aria-controls="home-spread-panel" data-home-spread="3"><b>3</b><span data-home-copy="cardsWord">карти</span></button><button id="home-spread-tab-5" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="home-spread-panel" data-home-spread="5"><b>5</b><span data-home-copy="cardsWordFive">карт</span></button><button id="home-spread-tab-8" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="home-spread-panel" data-home-spread="8"><b>8</b><span data-home-copy="cardsWordFive">карт</span></button></div>
+          <div id="home-spread-panel" role="tabpanel" aria-labelledby="home-spread-tab-3"><div id="home-spread-table" class="home-spread-table" data-count="3"><figure class="home-table-card" style="--x:19%;--y:48%;--r:-7deg"><img src="/experience/assets/card-back.ce80d77b8f0d78be.webp" data-home-art="back" alt="" loading="lazy"><figcaption><span>01</span><span data-home-copy="positionSituation">Ситуація</span></figcaption></figure><figure class="home-table-card" style="--x:50%;--y:41%;--r:0deg"><img src="/experience/assets/card-back.ce80d77b8f0d78be.webp" data-home-art="back" alt="" loading="lazy"><figcaption><span>02</span><span data-home-copy="positionComplication">Що ускладнює</span></figcaption></figure><figure class="home-table-card" style="--x:81%;--y:48%;--r:7deg"><img src="/experience/assets/card-back.ce80d77b8f0d78be.webp" data-home-art="back" alt="" loading="lazy"><figcaption><span>03</span><span data-home-copy="positionStep">Корисний наступний крок</span></figcaption></figure></div><p class="home-table-instruction" data-home-copy="tableHint">Оберіть позицію карти, щоб побачити її запитання.</p></div>
+        </div>
+        <div class="home-spread-copy"><p class="home-mini-label" id="home-spread-eyebrow" data-home-copy="threePerspectives">ОДНЕ ЗАПИТАННЯ · ТРИ ПЕРСПЕКТИВИ</p><h3 id="home-spread-name" data-home-copy="clarity">Трохи ясності</h3><p id="home-spread-description" class="home-body" data-home-copy="clarityDescription">Ситуація, те, що її ускладнює, і один корисний крок уперед.</p><div class="home-position-preview" aria-live="polite" aria-atomic="true"><span class="home-mini-label" id="home-position-label" data-home-copy="firstPosition">01 / СИТУАЦІЯ</span><p id="home-position-question" data-home-copy="situationPrompt">Який аспект ситуації потребує уваги?</p></div><a class="home-link" href="#spreads"><span data-home-copy="exploreSpreads">Дослідити розклади</span><i aria-hidden="true">↗</i></a><p class="home-access-note" id="home-spread-access" data-home-copy="freeThree">Безкоштовно — із власним запитанням.</p></div>
+      </div>
+    </section>
+
+    <section class="home-sample" aria-labelledby="home-sample-title">
+      <div class="home-sample-copy"><p class="home-kicker" data-home-copy="sampleKicker">Приклад, перш ніж почати</p><h2 id="home-sample-title" data-home-copy="sampleTitle">Одна карта.<br><em>Інший спосіб подивитися.</em></h2><div class="home-sample-question"><span class="home-mini-label" data-home-copy="exampleQuestionLabel">ПРИКЛАД ЗАПИТАННЯ</span><blockquote data-home-copy="sampleQuestion">«Що потребує моєї уваги, поки я обмірковую зміни?»</blockquote></div></div>
+      <div class="home-sample-stage"><span class="home-sample-number" aria-hidden="true">IX</span><button id="home-sample-reveal" type="button" class="home-sample-reveal" aria-expanded="true" aria-controls="home-sample-insight" aria-label="Відкрити карту-приклад" data-home-aria="turnSample"><span class="home-sample-card"><img class="home-sample-back" src="/experience/assets/card-back.ce80d77b8f0d78be.webp" data-home-art="back" alt="" loading="lazy"><img class="home-sample-face" id="sample-art" src="/experience/assets/09-the-hermit.8859d08e0e5fe45b.webp" data-home-art="9" alt="Відлюдник — фігура кольору слонової кістки з ліхтарем на лазуритовому тлі" data-home-alt="hermitAlt" loading="lazy"></span><span class="home-reveal-caption"><span id="home-reveal-label" data-home-copy="turnSample">Відкрити карту-приклад</span><i aria-hidden="true">↗</i></span></button><p class="home-sample-caption" data-home-copy="notYourDraw">Приклад читання · це не ваша особиста карта.</p></div>
+    
+      <div class="home-sample-response"><div id="home-sample-insight"><p class="home-mini-label" data-home-copy="hermitName">IX / ВІДЛЮДНИК</p><p class="home-sample-meaning" data-home-copy="hermitMeaning">Трохи відстані від шуму. Відлюдник запрошує почути власні думки, перш ніж шукати ще одну пораду.</p><div class="home-sample-prompt"><span data-home-copy="questionToKeep">ЗАПИТАННЯ, ЯКЕ ВАРТО ЗБЕРЕГТИ</span><p data-home-copy="hermitPrompt">Що ви вже знаєте, коли навколо тихо?</p></div></div><a class="home-link" href="#sample"><span data-home-copy="fullSample">Прочитати приклад повністю</span><i aria-hidden="true">↗</i></a></div>
+    </section>
+
+    <section class="home-memory" aria-labelledby="home-memory-title">
+      <div class="home-memory-heading"><p class="home-kicker" data-home-copy="memoryKicker">Ваш альманах і жива колода</p><h2 id="home-memory-title" data-home-copy="memoryTitle">Читання завершується.<br><em>Значення зростає далі.</em></h2><p class="home-body" data-home-copy="memoryIntro">Збережіть запитання. Запишіть, що сталося згодом. Нехай карта набуває значення, яке належить вам.</p><div class="home-memory-links"><a class="home-link" href="#journey"><span data-home-copy="yourStory">Ваша історія</span><i aria-hidden="true">↗</i></a><a class="home-link" href="#my-deck"><span data-home-copy="livingDeck">Ваша жива колода</span><i aria-hidden="true">↗</i></a></div></div>
+      <div class="home-memory-art"><p class="home-memory-example" data-home-copy="sampleAlmanac">ІЛЮСТРОВАНИЙ АЛЬМАНАХ · ПРИКЛАД ЗАПИСІВ</p><div class="home-memory-tabs" role="tablist" aria-label="Переглянути, як змінюється приклад роздумів" data-home-aria="memoryTabs"><button id="home-memory-tab-0" type="button" role="tab" aria-selected="true" aria-controls="home-memory-page" data-home-memory="0"><span data-home-copy="dayOne">День 01</span><b data-home-copy="theQuestion">Запитання</b></button><button id="home-memory-tab-1" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="home-memory-page" data-home-memory="1"><span data-home-copy="daySeven">День 07</span><b data-home-copy="aReturn">Повернення</b></button><button id="home-memory-tab-2" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="home-memory-page" data-home-memory="2"><span data-home-copy="dayTwentyOne">День 21</span><b data-home-copy="yourMeaning">Ваше значення</b></button></div><div id="home-memory-page" class="home-memory-page" role="tabpanel" tabindex="0" aria-labelledby="home-memory-tab-0"><div class="home-memory-card"><img id="home-memory-image" src="/experience/assets/09-the-hermit.8859d08e0e5fe45b.webp" data-home-art="9" alt="Відлюдник" loading="lazy"><span id="home-memory-cardname" data-home-copy="hermitName">IX / ВІДЛЮДНИК</span></div><div class="home-memory-writing"><span class="home-mini-label" id="home-memory-label" data-home-copy="keptReflection">ЗБЕРЕЖЕНА ДУМКА</span><h3 id="home-memory-topic" data-home-copy="makingChange">На порозі змін</h3><blockquote id="home-memory-quote" data-home-copy="memoryQuoteOne">«Я весь час прошу поради. Можливо, спочатку варто почути себе».</blockquote><div class="home-memory-next"><span class="home-mini-label" id="home-memory-next-label" data-home-copy="smallStep">МАЛЕНЬКИЙ НАСТУПНИЙ КРОК</span><p id="home-memory-next-copy" data-home-copy="memoryNextOne">Тиха прогулянка. Без подкастів. Поки що без рішення.</p></div></div></div><p class="home-local-note" data-home-copy="localMemory">Ваші власні записи зберігаються в цьому браузері на цьому пристрої.</p></div>
+    </section>
+
+    <section class="home-symbols" aria-labelledby="home-symbols-title"><div class="home-symbol-pair" aria-hidden="true"><figure class="home-symbol home-symbol-lantern"><div class="home-symbol-crop"><img src="/experience/assets/09-the-hermit.8859d08e0e5fe45b.webp" data-home-art="9" alt="" loading="lazy"></div><figcaption data-home-copy="lantern">Ліхтар</figcaption></figure><figure class="home-symbol home-symbol-veil"><div class="home-symbol-crop"><img src="/experience/assets/02-the-high-priestess.6979a3327715d1dd.webp" data-home-art="2" alt="" loading="lazy"></div><figcaption data-home-copy="veil">Завіса</figcaption></figure></div><div class="home-symbol-copy"><p class="home-kicker" data-home-copy="symbolsKicker">Вчіться помічати</p><h2 id="home-symbols-title" data-home-copy="symbolsTitle">Всередині зображення<br><em>є своя мова.</em></h2><p class="home-body" data-home-copy="symbolsIntro">Ліхтар. Поріг. Відкрита долоня. Простежте символи в колоді й подивіться, що привертає вашу увагу.</p><a class="home-link" href="#symbols"><span data-home-copy="exploreSymbols">Дослідити мову символів</span><i aria-hidden="true">↗</i></a></div></section>
+
+    <footer class="home-footer"><div class="home-footer-signature"><a class="brand" href="#home">Olivia <span>ARCANA</span></a><p data-home-copy="footerThought">Давні символи.<br>Ваше власне значення.</p></div><nav aria-label="Дослідити Olivia" data-home-aria="footerNav"><a href="#question" data-home-copy="drawCard">Витягнути карту</a><a href="#spreads" data-home-copy="guidedSpreads">Розклади</a><a data-site="/cards/" href="https://oliviaarcana.com/cards/" data-home-copy="allCards">Усі 78 карт</a><a data-site="/astrology/" href="https://oliviaarcana.com/astrology/" data-home-copy="astrology">Астрологія</a><a href="#today" data-home-copy="dailyAlmanac">Щоденний альманах</a><a href="#physical" data-home-copy="physicalCards">Карти з вашої колоди</a><a href="#method" data-home-copy="howWorks">Як працює Olivia</a><a href="#membership" data-home-copy="membership">Безкоштовні читання</a></nav><a class="home-footer-top" href="#home"><span data-home-copy="backTop">Повернутися до початку</span><i aria-hidden="true">↑</i></a><nav class="home-footer-legal" aria-label="Про Olivia і правові сторінки" data-home-aria="footerLegal"><a data-site="/about/" href="https://oliviaarcana.com/about/" data-home-copy="footerAbout">Про Olivia</a><a data-site="/privacy/" href="https://oliviaarcana.com/privacy/" data-home-copy="footerPrivacy">Приватність</a><a data-site="/terms/" href="https://oliviaarcana.com/terms/" data-home-copy="footerTerms">Умови</a><a data-site="/contact/" href="https://oliviaarcana.com/contact/" data-home-copy="footerContact">Контакти</a></nav></footer>
+  </div>
+  <main id="reading-view" class="product-page" hidden aria-labelledby="result-title"><div class="page-top"><a href="#home" class="brand">Olivia <span>ARCANA</span></a><nav aria-label="Ваша практика"><a href="#today">Сьогодні</a><a href="#journal" class="quiet-link">Мій альманах ↗</a></nav></div><div class="reading-layout"><div class="reading-art"><div id="reveal-card"><img id="reading-image" alt=""></div><p id="card-index" class="eyebrow"></p></div><article class="reading-copy"><p class="eyebrow" id="reading-kind">Ваше читання однієї карти</p><p id="reading-question" class="question-quote"></p><h1 id="result-title" tabindex="-1"></h1><p id="meaning" class="meaning"></p><details id="full-reflection-details" class="card-lesson"><summary>Прочитати повне тлумачення <span>+</span></summary><p id="full-reflection"></p></details><p id="intention-frame" class="intention-frame"></p><div class="reflection-prompt"><span class="eyebrow">Запитання для себе</span><p id="reflection-prompt"></p></div><p id="practice"></p><div id="reading-copy-guidance"></div><details class="card-lesson"><summary>У символах цієї карти <span>+</span></summary><p id="card-lesson"></p><a data-site="/cards/" href="https://oliviaarcana.com/cards/">Дослідити бібліотеку Таро ↗</a></details><section id="save-section"><label for="reflection">Які думки й почуття це викликає? <span>(необов’язково)</span></label><textarea id="reflection" rows="3" maxlength="4000" placeholder="Думка, почуття, невеликий наступний крок…"></textarea><div class="save-actions"><button id="save-reading" class="solid-action">Зберегти читання <span>↗</span></button><a href="#journal" class="quiet-link" id="view-saved" hidden>Відкрити мій альманах</a></div><p id="save-status" role="status"></p><button id="download-reading" class="quiet-link">Завантажити копію ↓</button><p class="privacy-note">Зберігається лише у цьому браузері на цьому пристрої. Завантажте копію для резервного збереження.</p></section><div id="sample-cta" hidden><a href="#question" class="solid-action">Обрати свою карту ↗</a></div><a href="#method" class="quiet-link">Як працює Olivia ↗</a><a href="#question" class="quiet-link">Почати нове читання ↗</a><a href="#spreads" class="quiet-link advanced-link">Потрібен ширший погляд? Дослідіть розклади ↗</a></article></div></main>
+  <main id="journal-view" class="product-page journal-page" hidden aria-labelledby="journal-title"><div class="page-top"><a href="#home" class="brand">Olivia <span>ARCANA</span></a><a href="#question" class="quiet-link">Обрати карту ↗</a></div><div class="journal-intro"><p class="eyebrow">Ваш особистий альманах</p><h1 id="journal-title" tabindex="-1">Те, що<br><em>ви помічаєте.</em></h1><p>Читання та роздуми — разом.<br>Записи про те, як змінюється ваш погляд.</p></div><nav id="almanac-links" class="almanac-links" aria-label="Дослідити альманах"></nav><p id="journal-status" role="status"></p><div id="journal-list"></div><div class="journal-bottom"><div class="backup-actions"><button id="export-journal" class="text-action">Завантажити мій альманах ↓</button><div id="almanac-import"></div></div><p class="privacy-note">Записи зберігаються у цьому браузері на цьому пристрої. Остання чернетка читання відновиться, коли ви повернетеся. Очищення даних браузера видалить записи.</p></div></main>
+  <div class="sr-only" id="product-status" role="status" aria-live="polite"></div>
+  <script defer src="/experience/assets/native-card-assets.a799a6d6de4c8f63.js"></script>
+  <script defer src="/experience/assets/app.0d0b062c6ebd26c1.js"></script>
+</body>
+</html>

@@ -30,6 +30,10 @@ jobs:
           npm ci
           node --test *.test.mjs
 
+      - name: Telegram Mini App tests
+        working-directory: experience/telegram
+        run: node --test *.test.mjs
+
       - name: Website and reading-service tests
         working-directory: website
         run: |

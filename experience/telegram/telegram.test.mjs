@@ -1,0 +1,38 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+const { oliviaLaunchTarget } = require('./launch.js');
+const { oliviaTelegramLink } = require('./adapter.js');
+
+const launchHash = (language) => '#tgWebAppData=' + encodeURIComponent(new URLSearchParams({ user: JSON.stringify({ id: 1, first_name: 'A', language_code: language }), auth_date: '1', hash: 'x' }).toString()) + '&tgWebAppVersion=10.3&tgWebAppPlatform=ios';
+
+test('language comes from the Telegram user, then from a remembered choice', () => {
+  assert.match(oliviaLaunchTarget('', launchHash('uk'), null), /^\/tg\/uk\/\?r=today#tgWebAppData=/);
+  assert.match(oliviaLaunchTarget('', launchHash('ru'), null), /^\/tg\/en\//);
+  assert.match(oliviaLaunchTarget('', launchHash('en'), 'uk'), /^\/tg\/uk\//);
+  assert.match(oliviaLaunchTarget('', '', null), /^\/tg\/en\/\?r=today$/);
+});
+
+test('start parameters open the matching screen; anything else opens Today', () => {
+  const route = (start) => decodeURIComponent(oliviaLaunchTarget('?tgWebAppStartParam=' + start, '', 'en').split('?r=')[1]);
+  assert.equal(route('spreads'), 'spreads');
+  assert.equal(route('journal'), 'journal');
+  assert.equal(route('card_17'), 'spreads/card-17');
+  assert.equal(route('card_78'), 'today');
+  assert.equal(route('card_1x'), 'today');
+  assert.equal(route('%3Cscript%3E'), 'today');
+});
+
+test('links: Mini App routes stay inside, the rest of the site opens in the browser', () => {
+  const origin = 'https://oliviaarcana.com';
+  assert.deepEqual(oliviaTelegramLink('#journal', origin, 'en'), { type: 'ignore' });
+  assert.deepEqual(oliviaTelegramLink('/#spreads', origin, 'en'), { type: 'route', route: 'spreads' });
+  assert.deepEqual(oliviaTelegramLink('https://oliviaarcana.com/?experience=question', origin, 'en'), { type: 'route', route: 'question' });
+  assert.deepEqual(oliviaTelegramLink('/uk/', origin, 'en'), { type: 'language', language: 'uk', route: 'today' });
+  assert.deepEqual(oliviaTelegramLink('/#home', origin, 'uk'), { type: 'language', language: 'en', route: 'today' });
+  assert.deepEqual(oliviaTelegramLink('https://oliviaarcana.com/learn/', origin, 'en'), { type: 'external', url: 'https://oliviaarcana.com/learn/' });
+  assert.deepEqual(oliviaTelegramLink('https://t.me/OliviaArcanaBot', origin, 'en'), { type: 'telegram', url: 'https://t.me/OliviaArcanaBot' });
+  assert.deepEqual(oliviaTelegramLink('tel:7333', origin, 'uk'), { type: 'ignore' });
+  assert.deepEqual(oliviaTelegramLink('javascript:alert(1)', origin, 'en'), { type: 'ignore' });
+});

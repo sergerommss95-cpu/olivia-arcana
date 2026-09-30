@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b192a">
+  <meta name="robots" content="noindex">
+  <title>Olivia Arcana</title>
+  <style>html,body{margin:0;min-height:100%;background:#0b192a}</style>
+  <script>/* The Mini App's entry (/tg/): pick the language and the first screen, then
+   open the right page. Telegram's launch data stays in the hash so the SDK on
+   that page can read it. Runs inline, before anything else loads. */
+function oliviaLaunchTarget(search, hash, storedLanguage) {
+  var query = new URLSearchParams(search || '');
+  var launch = new URLSearchParams((hash || '').replace(/^#/, ''));
+  var language = storedLanguage === 'uk' || storedLanguage === 'en' ? storedLanguage : null;
+  if (!language) {
+    var code = '';
+    try { code = JSON.parse(new URLSearchParams(launch.get('tgWebAppData') || '').get('user') || '{}').language_code || ''; } catch (error) { code = ''; }
+    language = /^uk\b/i.test(code) ? 'uk' : 'en';
+  }
+  var start = (query.get('tgWebAppStartParam') || query.get('startapp') || '').slice(0, 64);
+  var screens = { today: 'today', question: 'question', spreads: 'spreads', journal: 'journal', sample: 'sample', symbols: 'symbols' };
+  var route = screens[start] || 'today';
+  var card = /^card_(\d{1,2})$/.exec(start);
+  if (card && Number(card[1]) < 78) route = 'spreads/card-' + Number(card[1]);
+  return '/tg/' + language + '/?r=' + encodeURIComponent(route) + (hash || '');
+}
+if (typeof module !== 'undefined') module.exports = { oliviaLaunchTarget: oliviaLaunchTarget };
+
+(function () {
+  var stored = null;
+  try { stored = localStorage.getItem('olivia-tg-language'); } catch (error) { stored = null; }
+  location.replace(oliviaLaunchTarget(location.search, location.hash, stored));
+})();
+  </script>
+</head>
+<body></body>
+</html>

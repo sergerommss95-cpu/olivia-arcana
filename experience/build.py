@@ -19,3 +19,5 @@ removed = [file for file in (destination / "assets").iterdir() if "assets/" + fi
 for file in removed:
     file.unlink()
 print(f"Synced the current experience into website/public/experience ({len(removed)} earlier files removed). Run the website build next.")
+# The Telegram Mini App pages point at these same hashed assets, so rebuild them with every sync.
+subprocess.run([sys.executable, str(root / "telegram/build.py")], check=True)
