@@ -1,3 +1,4 @@
+import {prepareSpreadResume} from './spread-resume.js';
 import {spreadSlotLabel} from './spread-slot-label.js';
 import {saveSpreadDraft,loadSpreadDraft,discardSpreadDraft} from './spread-draft.js';
 import {showJournalReceipt} from './journal-motion.js';
@@ -511,9 +512,9 @@ addEventListener('olivia:guidance-save',event=>receiveSavedSpreadGuidance(event.
   questionSetup={question:session.question,pathA:'',pathB:''};$('#spread-question').value=session.question;
   for(const input of $('#spread-question-form').querySelectorAll('[name="spread-intention"]'))input.checked=input.value===session.intention;
   $('#spread-reversals').checked=session.reversals;prepareView();
-  session.cardIds.forEach((id,index)=>{const slot=$('#spread-board').children[index];slot.classList.add('dealt');const face=slot.querySelector('.spread-card-face');face.src=assets.cards[id];face.dataset.orientation=session.orientations[index];if(index<session.revealedCount)renderRevealed(index);});
-  if(session.cardIds.length===session.count){reading=currentReading();gathered=true;}
-  if(session.revealedCount===session.count){complete();$('#spread-reflection').value=pending.note;if(record)record={...record,note:pending.note};}
+  const resumed=prepareSpreadResume(session,currentReading);reading=resumed.reading;gathered=resumed.full;
+  resumed.slots.forEach(({cardId,index,orientation,revealed})=>{const slot=$('#spread-board').children[index];slot.classList.add('dealt');const face=slot.querySelector('.spread-card-face');face.src=assets.cards[cardId];face.dataset.orientation=orientation;if(revealed)renderRevealed(index);});
+  if(session.revealedCount===session.count){complete();$('#spread-reflection').value=pending.note;if(record){record={...record,note:pending.note};drafts.set(record.id,record);}}
   if(session.revealedCount)inspect(session.revealedCount-1);controls();
   $('#spread-resume-notice')?.remove();const notice=el('div','spread-resume-notice');notice.id='spread-resume-notice';notice.append(el('p','',copy('Your interrupted spread is here. The question and chosen cards are unchanged.','Ваш незавершений розклад збережено. Запитання й обрані карти не змінилися.')));
   const discard=el('button','quiet-link',copy('Discard this unfinished spread','Видалити цей незавершений розклад'));discard.type='button';discard.addEventListener('click',()=>{clearLocalDraft();if(activeLocalDraft)return;halt();session=null;record=null;reading=null;notice.remove();$('#spread-question').value='';library();});notice.append(discard);$('.spread-ritual-head').after(notice);
