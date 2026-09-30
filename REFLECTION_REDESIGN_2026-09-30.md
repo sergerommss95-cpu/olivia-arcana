@@ -10,7 +10,7 @@ Branch: `codex/reflection-practice-redesign`, based on main `f6ac41c` after PR14
 
 ## Validation
 
-- Product suite: 352 tests passed.
+- Product suite: 353 tests passed.
 - Website and service suite: 98 tests passed.
 - TypeScript and ESLint on changed website/service files passed.
 - Experience generation and Next production export passed; generated resource paths, scripts, Ukrainian page language and both versioned 78-card Amielle manifests were validated.
@@ -29,3 +29,5 @@ After the owner found the initial preview too similar, the opening composition w
 Cloud QA of the previous commit verified save/reload/revisit flows, and exposed locale hydration and interrupted-ritual bugs. Authored EN/UK routes now own the language, dates follow that language, and single/spread interrupted drafts recover exact shuffled choices without restoring external-guidance consent. The new visual/recovery pass still requires cloud desktop/mobile QA. Before reference: https://6abd3f560162d100087af94f--olivia-arcana.netlify.app (commit cea92e8).
 
 Cloud review follow-up: the ivory writing panel now owns explicit dark label/status/help, placeholder, focus, error and disabled colors. Calculated text contrast is 5.4:1–9.4:1, with focus/field boundaries above 3:1. Returning-user secondary hero links now wrap with a 22px gap and separate 44px targets; short returning-user screens reserve additional height. Browser recheck remains with the parent.
+
+Final cloud follow-up: filled secondary controls and expandable summaries now use explicit pale backgrounds with dark text; the primary save control retains paired dark/light colors. Recovered selected spread slots announce a selected face-down card instead of waiting, with focused EN/UK regression coverage. Parent cloud QA verified link spacing, locale recovery, exact single-card recovery and exact partial-spread recovery.

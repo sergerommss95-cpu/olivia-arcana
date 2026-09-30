@@ -109,3 +109,10 @@ body[data-view=home]:not(.cinema) #intro .hero-secondary-actions a:focus-visible
 #reading-view #save-section .reread-panel :is(h2,p,span,time,.reread-status){color:#403541}
 #reading-view #save-section .reading-keepsake{--keepsake-ink:#272432;--keepsake-muted:#594a55;--keepsake-surface:#fbf5ea;--keepsake-metal:#725238}
 #reading-view #save-section button:disabled{color:#5b4e59;background:#ded5c8;border-color:#a99a88;cursor:not-allowed;box-shadow:none}
+/* Pair every filled writing control with its own readable surface. */
+#reading-view #save-section{--row-surface:#e5d8c8;--row-surface-quiet:#fbf5ea;--row-ink:#403541;--row-border:#857361;--row-inset:none;--row-lift:none}
+#reading-view #save-section :is(button:not(.solid-action),summary){background:#fbf5ea;color:#403541;border-color:#857361;box-shadow:none}
+#reading-view #save-section :is(button:not(.solid-action),summary):hover{background:#e5d8c8;color:#272432}
+#reading-view #save-section summary span{color:inherit;background:none}
+#reading-view #save-section #download-reading{background:#fbf5ea;color:#403541;border:1px solid #857361;box-shadow:none}
+#reading-view #save-section button:disabled{background:#ded5c8;color:#5b4e59;border-color:#a99a88;box-shadow:none}
