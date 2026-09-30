@@ -13,6 +13,9 @@ subprocess.run([sys.executable, str(root / "work/olivia-product/build.py")], che
 source = root / "outputs/olivia-experience"
 destination = root.parent / "website/public/experience"
 shutil.copytree(source, destination, dirs_exist_ok=True)
+# The Telegram Mini App pages point at these same hashed assets. Rebuild them
+# before pruning, while both the old and the new assets are still present.
+subprocess.run([sys.executable, str(root / "telegram/build.py")], check=True)
 # Keep only the current build's hashed assets in the website snapshot.
 current = set(json.loads((source / "manifest.json").read_text())["assets"])
 removed = [file for file in (destination / "assets").iterdir() if "assets/" + file.name not in current]
