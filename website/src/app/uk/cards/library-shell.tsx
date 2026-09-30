@@ -8,6 +8,7 @@ export default function UkrainianLibraryShell({ children, englishPath = "/cards/
       <nav className={styles.nav} aria-label="Головна навігація">
         <Link href="/uk/cards/">78 карт</Link>
         <Link href="/uk/learn/">Навчання</Link>
+        <Link href="/uk/astrology/">Астрологія</Link>
         <a href="/uk/?experience=spreads">Розклади</a>
         <a href="/uk/?experience=question">Почати читання ↗</a>
         <a href={englishPath} lang="en" hrefLang="en" aria-label="Read this page in English">EN</a>

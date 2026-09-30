@@ -11,6 +11,7 @@ const translatedPaths = [
   "/", "/decks/", "/ask/", "/cards/", ...CARD_SLUGS.map((slug) => `/cards/${slug}/`),
   "/cards/pairs/", "/cards/pairs/lab/", ...allPairs().map((pair) => `/cards/pairs/${pair.slug}/`),
   "/learn/", ...allLessons("uk").map((lesson) => lessonHref(lesson, "en")),
+  "/astrology/", "/astrology/birth-chart/",
 ];
 // Gate pages with no content of their own are marked noindex; don't advertise them.
 const NOINDEX = new Set(["/oracle-letter/", "/timing/", "/transits/"].map((path) => `${ORIGIN}${path}`));

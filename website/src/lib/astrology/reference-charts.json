@@ -1,0 +1,491 @@
+{
+ "source": "Swiss Ephemeris 2.10.03 (Moshier), apparent geocentric positions, mean node",
+ "charts": [
+  {
+   "name": "New York",
+   "utc": "1990-06-15T12:00:00Z",
+   "latitude": 40.7128,
+   "longitude": -74.006,
+   "bodies": {
+    "sun": {
+     "longitude": 84.12957,
+     "speed": 0.9551
+    },
+    "moon": {
+     "longitude": 345.35794,
+     "speed": 13.36171
+    },
+    "mercury": {
+     "longitude": 65.69071,
+     "speed": 1.71594
+    },
+    "venus": {
+     "longitude": 48.77761,
+     "speed": 1.17598
+    },
+    "mars": {
+     "longitude": 11.04131,
+     "speed": 0.71894
+    },
+    "jupiter": {
+     "longitude": 105.88944,
+     "speed": 0.21664
+    },
+    "saturn": {
+     "longitude": 294.03196,
+     "speed": -0.05864
+    },
+    "uranus": {
+     "longitude": 278.16524,
+     "speed": -0.03893
+    },
+    "neptune": {
+     "longitude": 283.7171,
+     "speed": -0.02503
+    },
+    "pluto": {
+     "longitude": 225.40155,
+     "speed": -0.02018
+    },
+    "node": {
+     "longitude": 309.69788,
+     "speed": -0.05297
+    }
+   },
+   "ascendant": 116.59815,
+   "midheaven": 10.34295
+  },
+  {
+   "name": "Kyiv",
+   "utc": "1985-01-01T00:00:00Z",
+   "latitude": 50.45,
+   "longitude": 30.52,
+   "bodies": {
+    "sun": {
+     "longitude": 280.51644,
+     "speed": 1.01923
+    },
+    "moon": {
+     "longitude": 29.70131,
+     "speed": 11.89628
+    },
+    "mercury": {
+     "longitude": 257.97386,
+     "speed": 0.84111
+    },
+    "venus": {
+     "longitude": 326.35443,
+     "speed": 1.12213
+    },
+    "mars": {
+     "longitude": 335.13949,
+     "speed": 0.76406
+    },
+    "jupiter": {
+     "longitude": 291.45735,
+     "speed": 0.23193
+    },
+    "saturn": {
+     "longitude": 234.73037,
+     "speed": 0.09512
+    },
+    "uranus": {
+     "longitude": 255.36552,
+     "speed": 0.05692
+    },
+    "neptune": {
+     "longitude": 271.48507,
+     "speed": 0.03748
+    },
+    "pluto": {
+     "longitude": 214.36086,
+     "speed": 0.02107
+    },
+    "node": {
+     "longitude": 55.14799,
+     "speed": -0.05296
+    }
+   },
+   "ascendant": 209.27061,
+   "midheaven": 128.68001
+  },
+  {
+   "name": "Ulm",
+   "utc": "1879-03-14T10:50:00Z",
+   "latitude": 48.4,
+   "longitude": 9.99,
+   "bodies": {
+    "sun": {
+     "longitude": 353.50774,
+     "speed": 0.99595
+    },
+    "moon": {
+     "longitude": 254.52592,
+     "speed": 13.9189
+    },
+    "mercury": {
+     "longitude": 3.14388,
+     "speed": 1.95189
+    },
+    "venus": {
+     "longitude": 16.98502,
+     "speed": 1.23183
+    },
+    "mars": {
+     "longitude": 296.91422,
+     "speed": 0.72865
+    },
+    "jupiter": {
+     "longitude": 327.48402,
+     "speed": 0.22737
+    },
+    "saturn": {
+     "longitude": 4.18982,
+     "speed": 0.12358
+    },
+    "uranus": {
+     "longitude": 151.28839,
+     "speed": -0.03956
+    },
+    "neptune": {
+     "longitude": 37.87221,
+     "speed": 0.02879
+    },
+    "pluto": {
+     "longitude": 54.72536,
+     "speed": 0.01213
+    },
+    "node": {
+     "longitude": 301.48036,
+     "speed": -0.05293
+    }
+   },
+   "ascendant": 101.63816,
+   "midheaven": 342.82911
+  },
+  {
+   "name": "Sydney",
+   "utc": "2001-09-11T23:30:00Z",
+   "latitude": -33.87,
+   "longitude": 151.21,
+   "bodies": {
+    "sun": {
+     "longitude": 169.28087,
+     "speed": 0.97303
+    },
+    "moon": {
+     "longitude": 94.19346,
+     "speed": 13.76632
+    },
+    "mercury": {
+     "longitude": 194.83343,
+     "speed": 1.21314
+    },
+    "venus": {
+     "longitude": 138.94197,
+     "speed": 1.20867
+    },
+    "mars": {
+     "longitude": 271.67809,
+     "speed": 0.52761
+    },
+    "jupiter": {
+     "longitude": 101.6545,
+     "speed": 0.14493
+    },
+    "saturn": {
+     "longitude": 74.76375,
+     "speed": 0.02728
+    },
+    "uranus": {
+     "longitude": 321.82286,
+     "speed": -0.03386
+    },
+    "neptune": {
+     "longitude": 306.3344,
+     "speed": -0.01798
+    },
+    "pluto": {
+     "longitude": 252.64193,
+     "speed": 0.01061
+    },
+    "node": {
+     "longitude": 92.23605,
+     "speed": -0.05293
+    }
+   },
+   "ascendant": 241.35777,
+   "midheaven": 132.29117
+  },
+  {
+   "name": "Tromso",
+   "utc": "1995-12-21T12:00:00Z",
+   "latitude": 69.65,
+   "longitude": 18.96,
+   "bodies": {
+    "sun": {
+     "longitude": 269.13901,
+     "speed": 1.01887
+    },
+    "moon": {
+     "longitude": 260.58456,
+     "speed": 15.25552
+    },
+    "mercury": {
+     "longitude": 284.4984,
+     "speed": 1.51923
+    },
+    "venus": {
+     "longitude": 299.67143,
+     "speed": 1.23587
+    },
+    "mars": {
+     "longitude": 286.01413,
+     "speed": 0.77358
+    },
+    "jupiter": {
+     "longitude": 267.08784,
+     "speed": 0.22828
+    },
+    "saturn": {
+     "longitude": 348.7705,
+     "speed": 0.05136
+    },
+    "uranus": {
+     "longitude": 298.77488,
+     "speed": 0.05307
+    },
+    "neptune": {
+     "longitude": 294.29973,
+     "speed": 0.03509
+    },
+    "pluto": {
+     "longitude": 241.5842,
+     "speed": 0.03632
+    },
+    "node": {
+     "longitude": 202.99433,
+     "speed": -0.05291
+    }
+   },
+   "ascendant": 302.48302,
+   "midheaven": 287.11203
+  },
+  {
+   "name": "Buenos Aires",
+   "utc": "2024-02-29T18:00:00Z",
+   "latitude": -34.6,
+   "longitude": -58.38,
+   "bodies": {
+    "sun": {
+     "longitude": 340.63857,
+     "speed": 1.00372
+    },
+    "moon": {
+     "longitude": 217.45129,
+     "speed": 12.09928
+    },
+    "mercury": {
+     "longitude": 341.8519,
+     "speed": 1.88851
+    },
+    "venus": {
+     "longitude": 316.18357,
+     "speed": 1.2378
+    },
+    "mars": {
+     "longitude": 312.72357,
+     "speed": 0.77428
+    },
+    "jupiter": {
+     "longitude": 41.27163,
+     "speed": 0.17014
+    },
+    "saturn": {
+     "longitude": 339.88267,
+     "speed": 0.12213
+    },
+    "uranus": {
+     "longitude": 49.57214,
+     "speed": 0.02823
+    },
+    "neptune": {
+     "longitude": 356.73131,
+     "speed": 0.03672
+    },
+    "pluto": {
+     "longitude": 301.20939,
+     "speed": 0.02645
+    },
+    "node": {
+     "longitude": 17.71316,
+     "speed": -0.05297
+    }
+   },
+   "ascendant": 83.9231,
+   "midheaven": 11.598
+  },
+  {
+   "name": "Kharkiv",
+   "utc": "2010-07-04T03:15:00Z",
+   "latitude": 49.99,
+   "longitude": 36.23,
+   "bodies": {
+    "sun": {
+     "longitude": 102.06835,
+     "speed": 0.95338
+    },
+    "moon": {
+     "longitude": 6.78312,
+     "speed": 12.09409
+    },
+    "mercury": {
+     "longitude": 108.79505,
+     "speed": 2.09413
+    },
+    "venus": {
+     "longitude": 142.82502,
+     "speed": 1.13721
+    },
+    "mars": {
+     "longitude": 164.72024,
+     "speed": 0.57132
+    },
+    "jupiter": {
+     "longitude": 2.79792,
+     "speed": 0.06161
+    },
+    "saturn": {
+     "longitude": 178.81453,
+     "speed": 0.05561
+    },
+    "uranus": {
+     "longitude": 0.59055,
+     "speed": 0.00125
+    },
+    "neptune": {
+     "longitude": 328.41462,
+     "speed": -0.01657
+    },
+    "pluto": {
+     "longitude": 273.89765,
+     "speed": -0.02532
+    },
+    "node": {
+     "longitude": 281.885,
+     "speed": -0.05297
+    }
+   },
+   "ascendant": 120.55464,
+   "midheaven": 7.63826
+  },
+  {
+   "name": "Reykjavik",
+   "utc": "1970-01-01T00:00:00Z",
+   "latitude": 64.15,
+   "longitude": -21.94,
+   "bodies": {
+    "sun": {
+     "longitude": 280.15628,
+     "speed": 1.01925
+    },
+    "moon": {
+     "longitude": 190.69905,
+     "speed": 12.54767
+    },
+    "mercury": {
+     "longitude": 299.02147,
+     "speed": 0.56217
+    },
+    "venus": {
+     "longitude": 274.45327,
+     "speed": 1.25832
+    },
+    "mars": {
+     "longitude": 342.23625,
+     "speed": 0.74576
+    },
+    "jupiter": {
+     "longitude": 212.325,
+     "speed": 0.13676
+    },
+    "saturn": {
+     "longitude": 32.06231,
+     "speed": -0.00542
+    },
+    "uranus": {
+     "longitude": 188.72059,
+     "speed": 0.01162
+    },
+    "neptune": {
+     "longitude": 239.88586,
+     "speed": 0.03046
+    },
+    "pluto": {
+     "longitude": 177.39227,
+     "speed": -0.00094
+    },
+    "node": {
+     "longitude": 345.28687,
+     "speed": -0.05297
+    }
+   },
+   "ascendant": 173.26905,
+   "midheaven": 79.23397
+  },
+  {
+   "name": "Lviv",
+   "utc": "2026-09-28T19:00:00Z",
+   "latitude": 49.84,
+   "longitude": 24.03,
+   "bodies": {
+    "sun": {
+     "longitude": 185.67025,
+     "speed": 0.98127
+    },
+    "moon": {
+     "longitude": 32.5366,
+     "speed": 14.06766
+    },
+    "mercury": {
+     "longitude": 207.70483,
+     "speed": 1.36868
+    },
+    "venus": {
+     "longitude": 218.10701,
+     "speed": 0.16782
+    },
+    "mars": {
+     "longitude": 120.39639,
+     "speed": 0.58712
+    },
+    "jupiter": {
+     "longitude": 139.19253,
+     "speed": 0.18208
+    },
+    "saturn": {
+     "longitude": 11.75098,
+     "speed": -0.07791
+    },
+    "uranus": {
+     "longitude": 65.56077,
+     "speed": -0.01495
+    },
+    "neptune": {
+     "longitude": 2.923,
+     "speed": -0.02771
+    },
+    "pluto": {
+     "longitude": 303.13879,
+     "speed": -0.00798
+    },
+    "node": {
+     "longitude": 327.83207,
+     "speed": -0.05297
+    }
+   },
+   "ascendant": 77.65074,
+   "midheaven": 314.13204
+  }
+ ]
+}

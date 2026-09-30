@@ -19,8 +19,8 @@ import InstallPrompt from "@/components/InstallPrompt";
 import { SubscriptionProvider } from "@/hooks/useSubscription";
 import { ownsExperienceStage } from "@/lib/experience-shell";
 
-// Night-room chrome is split out of the shared bundle: only /cosmos, /oracle,
-// /portrait and /synastry download the smooth scroll, the two WebGL grounds,
+// Night-room chrome is split out of the shared bundle: only /cosmos, /oracle
+// and /synastry download the smooth scroll, the two WebGL grounds,
 // the audio parlor and the Sky Atlas.
 const EphemerisScroll = dynamic(() => import("@/components/EphemerisScroll"), { ssr: false });
 const LiquidNight = dynamic(() => import("@/components/arrival/LiquidNight"), { ssr: false });
@@ -38,7 +38,7 @@ function ChartScribe() {
   return null;
 }
 
-const NIGHT_ROOMS = ["/cosmos", "/oracle", "/portrait", "/synastry"];
+const NIGHT_ROOMS = ["/cosmos", "/oracle", "/synastry"];
 function isNightRoom(pathname: string | null) {
   return !!pathname && NIGHT_ROOMS.some(room => pathname === room || pathname.startsWith(room + "/"));
 }

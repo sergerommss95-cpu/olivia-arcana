@@ -151,7 +151,7 @@ export default function CheckoutSuccessPage() {
                 </li>
               </ul>
               <div className="ck-actions">
-                <TransitionLink href="/portrait" className="alm-btn">
+                <TransitionLink href="/astrology/birth-chart/" className="alm-btn">
                   Get Your Personal Reading
                 </TransitionLink>
                 <TransitionLink href="/" className="alm-link">

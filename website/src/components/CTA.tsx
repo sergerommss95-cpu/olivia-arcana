@@ -28,7 +28,7 @@ export default function CTA() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <MagneticButton href="/portrait" variant="gold" size="lg" className="shadow-2xl font-bold">
+          <MagneticButton href="/astrology/birth-chart/" variant="gold" size="lg" className="shadow-2xl font-bold">
             {t("cta_button")}
           </MagneticButton>
         </div>

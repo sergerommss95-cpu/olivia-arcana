@@ -47,3 +47,28 @@
   for = "/experience/*"
   [headers.values]
     X-Robots-Tag = "noindex"
+
+# The older chart pages became Olivia Astrology's birth chart (on-device, bilingual).
+[[redirects]]
+  from = "/chart"
+  to = "/astrology/birth-chart/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/chart/*"
+  to = "/astrology/birth-chart/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/portrait"
+  to = "/astrology/birth-chart/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/portrait/*"
+  to = "/astrology/birth-chart/"
+  status = 301
+  force = true

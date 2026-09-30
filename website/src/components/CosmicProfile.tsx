@@ -406,7 +406,7 @@ export default function CosmicProfile({ profile }: Props) {
 
       {/* CTAs */}
       <div data-r style={{ opacity: 0, display: "flex", gap: "0.75rem", width: "100%", marginTop: "0.5rem" }}>
-        <a href="/portrait" style={{
+        <a href="/astrology/birth-chart/" style={{
           flex: 1, display: "flex", alignItems: "center", justifyContent: "center",
           padding: "0.85rem 1rem", borderRadius: "100px",
           background: "linear-gradient(135deg, #e0b768 0%, #f3dd8e 100%)",

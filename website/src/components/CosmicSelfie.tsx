@@ -10,9 +10,9 @@ import { useScrollProgress } from "@/hooks/useScrollProgress";
 type State = "idle" | "requesting" | "streaming" | "denied";
 
 const FEATURES = [
-  { icon: "\u2726", label: "AI Birth Chart", href: "/portrait" },
+  { icon: "\u2726", label: "AI Birth Chart", href: "/astrology/birth-chart/" },
   { icon: "\u263D", label: "Daily Readings", href: "/daily" },
-  { icon: "\u22B9", label: "Cosmic Portrait", href: "/portrait" },
+  { icon: "\u22B9", label: "Cosmic Portrait", href: "/astrology/birth-chart/" },
 ];
 
 // ── Analytics helper ───────────────────────────────────────────────────
@@ -549,8 +549,8 @@ export default function CosmicSelfie() {
             <MagneticButton
               variant="gold"
               size="lg"
-              href="/portrait"
-              onClick={() => track("cosmic_selfie_cta_clicked", { destination: "/portrait" })}
+              href="/astrology/birth-chart/"
+              onClick={() => track("cosmic_selfie_cta_clicked", { destination: "/astrology/birth-chart/" })}
             >
               Get Your Cosmic Portrait
             </MagneticButton>

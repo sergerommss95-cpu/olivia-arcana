@@ -26,7 +26,7 @@ export default function GlobalGuide() {
   // The site is the light Almanac everywhere now — a dark glass orb only
   // belongs in the night rooms (and never in the oracle, which owns its
   // whole canvas).
-  const NIGHT_GUIDE_ROOMS = ["/portrait", "/synastry", "/cosmos"];
+  const NIGHT_GUIDE_ROOMS = ["/synastry", "/cosmos"];
   const normalized = pathname ? (pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname) : "";
   if (!NIGHT_GUIDE_ROOMS.includes(normalized)) return null;
 
