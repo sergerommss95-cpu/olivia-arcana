@@ -644,7 +644,7 @@ export default function JournalPage() {
           width: 100%;
           min-height: 250px;
           padding: 0.35rem 0.95rem 1.4rem;
-          background-color: #0f1240;
+          background-color: #091725;
           background-image: repeating-linear-gradient(
             transparent 0 calc(1.8em - 1px),
             var(--hairline) calc(1.8em - 1px) 1.8em
@@ -714,7 +714,7 @@ export default function JournalPage() {
 
         /* ── Paywall gate, re-inked ─────────────────────────── */
         .alm-gate :global(.glass-card) {
-          background: #0f1240 !important;
+          background: #091725 !important;
           border: 1px solid var(--hairline) !important;
           border-radius: 0 !important;
           box-shadow: none !important;

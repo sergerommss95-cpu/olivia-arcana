@@ -84,7 +84,7 @@ export default function OraclePage() {
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  if (!mounted) return <div className="min-h-screen bg-[#0a0d38]" />;
+  if (!mounted) return <div className="min-h-screen bg-[#071522]" />;
 
   return (
     <NightShell room={isUk ? "Стіл розкладів" : "The Dealing Table"}>
@@ -98,12 +98,12 @@ export default function OraclePage() {
 
       <style jsx global>{`
         body {
-          background: #0a0d38;
+          background: #071522;
           cursor: default;
           overflow: hidden;
         }
         .oracle-stage {
-          background: var(--night-deep, #0a0d38);
+          background: var(--night-deep, #071522);
         }
 
         /* ── The first screen breathes: each line inks in, in order ── */

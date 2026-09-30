@@ -7,7 +7,7 @@
   --font-mono: var(--font-mono);
 
   /* ─── COLORS: CELESTIAL OBSIDIAN ─── */
-  --color-void-black: #10134d;
+  --color-void-black: #0b192a;
   --color-warm-ivory: #e8e9ff;
   --color-celestial-gold: #e0b768;
   --color-muted-lavender: #b7bce9;
@@ -34,7 +34,7 @@
   --background: #0b192a;
   --foreground: #ede4d2;
   --c-gold: #e0b768;
-  --c-void: #10134d;
+  --c-void: #0b192a;
 
   /* READABILITY TOKENS — Higher minimum opacities for WCAG compliance */
   --c-text-primary: rgba(232, 233, 255, 0.95);
@@ -42,9 +42,9 @@
   --c-text-tertiary: rgba(183, 188, 233, 0.72);
   
   --c-border: rgba(184, 190, 240, 0.18);
-  --c-scrim: rgba(8, 10, 50, 0.85);
-  --c-card-bg: rgba(13, 16, 77, 0.65);
-  --c-card-bg-heavy: rgba(8, 10, 50, 0.88);
+  --c-scrim: rgba(7, 21, 34, 0.85);
+  --c-card-bg: rgba(11, 25, 42, 0.65);
+  --c-card-bg-heavy: rgba(7, 21, 34, 0.88);
   
   --nav-height: 5rem;
   
@@ -158,7 +158,7 @@ body:has(.olivia-experience) {
   transform: translateY(-160%);
   border-radius: 999px;
   background: #f3dd8e;
-  color: #10134d;
+  color: #183043;
   padding: 0.7rem 1rem;
   font-family: var(--font-body), system-ui, sans-serif;
   font-size: 0.85rem;
@@ -179,12 +179,12 @@ body:has(.olivia-experience) {
 .readable-muted { color: var(--c-text-tertiary); }
 
 .readable-panel {
-  background: rgba(14, 17, 70, 0.95);
+  background: rgba(9, 23, 37, 0.95);
   border: 1px solid var(--c-border);
 }
 
 .readable-card {
-  background: rgba(14, 17, 70, 0.95);
+  background: rgba(9, 23, 37, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }
@@ -214,11 +214,11 @@ body:has(.olivia-experience) {
 }
 
 .section-scrim {
-  background: linear-gradient(to bottom, transparent, rgba(8, 10, 50, 0.6) 20%, rgba(8, 10, 50, 0.6) 80%, transparent);
+  background: linear-gradient(to bottom, transparent, rgba(7, 21, 34, 0.6) 20%, rgba(7, 21, 34, 0.6) 80%, transparent);
 }
 
 .content-scrim {
-  background: radial-gradient(circle at center, rgba(8, 10, 50, 0.7) 0%, transparent 80%);
+  background: radial-gradient(circle at center, rgba(7, 21, 34, 0.7) 0%, transparent 80%);
 }
 
 .editorial-scrim {
@@ -232,7 +232,7 @@ body:has(.olivia-experience) {
 .radial-focus {
   background: radial-gradient(
     circle at center,
-    rgba(38, 46, 150, 0.25) 0%,
+    rgba(32, 61, 95, 0.25) 0%,
     transparent 70%
   );
 }
@@ -250,11 +250,11 @@ body:has(.olivia-experience) {
 
 :root {
   /* Grounds — from the deepest night up to lit stone */
-  --lg-abyss: #0a0d38;
-  --lg-night: #10134d;
-  --lg-deep: #181d7a;
-  --lg-lapis: #20279b;
-  --lg-lapis-lit: #2f38b8;
+  --lg-abyss: #071522;
+  --lg-night: #0b192a;
+  --lg-deep: #12283d;
+  --lg-lapis: #1e3a5b;
+  --lg-lapis-lit: #274c75;
 
   /* Light — the cold accents and the one warm gilt from the carvings */
   --lg-azure: #8d97ff;
@@ -270,11 +270,11 @@ body:has(.olivia-experience) {
 
   /* The Arrival surface language: flat night panels, hairline-ruled.
      (Class names kept from the glass era so every component inherits.) */
-  --lg-tint: linear-gradient(180deg, rgba(24, 29, 122, 0.5) 0%, rgba(16, 19, 77, 0.72) 100%);
+  --lg-tint: linear-gradient(180deg, rgba(18, 40, 61, 0.5) 0%, rgba(11, 25, 42, 0.72) 100%);
   --lg-blur: none;
   --lg-rule: rgba(232, 233, 255, 0.16);
   --lg-rim: inset 0 1px 0 rgba(232, 233, 255, 0.14);
-  --lg-cast: 0 1.2rem 2.8rem rgba(5, 7, 32, 0.35);
+  --lg-cast: 0 1.2rem 2.8rem rgba(4, 10, 17, 0.35);
   --lg-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -295,7 +295,7 @@ body:has(.olivia-experience) {
 
 /* Quieter nested plate */
 .glass-thin {
-  background: rgba(16, 19, 77, 0.45);
+  background: rgba(11, 25, 42, 0.45);
   border: 1px solid rgba(232, 233, 255, 0.1);
   border-radius: 4px;
 }
@@ -341,7 +341,7 @@ body:has(.olivia-experience) {
 
 /* The warm control — gilt, for the one action that carries the ritual */
 .glass-btn.is-gilt {
-  color: #15174c;
+  color: #183043;
   background: var(--lg-gilt);
   box-shadow: none;
   padding: 0.8rem 1.6rem;
@@ -349,10 +349,10 @@ body:has(.olivia-experience) {
 
 .glass-btn.is-gilt:hover,
 .glass-btn.is-gilt:focus-visible {
-  color: #15174c;
+  color: #183043;
   background: #edca8b;
   transform: translateY(-2px);
-  box-shadow: 0 0.6rem 1.4rem rgba(5, 7, 32, 0.35);
+  box-shadow: 0 0.6rem 1.4rem rgba(4, 10, 17, 0.35);
 }
 
 .glass-btn.is-gilt:active {
@@ -387,7 +387,7 @@ body:has(.olivia-experience) {
   height: 60vw;
   left: -12vw;
   top: -14vh;
-  background: radial-gradient(circle, rgba(47, 60, 190, 0.5), transparent 66%);
+  background: radial-gradient(circle, rgba(41, 80, 123, 0.5), transparent 66%);
   animation: lg-drift-a 46s ease-in-out infinite;
 }
 
@@ -405,7 +405,7 @@ body:has(.olivia-experience) {
   height: 68vw;
   left: 18vw;
   bottom: -30vh;
-  background: radial-gradient(circle, rgba(47, 56, 184, 0.6), transparent 68%);
+  background: radial-gradient(circle, rgba(39, 76, 117, 0.6), transparent 68%);
   animation: lg-drift-c 78s ease-in-out infinite;
 }
 

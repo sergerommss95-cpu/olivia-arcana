@@ -51,8 +51,8 @@ function buildCardBack(): string {
   const svg =
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 225">` +
     `<defs><radialGradient id="g" cx="50%" cy="38%" r="85%">` +
-    `<stop offset="0%" stop-color="#181d7a"/><stop offset="55%" stop-color="#10134d"/>` +
-    `<stop offset="100%" stop-color="#0a0d38"/></radialGradient></defs>` +
+    `<stop offset="0%" stop-color="#12283d"/><stop offset="55%" stop-color="#0b192a"/>` +
+    `<stop offset="100%" stop-color="#071522"/></radialGradient></defs>` +
     `<rect width="136" height="225" fill="url(#g)"/>` +
     `<g fill="#b7bce9" opacity="0.5">${flecks}</g>` +
     `<g fill="#e0b768"><circle cx="24" cy="30" r="0.9" opacity="0.8"/><circle cx="104" cy="48" r="0.7" opacity="0.65"/>` +
@@ -663,7 +663,7 @@ export default function RiffleRibbon({
               borderRadius: 8,
               backgroundImage: CARD_BACK,
               backgroundSize: "100% 100%",
-              boxShadow: "0 8px 18px rgba(5,7,32,0.5)",
+              boxShadow: "0 8px 18px rgba(4,10,17,0.5)",
               willChange: "transform",
               opacity: 0,
               display: selected.includes(i) ? "none" : undefined,
@@ -716,7 +716,7 @@ export default function RiffleRibbon({
 
       <style>{`
         .oa-riffle-card { transition: box-shadow 250ms cubic-bezier(0.625, 0.05, 0, 1); }
-        .oa-riffle.oa-gripped .oa-riffle-card { box-shadow: 0 14px 26px rgba(5, 7, 32, 0.72); }
+        .oa-riffle.oa-gripped .oa-riffle-card { box-shadow: 0 14px 26px rgba(4, 10, 17, 0.72); }
         .oa-riffle.oa-gripped [role="group"] { cursor: grabbing; }
         .oa-riffle [role="group"]:focus-visible {
           outline: 1px solid rgba(224, 183, 104, 0.9);

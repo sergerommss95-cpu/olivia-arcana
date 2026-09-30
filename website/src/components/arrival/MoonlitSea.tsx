@@ -27,7 +27,7 @@ import { Shader, Water, Crescent, Circle } from "shaders/react";
 /* ------------------------------------------------------------------ */
 /* Palette (The Arrival)                                              */
 /* ------------------------------------------------------------------ */
-const DEEP = "#181d7a"; // deep ultramarine — the water body
+const DEEP = "#12283d"; // deep ultramarine — the water body
 const MOONSTONE = "#e8e9ff"; // crescent + foam accents
 const COOL_LIGHT = "#8d97ff"; // faint halo behind the crescent
 
@@ -55,7 +55,7 @@ const fillStyle: CSSProperties = {
 const fallbackStyle: CSSProperties = {
   ...fillStyle,
   background:
-    "radial-gradient(62% 52% at 50% 58%, rgba(24, 29, 122, 0.50) 0%, rgba(16, 19, 77, 0.30) 52%, rgba(16, 19, 77, 0) 78%)",
+    "radial-gradient(62% 52% at 50% 58%, rgba(18, 40, 61, 0.50) 0%, rgba(11, 25, 42, 0.30) 52%, rgba(11, 25, 42, 0) 78%)",
 };
 
 /* ------------------------------------------------------------------ */

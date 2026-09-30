@@ -49,7 +49,7 @@ export default function TariffActions() {
           gap: 8px;
           padding: 16px 14px;
           border: 1px solid rgba(232, 233, 255, 0.16);
-          background: rgba(16, 19, 77, 0.35);
+          background: rgba(11, 25, 42, 0.35);
         }
         .ta-head {
           display: flex;

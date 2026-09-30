@@ -2,7 +2,7 @@
  * OracleMist.tsx — cursor-parted table-mist for the oracle dealing table.
  *
  * A full-area SmokeFlow layer (shaders/react, WebGPU): the reader's hand
- * stirs pale mist (#b7bce9) that ages into lapis (#20279b), rises lazily
+ * stirs pale mist (#b7bce9) that ages into lapis (#1e3a5b), rises lazily
  * (slightly negative gravity) and slowly heals (~0.25 dissipation).
  * Renders on a transparent canvas so the page's abyss ground shows through.
  *
@@ -25,7 +25,7 @@ import { Shader, SmokeFlow, getWebGPUSupport } from "shaders/react";
 
 /** The Arrival tokens — cool hues only. */
 const MIST = "#b7bce9"; // fresh smoke
-const LAPIS = "#20279b"; // aged smoke
+const LAPIS = "#1e3a5b"; // aged smoke
 
 /**
  * Static fallback: a faint pool of table-mist along the bottom edge,
@@ -33,7 +33,7 @@ const LAPIS = "#20279b"; // aged smoke
  * Used for reduced motion, missing WebGPU, offscreen, and pre-mount.
  */
 const FALLBACK_BACKGROUND =
-  "radial-gradient(120% 60% at 50% 100%, rgba(32,39,155,0.26) 0%, rgba(24,29,122,0.14) 42%, rgba(16,19,77,0.06) 66%, transparent 86%)";
+  "radial-gradient(120% 60% at 50% 100%, rgba(30,58,91,0.26) 0%, rgba(18,40,61,0.14) 42%, rgba(11,25,42,0.06) 66%, transparent 86%)";
 
 interface OracleMistProps {
   className?: string;

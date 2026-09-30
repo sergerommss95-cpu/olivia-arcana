@@ -88,9 +88,9 @@ export default function TarotDeckDOM() {
         <symbol id="card-back-v2" viewBox="0 0 360 540">
           <defs>
             <radialGradient id="g-base-v2" cx="50%" cy="38%" r="70%">
-              <stop offset="0%" stopColor="#181d7a" />
-              <stop offset="55%" stopColor="#10134d" />
-              <stop offset="100%" stopColor="#0a0d38" />
+              <stop offset="0%" stopColor="#12283d" />
+              <stop offset="55%" stopColor="#0b192a" />
+              <stop offset="100%" stopColor="#071522" />
             </radialGradient>
           </defs>
           <rect width="360" height="540" fill="url(#g-base-v2)" />
@@ -133,7 +133,7 @@ export default function TarotDeckDOM() {
                    transform: selectedCards.includes(i) ? 'rotateY(180deg)' : 'rotateY(0deg)'
                  }}>
               {/* BACK */}
-              <div className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl border border-[rgba(232,233,255,0.16)] bg-[#10134d]"
+              <div className="absolute inset-0 rounded-xl overflow-hidden shadow-2xl border border-[rgba(232,233,255,0.16)] bg-[#0b192a]"
                    style={{ backfaceVisibility: 'hidden' }}>
                 <svg className="w-full h-full"><use href="#card-back-v2" /></svg>
               </div>
@@ -141,8 +141,8 @@ export default function TarotDeckDOM() {
               {/* FRONT */}
               <div className="absolute inset-0 rounded-xl bg-[#e0b768] shadow-2xl flex flex-col items-center justify-center"
                    style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}>
-                <div className="text-[#15174c] font-mono text-[10px] tracking-[0.3em] uppercase opacity-40 mb-2">Fragment</div>
-                <div className="text-[#15174c] font-serif text-4xl">{selectedCards.indexOf(i) + 1}</div>
+                <div className="text-[#183043] font-mono text-[10px] tracking-[0.3em] uppercase opacity-40 mb-2">Fragment</div>
+                <div className="text-[#183043] font-serif text-4xl">{selectedCards.indexOf(i) + 1}</div>
               </div>
             </div>
           </div>

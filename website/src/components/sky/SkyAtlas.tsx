@@ -254,7 +254,7 @@ function leaderFor(c: Cart): { x1: number; y1: number; x2: number; y2: number } 
 
 /* ── Shared style (entrance draw-on, hover, reduced motion) ───── */
 const CSS = `
-.oa-atlas{position:fixed;inset:0;z-index:300;background:rgba(10,13,56,0.96);
+.oa-atlas{position:fixed;inset:0;z-index:300;background:rgba(7,21,34,0.96);
   display:flex;overflow:auto;overscroll-behavior:contain;
   animation:oaFade .32s ${EASE} both}
 .oa-atlas.oa-closing{animation:none;opacity:0;transition:opacity .22s ease}
@@ -600,7 +600,7 @@ export default function SkyAtlas() {
 
         {/* Plate ground */}
         <g className="fadein">
-          <rect x={24} y={22} width={1032} height={576} fill="rgba(16,19,77,0.38)" />
+          <rect x={24} y={22} width={1032} height={576} fill="rgba(11,25,42,0.38)" />
         </g>
 
         {/* Graticule — 2h / 15° */}
