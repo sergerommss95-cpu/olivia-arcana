@@ -4,13 +4,16 @@ import {SPREAD_STORAGE_KEY,loadSpreadRecords,MAX_SPREAD_RECORDS} from './spread-
 import {METADATA_KEY,loadMetadata} from './practice-core.js';
 import {MEMORY_KEY,loadMemories} from './living-deck.js';
 import {getLocale} from './locale.js';
+import {KEEPSAKE_STORAGE_KEY,KEEPSAKE_LIMIT,loadReadingKeepsakes} from './reading-keepsake.js';
 
+const readKeepsakes=storage=>{try{return loadReadingKeepsakes(storage);}catch(cause){throw new ReadingError(cause.code||'STORAGE_CORRUPT','The kept words in this data could not be read. No changes were made.',cause);}};
 const specs=[
  {key:STORAGE_KEY,field:'records',read:loadRecords,limit:MAX_RECORDS,id:v=>v.id},
  {key:SPREAD_STORAGE_KEY,field:'records',read:loadSpreadRecords,limit:MAX_SPREAD_RECORDS,id:v=>v.id},
  {key:METADATA_KEY,field:'entries',read:loadMetadata,id:v=>JSON.stringify([v.kind,v.id])},
  {key:MEMORY_KEY,field:'entries',read:loadMemories,id:v=>JSON.stringify([v.kind,v.id])},
  {key:QUESTION_HISTORY_KEY,field:'threads',read:loadQuestionHistory,id:v=>v.id},
+ {key:KEEPSAKE_STORAGE_KEY,field:'entries',versionField:'version',read:readKeepsakes,limit:KEEPSAKE_LIMIT,id:v=>JSON.stringify([v.readingId,v.deckId,v.cardId])},
 ];
 const fail=message=>{throw new ReadingError('BACKUP_INVALID',message);};
 const object=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
@@ -28,6 +31,7 @@ export function prepareAlmanacImport(storage,raw){
   [METADATA_KEY,JSON.stringify({schemaVersion:1,entries:value.practice})],
   [MEMORY_KEY,JSON.stringify(value.journey??empty('entries'))],
   [QUESTION_HISTORY_KEY,JSON.stringify(value.questionHistory??empty('threads'))],
+  [KEEPSAKE_STORAGE_KEY,JSON.stringify(value.keepsakes===undefined?{version:1,entries:[]}:value.keepsakes)],
  ]);
  const incoming=specs.map(spec=>spec.read(memoryStorage(source)));
  const previous=new Map(specs.map(spec=>[spec.key,storage.getItem(spec.key)]));
@@ -39,10 +43,11 @@ export function prepareAlmanacImport(storage,raw){
   if(fields.some(key=>JSON.stringify(prior[key])!==JSON.stringify(record[key])) || i===1 && JSON.stringify(prior.cards.map(({cardId,orientation,positionId,label})=>({cardId,orientation,positionId,label})))!==JSON.stringify(record.cards.map(({cardId,orientation,positionId,label})=>({cardId,orientation,positionId,label}))))conflicting.add(JSON.stringify([i===0?'single':'spread',record.id]));
  }
  if(conflicting.size)fail('This backup contains reading identifiers that belong to different questions or draws. No data was imported.');
- let added=0,kept=0;const merged=incoming.map((list,i)=>{
+ let added=0,kept=0,addedKeepsakes=0;const merged=incoming.map((list,i)=>{
   if(i===4)return mergeQuestionHistoryEntries(current[i],list);
   const spec=specs[i],ids=new Set(current[i].map(spec.id)),add=list.filter(v=>!ids.has(spec.id(v)));
   if(i<2){added+=add.length;kept+=list.length-add.length;}
+  if(spec.key===KEEPSAKE_STORAGE_KEY)addedKeepsakes=add.length;
   if(spec.limit&&add.length+current[i].length>spec.limit)fail('This backup exceeds the available space in your almanac. Export and organise your saved readings first.');
   return [...current[i],...add];
  });
@@ -60,8 +65,16 @@ export function prepareAlmanacImport(storage,raw){
   // Compare all identity fields without depending on object property order.
   if(!original||Object.keys(expected).some(key=>JSON.stringify(link.snapshot[key])!==JSON.stringify(expected[key])))fail('A question history does not match its saved reading. No data was imported.');
  }
- const next=new Map(specs.map((spec,i)=>[spec.key,JSON.stringify({schemaVersion:1,[spec.field]:merged[i]})]));
- return {added,kept,memories:incoming[3].length,previous,next};
+ // Kept words can exist without a saved reading. When one is present, the draw
+ // and question still have to match; an independent keep never creates a reading.
+ const knownSingles=new Map([...current[0],...incoming[0]].map(record=>[record.id,record]));
+ const plain=value=>value.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g,'').replace(/\s+/gu,' ').trim();
+ for(const entry of incoming[5]){
+  const reading=knownSingles.get(entry.readingId);
+  if(reading&&(entry.deckId!==reading.deckId||entry.cardId!==reading.cardId||entry.question!==plain(reading.question)))fail('Kept words do not match their reading’s question or draw. No data was imported.');
+ }
+ const next=new Map(specs.map((spec,i)=>[spec.key,JSON.stringify({[spec.versionField||'schemaVersion']:1,[spec.field]:merged[i]})]));
+ return {added,kept,addedKeepsakes,memories:incoming[3].length,previous,next};
 }
 
 /** Reject stale previews. Roll back completed writes if a browser quota interrupts import. */
@@ -73,7 +86,7 @@ export function applyAlmanacImport(storage,plan){
  catch(cause){let restored=true;for(const key of written.reverse())try{const old=plan.previous.get(key);if(old===null)storage.removeItem(key);else storage.setItem(key,old);}catch{restored=false;}
   throw new ReadingError(restored?'BACKUP_WRITE_FAILED':'BACKUP_RECOVERY_NEEDED',restored?'Import could not be saved. Your previous almanac was restored.':'The browser interrupted import and recovery. Keep your backup file; do not clear browser data.',cause);
  }
- return {added:plan.added,kept:plan.kept};
+ return {added:plan.added,kept:plan.kept,addedKeepsakes:plan.addedKeepsakes||0};
 }
 
 export function initAlmanacImport(container,{onImported=()=>{}}={}){
@@ -87,10 +100,10 @@ export function initAlmanacImport(container,{onImported=()=>{}}={}){
  file.addEventListener('change',async()=>{
   const selected=file.files?.[0];if(!selected)return;panel.replaceChildren();panel.hidden=true;status.textContent='';
   try{if(selected.size>8*1024*1024)fail('Choose a backup smaller than 8 MB.');const plan=prepareAlmanacImport(localStorage,await selected.text());
-   const copy=document.createElement('p');copy.textContent=uk?`Нових записів: ${plan.added}. Наявних: ${plan.kept}. Наявні записи й нотатки збережуться без змін. Файл залишається на цьому пристрої.`:`${plan.added} new readings. ${plan.kept} already here. Existing readings and notes will be kept as they are. This file stays on your device.`;
-   const confirm=document.createElement('button');confirm.type='button';confirm.className='solid-action';confirm.textContent=uk?'Імпортувати записи':'Import readings';
+   const copy=document.createElement('p');copy.textContent=uk?`Нових записів: ${plan.added}. Наявних: ${plan.kept}. Нових збережених речень: ${plan.addedKeepsakes}. Наявні записи й нотатки збережуться без змін. Файл залишається на цьому пристрої.`:`${plan.added} new readings. ${plan.kept} already here. ${plan.addedKeepsakes} new kept sentences. Existing readings and notes will be kept as they are. This file stays on your device.`;
+   const confirm=document.createElement('button');confirm.type='button';confirm.className='solid-action';confirm.textContent=uk?'Імпортувати копію':'Import backup';
    const cancel=document.createElement('button');cancel.type='button';cancel.className='quiet-link';cancel.textContent=uk?'Скасувати':'Cancel';cancel.onclick=()=>{panel.hidden=true;};
-   confirm.onclick=()=>{try{confirm.disabled=true;const result=applyAlmanacImport(localStorage,plan);panel.hidden=true;onImported();dispatchEvent(new Event('olivia:journal-change'));status.textContent=uk?`Імпортовано нових записів: ${result.added}.`:`Imported ${result.added} new readings. Your almanac is ready.`;}catch(error){status.textContent=errorText(error);confirm.disabled=false;}};
+   confirm.onclick=()=>{try{confirm.disabled=true;const result=applyAlmanacImport(localStorage,plan);panel.hidden=true;onImported();dispatchEvent(new Event('olivia:journal-change'));status.textContent=uk?`Імпортовано нових записів: ${result.added}. Збережених речень: ${result.addedKeepsakes}.`:`Imported ${result.added} new readings and ${result.addedKeepsakes} kept sentences. Your almanac is ready.`;}catch(error){status.textContent=errorText(error);confirm.disabled=false;}};
    panel.append(copy,confirm,cancel);panel.hidden=false;
   }catch(error){status.textContent=errorText(error);}finally{file.value='';}
  });container.append(pick,file,panel,status);

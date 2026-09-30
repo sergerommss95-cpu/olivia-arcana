@@ -1,3 +1,4 @@
+import {amiellePreparedMeaning} from './amielle-content.js';
 import { UK_TEXT, UK_CARDS } from './locale-uk.js';
 import { UK_NOTES } from './card-notes-uk.js';
 import { TAROT_CARDS } from './deck-catalog.js';
@@ -122,6 +123,7 @@ export function initLocale(root = document.body) {
 
 /** Ukrainian notes are native renderings of the curated English (card-notes-uk.js). */
 export function localizeCardNotes(cardId, notes, options = {}) {
+  if(options.artworkEdition==='amielle-relationships-v1'){const meaning=amiellePreparedMeaning(cardId,options.orientation==='reversed'||options.reversed===true,options.locale||getLocale());if(meaning)return {...notes,...meaning};}
   if ((options.locale || getLocale()) !== 'uk') return notes;
   const native = UK_NOTES[cardId];
   if (!native) return notes;

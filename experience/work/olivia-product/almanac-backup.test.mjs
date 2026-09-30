@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createSession,chooseCard,createRecord,saveRecord,loadRecords,STORAGE_KEY} from './core.js';
+import {KEEPSAKE_STORAGE_KEY,KEEPSAKE_LIMIT,saveReadingKeepsake,loadReadingKeepsakes} from './reading-keepsake.js';
 import {prepareAlmanacImport,applyAlmanacImport} from './almanac-backup.js';
 import {consumeQuestionHandoff,QUESTION_HANDOFF_KEY} from './question-handoff.js';
 const storage=()=>{const map=new Map();return {map,getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,v),removeItem:k=>map.delete(k)};};
@@ -68,4 +69,36 @@ test('legacy backups normalize both reading and question snapshot to the origina
  const value=exportJourneyBackup(source);delete value.oneCardReadings.records[0].deckId;delete value.questionHistory.threads[0].readings[0].snapshot.deckId;
  const target=storage();applyAlmanacImport(target,prepareAlmanacImport(target,JSON.stringify(value)));
  assert.equal(loadRecords(target)[0].deckId,'olivia');assert.equal(loadQuestionHistory(target)[0].readings[0].snapshot.deckId,'olivia');
+});
+
+const keptBackup=source=>({version:1,entries:loadReadingKeepsakes(source)});
+test('backups restore independent kept words without implicitly saving a reading',()=>{
+ const source=storage(),r={...record(),deckId:'space-between'};saveReadingKeepsake(source,{record:r,text:'Залиште місце для розмови.',locale:'uk'});
+ const target=storage(),plan=prepareAlmanacImport(target,backup([],{keepsakes:keptBackup(source)}));assert.equal(plan.added,0);assert.equal(plan.addedKeepsakes,1);
+ const result=applyAlmanacImport(target,plan);assert.equal(result.addedKeepsakes,1);assert.deepEqual(loadReadingKeepsakes(target),loadReadingKeepsakes(source));assert.equal(loadRecords(target).length,0);assert.equal(JSON.parse(target.getItem(KEEPSAKE_STORAGE_KEY)).version,1);
+});
+test('existing kept words win on import and legacy backups preserve them',()=>{
+ const source=storage(),target=storage(),r=record();saveReadingKeepsake(source,{record:r,text:'An earlier sentence.'});saveReadingKeepsake(target,{record:r,text:'The words I want now.'});const before=loadReadingKeepsakes(target);
+ const plan=prepareAlmanacImport(target,backup([r],{keepsakes:keptBackup(source)}));assert.equal(plan.addedKeepsakes,0);applyAlmanacImport(target,plan);assert.deepEqual(loadReadingKeepsakes(target),before);
+ applyAlmanacImport(target,prepareAlmanacImport(target,backup()));assert.deepEqual(loadReadingKeepsakes(target),before);
+ const empty=storage();applyAlmanacImport(empty,prepareAlmanacImport(empty,backup()));assert.deepEqual(loadReadingKeepsakes(empty),[]);
+});
+test('backup kept words must match an included or existing reading when present',()=>{
+ const source=storage(),r=record();saveReadingKeepsake(source,{record:r,text:'The words you chose.'});const entry=loadReadingKeepsakes(source)[0];
+ for(const change of [{question:'A different question'},{cardId:1},{deckId:'space-between'}])for(const included of [true,false]){
+  const target=storage();if(!included)saveRecord(target,r);const before=new Map(target.map);
+  assert.throws(()=>prepareAlmanacImport(target,backup(included?[r]:[],{keepsakes:{version:1,entries:[{...entry,...change}]}})),/Kept words do not match/);assert.deepEqual(target.map,before);
+ }
+});
+test('malformed, duplicate and over-capacity kept words fail without changing any data',()=>{
+ const source=storage(),r=record();saveReadingKeepsake(source,{record:r,text:'The words you chose.'});const entry=loadReadingKeepsakes(source)[0],target=storage();
+ for(const keepsakes of [null,{schemaVersion:1,entries:[]},{version:1,entries:[entry,entry]},{version:1,entries:[{...entry,text:'x'.repeat(241)}]},{version:1,entries:Array.from({length:KEEPSAKE_LIMIT+1},(_,i)=>({...entry,readingId:String(i)}))}]){
+  assert.throws(()=>prepareAlmanacImport(target,backup([],{keepsakes})));assert.equal(target.map.size,0);
+ }
+ saveReadingKeepsake(target,{record:r,text:'Already here.'});const before=new Map(target.map),entries=Array.from({length:KEEPSAKE_LIMIT},(_,i)=>({...entry,readingId:String(i)}));assert.throws(()=>prepareAlmanacImport(target,backup([],{keepsakes:{version:1,entries}})),/available space/);assert.deepEqual(target.map,before);
+});
+test('kept words participate in stale-preview protection and the final-write rollback',()=>{
+ const source=storage(),r=record();saveReadingKeepsake(source,{record:r,text:'The words you chose.'});const raw=backup([r],{keepsakes:keptBackup(source)});
+ const changed=storage(),plan=prepareAlmanacImport(changed,raw);saveReadingKeepsake(changed,{record:r,text:'A newer choice.'});const newer=new Map(changed.map);assert.throws(()=>applyAlmanacImport(changed,plan),error=>error.code==='BACKUP_CHANGED');assert.deepEqual(changed.map,newer);
+ const target=storage(),before=new Map(target.map),preview=prepareAlmanacImport(target,raw),set=target.setItem;target.setItem=(key,value)=>{if(key===KEEPSAKE_STORAGE_KEY)throw Error('quota');set(key,value);};assert.throws(()=>applyAlmanacImport(target,preview),error=>error.code==='BACKUP_WRITE_FAILED');assert.deepEqual(target.map,before);
 });

@@ -3,7 +3,8 @@ import {MEMBERSHIP_LIVE} from './membership.js';
 /** A question first; a small, explained recommendation instead of a catalogue. */
 export function initReadingEntry({form,input,assets,onMore}) {
  const uk=getLocale()==='uk',copy=(en,ua)=>uk?ua:en;
- let chosen=null;
+ // Writing a question must never silently change the reading being offered.
+ let chosen=1;
  const el=(tag,cls,text)=>{const n=document.createElement(tag);n.className=cls||'';if(text)n.textContent=text;return n;};
  const recommendation=el('section','reading-recommendation');recommendation.dataset.noTranslate='true';
  const art=el('div','recommendation-art');art.setAttribute('aria-hidden','true');
@@ -24,7 +25,7 @@ export function initReadingEntry({form,input,assets,onMore}) {
   const b=el('button','',example);b.type='button';b.addEventListener('click',()=>{input.value=example;input.dispatchEvent(new Event('input',{bubbles:true}));examples.open=false;input.focus();});examples.append(b);
  }
  input.before(examples);
- const getCount=()=>chosen??(input.value.trim()?3:1);
+ const getCount=()=>chosen;
  function render(){const count=getCount();recommendation.dataset.count=count;kicker.textContent=copy('A PLACE TO BEGIN · FREE','З ЧОГО ПОЧАТИ · БЕЗКОШТОВНО');title.textContent=count===1?copy('One card. A fresh perspective.','Одна карта. Свіжий погляд.'):copy('Three cards. A little clarity.','Три карти. Трохи ясності.');description.textContent=count===1?copy('A simple reflection, with or without a question.','Простий роздум — із запитанням чи без нього.'):copy('Your situation, what complicates it, and a helpful next step.','Ситуація, її складність і корисний наступний крок.');for(const radio of options.querySelectorAll('input'))radio.checked=Number(radio.value)===count;const submit=form.querySelector('button[type=submit]');submit.textContent=count===1?copy('Choose my card ↗','Обрати мою карту ↗'):copy('Choose my three cards ↗','Обрати мої три карти ↗');}
  input.addEventListener('input',render);render();return {getCount,refresh:render,setCount(count){chosen=count;render();},setPlan(plan){chosen=3;render();title.textContent=plan.spreadName||title.textContent;description.textContent=plan.positions.map(p=>p.label).join(' · ');}};
 }
