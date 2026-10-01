@@ -16,6 +16,10 @@
   path = "/api/reading"
   function = "reading"
 
+[[edge_functions]]
+  path = "/api/telegram"
+  function = "telegram"
+
 [[headers]]
   for = "/*"
   [headers.values]
