@@ -1,7 +1,7 @@
 // website/netlify/portrait/validate.test.mjs
 import test from "node:test";
 import assert from "node:assert/strict";
-import { validateStage, unsafeMatches } from "./validate.ts";
+import { validateStage, unsafeMatches, isStyleError } from "./validate.ts";
 import { stageSchema } from "./schema.ts";
 import { focusFor } from "./plan.ts";
 
@@ -349,4 +349,42 @@ test("chapters of one stage may share phrases with each other", () => {
 
 test("a malformed opening is ignored rather than thrown on", () => {
   for (const bad of [null, "x", {}, { overview: 1, facets: "no" }, { facets: { mind: null } }]) assert.deepEqual(validateStage("b", stageB(), packet, teachings, bad), { ok: true });
+});
+
+test("a chapter's paragraphs may not restate its lede", () => {
+  for (const [stage, make] of [["b", stageB], ["c", stageC]]) {
+    const data = make();
+    const key = Object.keys(data.chapters)[0];
+    const ch = data.chapters[key];
+    ch.paragraphs[0] = `${ch.lede} ${words(50)}`;
+    const errors = validateStage(stage, data, packet, teachings).errors;
+    assert.ok(errors.some((e) => e.startsWith(`repeat:${key}:lede:"`)), `${stage}: ${errors}`);
+    assert.equal(errors.filter((e) => e.startsWith("repeat:")).length, 1, String(errors));
+    // the same run in a later paragraph counts too, and only the lede's own chapter is blamed
+    const later = make();
+    later.chapters[key].paragraphs[1] = `${words(20)} ${later.chapters[key].lede.replace(/^\S+ \S+ /, "")} ${words(20)}`;
+    assert.ok(validateStage(stage, later, packet, teachings).errors.some((e) => e.startsWith(`repeat:${key}:lede:"`)));
+    assert.deepEqual(validateStage(stage, make(), packet, teachings), { ok: true });
+  }
+});
+
+test("a lede of its own, or one too short to share six words, is not a restatement", () => {
+  const data = stageB();
+  data.chapters.work.lede = "Work is where you hide.";
+  data.chapters.work.paragraphs[0] = `Work is where you hide. ${words(50)}`;
+  assert.equal(validateStage("b", data, packet, teachings).errors?.some((e) => e.startsWith("repeat:")) ?? false, false);
+});
+
+test("a lede that only shares a phrase with the opening is blamed on the opening, not as a restatement", () => {
+  const opening = stageA();
+  const data = stageB();
+  opening.overview.text = `${data.chapters.mind.lede} ${words(80)}`;
+  const errors = validateStage("b", data, packet, teachings, opening).errors;
+  assert.ok(errors.some((e) => e.startsWith('repeat:mind:"')), String(errors));
+  assert.equal(errors.some((e) => e.startsWith("repeat:mind:lede")), false);
+});
+
+test("style-class errors are the voice rules; everything else is not", () => {
+  for (const code of ["hedge-lead:overview", "hedges:inner:2", 'phrase:x:"healing"', 'repeat:mind:"a b c d e f"', 'repeat:mind:lede:"a b c d e f"', "hedge-lead:mind:lede"]) assert.equal(isStyleError(code), true, code);
+  for (const code of ['gender:x:"ви сама"', 'unsafe:overview:"diagnos"', "refs:inner:empty", "teachings:inner:x", "focus:inner", "uncertain:inner:natal-moon", "length:title", "count:keep", "missing:outline", "outline:duplicate", 'unsafe:phrase:x:"a"']) assert.equal(isStyleError(code), false, code);
 });

@@ -508,13 +508,96 @@ test("a chapter that repeats the opening gets one repair attempt naming the repe
   assert.match(calls[3].user, /repeat:mind:"/);
 });
 
-test("a chapter that keeps repeating the opening fails the stage, and the opening itself is never compared with anything", async (t) => {
-  quiet(t);
+test("a chapter that still repeats the opening after its repair is kept as a style residue", async (t) => {
+  const warnings = quiet(t);
   const kv = memoryStore();
   await createJob(kv, job);
   const echo = { ...B, chapters: { ...B.chapters, work: { ...chapter(), lede: A.facets.gifts.text.split(" ").slice(0, 20).join(" ") } } };
   const { write } = scripted([ok(A), ok(echo), ok(C), ok(echo)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.ok((await readStages(kv, "j")).b);
+  assert.deepEqual(warnings.map((line) => JSON.parse(line)).filter((e) => e.event === "portrait_style_residue"), [{ event: "portrait_style_residue", stage: "b", codes: ["repeat:work"] }]);
+  // with a real error beside the repeat, the stage still fails
+  const broken = { ...echo, chapters: { ...echo.chapters, mind: { ...chapter(), paragraphs: ["short"] } } };
+  const again = memoryStore();
+  await createJob(again, job);
+  assert.equal(await runJob({ kv: again, id: "j", write: scripted([ok(A), ok(broken), ok(C), ok(broken)]).write, bank }), "failed");
+  assert.equal((await readJob(again, "j")).error, "stage_b_invalid");
+  assert.ok((await readStages(again, "j")).c);
+});
+
+const hedged = (text) => ({ ...A, overview: { ...p(100), text: `Perhaps ${text}` } });
+const kvFor = async (packetOverride) => {
+  const kv = memoryStore();
+  await createJob(kv, packetOverride ? { ...job, packet: packetOverride } : job);
+  return kv;
+};
+
+test("a first attempt with only style errors is still repaired; a clean repair lands with no residue log", async (t) => {
+  const warnings = quiet(t);
+  const kv = await kvFor();
+  const { write, calls } = scripted([ok(hedged(words(99))), ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.equal(calls.length, 4);
+  assert.match(calls[1].user, /hedge-lead:overview/);
+  assert.deepEqual((await readStages(kv, "j")).a, A);
+  assert.equal(warnings.some((line) => line.includes("portrait_style_residue")), false);
+});
+
+test("style errors left after the repair are accepted: the stage lands, the job is done, and the log names codes only", async (t) => {
+  const warnings = quiet(t);
+  const lines = talk(t);
+  const kv = await kvFor();
+  const second = hedged(words(99));
+  const { write, calls } = scripted([ok(hedged(words(99))), ok(second), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.equal(calls.length, 4);
+  assert.deepEqual((await readStages(kv, "j")).a, second);
+  assert.equal((await readJob(kv, "j")).status, "done");
+  const residue = warnings.map((line) => JSON.parse(line)).filter((entry) => entry.event === "portrait_style_residue");
+  assert.deepEqual(residue, [{ event: "portrait_style_residue", stage: "a", codes: ["hedge-lead:overview"] }]);
+  assert.ok(!warnings.some((line) => line.includes("Perhaps") || line.includes("waaa")));
+  assert.deepEqual(stageLogs(lines).filter((entry) => entry.stage === "a").map((entry) => [entry.attempt, entry.ok]), [[0, false], [1, true]]);
+});
+
+test("a chapter stage keeps a style residue too, with snippets stripped from its codes", async (t) => {
+  const warnings = quiet(t);
+  const kv = await kvFor();
+  const flawed = () => ({ ...B, chapters: { ...B.chapters, heart: { ...chapter(), title: "A healing chapter", lede: `Perhaps ${words(8)}` } } });
+  const { write } = scripted([ok(A), ok(flawed()), ok(C), ok(flawed())]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.ok((await readStages(kv, "j")).b);
+  const [entry] = warnings.map((line) => JSON.parse(line)).filter((e) => e.event === "portrait_style_residue");
+  assert.deepEqual([entry.stage, [...entry.codes].sort()], ["b", ["hedge-lead:heart:lede", "phrase:heart:title"]]);
+  assert.ok(!warnings.some((line) => line.includes("healing")));
+});
+
+test("any other error left after the repair fails the stage: unsafe, length, gender", async (t) => {
+  quiet(t);
+  const unsafe = { ...A, overview: { ...p(100), text: `Perhaps diagnosed ${words(99)}` } };
+  const short = { ...A, facets: { ...A.facets, gifts: { ...A.facets.gifts, text: "Perhaps short." } } };
+  for (const [name, second] of [["unsafe", unsafe], ["length", short]]) {
+    const kv = await kvFor();
+    const { write, calls } = scripted([ok(hedged(words(99))), ok(second)]);
+    assert.equal(await runJob({ kv, id: "j", write, bank }), "failed", name);
+    assert.equal(calls.length, 2, name);
+    assert.equal((await readJob(kv, "j")).error, "stage_a_invalid", name);
+    assert.deepEqual(await readStages(kv, "j"), {}, name);
+  }
+  const uk = { ...packet, locale: "uk" };
+  const kv = await kvFor(uk);
+  const gendered = { ...A, overview: { ...p(100), text: `Ви сама вирішуєте, коли зупинитись. ${words(99)}` } };
+  const { write } = scripted([ok(hedged(words(99))), ok(gendered)]);
   assert.equal(await runJob({ kv, id: "j", write, bank }), "failed");
-  assert.equal((await readJob(kv, "j")).error, "stage_b_invalid");
-  assert.ok((await readStages(kv, "j")).c);
+  assert.equal((await readJob(kv, "j")).error, "stage_a_invalid");
+});
+
+test("a clean first attempt is never repaired", async (t) => {
+  const warnings = quiet(t);
+  const kv = await kvFor();
+  const { write, calls } = scripted([ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.equal(calls.length, 3);
+  assert.ok(calls.every((call) => !call.user.includes("failed these checks")));
+  assert.equal(warnings.length, 0);
 });

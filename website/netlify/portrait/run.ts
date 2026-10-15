@@ -4,7 +4,7 @@ import { claimJob, finishJob, putStage, readStages, settle, type KeyValue } from
 import { citedTeachings, selectTeachings, type Bank, type Teaching } from "./teachings.ts";
 import { stageSchema } from "./schema.ts";
 import { systemPrompt, stageRequest } from "./prompt.ts";
-import { validateStage } from "./validate.ts";
+import { isStyleError, validateStage } from "./validate.ts";
 import { costCents, type Call, type WriteResult } from "./claude.ts";
 import type { Stage } from "./plan.ts";
 
@@ -47,8 +47,11 @@ export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS
           return { ok: false as const, error: `stage_${key}_${result.code}` };
         }
         const check = validateStage(key, result.data, packet, teachings, earlier.a);
-        log(check.ok);
-        if (check.ok) { await putStage(kv, id, key, result.data); return { ok: true as const, data: result.data }; }
+        // A paid reading is not thrown away over its voice: after the repair attempt, style-only errors are tolerated. Anything else still fails the stage.
+        const residue = !check.ok && attempt === 1 && check.errors.every(isStyleError);
+        log(check.ok || residue);
+        if (residue) console.warn(JSON.stringify({ event: "portrait_style_residue", stage: key, codes: check.errors.map((e) => e.replace(/:".*"$/s, "")) }));
+        if (check.ok || residue) { await putStage(kv, id, key, result.data); return { ok: true as const, data: result.data }; }
         errors = check.errors;
         console.warn(JSON.stringify({ event: "portrait_stage_invalid", stage: key, attempt, errors: errors.map((e) => e.replace(/:".*"$/s, "")).slice(0, 20) }));
       }

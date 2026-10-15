@@ -58,6 +58,9 @@ const within = (value: unknown, [min, max]: readonly [number, number]) => typeof
 const str = (value: unknown): string => (typeof value === "string" ? value : "");
 const list = (value: unknown): any[] => (Array.isArray(value) ? value : []);
 
+/** Voice rules, as opposed to safety, structure or grounding: the only errors a reading is allowed to keep after its repair attempt. */
+export const isStyleError = (code: string) => /^(?:hedge-lead|hedges|phrase|repeat):/.test(code);
+
 /** What the reader sees of the opening: the overview and each facet's text. The outline is hidden planning text and is left out. */
 const openingText = (opening: any): string[] => [str(opening?.overview?.text), ...SECTIONS.a.slice(1).map((key) => str(opening?.facets?.[key]?.text))].filter(Boolean);
 
@@ -143,6 +146,9 @@ export function validateStage(stage: Stage, data: any, packet: Packet, teachings
       checkStyle(`${key}:practice`, ch.practice);
       // Stages B and C are written side by side, so each is held against the opening only.
       errors.push(...repetition(key, text, seen));
+      // The lede is the chapter's first sentence; the paragraphs go on from it instead of saying it again.
+      const restated = paragraphs.flatMap((paragraph) => repetition(`${key}:lede`, str(paragraph), [str(ch.lede)]));
+      if (restated.length) errors.push(restated[0]);
     }
     if (stage === "c") {
       const keep = list(data?.keep);
