@@ -136,3 +136,39 @@ test("cited teachings are the selected ones that any stage names, with their sou
   assert.ok(cited["card-4-risk"].sources.every((s) => typeof s.title === "string" && s.url.startsWith("http")));
   assert.deepEqual(citedTeachings(selected, bank, {}), {});
 });
+
+test("every Arkan position carries its frame", () => {
+  const teachings = selectTeachings(packetFor("2000-02-01", "14:30"), bank);
+  for (const p of [1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 14]) assert.ok(teachings.some((t) => t.id === `card-${p}-frame`), `card-${p}-frame`);
+  assert.match(teachings.find((t) => t.id === "card-4-frame").text, /pull underneath/);
+});
+
+test("Sun, Moon and Ascendant use their own sign texts", () => {
+  const teachings = selectTeachings(packetFor("2000-02-01", "14:30"), bank);
+  assert.match(teachings.find((t) => t.id === "natal-sun-sign").text, /^Sun in Aquarius/);
+  assert.match(teachings.find((t) => t.id === "natal-asc-sign").text, /^Cancer rising/);
+});
+
+test("aspects carry their tension and integration; angle aspects get a teaching", () => {
+  const packet = packetFor("2000-02-01", "14:30");
+  const teachings = selectTeachings(packet, bank);
+  const aspects = packet.factors.filter((f) => f.kind === "aspect");
+  for (const f of aspects) assert.ok(teachings.some((t) => t.factors.includes(f.id)), f.id);
+  const planetary = aspects.find((f) => f.a !== "asc" && f.a !== "mc" && f.b !== "asc" && f.b !== "mc");
+  const pair = bank.pairs[`${planetary.a}:${planetary.b}`] ?? bank.pairs[`${planetary.b}:${planetary.a}`];
+  assert.ok(teachings.find((t) => t.id === planetary.id).text.includes(pair.tension.en));
+});
+
+test("an aspect to an angle reads as planet, angle and aspect, in either language", () => {
+  for (const locale of ["en", "uk"]) {
+    const packet = packetFor("2000-02-01", "14:30", locale);
+    const teachings = selectTeachings(packet, bank);
+    const planetAngle = teachings.find((t) => t.id === "aspect-mars-conjunction-mc");
+    assert.equal(planetAngle.label, [bank.planets.mars.name, { en: "Midheaven", uk: "Середина неба" }, bank.aspects.conjunction.name].map((x) => x[locale]).join(" · "));
+    assert.ok(planetAngle.text.startsWith(bank.planets.mars.function[locale]));
+    assert.ok(planetAngle.text.endsWith(bank.aspects.conjunction.meaning[locale]));
+    assert.deepEqual(planetAngle.sources, ["astrodienst-intro"]);
+    const angles = teachings.find((t) => t.id === "aspect-asc-trine-mc");
+    assert.equal(angles.label, [{ en: "Ascendant", uk: "Асцендент" }, { en: "Midheaven", uk: "Середина неба" }, bank.aspects.trine.name].map((x) => x[locale]).join(" · "));
+  }
+});

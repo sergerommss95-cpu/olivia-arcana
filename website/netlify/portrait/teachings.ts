@@ -1,5 +1,6 @@
 // website/netlify/portrait/teachings.ts
 /** Picks the passages of the knowledge bank that fit each calculated factor's role. */
+import positions from "./knowledge/positions.json" with { type: "json" };
 
 type Text = { en: string; uk: string };
 type Factor = { id: string; kind: string; [key: string]: unknown };
@@ -28,6 +29,12 @@ const POSITION_NAMES: Record<number, Text> = {
   12: { en: "Restoration", uk: "Відновлення" }, 13: { en: "Self-image", uk: "Образ себе" },
   14: { en: "Outward presence", uk: "Зовнішній прояв" },
 };
+const ANGLE_NAMES: Record<string, Text> = { asc: { en: "Ascendant", uk: "Асцендент" }, mc: { en: "Midheaven", uk: "Середина неба" } };
+/** What each angle stands for, so an aspect between two angles still has something to say. */
+const ANGLE_FUNCTIONS: Record<string, Text> = {
+  asc: { en: "The Ascendant describes the manner of meeting the world: how a person enters a situation and how others first read them.", uk: "Асцендент описує спосіб зустрічати світ: як людина входить у ситуацію і як її вперше прочитують інші." },
+  mc: { en: "The Midheaven describes the direction a life takes in public: vocation, standing and what a person is known for.", uk: "Середина неба описує напрям життя на людях: покликання, становище й те, чим людину знають." },
+};
 /** Reader-facing role names, from V18's `numberTitles` (portrait-ai-knowledge-v15.js). */
 const NUMBER_TITLES: Record<string, Text> = {
   lifePath: { en: "Life path", uk: "Життєвий шлях" },
@@ -53,6 +60,7 @@ export function selectTeachings(packet: Packet, bank: Bank): Teaching[] {
   for (const f of packet.factors) {
     if (f.kind === "arkan") {
       const position = f.position as number, card = bank.cards[String(f.card)];
+      add({ id: `card-${position}-frame`, factors: [f.id], label: pick(POSITION_NAMES[position]), text: pick((positions as Record<string, Text>)[String(position)]), sources: ["arkan-chrzanowska"] });
       for (const field of ARKAN_FIELDS[position]) {
         add({ id: `card-${position}-${field}`, factors: [f.id], label: `${pick(POSITION_NAMES[position])} · ${pick(card.name)}`, text: pick(card[field]), sources: ["arkan-chrzanowska"] });
       }
@@ -68,7 +76,9 @@ export function selectTeachings(packet: Packet, bank: Bank): Teaching[] {
         const personal = bank.personal[body]?.[sign];
         const text = personal
           ? [personal.disposition, personal.satisfaction, personal.strain].map(pick).join(" ")
-          : `${pick(bank.planets[body].function)} ${pick(bank.signs[sign].style)} ${pick(bank.signs[sign].gift)}`;
+          : body === "sun" || body === "moon"
+            ? pick(bank.signs[sign][body])
+            : `${pick(bank.planets[body].function)} ${pick(bank.signs[sign].style)} ${pick(bank.signs[sign].gift)}`;
         const sources = personal ? [`v18-natal-function-${body}`, `v18-natal-style-${sign}`] : ["astrodienst-intro"];
         add({ id, factors: [f.id], label: `${pick(bank.planets[body].name)} · ${pick(bank.signs[sign].name)}`, text, sources });
       }
@@ -78,11 +88,19 @@ export function selectTeachings(packet: Packet, bank: Bank): Teaching[] {
       }
     } else if (f.kind === "angle") {
       const sign = bank.signs[f.sign as string];
-      add({ id: `natal-${f.angle}-sign`, factors: [f.id], label: `${f.angle === "asc" ? (lang === "uk" ? "Асцендент" : "Ascendant") : (lang === "uk" ? "Середина неба" : "Midheaven")} · ${pick(sign.name)}`, text: `${pick(sign.style)} ${pick(sign.gift)}`, sources: ["astrodienst-intro"] });
+      add({ id: `natal-${f.angle}-sign`, factors: [f.id], label: `${pick(ANGLE_NAMES[f.angle as string])} · ${pick(sign.name)}`, text: f.angle === "asc" ? pick(sign.ascendant) : `${pick(sign.style)} ${pick(sign.gift)}`, sources: ["astrodienst-intro"] });
     } else if (f.kind === "aspect") {
-      const pair = bank.pairs[`${f.a}:${f.b}`] ?? bank.pairs[`${f.b}:${f.a}`];
       const type = bank.aspects[f.aspect as string];
-      if (pair) add({ id: `${f.id}`, factors: [f.id], label: `${pick(pair.title)} · ${pick(type.name)}`, text: `${pick(pair.relationship)} ${pick(type.meaning)}`, sources: ["astrodienst-intro"] });
+      const angles = [f.a, f.b].filter((x) => Object.hasOwn(ANGLE_NAMES, x as string)) as string[];
+      if (angles.length) {
+        const planet = [f.a, f.b].find((x) => !angles.includes(x as string)) as string | undefined;
+        const names = [...(planet ? [bank.planets[planet].name] : []), ...angles.map((a) => ANGLE_NAMES[a]), type.name].map(pick).join(" · ");
+        const subject = planet ? [bank.planets[planet].function] : angles.map((a) => ANGLE_FUNCTIONS[a]);
+        add({ id: f.id, factors: [f.id], label: names, text: [...subject, type.meaning].map(pick).join(" "), sources: ["astrodienst-intro"] });
+      } else {
+        const pair = bank.pairs[`${f.a}:${f.b}`] ?? bank.pairs[`${f.b}:${f.a}`];
+        if (pair) add({ id: f.id, factors: [f.id], label: `${pick(pair.title)} · ${pick(type.name)}`, text: [pair.relationship, pair.tension, pair.integration, type.meaning].map(pick).join(" "), sources: ["astrodienst-intro"] });
+      }
     }
   }
   return out;
