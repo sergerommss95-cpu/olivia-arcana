@@ -7,7 +7,7 @@ import { arkanPortrait } from "../../src/lib/portrait/arkan.js";
 import { nameNumbers } from "../../src/lib/portrait/numbers.js";
 import { signsThroughDay } from "../../src/lib/portrait/uncertain.js";
 import { buildPacket } from "../../src/lib/portrait/packet.js";
-import { selectTeachings } from "./teachings.ts";
+import { selectTeachings, citedTeachings } from "./teachings.ts";
 
 const bank = JSON.parse(await readFile(new URL("./knowledge/bank.json", import.meta.url), "utf8"));
 const KYIV = { zone: "Europe/Kyiv", latitude: 50.45, longitude: 30.52 };
@@ -121,4 +121,18 @@ test("a source missing from the bank is an error, never silently dropped", () =>
   assert.throws(() => selectTeachings(TIMED(), withoutSources), /unknown_source:/);
   const { "v15-num-check-roles": _gone, ...rest } = bank.sources;
   assert.throws(() => selectTeachings({ locale: "en", factors: [numberFactor("lifePath", 4)] }, { ...bank, sources: rest }), /unknown_source:v15-num-check-roles/);
+});
+
+test("cited teachings are the selected ones that any stage names, with their sources spelled out", () => {
+  const selected = selectTeachings(packetFor("2000-02-01", "14:30"), bank);
+  const stages = {
+    a: { overview: { text: "x", refs: [], teachings: ["card-4-risk"] }, facets: { gifts: { text: "x", refs: [], teachings: ["natal-sun-sign", "not-selected"] } } },
+    b: { chapters: { mind: { teachings: ["natal-venus-sign"] } } },
+  };
+  const cited = citedTeachings(selected, bank, stages);
+  assert.deepEqual(Object.keys(cited).sort(), ["card-4-risk", "natal-sun-sign", "natal-venus-sign"]);
+  const risk = selected.find((t) => t.id === "card-4-risk");
+  assert.deepEqual(cited["card-4-risk"], { label: risk.label, text: risk.text, sources: risk.sources.map((s) => bank.sources[s]) });
+  assert.ok(cited["card-4-risk"].sources.every((s) => typeof s.title === "string" && s.url.startsWith("http")));
+  assert.deepEqual(citedTeachings(selected, bank, {}), {});
 });

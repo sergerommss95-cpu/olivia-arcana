@@ -1,7 +1,7 @@
 // website/netlify/portrait/run.ts
 /** Writes one portrait: opening first, then the two chapter stages side by side. */
-import { claimJob, finishJob, putStage, settle, type KeyValue } from "./store.ts";
-import { selectTeachings, type Bank } from "./teachings.ts";
+import { claimJob, finishJob, putStage, readStages, settle, type KeyValue } from "./store.ts";
+import { citedTeachings, selectTeachings, type Bank, type Teaching } from "./teachings.ts";
 import { stageSchema } from "./schema.ts";
 import { systemPrompt, stageRequest } from "./prompt.ts";
 import { validateStage } from "./validate.ts";
@@ -16,9 +16,10 @@ export async function runJob({ kv, id, write, bank }: { kv: KeyValue; id: string
   if (!job) return "skipped" as const;
   let cents = 0;
   let error: string | null = null;
+  let teachings: Teaching[] = [];
   try {
     const packet = job.packet as any;
-    const teachings = selectTeachings(packet, bank);
+    teachings = selectTeachings(packet, bank);
     const factorIds = packet.factors.map((f: { id: string }) => f.id);
     const teachingIds = teachings.map((t) => t.id);
     const system = systemPrompt(packet.locale);
@@ -53,7 +54,9 @@ export async function runJob({ kv, id, write, bank }: { kv: KeyValue; id: string
     console.warn(JSON.stringify({ event: "portrait_run_error", message: (thrown as Error)?.message }));
   }
   try {
-    await finishJob(kv, id, { status: error ? "failed" : "done", error, costCents: cents });
+    // The finished job keeps only the teachings its text cited, not the packet: the factors can reveal the birth date.
+    const kept = citedTeachings(teachings, bank, await readStages(kv, id));
+    await finishJob(kv, id, { status: error ? "failed" : "done", error, costCents: cents, teachings: kept });
   } catch (thrown) {
     if ((thrown as Error)?.message === "job_finished") return "skipped" as const;
     throw thrown;

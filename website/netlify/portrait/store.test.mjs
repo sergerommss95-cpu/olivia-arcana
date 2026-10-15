@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { memoryStore, createJob, readJob, claimJob, finishJob, putStage, readStages, forgetJob, admit, refund, settle } from "./store.ts";
+import { memoryStore, createJob, readJob, claimJob, finishJob, putStage, readStages, readTeachings, forgetJob, admit, refund, settle } from "./store.ts";
 import { inviteId, sha256Hex } from "./invite.ts";
 
 const job = (id) => ({ id, status: "queued", createdAt: 1, packet: { v: 1 }, invite: "abc", day: "2026-10-15", reserveCents: 75, costCents: 0, error: null });
@@ -82,15 +82,70 @@ test("refund and settle throw when contention never resolves", async () => {
   await assert.rejects(settle(kv, { day: "d", reserveCents: 75, costCents: 30 }), /counter_contended/);
 });
 
-test("forgetJob removes the job and every stage", async () => {
+test("forgetJob removes the job, every stage and the saved teachings", async () => {
   const kv = memoryStore();
   await createJob(kv, job("j6"));
   await putStage(kv, "j6", "a", { s: 1 });
   await putStage(kv, "j6", "b", { s: 2 });
   await putStage(kv, "j6", "c", { s: 3 });
+  await claimJob(kv, "j6");
+  await finishJob(kv, "j6", { status: "done", costCents: 1, error: null, teachings: { x: { label: "L", text: "T", sources: [] } } });
+  assert.ok(await kv.get("job/j6/t", { type: "json" }));
   await forgetJob(kv, "j6");
   assert.equal(await readJob(kv, "j6"), null);
   assert.deepEqual(await readStages(kv, "j6"), {});
+  assert.equal(await kv.get("job/j6/t", { type: "json" }), null);
+});
+
+test("finishing with teachings keeps them as job/<id>/t and lets the packet go", async () => {
+  const kv = memoryStore();
+  await createJob(kv, job("j9"));
+  await claimJob(kv, "j9");
+  const teachings = { "card-4-risk": { label: "Inner tension", text: "Text.", sources: [{ title: "A", url: "https://example.com" }] } };
+  await finishJob(kv, "j9", { status: "done", costCents: 12, error: null, teachings });
+  const finished = await readJob(kv, "j9");
+  assert.equal(finished.status, "done");
+  assert.equal(finished.packet, null);
+  assert.deepEqual(await readTeachings(kv, "j9"), teachings);
+  assert.deepEqual(await kv.get("job/j9/t", { type: "json" }), teachings);
+});
+
+test("a failed job lets its packet go too, with whatever teachings it had cited", async () => {
+  const kv = memoryStore();
+  await createJob(kv, job("j10"));
+  await claimJob(kv, "j10");
+  await finishJob(kv, "j10", { status: "failed", costCents: 0, error: "stage_a_invalid", teachings: {} });
+  assert.equal((await readJob(kv, "j10")).packet, null);
+  assert.deepEqual(await readTeachings(kv, "j10"), {});
+});
+
+test("finishing without teachings leaves the packet alone", async () => {
+  const kv = memoryStore();
+  await createJob(kv, job("j11"));
+  await claimJob(kv, "j11");
+  await finishJob(kv, "j11", { status: "done", costCents: 1, error: null });
+  assert.deepEqual((await readJob(kv, "j11")).packet, { v: 1 });
+  assert.equal(await readTeachings(kv, "j11"), null);
+});
+
+test("a finished job's teachings are not overwritten by a second finish", async () => {
+  const kv = memoryStore();
+  await createJob(kv, job("j12"));
+  await claimJob(kv, "j12");
+  await finishJob(kv, "j12", { status: "done", costCents: 1, error: null, teachings: { a: { label: "L", text: "T", sources: [] } } });
+  await assert.rejects(finishJob(kv, "j12", { status: "failed", costCents: 0, error: "x", teachings: { b: { label: "L", text: "T", sources: [] } } }), /job_finished/);
+  assert.deepEqual(Object.keys(await readTeachings(kv, "j12")), ["a"]);
+});
+
+test("the memory store lists keys by prefix", async () => {
+  const kv = memoryStore();
+  await kv.setJSON("job/a", 1);
+  await kv.setJSON("job/a/t", 2);
+  await kv.setJSON("quota/2026-10-15/cents", 3);
+  const keys = async (prefix) => (await kv.list({ prefix })).blobs.map((b) => b.key).sort();
+  assert.deepEqual(await keys("job/"), ["job/a", "job/a/t"]);
+  assert.deepEqual(await keys("quota/"), ["quota/2026-10-15/cents"]);
+  assert.deepEqual(await keys("nothing/"), []);
 });
 
 test("a finished job cannot be finished again", async () => {

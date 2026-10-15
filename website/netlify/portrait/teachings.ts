@@ -87,3 +87,14 @@ export function selectTeachings(packet: Packet, bank: Bank): Teaching[] {
   }
   return out;
 }
+
+/** The teachings the written stages cite, as the status endpoint returns them: id → label, text and source links. */
+export function citedTeachings(selected: Teaching[], bank: Bank, stages: unknown): Record<string, { label: string; text: string; sources: { title: string; url: string }[] }> {
+  const cited = new Set<string>();
+  const collect = (value: unknown) => {
+    if (Array.isArray(value)) value.forEach(collect);
+    else if (value && typeof value === "object") for (const [k, v] of Object.entries(value)) k === "teachings" && Array.isArray(v) ? v.forEach((t) => cited.add(String(t))) : collect(v);
+  };
+  collect(stages);
+  return Object.fromEntries(selected.filter((t) => cited.has(t.id)).map((t) => [t.id, { label: t.label, text: t.text, sources: t.sources.map((s) => bank.sources[s]) }]));
+}

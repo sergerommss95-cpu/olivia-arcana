@@ -1,7 +1,7 @@
 // website/netlify/portrait/run.test.mjs
 import test from "node:test";
 import assert from "node:assert/strict";
-import { memoryStore, createJob, readJob, readStages, finishJob } from "./store.ts";
+import { memoryStore, createJob, readJob, readStages, readTeachings, finishJob } from "./store.ts";
 import { runJob } from "./run.ts";
 import { interpret, costCents, createWriter } from "./claude.ts";
 
@@ -38,6 +38,34 @@ test("stages run A then B and C, and each lands as soon as it passes", async () 
   const done = await readJob(kv, "j");
   assert.equal(done.status, "done");
   assert.equal(done.costCents, 3 * costCents(usage));
+});
+
+test("a finished portrait keeps only the teachings it cited, and the job no longer holds the packet", async () => {
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const { write } = scripted([ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.equal((await readJob(kv, "j")).packet, null);
+  const kept = await readTeachings(kv, "j");
+  assert.deepEqual(Object.keys(kept), ["natal-sun-sign"]);
+  assert.equal(kept["natal-sun-sign"].label, "Sun · Pisces");
+  assert.match(kept["natal-sun-sign"].text, /Pisces|porous/);
+  assert.deepEqual(kept["natal-sun-sign"].sources, [{ title: "A", url: "https://example.com" }]);
+});
+
+test("a failed portrait lets the packet go as well, keeping what its landed stages cited", async () => {
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const bad = { ...B, chapters: { ...B.chapters, mind: { ...chapter(), paragraphs: ["short"] } } };
+  const { write } = scripted([ok(A), ok(bad), ok(C), ok(bad)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "failed");
+  assert.equal((await readJob(kv, "j")).packet, null);
+  assert.deepEqual(Object.keys(await readTeachings(kv, "j")), ["natal-sun-sign"]);
+  const none = memoryStore();
+  await createJob(none, job);
+  assert.equal(await runJob({ kv: none, id: "j", write: scripted([() => ({ ok: false, code: "provider", usage }), () => ({ ok: false, code: "provider", usage })]).write, bank }), "failed");
+  assert.equal((await readJob(none, "j")).packet, null);
+  assert.deepEqual(await readTeachings(none, "j"), {});
 });
 
 test("a failed check gets one repair attempt with the errors attached", async () => {

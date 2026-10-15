@@ -10,6 +10,7 @@ export interface KeyValue {
   getWithMetadata(key: string, options: { type: "json" }): Promise<{ data: unknown; etag?: string } | null>;
   setJSON(key: string, value: unknown, options?: Conditional): Promise<WriteResult>;
   delete(key: string): Promise<unknown>;
+  list(options: { prefix: string }): Promise<{ blobs: { key: string; etag?: string }[] }>;
 }
 
 export type Job = {
@@ -17,7 +18,10 @@ export type Job = {
   packet: unknown; invite: string; day: string; reserveCents: number; costCents: number; error: string | null;
 };
 export type StageKey = "a" | "b" | "c";
-export type Finish = { status: "done" | "failed"; costCents: number; error: string | null };
+/** The teachings a portrait cited, in the shape the status endpoint returns them. */
+export type Resolved = Record<string, { label: string; text: string; sources: { title: string; url: string }[] }>;
+/** With `teachings`, the job keeps them as `job/<id>/t` and drops its packet, which reveals the birth date. */
+export type Finish = { status: "done" | "failed"; costCents: number; error: string | null; teachings?: Resolved };
 
 export function memoryStore(): KeyValue {
   const data = new Map<string, { value: unknown; etag: string }>();
@@ -34,6 +38,7 @@ export function memoryStore(): KeyValue {
       return { modified: true, etag };
     },
     async delete(key) { data.delete(key); },
+    async list({ prefix }) { return { blobs: [...data].filter(([key]) => key.startsWith(prefix)).map(([key, entry]) => ({ key, etag: entry.etag })) }; },
   };
 }
 
@@ -64,6 +69,7 @@ async function bump(kv: KeyValue, key: string, step: number, max = Infinity, { s
 
 export const utcDay = (now: number) => new Date(now).toISOString().slice(0, 10);
 const jobKey = (id: string) => `job/${id}`;
+const teachingsKey = (id: string) => `${jobKey(id)}/t`;
 
 export async function createJob(kv: KeyValue, job: Job) { return conditional(kv, jobKey(job.id), job, { onlyIfNew: true }); }
 export async function readJob(kv: KeyValue, id: string) { return (await kv.get(jobKey(id), { type: "json" })) as Job | null; }
@@ -82,7 +88,9 @@ export async function finishJob(kv: KeyValue, id: string, change: Finish) {
     if (!entry?.etag) throw new Error("job_missing");
     const job = entry.data as Job;
     if (job.status === "done" || job.status === "failed") throw new Error("job_finished");
-    const finished = { ...job, status: change.status, costCents: change.costCents, error: change.error };
+    const finished = { ...job, status: change.status, costCents: change.costCents, error: change.error, ...(change.teachings ? { packet: null } : {}) };
+    // The teachings land before the packet goes, so a crash between the two leaves a job that can still be read.
+    if (change.teachings) await conditional(kv, teachingsKey(id), change.teachings, {});
     if (await conditional(kv, jobKey(id), finished, { onlyIfMatch: entry.etag })) return;
   }
   throw new Error("job_contended");
@@ -102,8 +110,9 @@ export async function readStages(kv: KeyValue, id: string) {
   }
   return out;
 }
+export async function readTeachings(kv: KeyValue, id: string) { return (await kv.get(teachingsKey(id), { type: "json" })) as Resolved | null; }
 export async function forgetJob(kv: KeyValue, id: string) {
-  await Promise.all([jobKey(id), ...["a", "b", "c"].map((s) => `${jobKey(id)}/${s}`)].map((key) => kv.delete(key)));
+  await Promise.all([jobKey(id), ...["a", "b", "c", "t"].map((s) => `${jobKey(id)}/${s}`)].map((key) => kv.delete(key)));
 }
 
 type Limits = { day: string; invite: string; perInvite: number; budgetCents: number; reserveCents: number };

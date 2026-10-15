@@ -2,12 +2,12 @@
 export const PORTRAIT_COPY = {
   en: {
     kicker: "Private beta", title: "Your birth, read three ways",
-    lede: "Your birth date, name and the sky at your birth, read together as one portrait: the Arkan portrait, the numbers of your name and your natal chart. Calculated on this device; only the calculated factors are sent to be written into words.",
+    lede: "Your birth date, name and the sky at your birth, read together as one portrait: the Arkan portrait, the numbers of your name and your natal chart. The calculation happens on this device. Only the calculated cards, numbers and signs are sent to be written into words; they are kept on our server for at most a day so this page can fetch the portrait, then deleted. Keep this tab open, or come back within a day.",
     name: "Full name at birth", latin: "Latin spelling of your name", latinHint: "Your name uses letters outside A–Z. Write it in Latin letters the way you would on a passport.",
     date: "Birth date", time: "Local birth time", unknown: "I don't know the time", place: "Birthplace", placeHint: "Start typing a city",
     invite: "Invite code", begin: "Read my portrait", preparing: "Preparing…",
     latinNeeded: "Write your name in Latin letters A–Z, as in a passport.",
-    writing: "Olivia is writing your portrait", writingHint: "This usually takes about a minute. You can keep this tab open; the portrait continues if you reload.",
+    writing: "Olivia is writing your portrait", writingHint: "This usually takes one to four minutes. You can keep this tab open; the portrait continues if you reload.",
     stages: { a: "The opening", b: "Mind, heart and work", c: "Shadow, love and becoming" },
     errors: {
       invite: "That invite code isn't on the list.",
@@ -22,7 +22,7 @@ export const PORTRAIT_COPY = {
       offline: "You seem to be offline.",
       timeout: "This is taking much longer than it should. Please try again later.",
       missing: "This portrait has expired.",
-      failed: "The portrait couldn't be finished this time. Nothing was saved with your details.",
+      failed: "The portrait couldn't be finished this time. The calculated factors we hold for it will be deleted within a day.",
       generic: "Something went wrong.",
     },
     again: "Start again", note: "These traditions offer a reflective portrait, not facts about your personality or future. Keep what you recognise.",
@@ -30,12 +30,12 @@ export const PORTRAIT_COPY = {
   },
   uk: {
     kicker: "Закрита бета", title: "Ваше народження, прочитане трьома способами",
-    lede: "Дата народження, ім’я та небо в мить вашого народження, прочитані разом як один портрет: портрет Арканів, числа імені й натальна карта. Розрахунок відбувається на цьому пристрої; на сервер надсилаються лише обчислені чинники.",
+    lede: "Дата народження, ім’я та небо в мить вашого народження, прочитані разом як один портрет: портрет Арканів, числа імені й натальна карта. Розрахунок відбувається на цьому пристрої. На сервер надсилаються лише обчислені карти, числа й знаки, щоб їх виклали словами; там вони зберігаються не довше доби, щоб сторінка могла забрати портрет, а потім видаляються. Тримайте цю вкладку відкритою або поверніться протягом доби.",
     name: "Повне ім’я при народженні", latin: "Ім’я латиницею", latinHint: "Ім’я містить літери поза A–Z. Напишіть його латиницею, як у закордонному паспорті.",
     date: "Дата народження", time: "Місцевий час народження", unknown: "Я не знаю часу", place: "Місце народження", placeHint: "Почніть вводити місто",
     invite: "Код запрошення", begin: "Прочитати мій портрет", preparing: "Готуємо…",
     latinNeeded: "Напишіть ім’я латиницею A–Z, як у закордонному паспорті.",
-    writing: "Олівія пише ваш портрет", writingHint: "Зазвичай це триває близько хвилини. Можна не закривати вкладку; портрет продовжиться після перезавантаження.",
+    writing: "Олівія пише ваш портрет", writingHint: "Зазвичай це триває від однієї до чотирьох хвилин. Можна не закривати вкладку; портрет продовжиться після перезавантаження.",
     stages: { a: "Вступ", b: "Розум, серце й справа", c: "Тінь, любов і становлення" },
     errors: {
       invite: "Такого коду запрошення немає в списку.",
@@ -50,7 +50,7 @@ export const PORTRAIT_COPY = {
       offline: "Схоже, немає з’єднання.",
       timeout: "Це триває значно довше, ніж мало б. Спробуйте пізніше.",
       missing: "Термін цього портрета минув.",
-      failed: "Цього разу портрет не вдалося завершити. Ваші дані ніде не збережено.",
+      failed: "Цього разу портрет не вдалося завершити. Обчислені чинники, які ми для нього зберігаємо, буде видалено протягом доби.",
       generic: "Щось пішло не так.",
     },
     again: "Почати знову", note: "Ці традиції пропонують портрет для роздумів, а не факти про вашу вдачу чи майбутнє. Залиште те, що впізнаєте.",

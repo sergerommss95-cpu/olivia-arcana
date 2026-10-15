@@ -54,7 +54,9 @@ The `/chart` 301s stay. `/astrology/birth-chart/` is unchanged and gets no link 
 
 Client sends only derived factors: `{ locale, factors[] }`. Each factor has a stable id (`arkan-7`, `num-soulUrge`,
 `natal-venus`, `natal-asc`, `aspect-moon-square-saturn`), a value (card id, number, sign, house, retrograde) and
-optional `alternatives` (unknown-time signs). No name, date, time, place, coordinates, letters or degrees.
+optional `alternatives` (unknown-time signs). No name, date, time, place, coordinates, letters or degrees. The factors
+are derived from those details and can still reveal the birth date (Arkan positions 1–3 are the day mod 22, the month and the
+digit sum of the year; Sun and outer-planet signs narrow the year), so the server treats them as personal data (§5).
 The server rebuilds teachings from the packet; the client never sends prompt text.
 
 ## 3. Knowledge bank (server JSON, EN/UK)
@@ -109,7 +111,12 @@ absence of jargon. Ship when new wins ≥5/6 and the owner rates finalists.
 - `portrait-background`: claims the job (`queued`→`running` via `onlyIfMatch`), runs A, then B‖C, writes each
   stage as it validates, settles actual cost, marks `done` or `failed` with a reader-facing reason.
 - `GET /api/portrait/:id`: `{ status, stages: {a?, b?, c?}, teachings, error? }`. Strong consistency read.
-- Jobs expire after 24 h (cleanup on read). The reader saves locally; the server keeps no birth data.
+- Retention: the server never receives the name, date, time or place, but the derived factors can reveal the birth
+  date, so they are kept only as long as the page needs them. When a job finishes (done or failed) the cited teachings
+  are stored as `job/<id>/t` and the job's `packet` is set to `null`; the stages, `t` and the job record then stay for
+  at most 24 h. Jobs expire on read after 24 h, and `portrait-cleanup` (scheduled function, hourly, no path) removes
+  every job (with `a|b|c|t`) past 23 h, so nothing outlives a day even if nobody polls, and `quota/<day>/…` counters
+  older than 7 days. It logs counts only. The reader may keep the portrait on their own device.
 - Kill switch: budget 0 or `PORTRAIT_ENABLED=false` → 503 with a calm message; example still works.
 - Risk: `ANTHROPIC_API_KEY` on Netlify was reported dead in September. First milestone verifies it on a deploy
   preview; if dead, the owner rotates it.

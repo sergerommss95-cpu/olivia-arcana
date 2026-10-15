@@ -5,7 +5,7 @@ import { birthChart } from "../../src/lib/astrology/chart.js";
 import { arkanPortrait } from "../../src/lib/portrait/arkan.js";
 import { nameNumbers } from "../../src/lib/portrait/numbers.js";
 import { buildPacket } from "../../src/lib/portrait/packet.js";
-import { claimJob, finishJob, memoryStore, putStage, readJob } from "./store.ts";
+import { claimJob, finishJob, memoryStore, putStage, readJob, readTeachings } from "./store.ts";
 import { sha256Hex } from "./invite.ts";
 import { createApi, failUnconfigured } from "./api.ts";
 import { readFile } from "node:fs/promises";
@@ -70,13 +70,43 @@ test("status returns landed stages and the teachings they cite", async () => {
   assert.equal((await api.status("../job")).status, 404);
 });
 
+test("a finished portrait is read from the teachings kept at the finish, not from the packet", async () => {
+  const { api, kv } = await setup();
+  const { id } = await (await api.create(post({ packet, invite: CODE }))).json();
+  await claimJob(kv, id);
+  await putStage(kv, id, "a", { title: "T", overview: { text: "x", refs: ["natal-sun"], teachings: ["natal-sun-sign"] }, facets: {} });
+  const kept = { "natal-sun-sign": { label: "Sun · Aquarius", text: "Kept text.", sources: [{ title: "S", url: "https://example.com/s" }] } };
+  await finishJob(kv, id, { status: "done", costCents: 5, error: null, teachings: kept });
+  assert.equal((await readJob(kv, id)).packet, null);
+  const res = await api.status(id);
+  assert.equal(res.status, 200);
+  const body = await res.json();
+  assert.equal(body.status, "done");
+  assert.deepEqual(body.teachings, kept);
+  assert.equal(body.stages.a.title, "T");
+});
+
+test("a finished job whose teachings are gone still answers, with none", async () => {
+  const { api, kv } = await setup();
+  const { id } = await (await api.create(post({ packet, invite: CODE }))).json();
+  await claimJob(kv, id);
+  await finishJob(kv, id, { status: "failed", costCents: 0, error: "stage_a_invalid", teachings: {} });
+  await kv.delete(`job/${id}/t`);
+  const body = await (await api.status(id)).json();
+  assert.equal(body.status, "failed");
+  assert.deepEqual(body.teachings, {});
+});
+
 test("a portrait is forgotten by the server after a day", async () => {
   const { api, kv, clock } = await setup();
   const { id } = await (await api.create(post({ packet, invite: CODE }))).json();
   await putStage(kv, id, "a", { title: "T" });
+  await claimJob(kv, id);
+  await finishJob(kv, id, { status: "done", costCents: 1, error: null, teachings: { x: { label: "L", text: "T", sources: [] } } });
   clock.now += 24 * 3_600_000 + 1;
   assert.equal((await api.status(id)).status, 404);
   assert.equal(await kv.get(`job/${id}/a`, { type: "json" }), null);
+  assert.equal(await kv.get(`job/${id}/t`, { type: "json" }), null);
 });
 
 test("the reserve defaults to $1.50 and a bad value falls back to it", async () => {
@@ -215,6 +245,8 @@ test("with no API key a queued job is failed at once, its reservation returned, 
   assert.equal(job.status, "failed");
   assert.equal(job.error, "unconfigured");
   assert.equal(job.costCents, 0);
+  assert.equal(job.packet, null);
+  assert.deepEqual(await readTeachings(kv, id), {});
   assert.equal(await cents(), 0);
   const body = await (await api.status(id)).json();
   assert.equal(body.status, "failed");

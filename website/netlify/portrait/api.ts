@@ -1,9 +1,9 @@
 // website/netlify/portrait/api.ts
 /** The portrait's two HTTP endpoints, with every dependency passed in so they can be tested. */
 import { validatePacket } from "../../src/lib/portrait/packet.js";
-import { admit, claimJob, createJob, finishJob, forgetJob, readJob, readStages, refund, settle, utcDay, type KeyValue } from "./store.ts";
+import { admit, claimJob, createJob, finishJob, forgetJob, readJob, readStages, readTeachings, refund, settle, utcDay, type KeyValue } from "./store.ts";
 import { inviteId } from "./invite.ts";
-import { selectTeachings, type Bank } from "./teachings.ts";
+import { citedTeachings, selectTeachings, type Bank } from "./teachings.ts";
 
 type Deps = { kv: KeyValue; env: (name: string) => string | undefined; now: () => number; kick: (id: string) => Promise<void>; uuid: () => string; bank: Bank };
 export const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -28,7 +28,7 @@ export async function failUnconfigured(kv: KeyValue, id: string) {
   const job = await claimJob(kv, id);
   if (!job) return "skipped" as const;
   try {
-    await finishJob(kv, id, { status: "failed", costCents: 0, error: "unconfigured" });
+    await finishJob(kv, id, { status: "failed", costCents: 0, error: "unconfigured", teachings: {} });
   } catch (thrown) {
     if ((thrown as Error)?.message === "job_finished") return "skipped" as const;
     throw thrown;
@@ -106,13 +106,8 @@ export function createApi({ kv, env, now, kick, uuid, bank }: Deps) {
     // The reader keeps the portrait on their device; the server lets it go after a day.
     if (now() - job.createdAt > DAY_MS) { await forgetJob(kv, id); return json(404, { error: "missing" }); }
     const stages = await readStages(kv, id);
-    const cited = new Set<string>();
-    const collect = (value: unknown) => {
-      if (Array.isArray(value)) value.forEach(collect);
-      else if (value && typeof value === "object") for (const [k, v] of Object.entries(value)) k === "teachings" && Array.isArray(v) ? v.forEach((t) => cited.add(String(t))) : collect(v);
-    };
-    collect(stages);
-    const teachings = Object.fromEntries(selectTeachings(job.packet as any, bank).filter((t) => cited.has(t.id)).map((t) => [t.id, { label: t.label, text: t.text, sources: t.sources.map((s) => bank.sources[s]) }]));
+    // While a portrait is being written its packet still stands; a finished one kept only the teachings it cited.
+    const teachings = job.packet ? citedTeachings(selectTeachings(job.packet as any, bank), bank, stages) : ((await readTeachings(kv, id)) ?? {});
     // A writer that vanished leaves the job open for ever; report it failed without touching the record.
     const lost = (job.status === "running" || job.status === "queued") && now() - job.createdAt > STALE_MS;
     return json(200, { status: lost ? "failed" : job.status, stages, teachings, error: lost ? "timeout" : job.error });
