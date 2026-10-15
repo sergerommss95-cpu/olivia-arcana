@@ -4,7 +4,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { birthChart } from "@/lib/astrology/chart.js";
 import { loadPlaces, searchPlaces, type Place } from "@/lib/astrology/places";
-import { loadProfile, saveProfile } from "@/lib/astrology/profile";
+import { loadProfile } from "@/lib/astrology/profile";
 import type { MajorCard } from "@/lib/astrology/deck";
 import { arkanPortrait } from "@/lib/portrait/arkan.js";
 import { nameNumbers } from "@/lib/portrait/numbers.js";
@@ -38,20 +38,29 @@ export default function Portrait({ locale, cards }: { locale: PortraitLocale; ca
   const [places, setPlaces] = useState<Place[]>([]);
   const [place, setPlace] = useState<Place | null>(null);
   const [invite, setInvite] = useState("");
-  const [hasInvite, setHasInvite] = useState(false);
+  /** null until the page has mounted and storage has been read; the invite field shows only when false. */
+  const [hasInvite, setHasInvite] = useState<boolean | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
   const abort = useRef<AbortController | null>(null);
+  const submitting = useRef(false);
+  const mounted = useRef(false);
 
   useEffect(() => {
-    const fromHash = readInviteFromHash();
-    const known = fromHash ?? storedInvite();
-    setHasInvite(Boolean(known));
-    setMaxDate(new Date().toISOString().slice(0, 10));
-    const profile = loadProfile();
-    if (profile) { setDate(profile.date); setTime(profile.time ?? ""); setUnknownTime(!profile.time); setPlace(profile.place); setQuery(profile.place[locale] ?? profile.place.en); }
+    mounted.current = true;
+    // A reading in progress goes straight to the reader; every setState below lands in the same render.
     const job = storedJob();
     if (job) follow(job);
+    const fromHash = readInviteFromHash();
+    if (fromHash) setInvite(fromHash);
+    setHasInvite(Boolean(fromHash ?? storedInvite()));
+    const now = new Date();
+    const two = (n: number) => String(n).padStart(2, "0");
+    setMaxDate(`${now.getFullYear()}-${two(now.getMonth() + 1)}-${two(now.getDate())}`);
+    const profile = loadProfile();
+    if (profile) { setDate(profile.date); setTime(profile.time ?? ""); setUnknownTime(!profile.time); setPlace(profile.place); setQuery(profile.place[locale] ?? profile.place.en); }
     loadPlaces().then(setPlaces);
-    return () => abort.current?.abort();
+    return () => { mounted.current = false; abort.current?.abort(); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -66,38 +75,50 @@ export default function Portrait({ locale, cards }: { locale: PortraitLocale; ca
     pollPortrait(id, (status) => {
       if (controller.signal.aborted) return;
       setPhase({ kind: "working", id, status });
-      if (status.status === "failed") rememberJob(null);
+      // A client-side give-up is resumable: the job may still be running, so keep its id.
+      if (status.status === "failed" && !status.resumable) rememberJob(null);
     }, controller.signal);
   }
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
-    if (!place || !date) return;
-    const code = invite.trim() || storedInvite() || "";
-    const birth = { date, time: unknownTime ? null : time || null, zone: place.zone, latitude: place.lat, longitude: place.lon };
-    let packet;
+    if (submitting.current || !place || !date) return;
+    submitting.current = true;
+    setBusy(true);
+    setFormError(null);
     try {
-      packet = buildPacket({
-        locale,
-        chart: birthChart(birth),
-        arkan: arkanPortrait(date),
-        numbers: nameNumbers({ date, name, latin }),
-        daySigns: birth.time ? null : signsThroughDay({ date, zone: place.zone }),
-      });
-    } catch {
-      setPhase({ kind: "error", code: "packet" });
-      return;
+      const code = invite.trim() || storedInvite() || "";
+      const birth = { date, time: unknownTime ? null : time || null, zone: place.zone, latitude: place.lat, longitude: place.lon };
+      let packet;
+      try {
+        const numbers = nameNumbers({ date, name, latin: needsLatin ? latin : "" });
+        if (name.trim() && numbers.status !== "calculated") { setFormError(t.latinNeeded); return; }
+        packet = buildPacket({
+          locale,
+          chart: birthChart(birth),
+          arkan: arkanPortrait(date),
+          numbers,
+          daySigns: birth.time ? null : signsThroughDay({ date, zone: place.zone }),
+        });
+      } catch {
+        setPhase({ kind: "error", code: "packet" });
+        return;
+      }
+      const started = await startPortrait(packet, code);
+      if ("error" in started) {
+        if (started.error === "invite") forgetInvite();
+        if (!mounted.current) return;
+        if (started.error === "invite") { setHasInvite(false); setInvite(""); }
+        setPhase({ kind: "error", code: started.error });
+        return;
+      }
+      rememberInvite(code);
+      rememberJob(started.id);
+      if (mounted.current) follow(started.id);
+    } finally {
+      submitting.current = false;
+      if (mounted.current) setBusy(false);
     }
-    saveProfile({ v: 1, date, time: birth.time, place });
-    const started = await startPortrait(packet, code);
-    if ("error" in started) {
-      if (started.error === "invite") { forgetInvite(); setHasInvite(false); setInvite(""); }
-      setPhase({ kind: "error", code: started.error });
-      return;
-    }
-    rememberInvite(code);
-    rememberJob(started.id);
-    follow(started.id);
   }
 
   function reset() { abort.current?.abort(); rememberJob(null); setPhase({ kind: "form" }); }
@@ -167,27 +188,30 @@ export default function Portrait({ locale, cards }: { locale: PortraitLocale; ca
       <p className={styles.kicker}>{t.kicker}</p>
       <h1 className={styles.title}>{t.title}</h1>
       <p className={styles.lede}>{t.lede}</p>
-      <form className={styles.form} onSubmit={submit}>
-        <label>{t.name}<input value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" required /></label>
-        {needsLatin && <label>{t.latin}<input value={latin} onChange={(e) => setLatin(e.target.value)} required /><small>{t.latinHint}</small></label>}
-        <div className={styles.row}>
-          <label>{t.date}<input type="date" value={date} onChange={(e) => setDate(e.target.value)} min="1800-01-01" max={maxDate} required /></label>
-          <label>{t.time}<input type="time" value={time} onChange={(e) => setTime(e.target.value)} disabled={unknownTime} required={!unknownTime} /></label>
-        </div>
-        <label className={styles.check}><input type="checkbox" checked={unknownTime} onChange={(e) => setUnknownTime(e.target.checked)} />{t.unknown}</label>
-        <label>{t.place}
-          <input value={query} onChange={(e) => { setQuery(e.target.value); setPlace(null); }} placeholder={t.placeHint} autoComplete="off" required />
-        </label>
-        {matches.length > 0 && (
-          <ul className={styles.places}>
-            {matches.map((p) => (
-              <li key={`${p.en}-${p.lat}`}><button type="button" onClick={() => { setPlace(p); setQuery(p[locale] ?? p.en); }}>{p[locale] ?? p.en}<span>{locale === "uk" ? p.countryUk : p.countryEn}</span></button></li>
-            ))}
-          </ul>
-        )}
-        {!hasInvite && <label>{t.invite}<input value={invite} onChange={(e) => setInvite(e.target.value)} autoComplete="off" required /></label>}
-        <button className={styles.button} type="submit" disabled={!place}>{t.begin}</button>
-      </form>
+      {hasInvite !== null && (
+        <form className={styles.form} onSubmit={submit} aria-busy={busy}>
+          <label>{t.name}<input value={name} onChange={(e) => { setName(e.target.value); setFormError(null); }} autoComplete="name" required /></label>
+          {needsLatin && <label>{t.latin}<input value={latin} onChange={(e) => { setLatin(e.target.value); setFormError(null); }} pattern="[A-Za-zÀ-ž .'’\-]+" required /><small>{t.latinHint}</small></label>}
+          <div className={styles.row}>
+            <label>{t.date}<input type="date" value={date} onChange={(e) => setDate(e.target.value)} min="1800-01-01" max={maxDate} required /></label>
+            <label>{t.time}<input type="time" value={time} onChange={(e) => setTime(e.target.value)} disabled={unknownTime} required={!unknownTime} /></label>
+          </div>
+          <label className={styles.check}><input type="checkbox" checked={unknownTime} onChange={(e) => setUnknownTime(e.target.checked)} />{t.unknown}</label>
+          <label>{t.place}
+            <input value={query} onChange={(e) => { setQuery(e.target.value); setPlace(null); }} placeholder={t.placeHint} autoComplete="off" required />
+          </label>
+          {matches.length > 0 && (
+            <ul className={styles.places}>
+              {matches.map((p) => (
+                <li key={`${p.en}-${p.lat}`}><button type="button" onClick={() => { setPlace(p); setQuery(p[locale] ?? p.en); }}>{p[locale] ?? p.en}<span>{locale === "uk" ? p.countryUk : p.countryEn}</span></button></li>
+              ))}
+            </ul>
+          )}
+          {hasInvite === false && <label>{t.invite}<input value={invite} onChange={(e) => setInvite(e.target.value)} autoComplete="off" required /></label>}
+          {formError && <p className={styles.error} role="alert">{formError}</p>}
+          <button className={styles.button} type="submit" disabled={!place || busy}>{busy ? t.preparing : t.begin}</button>
+        </form>
+      )}
       <p className={styles.note}>{t.note}</p>
       <div className={styles.deck} aria-hidden="true">
         {cards.slice(0, 3).map((c) => (

@@ -13,6 +13,8 @@ export type PortraitStatus = {
   stages: PortraitStages;
   teachings: Record<string, { label: string; text: string; sources: { title: string; url: string }[] }>;
   error: string | null;
+  /** Set only on the client's own 8-minute give-up: the reading may still be running, so its id is worth keeping. */
+  resumable?: boolean;
 };
 const INVITE = "olivia:portrait-invite";
 const JOB = "olivia:portrait-job";
@@ -42,7 +44,7 @@ export async function startPortrait(packet: unknown, invite: string): Promise<{ 
   }
 }
 
-const failed = (error: string): PortraitStatus => ({ status: "failed", stages: {}, teachings: {}, error });
+const failed = (error: string, resumable = false): PortraitStatus => ({ status: "failed", stages: {}, teachings: {}, error, ...(resumable ? { resumable } : {}) });
 
 /**
  * Follows a reading until it is done or failed; gives up after 8 minutes.
@@ -61,7 +63,7 @@ export async function pollPortrait(id: string, onUpdate: (s: PortraitStatus) => 
         if (status.status === "done" || status.status === "failed") return;
       }
     } catch { if (signal.aborted) return; }
-    if (Date.now() - started > GIVE_UP_AFTER) return onUpdate(failed("timeout"));
+    if (Date.now() - started > GIVE_UP_AFTER) return onUpdate(failed("timeout", true));
     await new Promise((resolve) => setTimeout(resolve, EVERY));
   }
 }
