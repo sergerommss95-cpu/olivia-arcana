@@ -13,6 +13,10 @@ export interface KeyValue {
   list(options: { prefix: string }): Promise<{ blobs: { key: string; etag?: string }[] }>;
 }
 
+/** Blobs stores are site-wide, so previews would otherwise spend production's daily budget. */
+export const STORE_NAMES = ["portrait", "portrait-preview"] as const;
+export const storeName = (deployContext: string | null | undefined) => (deployContext === "production" ? STORE_NAMES[0] : STORE_NAMES[1]);
+
 export type Job = {
   id: string; status: "queued" | "running" | "done" | "failed"; createdAt: number;
   packet: unknown; invite: string; day: string; reserveCents: number; costCents: number; error: string | null;

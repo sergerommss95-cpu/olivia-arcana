@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { memoryStore, createJob, readJob, claimJob, finishJob, putStage, readStages, readTeachings, forgetJob, admit, refund, settle } from "./store.ts";
+import { memoryStore, createJob, readJob, claimJob, finishJob, putStage, readStages, readTeachings, forgetJob, admit, refund, settle, storeName, STORE_NAMES } from "./store.ts";
 import { inviteId, sha256Hex } from "./invite.ts";
 
 const job = (id) => ({ id, status: "queued", createdAt: 1, packet: { v: 1 }, invite: "abc", day: "2026-10-15", reserveCents: 75, costCents: 0, error: null });
@@ -169,4 +169,10 @@ test("an existing entry without an etag is unconfirmed, not bumped", async () =>
   const kv = memoryStore();
   kv.getWithMetadata = async () => ({ data: 0 });
   await assert.rejects(admit(kv, { day: "d", invite: "z", perInvite: 2, budgetCents: 200, reserveCents: 75 }), /store_unconfirmed/);
+});
+
+test("production keeps its own Blobs store; previews, branch deploys and local runs share another", () => {
+  assert.equal(storeName("production"), "portrait");
+  for (const context of ["deploy-preview", "branch-deploy", "dev", "", undefined, null, "Production"]) assert.equal(storeName(context), "portrait-preview", String(context));
+  assert.deepEqual([...STORE_NAMES].sort(), ["portrait", "portrait-preview"]);
 });

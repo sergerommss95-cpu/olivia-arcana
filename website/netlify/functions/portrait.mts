@@ -3,11 +3,13 @@
 import type { Config, Context } from "@netlify/functions";
 import { getStore } from "@netlify/blobs";
 import { createApi } from "../portrait/api.ts";
+import { storeName } from "../portrait/store.ts";
 import bank from "../portrait/knowledge/bank.json" with { type: "json" };
 
 export default async (req: Request, context: Context) => {
   const api = createApi({
-    kv: getStore({ name: "portrait", consistency: "strong" }) as any,
+    // Previews and branch deploys use their own store, so they cannot spend production's daily budget.
+    kv: getStore({ name: storeName(context.deploy?.context), consistency: "strong" }) as any,
     env: (name) => Netlify.env.get(name),
     now: () => Date.now(),
     uuid: () => crypto.randomUUID(),

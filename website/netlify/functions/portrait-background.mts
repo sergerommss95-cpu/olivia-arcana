@@ -1,18 +1,19 @@
 // website/netlify/functions/portrait-background.mts
 // Writes one portrait. Safe to call with any id: only a queued job is claimed, and only once.
-import type { Config } from "@netlify/functions";
+import type { Config, Context } from "@netlify/functions";
 import { getStore } from "@netlify/blobs";
 import { UUID, failUnconfigured } from "../portrait/api.ts";
 import { runJob } from "../portrait/run.ts";
+import { storeName } from "../portrait/store.ts";
 import { createWriter } from "../portrait/claude.ts";
 import bank from "../portrait/knowledge/bank.json" with { type: "json" };
 
 const EFFORTS = ["low", "medium", "high", "xhigh", "max"];
 
-export default async (req: Request) => {
+export default async (req: Request, context: Context) => {
   const { id } = await req.json().catch(() => ({}));
   if (typeof id !== "string" || !UUID.test(id)) return;
-  const kv = getStore({ name: "portrait", consistency: "strong" }) as any;
+  const kv = getStore({ name: storeName(context.deploy?.context), consistency: "strong" }) as any;
   const apiKey = Netlify.env.get("ANTHROPIC_API_KEY");
   if (!apiKey) {
     console.warn(JSON.stringify({ event: "portrait_no_key" }));

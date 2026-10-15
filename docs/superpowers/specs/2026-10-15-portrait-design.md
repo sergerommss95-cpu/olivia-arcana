@@ -117,6 +117,9 @@ absence of jargon. Ship when new wins ≥5/6 and the owner rates finalists.
   at most 24 h. Jobs expire on read after 24 h, and `portrait-cleanup` (scheduled function, hourly, no path) removes
   every job (with `a|b|c|t`) past 23 h, so nothing outlives a day even if nobody polls, and `quota/<day>/…` counters
   older than 7 days. It logs counts only. The reader may keep the portrait on their own device.
+- Stores: Blobs stores are site-wide, so production uses `portrait` and every other deploy context (previews, branch
+  deploys, local) uses `portrait-preview` (`storeName(context.deploy.context)`); previews cannot spend production's
+  budget. The hourly cleanup sweeps both.
 - Kill switch: budget 0 or `PORTRAIT_ENABLED=false` → 503 with a calm message; example still works.
 - Risk: `ANTHROPIC_API_KEY` on Netlify was reported dead in September. First milestone verifies it on a deploy
   preview; if dead, the owner rotates it.
