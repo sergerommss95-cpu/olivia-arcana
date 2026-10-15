@@ -17,6 +17,7 @@ export type Job = {
   packet: unknown; invite: string; day: string; reserveCents: number; costCents: number; error: string | null;
 };
 export type StageKey = "a" | "b" | "c";
+export type Finish = { status: "done" | "failed"; costCents: number; error: string | null };
 
 export function memoryStore(): KeyValue {
   const data = new Map<string, { value: unknown; etag: string }>();
@@ -43,14 +44,21 @@ async function conditional(kv: KeyValue, key: string, value: unknown, condition:
   throw new Error("store_unconfirmed");
 }
 
-/** Adds `step` to a counter unless the result would pass `max`; never below zero. */
-async function bump(kv: KeyValue, key: string, step: number, max = Infinity) {
+/** Adds `step` to a counter unless the result would pass `max`; never below zero.
+    Non-strict: after 10 contended attempts it reports false. Strict: it throws. */
+async function bump(kv: KeyValue, key: string, step: number, max = Infinity, { strict = false }: { strict?: boolean } = {}) {
+  if (!Number.isFinite(step) || Number.isNaN(max)) throw new Error("counter_invalid");
   for (let attempt = 0; attempt < 10; attempt++) {
     const entry = await kv.getWithMetadata(key, { type: "json" });
-    const next = Math.max(0, Number(entry?.data || 0) + step);
-    if (step > 0 && next > max) return false;
-    if (await conditional(kv, key, next, entry?.etag ? { onlyIfMatch: entry.etag } : { onlyIfNew: true })) return true;
+    if (entry && !entry.etag) throw new Error("store_unconfirmed");
+    const stored = entry ? (entry.data as number) : 0;
+    if (!Number.isFinite(stored)) throw new Error("counter_invalid");
+    const next = Math.max(0, stored + step);
+    if (!Number.isFinite(next)) throw new Error("counter_invalid");
+    if (step > 0 && !(next <= max)) return false;
+    if (await conditional(kv, key, next, entry ? { onlyIfMatch: entry.etag } : { onlyIfNew: true })) return true;
   }
+  if (strict) throw new Error("counter_contended");
   return false;
 }
 
@@ -68,17 +76,23 @@ export async function claimJob(kv: KeyValue, id: string): Promise<Job | null> {
   return (await conditional(kv, jobKey(id), running, { onlyIfMatch: entry.etag })) ? running : null;
 }
 
-export async function finishJob(kv: KeyValue, id: string, change: Partial<Job>) {
+export async function finishJob(kv: KeyValue, id: string, change: Finish) {
   for (let attempt = 0; attempt < 10; attempt++) {
     const entry = await kv.getWithMetadata(jobKey(id), { type: "json" });
     if (!entry?.etag) throw new Error("job_missing");
-    if (await conditional(kv, jobKey(id), { ...(entry.data as Job), ...change }, { onlyIfMatch: entry.etag })) return;
+    const job = entry.data as Job;
+    if (job.status === "done" || job.status === "failed") throw new Error("job_finished");
+    const finished = { ...job, status: change.status, costCents: change.costCents, error: change.error };
+    if (await conditional(kv, jobKey(id), finished, { onlyIfMatch: entry.etag })) return;
   }
   throw new Error("job_contended");
 }
 
 export async function putStage(kv: KeyValue, id: string, stage: StageKey, data: unknown) {
-  if (!(await conditional(kv, `${jobKey(id)}/${stage}`, data, { onlyIfNew: true }))) throw new Error("stage_exists");
+  const key = `${jobKey(id)}/${stage}`;
+  if (await conditional(kv, key, data, { onlyIfNew: true })) return;
+  if (JSON.stringify(await kv.get(key, { type: "json" })) === JSON.stringify(data)) return;
+  throw new Error("stage_exists");
 }
 export async function readStages(kv: KeyValue, id: string) {
   const out: Record<string, unknown> = {};
@@ -94,15 +108,29 @@ export async function forgetJob(kv: KeyValue, id: string) {
 
 type Limits = { day: string; invite: string; perInvite: number; budgetCents: number; reserveCents: number };
 export async function admit(kv: KeyValue, { day, invite, perInvite, budgetCents, reserveCents }: Limits): Promise<"ok" | "invite" | "budget"> {
+  if (![perInvite, budgetCents, reserveCents].every((n) => Number.isFinite(n))) throw new Error("counter_invalid");
   if (!(await bump(kv, `quota/${day}/invite/${invite}`, 1, perInvite))) return "invite";
-  if (await bump(kv, `quota/${day}/cents`, reserveCents, budgetCents)) return "ok";
-  await bump(kv, `quota/${day}/invite/${invite}`, -1);
+  let fits: boolean;
+  try {
+    fits = await bump(kv, `quota/${day}/cents`, reserveCents, budgetCents);
+  } catch (error) {
+    await bump(kv, `quota/${day}/invite/${invite}`, -1, Infinity, { strict: true });
+    throw error;
+  }
+  if (fits) return "ok";
+  await bump(kv, `quota/${day}/invite/${invite}`, -1, Infinity, { strict: true });
   return "budget";
 }
 export async function refund(kv: KeyValue, { day, invite, reserveCents }: { day: string; invite: string; reserveCents: number }) {
-  await Promise.all([bump(kv, `quota/${day}/invite/${invite}`, -1), bump(kv, `quota/${day}/cents`, -reserveCents)]);
+  await Promise.all([
+    bump(kv, `quota/${day}/invite/${invite}`, -1, Infinity, { strict: true }),
+    bump(kv, `quota/${day}/cents`, -reserveCents, Infinity, { strict: true }),
+  ]);
 }
 /** Replaces a job's reservation with what it actually cost. */
 export async function settle(kv: KeyValue, { day, reserveCents, costCents }: { day: string; reserveCents: number; costCents: number }) {
-  await bump(kv, `quota/${day}/cents`, costCents - reserveCents);
+  if (!Number.isFinite(reserveCents) || !Number.isFinite(costCents)) throw new Error("counter_invalid");
+  const delta = costCents - reserveCents;
+  if (delta === 0) return;
+  await bump(kv, `quota/${day}/cents`, delta, Infinity, { strict: true });
 }
