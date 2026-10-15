@@ -16,7 +16,8 @@ export function stageSchema(stage: Stage, factorIds: string[], teachingIds: stri
   const chapter = obj({ title: str, lede: str, paragraphs: strings, practice: str, refs, teachings: teach });
   if (stage === "a") {
     const facets = Object.fromEntries(SECTIONS.a.slice(1).map((key) => [key, facet]));
-    return obj({ title: str, epigraph: str, overview: passage, facets: obj(facets) });
+    const outline = obj(Object.fromEntries([...SECTIONS.b, ...SECTIONS.c].map((key) => [key, str])));
+    return obj({ title: str, epigraph: str, outline, overview: passage, facets: obj(facets) });
   }
   const chapters = obj(Object.fromEntries(SECTIONS[stage].map((key) => [key, chapter])));
   return stage === "b" ? obj({ chapters }) : obj({ chapters, keep: strings });

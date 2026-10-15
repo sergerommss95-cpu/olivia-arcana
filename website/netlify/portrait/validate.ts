@@ -9,7 +9,7 @@ type Passage = { text: string; refs: string[]; teachings: string[] };
 
 export const LIMITS = {
   title: [6, 80], epigraph: [20, 160], overview: [380, 1300], facet: [220, 1000], heading: [3, 60],
-  lede: [30, 240], paragraph: [200, 1150], paragraphs: [2, 3], practice: [40, 320], keep: [20, 180],
+  lede: [30, 240], paragraph: [200, 1150], paragraphs: [2, 3], practice: [40, 320], keep: [20, 180], outline: [20, 200],
 } as const;
 
 /** Stems per language, as regex source. Ukrainian forms inflect (Овен / в Овні, Телець / в Тельці), so a sign counts as named if any stem appears. */
@@ -50,6 +50,9 @@ export function unsafeMatches(text: string): string[] {
   return hits;
 }
 
+/** The six chapters the opening plans an angle for. */
+const CHAPTERS = [...SECTIONS.b, ...SECTIONS.c];
+
 const within = (value: unknown, [min, max]: readonly [number, number]) => typeof value === "string" && value.length >= min && value.length <= max;
 const str = (value: unknown): string => (typeof value === "string" ? value : "");
 const list = (value: unknown): any[] => (Array.isArray(value) ? value : []);
@@ -86,6 +89,19 @@ export function validateStage(stage: Stage, data: any, packet: Packet, teachings
     if (!within(data?.title, LIMITS.title)) errors.push("length:title");
     if (!within(data?.epigraph, LIMITS.epigraph)) errors.push("length:epigraph");
     checkText("title", `${str(data?.title)} ${str(data?.epigraph)}`);
+    // The outline is planning text for the later stages, never shown: no refs, teachings or focus, only length, distinctness and safety.
+    if (typeof data?.outline !== "object" || data.outline === null) errors.push("missing:outline");
+    else {
+      const lines: string[] = [];
+      for (const key of CHAPTERS) {
+        const line = data.outline[key];
+        if (typeof line !== "string") { errors.push(`missing:outline:${key}`); continue; }
+        if (!within(line, LIMITS.outline)) errors.push(`length:outline:${key}`);
+        checkText(`outline:${key}`, line);
+        lines.push(line.trim().toLowerCase());
+      }
+      if (new Set(lines).size < lines.length) errors.push("outline:duplicate");
+    }
     checkPassage("overview", data?.overview, data?.overview?.text, LIMITS.overview);
     for (const key of SECTIONS.a.slice(1)) {
       const facet = data?.facets?.[key];

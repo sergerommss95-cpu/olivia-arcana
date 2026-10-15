@@ -15,7 +15,8 @@ const bank = { cards: {}, numbers: {}, roleNotes: {}, personal: {}, signs: { pis
 const words = (n) => Array.from({ length: n }, () => "word").join(" ") + ".";
 const p = (n) => ({ text: words(n), refs: ["natal-sun"], teachings: ["natal-sun-sign"] });
 const chapter = () => ({ title: "A Chapter", lede: words(8), paragraphs: [words(50), words(50)], practice: words(10), refs: ["natal-sun"], teachings: [] });
-const A = { title: "The Open Door", epigraph: words(6), overview: p(100), facets: Object.fromEntries(["temperament", "inner", "gifts", "bonds", "direction"].map((k) => [k, { heading: "Heading", ...p(60) }])) };
+const outline = { mind: "How your attention picks what matters and lets the rest go.", heart: "What you need to feel safe enough to let someone close.", work: "The kind of effort you can sustain and where it pays off.", shadow: "The habit that protects you now and costs you later on.", love: "How you give affection and what you ask for in return.", becoming: "The direction your next few years keep pointing you toward." };
+const A = { title: "The Open Door", epigraph: words(6), outline, overview: p(100), facets: Object.fromEntries(["temperament", "inner", "gifts", "bonds", "direction"].map((k) => [k, { heading: "Heading", ...p(60) }])) };
 const B = { chapters: { mind: chapter(), heart: chapter(), work: chapter() } };
 const C = { chapters: { shadow: chapter(), love: chapter(), becoming: chapter() }, keep: [words(5), words(5), words(5)] };
 const usage = { input: 1000, output: 1000, cacheRead: 0, cacheWrite: 0 };

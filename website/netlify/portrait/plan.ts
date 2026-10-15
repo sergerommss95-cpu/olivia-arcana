@@ -14,13 +14,13 @@ const FOCUS: Record<string, string[]> = {
   temperament: ["natal-sun", "natal-asc", "natal-mercury", "num-personality", "arkan-14", "arkan-13"],
   inner: ["natal-moon", "num-soulUrge", "arkan-12", "arkan-13", "arkan-4"],
   gifts: ["arkan-8", "arkan-7", "arkan-6", "num-expression", "natal-mars", "natal-mc"],
-  bonds: ["natal-venus", "natal-moon", "arkan-14", "num-soulUrge", "num-personality"],
+  bonds: ["natal-venus", "arkan-14", "num-soulUrge", "num-personality", "natal-moon"],
   direction: ["arkan-1", "arkan-2", "arkan-3", "num-lifePath", "arkan-5", "arkan-6"],
   mind: ["natal-mercury", "num-expression", "arkan-5", "natal-uranus", "natal-jupiter"],
-  heart: ["natal-moon", "natal-venus", "num-soulUrge", "arkan-12", "arkan-13"],
+  heart: ["natal-moon", "num-soulUrge", "arkan-12", "arkan-13", "arkan-4"],
   work: ["arkan-7", "arkan-8", "natal-mars", "natal-saturn", "natal-mc", "num-expression"],
   shadow: ["arkan-4", "natal-saturn", "natal-pluto", "num-lifePath", "natal-neptune"],
-  love: ["natal-venus", "natal-mars", "natal-moon", "arkan-14", "num-soulUrge"],
+  love: ["natal-venus", "natal-mars", "arkan-14", "num-personality", "natal-asc"],
   becoming: ["arkan-1", "arkan-2", "arkan-3", "arkan-6", "num-lifePath", "natal-jupiter"],
 };
 

@@ -17,8 +17,17 @@ const packet = {
 const teachings = [{ id: "card-4-risk", factors: ["arkan-4"], label: "", text: "", sources: [] }];
 const words = (n) => Array.from({ length: n }, (_, i) => (i % 7 === 0 ? "steady" : "word")).join(" ") + ".";
 const passage = (refs, text = words(60)) => ({ text, refs, teachings: ["card-4-risk"] });
+const outline = () => ({
+  mind: "How your attention picks what matters and lets the rest go.",
+  heart: "What you need to feel safe enough to let someone close.",
+  work: "The kind of effort you can sustain and where it pays off.",
+  shadow: "The habit that protects you now and costs you later on.",
+  love: "How you give affection and what you ask for in return.",
+  becoming: "The direction your next few years keep pointing you toward.",
+});
 const stageA = () => ({
   title: "A Quiet Engine", epigraph: "You build the room before you invite anyone in.",
+  outline: outline(),
   overview: passage(["natal-sun", "arkan-4"], words(90)),
   facets: {
     temperament: { heading: "How you meet things", ...passage(["natal-sun"]) },
@@ -82,6 +91,56 @@ test("schemas restrict ids to the packet and teachings", () => {
 
 test("focus lists only name factors that exist", () => {
   assert.deepEqual(focusFor("inner", packet), ["natal-moon", "num-soulUrge", "arkan-4"]);
+});
+
+test("heart, love and bonds no longer share their focus", () => {
+  const full = { factors: ["natal-moon", "natal-venus", "natal-mars", "natal-asc", "num-soulUrge", "num-personality", "arkan-4", "arkan-12", "arkan-13", "arkan-14"].map((id) => ({ id })) };
+  assert.deepEqual(focusFor("heart", full), ["natal-moon", "num-soulUrge", "arkan-12", "arkan-13", "arkan-4"]);
+  assert.deepEqual(focusFor("love", full), ["natal-venus", "natal-mars", "arkan-14", "num-personality", "natal-asc"]);
+  assert.deepEqual(focusFor("bonds", full), ["natal-venus", "arkan-14", "num-soulUrge", "num-personality", "natal-moon"]);
+});
+
+test("the opening plans one angle per later chapter", () => {
+  const schema = stageSchema("a", ["natal-sun"], ["card-4-risk"]);
+  assert.deepEqual(Object.keys(schema.properties.outline.properties), ["mind", "heart", "work", "shadow", "love", "becoming"]);
+  assert.ok(schema.required.includes("outline"));
+  assert.deepEqual(validateStage("a", stageA(), packet, teachings), { ok: true });
+});
+
+test("an opening without an outline is refused", () => {
+  const data = stageA();
+  delete data.outline;
+  assert.ok(validateStage("a", data, packet, teachings).errors.includes("missing:outline"));
+});
+
+test("an outline missing one chapter is refused for that chapter", () => {
+  const data = stageA();
+  delete data.outline.work;
+  assert.ok(validateStage("a", data, packet, teachings).errors.includes("missing:outline:work"));
+});
+
+test("two chapters planned with the same angle are refused, even if case and spacing differ", () => {
+  const data = stageA();
+  data.outline.love = `  ${data.outline.heart.toUpperCase()} `;
+  assert.ok(validateStage("a", data, packet, teachings).errors.includes("outline:duplicate"));
+  assert.equal(validateStage("a", stageA(), packet, teachings).ok, true);
+});
+
+test("an outline line outside 20-200 characters is a length error", () => {
+  const short = stageA();
+  short.outline.mind = "Too short now.";
+  assert.ok(validateStage("a", short, packet, teachings).errors.includes("length:outline:mind"));
+  const long = stageA();
+  long.outline.becoming = "x".repeat(201);
+  assert.ok(validateStage("a", long, packet, teachings).errors.includes("length:outline:becoming"));
+});
+
+test("unsafe text in an outline line is flagged, and an outline is not held to passage rules", () => {
+  const data = stageA();
+  data.outline.shadow = "Why you are destined to repeat the same old pattern again.";
+  assert.ok(validateStage("a", data, packet, teachings).errors.some((e) => e.startsWith("unsafe:outline:shadow:")));
+  // no refs, teachings or focus are asked of an outline
+  assert.deepEqual(validateStage("a", stageA(), packet, teachings), { ok: true });
 });
 
 test("Ukrainian locative sign names count as naming each alternative", () => {
