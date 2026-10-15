@@ -46,7 +46,7 @@ export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS
           if (result.code === "provider" && attempt === 0 && !deadline.signal.aborted) continue;
           return { ok: false as const, error: `stage_${key}_${result.code}` };
         }
-        const check = validateStage(key, result.data, packet, teachings);
+        const check = validateStage(key, result.data, packet, teachings, earlier.a);
         log(check.ok);
         if (check.ok) { await putStage(kv, id, key, result.data); return { ok: true as const, data: result.data }; }
         errors = check.errors;

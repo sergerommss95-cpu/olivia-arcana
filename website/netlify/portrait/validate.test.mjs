@@ -15,7 +15,10 @@ const packet = {
   ],
 };
 const teachings = [{ id: "card-4-risk", factors: ["arkan-4"], label: "", text: "", sources: [] }];
-const words = (n) => Array.from({ length: n }, (_, i) => (i % 7 === 0 ? "steady" : "word")).join(" ") + ".";
+// Fresh letter-only words on every call (waaa, waab, ...): no six-word run repeats anywhere in a fixture, and none is a hedge or a banned phrase.
+let seq = 0;
+const word = (n) => "w" + [2, 1, 0].map((k) => String.fromCharCode(97 + (Math.floor(n / 26 ** k) % 26))).join("");
+const words = (n) => Array.from({ length: n }, () => word(seq++)).join(" ") + ".";
 const passage = (refs, text = words(60)) => ({ text, refs, teachings: ["card-4-risk"] });
 const outline = () => ({
   mind: "How your attention picks what matters and lets the rest go.",
@@ -257,4 +260,93 @@ test("a promise of death, marriage or money is flagged, but a word that only sta
   }
   // "become rich" is followed by a space, so a boundary cannot tell "rich in friends" from "rich": it stays flagged, the safe side.
   assert.ok(unsafeMatches("you will become rich in friends").length > 0);
+});
+
+test("the opening's title, epigraph, overview, facets and headings are style-checked", () => {
+  const data = stageA();
+  data.title = "A Healing Journey Begins";
+  data.epigraph = "Perhaps you build the room before you invite anyone in.";
+  data.overview.text = `You probably keep everything in order. ${words(90)}`;
+  data.facets.temperament.heading = "Your symbolic style";
+  data.facets.inner.text = `You hold a quiet line. It may cost you rest and you might not notice. ${words(40)}`;
+  const { errors } = validateStage("a", data, packet, teachings);
+  for (const code of ['phrase:title:"Healing"', "hedge-lead:epigraph", "hedge-lead:overview", 'phrase:temperament:heading:"symbolic"', "hedges:inner:2"]) {
+    assert.ok(errors.some((e) => e.toLowerCase().startsWith(code.toLowerCase())), `${code} in ${errors}`);
+  }
+});
+
+test("a chapter's title, lede, paragraphs and practice are each style-checked", () => {
+  const data = stageB();
+  const mind = data.chapters.mind;
+  mind.title = "Your healing mind";
+  mind.lede = "Perhaps your mind settles when a question has a clear edge.";
+  mind.paragraphs = [`You may think it might help. ${words(50)}`, words(60)];
+  mind.practice = "Embrace one plain sentence each morning before you check messages.";
+  const { errors } = validateStage("b", data, packet, teachings);
+  for (const code of ["phrase:mind:title", "hedge-lead:mind:lede", "hedges:mind:p0:2", "phrase:mind:practice"]) assert.ok(errors.some((e) => e.startsWith(code)), `${code} in ${errors}`);
+  assert.equal(errors.some((e) => e.startsWith("hedges:mind:p1")), false);
+});
+
+test("a lede that hedges in its second sentence still leads with the hedge", () => {
+  const data = stageB();
+  data.chapters.work.lede = "You work in short bursts. Perhaps that suits you.";
+  assert.ok(validateStage("b", data, packet, teachings).errors.includes("hedge-lead:work:lede"));
+});
+
+test("Ukrainian text is checked against Ukrainian lists, never assuming a gender", () => {
+  const data = stageA();
+  data.overview.text = `Ви сама вирішуєте, коли зупинитись. ${words(80)}`;
+  data.facets.gifts.text = `Мабуть, ви тримаєте слово. ${words(50)}`;
+  const { errors } = validateStage("a", data, withMoon(["taurus", "gemini"], "uk"), teachings);
+  assert.ok(errors.some((e) => e.startsWith("gender:overview")), String(errors));
+  assert.ok(errors.includes("hedge-lead:gifts"), String(errors));
+});
+
+test("the hidden outline is planning text: it is not style-checked", () => {
+  const data = stageA();
+  data.outline.mind = "Perhaps how your attention picks what matters on its healing journey.";
+  assert.deepEqual(validateStage("a", data, packet, teachings), { ok: true });
+});
+
+test("stage B and C chapters may not repeat six words from the opening's visible text", () => {
+  const opening = stageA();
+  const copied = "a quiet engine that never stops running";
+  opening.overview.text = `Most days ${copied} and nobody sees it. ${words(80)}`;
+  opening.facets.bonds.text = `At home it is the same: you set the table for people who may not come. ${words(40)}`;
+  for (const stage of ["b", "c"]) {
+    const data = stage === "b" ? stageB() : stageC();
+    const key = Object.keys(data.chapters)[0];
+    const other = Object.keys(data.chapters)[1];
+    data.chapters[key].paragraphs[1] = `${words(20)} Some say ${copied} behind it all. ${words(20)}`;
+    data.chapters[other].lede = "You set the table for people who may not come.";
+    const { errors } = validateStage(stage, data, packet, teachings, opening);
+    assert.ok(errors.some((e) => e.startsWith(`repeat:${key}:"`)), `${stage} ${key}: ${errors}`);
+    assert.ok(errors.some((e) => e.startsWith(`repeat:${other}:"`)), `${stage} ${other}: ${errors}`);
+    assert.equal(errors.filter((e) => e.startsWith("repeat:")).length, 2, String(errors));
+  }
+});
+
+test("without an opening nothing is compared, and fresh chapters pass against one", () => {
+  const data = stageB();
+  data.chapters.mind.paragraphs[0] = data.chapters.heart.paragraphs[0];
+  assert.deepEqual(validateStage("b", data, packet, teachings), { ok: true });
+  assert.deepEqual(validateStage("b", stageB(), packet, teachings, stageA()), { ok: true });
+  assert.deepEqual(validateStage("c", stageC(), packet, teachings, stageA()), { ok: true });
+});
+
+test("the outline is hidden, so chapters are never compared with it", () => {
+  const opening = stageA();
+  const data = stageB();
+  data.chapters.heart.paragraphs[0] = `${words(20)} ${opening.outline.heart} ${words(20)}`;
+  assert.deepEqual(validateStage("b", data, packet, teachings, opening), { ok: true });
+});
+
+test("chapters of one stage may share phrases with each other", () => {
+  const data = stageB();
+  data.chapters.mind.paragraphs[0] = data.chapters.work.paragraphs[0];
+  assert.deepEqual(validateStage("b", data, packet, teachings, stageA()), { ok: true });
+});
+
+test("a malformed opening is ignored rather than thrown on", () => {
+  for (const bad of [null, "x", {}, { overview: 1, facets: "no" }, { facets: { mind: null } }]) assert.deepEqual(validateStage("b", stageB(), packet, teachings, bad), { ok: true });
 });

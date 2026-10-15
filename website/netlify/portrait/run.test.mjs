@@ -12,7 +12,10 @@ const packet = {
   ],
 };
 const bank = { cards: {}, numbers: {}, roleNotes: {}, personal: {}, signs: { pisces: { name: { en: "Pisces", uk: "Риби" }, sun: { en: "Sun in Pisces frames identity through compassion and imagination.", uk: "x" }, style: { en: "A porous, imaginative style that takes in the mood of a room.", uk: "x" }, gift: { en: "The gift is compassion that notices what others miss.", uk: "x" } } }, planets: { sun: { name: { en: "Sun", uk: "Сонце" }, function: { en: "The Sun names the direction you grow toward.", uk: "x" } } }, houses: { 1: { name: { en: "First house", uk: "x" }, meaning: { en: "The first house is how you enter a room and begin.", uk: "x" } } }, aspects: {}, pairs: {}, sources: { "astrodienst-intro": { title: "A", url: "https://example.com" } } };
-const words = (n) => Array.from({ length: n }, () => "word").join(" ") + ".";
+// Fresh letter-only words on every call (waaa, waab, ...): no six-word run repeats between the opening and a chapter, and none is a hedge or a banned phrase.
+let seq = 0;
+const word = (n) => "w" + [2, 1, 0].map((k) => String.fromCharCode(97 + (Math.floor(n / 26 ** k) % 26))).join("");
+const words = (n) => Array.from({ length: n }, () => word(seq++)).join(" ") + ".";
 const p = (n) => ({ text: words(n), refs: ["natal-sun"], teachings: ["natal-sun-sign"] });
 const chapter = () => ({ title: "A Chapter", lede: words(8), paragraphs: [words(50), words(50)], practice: words(10), refs: ["natal-sun"], teachings: [] });
 const outline = { mind: "How your attention picks what matters and lets the rest go.", heart: "What you need to feel safe enough to let someone close.", work: "The kind of effort you can sustain and where it pays off.", shadow: "The habit that protects you now and costs you later on.", love: "How you give affection and what you ask for in return.", becoming: "The direction your next few years keep pointing you toward." };
@@ -306,7 +309,7 @@ test("every stage attempt logs one line with timing, stop reason, model, usage, 
   assert.deepEqual(a[0].usage, usage);
   assert.equal(a[0].refusalCategory, null);
   assert.deepEqual(logs.filter((entry) => entry.stage !== "a").map((entry) => [entry.stage, entry.attempt, entry.ok]).sort(), [["b", 0, true], ["c", 0, true]]);
-  for (const line of lines) for (const text of ["The Open Door", "word word", "Pisces", "Chapter"]) assert.ok(!line.includes(text), text);
+  for (const line of lines) for (const text of ["The Open Door", A.epigraph.slice(0, 9), "Pisces", "Chapter"]) assert.ok(!line.includes(text), text);
 });
 
 test("the log and the job's cost both price by the model that answered", async (t) => {
@@ -492,4 +495,26 @@ test("the injected sender receives the signal as its second argument", async () 
   const write = createWriter({ apiKey: "k", model: "m", effort: "high", send: async (params, options) => { got.push(options); return { stop_reason: "end_turn", content: [{ type: "text", text: "{}" }], usage: {} }; } });
   await write({ system: "s", user: "u", schema: {}, maxTokens: 10, signal: controller.signal });
   assert.equal(got[0].signal, controller.signal);
+});
+
+test("a chapter that repeats the opening gets one repair attempt naming the repeat", async (t) => {
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const echo = { ...B, chapters: { ...B.chapters, mind: { ...chapter(), paragraphs: [`${A.overview.text.split(" ").slice(10, 30).join(" ")} ${words(10)}`, words(50)] } } };
+  const { write, calls } = scripted([ok(A), ok(echo), ok(C), ok(B)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.equal(calls.length, 4);
+  assert.match(calls[3].user, /repeat:mind:"/);
+});
+
+test("a chapter that keeps repeating the opening fails the stage, and the opening itself is never compared with anything", async (t) => {
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const echo = { ...B, chapters: { ...B.chapters, work: { ...chapter(), lede: A.facets.gifts.text.split(" ").slice(0, 20).join(" ") } } };
+  const { write } = scripted([ok(A), ok(echo), ok(C), ok(echo)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "failed");
+  assert.equal((await readJob(kv, "j")).error, "stage_b_invalid");
+  assert.ok((await readStages(kv, "j")).c);
 });

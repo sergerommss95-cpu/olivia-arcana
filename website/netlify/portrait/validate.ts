@@ -1,6 +1,7 @@
 // website/netlify/portrait/validate.ts
 /** Checks a stage before anyone sees it. Failing text is withheld, never patched with stock prose. */
 import { focusFor, SECTIONS, type Stage } from "./plan.ts";
+import { repetition, styleProblems } from "./style.ts";
 
 type Factor = { id: string; kind: string; alternatives?: string[] | null };
 type Packet = { locale: "en" | "uk"; factors: Factor[] };
@@ -57,15 +58,23 @@ const within = (value: unknown, [min, max]: readonly [number, number]) => typeof
 const str = (value: unknown): string => (typeof value === "string" ? value : "");
 const list = (value: unknown): any[] => (Array.isArray(value) ? value : []);
 
-export function validateStage(stage: Stage, data: any, packet: Packet, teachings: Teaching[]) {
+/** What the reader sees of the opening: the overview and each facet's text. The outline is hidden planning text and is left out. */
+const openingText = (opening: any): string[] => [str(opening?.overview?.text), ...SECTIONS.a.slice(1).map((key) => str(opening?.facets?.[key]?.text))].filter(Boolean);
+
+/** `opening` is the accepted stage A; stages B and C may not repeat six words of its visible text. */
+export function validateStage(stage: Stage, data: any, packet: Packet, teachings: Teaching[], opening?: unknown) {
   const errors: string[] = [];
   const factorIds = new Set(packet.factors.map((f) => f.id));
   const teachingIds = new Set(teachings.map((t) => t.id));
   const uncertain = packet.factors.filter((f) => Array.isArray(f.alternatives) && f.alternatives.length > 1);
   const lang = packet.locale === "uk" ? 1 : 0;
+  const locale = packet.locale === "uk" ? "uk" : "en";
 
   const checkText = (where: string, text: string) => {
     for (const snippet of unsafeMatches(text)) errors.push(`unsafe:${where}:"${snippet}"`);
+  };
+  const checkStyle = (where: string, text: unknown, opts: { lede?: boolean } = {}) => {
+    errors.push(...styleProblems(where, str(text), locale, opts));
   };
   const checkPassage = (where: string, p: Passage, text: string, limit: readonly [number, number]) => {
     if (!p || typeof text !== "string") { errors.push(`missing:${where}`); return; }
@@ -89,6 +98,8 @@ export function validateStage(stage: Stage, data: any, packet: Packet, teachings
     if (!within(data?.title, LIMITS.title)) errors.push("length:title");
     if (!within(data?.epigraph, LIMITS.epigraph)) errors.push("length:epigraph");
     checkText("title", `${str(data?.title)} ${str(data?.epigraph)}`);
+    checkStyle("title", data?.title);
+    checkStyle("epigraph", data?.epigraph);
     // The outline is planning text for the later stages, never shown: no refs, teachings or focus, only length, distinctness and safety.
     if (typeof data?.outline !== "object" || data.outline === null) errors.push("missing:outline");
     else {
@@ -103,24 +114,35 @@ export function validateStage(stage: Stage, data: any, packet: Packet, teachings
       if (new Set(lines).size < lines.length) errors.push("outline:duplicate");
     }
     checkPassage("overview", data?.overview, data?.overview?.text, LIMITS.overview);
+    checkStyle("overview", data?.overview?.text);
     for (const key of SECTIONS.a.slice(1)) {
       const facet = data?.facets?.[key];
       if (!within(facet?.heading, LIMITS.heading)) errors.push(`length:${key}:heading`);
       checkText(`${key}:heading`, str(facet?.heading));
+      checkStyle(`${key}:heading`, facet?.heading);
       checkPassage(key, facet, facet?.text, LIMITS.facet);
+      checkStyle(key, facet?.text);
     }
   } else {
+    const seen = openingText(opening);
     for (const key of SECTIONS[stage]) {
       const ch = data?.chapters?.[key];
       if (!ch) { errors.push(`missing:${key}`); continue; }
       if (!within(ch.title, LIMITS.title)) errors.push(`length:${key}:title`);
       checkText(`${key}:title`, str(ch.title));
+      checkStyle(`${key}:title`, ch.title);
       if (!within(ch.lede, LIMITS.lede)) errors.push(`length:${key}:lede`);
       if (!within(ch.practice, LIMITS.practice)) errors.push(`length:${key}:practice`);
       const paragraphs = list(ch.paragraphs);
       if (paragraphs.length < LIMITS.paragraphs[0] || paragraphs.length > LIMITS.paragraphs[1]) errors.push(`count:${key}:paragraphs`);
       paragraphs.forEach((text, i) => { if (!within(text, LIMITS.paragraph)) errors.push(`length:${key}:p${i}:${str(text).length}`); });
-      checkPassage(key, ch, [str(ch.lede), ...paragraphs.map(str), str(ch.practice)].join(" "), [0, 100_000]);
+      const text = [str(ch.lede), ...paragraphs.map(str), str(ch.practice)].join(" ");
+      checkPassage(key, ch, text, [0, 100_000]);
+      checkStyle(`${key}:lede`, ch.lede, { lede: true });
+      paragraphs.forEach((paragraph, i) => checkStyle(`${key}:p${i}`, paragraph));
+      checkStyle(`${key}:practice`, ch.practice);
+      // Stages B and C are written side by side, so each is held against the opening only.
+      errors.push(...repetition(key, text, seen));
     }
     if (stage === "c") {
       const keep = list(data?.keep);
