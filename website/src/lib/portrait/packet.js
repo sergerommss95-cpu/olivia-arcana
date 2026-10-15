@@ -58,7 +58,7 @@ export function buildPacket({ locale, chart, arkan, numbers, daySigns }) {
 
 const isObject = (v) => Boolean(v) && typeof v === "object" && !Array.isArray(v);
 const sameKeys = (obj, keys) => Object.keys(obj).length === keys.length && keys.every((k) => Object.hasOwn(obj, k));
-const label = (f) => String(f?.id ?? "?").slice(0, MAX_LABEL);
+const label = (f) => (typeof f?.id === "string" ? f.id.slice(0, MAX_LABEL) : "?");
 const copy = (v) => (Array.isArray(v) ? [...v] : v);
 const pick = (source, keys) => Object.fromEntries(keys.map((k) => [k, copy(source[k])]));
 

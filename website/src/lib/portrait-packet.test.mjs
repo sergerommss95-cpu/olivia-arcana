@@ -86,6 +86,16 @@ test("validatePacket never throws and enforces the boundary", () => {
   assert.equal(longId.ok, false);
   assert.ok(longId.error.length <= 45, longId.error);
 
+  const objectId = JSON.parse('{"id":{"toString":1},"kind":"note"}');
+  assert.doesNotThrow(() => validatePacket(addFactor(good, objectId)));
+  assert.equal(validatePacket(addFactor(good, objectId)).ok, false);
+  const objectIdArkan = JSON.parse('{"id":{"toString":1},"kind":"arkan"}');
+  assert.doesNotThrow(() => validatePacket(addFactor(good, objectIdArkan)));
+  assert.equal(validatePacket(addFactor(good, objectIdArkan)).ok, false);
+  const objectLocale = JSON.parse('{"v":1,"locale":{"toString":1},"timeKnown":true,"factors":[]}');
+  assert.doesNotThrow(() => validatePacket(objectLocale));
+  assert.equal(validatePacket(objectLocale).ok, false);
+
   assert.equal(validatePacket({ ...structuredClone(good), name: "Olena" }).ok, false);
 
   const result = validatePacket(good);
