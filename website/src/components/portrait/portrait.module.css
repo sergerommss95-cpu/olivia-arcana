@@ -1,0 +1,43 @@
+/* website/src/components/portrait/portrait.module.css
+   Milestone 1 reader: the site's lapis paper and ivory ink, one gilt accent.
+   Milestone 3 replaces the waiting state with the Laying and adds the full motion system. */
+.page { max-width: 44rem; margin: 0 auto; padding: clamp(2rem, 6vw, 5rem) 1rem 6rem; color: var(--ink, #eee6d4); }
+.kicker { font: 500 0.72rem/1.4 var(--font-mono, monospace); letter-spacing: 0.18em; text-transform: uppercase; color: var(--ox, #c1ab7c); }
+.title { font: 400 clamp(2.4rem, 7vw, 4.2rem)/1.04 var(--font-display, Cormorant, serif); margin: 0.6rem 0 1rem; text-wrap: balance; }
+.lede, .overview { font-size: 1.12rem; line-height: 1.7; color: var(--ink-soft, rgba(238, 230, 212, 0.86)); }
+.epigraph { font: italic 400 1.4rem/1.4 var(--font-display, Cormorant, serif); color: var(--ox, #c1ab7c); margin: 0 0 1.6rem; }
+.form { display: grid; gap: 1.1rem; margin: 2rem 0; }
+.form label { display: grid; gap: 0.35rem; font-size: 0.86rem; color: var(--ink-soft, rgba(238, 230, 212, 0.8)); }
+.form input[type="text"], .form input:not([type]), .form input[type="date"], .form input[type="time"] { font: inherit; font-size: 1.05rem; color: var(--ink, #eee6d4); background: transparent; border: 0; border-bottom: 1px solid var(--hairline, rgba(238, 230, 212, 0.22)); padding: 0.5rem 0; }
+.form input:focus-visible { outline: none; border-bottom-color: var(--ox, #c1ab7c); }
+.form small { color: var(--ink-faint, rgba(238, 230, 212, 0.6)); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.check { grid-auto-flow: column; justify-content: start; align-items: center; gap: 0.5rem !important; }
+.places { list-style: none; margin: -0.6rem 0 0; padding: 0; border: 1px solid var(--hairline, rgba(238, 230, 212, 0.22)); }
+.places button { all: unset; display: flex; justify-content: space-between; width: 100%; box-sizing: border-box; padding: 0.6rem 0.8rem; cursor: pointer; }
+.places button:hover, .places button:focus-visible { background: rgba(193, 171, 124, 0.12); }
+.places span { color: var(--ink-faint, rgba(238, 230, 212, 0.6)); font-size: 0.85rem; }
+.button { justify-self: start; font: 500 0.95rem/1 var(--font-body-latin, inherit); color: var(--ink, #eee6d4); background: transparent; border: 1px solid var(--ox, #c1ab7c); border-radius: 999px; padding: 0.9rem 1.6rem; cursor: pointer; transition: background 0.4s var(--ease-ritual, ease), color 0.4s var(--ease-ritual, ease); }
+.button:hover:not(:disabled) { background: var(--ox, #c1ab7c); color: var(--paper, #0b1c2c); }
+.button:disabled { opacity: 0.45; cursor: default; }
+.note { font-size: 0.85rem; color: var(--ink-faint, rgba(238, 230, 212, 0.6)); margin-top: 2.4rem; }
+.error { color: #e9b7a5; }
+.hint { color: var(--ink-faint, rgba(238, 230, 212, 0.6)); }
+.waiting { padding: 4rem 0; }
+.stages { list-style: none; padding: 0; display: grid; gap: 0.6rem; }
+.stages li { opacity: 0.45; transition: opacity 0.6s var(--ease-ritual, ease); }
+.stages li[data-done="true"] { opacity: 1; color: var(--ox, #c1ab7c); }
+.head { margin-bottom: 3rem; }
+.facet, .chapter, .keep { margin: 3rem 0; padding-top: 2rem; border-top: 1px solid var(--hairline, rgba(238, 230, 212, 0.18)); }
+.facet h2, .chapter h2, .keep h2 { font: 400 1.9rem/1.2 var(--font-heading, Cormorant, serif); margin: 0 0 1rem; }
+.facet p, .chapter p { font-size: 1.05rem; line-height: 1.75; }
+.chapter .lede { font: italic 400 1.3rem/1.45 var(--font-display, Cormorant, serif); color: var(--ink, #eee6d4); }
+.practice { border-left: 2px solid var(--ox, #c1ab7c); padding-left: 1rem; color: var(--ink-soft, rgba(238, 230, 212, 0.86)); }
+.keep ul { padding-left: 1.1rem; display: grid; gap: 0.6rem; font: 400 1.25rem/1.45 var(--font-display, Cormorant, serif); }
+.footer { margin-top: 4rem; }
+.deck { display: flex; gap: 0.8rem; margin-top: 3rem; opacity: 0.8; }
+.deck img { width: 5.5rem; border-radius: 4px; }
+.reveal { animation: ink-in 0.95s var(--ease-engrave, cubic-bezier(0.16, 1, 0.3, 1)) both; }
+@keyframes ink-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .reveal { animation: none; } .stages li, .button { transition: none; } }
+@media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
