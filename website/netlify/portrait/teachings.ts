@@ -3,14 +3,14 @@
 
 type Text = { en: string; uk: string };
 type Factor = { id: string; kind: string; [key: string]: unknown };
-type Packet = { locale: "en" | "uk"; timeKnown: boolean; factors: Factor[] };
+type Packet = { locale: "en" | "uk"; factors: Factor[] };
 export type Teaching = { id: string; factors: string[]; label: string; text: string; sources: string[] };
 export type Bank = Record<string, any>;
 
-/** Card fields that fit each Arkan position (V18's role table, in this bank's field names). */
+/** Card fields that fit each Arkan position: V18's role table (portrait-profile-knowledge-v18.js) without the per-position `lead` framing, in this bank's field names. */
 export const ARKAN_FIELDS: Record<number, string[]> = {
   1: ["character", "growth"], 2: ["character", "growth"], 3: ["character", "growth"],
-  4: ["risk", "inner"], 5: ["character", "choice"], 6: ["strength", "work"],
+  4: ["risk", "inner"], 5: ["character", "growth"], 6: ["strength", "work"],
   7: ["strength", "work"], 8: ["strength", "inner"], 12: ["inner", "growth"],
   13: ["character", "inner"], 14: ["character", "relationship"],
 };
@@ -28,7 +28,15 @@ const POSITION_NAMES: Record<number, Text> = {
   12: { en: "Restoration", uk: "Відновлення" }, 13: { en: "Self-image", uk: "Образ себе" },
   14: { en: "Outward presence", uk: "Зовнішній прояв" },
 };
-const NUMBER_SOURCES = (value: number) => ["v15-num-roles", `v15-num-${value}`].filter(Boolean);
+/** Reader-facing role names, from V18's `numberTitles` (portrait-ai-knowledge-v15.js). */
+const NUMBER_TITLES: Record<string, Text> = {
+  lifePath: { en: "Life path", uk: "Життєвий шлях" },
+  expression: { en: "Expression", uk: "Вираження" },
+  soulUrge: { en: "Inner motivation", uk: "Внутрішній мотив" },
+  personality: { en: "Outward personality", uk: "Зовнішній прояв" },
+};
+/** Mirrors V18's `sourceIdsFor` (portrait-numbers-v15.js) for one number. */
+const NUMBER_SOURCES = (value: number) => ["v15-num-roles", "v15-num-check-roles", `v15-num-${value}`, ...(value > 9 ? ["v15-num-check-masters"] : [])];
 
 export function selectTeachings(packet: Packet, bank: Bank): Teaching[] {
   const lang = packet.locale;
@@ -36,9 +44,11 @@ export function selectTeachings(packet: Packet, bank: Bank): Teaching[] {
     const value = (t as any)[lang];
     return Array.isArray(value) ? value.join(", ") : String(value ?? "");
   };
-  const known = (ids: string[]) => ids.filter((id) => bank.sources[id]);
   const out: Teaching[] = [];
-  const add = (t: Teaching) => { if (t.text.trim().length > 20) out.push({ ...t, sources: known(t.sources) }); };
+  const add = (t: Teaching) => {
+    for (const id of t.sources) if (!Object.hasOwn(bank.sources, id)) throw new Error(`unknown_source:${id}`);
+    if (t.text.trim().length > 20) out.push(t);
+  };
 
   for (const f of packet.factors) {
     if (f.kind === "arkan") {
@@ -47,9 +57,9 @@ export function selectTeachings(packet: Packet, bank: Bank): Teaching[] {
         add({ id: `card-${position}-${field}`, factors: [f.id], label: `${pick(POSITION_NAMES[position])} · ${pick(card.name)}`, text: pick(card[field]), sources: ["arkan-chrzanowska"] });
       }
     } else if (f.kind === "number" && NUMBER_FIELDS[f.role as string]) {
-      const role = f.role as string, entry = bank.numbers[role][String(f.value)];
-      add({ id: `num-${role}-role`, factors: [f.id], label: pick(entry.name), text: pick(bank.roleNotes[role]), sources: ["v18-core-role-architecture"] });
-      for (const field of NUMBER_FIELDS[role]) add({ id: `num-${role}-${field}`, factors: [f.id], label: `${role} ${f.value} · ${pick(entry.name)}`, text: pick(entry[field]), sources: NUMBER_SOURCES(f.value as number) });
+      const role = f.role as string, entry = bank.numbers[role][String(f.value)], roleName = pick(NUMBER_TITLES[role]);
+      add({ id: `num-${role}-role`, factors: [f.id], label: `${roleName} · ${pick(entry.name)}`, text: pick(bank.roleNotes[role]), sources: ["v18-core-role-architecture"] });
+      for (const field of NUMBER_FIELDS[role]) add({ id: `num-${role}-${field}`, factors: [f.id], label: `${roleName} ${f.value} · ${pick(entry.name)}`, text: pick(entry[field]), sources: NUMBER_SOURCES(f.value as number) });
     } else if (f.kind === "planet") {
       const body = f.body as string;
       const signs = (f.alternatives as string[] | null) ?? [f.sign as string];
@@ -59,11 +69,12 @@ export function selectTeachings(packet: Packet, bank: Bank): Teaching[] {
         const text = personal
           ? [personal.disposition, personal.satisfaction, personal.strain].map(pick).join(" ")
           : `${pick(bank.planets[body].function)} ${pick(bank.signs[sign].style)} ${pick(bank.signs[sign].gift)}`;
-        add({ id, factors: [f.id], label: `${pick(bank.planets[body].name)} · ${pick(bank.signs[sign].name)}`, text, sources: ["astrodienst-intro"] });
+        const sources = personal ? [`v18-natal-function-${body}`, `v18-natal-style-${sign}`] : ["astrodienst-intro"];
+        add({ id, factors: [f.id], label: `${pick(bank.planets[body].name)} · ${pick(bank.signs[sign].name)}`, text, sources });
       }
       if (f.house) {
         const house = bank.houses[String(f.house)];
-        add({ id: `natal-${body}-house`, factors: [f.id], label: pick(house.name), text: pick(house.meaning), sources: ["astrodienst-intro"] });
+        add({ id: `natal-${body}-house`, factors: [f.id], label: `${pick(bank.planets[body].name)} · ${pick(house.name)}`, text: pick(house.meaning), sources: ["astrodienst-intro"] });
       }
     } else if (f.kind === "angle") {
       const sign = bank.signs[f.sign as string];
