@@ -601,3 +601,14 @@ test("a clean first attempt is never repaired", async (t) => {
   assert.ok(calls.every((call) => !call.user.includes("failed these checks")));
   assert.equal(warnings.length, 0);
 });
+
+test("style residue is forgiven only after a repair was tried: a provider failure then a style-only reply fails the stage", async (t) => {
+  const warnings = quiet(t);
+  const kv = await kvFor();
+  const { write, calls } = scripted([provider, ok(hedged(words(99)))]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "failed");
+  assert.equal(calls.length, 2);
+  assert.equal((await readJob(kv, "j")).error, "stage_a_invalid");
+  assert.deepEqual(await readStages(kv, "j"), {});
+  assert.equal(warnings.some((line) => line.includes("portrait_style_residue")), false);
+});

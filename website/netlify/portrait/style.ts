@@ -3,18 +3,20 @@
 
 const HEDGES = {
   en: "\\b(?:may|might|perhaps|probably|possibly|likely|maybe|tend(?:s)? to|seem(?:s)? to|could be)\\b",
-  uk: "(?<![\\p{L}])(?:мабуть|ймовірно|можливо|напевно|певно|схоже|здається|либонь)(?![\\p{L}])",
+  // «схоже» and «здається» also mean "similar" and "appears to be", so they hedge only as «що»-clauses or a parenthetical; «якщо можливо» is "if you can", not a doubt.
+  uk: "(?<![\\p{L}])(?:мабуть|ймовірно|(?<!якщо\\s+)можливо|напевно|схоже,?\\s+що|здається,?\\s+що|(?<=,\\s*)здається(?=\\s*,)|либонь)(?![\\p{L}])",
 };
 const PHRASES = {
   en: [/\bsymbolic\b/i, /\bsupplied\b/i, /\bthis (?:position|placement|card|number) (?:suggests|indicates|shows)\b/i, /\btradition(?:s|al)? (?:says|suggests|holds)\b/i,
        /\bjourney\b/i, /\bauthentic self\b/i, /\bself-care\b/i, /\binner child\b/i, /\bhealing\b/i, /\bthe universe\b/i, /\bunique blend\b/i, /\btapestry\b/i,
        /\bdelve\b/i, /\brealm\b/i, /\bnavigat(?:e|ing) the\b/i, /\bit(?:'|’)s important to\b/i, /\bembrace\b/i, /\bnot (?:simply|just|merely) [^.,;]{1,40}, but\b/i],
-  uk: [/символічн/iu, /традиці[яїй]/iu, /енергі[яїюй] (?:всесвіту|космосу|карти|карт|числа|чисел)/iu, /всесвіт/iu, /подорож[іу]? до себе/iu, /важливо пам[’']ятати/iu,
+  uk: [/символічн/iu, /традиці(?:я|ї|ю|єю)(?![\p{L}])\s+(?:каже|свідчить|вважає|радить)/iu, /енергі[яїюй] (?:всесвіту|космосу|карти|карт|числа|чисел)/iu, /всесвіт/iu, /подорож[іу]? до себе/iu, /важливо пам[’']ятати/iu,
        /унікальн[еийа] поєднання/iu, /зцілення/iu],
 };
-const GENDERED = /(?<![\p{L}])(?:ви\s+(?:\p{L}+\s+)?(?:сама|самий|готова|готовий|впевнена|впевнений|рада|радий|повинна|повинен|змушена|змушений|здатна|здатний|певна|певен)|самій собі|самому собі)(?![\p{L}])/giu;
+const GENDERED = /(?<![\p{L}])(?:ви\s+(?:\p{L}+\s+)?(?:сама|готова|готовий|впевнена|впевнений|рада|радий|повинна|повинен|змушена|змушений|здатна|здатний|певна|певен)|самій собі|самому собі)(?![\p{L}])/giu;
 
-const firstSentence = (text: string) => text.split(/(?<=[.!?…])\s/u)[0] ?? text;
+/** A sentence ends at . ! ? or …, even when a closing quote follows it. */
+const firstSentence = (text: string) => text.split(/(?<=[.!?…]["»”’']?)\s/u)[0] ?? text;
 
 /** Problems with how a passage sounds. `lede` passages are one sentence, so the whole text counts as their first. */
 export function styleProblems(where: string, text: string, locale: "en" | "uk", opts: { lede?: boolean }) {

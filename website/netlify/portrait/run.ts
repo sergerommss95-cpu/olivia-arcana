@@ -47,8 +47,8 @@ export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS
           return { ok: false as const, error: `stage_${key}_${result.code}` };
         }
         const check = validateStage(key, result.data, packet, teachings, earlier.a);
-        // A paid reading is not thrown away over its voice: after the repair attempt, style-only errors are tolerated. Anything else still fails the stage.
-        const residue = !check.ok && attempt === 1 && check.errors.every(isStyleError);
+        // A paid reading is not thrown away over its voice: once a repair was actually tried (the first attempt reached validation and failed), style-only errors are tolerated. Anything else still fails the stage.
+        const residue = !check.ok && attempt === 1 && errors.length > 0 && check.errors.every(isStyleError);
         log(check.ok || residue);
         if (residue) console.warn(JSON.stringify({ event: "portrait_style_residue", stage: key, codes: check.errors.map((e) => e.replace(/:".*"$/s, "")) }));
         if (check.ok || residue) { await putStage(kv, id, key, result.data); return { ok: true as const, data: result.data }; }

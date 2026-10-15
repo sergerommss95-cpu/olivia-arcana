@@ -62,3 +62,32 @@ test("repetition ignores case and punctuation, and only an exact six-word run co
   assert.deepEqual(repetition("work", "too short", opening), []);
   assert.deepEqual(repetition("work", "You carry the weight quietly for everyone.", []), []);
 });
+
+test("Ukrainian «традиція» is only a method word when tradition is made to speak", () => {
+  for (const ok of ["Це був традиційний обід у неділю.", "Родинні традиції вас тримають.", "Ви любите традицію гарячого чаю."]) assert.deepEqual(styleProblems("x", ok, "uk", {}), [], ok);
+  for (const bad of ["Традиція каже, що слід мовчати.", "Згідно з тим, що традиція свідчить, ви стійкі.", "Традиція радить зачекати."]) assert.ok(styleProblems("x", bad, "uk", {}).some((e) => e.startsWith("phrase:x")), bad);
+});
+
+test("Ukrainian hedges: «схоже / здається» hedge only as «що»-clauses or parentheticals; «певно» and «якщо можливо» do not count", () => {
+  for (const ok of ["Зупинка здається поразкою, але нею не є.", "Ваша мапа схоже на мапу метро.", "Ви ступаєте впевнено, навіть коли не знаєте дороги.", "Якщо можливо, вимкніть телефон перед сном.", "Ви, певно кажучи, не просите допомоги."]) {
+    assert.deepEqual(styleProblems("x", ok, "uk", {}).filter((e) => e.startsWith("hedge")), [], ok);
+  }
+  for (const bad of ["Здається, що ви тримаєте все в собі.", "Схоже, що вам потрібна тиша.", "Мабуть, ви тримаєте слово.", "Ви, здається, втомилися від розмов. Далі текст."]) {
+    assert.ok(styleProblems("x", bad, "uk", {}).some((e) => e.startsWith("hedge-lead:x")), bad);
+  }
+  assert.ok(styleProblems("x", "Ви тримаєте слово. Здається, що ви втомилися. Схоже, що вам потрібна тиша.", "uk", {}).includes("hedges:x:2"));
+});
+
+test("Ukrainian «самий» is the ordinary «the very», not a gendered self", () => {
+  assert.deepEqual(styleProblems("x", "Ви той самий день згадуєте кожного разу інакше.", "uk", {}), []);
+  assert.ok(styleProblems("x", "Ви сама знаєте, коли час.", "uk", {}).some((e) => e.startsWith("gender:x")));
+  assert.ok(styleProblems("x", "Це право обирати самій собі.", "uk", {}).some((e) => e.startsWith("gender:x")));
+});
+
+test("a closing quote after the full stop still ends the first sentence", () => {
+  for (const quoted of ['Він сказав: "Так." Можливо, ні.', "Він сказав: «Так.» Можливо, ні.", "Він сказав: “Так.” Можливо, ні."]) {
+    assert.deepEqual(styleProblems("x", quoted, "uk", {}), [], quoted);
+  }
+  assert.deepEqual(styleProblems("x", 'He said, "Yes." Perhaps not.', "en", {}), []);
+  assert.ok(styleProblems("x", 'He said, "Perhaps." Then he left.', "en", {}).some((e) => e.startsWith("hedge-lead:x")));
+});

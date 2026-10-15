@@ -153,7 +153,7 @@ export function validateStage(stage: Stage, data: any, packet: Packet, teachings
     if (stage === "c") {
       const keep = list(data?.keep);
       if (keep.length !== 3) errors.push("count:keep");
-      keep.forEach((line, i) => { if (!within(line, LIMITS.keep)) errors.push(`length:keep:${i}`); checkText(`keep${i}`, str(line)); });
+      keep.forEach((line, i) => { if (!within(line, LIMITS.keep)) errors.push(`length:keep:${i}`); checkText(`keep${i}`, str(line)); checkStyle(`keep${i}`, line); });
     }
   }
   return errors.length ? { ok: false as const, errors } : { ok: true as const };

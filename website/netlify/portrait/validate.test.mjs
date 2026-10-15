@@ -388,3 +388,21 @@ test("style-class errors are the voice rules; everything else is not", () => {
   for (const code of ["hedge-lead:overview", "hedges:inner:2", 'phrase:x:"healing"', 'repeat:mind:"a b c d e f"', 'repeat:mind:lede:"a b c d e f"', "hedge-lead:mind:lede"]) assert.equal(isStyleError(code), true, code);
   for (const code of ['gender:x:"ви сама"', 'unsafe:overview:"diagnos"', "refs:inner:empty", "teachings:inner:x", "focus:inner", "uncertain:inner:natal-moon", "length:title", "count:keep", "missing:outline", "outline:duplicate", 'unsafe:phrase:x:"a"']) assert.equal(isStyleError(code), false, code);
 });
+
+test("the three kept sentences are style-checked: a gendered «ви» fails, a hedge is style-class", () => {
+  const uk = { ...packet, locale: "uk" };
+  const data = stageC();
+  data.keep = ["Ви сама вирішуєте, коли зупинитись.", "Мабуть, ви тримаєте слово.", "Тиша теж є відповіддю."];
+  const { errors } = validateStage("c", data, uk, teachings);
+  assert.ok(errors.some((e) => e.startsWith("gender:keep0:")), String(errors));
+  assert.ok(errors.includes("hedge-lead:keep1"), String(errors));
+  assert.equal(errors.some((e) => e.endsWith("keep2") || e.includes(":keep2")), false);
+  assert.equal(isStyleError("hedge-lead:keep1"), true);
+  assert.equal(isStyleError(errors.find((e) => e.startsWith("gender:keep0"))), false);
+  const en = stageC();
+  en.keep = ["Embrace the quiet.", "Small steps still count.", "You may rest. You might stay."];
+  const english = validateStage("c", en, packet, teachings).errors;
+  assert.ok(english.some((e) => e.startsWith("phrase:keep0:")), String(english));
+  assert.ok(english.includes("hedges:keep2:2"), String(english));
+  assert.deepEqual(validateStage("c", stageC(), packet, teachings), { ok: true });
+});
