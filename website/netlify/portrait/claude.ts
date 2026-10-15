@@ -11,7 +11,7 @@ export type WriteResult = Meta & (
   | { ok: true; data: unknown; usage: Usage }
   | { ok: false; code: "refusal" | "truncated" | "unparseable" | "provider"; usage: Usage }
 );
-export type Call = { system: string; user: string; schema: object; maxTokens: number };
+export type Call = { system: string; user: string; schema: object; maxTokens: number; signal?: AbortSignal };
 
 const NONE: Usage = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
 const NO_META: Meta = { stopReason: null, model: null, refusalCategory: null };
@@ -50,14 +50,14 @@ export function interpret(message: any): WriteResult {
 }
 
 type Options = { apiKey: string; baseURL?: string; timeout: number; maxRetries: number };
-type Streams = { beta: { messages: { stream(params: any): { finalMessage(): Promise<unknown> } } } };
+type Streams = { beta: { messages: { stream(params: any, options?: { signal?: AbortSignal }): { finalMessage(): Promise<unknown> } } } };
 
 /** `baseURL` points the client at a gateway (Netlify AI Gateway sets ANTHROPIC_BASE_URL next to its own key); without it the SDK uses its default. */
 export function createWriter({ apiKey, baseURL, model, effort, send, makeClient = (options) => new Anthropic(options) as unknown as Streams }: {
-  apiKey: string; baseURL?: string; model: string; effort: string; send?: (params: object) => Promise<unknown>; makeClient?: (options: Options) => Streams;
+  apiKey: string; baseURL?: string; model: string; effort: string; send?: (params: object, options: { signal?: AbortSignal }) => Promise<unknown>; makeClient?: (options: Options) => Streams;
 }) {
   const client = makeClient({ apiKey, baseURL, timeout: 240_000, maxRetries: 1 });
-  const dispatch = send ?? ((params: object) => client.beta.messages.stream(params).finalMessage());
+  const dispatch = send ?? ((params: object, options: { signal?: AbortSignal }) => client.beta.messages.stream(params, options).finalMessage());
   return async function write(call: Call): Promise<WriteResult> {
     try {
       const message = await dispatch({
@@ -69,7 +69,7 @@ export function createWriter({ apiKey, baseURL, model, effort, send, makeClient 
         output_config: { effort, format: { type: "json_schema", schema: call.schema } },
         system: [{ type: "text", text: call.system, cache_control: { type: "ephemeral" } }],
         messages: [{ role: "user", content: call.user }],
-      });
+      }, { signal: call.signal });
       return interpret(message);
     } catch (error) {
       console.warn(JSON.stringify({ event: "portrait_provider_failure", status: (error as any)?.status ?? null, type: (error as any)?.type ?? (error as Error)?.name }));

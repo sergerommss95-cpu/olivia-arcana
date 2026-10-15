@@ -2,7 +2,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { memoryStore, createJob, readJob, readStages, readTeachings, finishJob } from "./store.ts";
-import { runJob } from "./run.ts";
+import { runJob, JOB_DEADLINE_MS } from "./run.ts";
 import { interpret, costCents, createWriter } from "./claude.ts";
 
 const packet = {
@@ -364,4 +364,131 @@ test("the real Anthropic client takes the gateway address, and falls back to its
   const { default: Anthropic } = await import("@anthropic-ai/sdk");
   assert.equal(new Anthropic({ apiKey: "k", baseURL: "https://gateway.example/anthropic" }).baseURL, "https://gateway.example/anthropic");
   assert.equal(new Anthropic({ apiKey: "k", baseURL: undefined }).baseURL, new Anthropic({ apiKey: "k" }).baseURL);
+});
+
+const provider = () => ({ ok: false, code: "provider", usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }, stopReason: null, model: null, refusalCategory: null });
+const refusal = () => ({ ok: false, code: "refusal", usage, stopReason: "refusal", model: "claude-opus-5-5", refusalCategory: "cyber" });
+const truncated = () => ({ ok: false, code: "truncated", usage, stopReason: "max_tokens", model: "claude-opus-5-5", refusalCategory: null });
+
+test("a provider failure on the first attempt is tried again, with the same request", async (t) => {
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const { write, calls } = scripted([provider, ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.equal(calls.length, 4);
+  assert.equal(calls[1].user, calls[0].user);
+});
+
+test("a provider failure on a chapter stage is tried again too", async (t) => {
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const seen = [];
+  const write = async (call) => {
+    const chapters = Object.keys(call.schema.properties.chapters?.properties ?? {});
+    const stage = chapters.length === 0 ? "a" : chapters.includes("mind") ? "b" : "c";
+    seen.push(stage);
+    if (stage === "b" && seen.filter((s) => s === "b").length === 1) return provider();
+    return ok({ a: A, b: B, c: C }[stage])();
+  };
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.deepEqual([...seen].sort(), ["a", "b", "b", "c"]);
+});
+
+test("two provider failures in a row fail the stage; a refusal or a truncation is never retried", async (t) => {
+  quiet(t);
+  for (const [first, retried, error] of [[provider, 2, "stage_a_provider"], [refusal, 1, "stage_a_refusal"], [truncated, 1, "stage_a_truncated"]]) {
+    const kv = memoryStore();
+    await createJob(kv, job);
+    const { write, calls } = scripted([first, first]);
+    assert.equal(await runJob({ kv, id: "j", write, bank }), "failed", error);
+    assert.equal(calls.length, retried, error);
+    assert.equal((await readJob(kv, "j")).error, error);
+  }
+});
+
+test("a provider failure after the first attempt is not retried a second time", async (t) => {
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const { write, calls } = scripted([ok({ ...A, title: "" }), provider]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "failed");
+  assert.equal(calls.length, 2);
+  assert.equal((await readJob(kv, "j")).error, "stage_a_provider");
+});
+
+test("every call carries the job's deadline signal, and the deadline is under the 15-minute background limit", async (t) => {
+  quiet(t);
+  assert.equal(JOB_DEADLINE_MS, 12 * 60_000);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const { write, calls } = scripted([ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.equal(calls.length, 3);
+  for (const call of calls) {
+    assert.ok(call.signal instanceof AbortSignal);
+    assert.equal(call.signal.aborted, false);
+  }
+  assert.equal(new Set(calls.map((call) => call.signal)).size, 1);
+});
+
+test("past its deadline a job aborts the calls in flight, fails as a provider error, and does not retry", async (t) => {
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const signals = [];
+  // A call that does what the SDK does: it ends when its signal aborts.
+  const write = (call) => new Promise((resolve) => {
+    signals.push(call.signal);
+    call.signal.addEventListener("abort", () => resolve(provider()), { once: true });
+  });
+  assert.equal(await runJob({ kv, id: "j", write, bank, deadlineMs: 30 }), "failed");
+  assert.equal(signals.length, 1);
+  assert.equal(signals[0].aborted, true);
+  const finished = await readJob(kv, "j");
+  assert.equal(finished.status, "failed");
+  assert.equal(finished.error, "stage_a_provider");
+  assert.equal(finished.packet, null);
+  assert.equal(await kv.get("quota/d/cents", { type: "json" }), 0);
+});
+
+test("a deadline that hits while the chapter stages write ends both, keeping the opening", async (t) => {
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  let calls = 0;
+  const write = (call) => {
+    calls++;
+    if (calls === 1) return Promise.resolve(ok(A)());
+    return new Promise((resolve) => call.signal.addEventListener("abort", () => resolve(provider()), { once: true }));
+  };
+  assert.equal(await runJob({ kv, id: "j", write, bank, deadlineMs: 40 }), "failed");
+  assert.equal(calls, 3);
+  assert.deepEqual(Object.keys(await readStages(kv, "j")), ["a"]);
+  assert.match((await readJob(kv, "j")).error, /^stage_[bc]_provider$/);
+});
+
+test("createWriter passes the signal to the SDK as a request option and ends the call with a provider code when it aborts", async (t) => {
+  quiet(t);
+  const seen = [];
+  const client = { beta: { messages: { stream: (params, options) => {
+    seen.push(options);
+    return { finalMessage: () => new Promise((_, reject) => options.signal.addEventListener("abort", () => reject(Object.assign(new Error("aborted"), { name: "APIUserAbortError" })), { once: true })) };
+  } } } };
+  const write = createWriter({ apiKey: "k", model: "m", effort: "high", makeClient: () => client });
+  const controller = new AbortController();
+  const pending = write({ system: "s", user: "u", schema: {}, maxTokens: 10, signal: controller.signal });
+  assert.equal(seen[0].signal, controller.signal);
+  controller.abort();
+  const result = await pending;
+  assert.deepEqual([result.ok, result.code], [false, "provider"]);
+});
+
+test("the injected sender receives the signal as its second argument", async () => {
+  const got = [];
+  const controller = new AbortController();
+  const write = createWriter({ apiKey: "k", model: "m", effort: "high", send: async (params, options) => { got.push(options); return { stop_reason: "end_turn", content: [{ type: "text", text: "{}" }], usage: {} }; } });
+  await write({ system: "s", user: "u", schema: {}, maxTokens: 10, signal: controller.signal });
+  assert.equal(got[0].signal, controller.signal);
 });

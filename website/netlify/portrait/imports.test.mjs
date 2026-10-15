@@ -10,7 +10,10 @@ import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const website = resolve(here, "../..");
-const ENTRIES = ["api.ts", "run.ts"].map((name) => resolve(here, name));
+const ENTRIES = [
+  ...["api.ts", "run.ts"].map((name) => resolve(here, name)),
+  ...["portrait.mts", "portrait-background.mts", "portrait-cleanup.mts"].map((name) => resolve(here, "../functions", name)),
+];
 const ALLOWED_PACKAGES = new Set(["@anthropic-ai/sdk", "@netlify/blobs"]);
 const SOURCE = /\.(?:ts|mts|js|mjs)$/;
 
@@ -68,8 +71,8 @@ const graph = walk(ENTRIES);
 
 test("the walk reaches the whole server graph, so the checks below are not vacuous", () => {
   const reached = new Set([...graph.files.keys()].map((file) => relative(website, file)));
-  for (const expected of ["netlify/portrait/store.ts", "netlify/portrait/claude.ts", "netlify/portrait/validate.ts", "src/lib/portrait/packet.js", "src/lib/portrait/arkan.js"]) {
-    assert.ok(reached.has(expected), `${expected} should be reachable from api.ts or run.ts`);
+  for (const expected of ["netlify/portrait/store.ts", "netlify/portrait/claude.ts", "netlify/portrait/validate.ts", "netlify/portrait/cleanup.ts", "src/lib/portrait/packet.js", "src/lib/portrait/arkan.js"]) {
+    assert.ok(reached.has(expected), `${expected} should be reachable from the portrait functions`);
   }
   assert.ok(graph.packages.has("@anthropic-ai/sdk"), "claude.ts imports the Anthropic SDK");
 });

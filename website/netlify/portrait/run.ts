@@ -11,9 +11,15 @@ import type { Stage } from "./plan.ts";
 /** Adaptive thinking counts against max_tokens, so the limit leaves room for the thinking as well as the JSON. */
 const MAX_TOKENS: Record<Stage, number> = { a: 32_000, b: 32_000, c: 32_000 };
 
-export async function runJob({ kv, id, write, bank }: { kv: KeyValue; id: string; write: (call: Call) => Promise<WriteResult>; bank: Bank }) {
+/** Under the 15 minutes a background function may run, so a stuck call ends the job instead of the platform doing it. */
+export const JOB_DEADLINE_MS = 12 * 60_000;
+
+export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS }: { kv: KeyValue; id: string; write: (call: Call) => Promise<WriteResult>; bank: Bank; deadlineMs?: number }) {
   const job = await claimJob(kv, id);
   if (!job) return "skipped" as const;
+  // Every call shares one deadline: when it passes, calls in flight abort and come back as provider failures.
+  const deadline = new AbortController();
+  const timer = setTimeout(() => deadline.abort(), deadlineMs);
   let cents = 0;
   let error: string | null = null;
   let teachings: Teaching[] = [];
@@ -28,13 +34,18 @@ export async function runJob({ kv, id, write, bank }: { kv: KeyValue; id: string
       let errors: string[] = [];
       for (let attempt = 0; attempt < 2; attempt++) {
         const started = Date.now();
-        const result = await write({ system, user: stageRequest(key, packet, teachings, earlier, errors), schema: stageSchema(key, factorIds, teachingIds), maxTokens: MAX_TOKENS[key] });
+        const result = await write({ system, user: stageRequest(key, packet, teachings, earlier, errors), schema: stageSchema(key, factorIds, teachingIds), maxTokens: MAX_TOKENS[key], signal: deadline.signal });
         const ms = Date.now() - started;
         const spent = costCents(result.usage, result.model);
         cents += spent;
         // One line per attempt, never any text. `ok` means the attempt was accepted: the call succeeded and the stage passed its checks.
         const log = (accepted: boolean) => console.log(JSON.stringify({ event: "portrait_stage", stage: key, attempt, ms, stopReason: result.stopReason ?? null, model: result.model ?? null, usage: result.usage, cents: spent, refusalCategory: result.refusalCategory ?? null, ok: accepted }));
-        if (!result.ok) { log(false); return { ok: false as const, error: `stage_${key}_${result.code}` }; }
+        if (!result.ok) {
+          log(false);
+          // A provider hiccup deserves a second try; a refusal or a cut-off answer would only repeat, and nothing helps once the deadline has passed.
+          if (result.code === "provider" && attempt === 0 && !deadline.signal.aborted) continue;
+          return { ok: false as const, error: `stage_${key}_${result.code}` };
+        }
         const check = validateStage(key, result.data, packet, teachings);
         log(check.ok);
         if (check.ok) { await putStage(kv, id, key, result.data); return { ok: true as const, data: result.data }; }
@@ -58,6 +69,8 @@ export async function runJob({ kv, id, write, bank }: { kv: KeyValue; id: string
   } catch (thrown) {
     error = "internal";
     console.warn(JSON.stringify({ event: "portrait_run_error", message: (thrown as Error)?.message }));
+  } finally {
+    clearTimeout(timer);
   }
   try {
     // The finished job keeps only the teachings its text cited, not the packet: the factors can reveal the birth date.

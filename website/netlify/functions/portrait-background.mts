@@ -11,7 +11,7 @@ import bank from "../portrait/knowledge/bank.json" with { type: "json" };
 const EFFORTS = ["low", "medium", "high", "xhigh", "max"];
 
 export default async (req: Request, context: Context) => {
-  const { id } = await req.json().catch(() => ({}));
+  const { id } = (await req.json().catch(() => null)) ?? {};
   if (typeof id !== "string" || !UUID.test(id)) return;
   const kv = getStore({ name: storeName(context.deploy?.context), consistency: "strong" }) as any;
   const apiKey = Netlify.env.get("ANTHROPIC_API_KEY");
