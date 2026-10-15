@@ -11,10 +11,12 @@
     "predev": "node scripts/academy-leaves-index.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.135.0",
     "@fontsource/cormorant-garamond": "^5.2.11",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/playfair-display": "^5.2.8",
     "@gsap/react": "^2.1.2",
+    "@netlify/blobs": "^11.1.4",
     "@paper-design/shaders-react": "^0.0.76",
     "@react-spring/three": "^10.0.3",
     "@react-three/drei": "^10.7.7",
