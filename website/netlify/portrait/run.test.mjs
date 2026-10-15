@@ -38,7 +38,7 @@ test("stages run A then B and C, and each lands as soon as it passes", async () 
   const { write, calls } = scripted([ok(A), ok(B), ok(C)]);
   assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
   assert.deepEqual(Object.keys(await readStages(kv, "j")).sort(), ["a", "b", "c"]);
-  assert.match(calls[1].user, /<opening>/);
+  assert.match(calls[1].task, /<opening>/);
   const done = await readJob(kv, "j");
   assert.equal(done.status, "done");
   assert.equal(done.costCents, 3 * costCents(usage));
@@ -78,7 +78,7 @@ test("a failed check gets one repair attempt with the errors attached", async ()
   const broken = { ...A, title: "" };
   const { write, calls } = scripted([ok(broken), ok(A), ok(B), ok(C)]);
   assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
-  assert.match(calls[1].user, /length:title/);
+  assert.match(calls[1].task, /length:title/);
 });
 
 test("a stage that fails twice fails the job visibly, keeping what landed", async () => {
@@ -183,7 +183,7 @@ test("the invalid-stage log keeps error codes but not quoted snippets; the repai
   const unsafe = { ...A, overview: { ...p(100), text: `diagnosed ${words(100)}` } };
   const { write, calls } = scripted([ok(unsafe), ok(A), ok(B), ok(C)]);
   assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
-  assert.match(calls[1].user, /unsafe:overview:"diagnos/);
+  assert.match(calls[1].task, /unsafe:overview:"diagnos/);
   const logged = lines.find((line) => line.includes("portrait_stage_invalid"));
   assert.ok(logged.includes("unsafe:overview"));
   assert.ok(!logged.includes("diagnos"));
@@ -194,7 +194,7 @@ test("createWriter sends one structured, cached, fallback-enabled request and in
   const reply = { stop_reason: "end_turn", content: [{ type: "text", text: "{\"a\":1}" }], usage: { input_tokens: 7, output_tokens: 3, cache_read_input_tokens: 2, cache_creation_input_tokens: 1 } };
   const write = createWriter({ apiKey: "test-key", model: "claude-opus-5-5", effort: "high", send: async (params) => { sent.push(params); return reply; } });
   const schema = { type: "object", properties: {} };
-  const result = await write({ system: "SYS", user: "USER", schema, maxTokens: 1234 });
+  const result = await write({ system: "SYS", shared: "SHARED", task: "TASK", schema, maxTokens: 1234 });
   assert.deepEqual(result, { ok: true, data: { a: 1 }, usage: { input: 7, output: 3, cacheRead: 2, cacheWrite: 1 }, stopReason: "end_turn", model: null, refusalCategory: null });
   assert.equal(sent.length, 1);
   const params = sent[0];
@@ -206,7 +206,8 @@ test("createWriter sends one structured, cached, fallback-enabled request and in
   assert.equal(params.output_config.effort, "high");
   assert.deepEqual(params.output_config.format, { type: "json_schema", schema });
   assert.deepEqual(params.system, [{ type: "text", text: "SYS", cache_control: { type: "ephemeral" } }]);
-  assert.deepEqual(params.messages, [{ role: "user", content: "USER" }]);
+  // The shared block carries the second cache breakpoint; the stage task after it varies per call and is never cached.
+  assert.deepEqual(params.messages, [{ role: "user", content: [{ type: "text", text: "SHARED", cache_control: { type: "ephemeral" } }, { type: "text", text: "TASK" }] }]);
   assert.ok(!("tool_choice" in params));
 });
 
@@ -214,7 +215,7 @@ test("createWriter turns a provider error into a code, logging only event, statu
   const lines = quiet(t);
   const failure = Object.assign(new Error("prompt text and secret detail"), { status: 400, type: "invalid_request_error" });
   const write = createWriter({ apiKey: "test-key", model: "m", effort: "high", send: async () => { throw failure; } });
-  const result = await write({ system: "s", user: "u", schema: {}, maxTokens: 10 });
+  const result = await write({ system: "s", shared: "sh", task: "t", schema: {}, maxTokens: 10 });
   assert.deepEqual(result, { ok: false, code: "provider", usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }, stopReason: null, model: null, refusalCategory: null });
   assert.equal(lines.length, 1);
   assert.deepEqual(Object.keys(JSON.parse(lines[0])).sort(), ["event", "status", "type"]);
@@ -356,7 +357,7 @@ test("createWriter hands the gateway address to the Anthropic client, and nothin
   const client = { beta: { messages: { stream: (params) => ({ finalMessage: async () => ({ ...reply, echoed: params.model }) }) } } };
   const factory = (options) => { made.push(options); return client; };
   const via = createWriter({ apiKey: "gateway-key", baseURL: "https://gateway.example/anthropic", model: "m", effort: "high", makeClient: factory });
-  assert.equal((await via({ system: "s", user: "u", schema: {}, maxTokens: 10 })).ok, true);
+  assert.equal((await via({ system: "s", shared: "sh", task: "t", schema: {}, maxTokens: 10 })).ok, true);
   assert.equal(made[0].baseURL, "https://gateway.example/anthropic");
   assert.equal(made[0].apiKey, "gateway-key");
   assert.equal(made[0].timeout, 240_000);
@@ -381,7 +382,41 @@ test("a provider failure on the first attempt is tried again, with the same requ
   const { write, calls } = scripted([provider, ok(A), ok(B), ok(C)]);
   assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
   assert.equal(calls.length, 4);
-  assert.equal(calls[1].user, calls[0].user);
+  assert.equal(calls[1].shared, calls[0].shared);
+  assert.equal(calls[1].task, calls[0].task);
+  assert.equal(calls[1].system, calls[0].system);
+});
+
+test("every stage of a job shares one system prompt and one shared block, and a repair changes only the task", async (t) => {
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const { write, calls } = scripted([ok({ ...A, title: "" }), ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.equal(calls.length, 4);
+  assert.equal(new Set(calls.map((call) => call.system)).size, 1);
+  assert.equal(new Set(calls.map((call) => call.shared)).size, 1);
+  assert.equal(new Set(calls.map((call) => call.task)).size, 4);
+  assert.ok(calls.every((call) => !("user" in call)));
+  assert.ok(calls[0].shared.includes("<factors>") && calls[0].shared.includes("<teachings>"));
+  assert.ok(!calls[0].task.includes("<factors>"));
+});
+
+test("the schema of each stage is the same for any packet, so the provider's grammar cache is reused", async (t) => {
+  quiet(t);
+  const other = { ...packet, timeKnown: false, factors: [{ ...packet.factors[0], house: null }, { id: "natal-extra", kind: "other" }] };
+  const schemas = [], shared = [];
+  for (const which of [undefined, other]) {
+    const kv = await kvFor(which);
+    const { write, calls } = scripted([ok(A), ok(B), ok(C)]);
+    assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+    schemas.push(calls.map((call) => JSON.stringify(call.schema)));
+    shared.push(calls[0].shared);
+  }
+  assert.notEqual(shared[0], shared[1]);
+  assert.equal(schemas[0].length, 3);
+  assert.deepEqual(schemas[0], schemas[1]);
+  assert.ok(schemas[0].every((schema) => !schema.includes('"enum"') && !schema.includes("natal-sun")));
 });
 
 test("a provider failure on a chapter stage is tried again too", async (t) => {
@@ -482,7 +517,7 @@ test("createWriter passes the signal to the SDK as a request option and ends the
   } } } };
   const write = createWriter({ apiKey: "k", model: "m", effort: "high", makeClient: () => client });
   const controller = new AbortController();
-  const pending = write({ system: "s", user: "u", schema: {}, maxTokens: 10, signal: controller.signal });
+  const pending = write({ system: "s", shared: "sh", task: "t", schema: {}, maxTokens: 10, signal: controller.signal });
   assert.equal(seen[0].signal, controller.signal);
   controller.abort();
   const result = await pending;
@@ -493,7 +528,7 @@ test("the injected sender receives the signal as its second argument", async () 
   const got = [];
   const controller = new AbortController();
   const write = createWriter({ apiKey: "k", model: "m", effort: "high", send: async (params, options) => { got.push(options); return { stop_reason: "end_turn", content: [{ type: "text", text: "{}" }], usage: {} }; } });
-  await write({ system: "s", user: "u", schema: {}, maxTokens: 10, signal: controller.signal });
+  await write({ system: "s", shared: "sh", task: "t", schema: {}, maxTokens: 10, signal: controller.signal });
   assert.equal(got[0].signal, controller.signal);
 });
 
@@ -505,7 +540,7 @@ test("a chapter that repeats the opening gets one repair attempt naming the repe
   const { write, calls } = scripted([ok(A), ok(echo), ok(C), ok(B)]);
   assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
   assert.equal(calls.length, 4);
-  assert.match(calls[3].user, /repeat:mind:"/);
+  assert.match(calls[3].task, /repeat:mind:"/);
 });
 
 test("a chapter that still repeats the opening after its repair is kept as a style residue", async (t) => {
@@ -539,7 +574,7 @@ test("a first attempt with only style errors is still repaired; a clean repair l
   const { write, calls } = scripted([ok(hedged(words(99))), ok(A), ok(B), ok(C)]);
   assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
   assert.equal(calls.length, 4);
-  assert.match(calls[1].user, /hedge-lead:overview/);
+  assert.match(calls[1].task, /hedge-lead:overview/);
   assert.deepEqual((await readStages(kv, "j")).a, A);
   assert.equal(warnings.some((line) => line.includes("portrait_style_residue")), false);
 });
@@ -598,7 +633,7 @@ test("a clean first attempt is never repaired", async (t) => {
   const { write, calls } = scripted([ok(A), ok(B), ok(C)]);
   assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
   assert.equal(calls.length, 3);
-  assert.ok(calls.every((call) => !call.user.includes("failed these checks")));
+  assert.ok(calls.every((call) => !call.task.includes("failed these checks")));
   assert.equal(warnings.length, 0);
 });
 

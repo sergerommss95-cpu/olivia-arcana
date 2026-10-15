@@ -26,15 +26,13 @@ export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS
   try {
     const packet = job.packet as any;
     teachings = selectTeachings(packet, bank);
-    const factorIds = packet.factors.map((f: { id: string }) => f.id);
-    const teachingIds = teachings.map((t) => t.id);
     const system = systemPrompt(packet.locale);
 
     const stage = async (key: Stage, earlier: { a?: unknown }) => {
       let errors: string[] = [];
       for (let attempt = 0; attempt < 2; attempt++) {
         const started = Date.now();
-        const result = await write({ system, user: stageRequest(key, packet, teachings, earlier, errors), schema: stageSchema(key, factorIds, teachingIds), maxTokens: MAX_TOKENS[key], signal: deadline.signal });
+        const result = await write({ system, ...stageRequest(key, packet, teachings, earlier, errors), schema: stageSchema(key), maxTokens: MAX_TOKENS[key], signal: deadline.signal });
         const ms = Date.now() - started;
         const spent = costCents(result.usage, result.model);
         cents += spent;

@@ -11,7 +11,8 @@ export type WriteResult = Meta & (
   | { ok: true; data: unknown; usage: Usage }
   | { ok: false; code: "refusal" | "truncated" | "unparseable" | "provider"; usage: Usage }
 );
-export type Call = { system: string; user: string; schema: object; maxTokens: number; signal?: AbortSignal };
+/** `system` and `shared` are the cached front of the request (the voice brief; a job's factors and teachings); `task` is the part that changes per stage and attempt. */
+export type Call = { system: string; shared: string; task: string; schema: object; maxTokens: number; signal?: AbortSignal };
 
 const NONE: Usage = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
 const NO_META: Meta = { stopReason: null, model: null, refusalCategory: null };
@@ -68,7 +69,7 @@ export function createWriter({ apiKey, baseURL, model, effort, send, makeClient 
         thinking: { type: "adaptive" },
         output_config: { effort, format: { type: "json_schema", schema: call.schema } },
         system: [{ type: "text", text: call.system, cache_control: { type: "ephemeral" } }],
-        messages: [{ role: "user", content: call.user }],
+        messages: [{ role: "user", content: [{ type: "text", text: call.shared, cache_control: { type: "ephemeral" } }, { type: "text", text: call.task }] }],
       }, { signal: call.signal });
       return interpret(message);
     } catch (error) {

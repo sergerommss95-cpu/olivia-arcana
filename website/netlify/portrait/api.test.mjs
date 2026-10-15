@@ -5,7 +5,7 @@ import { birthChart } from "../../src/lib/astrology/chart.js";
 import { arkanPortrait } from "../../src/lib/portrait/arkan.js";
 import { nameNumbers } from "../../src/lib/portrait/numbers.js";
 import { buildPacket } from "../../src/lib/portrait/packet.js";
-import { claimJob, finishJob, memoryStore, putStage, readJob, readTeachings } from "./store.ts";
+import { claimJob, finishJob, memoryStore, putStage, readJob, readStages, readTeachings } from "./store.ts";
 import { sha256Hex } from "./invite.ts";
 import { createApi, failUnconfigured } from "./api.ts";
 import { readFile } from "node:fs/promises";
@@ -68,6 +68,25 @@ test("status returns landed stages and the teachings they cite", async () => {
   assert.ok("natal-sun-sign" in body.teachings);
   assert.equal((await api.status("00000000-0000-4000-8000-999999999999")).status, 404);
   assert.equal((await api.status("../job")).status, 404);
+});
+
+test("status never shows the opening's outline, which is hidden planning text, and leaves the stored stage whole", async () => {
+  const { api, kv } = await setup();
+  const { id } = await (await api.create(post({ packet, invite: CODE }))).json();
+  const outline = { mind: "How your attention picks what matters and lets the rest go." };
+  await putStage(kv, id, "a", { title: "T", outline, overview: { text: "x", refs: ["natal-sun"], teachings: ["natal-sun-sign"] }, facets: {} });
+  await putStage(kv, id, "b", { chapters: {} });
+  const body = await (await api.status(id)).json();
+  assert.equal(body.stages.a.title, "T");
+  assert.deepEqual(body.stages.a.overview, { text: "x", refs: ["natal-sun"], teachings: ["natal-sun-sign"] });
+  assert.ok(!("outline" in body.stages.a));
+  assert.ok(!JSON.stringify(body).includes("attention picks"));
+  assert.deepEqual(body.stages.b, { chapters: {} });
+  assert.deepEqual((await readStages(kv, id)).a.outline, outline);
+  assert.ok("natal-sun-sign" in body.teachings);
+  // a job with no opening yet still answers
+  const early = await (await api.create(post({ packet, invite: CODE }))).json();
+  assert.deepEqual((await (await api.status(early.id)).json()).stages, {});
 });
 
 test("a finished portrait is read from the teachings kept at the finish, not from the packet", async () => {

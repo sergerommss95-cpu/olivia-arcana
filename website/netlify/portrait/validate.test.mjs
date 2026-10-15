@@ -84,12 +84,29 @@ test("length limits apply", () => {
   assert.ok(validateStage("a", data, packet, teachings).errors.some((e) => e.startsWith("length:bonds")));
 });
 
-test("schemas restrict ids to the packet and teachings", () => {
-  const schema = stageSchema("a", ["natal-sun"], ["card-4-risk"]);
-  assert.deepEqual(schema.properties.overview.properties.refs.items.enum, ["natal-sun"]);
+test("schemas are constant per stage: refs and teachings are plain strings, and ids are the validator's job", () => {
+  const schema = stageSchema("a");
+  assert.deepEqual(schema.properties.overview.properties.refs, { type: "array", items: { type: "string" } });
+  assert.deepEqual(schema.properties.overview.properties.teachings, { type: "array", items: { type: "string" } });
   assert.equal(schema.additionalProperties, false);
-  const c = stageSchema("c", ["natal-sun"], ["card-4-risk"]);
+  const c = stageSchema("c");
   assert.deepEqual(Object.keys(c.properties.chapters.properties), ["shadow", "love", "becoming"]);
+  assert.deepEqual(c.properties.chapters.properties.love.properties.refs, { type: "array", items: { type: "string" } });
+  for (const stage of ["a", "b", "c"]) assert.ok(!JSON.stringify(stageSchema(stage)).includes('"enum"'), stage);
+});
+
+test("with no enum in the schema an unknown id is still refused by the validator, in refs and in teachings", () => {
+  const data = stageA();
+  data.overview.refs = ["natal-venus"];
+  data.overview.teachings = ["card-9-nonsense"];
+  const { errors } = validateStage("a", data, packet, teachings);
+  assert.ok(errors.includes("refs:overview:natal-venus"));
+  assert.ok(errors.includes("teachings:overview:card-9-nonsense"));
+  const chapters = stageB();
+  chapters.chapters.heart.refs = ["natal-venus"];
+  chapters.chapters.work.teachings = ["card-9-nonsense"];
+  const b = validateStage("b", chapters, packet, teachings).errors;
+  assert.ok(b.includes("refs:heart:natal-venus") && b.includes("teachings:work:card-9-nonsense"));
 });
 
 test("focus lists only name factors that exist", () => {
@@ -104,7 +121,7 @@ test("heart, love and bonds no longer share their focus", () => {
 });
 
 test("the opening plans one angle per later chapter", () => {
-  const schema = stageSchema("a", ["natal-sun"], ["card-4-risk"]);
+  const schema = stageSchema("a");
   assert.deepEqual(Object.keys(schema.properties.outline.properties), ["mind", "heart", "work", "shadow", "love", "becoming"]);
   assert.ok(schema.required.includes("outline"));
   assert.deepEqual(validateStage("a", stageA(), packet, teachings), { ok: true });
@@ -218,13 +235,12 @@ test("stage C: keep must be exactly three lines", () => {
   assert.ok(validateStage("c", data, packet, teachings).errors.includes("count:keep"));
 });
 
-test("an empty id list still yields a valid enum, and the validator rejects its empty string", () => {
-  const schema = stageSchema("a", [], []);
-  assert.deepEqual(schema.properties.overview.properties.refs.items.enum, [""]);
-  assert.deepEqual(schema.properties.overview.properties.teachings.items.enum, [""]);
+test("an empty teaching selection refuses any cited teaching, the empty string included", () => {
   const data = stageA();
   data.overview.teachings = [""];
   assert.ok(validateStage("a", data, packet, []).errors.includes("teachings:overview:"));
+  data.overview.teachings = ["card-4-risk"];
+  assert.ok(validateStage("a", data, packet, []).errors.includes("teachings:overview:card-4-risk"));
 });
 
 test("malformed model output is refused, never thrown", () => {

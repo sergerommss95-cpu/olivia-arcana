@@ -14,6 +14,12 @@ const STALE_MS = 15 * 60_000;
 const DEFAULT_RESERVE_USD = 1.5;
 const json = (status: number, body: unknown) => new Response(JSON.stringify(body), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 const logError = (event: string, error: unknown) => console.warn(JSON.stringify({ event, message: (error as Error)?.message }));
+/** The opening's outline is planning text for the later stages and is never shown; this copy leaves the stored stage whole. */
+const withoutOutline = (stages: Record<string, any>) => {
+  if (!stages.a) return stages;
+  const { outline: _planning, ...opening } = stages.a;
+  return { ...stages, a: opening };
+};
 
 function sameOrigin(req: Request) {
   const site = req.headers.get("sec-fetch-site");
@@ -110,7 +116,7 @@ export function createApi({ kv, env, now, kick, uuid, bank }: Deps) {
     const teachings = job.packet ? citedTeachings(selectTeachings(job.packet as any, bank), bank, stages) : ((await readTeachings(kv, id)) ?? {});
     // A writer that vanished leaves the job open for ever; report it failed without touching the record.
     const lost = (job.status === "running" || job.status === "queued") && now() - job.createdAt > STALE_MS;
-    return json(200, { status: lost ? "failed" : job.status, stages, teachings, error: lost ? "timeout" : job.error });
+    return json(200, { status: lost ? "failed" : job.status, stages: withoutOutline(stages), teachings, error: lost ? "timeout" : job.error });
   }
 
   return { create, status };

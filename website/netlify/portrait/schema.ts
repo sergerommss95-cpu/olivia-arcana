@@ -1,19 +1,15 @@
 // website/netlify/portrait/schema.ts
-/** Structured-output schemas for each stage; ids are limited to what the packet and selection contain. */
+/** Structured-output schemas for each stage. They are constant: ids are plain strings and `validateStage` holds them to the packet and selection, so the provider's schema cache is reused across jobs. */
 import { SECTIONS, type Stage } from "./plan.ts";
 
 const str = { type: "string" };
 const strings = { type: "array", items: str };
 const obj = (properties: Record<string, unknown>) => ({ type: "object", additionalProperties: false, required: Object.keys(properties), properties });
-/** JSON Schema forbids an empty enum, so an empty id list allows only "", which the validator rejects. */
-const idsOf = (ids: string[]) => ({ type: "string", enum: ids.length ? ids : [""] });
 
-export function stageSchema(stage: Stage, factorIds: string[], teachingIds: string[]) {
-  const refs = { type: "array", items: idsOf(factorIds) };
-  const teach = { type: "array", items: idsOf(teachingIds) };
-  const passage = obj({ text: str, refs, teachings: teach });
-  const facet = obj({ heading: str, text: str, refs, teachings: teach });
-  const chapter = obj({ title: str, lede: str, paragraphs: strings, practice: str, refs, teachings: teach });
+export function stageSchema(stage: Stage) {
+  const passage = obj({ text: str, refs: strings, teachings: strings });
+  const facet = obj({ heading: str, text: str, refs: strings, teachings: strings });
+  const chapter = obj({ title: str, lede: str, paragraphs: strings, practice: str, refs: strings, teachings: strings });
   if (stage === "a") {
     const facets = Object.fromEntries(SECTIONS.a.slice(1).map((key) => [key, facet]));
     const outline = obj(Object.fromEntries([...SECTIONS.b, ...SECTIONS.c].map((key) => [key, str])));
