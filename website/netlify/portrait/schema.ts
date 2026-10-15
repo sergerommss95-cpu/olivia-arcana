@@ -5,10 +5,12 @@ import { SECTIONS, type Stage } from "./plan.ts";
 const str = { type: "string" };
 const strings = { type: "array", items: str };
 const obj = (properties: Record<string, unknown>) => ({ type: "object", additionalProperties: false, required: Object.keys(properties), properties });
+/** JSON Schema forbids an empty enum, so an empty id list allows only "", which the validator rejects. */
+const idsOf = (ids: string[]) => ({ type: "string", enum: ids.length ? ids : [""] });
 
 export function stageSchema(stage: Stage, factorIds: string[], teachingIds: string[]) {
-  const refs = { type: "array", items: { type: "string", enum: factorIds } };
-  const teach = { type: "array", items: { type: "string", enum: teachingIds } };
+  const refs = { type: "array", items: idsOf(factorIds) };
+  const teach = { type: "array", items: idsOf(teachingIds) };
   const passage = obj({ text: str, refs, teachings: teach });
   const facet = obj({ heading: str, text: str, refs, teachings: teach });
   const chapter = obj({ title: str, lede: str, paragraphs: strings, practice: str, refs, teachings: teach });
