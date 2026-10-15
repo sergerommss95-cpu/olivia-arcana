@@ -108,7 +108,7 @@ absence of jargon. Ship when new wins ≥5/6 and the owner rates finalists.
 
 - `POST /api/portrait` (sync function): same-origin check; invite code (SHA-256 against `PORTRAIT_INVITE_HASHES`);
   per-invite daily count (`PORTRAIT_PER_INVITE_DAILY`, default 3) and global daily reserve
-  (`PORTRAIT_DAILY_BUDGET_USD`, default 5; each admission reserves `PORTRAIT_RESERVE_USD`, default 0.75) in Blobs with
+  (`PORTRAIT_DAILY_BUDGET_USD`, default 5; each admission reserves `PORTRAIT_RESERVE_USD`, default 1.50) in Blobs with
   conditional writes (missing etag = refuse, never fail open); packet validation; job written `queued`;
   background function invoked; returns `{ id }` 202. `Idempotency-Key` header dedupes double submits.
 - `portrait-background`: claims the job (`queued`→`running` via `onlyIfMatch`), runs A, then B‖C, writes each
