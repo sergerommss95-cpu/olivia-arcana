@@ -19,7 +19,9 @@ export function interpret(message: any): WriteResult {
   const usage: Usage = { input: u.input_tokens ?? 0, output: u.output_tokens ?? 0, cacheRead: u.cache_read_input_tokens ?? 0, cacheWrite: u.cache_creation_input_tokens ?? 0 };
   if (message?.stop_reason === "refusal") return { ok: false, code: "refusal", usage };
   if (message?.stop_reason === "max_tokens") return { ok: false, code: "truncated", usage };
-  const text = (message?.content ?? []).filter((block: any) => block.type === "text").map((block: any) => block.text).join("");
+  // With server-side fallback, content can be [partial text, fallback block, full text]; only the text after the last fallback counts.
+  const blocks: any[] = message?.content ?? [];
+  const text = blocks.slice(blocks.map((block) => block?.type).lastIndexOf("fallback") + 1).filter((block) => block?.type === "text").map((block) => block.text).join("");
   try { return { ok: true, data: JSON.parse(text), usage }; } catch { return { ok: false, code: "unparseable", usage }; }
 }
 
@@ -40,7 +42,7 @@ export function createWriter({ apiKey, model, effort, send }: { apiKey: string; 
       });
       return interpret(message);
     } catch (error) {
-      console.warn(JSON.stringify({ event: "portrait_provider_failure", status: (error as any)?.status ?? null, type: (error as any)?.error?.type ?? (error as Error)?.name }));
+      console.warn(JSON.stringify({ event: "portrait_provider_failure", status: (error as any)?.status ?? null, type: (error as any)?.type ?? (error as Error)?.name }));
       return { ok: false, code: "provider", usage: NONE };
     }
   };

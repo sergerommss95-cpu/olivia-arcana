@@ -3,7 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { memoryStore, createJob, readJob, readStages, finishJob } from "./store.ts";
 import { runJob } from "./run.ts";
-import { interpret, costCents } from "./claude.ts";
+import { interpret, costCents, createWriter } from "./claude.ts";
 
 const packet = {
   v: 1, locale: "en", timeKnown: true,
@@ -104,6 +104,101 @@ test("a job finished elsewhere is skipped without settling", async () => {
   assert.equal(await runJob({ kv, id: "j", write, bank }), "skipped");
   assert.equal((await readJob(kv, "j")).error, "elsewhere");
   assert.equal(await kv.get("quota/d/cents", { type: "json" }), null);
+});
+
+const quiet = (t) => {
+  const lines = [];
+  t.mock.method(console, "warn", (line) => lines.push(line));
+  return lines;
+};
+
+test("a throw while preparing the run ends the job failed and settled, never running", async (t) => {
+  const lines = quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const { write, calls } = scripted([]);
+  assert.equal(await runJob({ kv, id: "j", write, bank: { ...bank, sources: {} } }), "failed");
+  assert.equal(calls.length, 0);
+  const finished = await readJob(kv, "j");
+  assert.equal(finished.status, "failed");
+  assert.equal(finished.error, "internal");
+  assert.equal(await kv.get("quota/d/cents", { type: "json" }), 0);
+  assert.ok(lines.some((line) => line.includes("portrait_run_error") && line.includes("unknown_source:astrodienst-intro")));
+});
+
+test("when one parallel stage throws, the job still waits for the other and counts both costs", async (t) => {
+  const lines = quiet(t);
+  const base = memoryStore();
+  const kv = { ...base, async setJSON(key, value, options) { if (key === "job/j/b") throw new Error("blob_down"); return base.setJSON(key, value, options); } };
+  await createJob(kv, job);
+  const slowC = async () => { await new Promise((resolve) => setTimeout(resolve, 25)); return { ok: true, data: C, usage }; };
+  const { write } = scripted([ok(A), ok(B), slowC]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "failed");
+  const stored = await readStages(kv, "j");
+  assert.ok(stored.a && stored.c && !stored.b);
+  const finished = await readJob(kv, "j");
+  assert.equal(finished.status, "failed");
+  assert.equal(finished.error, "internal");
+  assert.equal(finished.costCents, 3 * costCents(usage));
+  assert.equal(await kv.get("quota/d/cents", { type: "json" }), 0);
+  assert.ok(lines.some((line) => line.includes("portrait_run_error") && line.includes("blob_down")));
+});
+
+test("the invalid-stage log keeps error codes but not quoted snippets; the repair prompt keeps them whole", async (t) => {
+  const lines = quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const unsafe = { ...A, overview: { ...p(100), text: `diagnosed ${words(100)}` } };
+  const { write, calls } = scripted([ok(unsafe), ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.match(calls[1].user, /unsafe:overview:"diagnos/);
+  const logged = lines.find((line) => line.includes("portrait_stage_invalid"));
+  assert.ok(logged.includes("unsafe:overview"));
+  assert.ok(!logged.includes("diagnos"));
+});
+
+test("createWriter sends one structured, cached, fallback-enabled request and interprets the reply", async () => {
+  const sent = [];
+  const reply = { stop_reason: "end_turn", content: [{ type: "text", text: "{\"a\":1}" }], usage: { input_tokens: 7, output_tokens: 3, cache_read_input_tokens: 2, cache_creation_input_tokens: 1 } };
+  const write = createWriter({ apiKey: "test-key", model: "claude-opus-5-5", effort: "high", send: async (params) => { sent.push(params); return reply; } });
+  const schema = { type: "object", properties: {} };
+  const result = await write({ system: "SYS", user: "USER", schema, maxTokens: 1234 });
+  assert.deepEqual(result, { ok: true, data: { a: 1 }, usage: { input: 7, output: 3, cacheRead: 2, cacheWrite: 1 } });
+  assert.equal(sent.length, 1);
+  const params = sent[0];
+  assert.equal(params.model, "claude-opus-5-5");
+  assert.equal(params.max_tokens, 1234);
+  assert.deepEqual(params.betas, ["server-side-fallback-2026-07-01"]);
+  assert.equal(params.fallbacks, "default");
+  assert.deepEqual(params.thinking, { type: "adaptive" });
+  assert.equal(params.output_config.effort, "high");
+  assert.deepEqual(params.output_config.format, { type: "json_schema", schema });
+  assert.deepEqual(params.system, [{ type: "text", text: "SYS", cache_control: { type: "ephemeral" } }]);
+  assert.deepEqual(params.messages, [{ role: "user", content: "USER" }]);
+  assert.ok(!("tool_choice" in params));
+});
+
+test("createWriter turns a provider error into a code, logging only event, status and type", async (t) => {
+  const lines = quiet(t);
+  const failure = Object.assign(new Error("prompt text and secret detail"), { status: 400, type: "invalid_request_error" });
+  const write = createWriter({ apiKey: "test-key", model: "m", effort: "high", send: async () => { throw failure; } });
+  const result = await write({ system: "s", user: "u", schema: {}, maxTokens: 10 });
+  assert.deepEqual(result, { ok: false, code: "provider", usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 } });
+  assert.equal(lines.length, 1);
+  assert.deepEqual(Object.keys(JSON.parse(lines[0])).sort(), ["event", "status", "type"]);
+  assert.equal(JSON.parse(lines[0]).type, "invalid_request_error");
+  assert.equal(JSON.parse(lines[0]).status, 400);
+  assert.ok(!lines[0].includes("secret detail"));
+});
+
+test("interpret keeps only the text written after the last fallback block", () => {
+  const u = { input_tokens: 10, output_tokens: 5 };
+  const content = [{ type: "text", text: "{partial" }, { type: "fallback", model: "other" }, { type: "text", text: "{\"a\":1}" }];
+  assert.deepEqual(interpret({ stop_reason: "end_turn", content, usage: u }).data, { a: 1 });
+  const twice = [{ type: "text", text: "{a" }, { type: "fallback" }, { type: "text", text: "{b" }, { type: "fallback" }, { type: "text", text: "{\"c\":1}" }];
+  assert.deepEqual(interpret({ stop_reason: "end_turn", content: twice, usage: u }).data, { c: 1 });
+  const split = [{ type: "text", text: "{\"d\":" }, { type: "text", text: "1}" }];
+  assert.deepEqual(interpret({ stop_reason: "end_turn", content: split, usage: u }).data, { d: 1 });
 });
 
 test("interpret reads refusals, truncation and JSON text", () => {
