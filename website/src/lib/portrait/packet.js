@@ -49,7 +49,9 @@ export function buildPacket({ locale, chart, arkan, numbers, daySigns }) {
     factors.push({ id: "natal-mc", kind: "angle", angle: "mc", sign: chart.midheaven.sign });
   }
   const short = (key) => (key === "ascendant" ? "asc" : key === "midheaven" ? "mc" : key);
-  for (const found of chart.aspects.filter((x) => ASPECT_POINTS.includes(x.a) && ASPECT_POINTS.includes(x.b)).slice(0, MAX_ASPECTS)) {
+  // Ascendant–Midheaven aspects are an artefact of latitude, not a personal factor.
+  const isAngle = (key) => key === "ascendant" || key === "midheaven";
+  for (const found of chart.aspects.filter((x) => ASPECT_POINTS.includes(x.a) && ASPECT_POINTS.includes(x.b) && !(isAngle(x.a) && isAngle(x.b))).slice(0, MAX_ASPECTS)) {
     const a = short(found.a), b = short(found.b);
     factors.push({ id: `aspect-${a}-${found.aspect}-${b}`, kind: "aspect", a, b, aspect: found.aspect });
   }
@@ -63,7 +65,8 @@ const copy = (v) => (Array.isArray(v) ? [...v] : v);
 const pick = (source, keys) => Object.fromEntries(keys.map((k) => [k, copy(source[k])]));
 
 const isSign = (s) => SIGNS.includes(s);
-const POINT_IDS = [...PLANETS, "asc", "mc"];
+const ANGLE_IDS = ["asc", "mc"];
+const POINT_IDS = [...PLANETS, ...ANGLE_IDS];
 const CHECK = {
   arkan: (f) => POSITIONS.includes(f.position) && Number.isInteger(f.card) && f.card >= 0 && f.card <= 21 && f.id === `arkan-${f.position}`,
   number: (f) => NUMBER_ROLES.includes(f.role) && Number.isInteger(f.value) && ((f.value >= 1 && f.value <= 9) || MASTERS.includes(f.value)) && f.master === MASTERS.includes(f.value) && f.id === `num-${f.role}`,
@@ -71,7 +74,7 @@ const CHECK = {
     && (f.alternatives === null || (PERSONAL_BODIES.includes(f.body) && Array.isArray(f.alternatives) && f.alternatives.length >= 2 && f.alternatives.length <= 3
       && f.alternatives.every(isSign) && new Set(f.alternatives).size === f.alternatives.length && f.alternatives.includes(f.sign))) && f.id === `natal-${f.body}`,
   angle: (f) => (f.angle === "asc" || f.angle === "mc") && isSign(f.sign) && f.id === `natal-${f.angle}`,
-  aspect: (f) => POINT_IDS.includes(f.a) && POINT_IDS.includes(f.b) && f.a !== f.b && ASPECT_KEYS.includes(f.aspect) && f.id === `aspect-${f.a}-${f.aspect}-${f.b}`,
+  aspect: (f) => POINT_IDS.includes(f.a) && POINT_IDS.includes(f.b) && f.a !== f.b && !(ANGLE_IDS.includes(f.a) && ANGLE_IDS.includes(f.b)) && ASPECT_KEYS.includes(f.aspect) && f.id === `aspect-${f.a}-${f.aspect}-${f.b}`,
 };
 const KEYS = {
   arkan: ["id", "kind", "position", "card"],

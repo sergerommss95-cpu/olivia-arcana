@@ -159,16 +159,18 @@ test("aspects carry their tension and integration; angle aspects get a teaching"
   assert.ok(teachings.find((t) => t.id === planetary.id).text.includes(pair.tension.en));
 });
 
-test("an aspect to an angle reads as planet, angle and aspect, in either language", () => {
+test("an aspect between a planet and an angle reads as planet, angle and aspect, in either language", () => {
+  const ANGLE = { asc: { en: "Ascendant", uk: "Асцендент" }, mc: { en: "Midheaven", uk: "Середина неба" } };
   for (const locale of ["en", "uk"]) {
     const packet = packetFor("2000-02-01", "14:30", locale);
     const teachings = selectTeachings(packet, bank);
-    const planetAngle = teachings.find((t) => t.id === "aspect-mars-conjunction-mc");
-    assert.equal(planetAngle.label, [bank.planets.mars.name, { en: "Midheaven", uk: "Середина неба" }, bank.aspects.conjunction.name].map((x) => x[locale]).join(" · "));
-    assert.ok(planetAngle.text.startsWith(bank.planets.mars.function[locale]));
-    assert.ok(planetAngle.text.endsWith(bank.aspects.conjunction.meaning[locale]));
-    assert.deepEqual(planetAngle.sources, ["astrodienst-intro"]);
-    const angles = teachings.find((t) => t.id === "aspect-asc-trine-mc");
-    assert.equal(angles.label, [{ en: "Ascendant", uk: "Асцендент" }, { en: "Midheaven", uk: "Середина неба" }, bank.aspects.trine.name].map((x) => x[locale]).join(" · "));
+    for (const [id, planet, angle, aspect] of [["aspect-mars-conjunction-mc", "mars", "mc", "conjunction"], ["aspect-mars-trine-asc", "mars", "asc", "trine"]]) {
+      assert.ok(packet.factors.some((f) => f.id === id), id);
+      const t = teachings.find((x) => x.id === id);
+      assert.equal(t.label, [bank.planets[planet].name, ANGLE[angle], bank.aspects[aspect].name].map((x) => x[locale]).join(" · "), id);
+      assert.equal(t.text, `${bank.planets[planet].function[locale]} ${bank.aspects[aspect].meaning[locale]}`, id);
+      assert.deepEqual(t.sources, ["astrodienst-intro"]);
+    }
+    assert.ok(!teachings.some((x) => x.id === "aspect-asc-trine-mc"));
   }
 });

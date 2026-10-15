@@ -135,3 +135,14 @@ test("validatePacket never throws and enforces the boundary", () => {
   num.master = true;
   assert.equal(validatePacket(badMaster).ok, false);
 });
+
+const ANGLES = ["asc", "mc"];
+
+test("an Ascendant–Midheaven aspect never reaches the packet, and a hand-made one fails validation", () => {
+  const packet = make("2000-02-01", "14:30");
+  assert.ok(!packet.factors.some((f) => f.kind === "aspect" && ANGLES.includes(f.a) && ANGLES.includes(f.b)));
+  assert.ok(packet.factors.some((f) => f.kind === "aspect" && (ANGLES.includes(f.a) || ANGLES.includes(f.b))), "planet–angle aspects stay");
+  assert.equal(validatePacket(packet).ok, true);
+  const forged = { ...packet, factors: [...packet.factors, { id: "aspect-asc-trine-mc", kind: "aspect", a: "asc", b: "mc", aspect: "trine" }] };
+  assert.deepEqual(validatePacket(forged), { ok: false, error: "factor:aspect-asc-trine-mc" });
+});

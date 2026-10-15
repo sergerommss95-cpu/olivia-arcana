@@ -30,11 +30,6 @@ const POSITION_NAMES: Record<number, Text> = {
   14: { en: "Outward presence", uk: "Зовнішній прояв" },
 };
 const ANGLE_NAMES: Record<string, Text> = { asc: { en: "Ascendant", uk: "Асцендент" }, mc: { en: "Midheaven", uk: "Середина неба" } };
-/** What each angle stands for, so an aspect between two angles still has something to say. */
-const ANGLE_FUNCTIONS: Record<string, Text> = {
-  asc: { en: "The Ascendant describes the manner of meeting the world: how a person enters a situation and how others first read them.", uk: "Асцендент описує спосіб зустрічати світ: як людина входить у ситуацію і як її вперше прочитують інші." },
-  mc: { en: "The Midheaven describes the direction a life takes in public: vocation, standing and what a person is known for.", uk: "Середина неба описує напрям життя на людях: покликання, становище й те, чим людину знають." },
-};
 /** Reader-facing role names, from V18's `numberTitles` (portrait-ai-knowledge-v15.js). */
 const NUMBER_TITLES: Record<string, Text> = {
   lifePath: { en: "Life path", uk: "Життєвий шлях" },
@@ -91,15 +86,13 @@ export function selectTeachings(packet: Packet, bank: Bank): Teaching[] {
       add({ id: `natal-${f.angle}-sign`, factors: [f.id], label: `${pick(ANGLE_NAMES[f.angle as string])} · ${pick(sign.name)}`, text: f.angle === "asc" ? pick(sign.ascendant) : `${pick(sign.style)} ${pick(sign.gift)}`, sources: ["astrodienst-intro"] });
     } else if (f.kind === "aspect") {
       const type = bank.aspects[f.aspect as string];
-      const angles = [f.a, f.b].filter((x) => Object.hasOwn(ANGLE_NAMES, x as string)) as string[];
-      if (angles.length) {
-        const planet = [f.a, f.b].find((x) => !angles.includes(x as string)) as string | undefined;
-        const names = [...(planet ? [bank.planets[planet].name] : []), ...angles.map((a) => ANGLE_NAMES[a]), type.name].map(pick).join(" · ");
-        const subject = planet ? [bank.planets[planet].function] : angles.map((a) => ANGLE_FUNCTIONS[a]);
-        add({ id: f.id, factors: [f.id], label: names, text: [...subject, type.meaning].map(pick).join(" "), sources: ["astrodienst-intro"] });
-      } else {
-        const pair = bank.pairs[`${f.a}:${f.b}`] ?? bank.pairs[`${f.b}:${f.a}`];
-        if (pair) add({ id: f.id, factors: [f.id], label: `${pick(pair.title)} · ${pick(type.name)}`, text: [pair.relationship, pair.tension, pair.integration, type.meaning].map(pick).join(" "), sources: ["astrodienst-intro"] });
+      const angle = [f.a, f.b].find((x) => Object.hasOwn(ANGLE_NAMES, x as string)) as string | undefined;
+      const planet = [f.a, f.b].find((x) => !Object.hasOwn(ANGLE_NAMES, x as string)) as string | undefined;
+      const pair = bank.pairs[`${f.a}:${f.b}`] ?? bank.pairs[`${f.b}:${f.a}`];
+      if (planet && angle) {
+        add({ id: f.id, factors: [f.id], label: [bank.planets[planet].name, ANGLE_NAMES[angle], type.name].map(pick).join(" · "), text: [bank.planets[planet].function, type.meaning].map(pick).join(" "), sources: ["astrodienst-intro"] });
+      } else if (pair) {
+        add({ id: f.id, factors: [f.id], label: `${pick(pair.title)} · ${pick(type.name)}`, text: [pair.relationship, pair.tension, pair.integration, type.meaning].map(pick).join(" "), sources: ["astrodienst-intro"] });
       }
     }
   }
