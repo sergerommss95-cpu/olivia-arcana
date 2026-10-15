@@ -5,7 +5,7 @@
  * letters or degrees. The server validates the same shape before use.
  */
 
-import { ASPECTS, SIGNS } from "../astrology/chart.js";
+import { ASPECTS, SIGNS } from "../astrology/constants.js";
 import { POSITIONS } from "./arkan.js";
 import { NUMBER_ROLES } from "./numbers.js";
 

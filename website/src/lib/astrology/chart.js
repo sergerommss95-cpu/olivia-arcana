@@ -10,34 +10,13 @@
  */
 
 import { Body, Ecliptic, EclipticGeoMoon, GeoVector, MakeTime, MoonPhase, SearchMoonPhase, SiderealTime, SunPosition, e_tilt } from "astronomy-engine";
+import { ASPECTS, BODIES, ELEMENTS, MODALITIES, SIGNS } from "./constants.js";
 
-export const SIGNS = ["aries", "taurus", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"];
-export const SIGN_GLYPHS = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
-const ELEMENTS = ["fire", "earth", "air", "water"];
-const MODALITIES = ["cardinal", "fixed", "mutable"];
+// The vocabulary lives in constants.js, which has no imports so the server can use it.
+// Re-exported here so every existing importer of this module is unchanged.
+export { SIGNS, SIGN_GLYPHS, BODIES, BODY_GLYPHS, SIGN_CARDS, BODY_CARDS, ASPECTS } from "./constants.js";
 
-/** Ten bodies in the traditional order, then the Moon's north node. */
-export const BODIES = ["sun", "moon", "mercury", "venus", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto", "node"];
-/** @type {Record<string, string>} */
-export const BODY_GLYPHS = { sun: "☉", moon: "☽", mercury: "☿", venus: "♀", mars: "♂", jupiter: "♃", saturn: "♄", uranus: "♅", neptune: "♆", pluto: "♇", node: "☊", ascendant: "AC", midheaven: "MC" };
 const ENGINE_BODY = { mercury: Body.Mercury, venus: Body.Venus, mars: Body.Mars, jupiter: Body.Jupiter, saturn: Body.Saturn, uranus: Body.Uranus, neptune: Body.Neptune, pluto: Body.Pluto };
-
-/**
- * Golden Dawn correspondences, as index into the 78-card deck
- * (src/lib/academy/tarot-cards.ts carries the same values on each Major).
- */
-export const SIGN_CARDS = [4, 5, 6, 7, 8, 9, 11, 13, 14, 15, 17, 18];
-/** @type {Record<string, number>} */
-export const BODY_CARDS = { sun: 19, moon: 2, mercury: 1, venus: 3, mars: 16, jupiter: 10, saturn: 21, uranus: 0, neptune: 12, pluto: 20 };
-
-/** Major aspects and their orbs in degrees. */
-export const ASPECTS = [
-  { key: "conjunction", angle: 0, orb: 8 },
-  { key: "sextile", angle: 60, orb: 5 },
-  { key: "square", angle: 90, orb: 7 },
-  { key: "trine", angle: 120, orb: 7 },
-  { key: "opposition", angle: 180, orb: 8 },
-];
 
 const DEG = Math.PI / 180;
 const norm = (x) => ((x % 360) + 360) % 360;
