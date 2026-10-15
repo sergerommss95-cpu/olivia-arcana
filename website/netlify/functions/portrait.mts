@@ -14,7 +14,7 @@ export default async (req: Request, context: Context) => {
     bank,
     // A background function answers 202 at once; the work continues there for up to 15 minutes.
     kick: async (id) => {
-      const res = await fetch(new URL("/.netlify/functions/portrait-background", req.url), { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id }) });
+      const res = await fetch(new URL("/.netlify/functions/portrait-background", req.url), { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ id }), signal: AbortSignal.timeout(8000) });
       if (res.status !== 202) throw new Error(`background_${res.status}`);
     },
   });

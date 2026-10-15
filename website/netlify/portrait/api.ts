@@ -1,12 +1,12 @@
 // website/netlify/portrait/api.ts
 /** The portrait's two HTTP endpoints, with every dependency passed in so they can be tested. */
 import { validatePacket } from "../../src/lib/portrait/packet.js";
-import { admit, createJob, forgetJob, readJob, readStages, refund, utcDay, type KeyValue } from "./store.ts";
+import { admit, claimJob, createJob, finishJob, forgetJob, readJob, readStages, refund, settle, utcDay, type KeyValue } from "./store.ts";
 import { inviteId } from "./invite.ts";
 import { selectTeachings, type Bank } from "./teachings.ts";
 
 type Deps = { kv: KeyValue; env: (name: string) => string | undefined; now: () => number; kick: (id: string) => Promise<void>; uuid: () => string; bank: Bank };
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+export const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const MAX_BODY_BYTES = 16 * 1024;
 const DAY_MS = 86_400_000;
 /** Longer than the background function may run (15 minutes): a job still open after this was lost. */
@@ -19,7 +19,26 @@ function sameOrigin(req: Request) {
   const site = req.headers.get("sec-fetch-site");
   if (site && site !== "same-origin") return false;
   const origin = req.headers.get("origin");
-  return !origin || new URL(origin).host === new URL(req.url).host;
+  if (!origin) return true;
+  try { return new URL(origin).host === new URL(req.url).host; } catch { return false; } // `Origin: null` and garbage are not our site
+}
+
+/** With no API key a queued job can never be written: fail it now, and give its reservation back, instead of leaving it to time out. */
+export async function failUnconfigured(kv: KeyValue, id: string) {
+  const job = await claimJob(kv, id);
+  if (!job) return "skipped" as const;
+  try {
+    await finishJob(kv, id, { status: "failed", costCents: 0, error: "unconfigured" });
+  } catch (thrown) {
+    if ((thrown as Error)?.message === "job_finished") return "skipped" as const;
+    throw thrown;
+  }
+  try {
+    await settle(kv, { day: job.day, reserveCents: job.reserveCents, costCents: 0 });
+  } catch (thrown) {
+    console.warn(JSON.stringify({ event: "portrait_settle_failed", code: (thrown as Error)?.message }));
+  }
+  return "failed" as const;
 }
 
 export function createApi({ kv, env, now, kick, uuid, bank }: Deps) {
@@ -73,6 +92,15 @@ export function createApi({ kv, env, now, kick, uuid, bank }: Deps) {
 
   async function status(id: string) {
     if (!UUID.test(id)) return json(404, { error: "missing" });
+    try {
+      return await report(id);
+    } catch (error) {
+      logError("portrait_store_error", error);
+      return json(503, { error: "busy" });
+    }
+  }
+
+  async function report(id: string) {
     const job = await readJob(kv, id);
     if (!job) return json(404, { error: "missing" });
     // The reader keeps the portrait on their device; the server lets it go after a day.

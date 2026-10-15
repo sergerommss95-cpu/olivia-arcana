@@ -7,7 +7,7 @@ import { nameNumbers } from "../../src/lib/portrait/numbers.js";
 import { buildPacket } from "../../src/lib/portrait/packet.js";
 import { claimJob, finishJob, memoryStore, putStage, readJob } from "./store.ts";
 import { sha256Hex } from "./invite.ts";
-import { createApi } from "./api.ts";
+import { createApi, failUnconfigured } from "./api.ts";
 import { readFile } from "node:fs/promises";
 
 const bank = JSON.parse(await readFile(new URL("./knowledge/bank.json", import.meta.url), "utf8"));
@@ -174,4 +174,54 @@ test("a background that cannot be reached leaves the job queued and still answer
   } finally {
     warn.mock.restore();
   }
+});
+
+test("a null or garbage Origin is refused as a foreign origin, not a crash", async () => {
+  const { api, kicked } = await setup();
+  for (const origin of ["null", "garbage"]) {
+    for (const site of ["same-origin", ""]) {
+      const res = await api.create(post({ packet, invite: CODE }, { origin, "sec-fetch-site": site }));
+      assert.equal(res.status, 403, `${origin} / ${site || "no sec-fetch-site"}`);
+      assert.deepEqual(await res.json(), { error: "origin" });
+    }
+  }
+  assert.equal(kicked.length, 0);
+});
+
+test("status answers 503 busy and logs only the message when the store fails", async () => {
+  const warn = mock.method(console, "warn", () => {});
+  try {
+    const { api, kv } = await setup();
+    const { id } = await (await api.create(post({ packet, invite: CODE }))).json();
+    kv.get = async () => { throw new Error("blobs_down"); };
+    const res = await api.status(id);
+    assert.equal(res.status, 503);
+    assert.deepEqual(await res.json(), { error: "busy" });
+    assert.equal(warn.mock.callCount(), 1);
+    assert.deepEqual(JSON.parse(warn.mock.calls[0].arguments[0]), { event: "portrait_store_error", message: "blobs_down" });
+  } finally {
+    warn.mock.restore();
+  }
+});
+
+test("with no API key a queued job is failed at once, its reservation returned, and a second call changes nothing", async () => {
+  const { api, kv } = await setup();
+  const { id } = await (await api.create(post({ packet, invite: CODE }))).json();
+  const cents = () => kv.get("quota/2026-10-15/cents", { type: "json" });
+  assert.equal(await cents(), 75);
+
+  assert.equal(await failUnconfigured(kv, id), "failed");
+  const job = await readJob(kv, id);
+  assert.equal(job.status, "failed");
+  assert.equal(job.error, "unconfigured");
+  assert.equal(job.costCents, 0);
+  assert.equal(await cents(), 0);
+  const body = await (await api.status(id)).json();
+  assert.equal(body.status, "failed");
+  assert.equal(body.error, "unconfigured");
+
+  assert.equal(await failUnconfigured(kv, id), "skipped");
+  assert.deepEqual(await readJob(kv, id), job);
+  assert.equal(await cents(), 0);
+  assert.equal(await failUnconfigured(kv, "00000000-0000-4000-8000-999999999999"), "skipped");
 });
