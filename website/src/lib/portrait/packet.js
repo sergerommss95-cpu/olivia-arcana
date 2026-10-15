@@ -5,16 +5,22 @@
  * letters or degrees. The server validates the same shape before use.
  */
 
-import { SIGNS } from "../astrology/chart.js";
+import { ASPECTS, SIGNS } from "../astrology/chart.js";
 import { POSITIONS } from "./arkan.js";
 import { NUMBER_ROLES } from "./numbers.js";
 
 export { SIGNS };
 export const PLANETS = ["sun", "moon", "mercury", "venus", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto"];
-export const ASPECT_KEYS = ["conjunction", "sextile", "square", "trine", "opposition"];
+export const ASPECT_KEYS = ASPECTS.map((a) => a.key);
 const ASPECT_POINTS = [...PLANETS, "ascendant", "midheaven"];
 const MAX_ASPECTS = 12;
 const MAX_BYTES = 8000;
+const MAX_LABEL = 40;
+const PERSONAL_BODIES = ["sun", "moon", "mercury", "venus", "mars"];
+const MASTERS = [11, 22, 33];
+/** Without a birth time these points are too uncertain to appear in an aspect. */
+const UNTIMED_HIDDEN = ["moon", "asc", "mc"];
+const TOP_KEYS = ["v", "locale", "timeKnown", "factors"];
 
 /**
  * @param {{ locale: "en" | "uk", chart: any, arkan: ReturnType<typeof import("./arkan.js").arkanPortrait>,
@@ -50,13 +56,20 @@ export function buildPacket({ locale, chart, arkan, numbers, daySigns }) {
   return { v: 1, locale, timeKnown, factors };
 }
 
+const isObject = (v) => Boolean(v) && typeof v === "object" && !Array.isArray(v);
+const sameKeys = (obj, keys) => Object.keys(obj).length === keys.length && keys.every((k) => Object.hasOwn(obj, k));
+const label = (f) => String(f?.id ?? "?").slice(0, MAX_LABEL);
+const copy = (v) => (Array.isArray(v) ? [...v] : v);
+const pick = (source, keys) => Object.fromEntries(keys.map((k) => [k, copy(source[k])]));
+
 const isSign = (s) => SIGNS.includes(s);
 const POINT_IDS = [...PLANETS, "asc", "mc"];
 const CHECK = {
   arkan: (f) => POSITIONS.includes(f.position) && Number.isInteger(f.card) && f.card >= 0 && f.card <= 21 && f.id === `arkan-${f.position}`,
-  number: (f) => NUMBER_ROLES.includes(f.role) && Number.isInteger(f.value) && ((f.value >= 1 && f.value <= 9) || [11, 22, 33].includes(f.value)) && typeof f.master === "boolean" && f.id === `num-${f.role}`,
+  number: (f) => NUMBER_ROLES.includes(f.role) && Number.isInteger(f.value) && ((f.value >= 1 && f.value <= 9) || MASTERS.includes(f.value)) && f.master === MASTERS.includes(f.value) && f.id === `num-${f.role}`,
   planet: (f) => PLANETS.includes(f.body) && isSign(f.sign) && (f.house === null || (Number.isInteger(f.house) && f.house >= 1 && f.house <= 12)) && typeof f.retrograde === "boolean"
-    && (f.alternatives === null || (Array.isArray(f.alternatives) && f.alternatives.length >= 2 && f.alternatives.length <= 3 && f.alternatives.every(isSign))) && f.id === `natal-${f.body}`,
+    && (f.alternatives === null || (PERSONAL_BODIES.includes(f.body) && Array.isArray(f.alternatives) && f.alternatives.length >= 2 && f.alternatives.length <= 3
+      && f.alternatives.every(isSign) && new Set(f.alternatives).size === f.alternatives.length && f.alternatives.includes(f.sign))) && f.id === `natal-${f.body}`,
   angle: (f) => (f.angle === "asc" || f.angle === "mc") && isSign(f.sign) && f.id === `natal-${f.angle}`,
   aspect: (f) => POINT_IDS.includes(f.a) && POINT_IDS.includes(f.b) && f.a !== f.b && ASPECT_KEYS.includes(f.aspect) && f.id === `aspect-${f.a}-${f.aspect}-${f.b}`,
 };
@@ -68,23 +81,46 @@ const KEYS = {
   aspect: ["id", "kind", "a", "b", "aspect"],
 };
 
-/** @param {unknown} value */
+/**
+ * Server-side gate for untrusted JSON. Never throws; returns a fresh packet
+ * built from the validated fields only.
+ * @param {unknown} value
+ */
 export function validatePacket(value) {
   const fail = (error) => ({ ok: false, error });
-  if (!value || typeof value !== "object") return fail("not_object");
+  if (!isObject(value)) return fail("not_object");
   const packet = /** @type {any} */ (value);
-  if (JSON.stringify(packet).length > MAX_BYTES) return fail("too_large");
+  if (!sameKeys(packet, TOP_KEYS)) return fail("top_keys");
+  let size;
+  try {
+    size = JSON.stringify(packet).length;
+  } catch {
+    return fail("not_serialisable");
+  }
+  if (size > MAX_BYTES) return fail("too_large");
   if (packet.v !== 1 || !["en", "uk"].includes(packet.locale) || typeof packet.timeKnown !== "boolean" || !Array.isArray(packet.factors)) return fail("shape");
   const ids = new Set();
   for (const f of packet.factors) {
-    if (!f || !CHECK[f.kind] || !CHECK[f.kind](f)) return fail(`factor:${f?.id ?? "?"}`);
-    if (Object.keys(f).sort().join() !== [...KEYS[f.kind]].sort().join()) return fail(`keys:${f.id}`);
-    if (ids.has(f.id)) return fail(`duplicate:${f.id}`);
+    if (!isObject(f) || typeof f.kind !== "string" || !Object.hasOwn(CHECK, f.kind)) return fail(`kind:${label(f)}`);
+    if (!CHECK[f.kind](f)) return fail(`factor:${label(f)}`);
+    if (!sameKeys(f, KEYS[f.kind])) return fail(`keys:${label(f)}`);
+    if (ids.has(f.id)) return fail(`duplicate:${label(f)}`);
     ids.add(f.id);
   }
+  if (packet.factors.filter((f) => f.kind === "aspect").length > MAX_ASPECTS) return fail("too_many_aspects");
   if (!POSITIONS.every((p) => ids.has(`arkan-${p}`))) return fail("arkan_incomplete");
-  if (!["sun", "moon", "mercury", "venus", "mars"].every((b) => ids.has(`natal-${b}`))) return fail("natal_incomplete");
+  if (!PERSONAL_BODIES.every((b) => ids.has(`natal-${b}`))) return fail("natal_incomplete");
   if (!ids.has("num-lifePath")) return fail("numbers_incomplete");
-  if (packet.timeKnown !== ids.has("natal-asc")) return fail("angles_mismatch");
-  return { ok: true, packet };
+  if (packet.timeKnown) {
+    if (!(ids.has("natal-asc") && ids.has("natal-mc"))) return fail("angles_missing");
+    if (packet.factors.some((f) => f.kind === "planet" && f.alternatives !== null)) return fail("alternatives_with_time");
+  } else {
+    if (packet.factors.some((f) => f.kind === "angle")) return fail("angles_without_time");
+    if (packet.factors.some((f) => f.kind === "planet" && f.house !== null)) return fail("house_without_time");
+    if (packet.factors.some((f) => f.kind === "aspect" && (UNTIMED_HIDDEN.includes(f.a) || UNTIMED_HIDDEN.includes(f.b)))) return fail("aspect_without_time");
+  }
+  return {
+    ok: true,
+    packet: { v: 1, locale: packet.locale, timeKnown: packet.timeKnown, factors: packet.factors.map((f) => pick(f, KEYS[f.kind])) },
+  };
 }
