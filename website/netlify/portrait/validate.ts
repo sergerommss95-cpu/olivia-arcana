@@ -54,6 +54,9 @@ export function unsafeMatches(text: string): string[] {
 /** The six chapters the opening plans an angle for. */
 const CHAPTERS = [...SECTIONS.b, ...SECTIONS.c];
 
+/** A model-invented id as it may appear in an error: short and plain, because errors go back into the repair prompt. */
+const shown = (id: unknown) => (typeof id === "string" ? id.slice(0, 40).replace(/[^\p{L}\p{N}_.-]/gu, "_") : "?");
+
 const within = (value: unknown, [min, max]: readonly [number, number]) => typeof value === "string" && value.length >= min && value.length <= max;
 const str = (value: unknown): string => (typeof value === "string" ? value : "");
 const list = (value: unknown): any[] => (Array.isArray(value) ? value : []);
@@ -84,8 +87,8 @@ export function validateStage(stage: Stage, data: any, packet: Packet, teachings
     const refs = list(p.refs), teach = list(p.teachings);
     if (!within(text, limit)) errors.push(`length:${where}:${text.length}`);
     if (refs.length === 0) errors.push(`refs:${where}:empty`);
-    for (const id of refs) if (!factorIds.has(id)) errors.push(`refs:${where}:${id}`);
-    for (const id of teach) if (!teachingIds.has(id)) errors.push(`teachings:${where}:${id}`);
+    for (const id of refs) if (!factorIds.has(id)) errors.push(`refs:${where}:${shown(id)}`);
+    for (const id of teach) if (!teachingIds.has(id)) errors.push(`teachings:${where}:${shown(id)}`);
     const focus = focusFor(where, packet);
     if (focus.length && !refs.some((id) => focus.includes(id))) errors.push(`focus:${where}`);
     for (const f of uncertain) {

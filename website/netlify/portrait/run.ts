@@ -11,6 +11,12 @@ import type { Stage } from "./plan.ts";
 /** Adaptive thinking counts against max_tokens, so the limit leaves room for the thinking as well as the JSON. */
 const MAX_TOKENS: Record<Stage, number> = { a: 32_000, b: 32_000, c: 32_000 };
 
+/** An error as it is logged: the code and place only. Quoted snippets and invented ids are model text and stay out of the logs. */
+const logCode = (error: string) => error.replace(/:".*"$/s, "").replace(/^((?:refs|teachings):[^:]+):.*$/s, "$1");
+
+/** The most errors the repair prompt lists. */
+const MAX_LISTED_ERRORS = 20;
+
 /** Under the 15 minutes a background function may run, so a stuck call ends the job instead of the platform doing it. */
 export const JOB_DEADLINE_MS = 12 * 60_000;
 
@@ -48,10 +54,10 @@ export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS
         // A paid reading is not thrown away over its voice: once a repair was actually tried (the first attempt reached validation and failed), style-only errors are tolerated. Anything else still fails the stage.
         const residue = !check.ok && attempt === 1 && errors.length > 0 && check.errors.every(isStyleError);
         log(check.ok || residue);
-        if (residue) console.warn(JSON.stringify({ event: "portrait_style_residue", stage: key, codes: check.errors.map((e) => e.replace(/:".*"$/s, "")) }));
+        if (residue) console.warn(JSON.stringify({ event: "portrait_style_residue", stage: key, codes: check.errors.map(logCode) }));
         if (check.ok || residue) { await putStage(kv, id, key, result.data); return { ok: true as const, data: result.data }; }
-        errors = check.errors;
-        console.warn(JSON.stringify({ event: "portrait_stage_invalid", stage: key, attempt, errors: errors.map((e) => e.replace(/:".*"$/s, "")).slice(0, 20) }));
+        errors = check.errors.slice(0, MAX_LISTED_ERRORS);
+        console.warn(JSON.stringify({ event: "portrait_stage_invalid", stage: key, attempt, errors: errors.map(logCode) }));
       }
       return { ok: false as const, error: `stage_${key}_invalid` };
     };
