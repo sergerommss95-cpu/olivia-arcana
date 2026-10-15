@@ -175,3 +175,27 @@ test("malformed model output is refused, never thrown", () => {
   assert.equal(validateStage("b", b, packet, teachings).ok, false);
   assert.equal(validateStage("c", { chapters: null, keep: "x" }, packet, teachings).ok, false);
 });
+
+test("Ukrainian Cancer counts in its locative, Місяць у Раці, and in its other cases, but a word that only starts like it does not", () => {
+  const names = (text) => {
+    const data = stageA();
+    data.facets.inner.text = text;
+    const { errors = [] } = validateStage("a", data, withMoon(["cancer", "leo"], "uk"), teachings);
+    return !errors.includes("uncertain:inner:natal-moon");
+  };
+  const leo = `якщо у Леві, ${words(25)}`;
+  for (const form of ["Рак", "Раку", "Раком", "Ракові", "Раці"]) assert.ok(names(`Якщо ваш Місяць у ${form}, ${words(30)} ${leo}`), form);
+  assert.ok(names(`Місяць у Раці, ${words(30)} ${leo}`));
+  assert.equal(names(`Місяць у Ракеті, ${words(30)} ${leo}`), false);
+  assert.equal(names(`Місяць у Раковині, ${words(30)} ${leo}`), false);
+});
+
+test("a promise of death, marriage or money is flagged, but a word that only starts like one is not", () => {
+  for (const text of ["You will get rich", "You'll get wealthy one day", "you are going to get rich", "You'll die", "You will die."]) assert.ok(unsafeMatches(text).length > 0, text);
+  for (const text of ["you'll diet", "You will diet for a while", "you will marry-in the new habit"]) {
+    // a hyphen ends the word, so only the last is still a promise to marry
+    assert.equal(unsafeMatches(text).length > 0, text.includes("marry-in"), text);
+  }
+  // "become rich" is followed by a space, so a boundary cannot tell "rich in friends" from "rich": it stays flagged, the safe side.
+  assert.ok(unsafeMatches("you will become rich in friends").length > 0);
+});

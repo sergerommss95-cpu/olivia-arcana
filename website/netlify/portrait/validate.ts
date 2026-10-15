@@ -15,7 +15,7 @@ export const LIMITS = {
 /** Stems per language, as regex source. Ukrainian forms inflect (Овен / в Овні, Телець / в Тельці), so a sign counts as named if any stem appears. */
 const SIGN_NAMES: Record<string, [string[], string[]]> = {
   aries: [["Aries"], ["Овен", "Овн"]], taurus: [["Taurus"], ["Телець", "Тельц"]], gemini: [["Gemini"], ["Близнюк", "Близнят"]],
-  cancer: [["Cancer"], ["Рак(?:а|у|ом|ові|і)?(?![\\p{L}])"]], leo: [["Leo"], ["Лев"]], virgo: [["Virgo"], ["Дів"]],
+  cancer: [["Cancer"], ["Ра(?:к(?:а|у|ом|ові|і)?|ці)(?![\\p{L}])"]], leo: [["Leo"], ["Лев"]], virgo: [["Virgo"], ["Дів"]],
   libra: [["Libra"], ["Терез"]], scorpio: [["Scorpio"], ["Скорпіон"]], sagittarius: [["Sagittarius"], ["Стріл"]],
   capricorn: [["Capricorn"], ["Козер"]], aquarius: [["Aquarius"], ["Водолі"]], pisces: [["Pisces"], ["Риб"]],
 };
@@ -29,7 +29,7 @@ const SIGN_RE: Record<string, [RegExp[], RegExp[]]> = Object.fromEntries(
 
 const APOS = "(?:'|’)";
 const UNSAFE: RegExp[] = [
-  new RegExp(`\\byou${APOS}?(?:ll| will| are going to|${APOS}re going to) (?:die|marry|divorce|fall ill|get sick|become (?:rich|wealthy)|be (?:rich|wealthy)|win the lottery|never be short of money)`, "iu"),
+  new RegExp(`\\byou${APOS}?(?:ll| will| are going to|${APOS}re going to) (?:die|marry|divorce|fall ill|get sick|become (?:rich|wealthy)|be (?:rich|wealthy)|get (?:rich|wealthy)|win the lottery|never be short of money)(?![\\p{L}])`, "iu"),
   /\byour death\b/iu, /\bdie (?:young|soon|early|alone)\b/iu,
   /\bdiagnos/iu, /(?<!ordered )\bdisorder(?:s)?\b/iu, /\btraumat/iu, /\btrauma\b/iu, /\bdepress(?:ion|ive|ed)\b/iu,
   /\badhd\b/iu, /\bautis/iu, /\billness\b/iu, /\bdisease\b/iu,
