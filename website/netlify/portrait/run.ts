@@ -27,10 +27,16 @@ export async function runJob({ kv, id, write, bank }: { kv: KeyValue; id: string
     const stage = async (key: Stage, earlier: { a?: unknown }) => {
       let errors: string[] = [];
       for (let attempt = 0; attempt < 2; attempt++) {
+        const started = Date.now();
         const result = await write({ system, user: stageRequest(key, packet, teachings, earlier, errors), schema: stageSchema(key, factorIds, teachingIds), maxTokens: MAX_TOKENS[key] });
-        cents += costCents(result.usage);
-        if (!result.ok) return { ok: false as const, error: `stage_${key}_${result.code}` };
+        const ms = Date.now() - started;
+        const spent = costCents(result.usage, result.model);
+        cents += spent;
+        // One line per attempt, never any text. `ok` means the attempt was accepted: the call succeeded and the stage passed its checks.
+        const log = (accepted: boolean) => console.log(JSON.stringify({ event: "portrait_stage", stage: key, attempt, ms, stopReason: result.stopReason ?? null, model: result.model ?? null, usage: result.usage, cents: spent, refusalCategory: result.refusalCategory ?? null, ok: accepted }));
+        if (!result.ok) { log(false); return { ok: false as const, error: `stage_${key}_${result.code}` }; }
         const check = validateStage(key, result.data, packet, teachings);
+        log(check.ok);
         if (check.ok) { await putStage(kv, id, key, result.data); return { ok: true as const, data: result.data }; }
         errors = check.errors;
         console.warn(JSON.stringify({ event: "portrait_stage_invalid", stage: key, attempt, errors: errors.map((e) => e.replace(/:".*"$/s, "")).slice(0, 20) }));

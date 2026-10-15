@@ -26,7 +26,7 @@ const scripted = (answers) => {
   const write = async (call) => { calls.push(call); return answers.shift()(call); };
   return { write, calls };
 };
-const ok = (data) => () => ({ ok: true, data, usage });
+const ok = (data, extra = {}) => () => ({ ok: true, data, usage, stopReason: "end_turn", model: "claude-opus-5-5", refusalCategory: null, ...extra });
 
 test("stages run A then B and C, and each lands as soon as it passes", async () => {
   const kv = memoryStore();
@@ -191,7 +191,7 @@ test("createWriter sends one structured, cached, fallback-enabled request and in
   const write = createWriter({ apiKey: "test-key", model: "claude-opus-5-5", effort: "high", send: async (params) => { sent.push(params); return reply; } });
   const schema = { type: "object", properties: {} };
   const result = await write({ system: "SYS", user: "USER", schema, maxTokens: 1234 });
-  assert.deepEqual(result, { ok: true, data: { a: 1 }, usage: { input: 7, output: 3, cacheRead: 2, cacheWrite: 1 } });
+  assert.deepEqual(result, { ok: true, data: { a: 1 }, usage: { input: 7, output: 3, cacheRead: 2, cacheWrite: 1 }, stopReason: "end_turn", model: null, refusalCategory: null });
   assert.equal(sent.length, 1);
   const params = sent[0];
   assert.equal(params.model, "claude-opus-5-5");
@@ -211,7 +211,7 @@ test("createWriter turns a provider error into a code, logging only event, statu
   const failure = Object.assign(new Error("prompt text and secret detail"), { status: 400, type: "invalid_request_error" });
   const write = createWriter({ apiKey: "test-key", model: "m", effort: "high", send: async () => { throw failure; } });
   const result = await write({ system: "s", user: "u", schema: {}, maxTokens: 10 });
-  assert.deepEqual(result, { ok: false, code: "provider", usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 } });
+  assert.deepEqual(result, { ok: false, code: "provider", usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }, stopReason: null, model: null, refusalCategory: null });
   assert.equal(lines.length, 1);
   assert.deepEqual(Object.keys(JSON.parse(lines[0])).sort(), ["event", "status", "type"]);
   assert.equal(JSON.parse(lines[0]).type, "invalid_request_error");
@@ -241,4 +241,127 @@ test("cost uses Opus 5.5 prices", () => {
   // $4/M input, $20/M output, $0.20/M cache read, $5/M cache write
   assert.equal(costCents({ input: 1_000_000, output: 0, cacheRead: 0, cacheWrite: 0 }), 400);
   assert.equal(costCents({ input: 0, output: 100_000, cacheRead: 0, cacheWrite: 0 }), 200);
+});
+
+test("cost follows the model that answered; an unknown model is priced as Opus", () => {
+  const one = (field, model) => costCents({ input: 0, output: 0, cacheRead: 0, cacheWrite: 0, [field]: 1_000_000 }, model);
+  // $ per million tokens → cents for one million
+  assert.deepEqual(["input", "output", "cacheRead", "cacheWrite"].map((f) => one(f, "claude-opus-5-5")), [400, 2000, 20, 500]);
+  assert.deepEqual(["input", "output", "cacheRead", "cacheWrite"].map((f) => one(f, "claude-sonnet-5-5")), [200, 1000, 20, 250]);
+  assert.equal(one("input", "claude-sonnet-5-5-20260701"), 200);
+  for (const unknown of [undefined, null, "", "claude-mystery-9"]) assert.equal(one("input", unknown), 400, String(unknown));
+});
+
+test("with a server-side fallback each iteration is priced by its own model, not the top-level total", () => {
+  const tokens = (model) => ({ input: 1_000_000, output: 0, cacheRead: 0, cacheWrite: 0, ...(model ? { model } : {}) });
+  const usage = { input: 3_000_000, output: 999, cacheRead: 0, cacheWrite: 0, iterations: [tokens("claude-opus-5-5"), tokens("claude-sonnet-5-5"), tokens()] };
+  assert.equal(costCents(usage, "claude-sonnet-5-5"), 400 + 200 + 200); // an iteration with no model takes the message's
+  assert.equal(costCents(usage), 400 + 200 + 400);
+  assert.equal(costCents({ ...usage, iterations: [] }, "claude-sonnet-5-5"), Math.ceil((3_000_000 * 2 + 999 * 10) / 10_000));
+});
+
+test("interpret reports the stop reason, the model and a refusal's category, and keeps per-iteration usage", () => {
+  const u = { input_tokens: 10, output_tokens: 5 };
+  const ok = interpret({ stop_reason: "end_turn", model: "claude-sonnet-5-5", content: [{ type: "text", text: "{}" }], usage: u });
+  assert.equal(ok.stopReason, "end_turn");
+  assert.equal(ok.model, "claude-sonnet-5-5");
+  assert.equal(ok.refusalCategory, null);
+  const refused = interpret({ stop_reason: "refusal", model: "claude-opus-5-5", stop_details: { type: "refusal", category: "cyber" }, content: [], usage: u });
+  assert.deepEqual([refused.code, refused.stopReason, refused.model, refused.refusalCategory], ["refusal", "refusal", "claude-opus-5-5", "cyber"]);
+  const cut = interpret({ stop_reason: "max_tokens", model: "m", content: [], usage: u });
+  assert.deepEqual([cut.code, cut.stopReason, cut.refusalCategory], ["truncated", "max_tokens", null]);
+  const bare = interpret({ content: [{ type: "text", text: "{}" }] });
+  assert.deepEqual([bare.stopReason, bare.model, bare.refusalCategory], [null, null, null]);
+  const iterated = interpret({ stop_reason: "end_turn", model: "claude-sonnet-5-5", content: [{ type: "text", text: "{}" }], usage: { ...u, iterations: [{ type: "message", input_tokens: 4, output_tokens: 1, cache_read_input_tokens: 2, cache_creation_input_tokens: 3, model: "claude-opus-5-5" }, { type: "message", input_tokens: 6, output_tokens: 4 }] } });
+  assert.deepEqual(iterated.usage.iterations, [{ input: 4, output: 1, cacheRead: 2, cacheWrite: 3, model: "claude-opus-5-5" }, { input: 6, output: 4, cacheRead: 0, cacheWrite: 0 }]);
+  assert.equal("iterations" in interpret({ stop_reason: "end_turn", content: [{ type: "text", text: "{}" }], usage: { ...u, iterations: [] } }).usage, false);
+});
+
+const stageLogs = (lines) => lines.map((line) => JSON.parse(line)).filter((entry) => entry.event === "portrait_stage");
+const talk = (t) => {
+  const lines = [];
+  t.mock.method(console, "log", (line) => lines.push(line));
+  return lines;
+};
+
+test("every stage attempt logs one line with timing, stop reason, model, usage, cost and outcome, and no text", async (t) => {
+  const lines = talk(t);
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const broken = { ...A, title: "" };
+  const slow = (data) => async () => { await new Promise((resolve) => setTimeout(resolve, 20)); return { ok: true, data, usage, stopReason: "end_turn", model: "claude-opus-5-5", refusalCategory: null }; };
+  const { write } = scripted([ok(broken), slow(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  const logs = stageLogs(lines);
+  assert.equal(logs.length, 4);
+  for (const entry of logs) assert.deepEqual(Object.keys(entry).sort(), ["attempt", "cents", "event", "model", "ms", "ok", "refusalCategory", "stage", "stopReason", "usage"]);
+  const a = logs.filter((entry) => entry.stage === "a");
+  assert.deepEqual(a.map((entry) => [entry.attempt, entry.ok]), [[0, false], [1, true]]); // the first reply failed the checks
+  assert.ok(a[1].ms >= 15, `ms was ${a[1].ms}`);
+  assert.equal(a[0].stopReason, "end_turn");
+  assert.equal(a[0].model, "claude-opus-5-5");
+  assert.equal(a[0].cents, costCents(usage, "claude-opus-5-5"));
+  assert.deepEqual(a[0].usage, usage);
+  assert.equal(a[0].refusalCategory, null);
+  assert.deepEqual(logs.filter((entry) => entry.stage !== "a").map((entry) => [entry.stage, entry.attempt, entry.ok]).sort(), [["b", 0, true], ["c", 0, true]]);
+  for (const line of lines) for (const text of ["The Open Door", "word word", "Pisces", "Chapter"]) assert.ok(!line.includes(text), text);
+});
+
+test("the log and the job's cost both price by the model that answered", async (t) => {
+  const lines = talk(t);
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const half = { input: 500_000, output: 0, cacheRead: 0, cacheWrite: 0 };
+  const sonnet = (data) => () => ({ ok: true, data, usage: half, stopReason: "end_turn", model: "claude-sonnet-5-5", refusalCategory: null });
+  const { write } = scripted([sonnet(A), sonnet(B), ok(C, { usage: half })]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.deepEqual(stageLogs(lines).map((entry) => [entry.stage, entry.cents]).sort(), [["a", 100], ["b", 100], ["c", 200]]);
+  assert.equal((await readJob(kv, "j")).costCents, 400);
+});
+
+test("a refusal is logged with its category and ends the job without a retry", async (t) => {
+  const lines = talk(t);
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const refusal = () => ({ ok: false, code: "refusal", usage, stopReason: "refusal", model: "claude-opus-5-5", refusalCategory: "cyber" });
+  const { write, calls } = scripted([refusal]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "failed");
+  assert.equal(calls.length, 1);
+  const [entry] = stageLogs(lines);
+  assert.deepEqual([entry.stage, entry.attempt, entry.ok, entry.stopReason, entry.refusalCategory], ["a", 0, false, "refusal", "cyber"]);
+  assert.equal((await readJob(kv, "j")).error, "stage_a_refusal");
+});
+
+test("a writer that gives no metadata still logs null, not a missing key", async (t) => {
+  const lines = talk(t);
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const bare = (data) => () => ({ ok: true, data, usage });
+  const { write } = scripted([bare(A), bare(B), bare(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  for (const entry of stageLogs(lines)) assert.deepEqual([entry.stopReason, entry.model, entry.refusalCategory], [null, null, null]);
+});
+
+test("createWriter hands the gateway address to the Anthropic client, and nothing when there is none", async () => {
+  const made = [];
+  const reply = { stop_reason: "end_turn", content: [{ type: "text", text: "{}" }], usage: {} };
+  const client = { beta: { messages: { stream: (params) => ({ finalMessage: async () => ({ ...reply, echoed: params.model }) }) } } };
+  const factory = (options) => { made.push(options); return client; };
+  const via = createWriter({ apiKey: "gateway-key", baseURL: "https://gateway.example/anthropic", model: "m", effort: "high", makeClient: factory });
+  assert.equal((await via({ system: "s", user: "u", schema: {}, maxTokens: 10 })).ok, true);
+  assert.equal(made[0].baseURL, "https://gateway.example/anthropic");
+  assert.equal(made[0].apiKey, "gateway-key");
+  assert.equal(made[0].timeout, 240_000);
+  createWriter({ apiKey: "k", model: "m", effort: "high", makeClient: factory });
+  assert.equal(made[1].baseURL, undefined);
+});
+
+test("the real Anthropic client takes the gateway address, and falls back to its own default without one", async () => {
+  const { default: Anthropic } = await import("@anthropic-ai/sdk");
+  assert.equal(new Anthropic({ apiKey: "k", baseURL: "https://gateway.example/anthropic" }).baseURL, "https://gateway.example/anthropic");
+  assert.equal(new Anthropic({ apiKey: "k", baseURL: undefined }).baseURL, new Anthropic({ apiKey: "k" }).baseURL);
 });

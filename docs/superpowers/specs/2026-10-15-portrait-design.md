@@ -95,7 +95,10 @@ One repair retry per stage with the validation errors attached; then the stage f
 
 **Model call** (`claude.ts`): `@anthropic-ai/sdk`, `claude-opus-5-5`, adaptive thinking, effort from
 `PORTRAIT_EFFORT` (default `medium`, tuned in eval), server-side refusal fallback (`fallbacks: "default"`),
-cached system prompt (voice brief + gold examples). Usage recorded per stage.
+cached system prompt (voice brief + gold examples). Every attempt logs one `portrait_stage` line (stage, attempt, ms,
+stop reason, model, usage, cents, refusal category, accepted; never text). Cost is priced by the model that answered
+(Opus 5.5 and Sonnet 5.5 rates; an unknown model is priced as Opus). When Netlify's AI Gateway supplies the key it also
+supplies `ANTHROPIC_BASE_URL`, which the writer passes to the client so the pair stays together.
 
 **Quality bar** (`scripts/portrait-eval.mjs`): 6 fictional profiles (EN ×3, UK ×3, one unknown-time each).
 Blind pairwise judge (old V18 text vs new) on recognisability, specificity, distinctness across sections, warmth,

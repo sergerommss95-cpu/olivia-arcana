@@ -24,7 +24,7 @@ export default async (req: Request, context: Context) => {
   const asked = Netlify.env.get("PORTRAIT_EFFORT");
   const effort = asked && EFFORTS.includes(asked) ? asked : "medium";
   if (asked && effort !== asked) console.warn(JSON.stringify({ event: "portrait_bad_effort" }));
-  const write = createWriter({ apiKey, model: Netlify.env.get("PORTRAIT_MODEL") || "claude-opus-5-5", effort });
+  const write = createWriter({ apiKey, baseURL: Netlify.env.get("ANTHROPIC_BASE_URL") || undefined, model: Netlify.env.get("PORTRAIT_MODEL") || "claude-opus-5-5", effort });
   const outcome = await runJob({ kv, id, write, bank });
   console.log(JSON.stringify({ event: "portrait_job", outcome }));
 };
