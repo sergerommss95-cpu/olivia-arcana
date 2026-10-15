@@ -27,6 +27,15 @@ test("Ukrainian never assumes a gender with «ви»", () => {
   for (const ok of ["ви самі вирішуєте", "ви готові почати", "ви впевнені в цьому"]) assert.deepEqual(styleProblems("x", ok, "uk", {}).filter((e) => e.startsWith("gender")), [], ok);
 });
 
+test("Ukrainian «не просто X, а Y» is the AI contrast tic; an ordinary «не» is not", () => {
+  for (const bad of ["не просто відпочинок, а ритуал", "не лише робота, але й покликання", "Це не тільки звичка, а спосіб жити."]) {
+    assert.ok(styleProblems("x", `${bad} і ще трохи тексту.`, "uk", {}).some((e) => e.startsWith("phrase:x")), bad);
+  }
+  for (const ok of ["не тоді, коли все зроблено", "Не поспішайте.", "Ви не просто так це кажете. Але все ж кажете."]) {
+    assert.deepEqual(styleProblems("x", ok, "uk", {}), [], ok);
+  }
+});
+
 test("six-word phrases may not repeat across sections", () => {
   const opening = ["You can feel enormous hope about someone and still wait."];
   assert.ok(repetition("love", "Again you can feel enormous hope about someone today.", opening).length === 1);

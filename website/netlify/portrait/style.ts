@@ -11,7 +11,9 @@ const PHRASES = {
        /\bjourney\b/i, /\bauthentic self\b/i, /\bself-care\b/i, /\binner child\b/i, /\bhealing\b/i, /\bthe universe\b/i, /\bunique blend\b/i, /\btapestry\b/i,
        /\bdelve\b/i, /\brealm\b/i, /\bnavigat(?:e|ing) the\b/i, /\bit(?:'|’)s important to\b/i, /\bembrace\b/i, /\bnot (?:simply|just|merely) [^.,;]{1,40}, but\b/i],
   uk: [/символічн/iu, /традиці(?:я|ї|ю|єю)(?![\p{L}])\s+(?:каже|свідчить|вважає|радить)/iu, /енергі[яїюй] (?:всесвіту|космосу|карти|карт|числа|чисел)/iu, /всесвіт/iu, /подорож[іу]? до себе/iu, /важливо пам[’']ятати/iu,
-       /унікальн[еийа] поєднання/iu, /зцілення/iu],
+       /унікальн[еийа] поєднання/iu, /зцілення/iu,
+       // «не просто X, а Y»: the same contrast tic as the English "not just X, but Y".
+       /(?<![\p{L}])не\s+(?:просто|лише|тільки)\s+[^.,;]{1,40},\s*(?:а|але)(?![\p{L}])/iu],
 };
 const GENDERED = /(?<![\p{L}])(?:ви\s+(?:\p{L}+\s+)?(?:сама|готова|готовий|впевнена|впевнений|рада|радий|повинна|повинен|змушена|змушений|здатна|здатний|певна|певен)|самій собі|самому собі)(?![\p{L}])/giu;
 

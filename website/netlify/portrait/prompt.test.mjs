@@ -88,6 +88,13 @@ test("the gold examples are found, and each has a heading or title and body text
   assert.deepEqual(chapter.parts.map((part) => part.where), ["title", "lede", "paragraph", "paragraph", "practice"]);
 });
 
+test("the Ukrainian example does not model the «не X, а Y» contrast that the voice rule bans", () => {
+  const uk = goldExamples().find((e) => e.locale === "uk");
+  for (const { text } of uk.parts) {
+    for (const sentence of text.split(/(?<=[.!?…])\s+/)) assert.doesNotMatch(sentence, /(?<![\p{L}])не(?![\p{L}])[^.!?]*,\s*а(?![\p{L}])/u, sentence);
+  }
+});
+
 test("the gold examples pass our own style lint, so the model is never shown a voice we would reject", () => {
   for (const { locale, section, parts } of goldExamples()) {
     for (const { where, text, opts } of parts) {
