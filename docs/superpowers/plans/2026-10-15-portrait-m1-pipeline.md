@@ -359,7 +359,7 @@ test("several bodies can change sign on one day", () => {
 });
 
 test("a quiet day gives one sign per body", () => {
-  const signs = signsThroughDay({ date: "2000-02-01", zone: "Europe/Kyiv" });
+  const signs = signsThroughDay({ date: "2000-02-03", zone: "Europe/Kyiv" });
   for (const list of Object.values(signs)) assert.equal(list.length, 1);
   assert.deepEqual(signs.sun, ["aquarius"]);
 });
