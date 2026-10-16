@@ -22,6 +22,12 @@
  *                                                             a corrupt or partial file is simply re-run)
  *   ... --max-cents 400                                       (start no new profile once this run has spent 400 cents;
  *                                                             calls in flight finish)
+ *   ... --cache <dir>                                         (where successful calls are kept for replay; default
+ *                                                             $TMPDIR/portrait-eval-cache/<variant>)
+ * Every successful call is kept on disk under a hash of its full request and replayed when the same request comes
+ * again, so a reading that broke off (a lost connection) resumes without paying twice for the stages it already had;
+ * a replayed call is marked `replayed` and does not count against --max-cents. After a connection failure the writer
+ * waits for the gateway host to answer again (up to 20 minutes) before runJob's free retry goes out.
  *
  * Baseline: write the two Milestone 1 live readings into a variant dir in the same format (no model call):
  *   node scripts/portrait-eval.mjs --import-baseline ../docs/superpowers/evidence/2026-10-15-m1 --variant m1-baseline
@@ -38,6 +44,7 @@
  * Default out: docs/superpowers/evidence/2026-10-16-m2.
  */
 import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { readFile, writeFile, mkdir, readdir, rename, rm } from "node:fs/promises";
 import { basename, dirname, join, resolve, relative, isAbsolute } from "node:path";
 import { tmpdir } from "node:os";
@@ -231,7 +238,7 @@ export function failedRecord({ profile, variant, model, effort, dry = false, sha
 }
 
 /** Runs one profile through the real runJob. `write` is called with the production Call shape; each call is timed and priced here. */
-export async function runProfile({ profile, packet, write, bank, variant, model, effort, dry = false, gitSha: sha = "unknown", log = () => {}, onCost = () => {} }) {
+export async function runProfile({ profile, packet, write, bank, variant, model, effort, dry = false, gitSha: sha = "unknown", log = () => {}, onCost = () => {}, deadlineMs = EVAL_DEADLINE_MS }) {
   const kv = memoryStore();
   const id = profile.id;
   await createJob(kv, { id, status: "queued", createdAt: Date.now(), packet, invite: "eval", day: "eval", reserveCents: 0, costCents: 0, error: null });
@@ -246,14 +253,16 @@ export async function runProfile({ profile, packet, write, bank, variant, model,
     const result = await write(call);
     const ms = Date.now() - started;
     const cents = costCents(result.usage, result.model);
-    onCost(cents);
-    calls.push({ stage, attempt, ms, ok: result.ok, code: result.ok ? null : result.code, stopReason: result.stopReason ?? null, model: result.model ?? null, usage: result.usage, cents });
-    log(`[${id}] ${stage}#${attempt + 1} ${fmtSeconds(ms)} ${result.ok ? "ok" : result.code} ${cents}c`);
+    const replayed = Boolean(result.replayed);
+    // The record prices the reading as written; the budget counts only what this run actually spent.
+    onCost(replayed ? 0 : cents);
+    calls.push({ stage, attempt, ms, ok: result.ok, code: result.ok ? null : result.code, stopReason: result.stopReason ?? null, model: result.model ?? null, usage: result.usage, cents, replayed });
+    log(`[${id}] ${stage}#${attempt + 1} ${fmtSeconds(ms)} ${result.ok ? "ok" : result.code} ${cents}c${replayed ? " replayed" : ""}`);
     return result;
   };
   const started = Date.now();
   let outcome = null, thrown = null;
-  try { outcome = await runJob({ kv, id, write: metered, bank }); } catch (error) { thrown = error; }
+  try { outcome = await runJob({ kv, id, write: metered, bank, deadlineMs }); } catch (error) { thrown = error; }
   const total = Date.now() - started;
   const job = await readJob(kv, id);
   const stages = await readStages(kv, id);
@@ -669,6 +678,55 @@ const gatewayHost = () => {
 };
 
 /** A real run must go through the Netlify AI Gateway, so it needs its base URL (unless --allow-direct) and key. Called before any work starts. */
+/** Longer than production's job deadline: an eval may sit out a lost connection (see `edgeWaiting`). ms.total still shows the real time. */
+export const EVAL_DEADLINE_MS = 90 * 60_000;
+
+/** Successful calls kept on disk under a hash of the full request, replayed when the same request comes again. */
+export function replayWriter({ write, dir, model, effort }) {
+  return async (call) => {
+    const key = createHash("sha256").update(JSON.stringify({ model, effort, system: call.system, shared: call.shared, task: call.task, schema: call.schema, maxTokens: call.maxTokens })).digest("hex");
+    const file = join(dir, `${key}.json`);
+    try {
+      return { ...JSON.parse(await readFile(file, "utf8")), replayed: true };
+    } catch {
+      // Not kept yet (or unreadable): make the call.
+    }
+    const result = await write(call);
+    if (result.ok) await writeAtomic(file, JSON.stringify(result)).catch(() => {});
+    return result;
+  };
+}
+
+/** Resolves true once `url` answers at all (any HTTP status), false after `maxMs`. The first try is immediate. */
+export async function waitForHost(url, { fetchImpl = fetch, sleep = (ms) => new Promise((done) => setTimeout(done, ms)), maxMs = 20 * 60_000, everyMs = 20_000, now = Date.now } = {}) {
+  const started = now();
+  for (;;) {
+    try {
+      await fetchImpl(url, { method: "HEAD", signal: AbortSignal.timeout(8_000) });
+      return true;
+    } catch {
+      // Unreachable for now.
+    }
+    if (now() - started >= maxMs) return false;
+    await sleep(everyMs);
+  }
+}
+
+/** After a connection failure that cost nothing, waits for the gateway host before handing the failure back, so runJob's free retry finds the connection up. */
+export function edgeWaiting({ write, url, say = () => {}, wait = waitForHost }) {
+  return async (call) => {
+    const result = await write(call);
+    const lost = !result.ok && result.code === "provider" && !(result.usage?.input || result.usage?.output);
+    if (lost && url) {
+      const started = Date.now();
+      const back = await wait(url);
+      const seconds = Math.round((Date.now() - started) / 1000);
+      if (seconds > 5 || !back) say(back ? `gateway host answered again after ${seconds}s` : `gateway host still unreachable after ${seconds}s`);
+    }
+    return result;
+  };
+}
+
 export function requireGateway({ dry = false, allowDirect = false } = {}) {
   if (dry) return;
   if (!process.env.ANTHROPIC_BASE_URL && !allowDirect) throw new Error("ANTHROPIC_BASE_URL is not set, so this would call the Anthropic API directly. Run through the Netlify CLI so the AI Gateway injects it: NETLIFY_SITE_ID=6a67384f-4d46-451e-ac61-f8108015fbfd netlify dev:exec -- node scripts/portrait-eval.mjs ... (pass --allow-direct only if a direct call is intended)");
@@ -757,8 +815,10 @@ async function runCommand(opts) {
   const [allProfiles, places, bank] = await Promise.all([loadProfiles(), loadPlaces(), loadBank()]);
   const profiles = selectProfiles(allProfiles, opts.profiles);
   const model = opts.dry ? "dry-run" : opts.model;
-  const shared = opts.dry ? null : realWriter({ model, effort });
+  const cacheDir = resolve(opts.cache ?? join(tmpdir(), "portrait-eval-cache", variant));
   const say = (line) => console.error(line);
+  const gatewayRoot = (() => { try { return `${new URL(process.env.ANTHROPIC_BASE_URL).origin}/`; } catch { return null; } })();
+  const shared = opts.dry ? null : replayWriter({ write: edgeWaiting({ write: realWriter({ model, effort }), url: gatewayRoot, say }), dir: cacheDir, model, effort });
   say(`variant ${variant}: ${profiles.length} profile(s), model ${model}, effort ${effort}, concurrency ${concurrency}${maxCents < Infinity ? `, cap ${maxCents}c` : ""}${opts.dry ? ", DRY" : `, gateway ${gatewayHost()}`}`);
   const restore = opts.verbose ? () => {} : quietLogs();
   try {
@@ -861,6 +921,7 @@ export const CLI_OPTIONS = {
   dry: { type: "boolean", default: false },
   resume: { type: "boolean", default: false },
   verbose: { type: "boolean", default: false },
+  cache: { type: "string" },
 };
 
 export async function main(argv) {

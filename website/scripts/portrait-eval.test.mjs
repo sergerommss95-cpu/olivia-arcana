@@ -643,3 +643,60 @@ test("a dry run, a baseline import and a dry judge in both orders work together 
     await rm(dir, { recursive: true, force: true });
   }
 });
+
+const ZERO_USAGE = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
+
+test("a kept call is replayed instead of paid for again; failures are not kept", async (t) => {
+  const dir = await mkdtemp(join(tmpdir(), "portrait-replay-"));
+  t.after(() => rm(dir, { recursive: true, force: true }));
+  let made = 0;
+  const write = async (call) => { made++; return call.task === "fail" ? { ok: false, code: "provider", usage: ZERO_USAGE } : { ok: true, data: { n: made }, usage: { ...ZERO_USAGE, output: 2 }, model: "m" }; };
+  const replay = ev.replayWriter({ write, dir, model: "m", effort: "medium" });
+  const call = { system: "s", shared: "x", task: "t", schema: {}, maxTokens: 10 };
+  const first = await replay(call);
+  const again = await replay({ ...call, signal: new AbortController().signal });
+  assert.equal(made, 1);
+  assert.equal(again.replayed, true);
+  assert.deepEqual(again.data, first.data);
+  await replay({ ...call, task: "t2" });
+  assert.equal(made, 2);
+  await replay({ ...call, task: "fail" });
+  await replay({ ...call, task: "fail" });
+  assert.equal(made, 4);
+  assert.equal((await ev.replayWriter({ write, dir, model: "m", effort: "high" })(call)).replayed, undefined);
+});
+
+test("waitForHost tries again until the host answers, and gives up after maxMs", async () => {
+  let tries = 0, slept = 0, clock = 0;
+  const flaky = async () => { if (++tries < 3) throw new Error("down"); return {}; };
+  assert.equal(await ev.waitForHost("https://x/", { fetchImpl: flaky, sleep: async (ms) => { slept += ms; clock += ms; }, now: () => clock, everyMs: 10 }), true);
+  assert.equal(tries, 3);
+  assert.equal(slept, 20);
+  clock = 0;
+  const down = async () => { throw new Error("down"); };
+  assert.equal(await ev.waitForHost("https://x/", { fetchImpl: down, sleep: async (ms) => { clock += ms; }, now: () => clock, maxMs: 50, everyMs: 10 }), false);
+});
+
+test("edgeWaiting waits only after a connection failure that cost nothing", async () => {
+  let waits = 0;
+  const results = [
+    { ok: false, code: "provider", usage: ZERO_USAGE },
+    { ok: false, code: "provider", usage: { ...ZERO_USAGE, output: 5 } },
+    { ok: false, code: "refusal", usage: ZERO_USAGE },
+    { ok: true, usage: ZERO_USAGE },
+  ];
+  const write = ev.edgeWaiting({ write: async () => results.shift(), url: "https://x/", wait: async () => { waits++; return true; } });
+  for (let i = 0; i < 4; i++) await write({});
+  assert.equal(waits, 1);
+});
+
+test("a replayed call is recorded at its price but costs this run nothing", async () => {
+  const profile = byId("en-timed-tom");
+  const packet = ev.packetFor(profile, places);
+  const fake = ev.fakeWriter({ locale: profile.locale, quirks: false, delayMs: 0, salt: "replay" });
+  let spent = 0;
+  const record = await ev.runProfile({ profile, packet, write: async (call) => ({ ...(await fake(call)), replayed: true }), bank, variant: "t", model: "dry-run", effort: "medium", dry: true, onCost: (cents) => { spent += cents; } });
+  assert.equal(record.status, "done");
+  assert.equal(spent, 0);
+  assert.ok(record.calls.length >= 3 && record.calls.every((call) => call.replayed));
+});
