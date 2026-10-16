@@ -105,12 +105,41 @@ test("the invite is remembered in lower case and forgetInvite clears it", () => 
   assert.equal(storedInvite(), null);
 });
 
-test("the job id is remembered and cleared", () => {
+const PACKET = {
+  v: 1, locale: "en", timeKnown: false,
+  factors: [
+    ...[1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 14].map((position) => ({ id: `arkan-${position}`, kind: "arkan", position, card: position % 22 })),
+    ...["sun", "moon", "mercury", "venus", "mars"].map((body) => ({ id: `natal-${body}`, kind: "planet", body, sign: "aries", house: null, retrograde: false, alternatives: null })),
+    { id: "num-lifePath", kind: "number", role: "lifePath", value: 5, master: false },
+  ],
+};
+
+test("the job id and packet are remembered and cleared", () => {
   assert.equal(storedJob(), null);
-  rememberJob("job-1");
-  assert.equal(storedJob(), "job-1");
+  rememberJob({ id: "job-1", packet: PACKET });
+  assert.deepEqual(storedJob(), { id: "job-1", packet: PACKET });
+  rememberJob({ id: "job-1" });
+  assert.deepEqual(storedJob(), { id: "job-1" });
   rememberJob(null);
   assert.equal(storedJob(), null);
+});
+
+test("an id stored as a plain string still resumes, without a packet", () => {
+  store.set("olivia:portrait-job", "8f1c2a90-5d3e-4b7a-9c61-0e2f4a7b8c9d");
+  assert.deepEqual(storedJob(), { id: "8f1c2a90-5d3e-4b7a-9c61-0e2f4a7b8c9d" });
+  store.set("olivia:portrait-job", "12345");
+  assert.deepEqual(storedJob(), { id: "12345" });
+});
+
+test("a stored packet that fails validation is dropped, the id kept", () => {
+  store.set("olivia:portrait-job", JSON.stringify({ id: "job-2", packet: { ...PACKET, factors: PACKET.factors.slice(1) } }));
+  assert.deepEqual(storedJob(), { id: "job-2" });
+});
+
+test("the stored job keeps only the id and the packet", () => {
+  rememberJob({ id: "job-3", packet: PACKET, name: "Olena", date: "1990-03-03", place: "Kyiv" });
+  assert.deepEqual(Object.keys(JSON.parse(store.get("olivia:portrait-job"))), ["id", "packet"]);
+  assert.ok(!/Olena|1990-03-03|Kyiv/.test(store.get("olivia:portrait-job")));
 });
 
 test("blocked storage never throws", () => {
@@ -118,7 +147,7 @@ test("blocked storage never throws", () => {
   const blocked = () => { throw new Error("blocked"); };
   globalThis.localStorage = { getItem: blocked, setItem: blocked, removeItem: blocked };
   try {
-    assert.doesNotThrow(() => { rememberInvite("abcd"); forgetInvite(); rememberJob("x"); rememberJob(null); });
+    assert.doesNotThrow(() => { rememberInvite("abcd"); forgetInvite(); rememberJob({ id: "x" }); rememberJob(null); });
     assert.equal(storedInvite(), null);
     assert.equal(storedJob(), null);
   } finally {

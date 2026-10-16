@@ -98,3 +98,6 @@ export function sealsFor(refs, packet, locale, cards) {
   }
   return seals.sort((x, y) => KIND_ORDER.indexOf(x.kind) - KIND_ORDER.indexOf(y.kind)).slice(0, MAX_SEALS);
 }
+
+/** Sign names in both languages, for captions outside the seals. */
+export const SIGN_NAMES = SIGNS;

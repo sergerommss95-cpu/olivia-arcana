@@ -11,10 +11,12 @@ import { nameNumbers } from "@/lib/portrait/numbers.js";
 import { signsThroughDay } from "@/lib/portrait/uncertain.js";
 import { buildPacket } from "@/lib/portrait/packet.js";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
-import { forgetInvite, pollPortrait, readInviteFromHash, rememberInvite, rememberJob, startPortrait, storedInvite, storedJob, type PortraitStatus } from "./client";
+import { forgetInvite, pollPortrait, readInviteFromHash, rememberInvite, rememberJob, startPortrait, storedInvite, storedJob, type PortraitPacket, type PortraitStatus } from "./client";
+import Laying, { type Frames } from "./Laying";
 import styles from "./portrait.module.css";
 
-type Phase = { kind: "form" } | { kind: "working"; id: string; status: PortraitStatus | null } | { kind: "error"; code: string };
+/** A reading resumed from an id stored before packets were kept has no packet, and no Laying. */
+type Phase = { kind: "form" } | { kind: "working"; id: string; packet: PortraitPacket | null; status: PortraitStatus | null } | { kind: "error"; code: string };
 type ErrorKey = keyof (typeof PORTRAIT_COPY)["en"]["errors"];
 
 /** The copy for a finished-but-failed reading: timeout and missing are their own; "unconfigured" is a pause; the rest is "failed". */
@@ -25,9 +27,13 @@ function failureKey(error: string | null): ErrorKey {
   return "failed";
 }
 
-export default function Portrait({ locale, cards }: { locale: PortraitLocale; cards: MajorCard[] }) {
+export default function Portrait({ locale, cards, frames }: { locale: PortraitLocale; cards: MajorCard[]; frames: Frames }) {
   const t = PORTRAIT_COPY[locale];
   const [phase, setPhase] = useState<Phase>({ kind: "form" });
+  /** True once the Laying has handed over to the reader (stage A has arrived). */
+  const [settled, setSettled] = useState(false);
+  /** For the Laying's kicker only: kept in memory, never stored. */
+  const [firstName, setFirstName] = useState("");
   const [name, setName] = useState("");
   const [latin, setLatin] = useState("");
   const [date, setDate] = useState("");
@@ -50,7 +56,7 @@ export default function Portrait({ locale, cards }: { locale: PortraitLocale; ca
     mounted.current = true;
     // A reading in progress goes straight to the reader; every setState below lands in the same render.
     const job = storedJob();
-    if (job) follow(job);
+    if (job) follow(job.id, job.packet ?? null);
     const fromHash = readInviteFromHash();
     if (fromHash) setInvite(fromHash);
     setHasInvite(Boolean(fromHash ?? storedInvite()));
@@ -67,16 +73,19 @@ export default function Portrait({ locale, cards }: { locale: PortraitLocale; ca
   const matches = useMemo(() => (place && query === (place[locale] ?? place.en) ? [] : searchPlaces(places, query, 6)), [places, query, place, locale]);
   const needsLatin = useMemo(() => Boolean(date) && nameNumbers({ date, name }).status === "needs-latin", [date, name]);
 
-  function follow(id: string) {
+  function follow(id: string, packet: PortraitPacket | null) {
     abort.current?.abort();
     const controller = new AbortController();
     abort.current = controller;
-    setPhase({ kind: "working", id, status: null });
+    setSettled(false);
+    setPhase({ kind: "working", id, packet, status: null });
     pollPortrait(id, (status) => {
       if (controller.signal.aborted) return;
-      setPhase({ kind: "working", id, status });
+      setPhase({ kind: "working", id, packet, status });
       // A client-side give-up is resumable: the job may still be running, so keep its id.
       if (status.status === "failed" && !status.resumable) rememberJob(null);
+      // The packet is kept only while the reading is being written.
+      if (status.status === "done") rememberJob({ id });
     }, controller.signal);
   }
 
@@ -89,7 +98,7 @@ export default function Portrait({ locale, cards }: { locale: PortraitLocale; ca
     try {
       const code = invite.trim() || storedInvite() || "";
       const birth = { date, time: unknownTime ? null : time || null, zone: place.zone, latitude: place.lat, longitude: place.lon };
-      let packet;
+      let packet: PortraitPacket;
       try {
         const numbers = nameNumbers({ date, name, latin: needsLatin ? latin : "" });
         if (name.trim() && numbers.status !== "calculated") { setFormError(t.latinNeeded); return; }
@@ -113,15 +122,18 @@ export default function Portrait({ locale, cards }: { locale: PortraitLocale; ca
         return;
       }
       rememberInvite(code);
-      rememberJob(started.id);
-      if (mounted.current) follow(started.id);
+      rememberJob({ id: started.id, packet });
+      if (mounted.current) {
+        setFirstName(name.trim().split(/\s+/)[0] ?? "");
+        follow(started.id, packet);
+      }
     } finally {
       submitting.current = false;
       if (mounted.current) setBusy(false);
     }
   }
 
-  function reset() { abort.current?.abort(); rememberJob(null); setPhase({ kind: "form" }); }
+  function reset() { abort.current?.abort(); rememberJob(null); setFirstName(""); setPhase({ kind: "form" }); }
 
   if (phase.kind === "error") {
     return (
@@ -136,6 +148,10 @@ export default function Portrait({ locale, cards }: { locale: PortraitLocale; ca
     const s = phase.status;
     const a = s?.stages.a, b = s?.stages.b, c = s?.stages.c;
     const over = s?.status === "done" || s?.status === "failed";
+    // The Laying holds the page until stage A has landed; a failure before then goes to the notice below.
+    if (phase.packet && !settled && !(s?.status === "failed" && !a)) {
+      return <Laying packet={phase.packet} cards={cards} locale={locale} status={s} frames={frames} firstName={firstName || undefined} onSettled={() => setSettled(true)} />;
+    }
     return (
       <article className={styles.page} aria-busy={!over}>
         {!a && !over && (

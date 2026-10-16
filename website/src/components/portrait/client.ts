@@ -1,5 +1,7 @@
 // website/src/components/portrait/client.ts
 /** Browser side of the portrait API: start a reading, follow it, remember the beta invite. */
+// Relative, not "@/": the node test runner imports this file directly.
+import { validatePacket } from "../../lib/portrait/packet.js";
 
 type Facet = { heading: string; text: string };
 type Chapter = { title: string; lede: string; paragraphs: string[]; practice: string };
@@ -16,6 +18,15 @@ export type PortraitStatus = {
   /** Set only on the client's own 8-minute give-up: the reading may still be running, so its id is worth keeping. */
   resumable?: boolean;
 };
+/** The calculated factors sent to the server (src/lib/portrait/packet.js); never the birth details. */
+export type PacketFactor = {
+  id: string; kind: string; position?: number; card?: number; role?: string; value?: number; master?: boolean;
+  body?: string; sign?: string; house?: number | null; retrograde?: boolean; alternatives?: string[] | null;
+  angle?: string; a?: string; b?: string; aspect?: string;
+};
+export type PortraitPacket = { v: number; locale: string; timeKnown: boolean; factors: PacketFactor[] };
+/** A reading in progress: its id, and the packet so a reload can lay the cards again. */
+export type StoredJob = { id: string; packet?: PortraitPacket };
 const INVITE = "olivia:portrait-invite";
 const JOB = "olivia:portrait-job";
 const GIVE_UP_AFTER = 8 * 60_000;
@@ -31,8 +42,25 @@ export function readInviteFromHash() {
 export function rememberInvite(code: string) { try { localStorage.setItem(INVITE, code.trim().toLowerCase()); } catch { /* private mode */ } }
 export function storedInvite() { try { return localStorage.getItem(INVITE); } catch { return null; } }
 export function forgetInvite() { try { localStorage.removeItem(INVITE); } catch { /* private mode */ } }
-export function rememberJob(id: string | null) { try { if (id) localStorage.setItem(JOB, id); else localStorage.removeItem(JOB); } catch { /* private mode */ } }
-export function storedJob() { try { return localStorage.getItem(JOB); } catch { return null; } }
+/** Keeps only the id and the packet, whatever else the caller holds: no name, date, time or place. */
+export function rememberJob(job: StoredJob | null) {
+  try {
+    if (job) localStorage.setItem(JOB, JSON.stringify(job.packet ? { id: job.id, packet: job.packet } : { id: job.id }));
+    else localStorage.removeItem(JOB);
+  } catch { /* private mode */ }
+}
+/** The reading in progress, if any. A plain string is an id stored before packets were kept. */
+export function storedJob(): StoredJob | null {
+  let raw: string | null;
+  try { raw = localStorage.getItem(JOB); } catch { return null; }
+  if (!raw) return null;
+  let value: unknown;
+  try { value = JSON.parse(raw); } catch { return { id: raw }; }
+  if (!value || typeof value !== "object" || typeof (value as StoredJob).id !== "string") return { id: raw };
+  const { id, packet } = value as StoredJob;
+  const checked = validatePacket(packet) as { ok: boolean; packet?: PortraitPacket };
+  return checked.ok && checked.packet ? { id, packet: checked.packet } : { id };
+}
 
 export async function startPortrait(packet: unknown, invite: string): Promise<{ id: string } | { error: string }> {
   try {
