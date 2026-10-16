@@ -57,7 +57,8 @@ type Streams = { beta: { messages: { stream(params: any, options?: { signal?: Ab
 export function createWriter({ apiKey, baseURL, model, effort, send, makeClient = (options) => new Anthropic(options) as unknown as Streams }: {
   apiKey: string; baseURL?: string; model: string; effort: string; send?: (params: object, options: { signal?: AbortSignal }) => Promise<unknown>; makeClient?: (options: Options) => Streams;
 }) {
-  const client = makeClient({ apiKey, baseURL, timeout: 240_000, maxRetries: 1 });
+  // The SDK retries only what failed before a byte streamed (connection errors, 408/409/429/5xx), so more retries cost nothing; a stalled connect would otherwise fail a stage after one retry.
+  const client = makeClient({ apiKey, baseURL, timeout: 240_000, maxRetries: 3 });
   const dispatch = send ?? ((params: object, options: { signal?: AbortSignal }) => client.beta.messages.stream(params, options).finalMessage());
   return async function write(call: Call): Promise<WriteResult> {
     try {

@@ -2,7 +2,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { memoryStore, createJob, readJob, readStages, readTeachings, finishJob } from "./store.ts";
-import { runJob, JOB_DEADLINE_MS } from "./run.ts";
+import { runJob, freeBackoffMs, JOB_DEADLINE_MS } from "./run.ts";
 import { interpret, costCents, createWriter } from "./claude.ts";
 
 const packet = {
@@ -328,7 +328,7 @@ test("every stage attempt logs one line with timing, stop reason, model, usage, 
   assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
   const logs = stageLogs(lines);
   assert.equal(logs.length, 4);
-  for (const entry of logs) assert.deepEqual(Object.keys(entry).sort(), ["attempt", "cents", "event", "model", "ms", "ok", "refusalCategory", "stage", "stopReason", "usage"]);
+  for (const entry of logs) assert.deepEqual(Object.keys(entry).sort(), ["attempt", "cents", "event", "free", "model", "ms", "ok", "refusalCategory", "stage", "stopReason", "usage"]);
   const a = logs.filter((entry) => entry.stage === "a");
   assert.deepEqual(a.map((entry) => [entry.attempt, entry.ok]), [[0, false], [1, true]]); // the first reply failed the checks
   assert.ok(a[1].ms >= 15, `ms was ${a[1].ms}`);
@@ -389,8 +389,11 @@ test("createWriter hands the gateway address to the Anthropic client, and nothin
   assert.equal(made[0].baseURL, "https://gateway.example/anthropic");
   assert.equal(made[0].apiKey, "gateway-key");
   assert.equal(made[0].timeout, 240_000);
+  // Connection failures before any byte streams are retried inside the SDK, which costs nothing.
+  assert.equal(made[0].maxRetries, 3);
   createWriter({ apiKey: "k", model: "m", effort: "high", makeClient: factory });
   assert.equal(made[1].baseURL, undefined);
+  assert.equal(made[1].maxRetries, 3);
 });
 
 test("the real Anthropic client takes the gateway address, and falls back to its own default without one", async () => {
@@ -399,7 +402,12 @@ test("the real Anthropic client takes the gateway address, and falls back to its
   assert.equal(new Anthropic({ apiKey: "k", baseURL: undefined }).baseURL, new Anthropic({ apiKey: "k" }).baseURL);
 });
 
-const provider = () => ({ ok: false, code: "provider", usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }, stopReason: null, model: null, refusalCategory: null });
+const noUsage = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 };
+/** A provider failure that reported no tokens: nothing was spent, so the stage retries it for free. */
+const provider = () => ({ ok: false, code: "provider", usage: noUsage, stopReason: null, model: null, refusalCategory: null });
+/** A provider failure that reported tokens: it was paid for, so it counts as an attempt. */
+const spentProvider = () => ({ ...provider(), usage });
+const instantly = { backoff: () => 0 };
 const refusal = () => ({ ok: false, code: "refusal", usage, stopReason: "refusal", model: "claude-opus-5-5", refusalCategory: "cyber" });
 const truncated = () => ({ ok: false, code: "truncated", usage, stopReason: "max_tokens", model: "claude-opus-5-5", refusalCategory: null });
 
@@ -408,7 +416,7 @@ test("a provider failure on the first attempt is tried again, with the same requ
   const kv = memoryStore();
   await createJob(kv, job);
   const { write, calls } = scripted([provider, ok(A), ok(B), ok(C)]);
-  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.equal(await runJob({ kv, id: "j", write, bank, ...instantly }), "done");
   assert.equal(calls.length, 4);
   assert.equal(calls[1].shared, calls[0].shared);
   assert.equal(calls[1].task, calls[0].task);
@@ -459,13 +467,13 @@ test("a provider failure on a chapter stage is tried again too", async (t) => {
     if (stage === "b" && seen.filter((s) => s === "b").length === 1) return provider();
     return ok({ a: A, b: B, c: C }[stage])();
   };
-  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  assert.equal(await runJob({ kv, id: "j", write, bank, ...instantly }), "done");
   assert.deepEqual([...seen].sort(), ["a", "b", "b", "c"]);
 });
 
-test("two provider failures in a row fail the stage; a refusal or a truncation is never retried", async (t) => {
+test("two spent provider failures in a row fail the stage; a refusal or a truncation is never retried", async (t) => {
   quiet(t);
-  for (const [first, retried, error] of [[provider, 2, "stage_a_provider"], [refusal, 1, "stage_a_refusal"], [truncated, 1, "stage_a_truncated"]]) {
+  for (const [first, retried, error] of [[spentProvider, 2, "stage_a_provider"], [refusal, 1, "stage_a_refusal"], [truncated, 1, "stage_a_truncated"]]) {
     const kv = memoryStore();
     await createJob(kv, job);
     const { write, calls } = scripted([first, first]);
@@ -475,11 +483,11 @@ test("two provider failures in a row fail the stage; a refusal or a truncation i
   }
 });
 
-test("a provider failure after the first attempt is not retried a second time", async (t) => {
+test("a spent provider failure after the first attempt is not retried a second time", async (t) => {
   quiet(t);
   const kv = memoryStore();
   await createJob(kv, job);
-  const { write, calls } = scripted([ok({ ...A, title: "" }), provider]);
+  const { write, calls } = scripted([ok({ ...A, title: "" }), spentProvider]);
   assert.equal(await runJob({ kv, id: "j", write, bank }), "failed");
   assert.equal(calls.length, 2);
   assert.equal((await readJob(kv, "j")).error, "stage_a_provider");
@@ -665,13 +673,163 @@ test("a clean first attempt is never repaired", async (t) => {
   assert.equal(warnings.length, 0);
 });
 
-test("style residue is forgiven only after a repair was tried: a provider failure then a style-only reply fails the stage", async (t) => {
+test("style residue is forgiven only after a repair was tried: a spent provider failure then a style-only reply fails the stage", async (t) => {
   const warnings = quiet(t);
   const kv = await kvFor();
-  const { write, calls } = scripted([provider, ok(hedged(words(99)))]);
+  const { write, calls } = scripted([spentProvider, ok(hedged(words(99)))]);
   assert.equal(await runJob({ kv, id: "j", write, bank }), "failed");
   assert.equal(calls.length, 2);
   assert.equal((await readJob(kv, "j")).error, "stage_a_invalid");
   assert.deepEqual(await readStages(kv, "j"), {});
   assert.equal(warnings.some((line) => line.includes("portrait_style_residue")), false);
+});
+
+/* ── free retries (R13): a provider failure that reported no tokens cost nothing, so it does not use up an attempt ── */
+
+const stageA = (lines) => stageLogs(lines).filter((entry) => entry.stage === "a");
+const trace = (entries) => entries.map((entry) => [entry.attempt, entry.ok, entry.free]);
+/** A backoff that records the index of each free retry and does not wait. */
+const recording = () => { const waits = []; return { waits, backoff: (n) => { waits.push(n); return 0; } }; };
+
+test("the free backoff doubles from 500 ms and stops at 4 s", () => {
+  assert.deepEqual([0, 1, 2, 3, 4, 5].map(freeBackoffMs), [500, 1000, 2000, 4000, 4000, 4000]);
+});
+
+test("two free provider failures, then a valid reply: the stage is done and no attempt was spent", async (t) => {
+  const lines = talk(t);
+  quiet(t);
+  const kv = await kvFor();
+  const { waits, backoff } = recording();
+  const { write, calls } = scripted([provider, provider, ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank, backoff }), "done");
+  assert.equal(calls.length, 5);
+  assert.deepEqual(waits, [0, 1]);
+  assert.equal(new Set(calls.slice(0, 3).map((call) => call.task)).size, 1); // the same request each time
+  assert.deepEqual(trace(stageA(lines)), [[0, false, true], [0, false, true], [0, true, false]]);
+  assert.deepEqual((await readStages(kv, "j")).a, A);
+  assert.equal((await readJob(kv, "j")).costCents, 3 * costCents(usage)); // the failures cost nothing
+});
+
+test("after free failures a stage still has its repair: a later validation failure is repaired once", async (t) => {
+  const lines = talk(t);
+  quiet(t);
+  const kv = await kvFor();
+  const { write, calls } = scripted([provider, provider, ok({ ...A, title: "" }), ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank, ...instantly }), "done");
+  assert.equal(calls.length, 6);
+  assert.ok(calls.slice(0, 3).every((call) => !call.task.includes("failed these checks")));
+  assert.match(calls[3].task, /length:title/);
+  assert.deepEqual(trace(stageA(lines)), [[0, false, true], [0, false, true], [0, false, false], [1, true, false]]);
+});
+
+test("a free failure during the repair is retried with the repair request, not counted", async (t) => {
+  const lines = talk(t);
+  quiet(t);
+  const kv = await kvFor();
+  const { write, calls } = scripted([ok({ ...A, title: "" }), provider, ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank, ...instantly }), "done");
+  assert.equal(calls.length, 5);
+  assert.match(calls[1].task, /length:title/);
+  assert.equal(calls[2].task, calls[1].task);
+  assert.deepEqual(trace(stageA(lines)), [[0, false, false], [1, false, true], [1, true, false]]);
+});
+
+test("a free retry is not a repair: a style-only reply after one is still repaired, and is not forgiven as residue", async (t) => {
+  const warnings = quiet(t);
+  const kv = await kvFor();
+  const { write, calls } = scripted([provider, ok(hedged(words(99))), ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank, ...instantly }), "done");
+  assert.equal(calls.length, 5);
+  assert.match(calls[2].task, /hedge-lead:overview/);
+  assert.deepEqual((await readStages(kv, "j")).a, A);
+  assert.equal(warnings.some((line) => line.includes("portrait_style_residue")), false);
+});
+
+test("free failures beyond three count normally: the fourth is attempt 0 and the valid reply lands as attempt 1", async (t) => {
+  const lines = talk(t);
+  quiet(t);
+  const kv = await kvFor();
+  const { waits, backoff } = recording();
+  const { write, calls } = scripted([provider, provider, provider, provider, ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank, backoff }), "done");
+  assert.equal(calls.length, 7); // five for the opening, one for each chapter stage
+  assert.deepEqual(waits, [0, 1, 2]); // the fourth failure counts, so it is retried as an ordinary second try, with no backoff of its own
+  assert.deepEqual(trace(stageA(lines)), [[0, false, true], [0, false, true], [0, false, true], [0, false, false], [1, true, false]]);
+
+  const again = await kvFor();
+  const second = scripted([provider, provider, provider, provider, provider]);
+  assert.equal(await runJob({ kv: again, id: "j", write: second.write, bank, ...instantly }), "failed");
+  assert.equal(second.calls.length, 5); // three free retries, then attempt 0 and attempt 1
+  assert.equal((await readJob(again, "j")).error, "stage_a_provider");
+});
+
+test("each stage has its own three free retries", async (t) => {
+  quiet(t);
+  const kv = await kvFor();
+  const failed = { b: 0, c: 0 };
+  const write = async (call) => {
+    const chapters = Object.keys(call.schema.properties.chapters?.properties ?? {});
+    if (chapters.length === 0) return ok(A)();
+    const stage = chapters.includes("mind") ? "b" : "c";
+    if (failed[stage]++ < 3) return provider();
+    return ok(stage === "b" ? B : C)();
+  };
+  assert.equal(await runJob({ kv, id: "j", write, bank, ...instantly }), "done");
+  assert.deepEqual(failed, { b: 4, c: 4 });
+});
+
+test("a provider failure that reported any usage counts as an attempt and is not retried for free", async (t) => {
+  const lines = talk(t);
+  quiet(t);
+  const spent = scripted([spentProvider, spentProvider]);
+  const kv = await kvFor();
+  const { waits, backoff } = recording();
+  assert.equal(await runJob({ kv, id: "j", write: spent.write, bank, backoff }), "failed");
+  assert.equal(spent.calls.length, 2);
+  assert.deepEqual(waits, []);
+  assert.equal((await readJob(kv, "j")).error, "stage_a_provider");
+  assert.equal((await readJob(kv, "j")).costCents, 2 * costCents(usage));
+  assert.deepEqual(trace(stageA(lines)), [[0, false, false], [1, false, false]]);
+
+  // Any token at all makes the failure a paid one.
+  for (const field of ["input", "output", "cacheRead", "cacheWrite"]) {
+    const partial = () => ({ ...provider(), usage: { ...noUsage, [field]: 5 } });
+    const run = scripted([partial, partial]);
+    assert.equal(await runJob({ kv: await kvFor(), id: "j", write: run.write, bank, ...instantly }), "failed", field);
+    assert.equal(run.calls.length, 2, field);
+  }
+
+  // A free failure first changes nothing for the two that follow: they are still attempts 0 and 1.
+  const mixed = scripted([provider, spentProvider, spentProvider]);
+  assert.equal(await runJob({ kv: await kvFor(), id: "j", write: mixed.write, bank, ...instantly }), "failed");
+  assert.equal(mixed.calls.length, 3);
+
+  const recovers = scripted([spentProvider, ok(A), ok(B), ok(C)]);
+  const kv2 = await kvFor();
+  assert.equal(await runJob({ kv: kv2, id: "j", write: recovers.write, bank, ...instantly }), "done");
+  assert.equal(recovers.calls.length, 4);
+});
+
+test("a refusal or a truncation is never retried, even when it reported no usage", async (t) => {
+  quiet(t);
+  for (const [first, error] of [[() => ({ ...refusal(), usage: noUsage }), "stage_a_refusal"], [() => ({ ...truncated(), usage: noUsage }), "stage_a_truncated"]]) {
+    const { write, calls } = scripted([first, first]);
+    assert.equal(await runJob({ kv: await kvFor(), id: "j", write, bank, ...instantly }), "failed", error);
+    assert.equal(calls.length, 1, error);
+  }
+});
+
+test("a deadline that passes during the backoff fails the stage as a provider error with no further call", async (t) => {
+  quiet(t);
+  for (const options of [{ backoff: () => 5_000 }, {}]) { // an injected long wait, then the real backoff
+    const kv = await kvFor();
+    const { write, calls } = scripted([provider]); // a second call would find no answer and end the job as "internal"
+    const started = Date.now();
+    assert.equal(await runJob({ kv, id: "j", write, bank, deadlineMs: 30, ...options }), "failed");
+    assert.ok(Date.now() - started < 2_500, "the wait ended at the deadline, not after its full length");
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0].signal.aborted, true);
+    assert.equal((await readJob(kv, "j")).error, "stage_a_provider");
+    assert.deepEqual(await readStages(kv, "j"), {});
+  }
 });

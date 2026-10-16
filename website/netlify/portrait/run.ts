@@ -5,7 +5,7 @@ import { citedTeachings, selectTeachings, type Bank, type Teaching } from "./tea
 import { stageSchema } from "./schema.ts";
 import { systemPrompt, stageRequest } from "./prompt.ts";
 import { isStyleError, validateStage } from "./validate.ts";
-import { costCents, type Call, type WriteResult } from "./claude.ts";
+import { costCents, type Call, type Usage, type WriteResult } from "./claude.ts";
 import type { Stage } from "./plan.ts";
 
 /** Adaptive thinking counts against max_tokens, so the limit leaves room for the thinking as well as the JSON. */
@@ -20,7 +20,24 @@ const MAX_LISTED_ERRORS = 20;
 /** Under the 15 minutes a background function may run, so a stuck call ends the job instead of the platform doing it. */
 export const JOB_DEADLINE_MS = 12 * 60_000;
 
-export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS }: { kv: KeyValue; id: string; write: (call: Call) => Promise<WriteResult>; bank: Bank; deadlineMs?: number }) {
+/** Free retries a stage gets: provider failures that reported no tokens, which cost nothing and so do not use up one of its two attempts. */
+const MAX_FREE_RETRIES = 3;
+
+/** True when a call reported no tokens at all, fallback iterations included: nothing was billed. */
+const noTokens = (usage: Usage) => [usage, ...(usage.iterations ?? [])].every((t) => t.input === 0 && t.output === 0 && t.cacheRead === 0 && t.cacheWrite === 0);
+
+/** The wait before the nth free retry of a stage (n counts from 0): 500 ms, doubling, never more than 4 s. */
+export const freeBackoffMs = (n: number) => Math.min(500 * 2 ** n, 4_000);
+
+/** Waits `ms`; false when the signal aborts first (or already had), true when the wait ran its course. */
+const pause = (ms: number, signal: AbortSignal) => new Promise<boolean>((resolve) => {
+  if (signal.aborted) return resolve(false);
+  const onAbort = () => { clearTimeout(timer); resolve(false); };
+  const timer = setTimeout(() => { signal.removeEventListener("abort", onAbort); resolve(true); }, ms);
+  signal.addEventListener("abort", onAbort, { once: true });
+});
+
+export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS, backoff = freeBackoffMs }: { kv: KeyValue; id: string; write: (call: Call) => Promise<WriteResult>; bank: Bank; deadlineMs?: number; backoff?: (freeRetry: number) => number }) {
   const job = await claimJob(kv, id);
   if (!job) return "skipped" as const;
   // Every call shares one deadline: when it passes, calls in flight abort and come back as provider failures.
@@ -36,18 +53,25 @@ export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS
 
     const stage = async (key: Stage, earlier: { a?: unknown }) => {
       let errors: string[] = [];
-      for (let attempt = 0; attempt < 2; attempt++) {
+      let freeRetries = 0;
+      // `attempt` counts the tries that used something up; a free retry repeats the same attempt.
+      for (let attempt = 0; attempt < 2;) {
         const started = Date.now();
         const result = await write({ system, ...stageRequest(key, packet, teachings, earlier, errors), schema: stageSchema(key), maxTokens: MAX_TOKENS[key], signal: deadline.signal });
         const ms = Date.now() - started;
         const spent = costCents(result.usage, result.model);
         cents += spent;
-        // One line per attempt, never any text. `ok` means the attempt was accepted: the call succeeded and the stage passed its checks.
-        const log = (accepted: boolean) => console.log(JSON.stringify({ event: "portrait_stage", stage: key, attempt, ms, stopReason: result.stopReason ?? null, model: result.model ?? null, usage: result.usage, cents: spent, refusalCategory: result.refusalCategory ?? null, ok: accepted }));
+        // A provider failure that reported no tokens cost nothing (typically a connection that never opened), so it is retried without using up an attempt, a few times per stage.
+        const free = !result.ok && result.code === "provider" && noTokens(result.usage) && freeRetries < MAX_FREE_RETRIES;
+        // One line per attempt, never any text. `ok` means the attempt was accepted: the call succeeded and the stage passed its checks. `free` means it did not use up one of the two attempts.
+        const log = (accepted: boolean) => console.log(JSON.stringify({ event: "portrait_stage", stage: key, attempt, ms, stopReason: result.stopReason ?? null, model: result.model ?? null, usage: result.usage, cents: spent, refusalCategory: result.refusalCategory ?? null, ok: accepted, free }));
         if (!result.ok) {
           log(false);
-          // A provider hiccup deserves a second try; a refusal or a cut-off answer would only repeat, and nothing helps once the deadline has passed.
-          if (result.code === "provider" && attempt === 0 && !deadline.signal.aborted) continue;
+          // A provider hiccup deserves another try; a refusal or a cut-off answer would only repeat, and nothing helps once the deadline has passed (also while waiting out the backoff).
+          if (result.code === "provider" && !deadline.signal.aborted) {
+            if (free) { if (await pause(backoff(freeRetries++), deadline.signal)) continue; }
+            else if (attempt === 0) { attempt++; continue; }
+          }
           return { ok: false as const, error: `stage_${key}_${result.code}` };
         }
         const check = validateStage(key, result.data, packet, teachings, earlier.a);
@@ -58,6 +82,7 @@ export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS
         if (check.ok || residue) { await putStage(kv, id, key, result.data); return { ok: true as const, data: result.data }; }
         errors = check.errors.slice(0, MAX_LISTED_ERRORS);
         console.warn(JSON.stringify({ event: "portrait_stage_invalid", stage: key, attempt, errors: errors.map(logCode) }));
+        attempt++;
       }
       return { ok: false as const, error: `stage_${key}_invalid` };
     };
