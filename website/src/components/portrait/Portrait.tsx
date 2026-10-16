@@ -485,6 +485,15 @@ function Phases({ locale, cards, frames }: PortraitProps) {
       </div>
 
       <div className={styles.side}>
+        {hasInvite === false && (
+          <aside className={styles.beta} aria-labelledby="portrait-beta-lead">
+            <p id="portrait-beta-lead" className={styles.betaLead}>{t.beta.lead}</p>
+            <p className={styles.betaText}>{t.beta.text}</p>
+            <button type="button" className={styles.exampleButton} aria-busy={example === "busy" || undefined} onClick={() => void openExample("push")}>
+              {example === "busy" ? t.example.opening : t.beta.example}
+            </button>
+          </aside>
+        )}
         <form className={styles.form} onSubmit={submit} noValidate aria-busy={busy || undefined}>
           <div className={styles.field}>
             <label className={styles.label} htmlFor={fieldId("name")}>{t.name}</label>
@@ -548,9 +557,11 @@ function Phases({ locale, cards, frames }: PortraitProps) {
           </div>
           <div className={styles.actions}>
             <button className={styles.button} type="submit" disabled={busy}>{busy ? t.preparing : t.begin}</button>
-            <button type="button" className={styles.exampleButton} aria-busy={example === "busy" || undefined} onClick={() => void openExample("push")}>
-              {example === "busy" ? t.example.opening : t.example.open}
-            </button>
+            {hasInvite !== false && (
+              <button type="button" className={styles.exampleButton} aria-busy={example === "busy" || undefined} onClick={() => void openExample("push")}>
+                {example === "busy" ? t.example.opening : t.example.open}
+              </button>
+            )}
           </div>
         </form>
         <details className={styles.details}>

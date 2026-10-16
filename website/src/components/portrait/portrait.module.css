@@ -212,3 +212,8 @@
   .stages li, .button, .exampleButton, .input, .details summary::before { transition: none; }
 }
 @media (max-width: 340px) { .row { grid-template-columns: minmax(0, 1fr); } .row > .field { grid-row: auto; } }
+
+/* For a visitor with no invite: the beta is by invitation, and the example is open to everyone. */
+.beta { margin: 0 0 2rem; padding: 1.25rem 0 1.4rem; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+.betaLead { margin: 0 0 .45rem; font-family: var(--font-heading), serif; font-style: italic; font-size: 1.45rem; line-height: 1.25; color: var(--ink); }
+.betaText { margin: 0 0 .9rem; max-width: 34rem; font-size: 1rem; line-height: 1.65; color: var(--soft); }

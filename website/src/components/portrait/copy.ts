@@ -2,6 +2,8 @@
 export const PORTRAIT_COPY = {
   en: {
     kicker: "Private beta", title: "Your birth, read three ways",
+    /** Shown to a visitor with no invite: the beta is by invitation, the example is open to everyone. */
+    beta: { lead: "By invitation, for now.", text: "While the beta runs, portraits are written for people with an invite. Anyone can read the example to see what one holds.", example: "Read the example portrait" },
     /** Each way: what it is read from, then what it gives (set apart). */
     ways: [
       { from: "Your birth date lays out", gives: "eleven cards" },
@@ -225,6 +227,7 @@ export const PORTRAIT_COPY = {
   },
   uk: {
     kicker: "Закрита бета", title: "Ваше народження, прочитане трьома способами",
+    beta: { lead: "Поки що — за запрошенням.", text: "Поки триває бета, портрети пишуться для тих, хто має запрошення. Приклад може прочитати кожен, щоб побачити, що в ньому є.", example: "Прочитати приклад портрета" },
     ways: [
       { from: "Дата вашого народження розкладає", gives: "одинадцять карт" },
       { from: "Ваше ім’я дає", gives: "п’ять чисел" },

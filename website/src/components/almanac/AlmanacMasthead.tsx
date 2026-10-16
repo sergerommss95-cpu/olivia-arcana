@@ -30,6 +30,8 @@ const MAST = {
       { label: "Spreads", href: "/?experience=spreads" },
       { label: "The cards", href: "/cards/" },
       { label: "Astrology", href: "/astrology/" },
+      // The birth portrait, invite-only for now: without an invite the page offers the example reading.
+      { label: "Portrait", href: "/portrait/" },
       { label: "Learn", href: "/learn/" },
       ...(MEMBERSHIP_READY ? [{ label: "Membership", href: "/pricing/" }] : []),
       // Appears only once the account backend is back (build-time flag).
@@ -49,6 +51,7 @@ const MAST = {
       { label: "Розклади", href: "/uk/?experience=spreads" },
       { label: "Карти", href: "/uk/cards/" },
       { label: "Астрологія", href: "/uk/astrology/" },
+      { label: "Портрет", href: "/uk/portrait/" },
       { label: "Навчання", href: "/uk/learn/" },
       ...(MEMBERSHIP_READY ? [{ label: "Підписка", href: "/pricing/" }] : []),
       ...(ACCOUNTS_ENABLED ? [{ label: "Кабінет", href: "/profile/" }] : []),
