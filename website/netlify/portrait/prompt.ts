@@ -62,10 +62,13 @@ export function systemPrompt(locale: "en" | "uk") {
 /** JSON for a data block; `<` is escaped so no value can close a tag early. */
 const json = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
 
+/** Stated in full in both chapter stages: B and C are written in parallel and never see each other's task. */
+const CHAPTER_FORM = "Each chapter: a title, a one-sentence lede the reader can recognise, 2–3 paragraphs of 60–150 words, and one small concrete practice.";
+
 const TASK: Record<Stage, string> = {
   a: `Write the opening: a title (2–6 words), a one-line epigraph (under ${LIMITS.epigraph[1]} characters), an overview (90–160 words), five facets (50–130 words each, short heading): temperament, inner, gifts, bonds, direction — and an "outline": one sentence for each later chapter (mind, heart, work, shadow, love, becoming) naming the distinct angle that chapter will take. Angles must not overlap each other or the facets.`,
-  b: `Write three chapters: mind, heart, work. Each: title, a one-sentence lede the reader can recognise, 2–3 paragraphs of 60–150 words, one small concrete practice. Write each chapter from its angle in <outline>.`,
-  c: `Write three chapters: shadow, love, becoming, in the same form, each from its angle in <outline>; then "keep": three short sentences worth remembering, each under 15 words.`,
+  b: `Write three chapters: mind, heart, work. ${CHAPTER_FORM} Write each chapter from its angle in <outline>.`,
+  c: `Write three chapters: shadow, love, becoming. ${CHAPTER_FORM} Write each chapter from its angle in <outline>. Then "keep": three short sentences worth remembering, each under 15 words.`,
 };
 
 /** Plain words for each check, so a repair knows what to change and not only which check failed. */

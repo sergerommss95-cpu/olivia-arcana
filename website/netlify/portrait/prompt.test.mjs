@@ -164,3 +164,12 @@ test("an unknown birth time puts each uncertain factor and its possible signs in
 test("the opening task gives the short fields their limits in characters", () => {
   assert.match(stageRequest("a", packet, teachings, {}).task, /epigraph[^.]*under 160 characters/);
 });
+
+test("each chapter stage states the chapter form itself, since B and C never see each other", () => {
+  for (const stage of ["b", "c"]) {
+    const { task } = stageRequest(stage, packet, teachings, { a: { title: "T" } });
+    assert.match(task, /2–3 paragraphs of 60–150 words/, stage);
+    assert.match(task, /one-sentence lede/, stage);
+    assert.doesNotMatch(task, /same form/, stage);
+  }
+});
