@@ -856,3 +856,17 @@ test("an answer with every field empty is named as empty in the repair, not list
   assert.match(repair, /^empty:a — /);
   assert.equal(repair.split("\n").length, 1);
 });
+
+test("after a real repair, paragraphs a little short are kept as residue; far too short still fails", async () => {
+  const shortChapter = (n) => ({ ...chapter(), paragraphs: [words(50), words(n)] });
+  const shortC = (n) => ({ ...C, chapters: { ...C.chapters, shadow: shortChapter(n) } });
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const first = scripted([ok(A), ok(B), ok(shortC(28)), ok(shortC(28))]);
+  assert.equal(await runJob({ kv, id: "j", write: first.write, bank }), "done");
+  const kv2 = memoryStore();
+  await createJob(kv2, job);
+  const second = scripted([ok(A), ok(B), ok(shortC(4)), ok(shortC(4))]);
+  assert.equal(await runJob({ kv: kv2, id: "j", write: second.write, bank }), "failed");
+  assert.equal((await readJob(kv2, "j")).error, "stage_c_invalid");
+});

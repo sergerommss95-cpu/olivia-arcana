@@ -64,6 +64,17 @@ const list = (value: unknown): any[] => (Array.isArray(value) ? value : []);
 /** Voice rules, as opposed to safety, structure or grounding: the only errors a reading is allowed to keep after its repair attempt. */
 export const isStyleError = (code: string) => /^(?:hedge-lead|hedges|phrase|repeat):/.test(code);
 
+/** A length code that carries its measured value (overview, facet, paragraph) and lands within half the minimum to one and a half times the maximum: worth a repair, not worth discarding a paid reading over. Unmeasured, empty or far-off lengths are not soft. */
+export function isSoftLength(code: string) {
+  const m = code.match(/^length:([^:]+)(?::(p\d+))?:(\d+)$/);
+  if (!m) return false;
+  const [, where, paragraph, measured] = m;
+  if (where === "keep" || where === "outline") return false;
+  const limit = paragraph ? LIMITS.paragraph : where === "overview" ? LIMITS.overview : LIMITS.facet;
+  const value = Number(measured);
+  return value >= limit[0] * 0.5 && value <= limit[1] * 1.5;
+}
+
 /** What the reader sees of the opening: the overview and each facet's text. The outline is hidden planning text and is left out. */
 const openingText = (opening: any): string[] => [str(opening?.overview?.text), ...SECTIONS.a.slice(1).map((key) => str(opening?.facets?.[key]?.text))].filter(Boolean);
 

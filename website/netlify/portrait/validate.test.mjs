@@ -449,3 +449,15 @@ test("the three kept sentences are style-checked: a gendered «ви» fails, a h
   assert.ok(english.includes("hedges:keep2:2"), String(english));
   assert.deepEqual(validateStage("c", stageC(), packet, teachings), { ok: true });
 });
+
+test("a measured length near its range is soft; far off, unmeasured or empty is not", async () => {
+  const { isSoftLength } = await import("./validate.ts");
+  assert.equal(isSoftLength("length:shadow:p2:174"), true);
+  assert.equal(isSoftLength("length:overview:1412"), true);
+  assert.equal(isSoftLength("length:bonds:150"), true);
+  assert.equal(isSoftLength("length:shadow:p2:40"), false);
+  assert.equal(isSoftLength("length:overview:0"), false);
+  assert.equal(isSoftLength("length:keep:2"), false);
+  assert.equal(isSoftLength("length:mind:lede"), false);
+  assert.equal(isSoftLength("refs:overview:empty"), false);
+});
