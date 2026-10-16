@@ -311,9 +311,9 @@ test("blocked storage never throws", () => {
 
 **Content:**
 1. **Arkan lattice.** Full size, all cards turned, captions and threads drawn. Same component as the Laying in a static mode.
-2. **Numbers plate.** Four engraved cells: Life path, Expression, Inner motivation, Outward personality. Each shows a Cormorant 44 px numeral, the mono role and one line from the position frame–style role notes (EN/UK). Birthday shows small beneath.
+2. **Numbers plate.** Four engraved cells: Life path (`lifePath`), Expression (`expression`), Inner motivation (`soulUrge`), Outward personality (`personality`). Each shows a Cormorant 44 px numeral, the mono role and one line from the position frame–style role notes (EN/UK). Birthday shows small beneath.
 3. **Sun, Moon, Rising as cards.**
-   - Three cards from the deck via the site's own `SIGN_CARDS` (sign → Major index, from `src/lib/astrology/constants.js`), each with a sign caption.
+   - Three cards from the deck via the site's own `SIGN_CARDS[SIGNS.indexOf(sign)]` (`src/lib/astrology/constants.js`), each with a sign caption.
    - Unknown time: Rising is replaced by a card back with «Rising needs a birth time».
    - A Moon with alternatives shows both signs: «Taurus or Gemini».
 4. **Other planets.** A compact two-column list (glyph · sign · house) with retrograde marked ℞.
