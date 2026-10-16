@@ -426,7 +426,7 @@ function Phases({ locale, cards, frames }: PortraitProps) {
     ) : undefined;
     return (
       <div key={view.id} className={readerStyles.reading} data-reader="" data-example={isExample || undefined}>
-        <Reader stages={stages} status={status} packet={packet} cards={cards} locale={locale} firstName={firstName || undefined}
+        <Reader stages={stages} status={status} packet={packet} cards={cards} locale={locale} frames={frames} firstName={firstName || undefined}
           kicker={isExample ? t.example.label : undefined} keep={keep} newLabel={isExample ? t.example.leave : undefined} announce={announce}
           landing={landing ?? undefined} onWhy={(key, trigger) => setWhy({ key, trigger })} onNew={onNew} />
         {why && <WhyDrawer target={why} stages={stages} teachings={view.teachings} packet={packet} cards={cards} locale={locale} frames={frames} onClose={() => setWhy(null)} />}

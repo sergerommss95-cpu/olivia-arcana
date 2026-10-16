@@ -1,9 +1,8 @@
 /* website/src/components/portrait/reader.module.css
    The reading around its passages: the colours every part of it takes, the
-   chapters in one column (in line with the opening's text), then the maps and
-   the end. The opening and the facets are drawn by facets.module.css. Lapis
-   ground, ivory ink, one gilt accent; motion is transform and opacity on the
-   ritual curve. */
+   maps and the end. The opening and the facets are drawn by facets.module.css,
+   the chapters by chapters.module.css. Lapis ground, ivory ink, one gilt
+   accent; motion is transform and opacity on the ritual curve. */
 
 .reading {
   --ink: #eee6d4;
@@ -35,71 +34,12 @@
 }
 .reading.reading .again:focus-visible { border-radius: 999px; }
 /* A section takes focus when it is gone to (Begin, Contents); the move itself is the cue, not a ring round it. */
-.anchor:focus, .chapter:focus, .notice:focus { outline: none; }
+.anchor:focus { outline: none; }
 
-/* ── Arrival ─────────────────────────────────────────────────── */
-
-/* Ink-in: 950 ms, opacity with an 8 px rise, 90 ms apart. */
-.ink { animation: inkIn 950ms var(--ease) calc(var(--n, 0) * 90ms) both; }
-@keyframes inkIn { from { opacity: 0; transform: translateY(8px); } }
-
-/* ── The text ────────────────────────────────────────────────── */
-
-.text { position: relative; width: 100%; max-width: 640px; margin: 0 auto; padding-bottom: 24px; }
-/* Beside the opening's margin, in line with its text. */
-@media (min-width: 1000px) { .text { margin-left: calc(250px + clamp(40px, 6vw, 96px)); } }
-.text p { margin: 0; }
 /* Clear of the sticky reading bar when a section is gone to. */
-.text :is([data-section], .anchor), .anchor { scroll-margin-top: 76px; }
+.anchor { scroll-margin-top: 76px; }
 
-/* A chapter's passage. */
-.passage { position: relative; padding: 20px 0 22px; }
-
-.prose { font-size: 17px; line-height: 1.8; color: var(--body); hanging-punctuation: first; }
-/* A book's paragraphs: indented, not spaced. */
-.prose + .prose { text-indent: 1.6em; }
-.heading { margin: 0 0 14px; font: 400 32px/1.15 var(--heading); text-wrap: balance; color: var(--ink); }
-
-.chapter { margin-top: 88px; }
-.chapterKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 12px !important; }
-.lede {
-  max-width: 30em;
-  margin: 0 0 26px !important;
-  font: italic 400 22px/1.45 var(--heading);
-  color: var(--ink);
-  text-wrap: pretty;
-}
-.practice { margin: 26px 0 0 2px; padding: 2px 0 2px 22px; border-left: 2px solid var(--gilt); }
-.practiceKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 6px !important; }
-.practice .prose { font-size: 16px; line-height: 1.7; color: var(--ink); }
-
-/* ── Engraved placeholders: a chapter still being written ────── */
-
-.pendingNote { color: var(--faint); }
-.bars { display: grid; justify-items: start; gap: 13px; margin-top: 20px; }
-.bar { position: relative; display: block; width: 100%; height: 11px; overflow: hidden; border-radius: 2px; background: rgba(238, 230, 212, 0.08); }
-/* The shimmer: a pale sheen crossing each bar (transform only). */
-.bar::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(238, 230, 212, 0.07) 50%, transparent);
-  transform: translateX(-100%);
-  animation: sheen 2.6s var(--ease) infinite;
-}
-@keyframes sheen { 60%, to { transform: translateX(100%); } }
-.barTitle { width: 54%; height: 28px; margin-bottom: 6px; }
-.barLede { width: 76%; height: 16px; }
-.barShort { width: 48%; margin-bottom: 16px; }
-.barEnd { width: 62%; }
-
-/* ── Unfinished, and the end ─────────────────────────────────── */
-
-.notice { margin-top: 88px; padding: 22px 26px; border: 1px solid var(--hair); border-left: 2px solid var(--gilt); background: rgba(7, 18, 29, 0.4); }
-.noticeKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 8px !important; }
-.notice p + p { font-size: 16px; line-height: 1.7; color: var(--soft); }
-
-/* The glance, the bar, the text and what follows it are siblings in the reading's column. */
+/* The glance, the bar, the passages and what follows them are siblings in the reading's column. */
 .leaf { display: contents; }
 .mapsArea { max-width: 1060px; margin-inline: auto; }
 
@@ -120,16 +60,6 @@
 .footer[data-keep] { gap: 26px; }
 .footer[data-keep] .again { border-color: rgba(238, 230, 212, 0.28); color: var(--soft); }
 .footer[data-keep] .again:hover { background: transparent; border-color: var(--gilt); color: var(--ink); }
-
-/* ── Phone ───────────────────────────────────────────────────── */
-
-@media (max-width: 719px) {
-  .passage { padding: 16px 0 18px; }
-  .prose { font-size: 16.5px; line-height: 1.75; }
-  .heading { font-size: 28px; }
-  .lede { font-size: 20px; }
-  .chapter { margin-top: 64px; }
-}
 
 /* ── Reduced motion: every final state at once ───────────────── */
 
@@ -155,13 +85,7 @@
   }
   /* The bar, every control and the live region stay on screen. */
   .footer, .sr { display: none !important; }
-  .text { max-width: none; margin: 0; padding: 0; }
-  .ink { animation: none !important; }
-  .passage { margin-inline: 0; padding: 0 0 6px; }
-  .practice, .notice { break-inside: avoid; }
-  .heading, .chapterKicker, .lede, .practiceKicker { break-after: avoid; }
-  /* Each chapter on a new page; the maps after the text. */
-  .chapter { break-before: page; margin-top: 0; }
+  /* The maps after the text, on a new page. */
   .mapsArea { break-before: page; margin-top: 0; }
   /* Around the portrait, whichever shell holds it: a white page, without the site's masthead, colophon or atmosphere. */
   :global(*):has(.reading) { background: #fff !important; }

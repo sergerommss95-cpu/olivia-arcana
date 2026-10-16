@@ -13,6 +13,9 @@ import { useEffect, useState, type RefObject } from "react";
 
 export type Section = { id: string; title: string; lit: number[] };
 
+/** The element id a section of the reading is gone to by ("mind" → "portrait-mind"). */
+export const sectionId = (key: string) => `portrait-${key}`;
+
 /** Marks an element as a section of the reading. Spread the result on the element. */
 export function registerSection(id: string, title: string, lit: number[]) {
   return { "data-section": id, "data-section-title": title, "data-section-lit": lit.join(" ") };

@@ -136,13 +136,22 @@ export const PORTRAIT_COPY = {
       pending: "being written",
       unwritten: "not written",
     },
+    /** The chapters, as plates: two parts, each chapter opening on its cards. */
+    chapters: {
+      ordinal: ["Chapter one", "Chapter two", "Chapter three", "Chapter four", "Chapter five", "Chapter six"],
+      /** Under a card's name, its place in the lattice, in lower case: "In the place of conscious aim". */
+      place: "In the place of {role}",
+      /** Under the card back, when a chapter cites no card: then the names it reads from. */
+      noCard: "No card leads this chapter. It reads from",
+      practice: "A practice for this week",
+      /** Around a pull quote, hung in the margin. */
+      quote: ["“", "”"],
+    },
     reader: {
       kicker: "Your birth portrait",
       sections: { opening: "Opening", mind: "Mind", heart: "Heart", work: "Work", shadow: "Shadow", love: "Love", becoming: "Becoming" },
       contents: "Contents",
       close: "Close",
-      pending: "Being written",
-      practice: "Practice",
       /** Before the names a passage was read from: "Read from The Hermit, The Chariot and Sun · Aquarius." */
       readFrom: "Read from",
       and: "and",
@@ -364,13 +373,19 @@ export const PORTRAIT_COPY = {
       pending: "пишеться",
       unwritten: "не написано",
     },
+    chapters: {
+      ordinal: ["Розділ перший", "Розділ другий", "Розділ третій", "Розділ четвертий", "Розділ п’ятий", "Розділ шостий"],
+      /** A colon keeps the role in the nominative: «Місце: усвідомлена мета». */
+      place: "Місце: {role}",
+      noCard: "Цей розділ не веде жодна карта. Джерела:",
+      practice: "Практика на цей тиждень",
+      quote: ["«", "»"],
+    },
     reader: {
       kicker: "Ваш портрет народження",
       sections: { opening: "Вступ", mind: "Розум", heart: "Серце", work: "Справа", shadow: "Тінь", love: "Любов", becoming: "Становлення" },
       contents: "Зміст",
       close: "Закрити",
-      pending: "Пишеться",
-      practice: "Практика",
       /** A colon, so the names stay in the nominative: «Джерела: Відлюдник, Колісниця і Сонце · Водолій.» */
       readFrom: "Джерела:",
       and: "і",

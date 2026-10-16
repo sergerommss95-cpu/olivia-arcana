@@ -69,27 +69,39 @@ export function ReadFrom({ refs, packet, cards, locale, name, onWhy, className, 
   style?: CSSProperties;
 }) {
   const r = PORTRAIT_COPY[locale].reader;
-  // Two places can hold the same card: in a sentence it is named once.
-  const all = sealsFor(refs, packet, locale, cards) as { key: string; label: string }[];
-  const seals = all.filter((s, i) => all.findIndex((o) => o.label === s.label) === i);
+  const seals = namesOf(refs, packet, locale, cards);
   return (
     <div className={`${styles.provenance} ${className ?? ""}`} style={style}>
-      {seals.length > 0 && (
-        <p className={styles.readFrom}>
-          {r.readFrom}{" "}
-          {seals.map((s, i) => (
-            <Fragment key={s.key}>
-              {i > 0 && (i === seals.length - 1 ? ` ${r.and} ` : ", ")}
-              <em>{s.label}</em>
-            </Fragment>
-          ))}
-          .
-        </p>
-      )}
+      {seals.length > 0 && <NameList lead={r.readFrom} seals={seals} locale={locale} className={styles.readFrom} />}
       <button type="button" className={styles.why} aria-haspopup="dialog" onClick={(e) => onWhy(e.currentTarget)}>
         {r.why}<span className={styles.sr}> — {name}</span>
       </button>
     </div>
+  );
+}
+
+type Seal = { key: string; label: string };
+
+/** What a passage was read from, by name. Two places can hold the same card: it is named once. */
+export function namesOf(refs: string[], packet: PortraitPacket, locale: PortraitLocale, cards: MajorCard[]): Seal[] {
+  const all = sealsFor(refs, packet, locale, cards) as Seal[];
+  return all.filter((s, i) => all.findIndex((o) => o.label === s.label) === i);
+}
+
+/** A lead, then the names in italic as one sentence: «Read from The Hermit, The Chariot and Sun · Aquarius.» */
+export function NameList({ lead, seals, locale, className }: { lead: string; seals: Seal[]; locale: PortraitLocale; className?: string }) {
+  const r = PORTRAIT_COPY[locale].reader;
+  return (
+    <p className={className}>
+      {lead}{" "}
+      {seals.map((s, i) => (
+        <Fragment key={s.key}>
+          {i > 0 && (i === seals.length - 1 ? ` ${r.and} ` : ", ")}
+          <em>{s.label}</em>
+        </Fragment>
+      ))}
+      .
+    </p>
   );
 }
 
