@@ -162,7 +162,7 @@ export const PORTRAIT_COPY = {
     },
     maps: {
       title: "Your maps",
-      lede: "The cards, numbers and sky this portrait was read from.",
+      lede: "The cards and the sky this portrait was read from.",
       cards: { kicker: "From your birth date", title: "Your cards", links: "Each card opens its page in the deck." },
       numbers: {
         kicker: "From your name and birth date",
@@ -396,7 +396,7 @@ export const PORTRAIT_COPY = {
     },
     maps: {
       title: "Ваші карти",
-      lede: "Аркани, числа й небо, з яких прочитано цей портрет.",
+      lede: "Аркани й небо, з яких прочитано цей портрет.",
       cards: { kicker: "З вашої дати народження", title: "Ваші аркани", links: "Кожна карта відкриває свою сторінку в колоді." },
       numbers: {
         kicker: "З вашого імені й дати народження",

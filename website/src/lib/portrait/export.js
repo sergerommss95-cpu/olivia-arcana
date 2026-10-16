@@ -1,15 +1,19 @@
 // website/src/lib/portrait/export.js
 /**
- * A portrait as one standalone page to download: the whole reading, its maps
- * and the teachings it cites, with inline CSS (the site's lapis on screen,
- * ink on white in print) and every card image inlined as a data: URI. No
- * script and nothing fetched from anywhere. Names come from the tables the
- * reader uses (lattice.js, seals.js, why.js); the few headings live here,
- * because the node test runner cannot read the components' copy.ts.
- * Plain JS with JSDoc for the node test runner.
+ * A portrait as one standalone page to download, in the reader's order: the
+ * glance (title, epigraph, the sentences to keep, the cards it returns to
+ * most), the opening, the five facets, the chapters in their two parts, the
+ * numbers, the maps and the teachings it cites. Inline CSS (the site's lapis
+ * on screen, ink on white in print), labels in the reader's one voice
+ * (sentence case, never letter-spaced capitals), and every card image inlined
+ * as a data: URI. No script and nothing fetched from anywhere. Names come from
+ * the tables the reader uses (lattice.js, seals.js, why.js, digest.js); the
+ * few headings live here, because the node test runner cannot read the
+ * components' copy.ts. Plain JS with JSDoc for the node test runner.
  */
 
 import { BODY_GLYPHS, SIGN_CARDS, SIGN_GLYPHS, SIGNS } from "../astrology/constants.js";
+import { definingCards } from "./digest.js";
 import { READING_ORDER, ROLES, ROWS } from "./lattice.js";
 import { PLANETS } from "./packet.js";
 import { ANGLE_SEALS, NUMBER_TITLES, PLANET_NAMES } from "./seals.js";
@@ -27,22 +31,25 @@ import { eitherSigns, houseName } from "./why.js";
 
 const SITE = "https://oliviaarcana.com";
 const FACETS = ["temperament", "inner", "gifts", "bonds", "direction"];
-const CHAPTERS = ["mind", "heart", "work", "shadow", "love", "becoming"];
+/** The chapters in their two parts, as the reader groups them. */
+const PARTS = [["mind", "heart", "work"], ["shadow", "love", "becoming"]];
 const NUMERALS = ["I", "II", "III", "IV", "V", "VI"];
-const PLATE = ["lifePath", "expression", "soulUrge", "personality"];
+const NUMBERS = ["lifePath", "expression", "soulUrge", "personality"];
 /** Text presentation, so a glyph is never drawn as an emoji. */
 const TEXT = "︎";
 
 const WORDS = {
   en: {
-    kicker: "Birth portrait",
+    kicker: "Your birth portrait",
+    essence: "If you read nothing else",
+    defining: "The cards your portrait returns to most",
+    opening: "Opening",
+    facets: "Five facets",
+    facetNames: { temperament: "Temperament", inner: "Inner life", gifts: "Gifts", bonds: "Bonds", direction: "Direction" },
+    parts: [{ kicker: "Part one", title: "Mind, heart and work" }, { kicker: "Part two", title: "Shadow, love and becoming" }],
+    ordinal: ["Chapter one", "Chapter two", "Chapter three", "Chapter four", "Chapter five", "Chapter six"],
     sections: { mind: "Mind", heart: "Heart", work: "Work", shadow: "Shadow", love: "Love", becoming: "Becoming" },
-    practice: "Practice",
-    keep: "Three sentences to keep",
-    maps: "Your maps",
-    mapsLede: "The cards, numbers and sky this portrait was read from.",
-    cards: "Your cards",
-    cardsKicker: "From your birth date",
+    practice: "A practice for this week",
     numbers: "Your numbers",
     numbersKicker: "From your name and birth date",
     master: "Master number",
@@ -53,6 +60,10 @@ const WORDS = {
       personality: "What others notice in you first, read from the consonants of your name.",
     },
     birthday: "the day of the month you were born",
+    maps: "Your maps",
+    mapsLede: "The cards and the sky this portrait was read from.",
+    cards: "Your cards",
+    cardsKicker: "From your birth date",
     sky: "Your sky",
     skyKicker: "From the sky at your birth",
     noRising: "Rising needs a birth time",
@@ -65,14 +76,16 @@ const WORDS = {
     written: "Written by Olivia Arcana",
   },
   uk: {
-    kicker: "Портрет народження",
+    kicker: "Ваш портрет народження",
+    essence: "Якщо прочитаєте лише це",
+    defining: "Карти, до яких ваш портрет повертається найчастіше",
+    opening: "Вступ",
+    facets: "П’ять граней",
+    facetNames: { temperament: "Темперамент", inner: "Внутрішнє життя", gifts: "Дари", bonds: "Зв’язки", direction: "Напрям" },
+    parts: [{ kicker: "Частина перша", title: "Розум, серце й справа" }, { kicker: "Частина друга", title: "Тінь, любов і становлення" }],
+    ordinal: ["Розділ перший", "Розділ другий", "Розділ третій", "Розділ четвертий", "Розділ п’ятий", "Розділ шостий"],
     sections: { mind: "Розум", heart: "Серце", work: "Справа", shadow: "Тінь", love: "Любов", becoming: "Становлення" },
-    practice: "Практика",
-    keep: "Три речення, які варто зберегти",
-    maps: "Ваші карти",
-    mapsLede: "Аркани, числа й небо, з яких прочитано цей портрет.",
-    cards: "Ваші аркани",
-    cardsKicker: "З вашої дати народження",
+    practice: "Практика на цей тиждень",
     numbers: "Ваші числа",
     numbersKicker: "З вашого імені й дати народження",
     master: "Майстер-число",
@@ -83,6 +96,10 @@ const WORDS = {
       personality: "Те, що інші помічають у вас першим, прочитане з приголосних вашого імені.",
     },
     birthday: "день місяця, коли ви народилися",
+    maps: "Ваші карти",
+    mapsLede: "Аркани й небо, з яких прочитано цей портрет.",
+    cards: "Ваші аркани",
+    cardsKicker: "З вашої дати народження",
     sky: "Ваше небо",
     skyKicker: "З неба в мить вашого народження",
     noRising: "Для асцендента потрібен час народження",
@@ -163,16 +180,40 @@ function img(url, images, alt, cls) {
 
 const paragraphs = (texts, cls = "prose") => texts.map((t) => `<p class="${cls}">${e(t)}</p>`).join("\n");
 
-/** @param {Chapter} chapter @param {string} kicker @param {string} practice */
-function chapterHtml(chapter, kicker, practice) {
+/** One chapter: its numeral and place, title, lede, paragraphs and the practice. @param {Chapter} chapter @param {number} i @param {string} key @param {Locale} lang */
+function chapterHtml(chapter, i, key, lang) {
+  const w = WORDS[lang];
   return `<section class="chapter">
-<p class="fleuron" aria-hidden="true">❦</p>
-<p class="kicker">${e(kicker)}</p>
-<h2>${e(chapter.title)}</h2>
+<p class="label"><span class="chapter-numeral">${NUMERALS[i]}</span> ${e(w.ordinal[i])} · ${e(w.sections[key])}</p>
+<h3>${e(chapter.title)}</h3>
 <p class="lede">${e(chapter.lede)}</p>
 ${paragraphs(chapter.paragraphs ?? [])}
-<div class="practice"><p class="kicker">${e(practice)}</p><p class="prose">${e(chapter.practice)}</p></div>
+<div class="practice"><p class="label">${e(w.practice)}</p><p class="practice-text">${e(chapter.practice)}</p></div>
 </section>`;
+}
+
+/** The glance: the title, the epigraph, the sentences to keep and the cards the portrait returns to most. */
+function glanceHtml(stages, byId, packet, cards, images, lang) {
+  const w = WORDS[lang];
+  const a = stages?.a;
+  const keep = stages?.c?.keep?.length
+    ? `<section class="essence"><h2 class="label">${e(w.essence)}</h2><ul>${stages.c.keep.map((line) => `<li>${e(line)}</li>`).join("")}</ul></section>`
+    : "";
+  const defining = a ? definingCards(a, packet) : [];
+  const table = defining.length
+    ? `<ul class="defining" aria-label="${e(w.defining)}">${defining.map((d) => {
+      const card = cards?.[d.card];
+      const roles = d.positions.map((pos) => ROLES[pos]?.[lang]).filter(Boolean).join(", ");
+      return `<li><figure>${img(card?.thumb, images, card?.name ?? "", "art")}<figcaption><span class="cap">${e(roles)}</span><span class="name">${e(card?.name ?? "")}</span></figcaption></figure></li>`;
+    }).join("")}</ul>`
+    : "";
+  return `<header class="glance">
+<p class="label">${e(w.kicker)}</p>
+<h1>${e(a?.title)}</h1>
+<p class="epigraph">${e(a?.epigraph)}</p>
+${keep}
+${table}
+</header>`;
 }
 
 /** The eleven cards on the lattice's own rows (1-2-3 / 4-5 / 7-6-8 / 13-12-14), each captioned "<pos> · <role>". */
@@ -189,16 +230,17 @@ function latticeHtml(byId, cards, images, lang) {
   return `<div class="lattice">${rows}</div>`;
 }
 
+/** Four numerals in a row, each over its role and what it means; a master number hallmarked; the birthday small beneath. */
 function numbersHtml(byId, lang) {
   const w = WORDS[lang];
-  const cells = PLATE.flatMap((role) => {
+  const cells = NUMBERS.flatMap((role) => {
     const f = byId.get(`num-${role}`);
     if (f?.value === undefined) return [];
-    return [`<div class="cell"><dt>${e(NUMBER_TITLES[role][lang])}</dt><dd class="numeral">${f.value}${f.master ? ` <span class="master">${e(w.master)}</span>` : ""}</dd><dd class="meaning">${e(w.roles[role])}</dd></div>`];
+    return [`<div class="num"><dt class="label">${e(NUMBER_TITLES[role][lang])}</dt><dd class="figure"><span class="numeral">${f.value}</span>${f.master ? ` <span class="label master">${e(w.master)}</span>` : ""}</dd><dd class="meaning">${e(w.roles[role])}</dd></div>`];
   });
   const birthday = byId.get("num-birthday");
-  const day = birthday?.value !== undefined ? `<p class="birthday">${e(NUMBER_TITLES.birthday[lang])} <b>${birthday.value}</b> · ${e(w.birthday)}</p>` : "";
-  return cells.length ? `<dl class="plate">${cells.join("")}</dl>${day}` : day;
+  const day = birthday?.value !== undefined ? `<p class="birthday"><span class="label">${e(NUMBER_TITLES.birthday[lang])}</span> <span class="numeral">${birthday.value}</span> <span class="meaning">· ${e(w.birthday)}</span></p>` : "";
+  return cells.length ? `<dl class="numerals">${cells.join("")}</dl>${day}` : day;
 }
 
 function skyHtml(byId, cards, images, lang) {
@@ -211,7 +253,7 @@ function skyHtml(byId, cards, images, lang) {
     const sign = s.signs.length
       ? `<p class="sign"><span class="glyphs" aria-hidden="true">${s.signs.map((x) => glyph(SIGN_GLYPHS[SIGNS.indexOf(x)])).join(" ")}</span> ${e(eitherSigns(s.signs, lang))}</p><p class="name">${e(s.dealt.map((d) => d.card.name).join(" · "))}</p>`
       : `<p class="sign missing-sign">${e(w.noRising)}</p>`;
-    return `<li class="sky-item"><p class="kicker"><span aria-hidden="true">${e(glyph(s.glyph))}</span> ${e(s.label)}</p><div class="sky-cards${s.dealt.length > 1 ? " pair" : ""}">${art}</div>${sign}</li>`;
+    return `<li class="sky-item"><p class="sky-label"><span class="glyph" aria-hidden="true">${e(glyph(s.glyph))}</span> ${e(s.label)}</p><div class="sky-cards${s.dealt.length > 1 ? " pair" : ""}">${art}</div>${sign}</li>`;
   });
   const others = PLANETS.filter((p) => p !== "sun" && p !== "moon").flatMap((body) => {
     const f = byId.get(`natal-${body}`);
@@ -220,140 +262,159 @@ function skyHtml(byId, cards, images, lang) {
     const retro = f.retrograde ? ` <span class="retro" title="${e(w.retrograde)}">℞${TEXT}</span>` : "";
     return [`<li><span class="glyph" aria-hidden="true">${e(glyph(BODY_GLYPHS[body]))}</span> <span class="planet">${e(PLANET_NAMES[body][lang])}</span> <span class="where">${e(eitherSigns(signsOf(f), lang))}${house}</span>${retro}</li>`];
   });
-  return `<ul class="sky">${items.join("")}</ul>${others.length ? `<h4>${e(w.others)}</h4><ul class="planets">${others.join("")}</ul>` : ""}`;
+  return `<ul class="sky">${items.join("")}</ul>${others.length ? `<h4 class="label">${e(w.others)}</h4><ul class="planets">${others.join("")}</ul>` : ""}`;
 }
 
 function teachingsHtml(teachings, lang) {
   const w = WORDS[lang];
   const items = Object.values(teachings ?? {}).map((t) => {
     const sources = (t.sources ?? []).filter((s) => s && s.url).map((s) => `<li><a href="${e(s.url)}">${e(s.title)}</a></li>`).join("");
-    return `<li class="teaching"><p class="kicker">${e(t.label)}</p><p>${e(t.text)}</p>${sources ? `<ul class="sources" aria-label="${e(w.sources)}">${sources}</ul>` : ""}</li>`;
+    return `<li class="teaching"><p class="label">${e(t.label)}</p><p>${e(t.text)}</p>${sources ? `<ul class="sources" aria-label="${e(w.sources)}">${sources}</ul>` : ""}</li>`;
   });
   // Every source once, with its address written out: what a printed page can still point to.
   const unique = new Map();
   for (const t of Object.values(teachings ?? {})) for (const s of t.sources ?? []) if (s?.url && !unique.has(s.url)) unique.set(s.url, s.title);
   const bibliography = unique.size
-    ? `<section class="bibliography"><h3>${e(w.sources)}</h3><ul>${[...unique].map(([url, title]) => `<li>${e(title)}<br><a href="${e(url)}">${e(url)}</a></li>`).join("")}</ul></section>`
+    ? `<section class="bibliography"><h3 class="label">${e(w.sources)}</h3><ul>${[...unique].map(([url, title]) => `<li>${e(title)}<br><a href="${e(url)}">${e(url)}</a></li>`).join("")}</ul></section>`
     : "";
-  return items.length ? `<section class="teachings"><p class="fleuron" aria-hidden="true">❦</p><h2>${e(w.teachings)}</h2><p class="section-lede">${e(w.teachingsLede)}</p><ul>${items.join("\n")}</ul>${bibliography}</section>` : "";
+  return items.length ? `<section class="teachings"><h2>${e(w.teachings)}</h2><p class="hint">${e(w.teachingsLede)}</p><ul>${items.join("\n")}</ul>${bibliography}</section>` : "";
 }
 
 const CSS = `
-:root{--ground:#0b1c2c;--deep:#07121d;--ink:#eee6d4;--body:rgba(238,230,212,.86);--soft:rgba(238,230,212,.72);--gilt:#c9b182;--hair:rgba(238,230,212,.14);--plate:rgba(7,18,29,.5);
+:root{--ground:#0b1c2c;--deep:#07121d;--ink:#eee6d4;--body:rgba(238,230,212,.86);--soft:rgba(238,230,212,.74);--gilt:#c9b182;--hair:rgba(238,230,212,.14);--band:rgba(3,9,16,.55);
 --display:"Cormorant","Cormorant Garamond","EB Garamond",Garamond,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
 --heading:"Cormorant Garamond","Cormorant","EB Garamond",Garamond,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
---sans:"DM Sans","Onest",-apple-system,"Segoe UI",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
+--sans:"DM Sans","Onest",-apple-system,"Segoe UI",system-ui,sans-serif}
 *{box-sizing:border-box}
 html{background:var(--ground);color:var(--ink);-webkit-text-size-adjust:100%}
-body{margin:0;font:400 17px/1.8 var(--sans)}
-main{max-width:680px;margin:0 auto;padding:72px 24px 48px}
+body{margin:0;font:400 18px/1.7 var(--sans)}
+main{max-width:760px;margin:0 auto;padding:80px 28px 56px}
 p{margin:0}
+ul{list-style:none;margin:0;padding:0}
 a{color:inherit;text-decoration-color:rgba(201,177,130,.55);text-underline-offset:3px}
 h1,h2,h3,h4{font-weight:400;margin:0;text-wrap:balance}
-.kicker{font:400 11px/1.5 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gilt)}
-.fleuron{text-align:center;font:400 17px/1 var(--heading);color:var(--gilt);margin-bottom:10px}
-header{text-align:center}
-h1{margin:18px 0 16px;font:300 60px/1.02 var(--display)}
-.epigraph{max-width:30em;margin:0 auto 40px;font:italic 400 23px/1.4 var(--heading);color:var(--gilt)}
-.prose{color:var(--body);hanging-punctuation:first}
-.prose+.prose{text-indent:1.6em}
-.overview::first-letter{float:left;padding:8px 10px 0 0;font:400 74px/.8 var(--display);color:var(--gilt)}
-.facet{margin-top:44px}
-.facet h2,.chapter h2{margin-bottom:14px;font:400 32px/1.15 var(--heading);text-align:center}
-.chapter{margin-top:88px}
-.chapter>.kicker{text-align:center;margin-bottom:12px}
-.lede{max-width:30em;margin:0 auto 26px;font:italic 400 22px/1.45 var(--heading);text-align:center}
-.practice{margin:26px 0 0 2px;padding:2px 0 2px 22px;border-left:2px solid var(--gilt)}
-.practice .kicker{font-size:10px;margin-bottom:6px}
-.practice .prose{font-size:16px;line-height:1.7;color:var(--ink)}
-.keep{position:relative;margin-top:96px;padding:40px clamp(20px,7%,56px) 30px;border:1px solid var(--hair);background:var(--plate);text-align:center}
-.keep::before{content:"";position:absolute;inset:6px;border:1px solid rgba(201,177,130,.2);pointer-events:none}
-.keep h2{font:400 11px/1.5 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gilt);margin-bottom:8px}
-.keep ul{list-style:none;margin:0;padding:0}
-.keep li{padding:22px 0;font:400 26px/1.35 var(--heading);text-wrap:balance}
-.keep li+li{border-top:1px solid var(--hair)}
-.maps{margin-top:120px;text-align:center}
-.maps>h2,.teachings>h2{font:300 48px/1.05 var(--display)}
-.section-lede{max-width:26em;margin:12px auto 0;font:italic 400 21px/1.45 var(--heading);color:var(--soft)}
-.map{margin-top:56px;padding-top:48px;border-top:1px solid var(--hair)}
-.map h3{margin:8px 0 32px;font:400 30px/1.15 var(--heading)}
-.lattice{display:grid;gap:26px 0;max-width:560px;margin:0 auto}
+.label{font:500 13.5px/1.4 var(--sans);letter-spacing:0;text-transform:none;color:var(--gilt)}
+h2{font:400 42px/1.05 var(--display);letter-spacing:-.005em}
+h3{font:400 30px/1.12 var(--display)}
+.hint{margin-top:10px;font-size:14px;line-height:1.55;color:var(--soft)}
+.prose{max-width:34em;color:var(--body);hanging-punctuation:first;text-wrap:pretty}
+.prose+.prose{margin-top:.9em}
+.glance h1{margin:14px 0 14px;font:300 58px/1.02 var(--display);letter-spacing:-.01em}
+.epigraph{max-width:28em;font:italic 400 23px/1.4 var(--heading);color:var(--soft)}
+.essence{margin-top:40px}
+.essence h2{margin-bottom:10px}
+.essence li{padding:6px 0;font:400 25px/1.35 var(--heading);color:var(--ink);text-wrap:balance}
+.defining{display:flex;flex-wrap:wrap;gap:24px 20px;margin-top:40px}
+.defining li{width:124px}
+.defining .art{width:96px}
+.opening{margin-top:96px}
+.opening h2,.facets>h2{margin-bottom:22px}
+.overview::first-letter{float:left;padding:6px 10px 0 0;font:400 70px/.8 var(--display);color:var(--gilt)}
+.facets{margin-top:88px}
+.facet{padding-top:26px;margin-top:30px;border-top:1px solid var(--hair)}
+.facet h3{margin:6px 0 12px;font-size:28px}
+.part{margin-top:112px}
+.part-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 20px}
+.part-head .label{font-size:15px}
+.chapter{margin-top:64px}
+.chapter-numeral{margin-right:6px;font:300 26px/1 var(--display);vertical-align:-2px}
+.chapter h3{margin:10px 0 14px;font-size:38px;line-height:1.08}
+.lede{max-width:30em;margin-bottom:26px;font:italic 400 22px/1.45 var(--heading);color:var(--body)}
+.practice{max-width:34em;margin-top:28px;padding:16px 20px;border:1px solid var(--hair);border-radius:10px;background:var(--band)}
+.practice .label{margin-bottom:6px}
+.practice-text{font:italic 400 20px/1.45 var(--heading);color:var(--ink)}
+.numbers{margin-top:120px;padding:44px 0 36px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.numbers h2{margin-top:6px}
+.numerals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 26px;margin:36px 0 0}
+.num{display:flex;flex-direction:column}
+.num dd{margin:0}
+.num .label{margin-top:12px}
+.figure{order:-1;display:flex;align-items:flex-start;gap:10px}
+.numeral{font:300 64px/.9 var(--display);font-variant-numeric:lining-nums;color:var(--ink)}
+.master{margin-top:4px;font-size:12.5px;line-height:1.2}
+.meaning{margin-top:6px;font:italic 400 17px/1.4 var(--heading);color:var(--soft)}
+.birthday{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-top:34px;padding-top:18px;border-top:1px solid var(--hair)}
+.birthday .numeral{font-size:28px}
+.birthday .meaning{margin:0}
+.maps{margin-top:96px}
+.map{margin-top:44px;padding-top:28px;border-top:1px solid var(--hair)}
+.map h3{margin:6px 0 28px}
+.lattice{display:grid;gap:24px 0;max-width:520px}
 .row{display:grid;grid-template-columns:repeat(3,1fr)}
 .row.pair{grid-template-columns:repeat(2,1fr);padding:0 16.66%}
 figure{margin:0;display:grid;justify-items:center;gap:8px;break-inside:avoid}
-.art{display:block;width:84px;height:auto;aspect-ratio:120/206;border-radius:5px;object-fit:cover;box-shadow:0 0 0 1px rgba(201,177,130,.32),0 14px 30px rgba(0,0,0,.4)}
+.defining figure{justify-items:start}
+.art{display:block;width:80px;height:auto;aspect-ratio:120/206;border-radius:5px;object-fit:cover;box-shadow:0 0 0 1px rgba(201,177,130,.24),0 14px 30px rgba(0,0,0,.45)}
 .art.missing{background:var(--deep)}
-figcaption{display:grid;gap:2px}
-.cap{font:400 10px/1.35 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
-.cap b{font-weight:400;color:var(--gilt)}
-.name{font:400 16px/1.3 var(--heading);color:var(--ink)}
+figcaption{display:grid;gap:1px;text-align:center}
+.defining figcaption{text-align:left}
+.cap{font:400 12.5px/1.35 var(--sans);color:var(--soft)}
+.cap b{font:400 14px/1 var(--display);color:var(--gilt)}
+.name{font:italic 400 16px/1.3 var(--heading);color:var(--ink)}
 .name a{text-decoration:none}
-.plate{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;border:1px solid var(--hair)}
-.cell{padding:22px 14px 20px}
-.cell+.cell{border-left:1px solid var(--hair)}
-.cell dt{font:400 10px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gilt)}
-.cell dd{margin:0}
-.numeral{font:300 44px/1.1 var(--display);margin:8px 0 6px!important}
-.master{display:block;font:400 9px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gilt)}
-.meaning{font-size:13px;line-height:1.55;color:var(--soft)}
-.birthday{margin-top:18px;font-size:14px;color:var(--soft)}
-.birthday b{font-weight:400;color:var(--ink)}
-.sky{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.sky-item{display:grid;justify-items:center;align-content:start;gap:10px}
+.sky{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.sky-item{display:grid;justify-items:start;align-content:start;gap:8px}
+.sky-label{font-size:14px;color:var(--soft)}
+.sky-label .glyph{color:var(--gilt);font-family:var(--heading)}
 .sky-cards{display:flex;gap:8px;align-items:center}
 .art.unknown{background:none;box-shadow:none;border:1px dashed rgba(201,177,130,.45)}
-.sky-cards.pair .art{width:64px}
-.sign{font:400 19px/1.3 var(--heading)}
+.sky-cards.pair .art{width:60px}
+.sign{font:400 21px/1.3 var(--heading)}
 .glyphs{color:var(--gilt)}
-.missing-sign{font:italic 400 17px/1.4 var(--heading);color:var(--soft)}
-.maps h4{margin:40px 0 14px;font:400 11px/1.5 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gilt)}
-.planets{list-style:none;margin:0 auto;padding:0;max-width:560px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px;text-align:left}
+.sky-item .name{font:400 14px/1.4 var(--sans);color:var(--soft)}
+.missing-sign{font:italic 400 18px/1.4 var(--heading);color:var(--soft)}
+.maps h4{margin:40px 0 10px}
+.planets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
 .planets li{display:flex;align-items:baseline;gap:8px;padding:9px 0;border-bottom:1px solid var(--hair);font-size:15px}
-.planet{min-width:5.6em}
-.glyph{display:inline-block;width:1.4em;color:var(--gilt);font-family:var(--heading)}
+.planet{min-width:5.6em;font:400 18px/1.2 var(--heading)}
+.planets .glyph{display:inline-block;width:1.4em;color:var(--gilt);font-family:var(--heading)}
 .where{color:var(--soft);white-space:nowrap}
 .retro{color:var(--gilt)}
-.teachings{margin-top:120px;text-align:center}
-.teachings>ul{list-style:none;margin:40px 0 0;padding:0;text-align:left}
-.teaching{padding:22px 0;border-top:1px solid var(--hair);font-size:15px;line-height:1.7;color:var(--body);break-inside:avoid}
-.teaching .kicker{margin-bottom:6px}
-.sources{list-style:none;margin:8px 0 0;padding:0;font:400 12px/1.6 var(--mono);color:var(--soft)}
+.teachings{margin-top:112px}
+.teachings>ul{margin-top:32px}
+.teaching{padding:20px 0;border-top:1px solid var(--hair);font-size:15px;line-height:1.7;color:var(--body);break-inside:avoid}
+.teaching .label{margin-bottom:4px}
+.sources{margin-top:8px;font-size:13px;line-height:1.6;color:var(--soft)}
 .sources a::before{content:"↗\\FE0E  ";color:var(--gilt)}
-.bibliography{margin-top:40px;padding-top:28px;border-top:1px solid var(--hair);text-align:left}
-.bibliography h3{font:400 11px/1.5 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--gilt);margin-bottom:12px}
-.bibliography ul{list-style:none;margin:0;padding:0;display:grid;gap:12px;font-size:14px;line-height:1.55;color:var(--body)}
-.bibliography a{font:400 12px/1.5 var(--mono);color:var(--soft);word-break:break-all}
-.honest{margin:88px auto 0;max-width:30em;text-align:center;font:italic 400 20px/1.5 var(--heading);color:var(--soft)}
-.colophon{margin-top:48px;padding-top:24px;border-top:1px solid var(--hair);text-align:center;font:400 11px/1.6 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.bibliography{margin-top:36px;padding-top:24px;border-top:1px solid var(--hair)}
+.bibliography h3{margin-bottom:12px}
+.bibliography ul{display:grid;gap:12px;font-size:14px;line-height:1.55;color:var(--body)}
+.bibliography a{font-size:12.5px;color:var(--soft);word-break:break-all}
+.honest{max-width:30em;margin-top:88px;font:italic 400 20px/1.5 var(--heading);color:var(--soft)}
+.colophon{margin-top:40px;padding-top:20px;border-top:1px solid var(--hair);font-size:13.5px;color:var(--soft)}
 .colophon a{text-decoration:none;color:var(--gilt)}
-@media (max-width:600px){main{padding:48px 20px 40px}h1{font-size:42px}.epigraph{font-size:20px}.facet h2,.chapter h2{font-size:28px}.lede{font-size:20px}.prose{font-size:16.5px}.keep li{font-size:22px}
-.plate{grid-template-columns:repeat(2,minmax(0,1fr))}.cell:nth-child(3){border-left:0}.cell:nth-child(n+3){border-top:1px solid var(--hair)}
-.sky{grid-template-columns:1fr}.planets{grid-template-columns:1fr}.art{width:62px}.cap{font-size:9px;letter-spacing:.08em}.name{font-size:14px}}
+@media (max-width:600px){main{padding:56px 20px 40px}body{font-size:17px}.glance h1{font-size:42px}.epigraph{font-size:20px}.essence li{font-size:22px}h2{font-size:34px}.chapter h3{font-size:30px}.lede{font-size:20px}
+.numerals{grid-template-columns:repeat(2,minmax(0,1fr))}.numeral{font-size:52px}
+.sky{grid-template-columns:1fr}.planets{grid-template-columns:1fr}.art{width:60px}.defining .art{width:72px}.cap{font-size:11.5px}.name{font-size:14px}}
 @page{margin:18mm 16mm}
 @media print{
-:root{--ink:#16161a;--body:#26262b;--soft:#55555c;--gilt:#6f5b33;--hair:#d6d2c8;--plate:transparent}
+:root{--ink:#16161a;--body:#26262b;--soft:#55555c;--gilt:#6f5b33;--hair:#d6d2c8;--band:transparent}
 html,body{background:#fff;color:var(--ink)}
-body{font-size:11.5pt;line-height:1.65}
+body{font-size:11.5pt;line-height:1.6}
 main{max-width:none;padding:0}
 a{color:inherit;text-decoration:none}
 .art{box-shadow:0 0 0 .5pt #b9b2a2}
-.chapter,.maps,.teachings{break-before:page;margin-top:0}
-.keep{break-inside:avoid;margin-top:56px}
-.facet,.practice,.cell,.sky-item,.planets li,.lattice,.row,.plate,.sky,.bibliography li{break-inside:avoid}
-h1,h2,h3,h4,.kicker,.lede{break-after:avoid}
-.map{margin-top:24px;padding-top:20px}
-.cell{padding:14px 10px 12px}
-.numeral{font-size:34px}
-.meaning{font-size:9pt;line-height:1.45}
-.birthday{margin-top:10px}
-.sky-item{gap:6px}
+.defining .art{width:64px}
+.part,.chapter+.chapter,.numbers,.teachings{break-before:page;margin-top:0}
+.part>.chapter:first-of-type{margin-top:24px}
+.opening{margin-top:48px}
+.facets{margin-top:40px}
+.numbers{padding-top:0;border-top:0}
+.maps{margin-top:40px}
+.facet,.practice,.num,.sky-item,.planets li,.lattice,.row,.numerals,.sky,.bibliography li,.essence,.defining{break-inside:avoid}
+h1,h2,h3,h4,.label,.lede,.part-head{break-after:avoid}
+.chapter h3{font-size:26pt}
+.lede{font-size:15pt}
+.practice{padding:10px 14px}
+.numeral{font-size:40pt}
+.meaning{font-size:11pt}
+.map{margin-top:24px;padding-top:18px}
+.map h3{margin-bottom:18px}
+.art{width:58px}
+.lattice{gap:12px 0}
 .sign{font-size:14pt}
 .maps h4{margin:22px 0 8px}
-.planets{max-width:none;gap:0 28px;break-inside:avoid}
 .planets li{padding:5px 0;font-size:10pt}
-.map h3{margin-bottom:20px}
-.art{width:60px}
-.lattice{gap:14px 0}
 .teachings>ul{columns:2;column-gap:28px;margin-top:24px}
 .teaching{padding:12px 0;font-size:9.5pt;line-height:1.55}
 .sources{font-size:8pt}
@@ -364,7 +425,8 @@ h1,h2,h3,h4,.kicker,.lede{break-after:avoid}
 `;
 
 /**
- * The whole reading as one standalone HTML document.
+ * The whole reading as one standalone HTML document, in the reader's order:
+ * glance → opening → facets → chapters → numbers → maps → teachings.
  * @param {{ locale: Locale, packet: { factors: Factor[] }, stages: Stages, teachings: Teachings, cards: Card[], images: Record<string, string> }} input
  * @returns {string}
  */
@@ -375,23 +437,26 @@ export function buildExport({ locale, packet, stages, teachings, cards, images }
   const a = stages?.a;
   const title = a?.title ?? "";
 
+  const opening = a?.overview?.text ? `<section class="opening"><h2>${e(w.opening)}</h2><p class="prose overview">${e(a.overview.text)}</p></section>` : "";
   const facets = FACETS.flatMap((key) => {
     const f = a?.facets?.[key];
-    return f ? [`<section class="facet"><p class="fleuron" aria-hidden="true">❦</p><h2>${e(f.heading)}</h2><p class="prose">${e(f.text)}</p></section>`] : [];
+    return f ? [`<section class="facet"><p class="label">${e(w.facetNames[key])}</p><h3>${e(f.heading)}</h3><p class="prose">${e(f.text)}</p></section>`] : [];
   });
-  const chapters = CHAPTERS.flatMap((key, i) => {
-    const chapter = stages?.b?.chapters?.[key] ?? stages?.c?.chapters?.[key];
-    return chapter ? [chapterHtml(chapter, `${NUMERALS[i]} · ${w.sections[key]}`, w.practice)] : [];
+  let n = 0;
+  const parts = PARTS.map((keys, p) => {
+    const chapters = keys.flatMap((key) => {
+      const i = n++;
+      const chapter = stages?.b?.chapters?.[key] ?? stages?.c?.chapters?.[key];
+      return chapter ? [chapterHtml(chapter, i, key, lang)] : [];
+    });
+    return chapters.length ? `<section class="part"><div class="part-head"><p class="label">${e(w.parts[p].kicker)}</p><h2>${e(w.parts[p].title)}</h2></div>\n${chapters.join("\n")}\n</section>` : "";
   });
-  const keep = stages?.c?.keep?.length
-    ? `<section class="keep"><p class="fleuron" aria-hidden="true">❦</p><h2>${e(w.keep)}</h2><ul>${stages.c.keep.map((line) => `<li>${e(line)}</li>`).join("")}</ul></section>`
-    : "";
   const hasArkan = (packet?.factors ?? []).some((f) => f.kind === "arkan");
+  const numbers = hasArkan ? numbersHtml(byId, lang) : "";
   const maps = hasArkan
-    ? `<section class="maps"><p class="fleuron" aria-hidden="true">❦</p><h2>${e(w.maps)}</h2><p class="section-lede">${e(w.mapsLede)}</p>
-<section class="map"><p class="kicker">${e(w.cardsKicker)}</p><h3>${e(w.cards)}</h3>${latticeHtml(byId, cards, images, lang)}</section>
-<section class="map"><p class="kicker">${e(w.numbersKicker)}</p><h3>${e(w.numbers)}</h3>${numbersHtml(byId, lang)}</section>
-<section class="map"><p class="kicker">${e(w.skyKicker)}</p><h3>${e(w.sky)}</h3>${skyHtml(byId, cards, images, lang)}</section>
+    ? `<section class="maps"><h2>${e(w.maps)}</h2><p class="hint">${e(w.mapsLede)}</p>
+<section class="map"><p class="label">${e(w.cardsKicker)}</p><h3>${e(w.cards)}</h3>${latticeHtml(byId, cards, images, lang)}</section>
+<section class="map"><p class="label">${e(w.skyKicker)}</p><h3>${e(w.sky)}</h3>${skyHtml(byId, cards, images, lang)}</section>
 </section>`
     : "";
 
@@ -406,15 +471,11 @@ export function buildExport({ locale, packet, stages, teachings, cards, images }
 </head>
 <body>
 <main>
-<header>
-<p class="kicker">${e(w.kicker)}</p>
-<h1>${e(title)}</h1>
-<p class="epigraph">${e(a?.epigraph)}</p>
-</header>
-<p class="prose overview">${e(a?.overview?.text)}</p>
-${facets.join("\n")}
-${chapters.join("\n")}
-${keep}
+${glanceHtml(stages, byId, packet, cards, images, lang)}
+${opening}
+${facets.length ? `<section class="facets"><h2>${e(w.facets)}</h2>\n${facets.join("\n")}\n</section>` : ""}
+${parts.join("\n")}
+${numbers ? `<section class="numbers"><p class="label">${e(w.numbersKicker)}</p><h2>${e(w.numbers)}</h2>${numbers}</section>` : ""}
 ${maps}
 ${teachingsHtml(teachings, lang)}
 <p class="honest">${e(w.honest)}</p>

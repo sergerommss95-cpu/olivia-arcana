@@ -6,6 +6,8 @@
  * with its place and role. The cards the current section was read from stand
  * at full strength; the rest sit back. A non-modal panel (a bottom sheet on a
  * phone): reading goes on beside it; Esc or Close returns focus to the bar.
+ * The same lattice (LatticeMap) is the maps' cards map, full size and still,
+ * every card a way to its page in the deck.
  */
 
 import { useEffect, useLayoutEffect, useMemo, useRef, type CSSProperties, type RefObject } from "react";
@@ -51,8 +53,6 @@ export default function MiniMap({ open, onClose, packet, cards, locale, lit, sec
   const title = useRef<HTMLHeadingElement>(null);
   const close = useRef(onClose);
   useEffect(() => { close.current = onClose; });
-  const cardAt = useMemo(() => cardsAt(packet, cards), [packet, cards]);
-  const litSet = new Set(lit);
 
   // Open: beneath the bar, focus on its heading. Esc closes it and returns focus; a press outside closes it.
   useLayoutEffect(() => {
@@ -93,25 +93,57 @@ export default function MiniMap({ open, onClose, packet, cards, locale, lit, sec
         <button type="button" className={styles.close} onClick={() => close.current(true)}>{t.reader.close}</button>
       </div>
       <p className={styles.now}>{lit.length ? <>{before}<em>{section}</em>{after}</> : m.idle}</p>
-      <div className={styles.lattice} data-state={lit.length ? "lit" : "idle"}>
-        <Threads width={BOX.w} height={BOX.h} lines={LINES} on={(line) => litSet.has(line.from) && litSet.has(line.to)} draw="shown" lit="fade" className={styles.threads} />
-        <ol className={styles.cards} aria-label={t.laying.cards}>
-          {READING_ORDER.map((pos) => {
-            const p = PLACES[pos];
-            const card = cardAt[pos];
-            const on = litSet.has(pos);
-            const place = { left: pct(p.x - CARD.w / 2, BOX.w), top: pct(p.y - CARD.h / 2, BOX.h), width: pct(CARD.w, BOX.w), height: pct(CARD.h, BOX.h) } as CSSProperties;
-            return (
-              <li key={pos} className={styles.slot} style={place} data-lit={on || undefined} data-card-label={`${pos} · ${roles[pos][locale]} · ${card?.name ?? ""}`}>
-                <LatticeCard pos={pos} card={card} turned label={`${t.laying.card} ${pos}, ${roles[pos][locale]}, ${card?.name ?? ""}${on ? `, ${m.litCard}` : ""}`} sizes="64px" />
-                {/* The place and the dot hold to the role's first word, so a long role wraps after it, never after the numeral. */}
-                <p className={styles.cap} aria-hidden="true"><span className={styles.capNum}>{pos}</span>{"\u00a0·\u00a0"}{roles[pos][locale]}</p>
-              </li>
-            );
-          })}
-        </ol>
-      </div>
+      <LatticeMap packet={packet} cards={cards} locale={locale} lit={lit} sizes="64px" className={styles.sheetLattice} />
       <p className={styles.note}>{t.laying.threads}</p>
+    </div>
+  );
+}
+
+/**
+ * The eleven cards in their lattice, threads drawn, each captioned with its
+ * place and role, scaled to the width it is given. In the mini-map the cards
+ * the section was read from (`lit`) stand forward; as the maps' cards map
+ * (`links`) every card opens its page in the deck and every thread is drawn.
+ */
+export function LatticeMap({ packet, cards, locale, lit = [], links = false, sizes, className }: {
+  packet: PortraitPacket;
+  cards: MajorCard[];
+  locale: PortraitLocale;
+  lit?: number[];
+  links?: boolean;
+  /** The rendered width of one card, for srcset. */
+  sizes: string;
+  className?: string;
+}) {
+  const t = PORTRAIT_COPY[locale];
+  const cardAt = useMemo(() => cardsAt(packet, cards), [packet, cards]);
+  const litSet = new Set(lit);
+  return (
+    <div className={`${styles.lattice} ${className ?? ""}`} data-state={lit.length ? "lit" : "idle"} data-links={links || undefined}>
+      <Threads width={BOX.w} height={BOX.h} lines={LINES} on={(line) => links || (litSet.has(line.from) && litSet.has(line.to))} draw="shown" lit="fade" className={styles.threads} />
+      <ol className={styles.cards} aria-label={t.laying.cards}>
+        {READING_ORDER.map((pos) => {
+          const p = PLACES[pos];
+          const card = cardAt[pos];
+          const on = litSet.has(pos);
+          const label = `${t.laying.card} ${pos}, ${roles[pos][locale]}, ${card?.name ?? ""}`;
+          const place = { left: pct(p.x - CARD.w / 2, BOX.w), top: pct(p.y - CARD.h / 2, BOX.h), width: pct(CARD.w, BOX.w), height: pct(CARD.h, BOX.h) } as CSSProperties;
+          return (
+            <li key={pos} className={styles.slot} style={place} data-lit={on || undefined} data-card-label={`${pos} · ${roles[pos][locale]} · ${card?.name ?? ""}`}>
+              {links && card ? (
+                <a className={styles.link} href={card.href} aria-label={label}>
+                  {/* The link names the card; the art is for the eye. */}
+                  <span className={styles.art} aria-hidden="true"><LatticeCard pos={pos} card={card} turned label="" sizes={sizes} /></span>
+                </a>
+              ) : (
+                <LatticeCard pos={pos} card={card} turned label={`${label}${on ? `, ${t.minimap.litCard}` : ""}`} sizes={sizes} />
+              )}
+              {/* The place and the dot hold to the role's first word, so a long role wraps after it, never after the numeral. */}
+              <p className={styles.cap} aria-hidden="true"><span className={styles.capNum}>{pos}</span>{"\u00a0·\u00a0"}{roles[pos][locale]}</p>
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 }

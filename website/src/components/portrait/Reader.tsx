@@ -2,9 +2,9 @@
 
 /**
  * The reading, orchestrated: the glance first, then the reading bar, the
- * opening, the five-facet spread, the chapters, the maps and the end. The
- * reader keeps one current section (the one crossing its reading line); the
- * bar's running head and the mini-map follow it. Each section says what it is
+ * opening, the five-facet spread, the chapters, the numbers and maps, and the
+ * closing band. The reader keeps one current section (the one crossing its
+ * reading line); the bar's running head and the mini-map follow it. Each section says what it is
  * with `registerSection` on its own element, and may change it in place (a
  * facet opening). The chapters stand as plates in two parts (ChapterPlate):
  * quiet plates while a part is written, filling as it lands.
@@ -22,7 +22,7 @@ import Contents, { type ContentsEntry } from "./Contents";
 import Opening from "./Opening";
 import FacetSpread, { FACETS } from "./FacetSpread";
 import { NUMERALS, Part } from "./ChapterPlate";
-import Maps from "./Maps";
+import Maps, { MAPS_ID } from "./Maps";
 import { goTo, readSection, registerSection, sameSection, sectionId, type Section } from "./sections";
 import styles from "./reader.module.css";
 
@@ -147,11 +147,14 @@ export default function Reader({ stages, status, packet, cards, locale, frames, 
     { id: sectionId("facets"), label: toc.facets, sections: ["facets", ...FACETS] },
     { id: partId(1, "part-one"), kicker: toc.partOne, label: t.stages.b, pending: partPending(stages.b), sections: ["part-one"], children: CHAPTERS.b.map((key, i) => chapterEntry(key, i)) },
     { id: partId(2, "part-two"), kicker: toc.partTwo, label: t.stages.c, pending: partPending(stages.c), sections: ["part-two"], children: CHAPTERS.c.map((key, i) => chapterEntry(key, i + CHAPTERS.b.length)) },
-    ...(maps ? [{ id: sectionId("maps"), label: toc.maps, sections: ["maps"] }] : []),
+    ...(maps ? [{ id: MAPS_ID, label: toc.maps, sections: ["numbers", "maps"] }] : []),
     ...(keep ? [{ id: sectionId("keep"), label: toc.keep, sections: ["keep"] }] : !over ? [{ id: sectionId("keep"), label: toc.keep, pending: toc.pending }] : []),
   ];
 
-  // The glance, the bar, then the text and what follows it (the maps, the end): siblings in the reading's column.
+  // Beside the tools for keeping, the way out steps back; without them (the example, a failure) it leads.
+  const wayOut = <button type="button" className={styles.again} onClick={onNew}>{newLabel ?? r.newPortrait}</button>;
+
+  // The glance, the bar, then the text and what follows it (the numbers and maps, the end): siblings in the reading's column.
   return (
     <div ref={root} className={styles.leaf}>
       <Glance stages={{ ...stages, a }} failed={failed} packet={packet} cards={cards} locale={locale} landing={landing}
@@ -173,11 +176,24 @@ export default function Reader({ stages, status, packet, cards, locale, frames, 
 
       {maps && <Maps packet={packet} cards={cards} locale={locale} className={`${styles.mapsArea} ${styles.anchor}`} />}
 
+      {/* The closing band: the tools for keeping (or, for the example, its label and title), then the honest line and the way out. */}
       {over && (
-        <footer id={sectionId("keep")} tabIndex={-1} className={`${styles.footer} ${styles.anchor}`} data-keep={keep ? "" : undefined} {...registerSection("keep", keep ? toc.keep : newLabel ?? r.newPortrait, [])}>
-          {keep}
-          <p className={styles.note}>{t.note}</p>
-          <button type="button" className={styles.again} onClick={onNew}>{newLabel ?? r.newPortrait}</button>
+        <footer id={sectionId("keep")} tabIndex={-1} className={`${styles.closing} ${styles.anchor}`} data-keep={keep ? "" : undefined} {...registerSection("keep", keep ? toc.keep : newLabel ?? r.newPortrait, [])}>
+          {keep ?? (
+            <div className={styles.closingRow}>
+              {kicker && (
+                <div className={styles.closingHead}>
+                  <p className={styles.closingKicker}>{kicker}</p>
+                  <p className={styles.closingTitle}>{a.title}</p>
+                </div>
+              )}
+              <div className={styles.closingTools}>{wayOut}</div>
+            </div>
+          )}
+          <div className={styles.closingFoot}>
+            <p className={styles.note}>{t.note}</p>
+            {keep && wayOut}
+          </div>
         </footer>
       )}
 
