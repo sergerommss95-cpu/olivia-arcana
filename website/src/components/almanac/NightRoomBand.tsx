@@ -64,7 +64,7 @@ export default function NightRoomBand({ room }: { room: string }) {
 
         .night-band-title {
           margin: 0;
-          color: rgba(232, 233, 255, 0.45);
+          color: rgba(232, 233, 255, 0.6);
           font-family: var(--font-mono, ui-monospace), monospace;
           font-size: 0.6rem;
           letter-spacing: 0.3em;

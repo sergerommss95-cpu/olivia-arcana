@@ -100,15 +100,15 @@ export default function ShaderBackdrop() {
           background:
             linear-gradient(
               90deg,
-              rgba(16, 19, 77, 0.34) 0%,
-              rgba(16, 19, 77, 0.62) 30%,
-              rgba(16, 19, 77, 0.62) 70%,
-              rgba(16, 19, 77, 0.34) 100%
+              rgba(11, 25, 42, 0.34) 0%,
+              rgba(11, 25, 42, 0.62) 30%,
+              rgba(11, 25, 42, 0.62) 70%,
+              rgba(11, 25, 42, 0.34) 100%
             ),
             radial-gradient(
               120% 90% at 50% 40%,
-              rgba(16, 19, 77, 0.1),
-              rgba(16, 19, 77, 0.42) 100%
+              rgba(11, 25, 42, 0.1),
+              rgba(11, 25, 42, 0.42) 100%
             );
         }
       `}</style>

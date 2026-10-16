@@ -125,9 +125,9 @@ const NightCardBack = React.memo(function NightCardBack() {
       {/* lapis night ground — the stele deck's stone */}
       <defs>
         <radialGradient id="ncb-sky" cx="50%" cy="38%" r="85%">
-          <stop offset="0%" stopColor="#181d7a" />
-          <stop offset="55%" stopColor="#10134d" />
-          <stop offset="100%" stopColor="#0a0d38" />
+          <stop offset="0%" stopColor="#12283d" />
+          <stop offset="55%" stopColor="#0b192a" />
+          <stop offset="100%" stopColor="#071522" />
         </radialGradient>
       </defs>
       <rect x="0" y="0" width="136" height="225" fill="url(#ncb-sky)" />
@@ -318,7 +318,7 @@ const GhostCard = React.memo(function GhostCard({
         zIndex: 2,
         pointerEvents: "none",
         border: "1px solid rgba(232, 233, 255, 0.1)",
-        background: "rgba(16, 19, 77, 0.45)",
+        background: "rgba(11, 25, 42, 0.45)",
         borderRadius: "14px",
       }}
       initial={{ opacity: 0 }}
@@ -745,7 +745,7 @@ export default function FramerTarotOracle() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center bg-[#0a0d38] perspective-[2000px]">
+      <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center bg-[#071522] perspective-[2000px]">
 
         {/* ── NIGHT GROUND — the innermost room keeps the deepest darkness ── */}
         <div
@@ -757,7 +757,7 @@ export default function FramerTarotOracle() {
         />
 
         {/* Selection Scrim (Focus focus) */}
-        <div className={`absolute inset-0 z-0 bg-[rgba(10,13,56,0.55)] transition-opacity duration-1000 pointer-events-none ${state === "drawing" ? "opacity-100" : "opacity-0"}`} />
+        <div className={`absolute inset-0 z-0 bg-[rgba(7,21,34,0.55)] transition-opacity duration-1000 pointer-events-none ${state === "drawing" ? "opacity-100" : "opacity-0"}`} />
 
         <div
           className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none"
@@ -1109,7 +1109,7 @@ export default function FramerTarotOracle() {
             justify-content: center;
             background:
               radial-gradient(ellipse at 50% 100%, rgba(141, 151, 255, 0.14), transparent 40rem),
-              linear-gradient(180deg, transparent, rgba(10, 13, 56, 0.72) 20%, rgba(10, 13, 56, 0.94) 100%);
+              linear-gradient(180deg, transparent, rgba(7, 21, 34, 0.72) 20%, rgba(7, 21, 34, 0.94) 100%);
           }
 
           .result-turned {
@@ -1163,13 +1163,13 @@ export default function FramerTarotOracle() {
           .result-fade.is-top {
             top: 1px;
             border-radius: 6px 6px 0 0;
-            background: linear-gradient(180deg, rgba(16, 19, 77, 0.96), rgba(16, 19, 77, 0));
+            background: linear-gradient(180deg, rgba(11, 25, 42, 0.96), rgba(11, 25, 42, 0));
           }
 
           .result-fade.is-bottom {
             bottom: 1px;
             border-radius: 0 0 6px 6px;
-            background: linear-gradient(0deg, rgba(16, 19, 77, 0.96), rgba(16, 19, 77, 0));
+            background: linear-gradient(0deg, rgba(11, 25, 42, 0.96), rgba(11, 25, 42, 0));
           }
 
           .result-fade[data-on] {
@@ -1221,8 +1221,8 @@ export default function FramerTarotOracle() {
             padding: clamp(1.3rem, 2.8vw, 2.1rem);
             border: 1px solid rgba(232, 233, 255, 0.16);
             border-radius: 6px;
-            background: rgba(16, 19, 77, 0.78);
-            box-shadow: 0 1.2rem 2.8rem rgba(5, 7, 32, 0.35);
+            background: rgba(11, 25, 42, 0.78);
+            box-shadow: 0 1.2rem 2.8rem rgba(4, 10, 17, 0.35);
             /* The sheet keeps to the lower half of the room: the plates
                above stay touchable — the reading scrolls within. */
             max-height: min(46vh, 34rem);
@@ -1283,7 +1283,7 @@ export default function FramerTarotOracle() {
             text-align: center;
             border: 1px solid rgba(232, 233, 255, 0.12);
             border-radius: 4px;
-            background: rgba(24, 29, 122, 0.4);
+            background: rgba(18, 40, 61, 0.4);
           }
 
           .result-artifact-card span {
@@ -1405,7 +1405,7 @@ export default function FramerTarotOracle() {
           /* Night Card Material — the plate stands on its own; the art
              carries its own carved edge, so no frame is drawn around it. */
           .oracle-night-card {
-            background: #0a0d38;
+            background: #071522;
             border: 0;
           }
 
@@ -1853,7 +1853,7 @@ const GodModeCard = React.memo(function GodModeCard({
           : { duration: 0.5, delay: staggerDelay, ease: [0.16, 1, 0.3, 1] }
       }
     >
-      <div className="relative w-full h-full rounded-[14px] shadow-[0_10px_30px_rgba(5,7,32,0.5)]" style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d' }}>
+      <div className="relative w-full h-full rounded-[14px] shadow-[0_10px_30px_rgba(4,10,17,0.5)]" style={{ transformStyle: 'preserve-3d', WebkitTransformStyle: 'preserve-3d' }}>
         
         {/* EDGE GLARE */}
         <m.div
@@ -1871,7 +1871,7 @@ const GodModeCard = React.memo(function GodModeCard({
             WebkitTransformStyle: 'preserve-3d',
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
-            background: '#0a0d38'
+            background: '#071522'
           }}
         >
           {/* Inner Highlight */}
@@ -1893,7 +1893,7 @@ const GodModeCard = React.memo(function GodModeCard({
             WebkitTransformStyle: 'preserve-3d',
             backfaceVisibility: isMobile ? 'visible' : 'hidden',
             WebkitBackfaceVisibility: isMobile ? 'visible' : 'hidden',
-            background: '#0a0d38'
+            background: '#071522'
           }}
         >
 
@@ -1970,7 +1970,7 @@ const GodModeCard = React.memo(function GodModeCard({
                 letterSpacing: "0.14em",
                 lineHeight: 1.4,
                 padding: `${3 / rig.scale}px ${4 / rig.scale}px`,
-                background: "rgba(10,13,56,0.78)",
+                background: "rgba(7,21,34,0.78)",
                 border: "1px solid rgba(232,233,255,0.14)",
                 color: "rgba(232,233,255,0.88)",
                 // counter-rotate FIRST, then lift — inside the flipped

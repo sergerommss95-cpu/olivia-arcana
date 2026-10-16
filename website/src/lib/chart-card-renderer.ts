@@ -34,10 +34,10 @@ const FORMAT_SIZES: Record<CardFormat, { w: number; h: number }> = {
 
 // Night-family grounds only — element mood carried by depth, not hue.
 const ELEMENT_GRADIENTS: Record<string, [string, string, string]> = {
-  Fire: ["#10134d", "#20279b", "#0a0d38"],
-  Water: ["#0a0d38", "#10134d", "#0a0d38"],
-  Air: ["#10134d", "#181d7a", "#0a0d38"],
-  Earth: ["#0a0d38", "#181d7a", "#0a0d38"],
+  Fire: ["#0b192a", "#1e3a5b", "#071522"],
+  Water: ["#071522", "#0b192a", "#071522"],
+  Air: ["#0b192a", "#12283d", "#071522"],
+  Earth: ["#071522", "#12283d", "#071522"],
 };
 
 function wrapText(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): string[] {

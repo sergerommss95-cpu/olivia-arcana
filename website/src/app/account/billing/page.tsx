@@ -334,7 +334,7 @@ export default function BillingPage() {
         }
 
         .plan-card {
-          background: #0f1240;
+          background: #091725;
         }
 
         .plan-card.is-vip {
@@ -431,7 +431,7 @@ export default function BillingPage() {
         }
 
         .purchases-card {
-          background: #0f1240;
+          background: #091725;
           margin-top: 1.5rem;
         }
 

@@ -96,7 +96,7 @@ export default function TonightPlate() {
       }`}
     >
       {/* ── The plate: double hairline frame on a translucent ground ── */}
-      <div className="border border-[rgba(232,233,255,0.16)] bg-[rgba(16,19,77,0.38)] p-2">
+      <div className="border border-[rgba(232,233,255,0.16)] bg-[rgba(11,25,42,0.38)] p-2">
         <div className="border border-[rgba(232,233,255,0.16)] px-6 py-12 sm:px-12 sm:py-16">
           {/* Kicker row */}
           <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 font-[family-name:var(--font-mono)] text-[10px] uppercase tracking-[0.16em] text-[#b7bce9]">

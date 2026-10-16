@@ -261,8 +261,8 @@ export default function ScrollCinema() {
           --out: clamp(0, (var(--cp, 0) - 0.28) * 4.5, 1);
           opacity: calc(1 - var(--out));
           background:
-            linear-gradient(to bottom, #10134d 0%, rgba(16, 19, 77, 0) 16%, rgba(16, 19, 77, 0) 82%, #10134d 100%),
-            radial-gradient(120% 90% at 50% 50%, rgba(10, 13, 56, 0) 55%, rgba(10, 13, 56, 0.5) 100%);
+            linear-gradient(to bottom, #0b192a 0%, rgba(11, 25, 42, 0) 16%, rgba(11, 25, 42, 0) 82%, #0b192a 100%),
+            radial-gradient(120% 90% at 50% 50%, rgba(7, 21, 34, 0) 55%, rgba(7, 21, 34, 0.5) 100%);
         }
 
         /* ── The editorial type rides the scrub ──
@@ -298,7 +298,7 @@ export default function ScrollCinema() {
           letter-spacing: 0.42em;
           text-indent: 0.42em;
           color: var(--ox, #e0b768);
-          text-shadow: 0 1px 14px rgba(10, 13, 56, 0.9);
+          text-shadow: 0 1px 14px rgba(7, 21, 34, 0.9);
         }
 
         .cin-head {
@@ -310,14 +310,14 @@ export default function ScrollCinema() {
           font-size: clamp(2rem, 5.4vw, 3.9rem);
           line-height: 1.12;
           color: #f4f0e6;
-          text-shadow: 0 2px 26px rgba(10, 13, 56, 0.92), 0 0 60px rgba(10, 13, 56, 0.6);
+          text-shadow: 0 2px 26px rgba(7, 21, 34, 0.92), 0 0 60px rgba(7, 21, 34, 0.6);
         }
 
         .cin-close {
           margin: 1.4rem 0 0;
           font-size: clamp(0.92rem, 1.6vw, 1.05rem);
           color: rgba(238, 242, 255, 0.82);
-          text-shadow: 0 1px 12px rgba(10, 13, 56, 0.9);
+          text-shadow: 0 1px 12px rgba(7, 21, 34, 0.9);
         }
 
         .cin-cta {
@@ -333,7 +333,7 @@ export default function ScrollCinema() {
           text-decoration: none;
           border-bottom: 1px solid rgba(224, 183, 104, 0.45);
           padding-bottom: 0.3em;
-          text-shadow: 0 1px 10px rgba(10, 13, 56, 0.9);
+          text-shadow: 0 1px 10px rgba(7, 21, 34, 0.9);
         }
 
         .cin-cta :global(.cin-link:hover) {

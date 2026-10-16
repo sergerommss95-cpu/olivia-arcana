@@ -28,7 +28,7 @@ const BODY = "var(--font-body, system-ui), sans-serif";
 
 const cardSt: React.CSSProperties = {
   border: `1px solid ${HAIRLINE}`,
-  background: "var(--paper-bone, #0f1240)",
+  background: "var(--paper-bone, #091725)",
 };
 
 const labelSt: React.CSSProperties = {

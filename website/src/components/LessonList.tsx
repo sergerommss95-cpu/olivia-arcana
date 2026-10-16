@@ -96,7 +96,7 @@ function SignProfileCard({ sign }: { sign: string }) {
   return (
     <div style={{
       padding: "1.25rem", borderRadius: "4px", marginBottom: "0.75rem",
-      background: "rgba(16,19,77,0.6)", border: "1px solid rgba(232,233,255,0.14)",
+      background: "rgba(11,25,42,0.6)", border: "1px solid rgba(232,233,255,0.14)",
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.6rem" }}>
         <span style={{ fontSize: "1.8rem" }}>{data.glyph}</span>
@@ -133,7 +133,7 @@ function PlanetProfileCard({ planet }: { planet: string }) {
   return (
     <div style={{
       padding: "1.25rem", borderRadius: "4px", marginBottom: "0.75rem",
-      background: "rgba(16,19,77,0.6)", border: "1px solid rgba(232,233,255,0.14)",
+      background: "rgba(11,25,42,0.6)", border: "1px solid rgba(232,233,255,0.14)",
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.5rem" }}>
         <span style={{ fontSize: "1.5rem", color: "rgba(224,183,104,0.5)" }}>{glyphs[planet] || "✦"}</span>
@@ -150,7 +150,7 @@ function HouseProfileCard({ house }: { house: number }) {
   return (
     <div style={{
       padding: "1.25rem", borderRadius: "4px", marginBottom: "0.75rem",
-      background: "rgba(16,19,77,0.6)", border: "1px solid rgba(232,233,255,0.14)",
+      background: "rgba(11,25,42,0.6)", border: "1px solid rgba(232,233,255,0.14)",
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.5rem" }}>
         <span style={{
@@ -172,7 +172,7 @@ function TarotCardDisplay({ cardName, showReversed, uprightLabel, reversedLabel 
   return (
     <div style={{
       padding: "1.25rem", borderRadius: "4px", marginBottom: "0.75rem",
-      background: "rgba(16,19,77,0.6)", border: "1px solid rgba(232,233,255,0.14)",
+      background: "rgba(11,25,42,0.6)", border: "1px solid rgba(232,233,255,0.14)",
     }}>
       <div style={{ marginBottom: "0.5rem" }}>
         <span style={{ fontFamily: "var(--font-heading)", fontSize: "1.1rem", fontWeight: 500, color: "var(--c-text)" }}>
@@ -217,7 +217,7 @@ function CardGrid({ cards }: { cards: string[] }) {
         return (
           <div key={name} style={{
             padding: "0.75rem", borderRadius: "4px",
-            background: "rgba(16,19,77,0.45)", border: "1px solid rgba(232,233,255,0.1)",
+            background: "rgba(11,25,42,0.45)", border: "1px solid rgba(232,233,255,0.1)",
           }}>
             <div style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 400, color: "rgba(232,233,255,0.8)" }}>{card.name}</div>
             <div style={{ fontFamily: "var(--font-mono)", fontSize: "0.55rem", color: "rgba(183,188,233,0.55)", marginTop: "0.15rem" }}>
@@ -270,7 +270,7 @@ function KeywordMap({ items }: { items: { term: string; definition: string }[] }
       {items.map(({ term, definition }) => (
         <div key={term} style={{
           display: "flex", gap: "0.75rem", padding: "0.6rem 0.75rem",
-          borderRadius: "3px", background: "rgba(16,19,77,0.45)",
+          borderRadius: "3px", background: "rgba(11,25,42,0.45)",
           border: "1px solid rgba(232,233,255,0.08)",
         }}>
           <span style={{
@@ -308,7 +308,7 @@ function QuizWidget({ questions, checkLabel, perfectMsg, greatMsg, keepStudyingM
         return (
           <div key={qi} style={{
             padding: "1rem", borderRadius: "4px", marginBottom: "0.6rem",
-            background: "rgba(16,19,77,0.45)", border: "1px solid rgba(232,233,255,0.1)",
+            background: "rgba(11,25,42,0.45)", border: "1px solid rgba(232,233,255,0.1)",
           }}>
             <p style={{
               fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 400,
@@ -318,7 +318,7 @@ function QuizWidget({ questions, checkLabel, perfectMsg, greatMsg, keepStudyingM
               {q.options.map((opt, oi) => {
                 const selected = answers[qi] === oi;
                 const isCorrect = oi === q.correctIndex;
-                let bg = "rgba(16,19,77,0.6)";
+                let bg = "rgba(11,25,42,0.6)";
                 let border = "rgba(232,233,255,0.14)";
                 if (showResults && selected && isCorrect) { bg = "rgba(141,151,255,0.08)"; border = "rgba(141,151,255,0.2)"; }
                 else if (showResults && selected && !isCorrect) { bg = "rgba(183,188,233,0.08)"; border = "rgba(183,188,233,0.2)"; }
@@ -351,7 +351,7 @@ function QuizWidget({ questions, checkLabel, perfectMsg, greatMsg, keepStudyingM
         <button onClick={() => setShowResults(true)} style={{
           padding: "0.65rem 1.5rem", borderRadius: "2px", display: "block", margin: "1rem auto",
           background: "#e0b768", border: "none",
-          color: "#15174c", fontFamily: "var(--font-body)", fontSize: "14px", fontWeight: 500,
+          color: "#183043", fontFamily: "var(--font-body)", fontSize: "14px", fontWeight: 500,
           cursor: "pointer", transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
         }}>{checkLabel}</button>
       )}
@@ -386,7 +386,7 @@ function ExerciseGuide({ steps, completeLabel }: { steps: ExerciseStep[]; comple
         <div key={i} style={{
           display: "flex", gap: "0.75rem", padding: "0.85rem 1rem", marginBottom: "0.4rem",
           borderRadius: "4px",
-          background: completed.has(i) ? "rgba(141,151,255,0.04)" : "rgba(16,19,77,0.45)",
+          background: completed.has(i) ? "rgba(141,151,255,0.04)" : "rgba(11,25,42,0.45)",
           border: `1px solid ${completed.has(i) ? "rgba(141,151,255,0.12)" : "rgba(232,233,255,0.1)"}`,
           cursor: "pointer", transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
         }} onClick={() => setCompleted(prev => {
@@ -434,7 +434,7 @@ function WidgetLoader({ label }: { label: string }) {
   return (
     <div style={{
       padding: "2rem", textAlign: "center", marginBottom: "1rem",
-      borderRadius: "4px", background: "rgba(16,19,77,0.45)",
+      borderRadius: "4px", background: "rgba(11,25,42,0.45)",
       border: "1px solid rgba(232,233,255,0.1)",
     }}>
       <div style={{
@@ -556,7 +556,7 @@ export default function LessonList({ lessons, courseSlug }: { lessons: Lesson[];
               style={{
                 display: "flex", alignItems: "center", gap: "0.75rem",
                 padding: "0.85rem 1rem", width: "100%",
-                background: isOpen ? "rgba(224,183,104,0.04)" : "rgba(16,19,77,0.45)",
+                background: isOpen ? "rgba(224,183,104,0.04)" : "rgba(11,25,42,0.45)",
                 border: `1px solid ${isOpen ? "rgba(224,183,104,0.12)" : "rgba(232,233,255,0.1)"}`,
                 borderRadius: isOpen ? "4px 4px 0 0" : "4px",
                 transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
@@ -613,7 +613,7 @@ export default function LessonList({ lessons, courseSlug }: { lessons: Lesson[];
                 >
                   <div style={{
                     padding: "1.5rem 1.25rem",
-                    background: "rgba(16,19,77,0.6)",
+                    background: "rgba(11,25,42,0.6)",
                     borderLeft: "1px solid rgba(224,183,104,0.12)",
                     borderRight: "1px solid rgba(224,183,104,0.12)",
                     borderBottom: "1px solid rgba(224,183,104,0.12)",

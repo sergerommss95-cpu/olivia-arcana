@@ -21,10 +21,10 @@ type ToD = "dawn" | "day" | "dusk" | "night";
 
 /** Colors matched to The Arrival token set (abyss → night → deep → lapis, gilt at dawn only). */
 const PALETTES: Record<ToD, string[]> = {
-  dawn:  ["#0a0d38", "#10134d", "#181d7a", "#e0b768"], // abyss → night → deep → gilt (the one warm moment)
-  day:   ["#0a0d38", "#10134d", "#20279b", "#8d97ff"], // abyss → night → lapis → cool light
-  dusk:  ["#0a0d38", "#121656", "#181d7a", "#2f38b8"], // abyss → band → deep → lapis-lit
-  night: ["#0a0d38", "#10134d", "#181d7a", "#20279b"], // abyss → night → deep → lapis
+  dawn:  ["#071522", "#0b192a", "#12283d", "#e0b768"], // abyss → night → deep → gilt (the one warm moment)
+  day:   ["#071522", "#0b192a", "#1e3a5b", "#8d97ff"], // abyss → night → lapis → cool light
+  dusk:  ["#071522", "#10273a", "#12283d", "#274c75"], // abyss → band → deep → lapis-lit
+  night: ["#071522", "#0b192a", "#12283d", "#1e3a5b"], // abyss → night → deep → lapis
 };
 
 function currentToD(date: Date = new Date()): ToD {
@@ -96,7 +96,7 @@ export default function MeshAtmosphere({
           inset: 0,
           pointerEvents: "none",
           background:
-            "radial-gradient(ellipse at center, transparent 40%, rgba(10,13,56,0.6) 100%)",
+            "radial-gradient(ellipse at center, transparent 40%, rgba(7,21,34,0.6) 100%)",
         }}
       />
     </div>

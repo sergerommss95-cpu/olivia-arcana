@@ -32,12 +32,12 @@ export default function NightShell({ room, children }: NightShellProps) {
 
       <style jsx global>{`
         .night-plate {
-          --night: #10134d;
-          --night-deep: #0a0d38;
-          --sheet: #181d7a;
+          --night: #0b192a;
+          --night-deep: #071522;
+          --sheet: #12283d;
           --bone: #e8e9ff;
           --bone-soft: rgba(232, 233, 255, 0.78);
-          --bone-faint: rgba(183, 188, 233, 0.6);
+          --bone-faint: rgba(183, 188, 233, 0.74);
           --hairline: rgba(183, 188, 233, 0.2);
           --ember: #e0b768;
           --ease: cubic-bezier(0.16, 1, 0.3, 1);

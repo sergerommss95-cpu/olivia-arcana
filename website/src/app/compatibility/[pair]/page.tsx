@@ -369,7 +369,7 @@ export default async function CompatibilityPairPage({ params }: { params: Promis
           padding: 0.38rem 0.9rem;
           border: 1px solid var(--hairline);
           border-radius: 999px;
-          background: #0f1240;
+          background: #091725;
           font-size: 0.78rem;
           color: var(--ink-soft);
           text-decoration: none;

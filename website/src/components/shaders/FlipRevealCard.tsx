@@ -211,8 +211,8 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
         const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
         const opBoost = p.op * 1.8;
         g.addColorStop(0, `rgba(141, 151, 255, ${opBoost})`);
-        g.addColorStop(0.55, `rgba(47, 56, 184, ${opBoost * 0.5})`);
-        g.addColorStop(1, "rgba(32, 39, 155, 0)");
+        g.addColorStop(0.55, `rgba(39, 76, 117, ${opBoost * 0.5})`);
+        g.addColorStop(1, "rgba(30, 58, 91, 0)");
         ctx.fillStyle = g;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -399,27 +399,27 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
               Darker + higher contrast than the page so the card reads
               as a distinct object, not a window into the page. */}
           <radialGradient id="flip-base" cx="50%" cy="38%" r="70%">
-            <stop offset="0%" stopColor="#181d7a">
+            <stop offset="0%" stopColor="#12283d">
               {!paused && (
                 <animate
                   attributeName="stop-color"
-                  values="#181d7a;#20279b;#121656;#181d7a"
+                  values="#12283d;#1e3a5b;#10273a;#12283d"
                   dur="11s"
                   repeatCount="indefinite"
                 />
               )}
             </stop>
-            <stop offset="55%" stopColor="#10134d">
+            <stop offset="55%" stopColor="#0b192a">
               {!paused && (
                 <animate
                   attributeName="stop-color"
-                  values="#10134d;#121656;#0a0d38;#10134d"
+                  values="#0b192a;#10273a;#071522;#0b192a"
                   dur="13s"
                   repeatCount="indefinite"
                 />
               )}
             </stop>
-            <stop offset="100%" stopColor="#0a0d38" />
+            <stop offset="100%" stopColor="#071522" />
           </radialGradient>
 
           {/* Gilt filigree gradient */}
@@ -466,7 +466,7 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
         {/* ─── BG: nebula + dust stream (moves -3px toward cursor) */}
         <g className="al-bg">
           <rect width="360" height="540" fill="url(#flip-base)" />
-          <rect width="360" height="540" fill="#181d7a" filter="url(#flip-grain)" opacity="0.45" />
+          <rect width="360" height="540" fill="#12283d" filter="url(#flip-grain)" opacity="0.45" />
 
           <g className="al-dust" filter="url(#flip-particle-glow)">
             {!paused && particles.map((p, i) => (
@@ -645,7 +645,7 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
               </g>
 
               {/* Leaf midribs — thin dark vein down each leaf */}
-              <g fill="none" stroke="rgba(10,13,56,0.85)"
+              <g fill="none" stroke="rgba(7,21,34,0.85)"
                  strokeWidth="0.5" strokeLinecap="round">
                 <path d="M 2,17  Q 8,13  15,13" />
                 <path d="M -2,3  Q -9,-1 -17,-2" />
@@ -659,7 +659,7 @@ export function CardBack({ disableCanvas = false }: { disableCanvas?: boolean | 
                       fill="rgba(232,233,255,0.95)" />
               {/* Calyx / stem-to-fruit connector — tiny dark dot */}
               <circle cx="0" cy="-25.5" r="0.55"
-                      fill="rgba(10,13,56,0.9)" />
+                      fill="rgba(7,21,34,0.9)" />
             </g>
           </g>
 
@@ -937,11 +937,11 @@ export default function FlipRevealCard({
             inset 0 0 0 1px rgba(232, 233, 255, 0.16);
         }
         .flr-back {
-          background: #10134d;
+          background: #0b192a;
         }
         .flr-front {
           transform: rotateY(180deg);
-          background: #0a0d38;
+          background: #071522;
         }
         /* Nebula base — same palette as the back's #flip-base gradient,
            animated to match its subtle breathing so front/back feel like
@@ -951,10 +951,10 @@ export default function FlipRevealCard({
           inset: 0;
           background:
             radial-gradient(ellipse at 50% 38%,
-              #181d7a 0%,
-              #121656 32%,
-              #10134d 58%,
-              #0a0d38 100%);
+              #12283d 0%,
+              #10273a 32%,
+              #0b192a 58%,
+              #071522 100%);
           animation: flr-front-breathe 11s ease-in-out infinite;
           z-index: 0;
         }
@@ -992,7 +992,7 @@ export default function FlipRevealCard({
           background: radial-gradient(
             ellipse at 52% 42%,
             transparent 45%,
-            rgba(10, 13, 56, 0.5) 100%
+            rgba(7, 21, 34, 0.5) 100%
           );
           mix-blend-mode: multiply;
           z-index: 3;
@@ -1031,7 +1031,7 @@ export default function FlipRevealCard({
           gap: 0.35em;
           padding: 0.5rem 1rem;
           border-radius: 3px;
-          background: rgba(16, 19, 77, 0.85);
+          background: rgba(11, 25, 42, 0.85);
           border: 1px solid rgba(232, 233, 255, 0.16);
           font-family: var(--font-heading, "Cormorant Garamond"), serif;
           font-style: italic;
@@ -1083,7 +1083,7 @@ export default function FlipRevealCard({
           gap: 0.55em;
           padding: 0.55rem 1.1rem;
           border-radius: 3px;
-          background: rgba(16, 19, 77, 0.85);
+          background: rgba(11, 25, 42, 0.85);
           border: 1px solid rgba(232, 233, 255, 0.16);
           font-family: var(--font-mono, "IBM Plex Mono"), monospace;
           font-size: 0.6875rem;
@@ -1149,7 +1149,7 @@ export default function FlipRevealCard({
             rgba(237, 202, 139, 0.6) 0%,
             rgba(224, 183, 104, 0.3) 22%,
             rgba(141, 151, 255, 0.14) 48%,
-            rgba(24, 29, 122, 0) 78%
+            rgba(18, 40, 61, 0) 78%
           );
           opacity: 0;
           mix-blend-mode: screen;
@@ -1333,7 +1333,7 @@ export default function FlipRevealCard({
           background: radial-gradient(
             ellipse at 52% 42%,
             transparent 45%,
-            rgba(10, 13, 56, 0.5) 100%
+            rgba(7, 21, 34, 0.5) 100%
           );
           mix-blend-mode: multiply;
           z-index: 5;

@@ -19,7 +19,7 @@ const FoilShaderMaterial = shaderMaterial(
     uTime: 0,
     uLogo: null,
     uGold: new THREE.Color("#e0b768"),
-    uBackground: new THREE.Color("#0a0d38"), // Abyss — deepest allowed ground
+    uBackground: new THREE.Color("#071522"), // Abyss — deepest allowed ground
     uHover: 0.0,
   },
   `
@@ -110,8 +110,8 @@ export default function TarotCard3D({
     
     // Background: night ground
     const grad = ctx.createRadialGradient(256, 409, 0, 256, 409, 500);
-    grad.addColorStop(0, "#181d7a");
-    grad.addColorStop(1, "#0a0d38");
+    grad.addColorStop(0, "#12283d");
+    grad.addColorStop(1, "#071522");
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, 512, 819);
 
@@ -150,7 +150,7 @@ export default function TarotCard3D({
   const isGold = index === 12;
   const isIce = index === 18;
 
-  const cardColor = isCrimson ? "#2f38b8" : isGold ? "#e0b768" : isIce ? "#b7bce9" : "#10134d";
+  const cardColor = isCrimson ? "#274c75" : isGold ? "#e0b768" : isIce ? "#b7bce9" : "#0b192a";
   const metalness = isGold ? 0.9 : 0.6;
   const roughness = isIce ? 0.15 : 0.3;
 

@@ -36,8 +36,8 @@ const CSS = `
               padding: clamp(0.9rem, 3vw, 2rem);
               perspective: 1150px;
               background:
-                radial-gradient(60rem 40rem at 50% 40%, rgba(24, 29, 122, 0.55), transparent 70%),
-                rgba(10, 13, 56, 0.94);
+                radial-gradient(60rem 40rem at 50% 40%, rgba(18, 40, 61, 0.55), transparent 70%),
+                rgba(7, 21, 34, 0.94);
             }
 
             .ci-tilt {
@@ -140,10 +140,10 @@ const CSS = `
               overflow: hidden;
               border: 0;
               border-radius: 14px;
-              background: #0a0d38;
+              background: #071522;
               box-shadow:
-                0 3rem 6rem rgba(5, 7, 32, 0.75),
-                0 0.6rem 1.6rem rgba(5, 7, 32, 0.55);
+                0 3rem 6rem rgba(4, 10, 17, 0.75),
+                0 0.6rem 1.6rem rgba(4, 10, 17, 0.55);
               cursor: grab;
               touch-action: none;
             }

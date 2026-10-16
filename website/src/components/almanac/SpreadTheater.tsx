@@ -53,9 +53,9 @@ function CardBackPlate() {
     <svg viewBox="0 0 130 225" width="100%" height="100%" aria-hidden="true" style={{ display: "block" }}>
       <defs>
         <radialGradient id="st-sky" cx="50%" cy="38%" r="85%">
-          <stop offset="0%" stopColor="#181d7a" />
-          <stop offset="55%" stopColor="#10134d" />
-          <stop offset="100%" stopColor="#0a0d38" />
+          <stop offset="0%" stopColor="#12283d" />
+          <stop offset="55%" stopColor="#0b192a" />
+          <stop offset="100%" stopColor="#071522" />
         </radialGradient>
       </defs>
       <rect x="0" y="0" width="130" height="225" fill="url(#st-sky)" />
@@ -407,8 +407,8 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
           transform-style: preserve-3d;
           will-change: transform;
           box-shadow:
-            0 22px 42px rgba(10, 13, 56, 0.55),
-            0 5px 12px rgba(10, 13, 56, 0.4);
+            0 22px 42px rgba(7, 21, 34, 0.55),
+            0 5px 12px rgba(7, 21, 34, 0.4);
         }
 
         /* the turning leaf: back and true face on one hinge */
@@ -427,7 +427,7 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
           border: 1px solid rgba(232, 233, 255, 0.16);
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
-          background: #0a0d38;
+          background: #071522;
         }
 
         .st-face {
@@ -464,7 +464,7 @@ export default function SpreadTheater({ href = "/oracle", label = "Begin a readi
             46% 38% at 50% 42%,
             rgba(232, 233, 255, 0.16),
             rgba(232, 233, 255, 0.05) 42%,
-            rgba(10, 13, 56, 0.18) 90%
+            rgba(7, 21, 34, 0.18) 90%
           );
         }
 

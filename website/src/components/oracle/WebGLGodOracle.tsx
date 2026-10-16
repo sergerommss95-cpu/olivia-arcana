@@ -143,8 +143,8 @@ const FluidBackground = () => {
             float f = snoise(p + r);
             
             vec3 color = mix(
-              vec3(0.039, 0.051, 0.220), // Abyss #0a0d38
-              vec3(0.184, 0.220, 0.722), // Lapis-lit #2f38b8
+              vec3(0.027, 0.082, 0.133), // Abyss #071522
+              vec3(0.153, 0.298, 0.459), // Lapis-lit #274c75
               f
             );
             color = mix(color, vec3(0.878, 0.718, 0.408), smoothstep(0.7, 1.0, f) * 0.3); // Gilt #e0b768
@@ -303,11 +303,11 @@ const GodModeCard3D = ({
         
         {/* FRONT FACE (Image) */}
         {isSelected ? (
-          <Suspense fallback={<meshStandardMaterial color="#0a0d38" />}>
+          <Suspense fallback={<meshStandardMaterial color="#071522" />}>
             <CardFrontTexture url={getCardPortalImagePath(card)} opacity={frontOpacity} />
           </Suspense>
         ) : (
-          <meshStandardMaterial color="#0a0d38" roughness={0.8} />
+          <meshStandardMaterial color="#071522" roughness={0.8} />
         )}
 
         {/* BACK FACE (Ray-Marched Obsidian Glass) */}
@@ -326,7 +326,7 @@ const GodModeCard3D = ({
           iridescenceThicknessRange={[100, 400]}
           clearcoat={1}
           clearcoatRoughness={0.1}
-          color="#181d7a" // Deep lapis glass
+          color="#12283d" // Deep lapis glass
           attenuationDistance={0.5}
           attenuationColor="#ffffff"
         />
@@ -412,16 +412,16 @@ export default function WebGLGodOracle() {
   };
 
   return (
-    <div className="relative w-full h-full bg-[#0a0d38] overflow-hidden select-none">
+    <div className="relative w-full h-full bg-[#071522] overflow-hidden select-none">
 
       {/* ── 3D CANVAS ── */}
       <Canvas camera={{ position: [0, 0, 15], fov: 40 }} dpr={[1, 2]} gl={{ antialias: false }}>
-        <color attach="background" args={['#0a0d38']} />
+        <color attach="background" args={['#071522']} />
         
         {/* Lights */}
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 10, 10]} intensity={2} color="#ffffff" angle={0.5} penumbra={1} castShadow />
-        <pointLight position={[-10, -10, -10]} intensity={1} color="#2f38b8" />
+        <pointLight position={[-10, -10, -10]} intensity={1} color="#274c75" />
         <Environment preset="city" />
 
         {/* Fluid Environment */}
@@ -473,7 +473,7 @@ export default function WebGLGodOracle() {
           </h1>
           <button
             onClick={() => { audio.init(); setState("drawing"); }}
-            className="pointer-events-auto px-6 py-3 rounded-[2px] bg-[#e0b768] text-[#15174c] text-sm font-medium hover:bg-[#edca8b] hover:-translate-y-0.5 transition-all duration-300"
+            className="pointer-events-auto px-6 py-3 rounded-[2px] bg-[#e0b768] text-[#183043] text-sm font-medium hover:bg-[#edca8b] hover:-translate-y-0.5 transition-all duration-300"
           >
             Initiate WebGL
           </button>
@@ -484,7 +484,7 @@ export default function WebGLGodOracle() {
         <div className="absolute bottom-[20%] inset-x-0 flex justify-center z-40">
           <button
             onClick={reveal}
-            className="px-6 py-3 bg-[#e0b768] text-[#15174c] text-sm font-medium rounded-[2px] hover:bg-[#edca8b] hover:-translate-y-0.5 transition-all duration-300"
+            className="px-6 py-3 bg-[#e0b768] text-[#183043] text-sm font-medium rounded-[2px] hover:bg-[#edca8b] hover:-translate-y-0.5 transition-all duration-300"
           >
             Time Dilation Reveal
           </button>
@@ -492,7 +492,7 @@ export default function WebGLGodOracle() {
       )}
 
       {state === "result" && (
-        <div className="absolute bottom-0 inset-x-0 h-[40vh] bg-gradient-to-t from-[#0a0d38] to-transparent z-40 flex items-end justify-center pb-16 pointer-events-none">
+        <div className="absolute bottom-0 inset-x-0 h-[40vh] bg-gradient-to-t from-[#071522] to-transparent z-40 flex items-end justify-center pb-16 pointer-events-none">
            <div className="flex gap-4 md:gap-24 pointer-events-auto text-center px-4">
               {selectedCards.map((id, idx) => {
                 const card = ORACLE_DATA[id];
