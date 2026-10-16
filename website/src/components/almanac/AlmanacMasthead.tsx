@@ -18,7 +18,7 @@ import { ACCOUNTS_ENABLED, PAYMENTS_ENABLED } from "@/lib/service-status";
 const MEMBERSHIP_READY = ACCOUNTS_ENABLED && PAYMENTS_ENABLED;
 
 // Inner pages that exist in Ukrainian too, so the language pill can keep the reader on the same page
-const UK_ROUTES = ["/cards", "/learn", "/astrology", "/decks", "/ask"];
+const UK_ROUTES = ["/cards", "/learn", "/astrology", "/decks", "/ask", "/daily"];
 
 const MAST = {
   en: {
