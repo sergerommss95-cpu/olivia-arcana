@@ -46,12 +46,18 @@ export function useMedia(query: string) {
   return useSyncExternalStore(subscribe, () => window.matchMedia(query).matches, () => false);
 }
 
+/** A passage by key ("overview", a facet or a chapter): its heading (none for the overview), refs and teachings. */
+export function passageOf(stages: PortraitStages, key: string): { heading?: string; refs: string[]; teachings: string[] } | null {
+  if (key === "overview") return stages.a ? { refs: stages.a.overview.refs ?? [], teachings: stages.a.overview.teachings ?? [] } : null;
+  const facet = stages.a?.facets[key];
+  if (facet) return { heading: facet.heading, refs: facet.refs ?? [], teachings: facet.teachings ?? [] };
+  const chapter = stages.b?.chapters[key] ?? stages.c?.chapters[key];
+  return chapter ? { heading: chapter.title, refs: chapter.refs ?? [], teachings: chapter.teachings ?? [] } : null;
+}
+
 /** The refs of a passage: "overview", a facet key or a chapter key. */
 export function passageRefs(stages: PortraitStages, key: string): string[] {
-  if (key === "overview") return stages.a?.overview.refs ?? [];
-  const facet = stages.a?.facets[key];
-  if (facet) return facet.refs ?? [];
-  return stages.b?.chapters[key]?.refs ?? stages.c?.chapters[key]?.refs ?? [];
+  return passageOf(stages, key)?.refs ?? [];
 }
 
 /** Which stage each section is written in, and whether it has landed, is still being written, or never will be. */
@@ -76,8 +82,8 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
   onActive: (key: string | null) => void;
   /** The section crossing the reading line. */
   onSection: (key: SectionKey) => void;
-  /** "Why this" under a passage. */
-  onWhy: (key: string) => void;
+  /** "Why this" under a passage, with the button pressed, so focus can return to it. */
+  onWhy: (key: string, trigger: HTMLElement) => void;
   onNew: () => void;
 }) {
   const t = PORTRAIT_COPY[locale];
@@ -143,7 +149,7 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
     onBlur: (e: FocusEvent<HTMLElement>) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setFocused((f) => (f === key ? null : f)); },
   });
   const seals = (key: string, refs: string[], name: string) => (
-    <Seals key={`seals-${key}`} refs={refs} packet={packet} cards={cards} locale={locale} name={name} onWhy={() => onWhy(key)} />
+    <Seals key={`seals-${key}`} refs={refs} packet={packet} cards={cards} locale={locale} name={name} onWhy={(trigger) => onWhy(key, trigger)} />
   );
 
   // Ink-in, 90 ms apart: stage A passage by passage (kicker, title, epigraph,
@@ -280,7 +286,7 @@ function Seals({ refs, packet, cards, locale, name, onWhy }: {
   locale: PortraitLocale;
   /** The passage's name, so each "Why this" is told apart by a screen reader. */
   name: string;
-  onWhy: () => void;
+  onWhy: (trigger: HTMLElement) => void;
 }) {
   const r = PORTRAIT_COPY[locale].reader;
   const seals = sealsFor(refs, packet, locale, cards) as { kind: string; key: string; label: string; image?: string; glyph?: string }[];
@@ -302,7 +308,7 @@ function Seals({ refs, packet, cards, locale, name, onWhy }: {
         </ul>
       )}
       {/* Named in sentence case (the label is set in capitals), with its passage so each is told apart. */}
-      <button type="button" className={styles.why} aria-label={`${r.why}: ${name}`} onClick={onWhy}>{r.why}</button>
+      <button type="button" className={styles.why} aria-label={`${r.why}: ${name}`} aria-haspopup="dialog" onClick={(e) => onWhy(e.currentTarget)}>{r.why}</button>
     </div>
   );
 }

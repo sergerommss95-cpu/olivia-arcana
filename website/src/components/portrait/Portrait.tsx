@@ -17,6 +17,7 @@ import Laying, { type Frames } from "./Laying";
 import LatticeDock, { measureLaying, type Landing } from "./LatticeDock";
 import Reader, { passageRefs, sectionStates, type SectionKey } from "./Reader";
 import ChapterRail from "./ChapterRail";
+import WhyDrawer, { type WhyTarget } from "./WhyDrawer";
 import styles from "./portrait.module.css";
 import readerStyles from "./reader.module.css";
 
@@ -50,6 +51,8 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
   /** The passage lighting the dock, and the section crossing the reading line. */
   const [active, setActive] = useState<string | null>(null);
   const [section, setSection] = useState<SectionKey>("opening");
+  /** The passage the Why drawer explains, and the button that opened it. */
+  const [why, setWhy] = useState<WhyTarget | null>(null);
   /** For the Laying's kicker only: kept in memory, never stored. */
   const [firstName, setFirstName] = useState("");
   const [name, setName] = useState("");
@@ -100,6 +103,7 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     let opened = false;
     setLanding(null);
     setActive(null);
+    setWhy(null);
     setSection("opening");
     setGrace(!resumed);
     if (resumed) graceTimer.current = window.setTimeout(() => setGrace(true), FIRST_STATUS_GRACE);
@@ -165,7 +169,7 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
   }
 
   /** A new portrait: the stored reading is forgotten. */
-  function reset() { abort.current?.abort(); window.clearTimeout(graceTimer.current); rememberJob(null); setFirstName(""); setLanding(null); setPhase({ kind: "form" }); }
+  function reset() { abort.current?.abort(); window.clearTimeout(graceTimer.current); rememberJob(null); setFirstName(""); setLanding(null); setWhy(null); setPhase({ kind: "form" }); }
 
   if (phase.kind === "error") {
     return (
@@ -203,16 +207,18 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     }
 
     const packet = phase.packet ?? NO_PACKET;
-    const lit = active ? litPositions(passageRefs(stages, active), packet) : null;
+    // While the Why drawer is open, the dock keeps the cards of the passage it explains.
+    const shown = why?.key ?? active;
+    const lit = shown ? litPositions(passageRefs(stages, shown), packet) : null;
     return (
       <div className={readerStyles.reading} data-reader="">
         <div className={readerStyles.dockbar}>
           {phase.packet && <LatticeDock packet={phase.packet} cards={cards} locale={locale} lit={lit} landing={landing ?? undefined} />}
           <ChapterRail locale={locale} states={sectionStates(stages, s?.status === "failed")} current={section} />
         </div>
-        {/* "Why this" opens the Why drawer once it exists (M3 Task 4). */}
         <Reader stages={stages} status={s} packet={packet} cards={cards} locale={locale} firstName={firstName || undefined}
-          onActive={setActive} onSection={setSection} onWhy={() => {}} onNew={reset} />
+          onActive={setActive} onSection={setSection} onWhy={(key, trigger) => setWhy({ key, trigger })} onNew={reset} />
+        {why && <WhyDrawer target={why} stages={stages} teachings={s?.teachings ?? {}} packet={packet} cards={cards} locale={locale} frames={frames} onClose={() => setWhy(null)} />}
       </div>
     );
   }

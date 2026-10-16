@@ -19,6 +19,9 @@
 // --focus S  focus the element matching selector S before each shot
 // --scroll S scroll the element matching selector S to the top of the window before each shot
 // --before JS  evaluate a page expression before each shot (e.g. open a dialog)
+// --wait MS  how long to let --before settle (default 600)
+// --keys K   press keys before each shot (after --focus), e.g. "Tab,Enter,Tab*3,Shift+Tab,Escape";
+//            after each, print where focus is and whether it is inside a dialog
 // --tag T    add T to the file names
 
 import { spawn } from "node:child_process";
@@ -41,14 +44,14 @@ const repo = path.resolve(here, "../..");
 const readJson = (file) => JSON.parse(readFileSync(file, "utf8"));
 
 function args(argv) {
-  const out = { base: "http://localhost:3417", locale: "en", viewport: "1440x900", times: "1,8,35", aAt: Infinity, bcAt: Infinity, failAt: Infinity, out: "shots", reduced: false, full: false, ax: false };
+  const out = { base: "http://localhost:3417", locale: "en", viewport: "1440x900", times: "1,8,35", aAt: Infinity, bcAt: Infinity, failAt: Infinity, out: "shots", reduced: false, full: false, ax: false, wait: 600 };
   for (let i = 0; i < argv.length; i++) {
     const key = argv[i].replace(/^--/, "").replace(/-(\w)/g, (_, c) => c.toUpperCase());
     if (["reduced", "full", "ax"].includes(key)) out[key] = true;
     else out[key] = argv[++i];
   }
   const [width, height] = String(out.viewport).split("x").map(Number);
-  return { ...out, width, height, times: String(out.times).split(",").map(Number).sort((a, b) => a - b), aAt: Number(out.aAt), bcAt: Number(out.bcAt), failAt: Number(out.failAt) };
+  return { ...out, width, height, times: String(out.times).split(",").map(Number).sort((a, b) => a - b), aAt: Number(out.aAt), bcAt: Number(out.bcAt), failAt: Number(out.failAt), wait: Number(out.wait) };
 }
 
 /** The reading the page follows: EN from the M2 evidence run, UK from M1's with its packet recalculated. */
@@ -102,6 +105,32 @@ async function connect(url) {
     on(fn) { listeners.push(fn); },
     close() { ws.close(); },
   };
+}
+
+const KEYS = { Tab: { code: "Tab", vk: 9 }, Enter: { code: "Enter", vk: 13, text: "\r" }, Escape: { code: "Escape", vk: 27 } };
+/** Where focus is, said briefly: its role or tag, its name, and whether a dialog holds it. */
+const WHERE = `(() => { const el = document.activeElement; if (!el || el === document.body) return "body";
+  const name = (el.getAttribute("aria-label") || el.textContent || "").trim().replace(/\\s+/g, " ").slice(0, 60);
+  return \`\${el.getAttribute("role") || el.tagName.toLowerCase()} "\${name}"\${el.closest("[role=dialog]") ? " [in dialog]" : ""}\`; })()`;
+
+/** Presses each key in turn ("Tab*3" thrice, "Shift+Tab" with Shift held) and prints where focus lands. */
+async function press(send, list) {
+  for (const item of list.split(",").map((k) => k.trim()).filter(Boolean)) {
+    const [chord, times] = item.split("*");
+    const parts = chord.split("+");
+    const key = parts.pop();
+    const spec = KEYS[key];
+    if (!spec) throw new Error(`unknown key ${key}`);
+    const modifiers = parts.includes("Shift") ? 8 : 0;
+    for (let n = 0; n < Number(times ?? 1); n++) {
+      const base = { key, code: spec.code, windowsVirtualKeyCode: spec.vk, nativeVirtualKeyCode: spec.vk, modifiers };
+      await send("Input.dispatchKeyEvent", { type: "keyDown", ...base, ...(spec.text ? { text: spec.text } : {}) });
+      await send("Input.dispatchKeyEvent", { type: "keyUp", ...base });
+      await sleep(key === "Tab" ? 120 : 700);
+      const { result } = await send("Runtime.evaluate", { expression: WHERE, returnByValue: true });
+      console.log(`key  ${chord.padEnd(9)} → ${result.value}`);
+    }
+  }
 }
 
 function launch() {
@@ -200,9 +229,10 @@ async function main() {
         // What the focus sets in motion (a passage lighting its cards) settles before the shot.
         await sleep(800);
       }
+      if (opts.keys) await press(send, opts.keys);
       if (opts.before) {
         await send("Runtime.evaluate", { expression: opts.before, awaitPromise: true });
-        await sleep(600);
+        await sleep(opts.wait);
       }
       if (opts.scroll) {
         await send("Runtime.evaluate", { expression: `document.querySelector(${JSON.stringify(opts.scroll)})?.scrollIntoView({ block: "start", behavior: "instant" })` });
@@ -226,7 +256,7 @@ async function main() {
     }
     if (opts.ax) {
       const { nodes } = await send("Accessibility.getFullAXTree");
-      const named = nodes.filter((n) => !n.ignored && ["image", "img", "heading", "status", "list", "button", "listitem"].includes(n.role?.value) && n.name?.value);
+      const named = nodes.filter((n) => !n.ignored && ["image", "img", "heading", "status", "list", "button", "listitem", "dialog", "link"].includes(n.role?.value) && n.name?.value);
       for (const n of named) console.log(`ax  ${n.role.value.padEnd(9)} ${n.name.value}`);
       const { result } = await send("Runtime.evaluate", { expression: "[...document.querySelectorAll('[role=status]')].map((el) => el.textContent).join(' | ')", returnByValue: true });
       console.log(`ax  live      ${result.value}`);

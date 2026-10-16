@@ -28,13 +28,13 @@
 
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-/* Scoped twice to outrank the shell's own focus rule. */
-.reading.reading :is(a, button):focus-visible,
-.reading.reading .passage:focus-visible {
+/* Scoped twice to outrank the shell's own focus rule. A passage marks focus with its ribbon instead (below). */
+.reading.reading :is(a, button):focus-visible {
   outline: 2px solid var(--gilt);
   outline-offset: 3px;
   border-radius: 3px;
 }
+.reading.reading .passage:focus-visible { outline: none; }
 
 /* ── Arrival ─────────────────────────────────────────────────── */
 
@@ -213,7 +213,8 @@
 
 .text { position: relative; width: 100%; max-width: 640px; margin: 0 auto; padding-bottom: 24px; }
 .text p { margin: 0; }
-.text [data-section] { scroll-margin-top: 128px; }
+/* Clear of the sticky bar when a section is jumped to or a passage takes focus. */
+.text :is([data-section], [data-passage]) { scroll-margin-top: 128px; }
 
 .kicker { font: 400 11px/1.4 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gilt); text-align: center; }
 .title {
@@ -233,8 +234,9 @@
   text-wrap: balance;
 }
 
-/* A passage: the overview, a facet or a chapter. Read, it warms with a faint gilt wash. */
-.passage { position: relative; margin: 0 -24px; padding: 20px 24px 22px; border-radius: 4px; outline: none; }
+/* A passage: the overview, a facet or a chapter. Read, it warms with a faint gilt wash;
+   in keyboard focus a gilt ribbon also runs down its left edge, like a bookmark. */
+.passage { position: relative; margin: 0 -24px; padding: 20px 24px 22px; border-radius: 0 4px 4px 0; outline: none; }
 .passage::before {
   content: "";
   position: absolute;
@@ -246,6 +248,17 @@
   pointer-events: none;
 }
 .passage:hover::before, .passage:focus-visible::before, .passage:has(:focus-visible)::before { opacity: 1; }
+.passage::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: var(--gilt);
+  opacity: 0;
+  transition: opacity 300ms var(--ease);
+  pointer-events: none;
+}
+.passage:focus-visible::after { opacity: 1; }
 
 .prose { font-size: 17px; line-height: 1.8; color: var(--body); hanging-punctuation: first; }
 /* A book's paragraphs: indented, not spaced. */
@@ -396,7 +409,7 @@
   .dock { grid-area: dock; position: sticky; top: 120px; }
   .rail { grid-area: rail; position: sticky; top: 120px; padding-top: 30px; }
   .text { grid-area: text; max-width: none; }
-  .text [data-section] { scroll-margin-top: 40px; }
+  .text :is([data-section], [data-passage]) { scroll-margin-top: 40px; }
 }
 
 /* ── Phone ───────────────────────────────────────────────────── */
