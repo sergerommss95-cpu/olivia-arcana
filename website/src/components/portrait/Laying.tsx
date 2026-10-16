@@ -19,7 +19,7 @@ import { LatticeCard, Threads, cardsAt } from "./Lattice";
 import styles from "./laying.module.css";
 
 type Text = { en: string; uk: string };
-/** Position frames, as in netlify/portrait/knowledge/positions.json. */
+/** Position frames for the page, in the second person: src/lib/portrait/frames.json. */
 export type Frames = Record<string, Text>;
 type StageKey = "a" | "b" | "c";
 

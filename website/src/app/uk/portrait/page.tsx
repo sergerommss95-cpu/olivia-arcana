@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import UkrainianLibraryShell from "../cards/library-shell";
 import Portrait from "@/components/portrait/Portrait";
 import { majorCards } from "@/lib/astrology/deck";
-// The position frames are data, read where the server keeps them: one source for the prompt and the page.
-import frames from "../../../../netlify/portrait/knowledge/positions.json";
+// What each position means, said to the reader ("you"). The model reads its own third-person frames in netlify/portrait/knowledge/positions.json.
+import frames from "../../../lib/portrait/frames.json";
 
 export const metadata: Metadata = {
   title: "Ваш портрет народження | Olivia Arcana",
