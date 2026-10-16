@@ -13,12 +13,12 @@ export const LIMITS = {
   lede: [30, 240], paragraph: [200, 1150], paragraphs: [2, 3], practice: [40, 320], keep: [20, 180], outline: [20, 200],
 } as const;
 
-/** Stems per language, as regex source. Ukrainian forms inflect (Овен / в Овні, Телець / в Тельці), so a sign counts as named if any stem appears. */
+/** Stems per language, as regex source. Ukrainian forms inflect (Овен / в Овні, Телець / в Тельці), so a sign counts as named if any stem appears. Capricorn has two current spellings, Козеріг and Козоріг (the knowledge bank uses the second). */
 const SIGN_NAMES: Record<string, [string[], string[]]> = {
   aries: [["Aries"], ["Овен", "Овн"]], taurus: [["Taurus"], ["Телець", "Тельц"]], gemini: [["Gemini"], ["Близнюк", "Близнят"]],
   cancer: [["Cancer"], ["Ра(?:к(?:а|у|ом|ові|і)?|ці)(?![\\p{L}])"]], leo: [["Leo"], ["Лев"]], virgo: [["Virgo"], ["Дів"]],
   libra: [["Libra"], ["Терез"]], scorpio: [["Scorpio"], ["Скорпіон"]], sagittarius: [["Sagittarius"], ["Стріл"]],
-  capricorn: [["Capricorn"], ["Козер"]], aquarius: [["Aquarius"], ["Водолі"]], pisces: [["Pisces"], ["Риб"]],
+  capricorn: [["Capricorn"], ["Козер", "Козор"]], aquarius: [["Aquarius"], ["Водолі"]], pisces: [["Pisces"], ["Риб"]],
 };
 /** English names must be whole words; Ukrainian names only need a word start, because their endings inflect. */
 const SIGN_RE: Record<string, [RegExp[], RegExp[]]> = Object.fromEntries(

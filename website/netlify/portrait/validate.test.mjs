@@ -184,6 +184,15 @@ test("Ukrainian nominative names for Sagittarius and Capricorn count", () => {
   assert.equal(errors.some((e) => e.startsWith("uncertain:")), false);
 });
 
+test("Capricorn counts in both Ukrainian spellings, the knowledge bank's Козоріг included", () => {
+  for (const [first, second] of [["Козорозі", "Водолії"], ["Козорогом", "Водолієм"], ["Козерозі", "Водолії"]]) {
+    const data = stageA();
+    data.facets.inner.text = `Якщо ваш Місяць у ${first}, ${words(30)} якщо у ${second}, ${words(25)}`;
+    const { errors = [] } = validateStage("a", data, withMoon(["capricorn", "aquarius"], "uk"), teachings);
+    assert.equal(errors.some((e) => e.startsWith("uncertain:")), false, first);
+  }
+});
+
 test("a Ukrainian word that only contains a sign stem does not name it", () => {
   const data = stageA();
   data.facets.inner.text = `Ваш характер міцний, ${words(30)} Лев у вас сильний, ${words(25)}`;
