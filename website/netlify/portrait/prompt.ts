@@ -84,6 +84,7 @@ const WHY: Record<string, string> = {
   phrase: "it uses a stock phrase this voice avoids; say it plainly in your own words",
   gender: "it uses a gendered form, or «я» with a past-tense verb; use plural agreement only with «ви», and put any first-person words in the present tense («мені вас бракує»)",
   repeat: "it repeats wording used elsewhere in the portrait; say it differently",
+  empty: "the previous answer came back with every field empty; write the whole stage in full",
 };
 const PART_LIMITS = new Set(["heading", "title", "lede", "practice"]);
 const signName = (sign: string) => sign.charAt(0).toUpperCase() + sign.slice(1);

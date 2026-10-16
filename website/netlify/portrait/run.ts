@@ -44,6 +44,13 @@ const tidy = (value: unknown): unknown =>
   : value && typeof value === "object" ? Object.fromEntries(Object.entries(value).map(([key, inner]) => [key, tidy(inner)]))
   : value;
 
+/** True when no string anywhere in the answer has any text: a schema-valid but empty reply, seen once in the eval. */
+const blank = (value: unknown): boolean =>
+  typeof value === "string" ? value.trim() === ""
+  : Array.isArray(value) ? value.every(blank)
+  : value && typeof value === "object" ? Object.values(value).every(blank)
+  : true;
+
 export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS, backoff = freeBackoffMs }: { kv: KeyValue; id: string; write: (call: Call) => Promise<WriteResult>; bank: Bank; deadlineMs?: number; backoff?: (freeRetry: number) => number }) {
   const job = await claimJob(kv, id);
   if (!job) return "skipped" as const;
@@ -88,7 +95,8 @@ export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS
         log(check.ok || residue);
         if (residue) console.warn(JSON.stringify({ event: "portrait_style_residue", stage: key, codes: check.errors.map(logCode) }));
         if (check.ok || residue) { await putStage(kv, id, key, data); return { ok: true as const, data }; }
-        errors = check.errors.slice(0, MAX_LISTED_ERRORS);
+        // An empty answer fails every field; one plain line says what happened instead of twenty "missing" codes.
+        errors = blank(data) ? [`empty:${key}`] : check.errors.slice(0, MAX_LISTED_ERRORS);
         console.warn(JSON.stringify({ event: "portrait_stage_invalid", stage: key, attempt, errors: errors.map(logCode) }));
         attempt++;
       }

@@ -845,3 +845,14 @@ test("stray stress marks are taken out of the text before it is checked and stor
   assert.ok(!JSON.stringify(stored).includes("\u0301"));
   assert.equal(stored.a.overview.text, `${A.overview.text} Полиця початих справ.`);
 });
+
+test("an answer with every field empty is named as empty in the repair, not listed field by field", async () => {
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const blank = (value) => typeof value === "string" ? "" : Array.isArray(value) ? [] : Object.fromEntries(Object.entries(value).map(([k, v]) => [k, blank(v)]));
+  const { write, calls } = scripted([ok(blank(A)), ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  const repair = calls[1].task.split("fix every one:\n")[1];
+  assert.match(repair, /^empty:a — /);
+  assert.equal(repair.split("\n").length, 1);
+});
