@@ -148,7 +148,7 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
   }, [landed]);
 
   // Progress is spoken as chapters land; the region is mounted empty first.
-  const unfinished = status?.error === "timeout" ? t.errors.timeout : r.unfinished;
+  const unfinished = status?.error === "timeout" ? `${t.errors.timeout} ${t.next.timeout}` : r.unfinished;
   const progress = failed ? (stages.c ? t.laying.written : unfinished) : !stages.b ? t.laying.writing.b : !stages.c ? t.laying.writing.c : t.laying.written;
   useEffect(() => {
     const id = window.setTimeout(() => setSaid(progress), 400);

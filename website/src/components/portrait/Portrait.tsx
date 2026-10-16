@@ -1,9 +1,9 @@
 // website/src/components/portrait/Portrait.tsx
 "use client";
 
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { birthChart } from "@/lib/astrology/chart.js";
-import { loadPlaces, searchPlaces, type Place } from "@/lib/astrology/places";
+import { loadPlaces, type Place } from "@/lib/astrology/places";
 import { loadProfile } from "@/lib/astrology/profile";
 import type { MajorCard } from "@/lib/astrology/deck";
 import { arkanPortrait } from "@/lib/portrait/arkan.js";
@@ -22,6 +22,7 @@ import WhyDrawer, { type WhyTarget } from "./WhyDrawer";
 import Keep from "./Keep";
 import Confirm from "./Confirm";
 import SavedList, { SAVED_TITLE_ID, type SavedSummary } from "./SavedList";
+import PlaceField, { placeName } from "./PlaceField";
 import styles from "./portrait.module.css";
 import readerStyles from "./reader.module.css";
 
@@ -36,8 +37,7 @@ type Teachings = PortraitStatus["teachings"];
 type Phase =
   | { kind: "form" }
   | { kind: "working"; id: string; packet: PortraitPacket | null; status: PortraitStatus | null; resumed: boolean }
-  | { kind: "kept"; source: "saved" | "example"; id: string; packet: PortraitPacket; stages: PortraitStages; teachings: Teachings }
-  | { kind: "error"; code: string };
+  | { kind: "kept"; source: "saved" | "example"; id: string; packet: PortraitPacket; stages: PortraitStages; teachings: Teachings };
 /** A question asked before something is lost. */
 type Asking = { kind: "new" } | { kind: "forget"; id: string; title: string; from: "reader" | "list" };
 type Saved = { id: string; packet?: { factors?: unknown }; stages?: PortraitStages; teachings?: Teachings };
@@ -47,6 +47,23 @@ const SAVED_HASH = /[#&]saved=([^&]+)/;
 const FIRST_STATUS_GRACE = 1200;
 const NO_PACKET: PortraitPacket = { v: 1, locale: "en", timeKnown: false, factors: [] };
 type ErrorKey = keyof (typeof PORTRAIT_COPY)["en"]["errors"];
+/** The form's fields, in the order an error takes focus to them. */
+const FIELDS = ["name", "latin", "date", "time", "place", "invite"] as const;
+type FieldKey = (typeof FIELDS)[number];
+type Invalid = Partial<Record<FieldKey, string>>;
+/** A name in Latin letters, as the Latin field's pattern says. */
+const LATIN_PATTERN = "[A-Za-zÀ-ž .'’\\-]+";
+const LATIN = new RegExp(`^${LATIN_PATTERN}$`);
+/** A view opened from the entry screen with its own history entry, so Back returns to the entry. */
+type View = { portrait: "saved"; id: string } | { portrait: "example" };
+type Arrival = "push" | "history" | "address";
+
+/** A start that was turned away, said in the notice: the API's own codes, "unconfigured" as a pause, any other HTTP status as one. */
+function noticeKey(code: string): ErrorKey {
+  if (code === "unconfigured") return "paused";
+  if (code in PORTRAIT_COPY.en.errors) return code as ErrorKey;
+  return code.startsWith("http_") ? "http" : "generic";
+}
 
 /** The copy for a finished-but-failed reading: timeout and missing are their own; "unconfigured" is a pause; the rest is "failed". */
 function failureKey(error: string | null): ErrorKey {
@@ -83,7 +100,10 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
   /** null until the page has mounted and storage has been read; the invite field shows only when false. */
   const [hasInvite, setHasInvite] = useState<boolean | null>(null);
   const [busy, setBusy] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
+  /** Each field's error after a submit, said under it; cleared as that field is edited. */
+  const [invalid, setInvalid] = useState<Invalid>({});
+  /** Why the server turned a start away (an error code), said in the notice above the button. */
+  const [notice, setNotice] = useState<string | null>(null);
   /** Whether the reading on screen is saved on this device now. */
   const [kept, setKept] = useState(false);
   const [asking, setAsking] = useState<Asking | null>(null);
@@ -93,7 +113,10 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
   /** Said (and shown) on the entry screen: a portrait forgotten, or one that could not be opened. */
   const [entrySaid, setEntrySaid] = useState("");
   const [example, setExample] = useState<"idle" | "busy" | "failed">("idle");
+  const uid = useId();
   const entryTitle = useRef<HTMLHeadingElement>(null);
+  /** Whether the saved portrait or example on screen has its own history entry (Back, or leaving it, returns to the entry). */
+  const pushedView = useRef(false);
   const backToEntry = useRef(false);
   /** Where focus goes once the next render has landed (the control that replaced the one pressed). */
   const focusNext = useRef<(() => HTMLElement | null) | null>(null);
@@ -111,7 +134,7 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     // the reader. Every setState below lands in the same render.
     const savedFromHash = SAVED_HASH.exec(window.location.hash);
     if (savedFromHash) {
-      openSaved(decodeURIComponent(savedFromHash[1]));
+      openSaved(decodeURIComponent(savedFromHash[1]), "address");
     } else {
       const job = storedJob();
       if (job) follow(job.id, job.packet ?? null, true);
@@ -123,7 +146,7 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     const two = (n: number) => String(n).padStart(2, "0");
     setMaxDate(`${now.getFullYear()}-${two(now.getMonth() + 1)}-${two(now.getDate())}`);
     const profile = loadProfile();
-    if (profile) { setDate(profile.date); setTime(profile.time ?? ""); setUnknownTime(!profile.time); setPlace(profile.place); setQuery(profile.place[locale] ?? profile.place.en); }
+    if (profile) { setDate(profile.date); setTime(profile.time ?? ""); setUnknownTime(!profile.time); setPlace(profile.place); setQuery(placeName(profile.place, locale)); }
     loadPlaces().then(setPlaces);
     return () => { mounted.current = false; abort.current?.abort(); window.clearTimeout(graceTimer.current); window.clearTimeout(entryTimer.current); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -144,7 +167,18 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     entryTitle.current?.focus({ preventScroll: true });
   }, [phase.kind]);
 
-  const matches = useMemo(() => (place && query === (place[locale] ?? place.en) ? [] : searchPlaces(places, query, 6)), [places, query, place, locale]);
+  // Back and Forward through a saved portrait or the example opened from the entry screen.
+  // Re-subscribed each render, so it sees the phase on screen now.
+  useEffect(() => {
+    const onPop = (event: PopStateEvent) => {
+      const view = (event.state ?? {}) as Partial<View>;
+      if (view.portrait === "saved" && typeof view.id === "string") openSaved(view.id, "history");
+      else if (view.portrait === "example") void openExample("history");
+      else if (phase.kind === "kept") { pushedView.current = false; toEntry(); }
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  });
   const needsLatin = useMemo(() => Boolean(date) && nameNumbers({ date, name }).status === "needs-latin", [date, name]);
 
   function follow(id: string, packet: PortraitPacket | null, resumed: boolean) {
@@ -178,19 +212,44 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     }, controller.signal);
   }
 
+  /** What each field still needs, in the form's own words; empty when it can be sent. */
+  function check(): Invalid {
+    const found: Invalid = {};
+    if (!name.trim()) found.name = t.invalid.name;
+    if (needsLatin && !LATIN.test(latin.trim())) found.latin = t.invalid.latin;
+    if (!date) found.date = t.invalid.date;
+    else if (date < "1800-01-01" || (maxDate && date > maxDate)) found.date = t.invalid.dateRange;
+    if (!unknownTime && !time) found.time = t.invalid.time;
+    if (!place) found.place = query.trim() ? t.invalid.placeUnchosen : t.invalid.place;
+    if (hasInvite === false && !invite.trim()) found.invite = t.invalid.invite;
+    return found;
+  }
+  const fieldId = (key: FieldKey) => `${uid}-${key}`;
+  /** Errors are said under their fields, and focus goes to the first of them. */
+  function showInvalid(found: Invalid) {
+    setInvalid(found);
+    const first = FIELDS.find((key) => found[key]);
+    if (first) focusNext.current = () => document.getElementById(fieldId(first));
+  }
+  /** Editing a field takes its error away. */
+  const edited = (key: FieldKey) => setInvalid((was) => (was[key] ? { ...was, [key]: undefined } : was));
+
   async function submit(event: React.FormEvent) {
     event.preventDefault();
-    if (submitting.current || !place || !date) return;
+    if (submitting.current) return;
+    setNotice(null);
+    const found = check();
+    if (Object.keys(found).length || !place) { showInvalid(found); return; }
+    setInvalid({});
     submitting.current = true;
     setBusy(true);
-    setFormError(null);
     try {
       const code = invite.trim() || storedInvite() || "";
       const birth = { date, time: unknownTime ? null : time || null, zone: place.zone, latitude: place.lat, longitude: place.lon };
       let packet: PortraitPacket;
       try {
         const numbers = nameNumbers({ date, name, latin: needsLatin ? latin : "" });
-        if (name.trim() && numbers.status !== "calculated") { setFormError(t.latinNeeded); return; }
+        if (numbers.status !== "calculated") { showInvalid(needsLatin ? { latin: t.invalid.latin } : { name: t.invalid.name }); return; }
         packet = buildPacket({
           locale,
           chart: birthChart(birth),
@@ -199,15 +258,16 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
           daySigns: birth.time ? null : signsThroughDay({ date, zone: place.zone }),
         });
       } catch {
-        setPhase({ kind: "error", code: "packet" });
+        setNotice("packet");
         return;
       }
       const started = await startPortrait(packet, code);
       if ("error" in started) {
         if (started.error === "invite") forgetInvite();
         if (!mounted.current) return;
-        if (started.error === "invite") { setHasInvite(false); setInvite(""); }
-        setPhase({ kind: "error", code: started.error });
+        // The code is the field's to fix: the field shows (with what was sent, to correct), marked.
+        if (started.error === "invite") { setInvite(code); setHasInvite(false); showInvalid({ invite: t.invalid.inviteWrong }); }
+        else setNotice(started.error);
         return;
       }
       rememberInvite(code);
@@ -235,6 +295,7 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
   /** To the entry screen, its heading focused; a saved portrait's address is let go. */
   function toEntry() {
     if (SAVED_HASH.test(window.location.hash)) history.replaceState(null, "", window.location.pathname + window.location.search);
+    pushedView.current = false;
     backToEntry.current = true;
     refreshSaved();
     setAsking(null);
@@ -247,8 +308,12 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
   /** A new portrait: the stored reading is forgotten. */
   function reset() { abort.current?.abort(); window.clearTimeout(graceTimer.current); rememberJob(null); setFirstName(""); toEntry(); }
 
-  /** A saved portrait or the example, read from what is in hand; the stored reading in progress, if any, is left alone. */
-  function openKept(source: "saved" | "example", reading: { id: string; packet: PortraitPacket; stages: PortraitStages; teachings: Teachings }) {
+  /**
+   * A saved portrait or the example, read from what is in hand; the stored reading in progress, if any, is left alone.
+   * Opened from the entry screen ("push"), it gets its own history entry, so Back returns to the entry; reached by
+   * Back or Forward ("history") it already has one; named in the address on arrival ("address"), it has none.
+   */
+  function openKept(source: "saved" | "example", reading: { id: string; packet: PortraitPacket; stages: PortraitStages; teachings: Teachings }, arrival: Arrival) {
     abort.current?.abort();
     window.clearTimeout(graceTimer.current);
     setLanding(null);
@@ -260,16 +325,22 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     setEntrySaid("");
     setKept(source === "saved");
     setPhase({ kind: "kept", source, ...reading });
+    pushedView.current = arrival !== "address";
+    if (arrival === "push") {
+      const here = window.location.pathname + window.location.search;
+      const view: View = source === "saved" ? { portrait: "saved", id: reading.id } : { portrait: "example" };
+      history.pushState(view, "", view.portrait === "saved" ? `${here}#saved=${encodeURIComponent(view.id)}` : here);
+    }
   }
 
-  function openSaved(id: string) {
+  function openSaved(id: string, arrival: Arrival) {
     const entry = loadSaved(id) as Saved | null;
     if (!entry?.stages?.a || typeof entry.stages.a.title !== "string") { refreshSaved(); sayOnEntry(t.saved.missing); return; }
     const packet = entry.packet && Array.isArray(entry.packet.factors) ? (entry.packet as PortraitPacket) : NO_PACKET;
-    openKept("saved", { id: entry.id, packet, stages: entry.stages, teachings: entry.teachings ?? {} });
+    openKept("saved", { id: entry.id, packet, stages: entry.stages, teachings: entry.teachings ?? {} }, arrival);
   }
 
-  async function openExample() {
+  async function openExample(arrival: Arrival) {
     if (example === "busy") return;
     setExample("busy");
     try {
@@ -278,7 +349,7 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
       const body = (await res.json()) as { packet: PortraitPacket; stages: PortraitStages; teachings?: Teachings };
       if (!mounted.current) return;
       setExample("idle");
-      openKept("example", { id: `example-${locale}`, packet: body.packet, stages: body.stages, teachings: body.teachings ?? {} });
+      openKept("example", { id: `example-${locale}`, packet: body.packet, stages: body.stages, teachings: body.teachings ?? {} }, arrival);
     } catch {
       if (mounted.current) setExample("failed");
     }
@@ -300,8 +371,15 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     return true;
   }
 
-  /** Leaving a reading: a kept one leaves the stored reading alone; a live one is forgotten with it. */
-  function depart() { if (phase.kind === "kept") toEntry(); else reset(); }
+  /**
+   * Leaving a reading: a kept one leaves the stored reading alone; a live one is forgotten with it. A kept one with its
+   * own history entry leaves the way Back would, so the history holds no dead step (popstate takes it to the entry).
+   */
+  function depart() {
+    if (phase.kind !== "kept") reset();
+    else if (pushedView.current) history.back();
+    else toEntry();
+  }
   /** "Start a new portrait": a finished reading not saved asks first; the example never does. */
   function onNew() {
     const finished = phase.kind === "kept" || (phase.kind === "working" && phase.status?.status === "done");
@@ -365,28 +443,12 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     );
   }
 
-  if (phase.kind === "error") {
-    return (
-      <section className={styles.page}>
-        <p className={styles.error} role="alert">{t.errors[phase.code as ErrorKey] ?? t.errors.generic}</p>
-        <button className={styles.button} onClick={reset}>{t.again}</button>
-      </section>
-    );
-  }
-
   if (phase.kind === "working") {
     const s = phase.status;
     const stages = s?.stages ?? {};
     if (!stages.a) {
       // A failure before the opening was written: nothing to keep, one way on.
-      if (s?.status === "failed") {
-        return (
-          <section className={styles.page}>
-            <p className={styles.error} role="alert">{t.errors[failureKey(s.error)]}</p>
-            <button className={styles.button} onClick={reset}>{t.again}</button>
-          </section>
-        );
-      }
+      if (s?.status === "failed") return <Stopped locale={locale} error={s.error} onAgain={reset} />;
       if (phase.resumed && !s && !grace) return <section className={`${styles.page} ${styles.hold}`} aria-busy="true" />;
       if (phase.packet) return <Laying packet={phase.packet} cards={cards} locale={locale} status={s} frames={frames} firstName={firstName || undefined} />;
       return (
@@ -407,55 +469,127 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     return reading({ ...phase, status: { status: "done", stages: phase.stages, teachings: phase.teachings, error: null } });
   }
 
+  /** A field's id, its error and hint ids, and whether it is invalid now. */
+  const describe = (key: FieldKey, hint = false) => ({
+    id: fieldId(key),
+    "aria-invalid": invalid[key] ? true : undefined,
+    "aria-describedby": [invalid[key] && `${fieldId(key)}-error`, hint && `${fieldId(key)}-hint`].filter(Boolean).join(" ") || undefined,
+  });
+  const fieldError = (key: FieldKey) => invalid[key] && <p id={`${fieldId(key)}-error`} className={styles.fieldError}>{invalid[key]}</p>;
+  const turnedAway = notice ? noticeKey(notice) : null;
+
   return (
-    <section className={styles.page} data-portrait-entry="">
-      <p className={styles.kicker}>{t.kicker}</p>
-      <h1 ref={entryTitle} tabIndex={-1} className={styles.title}>{t.title}</h1>
-      <p className={styles.lede}>{t.lede}</p>
-      {hasInvite !== null && (
-        <form className={styles.form} onSubmit={submit} aria-busy={busy}>
-          <label>{t.name}<input value={name} onChange={(e) => { setName(e.target.value); setFormError(null); }} autoComplete="name" required /></label>
-          {needsLatin && <label>{t.latin}<input value={latin} onChange={(e) => { setLatin(e.target.value); setFormError(null); }} pattern="[A-Za-zÀ-ž .'’\-]+" required /><small>{t.latinHint}</small></label>}
-          <div className={styles.row}>
-            <label>{t.date}<input type="date" value={date} onChange={(e) => setDate(e.target.value)} min="1800-01-01" max={maxDate} required /></label>
-            <label>{t.time}<input type="time" value={time} onChange={(e) => setTime(e.target.value)} disabled={unknownTime} required={!unknownTime} /></label>
+    <section className={`${styles.page} ${styles.entry}`} data-portrait-entry="">
+      <div className={styles.lead}>
+        <header className={styles.head}>
+          <p className={styles.kicker}>{t.kicker}</p>
+          <h1 ref={entryTitle} tabIndex={-1} className={styles.title}>{t.title}</h1>
+          <ul className={styles.ways}>
+            {t.ways.map((way) => <li key={way.gives}>{way.from} <em>{way.gives}</em>.</li>)}
+          </ul>
+          <p className={styles.together}>{t.together}</p>
+        </header>
+        <p className={styles.note}>{t.note}</p>
+      </div>
+
+      <div className={styles.side}>
+        <form className={styles.form} onSubmit={submit} noValidate aria-busy={busy || undefined}>
+          <div className={styles.field}>
+            <label className={styles.label} htmlFor={fieldId("name")}>{t.name}</label>
+            <input className={styles.input} {...describe("name")} value={name} autoComplete="name" required
+              onChange={(e) => { setName(e.target.value); edited("name"); edited("latin"); }} />
+            {fieldError("name")}
           </div>
-          <label className={styles.check}><input type="checkbox" checked={unknownTime} onChange={(e) => setUnknownTime(e.target.checked)} />{t.unknown}</label>
-          <label>{t.place}
-            <input value={query} onChange={(e) => { setQuery(e.target.value); setPlace(null); }} placeholder={t.placeHint} autoComplete="off" required />
-          </label>
-          {matches.length > 0 && (
-            <ul className={styles.places}>
-              {matches.map((p) => (
-                <li key={`${p.en}-${p.lat}`}><button type="button" onClick={() => { setPlace(p); setQuery(p[locale] ?? p.en); }}>{p[locale] ?? p.en}<span>{locale === "uk" ? p.countryUk : p.countryEn}</span></button></li>
-              ))}
-            </ul>
+          {needsLatin && (
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor={fieldId("latin")}>{t.latin}</label>
+              <input className={styles.input} {...describe("latin", true)} value={latin} lang="en" autoComplete="off" spellCheck={false} required
+                pattern={LATIN_PATTERN} title={t.invalid.latin} onChange={(e) => { setLatin(e.target.value); edited("latin"); }} />
+              {fieldError("latin")}
+              <p id={`${fieldId("latin")}-hint`} className={styles.hint}>{t.latinHint}</p>
+            </div>
           )}
-          {hasInvite === false && <label>{t.invite}<input value={invite} onChange={(e) => setInvite(e.target.value)} autoComplete="off" required /></label>}
-          {formError && <p className={styles.error} role="alert">{formError}</p>}
-          <button className={styles.button} type="submit" disabled={!place || busy}>{busy ? t.preparing : t.begin}</button>
+          <div className={styles.row}>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor={fieldId("date")}>{t.date}</label>
+              <input className={styles.input} {...describe("date")} type="date" value={date} min="1800-01-01" max={maxDate} required
+                onChange={(e) => { setDate(e.target.value); edited("date"); }} />
+              {fieldError("date")}
+            </div>
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor={fieldId("time")}>{t.time}</label>
+              <input className={styles.input} {...describe("time")} type="time" value={time} disabled={unknownTime} required={!unknownTime}
+                onChange={(e) => { setTime(e.target.value); edited("time"); }} />
+              {fieldError("time")}
+            </div>
+          </div>
+          <div className={styles.unknown}>
+            <label className={styles.check}>
+              <input type="checkbox" checked={unknownTime} aria-describedby={`${uid}-unknown`}
+                onChange={(e) => { setUnknownTime(e.target.checked); edited("time"); }} />
+              <span>{t.unknown}</span>
+            </label>
+            {/* Mounted empty, so ticking the box is followed by what changes. */}
+            <p id={`${uid}-unknown`} className={styles.hint} aria-live="polite">{unknownTime ? t.unknownHint : ""}</p>
+          </div>
+          <PlaceField id={fieldId("place")} locale={locale} places={places} query={query} place={place} error={invalid.place}
+            onQuery={(q) => { setQuery(q); setPlace(null); edited("place"); }}
+            onChoose={(p) => { setPlace(p); setQuery(placeName(p, locale)); edited("place"); }} />
+          {hasInvite === false && (
+            <div className={styles.field}>
+              <label className={styles.label} htmlFor={fieldId("invite")}>{t.invite}</label>
+              <input className={styles.input} {...describe("invite", true)} value={invite} autoComplete="off" autoCapitalize="none" spellCheck={false} required
+                onChange={(e) => { setInvite(e.target.value); edited("invite"); }} />
+              {fieldError("invite")}
+              <p id={`${fieldId("invite")}-hint`} className={styles.hint}>{t.inviteHint}</p>
+            </div>
+          )}
+          {/* Mounted empty: a start the server turned away is said here, with the one thing to do next. */}
+          <div className={styles.alert} role="alert">
+            {turnedAway && (
+              <div className={styles.notice}>
+                <p className={styles.noticeText}>{t.errors[turnedAway]}</p>
+                <p className={styles.noticeNext}>{t.next[turnedAway]}</p>
+              </div>
+            )}
+            {example === "failed" && <p className={styles.fieldError}>{t.example.failed}</p>}
+          </div>
+          <div className={styles.actions}>
+            <button className={styles.button} type="submit" disabled={busy}>{busy ? t.preparing : t.begin}</button>
+            <button type="button" className={styles.exampleButton} aria-busy={example === "busy" || undefined} onClick={() => void openExample("push")}>
+              {example === "busy" ? t.example.opening : t.example.open}
+            </button>
+          </div>
         </form>
-      )}
-      {hasInvite !== null && (
-        <>
-          <p className={styles.example}>
-            <button type="button" className={styles.exampleButton} aria-busy={example === "busy" || undefined} onClick={openExample}>{example === "busy" ? t.example.opening : t.example.open}</button>
-          </p>
-          {example === "failed" && <p className={styles.error} role="alert">{t.example.failed}</p>}
-          {saved.length > 0 && (
-            <SavedList locale={locale} items={saved} onOpen={openSaved} onForget={(item) => setAsking({ kind: "forget", id: item.id, title: item.title, from: "list" })} />
-          )}
-        </>
-      )}
-      <p className={styles.status} role="status">{entrySaid}</p>
-      <p className={styles.note}>{t.note}</p>
-      <div className={styles.deck} aria-hidden="true">
-        {cards.slice(0, 3).map((c) => (
-          // eslint-disable-next-line @next/next/no-img-element -- pre-sized static thumbnail
-          <img key={c.id} src={c.thumb} alt="" loading="lazy" />
-        ))}
+        <details className={styles.details}>
+          <summary>{t.details.summary}</summary>
+          <ul>{t.details.points.map((point) => <li key={point}>{point}</li>)}</ul>
+        </details>
+        <p className={styles.status} role="status">{entrySaid}</p>
+        {saved.length > 0 && (
+          <SavedList locale={locale} items={saved} onOpen={(id) => openSaved(id, "push")} onForget={(item) => setAsking({ kind: "forget", id: item.id, title: item.title, from: "list" })} />
+        )}
       </div>
       {dialog}
+    </section>
+  );
+}
+
+/** A reading that stopped before its opening was written: what happened, and one way on. Focus starts on its heading. */
+function Stopped({ locale, error, onAgain }: { locale: PortraitLocale; error: string | null; onAgain: () => void }) {
+  const t = PORTRAIT_COPY[locale];
+  const key = failureKey(error);
+  const heading = useRef<HTMLHeadingElement>(null);
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+    heading.current?.focus({ preventScroll: true });
+  }, []);
+  return (
+    <section className={`${styles.page} ${styles.stopped}`}>
+      <p className={styles.kicker}>{t.reader.kicker}</p>
+      <h1 ref={heading} tabIndex={-1} className={styles.stoppedTitle}>{t.errors[key]}</h1>
+      <p className={styles.together}>{key === "failed" ? `${t.failedNote} ${t.next[key]}` : t.next[key]}</p>
+      <button type="button" className={styles.button} onClick={onAgain}>{t.again}</button>
     </section>
   );
 }

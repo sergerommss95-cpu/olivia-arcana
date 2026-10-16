@@ -15,7 +15,8 @@
 // --full     capture the whole page height, not just the viewport (this re-lays out
 //            the page and restarts running CSS animations: use it for layout, not timing)
 // --ax       print the accessibility tree's names for the lattice and live region
-// --ax-under S  print the accessibility subtree under the element matching S, in reading order
+// --ax-under S  print the accessibility subtree under the element matching S, in reading order,
+//            with each node's state (expanded, selected, invalid, …) and description
 // --eval JS  print the value of a page expression after the last shot
 // --setup JS evaluate a page expression first, before --focus and --keys (awaited, then --wait to settle)
 // --focus S  focus the element matching selector S before each shot
@@ -23,8 +24,9 @@
 // --clip S   capture only the element matching S, its whole height (sticky parts stay where the scroll left them)
 // --before JS  evaluate a page expression before each shot (e.g. open a dialog)
 // --wait MS  how long to let --before settle (default 600)
-// --keys K   press keys before each shot (after --focus), e.g. "Tab,Enter,Tab*3,Shift+Tab,Escape";
-//            after each, print where focus is and whether it is inside a dialog
+// --keys K   press keys before each shot (after --focus), e.g. "Tab,Enter,Tab*3,Shift+Tab,Escape,ArrowDown,Space";
+//            "type:Lviv" types the text a key at a time (date and time fields take digits: "type:15031990");
+//            after each, print where focus is (its label, a combobox's state) and whether it is inside a dialog
 // --tag T    add T to the file names
 // --record R read the reading from the M2 evidence record R.json instead of the locale's own
 //            (en: m1-en-olena, timed; uk: m1-uk-olena, unknown time with alternatives;
@@ -117,15 +119,34 @@ async function connect(url) {
   };
 }
 
-const KEYS = { Tab: { code: "Tab", vk: 9 }, Enter: { code: "Enter", vk: 13, text: "\r" }, Escape: { code: "Escape", vk: 27 } };
-/** Where focus is, said briefly: its role or tag, its name, and whether a dialog holds it. */
+const KEYS = {
+  Tab: { code: "Tab", vk: 9 }, Enter: { code: "Enter", vk: 13, text: "\r" }, Escape: { code: "Escape", vk: 27 },
+  ArrowDown: { code: "ArrowDown", vk: 40 }, ArrowUp: { code: "ArrowUp", vk: 38 }, Space: { key: " ", code: "Space", vk: 32, text: " " }, Backspace: { code: "Backspace", vk: 8 },
+};
+/** Where focus is, said briefly: its role or tag, its name (a field's label), a combobox's state, and whether a dialog holds it. */
 const WHERE = `(() => { const el = document.activeElement; if (!el || el === document.body) return "body";
-  const name = (el.getAttribute("aria-label") || el.textContent || "").trim().replace(/\\s+/g, " ").slice(0, 60);
-  return \`\${el.getAttribute("role") || el.tagName.toLowerCase()} "\${name}"\${el.closest("[role=dialog], [role=alertdialog], dialog[open]") ? " [in dialog]" : ""}\`; })()`;
+  const label = el.labels && el.labels[0] ? el.labels[0].textContent : "";
+  const name = (el.getAttribute("aria-label") || label || el.textContent || "").trim().replace(/\\s+/g, " ").slice(0, 60);
+  const role = el.getAttribute("role") || (el.type ? \`input[\${el.type}]\` : el.tagName.toLowerCase());
+  const value = el.tagName === "INPUT" && el.type !== "checkbox" && el.value ? \` = "\${el.value}"\` : el.type === "checkbox" ? (el.checked ? " [checked]" : " [unchecked]") : "";
+  const desc = el.getAttribute("aria-activedescendant");
+  const combo = el.getAttribute("role") === "combobox" ? \` [expanded=\${el.getAttribute("aria-expanded")}\${desc ? \`, active="\${(document.getElementById(desc)?.textContent || "").trim()}"\` : ""}]\` : "";
+  return \`\${role} "\${name}"\${value}\${combo}\${el.closest("[role=dialog], [role=alertdialog], dialog[open]") ? " [in dialog]" : ""}\`; })()`;
 
 /** Presses each key in turn ("Tab*3" thrice, "Shift+Tab" with Shift held) and prints where focus lands. */
 async function press(send, list) {
   for (const item of list.split(",").map((k) => k.trim()).filter(Boolean)) {
+    if (item.startsWith("type:")) {
+      for (const ch of item.slice(5)) {
+        await send("Input.dispatchKeyEvent", { type: "keyDown", key: ch, text: ch, unmodifiedText: ch });
+        await send("Input.dispatchKeyEvent", { type: "keyUp", key: ch });
+        await sleep(60);
+      }
+      await sleep(300);
+      const { result } = await send("Runtime.evaluate", { expression: WHERE, returnByValue: true });
+      console.log(`key  ${item.padEnd(9)} → ${result.value}`);
+      continue;
+    }
     const [chord, times] = item.split("*");
     const parts = chord.split("+");
     const key = parts.pop();
@@ -133,10 +154,10 @@ async function press(send, list) {
     if (!spec) throw new Error(`unknown key ${key}`);
     const modifiers = parts.includes("Shift") ? 8 : 0;
     for (let n = 0; n < Number(times ?? 1); n++) {
-      const base = { key, code: spec.code, windowsVirtualKeyCode: spec.vk, nativeVirtualKeyCode: spec.vk, modifiers };
+      const base = { key: spec.key ?? key, code: spec.code, windowsVirtualKeyCode: spec.vk, nativeVirtualKeyCode: spec.vk, modifiers };
       await send("Input.dispatchKeyEvent", { type: "keyDown", ...base, ...(spec.text ? { text: spec.text } : {}) });
       await send("Input.dispatchKeyEvent", { type: "keyUp", ...base });
-      await sleep(key === "Tab" ? 120 : 700);
+      await sleep(key === "Tab" || key.startsWith("Arrow") ? 150 : 700);
       const { result } = await send("Runtime.evaluate", { expression: WHERE, returnByValue: true });
       console.log(`key  ${chord.padEnd(9)} → ${result.value}`);
     }
@@ -289,7 +310,11 @@ async function main() {
       const walk = (n, depth) => {
         if (!n) return;
         const name = n.name?.value?.trim();
-        if (!n.ignored && n.role?.value !== "InlineTextBox" && (name || n.role?.value !== "generic")) console.log(`axu ${"  ".repeat(depth)}${n.role?.value}${name ? ` "${name}"` : ""}`);
+        const STATES = ["expanded", "selected", "invalid", "disabled", "checked", "required", "autocomplete", "hasPopup", "focused"];
+        const states = (n.properties ?? []).filter((p) => STATES.includes(p.name) && p.value?.value !== undefined && (p.name === "expanded" || (p.value.value !== false && p.value.value !== "false")))
+          .map((p) => (p.name !== "expanded" && (p.value.value === true || p.value.value === "true") ? p.name : `${p.name}=${p.value.value}`));
+        const description = n.description?.value ? ` — ${n.description.value}` : "";
+        if (!n.ignored && n.role?.value !== "InlineTextBox" && (name || n.role?.value !== "generic")) console.log(`axu ${"  ".repeat(depth)}${n.role?.value}${name ? ` "${name}"` : ""}${states.length ? ` [${states.join(", ")}]` : ""}${description}`);
         for (const id of n.childIds ?? []) walk(byId.get(id), n.ignored ? depth : depth + 1);
       };
       if (start) walk(start, 0); else console.log(`axu  nothing matches ${opts.axUnder}`);
