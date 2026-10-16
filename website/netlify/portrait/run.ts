@@ -37,6 +37,13 @@ const pause = (ms: number, signal: AbortSignal) => new Promise<boolean>((resolve
   signal.addEventListener("abort", onAbort, { once: true });
 });
 
+/** Stress marks (U+0300, U+0301) are not part of the house style and the model sometimes misplaces them; every string is NFC first, so precomposed letters such as й, ї and é are untouched. */
+const tidy = (value: unknown): unknown =>
+  typeof value === "string" ? value.normalize("NFC").replace(/[\u0300\u0301]/g, "")
+  : Array.isArray(value) ? value.map(tidy)
+  : value && typeof value === "object" ? Object.fromEntries(Object.entries(value).map(([key, inner]) => [key, tidy(inner)]))
+  : value;
+
 export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS, backoff = freeBackoffMs }: { kv: KeyValue; id: string; write: (call: Call) => Promise<WriteResult>; bank: Bank; deadlineMs?: number; backoff?: (freeRetry: number) => number }) {
   const job = await claimJob(kv, id);
   if (!job) return "skipped" as const;
@@ -74,12 +81,13 @@ export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS
           }
           return { ok: false as const, error: `stage_${key}_${result.code}` };
         }
-        const check = validateStage(key, result.data, packet, teachings, earlier.a);
+        const data = tidy(result.data);
+        const check = validateStage(key, data, packet, teachings, earlier.a);
         // A paid reading is not thrown away over its voice: once a repair was actually tried (the first attempt reached validation and failed), style-only errors are tolerated. Anything else still fails the stage.
         const residue = !check.ok && attempt === 1 && errors.length > 0 && check.errors.every(isStyleError);
         log(check.ok || residue);
         if (residue) console.warn(JSON.stringify({ event: "portrait_style_residue", stage: key, codes: check.errors.map(logCode) }));
-        if (check.ok || residue) { await putStage(kv, id, key, result.data); return { ok: true as const, data: result.data }; }
+        if (check.ok || residue) { await putStage(kv, id, key, data); return { ok: true as const, data }; }
         errors = check.errors.slice(0, MAX_LISTED_ERRORS);
         console.warn(JSON.stringify({ event: "portrait_stage_invalid", stage: key, attempt, errors: errors.map(logCode) }));
         attempt++;

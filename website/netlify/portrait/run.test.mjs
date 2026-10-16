@@ -833,3 +833,15 @@ test("a deadline that passes during the backoff fails the stage as a provider er
     assert.deepEqual(await readStages(kv, "j"), {});
   }
 });
+
+test("stray stress marks are taken out of the text before it is checked and stored", async () => {
+  const kv = memoryStore();
+  await createJob(kv, job);
+  // Cyrillic has no precomposed stressed letters, so the mark survives NFC and must be removed (the real case was «почат́их»).
+  const accented = { ...A, overview: { ...A.overview, text: `${A.overview.text} Полиця почат\u0301их справ.` } };
+  const { write } = scripted([ok(accented), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank }), "done");
+  const stored = await readStages(kv, "j");
+  assert.ok(!JSON.stringify(stored).includes("\u0301"));
+  assert.equal(stored.a.overview.text, `${A.overview.text} Полиця початих справ.`);
+});

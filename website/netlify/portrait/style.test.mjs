@@ -100,3 +100,12 @@ test("a closing quote after the full stop still ends the first sentence", () => 
   assert.deepEqual(styleProblems("x", 'He said, "Yes." Perhaps not.', "en", {}), []);
   assert.ok(styleProblems("x", 'He said, "Perhaps." Then he left.', "en", {}).some((e) => e.startsWith("hedge-lead:x")));
 });
+
+test("a first-person past tense is gendered (or wrongly plural) in Ukrainian and is flagged", () => {
+  for (const bad of ["Скажіть: «я скучили».", "Іноді чесніше сказати «я теж скучила».", "Скажіть «я не хотів цього»."]) {
+    assert.ok(styleProblems("love", bad, "uk", {}).some((code) => code.startsWith("gender:love:")), bad);
+  }
+  for (const fine of ["Чи я коли-небудь просив?", "Скажіть: «мені вас бракує».", "Я знов тут."]) {
+    assert.deepEqual(styleProblems("love", fine, "uk", {}).filter((code) => code.startsWith("gender:")), [], fine);
+  }
+});

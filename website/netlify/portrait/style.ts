@@ -17,6 +17,9 @@ const PHRASES = {
 };
 const GENDERED = /(?<![\p{L}])(?:ви\s+(?:\p{L}+\s+)?(?:сама|готова|готовий|впевнена|впевнений|рада|радий|повинна|повинен|змушена|змушений|здатна|здатний|певна|певен)|самій собі|самому собі)(?![\p{L}])/giu;
 
+/** «я» with a past-tense verb: -ла / -в give the reader a gender, and -ли (the plural used to avoid one) is wrong with «я». One optional particle may sit between; «коли», «ніколи» and «знов» are not verbs. */
+const FIRST_PAST = /(?<![\p{L}])я\s+(?:(?:теж|також|вже|досі|дуже|просто|так|не|би|б|ж)\s+)?(?!(?:ні)?коли(?![\p{L}])|знов(?![\p{L}]))\p{L}{2,}(?:ли|ла|в)(?![\p{L}])/giu;
+
 /** A sentence ends at . ! ? or …, even when a closing quote follows it. */
 const firstSentence = (text: string) => text.split(/(?<=[.!?…]["»”’']?)\s/u)[0] ?? text;
 
@@ -31,7 +34,7 @@ export function styleProblems(where: string, text: string, locale: "en" | "uk", 
     const m = text.match(re);
     if (m) out.push(`phrase:${where}:"${m[0].slice(0, 40)}"`);
   }
-  if (locale === "uk") for (const m of text.matchAll(GENDERED)) out.push(`gender:${where}:"${m[0].slice(0, 40)}"`);
+  if (locale === "uk") for (const m of [...text.matchAll(GENDERED), ...text.matchAll(FIRST_PAST)]) out.push(`gender:${where}:"${m[0].slice(0, 40)}"`);
   return out;
 }
 
