@@ -43,7 +43,7 @@ jobs:
         working-directory: website
         run: |
           npm ci
-          node --test src/lib/*.test.mjs netlify/edge-functions/_shared/*.test.mjs
+          node --test src/lib/*.test.mjs netlify/edge-functions/_shared/*.test.mjs netlify/portrait/*.test.mjs
 
       - name: Static export
         working-directory: website

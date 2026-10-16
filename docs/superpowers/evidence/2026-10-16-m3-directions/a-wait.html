@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="common.css"><style>
+.stage{display:grid;grid-template-columns:820px 1fr;gap:72px;padding:0 76px}
+.lat{position:relative;width:820px;height:780px;--w:86px}
+.lat svg{position:absolute;left:0;top:0;width:820px;height:780px;overflow:visible}
+.lat svg path{fill:none;stroke:var(--gilt);stroke-width:1;opacity:.28;stroke-dasharray:3 6}
+.lat svg path.drawn{stroke-dasharray:none;opacity:.6}
+.slot{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
+.slot .card{position:relative;z-index:1}
+.slot .cap{position:absolute;top:calc(100% + 6px);font:400 10px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--soft);white-space:nowrap}
+.slot .cap b{color:var(--gilt);font-weight:400}
+.slot.dim .card{filter:brightness(.5) saturate(.8)}.slot.dim .cap{color:var(--faint)}
+.slot.now{z-index:3}.slot.now .card{--w:128px;box-shadow:0 0 0 1px rgba(201,177,130,.55) inset,0 0 60px rgba(201,177,130,.22),0 30px 60px rgba(0,0,0,.55)}
+.flip{transform:perspective(900px) rotateY(-24deg)}
+.slot.now .cap{color:var(--ink)}
+.side{padding-top:40px}
+.side h1{font:300 46px/1.05 var(--display);margin:16px 0 14px;text-wrap:balance}
+.lead{color:var(--soft);font-size:15px}
+.focus{margin-top:26px;padding:20px 22px;border:1px solid var(--hair);border-radius:4px;background:rgba(7,18,29,.45)}
+.focus .k{font:400 10px/1 var(--mono);letter-spacing:.2em;color:var(--gilt);text-transform:uppercase}
+.focus h2{font:400 28px/1.15 var(--heading);margin:10px 0 6px}
+.focus p{color:var(--soft);font-size:14.5px}
+.marg{margin-top:26px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.cell{padding:14px 0;text-align:center}.cell+.cell{border-left:1px solid var(--hair)}
+.cell b{display:block;font:400 30px/1 var(--heading);color:var(--ink)}.cell span{font:400 10px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.stages{margin-top:26px;display:flex;gap:22px;font:400 16px/1.3 var(--heading);color:var(--faint);list-style:none;padding:0}
+.stages .now{color:var(--ink)}.stages .now::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gilt);margin:0 9px 2px 0;box-shadow:0 0 0 5px rgba(201,177,130,.16)}
+</style></head><body>
+<div class="mast"><div class="brand">Olivia<small>ARCANA</small></div><div class="nav"><span>Today</span><span>Decks</span><span>The cards</span><span>Astrology</span><span>Learn</span></div></div>
+<div class="stage"><div class="lat"><svg viewBox="0 0 820 780"><path class="drawn" d="M150 95 L280 285"/><path class="drawn" d="M410 95 L280 285"/><path class="drawn" d="M410 95 L540 285"/><path class="drawn" d="M670 95 L540 285"/><path class="" d="M280 285 L410 475"/><path class="" d="M540 285 L410 475"/><path class="" d="M150 95 L150 475"/><path class="" d="M540 285 L150 475"/><path class="" d="M410 95 L670 475"/><path class="" d="M410 475 L670 475"/><path class="" d="M150 475 L410 662"/><path class="" d="M670 475 L410 662"/><path class="" d="M150 95 L150 662"/><path class="" d="M280 285 L150 662"/><path class="" d="M410 475 L150 662"/><path class="" d="M670 95 L670 662"/><path class="" d="M540 285 L670 662"/><path class="" d="M410 475 L670 662"/></svg><div class="slot" style="left:150px;top:95px"><div class="card" style="background-image:url('file:///Users/macbookpro/olivia-arcana/.claude/worktrees/portrait/website/public/cards/01_the_magician.webp')"></div><div class="cap"><b>1</b> · Early foundation</div></div><div class="slot" style="left:410px;top:95px"><div class="card" style="background-image:url('file:///Users/macbookpro/olivia-arcana/.claude/worktrees/portrait/website/public/cards/02_the_high_priestess.webp')"></div><div class="cap"><b>2</b> · Adult growth</div></div><div class="slot" style="left:670px;top:95px"><div class="card" style="background-image:url('file:///Users/macbookpro/olivia-arcana/.claude/worktrees/portrait/website/public/cards/02_the_high_priestess.webp')"></div><div class="cap"><b>3</b> · Longer view</div></div><div class="slot" style="left:280px;top:285px"><div class="card" style="background-image:url('file:///Users/macbookpro/olivia-arcana/.claude/worktrees/portrait/website/public/cards/03_the_empress.webp')"></div><div class="cap"><b>4</b> · Inner tension</div></div><div class="slot now" style="left:540px;top:285px"><div class="card flip" style="background-image:url('file:///Users/macbookpro/olivia-arcana/.claude/worktrees/portrait/website/public/cards/04_the_emperor.webp')"></div><div class="cap"><b>5</b> · Conscious aim</div></div><div class="slot dim" style="left:150px;top:475px"><div class="card back"></div><div class="cap">7</div></div><div class="slot dim" style="left:410px;top:475px"><div class="card back"></div><div class="cap">6</div></div><div class="slot dim" style="left:670px;top:475px"><div class="card back"></div><div class="cap">8</div></div><div class="slot dim" style="left:150px;top:662px"><div class="card back"></div><div class="cap">13</div></div><div class="slot dim" style="left:410px;top:662px"><div class="card back"></div><div class="cap">12</div></div><div class="slot dim" style="left:670px;top:662px"><div class="card back"></div><div class="cap">14</div></div></div>
+<div class="side"><div class="kicker">The laying · Olena</div>
+<h1>Your cards are turning in the order your birth set them.</h1>
+<p class="lead">A thread joins two cards when one is added to the other to make the next.</p>
+<div class="focus"><div class="k">Card 5 · Conscious aim</div><h2>The Emperor</h2><p>What you knowingly want and work toward: how ambition looks from the inside.</p></div>
+<div class="marg"><div class="cell"><b>5</b><span>Life path</span></div><div class="cell"><b>9</b><span>Expression</span></div><div class="cell"><b>1</b><span>Motivation</span></div><div class="cell"><b>♒&#xFE0E;</b><span>Sun</span></div></div>
+<ul class="stages"><li class="now">Writing the opening</li><li>Chapters</li><li>Keepsakes</li></ul>
+</div></div></body></html>

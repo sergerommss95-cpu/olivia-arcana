@@ -1,0 +1,202 @@
+/* website/src/components/portrait/why.module.css
+   Why this: a drawer at the right on wide screens (440 px), a sheet from the
+   bottom below 1100 px (85% of the window). Lapis ground, ivory ink, one gilt
+   accent; it slides in on the ritual curve (transform and opacity), and the
+   cited cards turn face up once. Portaled to <body>, so it sets its own tokens. */
+
+.why {
+  --ink: #eee6d4;
+  --body: rgba(238, 230, 212, 0.86);
+  --soft: rgba(238, 230, 212, 0.78);
+  --faint: rgba(238, 230, 212, 0.58);
+  --gilt: #c9b182;
+  --hair: rgba(238, 230, 212, 0.14);
+  --lapis: #0b1c2c;
+  --ease: var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1));
+  --leave: cubic-bezier(0.5, 0, 0.75, 0);
+  --display: var(--font-display, "Cormorant"), serif;
+  --heading: var(--font-heading, "Cormorant Garamond"), serif;
+  --text: var(--font-body, system-ui), sans-serif;
+  --pad: 24px;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  color: var(--ink);
+}
+:where(.why p) { margin: 0; }
+.why[data-leaving] { pointer-events: none; }
+
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Scoped twice to outrank the shell's own focus rule. */
+.why.why :is(a, button):focus-visible { outline: 2px solid var(--gilt); outline-offset: 3px; border-radius: 3px; }
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 10, 17, 0.6);
+  animation: fadeIn 500ms var(--ease) both;
+}
+.why[data-leaving] .backdrop { animation: fadeOut 260ms var(--leave) both; }
+@keyframes fadeIn { from { opacity: 0; } }
+@keyframes fadeOut { to { opacity: 0; } }
+
+/* ── The sheet (below 1100 px) / the drawer (wide) ───────────── */
+
+.panel {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  flex-direction: column;
+  height: 85vh;
+  height: 85dvh;
+  border-top: 1px solid var(--hair);
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(180deg, #0e2337, var(--lapis) 220px);
+  box-shadow: 0 -24px 60px -12px rgba(0, 0, 0, 0.6);
+  animation: rise 600ms var(--ease) both;
+}
+.why[data-leaving] .panel { animation: sink 260ms var(--leave) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(40px); } }
+@keyframes sink { to { opacity: 0; transform: translateY(32px); } }
+
+.head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  /* In a wide sheet the head lines up with the 600 px column below it. */
+  padding: 6px max(var(--pad), calc((100% - 600px) / 2));
+  border-bottom: 1px solid var(--hair);
+}
+.kicker { composes: labelGilt from "./type.module.css"; }
+.close {
+  composes: meta from "./type.module.css";
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 300ms var(--ease);
+}
+.close:hover { color: var(--ink); }
+
+.body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 26px var(--pad) calc(44px + env(safe-area-inset-bottom));
+}
+.inner { max-width: 600px; margin: 0 auto; }
+.title { margin: 0; font: 400 32px/1.12 var(--heading); color: var(--ink); text-wrap: balance; }
+.title:focus { outline: none; }
+
+/* ── Sections ────────────────────────────────────────────────── */
+
+.section { margin-top: 34px; }
+.sectionTitle {
+  composes: label from "./type.module.css";
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 4px;
+}
+.sectionTitle::after { content: ""; flex: 1; height: 1px; background: var(--hair); }
+.list { margin: 0; padding: 0; list-style: none; }
+
+/* A cited card: its art, position and role, name, frame, and how it was found. */
+.cardRow { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 18px; padding: 16px 0; }
+.cardRow + .cardRow { border-top: 1px solid var(--hair); }
+.art { position: relative; width: 64px; height: 110px; perspective: 700px; }
+.cardKicker { composes: labelGilt from "./type.module.css"; }
+.pos { composes: numeral from "./type.module.css"; font-size: 15px; }
+.cardName { margin-top: 3px; font: 400 22px/1.2 var(--heading); color: var(--ink); }
+.frame { margin-top: 6px; font: 400 14.5px/1.6 var(--text); color: var(--soft); }
+/* How the card was found: the sum on one line beside its sigil, its figures in even columns. */
+.found {
+  composes: meta from "./type.module.css";
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-variant-numeric: lining-nums tabular-nums;
+  /* A date line wraps in two even halves, never one word alone. */
+  text-wrap: balance;
+}
+
+/* The sigil: the lattice in miniature, this card filled, its sources ringed. */
+.sigil { flex: none; overflow: visible; }
+.dot { fill: rgba(238, 230, 212, 0.28); }
+.from { fill: var(--lapis); stroke: var(--gilt); stroke-width: 1; }
+.self { fill: var(--gilt); }
+.thread { stroke: var(--gilt); stroke-width: 0.9; opacity: 0.7; }
+
+/* A ledger line: a mark in the margin (glyph or numeral), the line beside it. */
+.row { display: grid; grid-template-columns: 36px minmax(0, 1fr); align-items: baseline; gap: 12px; padding: 11px 0; }
+.row + .row { border-top: 1px solid var(--hair); }
+/* Planet and aspect glyphs from one symbol face, so the Sun is drawn the same size as Mercury. */
+.mark { justify-self: center; font: 400 20px/1 "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "Noto Sans Symbols", var(--heading); color: var(--gilt); }
+.markNumber { font: 300 30px/0.9 var(--display); font-variant-numeric: lining-nums; }
+/* Rising and Midheaven are marked by two letters, set in the label voice. */
+.markLetters { composes: labelGilt from "./type.module.css"; justify-self: center; line-height: 1; }
+.line { font: 400 15.5px/1.55 var(--text); color: var(--ink); }
+/* A note moves to the next line whole, never split mid-phrase. */
+.note { color: var(--faint); white-space: nowrap; }
+.flag { composes: labelGilt from "./type.module.css"; display: inline-block; margin-left: 10px; line-height: 1; white-space: nowrap; }
+
+/* What the traditions say: a label, the teaching, its sources. */
+.teaching { padding: 18px 0 20px; }
+.teaching + .teaching { border-top: 1px solid var(--hair); }
+.teachingLabel { font: italic 400 19px/1.3 var(--heading); color: var(--ink); }
+.teachingText { margin-top: 8px; font: 400 15px/1.7 var(--text); color: var(--body); }
+/* Sources run on as one quiet line, wrapping only when they must. */
+.sources { display: flex; flex-wrap: wrap; gap: 0 18px; margin: 8px 0 0; padding: 0; list-style: none; }
+/* A block of its own, so a wrapped title keeps one focus ring and a 24 px target. */
+.source {
+  composes: meta from "./type.module.css";
+  display: inline-block;
+  padding: 4px 0;
+  font-size: 13px;
+  text-decoration: underline;
+  text-decoration-color: var(--hair);
+  text-underline-offset: 3px;
+  transition: color 300ms var(--ease), text-decoration-color 300ms var(--ease);
+}
+.source:hover { color: var(--ink); text-decoration-color: var(--gilt); }
+.ext { margin-left: 0.4em; color: var(--gilt); text-decoration: none; display: inline-block; }
+
+.honest { margin-top: 44px; text-align: center; font: italic 400 19px/1.45 var(--heading); color: var(--soft); text-wrap: balance; }
+.fleuron { display: block; margin-bottom: 12px; font: normal 400 17px/1 var(--heading); color: var(--gilt); opacity: 0.6; }
+
+@media (min-width: 720px) {
+  .why { --pad: 36px; }
+}
+
+@media (min-width: 1100px) {
+  .backdrop { background: rgba(4, 10, 17, 0.5); }
+  .panel {
+    inset: 0 0 0 auto;
+    width: 440px;
+    height: auto;
+    border-top: 0;
+    border-left: 1px solid var(--hair);
+    border-radius: 0;
+    background: linear-gradient(180deg, #0e2337, var(--lapis) 260px);
+    box-shadow: -40px 0 80px -30px rgba(0, 0, 0, 0.7);
+    animation-name: slideIn;
+  }
+  .why[data-leaving] .panel { animation-name: slideOut; }
+  .head { padding-block: 22px 6px; border-bottom: 0; }
+  /* Text scrolling up fades out under the head instead of being cut. */
+  .body { padding-top: 20px; mask-image: linear-gradient(transparent, #000 22px); }
+}
+@keyframes slideIn { from { opacity: 0; transform: translateX(32px); } }
+@keyframes slideOut { to { opacity: 0; transform: translateX(24px); } }
+
+/* Reduced motion: it is simply there, its cards already face up. */
+@media (prefers-reduced-motion: reduce) {
+  .why *, .why *::before, .why *::after { animation: none !important; transition: none !important; }
+}

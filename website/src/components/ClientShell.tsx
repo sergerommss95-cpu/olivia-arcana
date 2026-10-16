@@ -16,6 +16,7 @@ import { usePathname } from "next/navigation";
 import PageTransition from "@/components/transitions/PageTransition";
 import { markCharted } from "@/components/sky/voyage";
 import InstallPrompt from "@/components/InstallPrompt";
+import CardNameHover from "@/components/CardNameHover";
 import { SubscriptionProvider } from "@/hooks/useSubscription";
 import { ownsExperienceStage } from "@/lib/experience-shell";
 
@@ -123,6 +124,10 @@ export default function ClientShell({ children }: { children: React.ReactNode })
           )}
         </div>
       </SubscriptionProvider>
+
+      {/* CARD NAMES — any card the reader points at or focuses is named
+          on a small plate above it, on every page. */}
+      <CardNameHover />
 
       {/* PARLOR LAYER — the ritual's ambient hands (oa-ritual bus). */}
       {nightRoom && <ParlorLayer />}

@@ -1,0 +1,226 @@
+/* website/src/components/portrait/maps.module.css
+   Your maps: the book's end plates. The Arkan lattice face up and still, the
+   numbers on an engraved plate, the sky as cards and a ledger of the other
+   planets. Set inside the reader (reader.module.css), whose tokens it reads:
+   lapis ground, ivory ink, one gilt accent, hairlines. */
+
+.maps { margin-top: 128px; scroll-margin-top: 128px; color: var(--ink); text-align: center; }
+.maps:focus { outline: none; }
+.maps p { margin: 0; }
+
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ── The section's head ──────────────────────────────────────── */
+
+.head { max-width: 640px; margin: 0 auto; }
+.fleuron { margin-bottom: 14px !important; font: 400 17px/1 var(--heading); color: var(--gilt); }
+.title { margin: 0; font: 300 52px/1.05 var(--display); letter-spacing: -0.005em; text-wrap: balance; }
+.lede { max-width: 26em; margin: 14px auto 0 !important; font: italic 400 22px/1.45 var(--heading); color: var(--soft); text-wrap: balance; }
+
+/* ── One map ─────────────────────────────────────────────────── */
+
+.map { max-width: 880px; margin: 64px auto 0; padding-top: 56px; border-top: 1px solid var(--hair); }
+.kicker { composes: labelGilt from "./type.module.css"; }
+.mapTitle { margin: 10px 0 0; font: 400 32px/1.15 var(--heading); color: var(--ink); }
+.note { max-width: 34em; margin: 22px auto 0 !important; font-size: 14px; line-height: 1.7; color: var(--soft); text-wrap: balance; }
+
+/* ── The lattice ─────────────────────────────────────────────── */
+
+.arkan { margin-top: 44px; }
+.lattice { position: relative; margin: 0 auto; }
+/* The table the cards are laid on, as in the Laying. */
+.lattice::before {
+  content: "";
+  position: absolute;
+  inset: -8% -12%;
+  background: radial-gradient(closest-side, rgba(24, 52, 77, 0.5), rgba(17, 39, 59, 0.2) 55%, transparent);
+  pointer-events: none;
+}
+.cards { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
+.slot { position: absolute; }
+.cardLink { position: absolute; inset: 0; display: block; border-radius: 6px; }
+.art { position: absolute; inset: 0; display: block; }
+.glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px rgba(201, 177, 130, 0.6), 0 0 32px rgba(201, 177, 130, 0.24);
+  opacity: 0;
+  transition: opacity 400ms var(--ease);
+}
+.cardLink:hover .glow, .cardLink:focus-visible .glow, .skyCard:hover .glow, .skyCard:focus-visible .glow { opacity: 1; }
+
+.cap {
+  composes: label from "./type.module.css";
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 8px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  color: var(--soft);
+  /* Knocked out of the threads, as an engraver letters a map: a feathered patch of ground behind each caption. */
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: rgba(12, 30, 47, 0.92);
+  box-shadow: 0 0 8px 4px rgba(12, 30, 47, 0.92);
+}
+.capNum { composes: numeral from "./type.module.css"; font-size: 15px; font-weight: 500; color: var(--gilt); }
+/* Compact: the position above its role, which wraps within its column. */
+.compact .cap { width: var(--cap); white-space: normal; text-wrap: balance; }
+.compact .capNum { display: block; }
+.compact .dot { display: none; }
+
+/* ── The numbers plate ───────────────────────────────────────── */
+
+.plate {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--cells, 4), minmax(0, 1fr));
+  margin: 40px 0 0;
+  border: 1px solid var(--hair);
+  background: linear-gradient(180deg, rgba(7, 18, 29, 0.55), rgba(7, 18, 29, 0.2));
+}
+/* An engraved plate: a second, gilt rule inside the first, as the keep plate has. */
+.plate::before { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(201, 177, 130, 0.2); pointer-events: none; }
+/* Room above every numeral for a master number's hallmark, so the numerals share one line. */
+.cell { position: relative; display: flex; flex-direction: column; align-items: center; padding: 46px 22px 32px; }
+.cell + .cell { border-left: 1px solid var(--hair); }
+.cell dd { margin: 0; }
+/* The numeral leads the eye; the role (read first) and its meaning follow. */
+.numeral { composes: numeral from "./type.module.css"; order: -1; font-size: 56px; font-weight: 300; line-height: 1; color: var(--ink); }
+.role { composes: labelGilt from "./type.module.css"; margin-top: 16px; }
+.meaning { max-width: 17em; margin-top: 10px !important; font-size: 14px; line-height: 1.65; color: var(--soft); text-wrap: pretty; }
+/* A master number keeps its two digits: marked above the numeral like a hallmark. */
+.master {
+  composes: labelGilt from "./type.module.css";
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 8px;
+  border: 1px solid rgba(201, 177, 130, 0.45);
+  border-radius: 99px;
+  font-size: 12.5px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.birthday { composes: label from "./type.module.css"; margin-top: 18px !important; line-height: 1.6; color: var(--soft); text-wrap: balance; }
+.birthdayNum { composes: numeral from "./type.module.css"; margin: 0 0.15em; font-size: 22px; font-weight: 300; line-height: 1; color: var(--ink); vertical-align: -2px; }
+
+/* ── The sky ─────────────────────────────────────────────────── */
+
+.sky { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin: 40px 0 0; padding: 0; list-style: none; }
+.skyItem { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.skyKicker { composes: labelGilt from "./type.module.css"; display: flex; align-items: center; gap: 8px; margin-bottom: 18px !important; }
+.skyGlyph { font: 400 15px/1 var(--heading); letter-spacing: 0; }
+/* Rising's mark is two letters (AC): they keep the caption's own small caps. */
+.letters { line-height: 1; }
+/* Every column's cards stand on one line, whatever their size, so the signs line up beneath. */
+.skyCards { display: flex; align-items: flex-end; justify-content: center; gap: 10px; height: 258px; }
+.skyCard, .skyBack { position: relative; display: block; flex: none; width: 150px; aspect-ratio: 120 / 206; border-radius: 8px; }
+.skyCards[data-pair] .skyCard { width: 108px; }
+.skyCard img, .skyBack img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(201, 177, 130, 0.28);
+}
+.skyCard .glow { border-radius: 8px; }
+/* The back stands in for a card not dealt: quieter than the cards that were. */
+.skyBack { opacity: 0.42; }
+.skySign { display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: 0 8px; margin-top: 20px !important; font: 400 24px/1.25 var(--heading); color: var(--ink); text-wrap: balance; }
+.signGlyphs { font-size: 17px; color: var(--gilt); }
+.skyMissing { max-width: 11em; font-style: italic; font-size: 20px; color: var(--soft); }
+.skyNames { margin-top: 6px !important; font-size: 13.5px; line-height: 1.5; color: var(--soft); }
+.skyNote { max-width: 17em; margin-top: 10px !important; font: italic 400 16px/1.4 var(--heading); color: var(--soft); text-wrap: balance; }
+
+/* The other planets: a ledger in two columns, read down. */
+.othersTitle { composes: labelGilt from "./type.module.css"; margin: 56px 0 0; }
+.planets {
+  display: grid;
+  grid-template-rows: repeat(var(--rows), auto);
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  column-gap: 48px;
+  max-width: 760px;
+  margin: 14px auto 0;
+  padding: 0;
+  border-bottom: 1px solid var(--hair);
+  list-style: none;
+  text-align: left;
+}
+.planet { display: grid; grid-template-columns: 26px 6.4em minmax(0, 1fr) auto; align-items: baseline; gap: 0 10px; padding: 11px 4px; border-top: 1px solid var(--hair); }
+.planetGlyph { font: 400 18px/1 var(--heading); color: var(--gilt); text-align: center; }
+.planetName { font: 400 19px/1.2 var(--heading); color: var(--ink); }
+.planetSign { font-size: 14px; line-height: 1.5; color: var(--soft); }
+.retro { font: 400 16px/1 var(--heading); color: var(--gilt); }
+
+/* ── Phone ───────────────────────────────────────────────────── */
+
+@media (max-width: 719px) {
+  .maps { margin-top: 96px; }
+  .title { font-size: 40px; }
+  .lede { font-size: 20px; }
+  .map { margin-top: 52px; padding-top: 44px; }
+  .mapTitle { font-size: 28px; }
+  .arkan { margin-top: 32px; }
+
+  .plate { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cell { padding: 40px 14px 24px; }
+  .cell + .cell { border-left: 0; }
+  .cell:nth-child(even) { border-left: 1px solid var(--hair); }
+  .cell:nth-child(n + 3) { border-top: 1px solid var(--hair); }
+  .master { top: 13px; }
+  .numeral { font-size: 44px; }
+  .meaning { font-size: 13.5px; }
+
+  /* The sky reads down the page: each card beside its sign. */
+  .sky { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .skyItem {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: "cards kicker" "cards sign" "cards names" "cards note";
+    align-content: center;
+    column-gap: 18px;
+    padding: 18px 0;
+    text-align: left;
+  }
+  .skyItem + .skyItem { border-top: 1px solid var(--hair); }
+  .skyKicker { grid-area: kicker; align-self: end; margin-bottom: 6px !important; }
+  .skyCards { grid-area: cards; height: auto; align-items: center; gap: 6px; }
+  .skyCard, .skyBack { width: 84px; }
+  .skyCards[data-pair] .skyCard { width: 62px; }
+  .skySign { grid-area: sign; justify-content: flex-start; margin-top: 0 !important; font-size: 22px; }
+  /* Beside the card the name alone reads cleaner; the card already shows the sign. */
+  .signGlyphs { display: none; }
+  .skyMissing { font-size: 19px; }
+  .skyNames { grid-area: names; }
+  .skyNote { grid-area: note; align-self: start; font-size: 15px; }
+
+  .othersTitle { margin-top: 40px; }
+  .planets { grid-template-rows: none; grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); }
+  .planet { grid-template-columns: 24px 6em minmax(0, 1fr) auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow { transition: none; }
+}
+
+/* ── Print: ink on white, the lattice scaled to the page ─────── */
+
+@media print {
+  .map, .plate, .skyItem { break-inside: avoid; }
+  .map { margin-top: 36px; padding-top: 28px; }
+  /* The lattice is laid out at its on-screen width (--w); on paper it fits a 640 px column. */
+  .lattice { zoom: min(1, calc(640 / var(--w, 640))); }
+  .lattice::before, .glow { display: none; }
+  .cap { background: #fff; box-shadow: 0 0 6px 3px #fff; }
+  /* Ink does not cast shadows: a hairline frames each card instead. */
+  .skyCard img, .skyBack img { box-shadow: 0 0 0 0.5pt #b9b2a2; }
+  .plate { background: none; }
+  .plate::before { border-color: var(--hair); }
+}

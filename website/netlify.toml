@@ -7,6 +7,7 @@
 # branch as needed. ANTHROPIC_API_KEY must be set as a secret server-side.
 [build.environment]
   NEXT_PUBLIC_API_URL = "https://olivia-api.up.railway.app"
+  NODE_VERSION = "22"
 
 [[edge_functions]]
   path = "/api/chat"
@@ -56,6 +57,17 @@
   [headers.values]
     X-Robots-Tag = "noindex"
 
+# The Birth Portrait is in private beta: reachable, never indexed.
+[[headers]]
+  for = "/portrait/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/uk/portrait/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 # The older chart pages became Olivia Astrology's birth chart (on-device, bilingual).
 [[redirects]]
   from = "/chart"
@@ -65,18 +77,6 @@
 
 [[redirects]]
   from = "/chart/*"
-  to = "/astrology/birth-chart/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/portrait"
-  to = "/astrology/birth-chart/"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/portrait/*"
   to = "/astrology/birth-chart/"
   status = 301
   force = true

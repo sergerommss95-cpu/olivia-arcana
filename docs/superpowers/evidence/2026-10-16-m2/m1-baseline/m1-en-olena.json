@@ -1,0 +1,690 @@
+{
+  "profile": "m1-en-olena",
+  "variant": "m1-baseline",
+  "locale": "en",
+  "model": null,
+  "effort": null,
+  "dry": false,
+  "gitSha": "094e93a",
+  "packet": {
+    "v": 1,
+    "locale": "en",
+    "timeKnown": true,
+    "factors": [
+      {
+        "id": "arkan-1",
+        "kind": "arkan",
+        "position": 1,
+        "card": 1
+      },
+      {
+        "id": "arkan-2",
+        "kind": "arkan",
+        "position": 2,
+        "card": 2
+      },
+      {
+        "id": "arkan-3",
+        "kind": "arkan",
+        "position": 3,
+        "card": 2
+      },
+      {
+        "id": "arkan-4",
+        "kind": "arkan",
+        "position": 4,
+        "card": 3
+      },
+      {
+        "id": "arkan-5",
+        "kind": "arkan",
+        "position": 5,
+        "card": 4
+      },
+      {
+        "id": "arkan-6",
+        "kind": "arkan",
+        "position": 6,
+        "card": 7
+      },
+      {
+        "id": "arkan-7",
+        "kind": "arkan",
+        "position": 7,
+        "card": 5
+      },
+      {
+        "id": "arkan-8",
+        "kind": "arkan",
+        "position": 8,
+        "card": 9
+      },
+      {
+        "id": "arkan-12",
+        "kind": "arkan",
+        "position": 12,
+        "card": 14
+      },
+      {
+        "id": "arkan-13",
+        "kind": "arkan",
+        "position": 13,
+        "card": 8
+      },
+      {
+        "id": "arkan-14",
+        "kind": "arkan",
+        "position": 14,
+        "card": 13
+      },
+      {
+        "id": "num-lifePath",
+        "kind": "number",
+        "role": "lifePath",
+        "value": 5,
+        "master": false
+      },
+      {
+        "id": "num-expression",
+        "kind": "number",
+        "role": "expression",
+        "value": 9,
+        "master": false
+      },
+      {
+        "id": "num-soulUrge",
+        "kind": "number",
+        "role": "soulUrge",
+        "value": 1,
+        "master": false
+      },
+      {
+        "id": "num-personality",
+        "kind": "number",
+        "role": "personality",
+        "value": 8,
+        "master": false
+      },
+      {
+        "id": "num-birthday",
+        "kind": "number",
+        "role": "birthday",
+        "value": 1,
+        "master": false
+      },
+      {
+        "id": "natal-sun",
+        "kind": "planet",
+        "body": "sun",
+        "sign": "aquarius",
+        "house": 8,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-moon",
+        "kind": "planet",
+        "body": "moon",
+        "sign": "sagittarius",
+        "house": 6,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-mercury",
+        "kind": "planet",
+        "body": "mercury",
+        "sign": "aquarius",
+        "house": 8,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-venus",
+        "kind": "planet",
+        "body": "venus",
+        "sign": "capricorn",
+        "house": 7,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-mars",
+        "kind": "planet",
+        "body": "mars",
+        "sign": "pisces",
+        "house": 9,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-jupiter",
+        "kind": "planet",
+        "body": "jupiter",
+        "sign": "aries",
+        "house": 10,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-saturn",
+        "kind": "planet",
+        "body": "saturn",
+        "sign": "taurus",
+        "house": 11,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-uranus",
+        "kind": "planet",
+        "body": "uranus",
+        "sign": "aquarius",
+        "house": 8,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-neptune",
+        "kind": "planet",
+        "body": "neptune",
+        "sign": "aquarius",
+        "house": 8,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-pluto",
+        "kind": "planet",
+        "body": "pluto",
+        "sign": "sagittarius",
+        "house": 6,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-asc",
+        "kind": "angle",
+        "angle": "asc",
+        "sign": "cancer"
+      },
+      {
+        "id": "natal-mc",
+        "kind": "angle",
+        "angle": "mc",
+        "sign": "pisces"
+      },
+      {
+        "id": "aspect-moon-trine-jupiter",
+        "kind": "aspect",
+        "a": "moon",
+        "b": "jupiter",
+        "aspect": "trine"
+      },
+      {
+        "id": "aspect-sun-sextile-pluto",
+        "kind": "aspect",
+        "a": "sun",
+        "b": "pluto",
+        "aspect": "sextile"
+      },
+      {
+        "id": "aspect-venus-trine-saturn",
+        "kind": "aspect",
+        "a": "venus",
+        "b": "saturn",
+        "aspect": "trine"
+      },
+      {
+        "id": "aspect-sun-square-saturn",
+        "kind": "aspect",
+        "a": "sun",
+        "b": "saturn",
+        "aspect": "square"
+      },
+      {
+        "id": "aspect-mars-conjunction-mc",
+        "kind": "aspect",
+        "a": "mars",
+        "b": "mc",
+        "aspect": "conjunction"
+      },
+      {
+        "id": "aspect-uranus-sextile-pluto",
+        "kind": "aspect",
+        "a": "uranus",
+        "b": "pluto",
+        "aspect": "sextile"
+      },
+      {
+        "id": "aspect-moon-sextile-mercury",
+        "kind": "aspect",
+        "a": "moon",
+        "b": "mercury",
+        "aspect": "sextile"
+      },
+      {
+        "id": "aspect-mars-trine-asc",
+        "kind": "aspect",
+        "a": "mars",
+        "b": "asc",
+        "aspect": "trine"
+      },
+      {
+        "id": "aspect-mercury-sextile-jupiter",
+        "kind": "aspect",
+        "a": "mercury",
+        "b": "jupiter",
+        "aspect": "sextile"
+      },
+      {
+        "id": "aspect-sun-conjunction-uranus",
+        "kind": "aspect",
+        "a": "sun",
+        "b": "uranus",
+        "aspect": "conjunction"
+      },
+      {
+        "id": "aspect-pluto-square-mc",
+        "kind": "aspect",
+        "a": "pluto",
+        "b": "mc",
+        "aspect": "square"
+      },
+      {
+        "id": "aspect-moon-square-mars",
+        "kind": "aspect",
+        "a": "moon",
+        "b": "mars",
+        "aspect": "square"
+      }
+    ]
+  },
+  "baseline": true,
+  "source": "../docs/superpowers/evidence/2026-10-15-m1/en-timed-olena-koval.json",
+  "status": "done",
+  "error": null,
+  "stages": {
+    "a": {
+      "epigraph": "You want to choose your own road, yet people keep handing you the map to theirs.",
+      "facets": {
+        "bonds": {
+          "heading": "Love That Shows Up",
+          "refs": [
+            "natal-venus",
+            "num-soulUrge",
+            "num-personality",
+            "arkan-14",
+            "aspect-venus-trine-saturn"
+          ],
+          "teachings": [
+            "natal-venus-sign",
+            "natal-venus-house",
+            "num-soulUrge-relationships",
+            "num-personality-relationships",
+            "card-14-relationship",
+            "aspect-venus-trine-saturn"
+          ],
+          "text": "You probably show love by showing up. You keep the promise and do the dull, dependable thing, more often than you say it out loud. You want a partnership with clear terms where both people fit, and you want your independence respected inside it. Because you look so capable, people may expect you to steer, even in private moments when they only wanted company. The tension is that devotion shown as duty can leave your warmth invisible, while your wish for freedom can read as distance. Say what you choose alone and what you decide together. Ask what kind of support someone wants before you take the wheel. When something has to change, change the habit, not necessarily the bond."
+        },
+        "direction": {
+          "heading": "Freedom With a Finish Line",
+          "refs": [
+            "num-lifePath",
+            "arkan-1",
+            "arkan-2",
+            "arkan-3",
+            "arkan-5",
+            "arkan-6"
+          ],
+          "teachings": [
+            "num-lifePath-blindSpots",
+            "card-1-character",
+            "card-2-character",
+            "card-5-character",
+            "num-lifePath-development",
+            "card-2-growth",
+            "card-6-strength"
+          ],
+          "text": "You learn best by trying things, and you may have noticed that you tend to leave an option once it turns uncomfortable. Your road runs through experience and change. You have a quick hand for turning an idea into a visible result, and a quieter habit of letting meaning settle before you speak. The tension is between freedom and structure. You want open exits, yet you build best when a clear plan holds up against real life. Give each exploration a container: one experiment, one finish line, one review date. Then turn what you have privately understood into a request or a piece of work that others can meet."
+        },
+        "gifts": {
+          "heading": "Depth Turned Into Guidance",
+          "refs": [
+            "arkan-8",
+            "arkan-7",
+            "num-expression",
+            "natal-mars",
+            "natal-mc",
+            "arkan-6",
+            "aspect-mars-conjunction-mc"
+          ],
+          "teachings": [
+            "card-8-strength",
+            "card-7-strength",
+            "num-expression-essence",
+            "natal-mars-sign",
+            "natal-mc-sign",
+            "num-expression-blindSpots",
+            "card-6-strength"
+          ],
+          "text": "When a subject is difficult, you are often the one who goes deep enough to explain it plainly. You can study alone, ask the precise question, and then turn what you learned into guidance others can follow, giving both the rule and the reason for it. You link a single task to a larger human purpose. Your effort flows best when it is moved by feeling and by a cause you believe in, and you can carry a demanding project well past its easy start. The catch is that inspiration and a broad vision can outrun the practical steps. Name one concrete finish line, and your conviction becomes something people can actually use."
+        },
+        "inner": {
+          "heading": "Pride and the Need to Receive",
+          "refs": [
+            "natal-moon",
+            "num-soulUrge",
+            "arkan-4",
+            "arkan-12",
+            "arkan-13",
+            "aspect-moon-trine-jupiter"
+          ],
+          "teachings": [
+            "natal-moon-sign",
+            "natal-moon-house",
+            "num-soulUrge-innerWorld",
+            "card-4-inner",
+            "card-12-inner",
+            "card-13-inner"
+          ],
+          "text": "You feel most like yourself when something in your week points toward a wider horizon: a plan, an idea opening up, a reason behind the routine. Your mood lives in the daily upkeep, and it sinks when that upkeep has no meaning or leaves you out. Privately, you want to be the author of your own life, so help can feel like control when it arrives uninvited. You also need warmth, and permission to rest without first earning it by looking after everyone else. You need a pace that has room for strong feeling. The tension here is between pride in doing it yourself and a real need to receive. Tenderness will not cost you your dignity."
+        },
+        "temperament": {
+          "heading": "Cool Mind, Warm Hands",
+          "refs": [
+            "natal-sun",
+            "natal-mercury",
+            "natal-asc",
+            "num-personality",
+            "arkan-13",
+            "arkan-14",
+            "aspect-sun-conjunction-uranus"
+          ],
+          "teachings": [
+            "natal-sun-sign",
+            "natal-mercury-sign",
+            "natal-asc-sign",
+            "num-personality-essence",
+            "card-13-character",
+            "card-14-character"
+          ],
+          "text": "You probably step back from a familiar arrangement and ask whether it really works, even while you make sure everyone in it feels safe. Your mind likes the clean principle and the unusual angle. Your manner is warmer than that, and it notices small needs. People read you as steady and in charge, and you can meet intensity without flinching. You are also honest about when something has run its course. The friction is that your neat explanation can arrive before someone feels heard. Your calm authority can also make others assume you have already decided. Let their particular story land first, then offer the wider view."
+        }
+      },
+      "overview": {
+        "refs": [
+          "num-personality",
+          "num-soulUrge",
+          "natal-asc",
+          "natal-sun",
+          "num-lifePath",
+          "num-expression",
+          "arkan-13"
+        ],
+        "teachings": [
+          "num-personality-essence",
+          "num-soulUrge-essence",
+          "natal-asc-sign",
+          "natal-sun-house",
+          "num-lifePath-essence",
+          "num-expression-essence"
+        ],
+        "text": "People tend to hand you the heavy thing: the shared plan, the difficult conversation, the decision nobody else will make. You usually take it. You come across as capable and protective, someone who senses what a room needs and quietly holds it together. Underneath sits a plainer and fiercer wish, to have your own say over your time, your direction and who you are. That is the tension running through this portrait. Others readily cast you as the keeper of their arrangements, while what satisfies you most is a life you have chosen and built yourself. Your restless curiosity, your feel for larger meaning and your patience with hard feelings are all real. The work is letting them serve a direction that is truly yours, not only the role others expect."
+      },
+      "title": "Freedom With a Steady Hand"
+    },
+    "b": {
+      "chapters": {
+        "heart": {
+          "lede": "You can feel enormous hope about someone and still take months before you say it plainly.",
+          "paragraphs": [
+            "You can feel enormous hope about someone and still take months before you say it plainly. Your feelings run wide and fast. They reach for what a bond could become, the trip, the shared plan, the larger story. Your affection is slower and more careful. It waits to see whether the other person keeps their word, and it shows itself through effort rather than declarations. The tension is that your hope is ready long before your commitment is. People close to you may feel the warmth of your vision while wondering where they stand. Neither half is false. One is simply speaking about the future while the other is still checking the present.",
+            "You may notice that you go quiet when a strong feeling arrives, as if it must be tamed before anyone sees it. You are good at staying steady when things are intense, but steadiness is not the same as silence. Anger, longing and fear tend to become manageable once they have been named, not before. Underneath, you want to keep authorship of your own heart: to decide for yourself whom you lean on and when. That is why a clear boundary can feel like relief rather than distance. Saying \"this part I will carry alone, this part I want with you\" is often what lets real closeness begin.",
+            "Your days of chores and obligations are where your mood quietly lives, and love shows up there too. A partner who helps with the ordinary rhythm, and still leaves you the final say over your time, may matter more to you than grand gestures. Harmony, for you, is not the absence of friction. It is a pace where a strong feeling has somewhere to go."
+          ],
+          "practice": "The next time you feel a surge of hope or hurt about someone close, say one plain sentence about it within a day, such as \"I felt let down when…\" or \"I'm excited about us because…\", before deciding what to do with it.",
+          "refs": [
+            "natal-moon",
+            "natal-venus",
+            "num-soulUrge",
+            "arkan-12",
+            "arkan-13",
+            "aspect-moon-trine-jupiter",
+            "aspect-venus-trine-saturn",
+            "aspect-moon-sextile-mercury"
+          ],
+          "teachings": [
+            "natal-moon-sign",
+            "natal-moon-house",
+            "natal-venus-sign",
+            "natal-venus-house",
+            "num-soulUrge-essence",
+            "num-soulUrge-relationships",
+            "card-12-inner",
+            "card-12-growth",
+            "card-13-character",
+            "card-13-inner",
+            "aspect-moon-trine-jupiter",
+            "aspect-venus-trine-saturn",
+            "aspect-moon-sextile-mercury"
+          ],
+          "title": "Hope First, Promise Later"
+        },
+        "mind": {
+          "lede": "You often see the whole pattern before anyone has finished describing the problem.",
+          "paragraphs": [
+            "You often see the whole pattern before anyone has finished describing the problem. Your thinking steps outside the usual arrangement, asks why it was built that way, and finds the one principle that would explain a dozen cases at once. You are drawn to ideas that include people the current system forgot, and you tend to think in terms of fairness and wider meaning rather than narrow advantage. Alongside that runs a bolder streak: once an idea feels right, you want to say it out loud and act on it, often before every detail is settled.",
+            "Here is the tension particular to you. One part of your mind loves the sweeping, generous vision. Another part insists that any plan worth having must survive Monday morning, with clear roles and a limit that holds. When the vision wins alone, you can end up with a beautiful idea too large to deliver. When the planner wins alone, you may build something sturdy that no longer feels worth your conviction. You probably swing between the two and suspect each of betraying the other.",
+            "They work best as a pair. Let the wide idea make a claim, then let the planner ask what would prove it wrong. A big frame keeps the details from feeling pointless, and the details keep the frame honest. You do not have to shrink your idealism to be practical. You only have to give it something to be tested against."
+          ],
+          "practice": "Before you share your next big idea, write it on a card in one sentence, then add underneath: one first step you can take this week, and one thing that would make you change your mind.",
+          "refs": [
+            "natal-mercury",
+            "num-expression",
+            "arkan-5",
+            "natal-uranus",
+            "natal-jupiter",
+            "aspect-mercury-sextile-jupiter"
+          ],
+          "teachings": [
+            "natal-mercury-sign",
+            "num-expression-traits",
+            "num-expression-blindSpots",
+            "card-5-character",
+            "card-5-growth",
+            "natal-uranus-sign",
+            "natal-jupiter-sign",
+            "aspect-mercury-sextile-jupiter"
+          ],
+          "title": "The Wide Idea and the Working Plan"
+        },
+        "work": {
+          "lede": "You may do your best thinking alone, yet feel most useful when someone is learning from you.",
+          "paragraphs": [
+            "You may do your best thinking alone, yet feel most useful when someone is learning from you. Give you a hard subject and some unhurried quiet, and you will go down until you reach your own view, without leaning on whatever is fashionable. Then something shifts. You want to bring it back, explain it, set a standard others can follow, and welcome newcomers into the field. That is your particular tension at work: the depth you need is made in solitude, while the contribution you want is made in company. Too much retreat and your knowledge stays private. Too much teaching and you lose the stillness that made it worth sharing.",
+            "Your energy is not a machine that runs on schedule. It surges when a task carries feeling and a cause you believe in, and it fades when the work feels hollow. That can look uneven from outside. What steadies it is a slower, patient side of you that likes things you can maintain, build on and hand to a group. You are often the person who keeps a shared effort going long after the first excitement has passed.",
+            "Your sense of yourself and your sense of duty do not always agree. You may hold yourself to a standard that leaves no room to ask for help or adjust your load. Real responsibility does not require that. It requires a role clear enough that others can share it."
+          ],
+          "practice": "Block two fixed sessions in your week: one hour of protected solo study with no messages, and one short slot where you explain what you learned to a colleague, student or friend. Keep both for a month.",
+          "refs": [
+            "arkan-7",
+            "arkan-8",
+            "natal-mars",
+            "natal-saturn",
+            "natal-mc",
+            "num-expression",
+            "aspect-mars-conjunction-mc",
+            "aspect-sun-square-saturn"
+          ],
+          "teachings": [
+            "card-7-work",
+            "card-7-strength",
+            "card-8-inner",
+            "card-8-strength",
+            "natal-mars-sign",
+            "natal-mars-house",
+            "natal-saturn-sign",
+            "natal-saturn-house",
+            "natal-mc-sign",
+            "num-expression-work",
+            "aspect-sun-square-saturn"
+          ],
+          "title": "Solitude, Then the Classroom"
+        }
+      }
+    },
+    "c": {
+      "chapters": {
+        "becoming": {
+          "lede": "You have probably started more things than you have finished, and you can usually remember exactly why each one felt urgent at the start.",
+          "paragraphs": [
+            "You likely know the moment when an idea stops being a thought and becomes something you can hold. Moving it there, with the people, words and tools already in reach, is one of your quiet pleasures. You do not need perfect conditions. In public work you take the first honest step and give others something real to answer. That boldness counts for more than you may admit, because it often lets a stalled group move again.",
+            "Underneath the quick start sits a slower knowing that you rarely show. Long before you can explain a decision, you have weighed it privately until it feels true, and a fast answer leaves you uneasy. This shows up twice in you, once in how you grow as an adult and again in the longer view of your life. The inward way of knowing is not a phase you will outgrow. It is the ground you keep returning to. The tension is that your public self moves first while your private self wants to wait. Someone watching from outside sees only the leap, not the long listening that made it sound.",
+            "Your road runs through change, and change only teaches when you stay long enough to learn from it. The part of you that can carry a hard project past its easy beginning is the answer to the part that keeps looking for the exit. Before you leave something that has turned uncomfortable, ask whether the path is wrong or only difficult. Then let your results speak for you, and pass along what you know so others can do what once depended on you. Becoming yourself here means choosing the few limits that keep your freedom useful."
+          ],
+          "practice": "Pick one thing you have recently started. Before you start anything else, write down what it would look like finished, when you will check, and the one private reason it matters to you.",
+          "refs": [
+            "arkan-1",
+            "arkan-2",
+            "arkan-3",
+            "arkan-6",
+            "num-lifePath",
+            "natal-jupiter"
+          ],
+          "teachings": [
+            "card-1-character",
+            "card-1-growth",
+            "card-2-character",
+            "card-3-character",
+            "card-3-growth",
+            "card-6-strength",
+            "card-6-work",
+            "num-lifePath-strengths",
+            "num-lifePath-blindSpots",
+            "num-lifePath-development",
+            "natal-jupiter-sign",
+            "natal-jupiter-house"
+          ],
+          "title": "The Leap and the Long Listening"
+        },
+        "love": {
+          "lede": "You may love someone steadily for months before you find the plain words to tell them so.",
+          "paragraphs": [
+            "You probably trust love that builds slowly, through kept promises and effort that proves you take the other person seriously. You want the terms between you made clear enough that both of you fit. Yet the way you reach toward someone is less tidy than that. It follows feeling, inspiration and the mood of a moment, and it can pull you toward a person who opens a wider horizon. So the heart that wants a careful, lasting agreement is joined by a desire that moves like water.",
+            "The real tension is between that lasting agreement and your fierce wish to stay the author of your own life. Closeness can start to feel like a role handed to you, and then you go quiet or restless rather than saying what you need. Your everyday mood lives in shared routines, so love sours fastest when the daily arrangement stops including you. The unease rarely sits with the person. It sits with the habit nobody has questioned.",
+            "You can see clearly when a way of being together has reached its limit. Your gift is telling a pattern that needs to end apart from a bond that only needs to change. Let your warmth be visible, not only your reliability: play, say the soft thing aloud, and let the other person meet the you that moves by feeling too. Say what you want to choose for yourself and what you are glad to decide together."
+          ],
+          "practice": "This week, name one shared routine that no longer fits you and suggest one change to it, while saying plainly what you still want to keep.",
+          "refs": [
+            "natal-venus",
+            "natal-mars",
+            "natal-moon",
+            "arkan-14",
+            "num-soulUrge",
+            "aspect-venus-trine-saturn"
+          ],
+          "teachings": [
+            "natal-venus-sign",
+            "natal-venus-house",
+            "natal-mars-sign",
+            "natal-mars-house",
+            "natal-moon-sign",
+            "natal-moon-house",
+            "card-14-character",
+            "card-14-relationship",
+            "num-soulUrge-essence",
+            "num-soulUrge-relationships",
+            "aspect-venus-trine-saturn"
+          ],
+          "title": "Steady Promise, Moving Water"
+        },
+        "shadow": {
+          "lede": "You may give more than anyone asked for, then feel a flicker of resentment you would never say out loud.",
+          "paragraphs": [
+            "You likely know the comfort of being the one who looks after things: the meal, the plan, the friend who needs a steady presence. Care comes easily to you, and so does the habit of letting being needed stand in for being valued. When that happens, generosity hardens into quiet bookkeeping. You keep giving while privately waiting for someone to notice that you also want warmth, rest and pleasure without having earned them first.",
+            "Your shadow is a strange pairing: the urge to hold everything together, and the urge to leave the moment it feels heavy. In groups and friendships you are the dependable one, the person who turns a shared hope into something with staying power. You can also judge your worth by never needing help, never failing and never slowing down. Then the daily load grows heavy, your standards for upkeep become harsh, and the discomfort starts to look like proof that you are on the wrong road. Too many exits can follow, each one taken just before the care you gave might have been returned.",
+            "There is also a softer blur. In close arrangements where responsibility is shared, an ideal of how things should work for everyone can hide what you are actually carrying. The way out is not to care less. Let yourself be on the list of people your care maintains. Say when you are tired before you are resentful, and stay long enough in an uncomfortable season to see whether it was really wrong or only hard."
+          ],
+          "practice": "Once a day, notice one thing you did for someone that they did not ask for, and ask yourself honestly whether you wanted to give it or wanted to be needed.",
+          "refs": [
+            "arkan-4",
+            "natal-saturn",
+            "natal-pluto",
+            "num-lifePath",
+            "natal-neptune",
+            "aspect-sun-square-saturn"
+          ],
+          "teachings": [
+            "card-4-risk",
+            "card-4-inner",
+            "natal-saturn-sign",
+            "natal-saturn-house",
+            "natal-pluto-house",
+            "num-lifePath-blindSpots",
+            "natal-neptune-house",
+            "aspect-sun-square-saturn"
+          ],
+          "title": "The Keeper Who Keeps the Exit Open"
+        }
+      },
+      "keep": [
+        "Being needed is not the same as being valued.",
+        "Discomfort is not proof that the road is wrong.",
+        "Change the habit before you end the bond."
+      ]
+    }
+  },
+  "ms": null,
+  "costCents": null,
+  "attempts": null,
+  "repairs": null,
+  "calls": null,
+  "tokens": null,
+  "lint": {
+    "hedge-lead": 13,
+    "hedges": 5,
+    "phrase": 0,
+    "gender": 0,
+    "repeat": 5
+  },
+  "residue": {
+    "a": [
+      "missing:outline",
+      "hedge-lead:overview",
+      "hedge-lead:temperament",
+      "hedge-lead:bonds",
+      "hedges:bonds:2",
+      "hedge-lead:direction",
+      "hedges:direction:2"
+    ],
+    "b": [
+      "hedges:mind:p1:2",
+      "repeat:mind:lede:\"you often see the whole pattern\"",
+      "hedge-lead:heart:p1",
+      "hedges:heart:p1:2",
+      "repeat:heart:lede:\"you can feel enormous hope about\"",
+      "hedge-lead:work:lede",
+      "hedge-lead:work:p0",
+      "repeat:work:\"a cause you believe in and\"",
+      "repeat:work:lede:\"you may do your best thinking\""
+    ],
+    "c": [
+      "hedge-lead:shadow:lede",
+      "hedge-lead:shadow:p0",
+      "hedge-lead:love:lede",
+      "hedge-lead:love:p0",
+      "repeat:love:\"the author of your own life\"",
+      "hedge-lead:becoming:lede",
+      "hedge-lead:becoming:p0",
+      "hedges:becoming:p0:2"
+    ]
+  },
+  "words": {
+    "a": 741,
+    "b": 942,
+    "c": 970,
+    "total": 2653
+  },
+  "teachingsCited": 58
+}

@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Birth portrait · The reading table</title>
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:wght@300..600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Cormorant+SC:wght@500;600&family=DM+Sans:opsz,wght@9..40,400..600&display=swap">
+<style>
+/* Direction B, "The reading table". Mockup for the Birth Portrait reader.
+   The cards for the passage you are reading lie on the table at the left; the voice speaks beside them. */
+:root {
+  --abyss: #050c15;
+  --deep: #07131f;
+  --lapis: #0b1c2c;
+  --ink: #eee6d4;
+  --body: rgba(238, 230, 212, 0.87);
+  --soft: rgba(238, 230, 212, 0.74);
+  --faint: rgba(238, 230, 212, 0.62);
+  --gilt: #c9b182;
+  --hair: rgba(238, 230, 212, 0.14);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --display: "Cormorant", "Cormorant Garamond", Georgia, serif;
+  --serif: "Cormorant Garamond", "Cormorant", Georgia, serif;
+  --sc: "Cormorant SC", "Cormorant Garamond", Georgia, serif;
+  --sans: "DM Sans", system-ui, sans-serif;
+  --gutter: clamp(16px, 4.4vw, 72px);
+  --stage-w: clamp(400px, 41vw, 620px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--lapis); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--lapis); color: var(--ink); font: 400 18.5px/1.74 var(--sans); font-optical-sizing: auto; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+h1, h2, h3, p, ul, ol, figure, blockquote { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+:is(a, button):focus-visible { outline: 2px solid var(--gilt); outline-offset: 4px; border-radius: 3px; }
+.sr { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip { position: absolute; left: 16px; top: -60px; z-index: 10; padding: 10px 16px; background: var(--ink); color: var(--lapis); font: 500 14px/1 var(--sans); border-radius: 999px; text-decoration: none; }
+.skip:focus { top: 12px; }
+
+/* ── One label voice: Cormorant small caps, gilt ─────────────────────── */
+.label { font: 600 15.5px/1.25 var(--sc); letter-spacing: 0.055em; color: var(--gilt); font-variant-numeric: oldstyle-nums; }
+.meta { font: 400 14px/1.5 var(--sans); color: var(--faint); }
+
+/* ── Site header (quiet) ─────────────────────────────────────────────── */
+.site { display: flex; align-items: center; justify-content: space-between; height: 76px; padding: 0 var(--gutter); }
+.mark { display: flex; align-items: baseline; gap: 9px; text-decoration: none; }
+.mark b { font: 400 27px/1 var(--display); letter-spacing: -0.01em; }
+.mark span { font: 600 14px/1 var(--sc); letter-spacing: 0.08em; color: var(--gilt); }
+.site nav ul { display: flex; gap: 30px; }
+.site nav a { font: 400 14px/1 var(--sans); color: var(--soft); text-decoration: none; }
+.site nav a:hover { color: var(--ink); }
+@media (max-width: 719px) { .site { height: 64px; } .site nav { display: none; } }
+
+/* ── Cards as objects on the table ───────────────────────────────────── */
+.spread { --ov: 0px; display: flex; align-items: flex-start; }
+.slot { position: relative; flex: none; width: var(--cw); }
+.slot + .slot { margin-left: calc(var(--ov) * -1); }
+.card {
+  position: relative; width: var(--cw); aspect-ratio: 896 / 1536;
+  border-radius: 4.6% / 2.7%;
+  transform: rotate(var(--r, 0deg));
+  box-shadow:
+    0 1px 1px rgba(1, 6, 12, 0.5),
+    0 8px 14px -6px rgba(1, 6, 12, 0.55),
+    0 26px 44px -14px rgba(1, 6, 12, 0.8),
+    0 60px 90px -36px rgba(1, 6, 12, 0.7);
+  background: #0a1830;
+}
+.card img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+/* The lamp is above and a little behind the reader: a sheen at the top edge, the foot of the card in shade. */
+.card::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(174deg, rgba(255, 244, 224, 0.13) 0%, rgba(255, 244, 224, 0.03) 30%, rgba(0, 0, 0, 0) 55%, rgba(2, 8, 16, 0.34) 100%);
+  box-shadow: inset 0 0 0 1px rgba(238, 230, 212, 0.09), inset 0 1px 0 rgba(255, 246, 228, 0.14);
+}
+.legend { display: grid; gap: 5px; margin-top: 24px; }
+.legend li { display: grid; grid-template-columns: 1.5em auto 1fr; column-gap: 0.55em; align-items: baseline; }
+.legend .num { font: 500 17px/1 var(--serif); color: var(--gilt); font-variant-numeric: oldstyle-nums; }
+.legend .role { font: 600 14px/1.3 var(--sc); letter-spacing: 0.05em; color: var(--gilt); }
+.legend .name { font: italic 400 20px/1.3 var(--serif); color: var(--ink); }
+.cap { display: grid; gap: 2px; margin-top: 20px; padding-right: calc(var(--ov) + 6px); }
+.slot:last-child .cap { padding-right: 0; }
+.cap .role { font: 600 14px/1.25 var(--sc); letter-spacing: 0.05em; color: var(--gilt); font-variant-numeric: oldstyle-nums; }
+.cap .name { font: italic 400 20px/1.2 var(--serif); color: var(--ink); }
+
+/* The table: light falling on lapis cloth, not a glow. Brightest just below the cards, where the lamp lands. */
+.lit { position: relative; isolation: isolate; }
+.lit::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 44% 28% at 50% 60%, rgba(64, 104, 146, 0.30) 0%, rgba(40, 74, 110, 0.15) 45%, rgba(11, 28, 44, 0) 100%),
+    radial-gradient(ellipse 50% 46% at 50% 47%, rgba(20, 44, 70, 0.55) 0%, rgba(20, 44, 70, 0.22) 55%, rgba(11, 28, 44, 0) 100%);
+}
+
+/* ── At a glance ─────────────────────────────────────────────────────── */
+.glance { display: grid; grid-template-columns: 1fr; }
+.glance-text { padding: 28px 16px 8px; }
+.glance h1 { margin-top: 14px; font: 300 clamp(44px, 11.5vw, 84px)/0.98 var(--display); letter-spacing: -0.012em; text-wrap: balance; }
+.epigraph { margin-top: 18px; max-width: 22em; font: italic 400 clamp(21px, 5.4vw, 27px)/1.32 var(--serif); color: var(--soft); text-wrap: balance; }
+.essence-head { margin-top: 40px; }
+.essence { margin-top: 14px; display: grid; gap: 14px; }
+.essence li { position: relative; font: 500 clamp(22px, 5.8vw, 27px)/1.26 var(--serif); color: var(--ink); text-wrap: pretty; }
+.way-in { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 34px; }
+.begin { display: inline-flex; align-items: center; gap: 12px; padding: 15px 24px 15px 26px; border-radius: 999px; background: var(--ink); color: #0b1c2c; font: 500 15.5px/1 var(--sans); text-decoration: none; transition: background-color 0.3s var(--ease); }
+.begin:hover { background: #fff8ea; }
+.begin svg { width: 14px; height: 14px; }
+.way-in .meta { color: var(--soft); }
+.way-in .meta strong { font-weight: 500; color: var(--ink); }
+.glance-table { padding: 44px 16px 44px; container-type: inline-size; }
+.glance-table .spread { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; row-gap: 30px; }
+.glance-table .slot { width: auto; margin-left: 0; --cw: 100%; }
+.glance-table .slot:nth-child(even) { margin-top: 36px; }
+.glance-table .card { width: 100%; }
+.glance-table .cap { padding-right: 0; }
+.glance-note { margin-top: 30px; max-width: 34em; }
+
+@media (min-width: 1000px) {
+  .glance { grid-template-columns: minmax(0, 56fr) minmax(0, 44fr); min-height: min(calc(100vh - 76px), 880px); }
+  .glance-table { grid-column: 1; grid-row: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 56px 64px var(--gutter); }
+  .glance-table .spread { display: flex; --ov: 22px; --cw: min(204px, calc((100cqw + 3 * var(--ov)) / 4), calc(42vh * 0.5833)); }
+  .glance-table .slot { width: var(--cw); --cw: inherit; }
+  .glance-table .slot + .slot { margin-left: calc(var(--ov) * -1); }
+  .glance-table .slot:nth-child(even) { margin-top: 0; }
+  .glance-table .card { width: var(--cw); }
+  .glance-table .cap { padding-right: calc(var(--ov) + 6px); }
+  .glance-table .slot:last-child .cap { padding-right: 0; }
+  .glance-text { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--gutter) 72px 16px; }
+  .glance h1 { font-size: clamp(50px, 4.5vw, 70px); }
+  .glance-note { margin-top: 40px; }
+  .essence li { font-size: clamp(22px, 1.72vw, 26px); text-wrap: balance; }
+}
+
+/* ── The reading: stage + voice ──────────────────────────────────────── */
+.reading { position: relative; background: linear-gradient(180deg, var(--lapis) 0%, var(--lapis) 40%, #091827 52%, var(--deep) 70%, #061019 100%); }
+.voice { padding: 0 16px 120px; }
+.stage { display: none; }
+
+/* Passages */
+.passage { scroll-margin-top: 24px; }
+.head-row { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.head-row .label { display: flex; gap: 10px; align-items: baseline; }
+.head-row .label .t { font: 400 13.5px/1 var(--sans); letter-spacing: 0; color: var(--faint); }
+.why-btn { display: inline-flex; align-items: baseline; gap: 7px; font: 400 14px/1.4 var(--sans); color: var(--soft); text-decoration: underline; text-decoration-color: rgba(201, 177, 130, 0.55); text-underline-offset: 4px; text-decoration-thickness: 1px; white-space: nowrap; }
+.why-btn:hover { color: var(--ink); text-decoration-color: var(--gilt); }
+.why-btn .chev { display: inline-block; width: 8px; height: 8px; border-right: 1.25px solid currentColor; border-bottom: 1.25px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform 0.3s var(--ease); }
+.why-btn[aria-expanded="true"] .chev { transform: translateY(1px) rotate(-135deg); }
+.passage h3 { margin-top: 10px; font: 400 clamp(34px, 8.6vw, 46px)/1.04 var(--display); letter-spacing: -0.008em; text-wrap: balance; }
+.hook { margin-top: 26px; max-width: 22em; font: 500 clamp(23px, 6vw, 28px)/1.3 var(--serif); color: var(--ink); text-wrap: pretty; }
+.voice p.b { margin-top: 1.05em; max-width: 28.4em; color: var(--body); text-wrap: pretty; }
+.landing { margin-top: 26px; max-width: 26em; font: italic 400 clamp(21px, 5.2vw, 24px)/1.36 var(--serif); color: var(--ink); text-wrap: balance; }
+
+/* Why these cards: the frame lines, in place */
+.why-body { margin-top: 18px; }
+.frames { display: grid; gap: 14px; }
+.frames li { display: grid; gap: 3px; }
+.frames .role { font: 600 14px/1.25 var(--sc); letter-spacing: 0.05em; color: var(--gilt); font-variant-numeric: oldstyle-nums; }
+.frames .role i { font: italic 400 17px/1 var(--serif); letter-spacing: 0; color: var(--ink); }
+.frames p { font: 400 18.5px/1.42 var(--serif); color: var(--ink); }
+.also { margin-top: 14px; font: 400 14px/1.6 var(--sans); color: var(--soft); }
+
+/* Phone and tablet: the passage's cards lie inline, full-bleed, at the top of the passage. */
+.inline-table { margin: 26px -16px 0; padding: 34px 16px 30px; container-type: inline-size; }
+.inline-table .spread { justify-content: center; }
+.inline-table .spread[data-n="1"] { --cw: min(206px, 56cqw); }
+.inline-table .spread[data-n="2"] { --ov: 14px; --cw: min(168px, calc((100cqw + var(--ov)) / 2)); }
+.inline-table .spread[data-n="3"] { --ov: 16px; --cw: min(128px, calc((100cqw + 2 * var(--ov)) / 3)); }
+.inline-table .spread[data-n="4"] { --ov: 18px; --cw: min(104px, calc((100cqw + 3 * var(--ov)) / 4)); }
+.inline-table figcaption { display: flex; justify-content: center; }
+.inline-table .legend { margin-top: 26px; }
+.inline-table .legend .role { font-size: 13.5px; }
+.inline-table .legend .name { font-size: 19px; }
+.inline-table + .why-body { margin-top: 4px; }
+
+/* Rhythm: each kind of passage gets its own spacing */
+.opening { padding-top: 76px; }
+.part { padding-top: 132px; }
+.part h2 { margin-top: 10px; font: 300 clamp(40px, 10vw, 60px)/1 var(--display); letter-spacing: -0.01em; }
+.part .meta { margin-top: 12px; }
+.facet-index { margin-top: 26px; border-top: 1px solid var(--hair); max-width: 640px; }
+.facet-index a { display: grid; grid-template-columns: 1fr; gap: 2px; padding: 12px 0 13px; border-bottom: 1px solid var(--hair); text-decoration: none; }
+.facet-index .label { font-size: 14px; }
+.facet-index .h { font: 400 22px/1.25 var(--serif); color: var(--ink); }
+.facet-index a:hover .h { color: #fff8ea; }
+.facet { padding-top: 92px; }
+.facet:first-of-type { padding-top: 72px; }
+
+/* Chapters: a book's chapter, not another box */
+.chapters-part { padding-top: 170px; }
+.chapter { padding-top: 120px; }
+.chapter h3 { font-size: clamp(40px, 10vw, 62px); line-height: 1.0; }
+.lede { margin-top: 28px; max-width: 22em; font: italic 400 clamp(25px, 6.6vw, 32px)/1.28 var(--serif); color: var(--ink); text-wrap: pretty; }
+.chapter .lede + .b { margin-top: 30px; }
+.pull { margin: 60px 0 56px; }
+.pull p { max-width: 13.5em; font: italic 400 clamp(31px, 8vw, 46px)/1.12 var(--serif); color: var(--ink); text-indent: -0.36em; text-wrap: balance; }
+.pull::before { content: ""; display: block; width: 44px; height: 1px; margin-bottom: 22px; background: var(--gilt); opacity: 0.8; }
+
+/* The practice: the reader slides one card face down across the table. */
+.practice { position: relative; margin: 64px -16px 0; padding: 40px 16px 44px; background: linear-gradient(180deg, rgba(3, 9, 16, 0.0), rgba(3, 9, 16, 0.55) 22%, rgba(3, 9, 16, 0.55) 78%, rgba(3, 9, 16, 0)); display: grid; grid-template-columns: 74px minmax(0, 1fr); column-gap: 20px; align-items: start; }
+.practice .back { grid-row: span 2; --cw: 74px; --r: -3deg; }
+.practice .label { align-self: end; }
+.practice-text { margin-top: 10px; max-width: 24em; font: 500 clamp(21px, 5.4vw, 27px)/1.34 var(--serif); color: var(--ink); text-wrap: pretty; }
+
+/* Quiet entries: title and lede, linking onward */
+.entries { margin-top: 96px; border-top: 1px solid var(--hair); }
+.entry { padding: 30px 0 32px; border-bottom: 1px solid var(--hair); }
+.entry h3 { margin-top: 8px; font: 400 clamp(28px, 7vw, 34px)/1.1 var(--display); letter-spacing: -0.005em; }
+.entry .entry-lede { margin-top: 10px; max-width: 30em; font: italic 400 21px/1.36 var(--serif); color: var(--soft); }
+.onward-row { display: flex; gap: 12px; align-items: baseline; margin-top: 14px; }
+.onward { display: inline-flex; gap: 8px; align-items: center; font: 400 14.5px/1.4 var(--sans); color: var(--ink); text-decoration: underline; text-decoration-color: rgba(201, 177, 130, 0.55); text-underline-offset: 4px; }
+.onward:hover { text-decoration-color: var(--gilt); }
+.onward .meta { display: inline-block; text-decoration: none; }
+
+/* ── Desktop: the table stage ────────────────────────────────────────── */
+@media (min-width: 1000px) {
+  .reading { display: grid; grid-template-columns: var(--stage-w) minmax(0, 1fr); }
+  .voice { grid-column: 2; grid-row: 1; padding: 0 var(--gutter) 200px 64px; }
+  .voice > * { max-width: 660px; }
+  .inline-table { display: none; }
+  .why-body:not([hidden]) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .stage { display: flex; flex-direction: column; grid-column: 1; grid-row: 1; position: sticky; top: 0; height: 100vh; align-self: start; padding: 40px 36px 34px var(--gutter); }
+  .stage-cards { position: relative; flex: 1; container-type: size; }
+  .layer { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; transition: opacity 340ms var(--ease); }
+  .layer.on { opacity: 1; }
+  .layer > .stack { display: flex; flex-direction: column; align-items: flex-start; }
+  .stage .spread[data-n="1"] { --cw: min(186px, 47cqh * 0.5833, 60cqw); }
+  .stage .spread[data-n="2"] { --ov: 18px; --cw: min(180px, 45cqh * 0.5833, calc((100cqw + var(--ov)) / 2)); }
+  .stage .spread[data-n="3"] { --ov: 24px; --cw: min(166px, 42cqh * 0.5833, calc((100cqw + 2 * var(--ov)) / 3)); }
+  .stage .spread[data-n="4"] { --ov: 20px; --cw: min(140px, 38cqh * 0.5833, calc((100cqw + 3 * var(--ov)) / 4)); }
+  .layer.why .spread { --cw: min(160px, 34cqh * 0.5833, calc((100cqw + 2 * var(--ov)) / 3)); }
+  .layer.why .spread[data-n="3"], .layer.why .spread[data-n="4"] { --cw: min(122px, 28cqh * 0.5833, calc((100cqw + 3 * var(--ov)) / 4)); }
+  .stage.lit::before { transition: opacity 600ms var(--ease); }
+  .stage[data-mode="practice"].lit::before { opacity: 0.45; }
+  .stage-extra { margin-top: 18px; font: 400 13.5px/1.5 var(--sans); color: var(--faint); }
+  .stage-why { margin-top: 26px; max-width: 30em; }
+  .stage-why .frames { gap: 16px; }
+  .stage-why .frames p { font-size: 18px; }
+  .stage .back-cap { margin-top: 20px; }
+  .minimap { display: flex; align-items: flex-end; gap: 18px; flex: none; }
+  .minimap svg { width: 78px; height: auto; overflow: visible; }
+  .minimap .meta { max-width: 13em; font-size: 13.5px; line-height: 1.45; }
+  .mm-thread { stroke: rgba(238, 230, 212, 0.1); stroke-width: 1; }
+  .mm-thread.on { stroke: rgba(201, 177, 130, 0.55); }
+  .mm-card { fill: #0b1c2c; stroke: rgba(238, 230, 212, 0.26); stroke-width: 1; transition: fill 0.4s var(--ease), stroke 0.4s var(--ease); }
+  .mm-card.on { fill: var(--gilt); stroke: var(--gilt); }
+  .reading { overflow-x: clip; }
+  .practice { margin: 80px 0 0; padding: 64px 0 70px; display: block; background: none; isolation: isolate; }
+  .practice::before { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: calc(-64px - var(--stage-w)); width: 100vw; background: linear-gradient(180deg, rgba(3, 9, 16, 0) 0%, rgba(3, 9, 16, 0.62) 26%, rgba(3, 9, 16, 0.62) 74%, rgba(3, 9, 16, 0) 100%); pointer-events: none; }
+  .practice .back { display: none; }
+  .practice-text { font-size: 29px; max-width: 21em; }
+  .entries { margin-top: 110px; }
+  .chapter { padding-top: 168px; }
+  .facet { padding-top: 120px; }
+  .opening { padding-top: 132px; }
+  .part { padding-top: 168px; }
+  .chapters-part { padding-top: 220px; }
+}
+@media (min-width: 1000px) and (max-height: 760px) {
+  .minimap .meta { display: none; }
+}
+
+/* ── Numbers: a hint, set as numerals ────────────────────────────────── */
+.numbers { padding: 120px 16px 72px; background: linear-gradient(180deg, #061019 0%, var(--abyss) 100%); }
+.numbers h2 { margin-top: 10px; font: 300 clamp(40px, 10vw, 60px)/1 var(--display); letter-spacing: -0.01em; }
+.nums { margin-top: 44px; display: grid; gap: 26px; }
+.nums li { display: grid; grid-template-columns: 76px minmax(0, 1fr); column-gap: 18px; align-items: start; align-content: start; }
+.nums .n { grid-row: span 2; font: 300 76px/0.8 var(--display); color: var(--ink); font-variant-numeric: lining-nums; }
+.nums .label { margin-top: 4px; }
+.nums .m { font: italic 400 19px/1.35 var(--serif); color: var(--soft); }
+.sky { margin-top: 48px; font: 400 clamp(22px, 5.6vw, 28px)/1.35 var(--serif); color: var(--ink); }
+.sky b { font-weight: inherit; white-space: nowrap; }
+.sky span { color: var(--faint); padding: 0 0.1em; }
+.honest { margin-top: 18px; max-width: 36em; }
+.end { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; margin-top: 88px; padding-top: 26px; border-top: 1px solid var(--hair); }
+.end a { font: 400 14px/1.4 var(--sans); color: var(--soft); text-underline-offset: 4px; text-decoration-color: rgba(201, 177, 130, 0.55); }
+@media (min-width: 1000px) {
+  .numbers { padding: 190px var(--gutter) 80px; }
+  .nums { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0 36px; margin-top: 64px; }
+  .nums li { grid-template-columns: 1fr; }
+  .nums .n { grid-row: auto; font-size: clamp(96px, 9vw, 140px); line-height: 0.82; }
+  .nums .label { margin-top: 22px; }
+  .nums .m { margin-top: 6px; max-width: 12em; }
+  .sky { margin-top: 72px; }
+}
+
+/* ── Motion: an ink-in and the stage crossfade, nothing else ─────────── */
+.js .ink { opacity: 0; filter: blur(2.5px); transition: opacity 900ms var(--ease), filter 900ms var(--ease); }
+.js .ink.in { opacity: 1; filter: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .ink { opacity: 1; filter: none; transition: none; }
+  .layer, .mm-card, .why-btn .chev, .begin { transition: none !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#reading">Skip to the reading</a>
+<header class="site">
+  <a class="mark" href="/"><b>Olivia</b><span>arcana</span></a>
+  <nav aria-label="Site"><ul><li><a href="/daily/">Today</a></li><li><a href="/decks/">Decks</a></li><li><a href="/cards/">The cards</a></li><li><a href="/learn/">Learn</a></li></ul></nav>
+</header>
+<main id="main"></main>
+<script type="application/json" id="data">{"stages":{"a":{"epigraph":"You walk in softly and leave with the map redrawn.","facets":{"bonds":{"heading":"Love in Kept Promises","refs":["natal-venus","arkan-14","num-soulUrge","num-personality","natal-moon"],"teachings":["natal-venus-sign","natal-venus-house","card-14-relationship","num-soulUrge-relationships","num-personality-relationships","natal-moon-sign"],"text":"You show love by turning up: the shelf repaired, the appointment remembered, the plan for next spring already pencilled in. For you, affection is built and proven over time, and you can forget that the other person also wants to hear it said aloud. Partners and friends expect you to steer, and you often do, though what you want is a bond where your independence is left alone. The pull runs between deep loyalty and a need for open air. You are honest about what a relationship can no longer carry. Sometimes you are too quick to end the whole thing when only one habit needed to go. The stronger move is to name that habit and keep the person."},"direction":{"heading":"From Quick Hands to Quiet Knowing","refs":["arkan-1","arkan-2","arkan-3","num-lifePath","arkan-5","arkan-6"],"teachings":["card-1-frame","card-1-character","card-2-frame","card-2-character","card-3-frame","card-3-growth","num-lifePath-essence","num-lifePath-blindSpots","num-lifePath-development","card-5-character","card-5-growth"],"text":"You started out as the one who could make something from whatever was lying around: a borrowed tool, a few words, a willing friend. That quickness still rescues you under pressure. Adult life keeps asking for something slower. It wants you to listen inward, let an answer ripen before you give it, and then say it plainly enough to be met. Over the decades, that quieter knowing becomes your main instrument. You learn by trying things and changing course, and you also want a plan that holds up against real life. Those two pull hard against each other. What works for you is one experiment with a finish line and a date to review it. Leaving the moment a trial gets uncomfortable teaches you less than seeing it through."},"gifts":{"heading":"The Guide With a Lantern","refs":["arkan-8","arkan-7","arkan-6","num-expression","natal-mars","natal-mc"],"teachings":["card-8-strength","card-7-strength","card-7-work","card-6-strength","num-expression-essence","num-expression-strengths","natal-mars-sign","natal-mc-sign","aspect-mars-conjunction-mc"],"text":"When someone is new to a team, a city or a subject, they end up asking you, and yours is the explanation they remember. You give the rule and the reason the rule exists. Behind that sits long private study: you ask the precise question others skip, and you form your own view before you borrow anyone else's. You link a small task to the people it will reach, and you spot who has been left out of the plan. Your effort runs hottest when the work moves you, and that is the edge: on flat days the drive thins out. Once you commit, though, you can steer a demanding project past its easy beginning, through the dull middle, to a finish others can see."},"inner":{"heading":"Room to Move, Permission to Take","refs":["natal-moon","num-soulUrge","arkan-12","arkan-13","arkan-4"],"teachings":["natal-moon-sign","natal-moon-house","num-soulUrge-essence","num-soulUrge-innerWorld","card-4-risk","card-4-inner","card-12-inner","card-13-inner"],"text":"You come back to yourself on a long walk, a new route home, or an evening with a book about a place you have never been. Daily routine settles you only when it has a window in it. You want real say over your own hours. Offers of help can land as attempts to steer you, so you wave them off. Yet you give generously, and part of you keeps quiet score of who gives back. The tension is between that independence and a plain need for warmth: a meal cooked for you, a hand on your shoulder. Balance returns at a pace where work, body and people all fit into one day, with room left to say a strong feeling out loud. Being tender costs you none of your standing."},"temperament":{"heading":"Warm Door, Cool Eye","refs":["natal-sun","natal-asc","natal-mercury","num-personality","arkan-14","arkan-13"],"teachings":["natal-sun-sign","natal-asc-sign","natal-mercury-sign","num-personality-essence","card-14-character","card-13-character"],"text":"People bring you the conversation nobody else wants to have. You open gently, with a question about their day or a cup put in their hand, and they relax before they notice how closely you are listening. Then something firmer shows. Your manner is capable and decisive, so others assume you will take charge, and you have a frank sense of when an arrangement has run its course. Privately you see yourself as the steady one, able to sit with someone's anger without flinching. When you think, you step back to look at the whole system. That is the friction. The warmth that lets people talk and the wide-angle mind that answers them can feel like two different people, and a friend who wanted sympathy can receive a clear analysis of the problem instead."}},"overview":{"refs":["natal-asc","natal-sun","num-soulUrge","arkan-8","arkan-6","num-lifePath","arkan-5","arkan-2"],"teachings":["natal-asc-sign","natal-sun-sign","num-soulUrge-essence","card-8-strength","card-6-strength","num-lifePath-essence","card-5-character","card-2-growth"],"text":"You are the one who notices the person standing alone at a party, brings them into the conversation, and then leaves early because you had something of your own to finish. Two habits run side by side in you: a soft, watchful way of entering a room, and a mind that wants its own say over where your life goes. You read people carefully, you explain things well, and you can carry a hard piece of work past the point where others drift off. What you protect most is the right to choose. The pull in you runs between that freedom and a wish to build something that lasts: a plan, a household, a standard others can rely on. Picture a desk with a road atlas on one side and a ring binder on the other; you use both. The harder lesson is speaking up sooner about what you already know."},"title":"Soft Entrance, Independent Course"},"b":{"chapters":{"heart":{"lede":"When something stings, you either go very quiet or act fast, and the action rarely matches the size of the hurt.","paragraphs":["A remark at dinner, a plan changed without asking you, a friend who decides something for you 'to be helpful': these land harder than you show. Being steered is the injury you feel most, because what you guard is the right to author your own day. So the reaction arrives already dressed as a decision. You cancel, you rewrite the arrangement, you send the crisp message. Or you swing the other way and talk yourself into a hopeful reading, finding the lesson before you have let yourself be annoyed.","Another pull runs underneath. You give a great deal: the lift to the station, the late phone call, the extra shift covered. You like being the person others lean on. When that goes unthanked, hurt and pride tangle together. Picture the draft message on your phone at midnight, three versions deep, each more reasonable than the last, each hiding the plain sentence: I felt left out. You see yourself as someone who holds steady in a storm, and that picture makes it hard to admit you were shaken.","What changes things is splitting the moment in two. First comes the feeling, said in its own small sentence. Then comes the limit, which is a separate thing: what you will and won't do from now on. Kept apart, the limit needs far less force, and the people around you can actually meet it. Admitting the sting costs you none of your dignity. It is usually what lets a friendship keep its shape."],"practice":"The next time a message stings, write two lines before replying: one beginning 'I felt', one beginning 'From now on I will'. Send only what still feels true an hour later.","refs":["natal-moon","num-soulUrge","arkan-12","arkan-13","arkan-4","aspect-moon-square-mars","aspect-moon-sextile-mercury"],"teachings":["aspect-moon-square-mars","natal-moon-sign","num-soulUrge-innerWorld","card-12-growth","card-13-inner","card-4-risk","aspect-moon-sextile-mercury"],"title":"The Pause Before the Reply"},"mind":{"lede":"You can explain a whole office's politics in one sentence, and then lose a week to the one colleague who doesn't fit it.","paragraphs":["Your mind goes looking for the rule underneath. Hand you a family argument, a failing club or a confusing news story, and you step back until the pattern shows: who benefits, what nobody questions, which arrangement everyone inherited and never chose. That wide view is a pleasure for you, close to play. You also want the plan that comes out of it to be sturdy, with clear roles and a structure that survives a Monday morning. And you like to move. You would sooner test an idea out loud today than polish it in private for a month.","A good theory is hungry, though. Once you have a clean explanation, the awkward detail starts to look like noise: the volunteer who quit for reasons unrelated to the system, the neighbour whose story doesn't match. You care about people beyond the usual circle, so your explanations aim large, sometimes too large for anyone to act on by Friday. Conviction can run ahead of the facts. Picture yourself at a whiteboard, three arrows drawn with confidence, and one sticky note in the corner you keep meaning to deal with.","That sticky note is where your thinking gets honest. The best version of you treats the big picture as a working guess and goes hunting for the one case that would change it. People trust your plans more when you show them where to push. A structure others can question outlasts one they can only admire."],"practice":"Next time you explain a problem to someone, end by naming one fact that would prove you wrong, and ask whether they have seen it.","refs":["natal-mercury","num-expression","arkan-5","natal-uranus","natal-jupiter","aspect-mercury-sextile-jupiter"],"teachings":["natal-mercury-sign","num-expression-essence","num-expression-blindSpots","card-5-character","card-5-growth","natal-uranus-sign","natal-jupiter-sign","aspect-mercury-sextile-jupiter"],"title":"The Theory and the Exception"},"work":{"lede":"You work hardest for a task you believe in, and you go flat the moment it turns into a duty you didn't pick.","paragraphs":["The responsibility that deserves your name is one where you bring people into something you know well. You are good at the induction nobody else wants to run: the new hire's first month, the community course, the handbook that finally explains why the rule exists. You study a subject until you have your own view, then translate it for people who would otherwise stay outside. Work with a human reason behind it, a cause or a gap in who gets served, gets your full effort. Work that is merely correct gets your attendance.","The difficulty is in how you carry it. Your drive follows feeling, so you start inspired and loose, adapting as you go. Then the standard you hold for yourself kicks in, and a missed step becomes a judgement on who you are. That pair makes you postpone the dull middle, because unfinished work can't fail. Picture the course outline on your laptop: a beautiful first session and nine empty headings below it.","What holds you is the patient side, the part that likes things that can be kept up: a weekly slot, a folder that gets maintained, a group that meets on Thursdays for years. Give the inspired work that kind of frame and a finish line sized to an ordinary week. Measure yourself by commitments kept, and let a rough session be just a rough session. Your quiet strength is continuity. People remember the guide who was still there in the second year."],"practice":"Pick the one thing you teach or explain at work and write its finish line as a date and a deliverable. Book the next three sessions in your calendar before planning any of them in detail.","refs":["arkan-7","arkan-8","natal-mars","natal-saturn","natal-mc","num-expression","natal-jupiter","aspect-sun-square-saturn"],"teachings":["card-7-work","card-8-strength","natal-mars-sign","natal-saturn-sign","natal-mc-sign","num-expression-work","natal-jupiter-house","aspect-sun-square-saturn"],"title":"A Name on the Door"}}},"c":{"chapters":{"becoming":{"lede":"You know what is wrong with a club, a team or a committee months before you say a word about it.","paragraphs":["You sit through the meetings, watch who speaks and who gives up, and form a clear private view of how the thing really works. That inner reading is your deepest asset, and it was slow to arrive. As a younger person you were quicker, the one who grabbed whatever was at hand and made something happen on the spot. Both are still in you. The quick hands get things moving. The quiet knowing tells you which things deserve to move.","The tension is between the wish to try a group and leave once it bores you, and the pull toward a lasting role with your name on it. You have probably joined and left more circles than most people you know, and each exit felt right at the time. What changes the pattern is staying long enough for your private knowledge to become a public part. You become the person who trains newcomers, who rewrites the rules that no longer fit, who takes the first visible step while everyone else waits for permission.","When you do commit, you can carry a group through the tired middle of a project and keep its rival camps pointed the same way. That only works once you have said what you see. Silence protects your judgement and keeps it useless to anyone else. The role that fits you grows out of the sentence you were holding back."],"practice":"At the next gathering of any group you belong to, say one thing you have noticed and kept to yourself. Say it within the first ten minutes, in a single sentence.","refs":["arkan-1","arkan-2","arkan-3","arkan-6","num-lifePath","natal-jupiter","natal-saturn"],"teachings":["card-1-character","card-1-growth","card-2-character","card-2-growth","card-3-growth","card-6-strength","card-6-work","num-lifePath-essence","num-lifePath-development","natal-jupiter-sign","natal-jupiter-house","natal-saturn-house"],"title":"The Part You Play in the Room"},"love":{"lede":"You know exactly who takes the bins out in your house, and you have never once said it out loud.","paragraphs":["For you, a shared life is a set of quiet agreements: who drives on long trips, who calls the plumber, who remembers the in-laws' birthdays. You keep your side with real care, and you watch whether the other side is kept. You look capable, so a partner can hand you the steering wheel without asking whether you want it. You enter softly, so you let them guess what you need instead of telling them. Two unspoken assumptions can then share one kitchen for years.","The pull runs between that serious, dependable love and a part of you that moves on feeling. Your best days together are unplanned: a detour to the sea because the light was good, a film chosen on impulse, an argument about an idea that runs past midnight. When duty fills every hour, that side goes quiet and the relationship starts to feel like a well-run office.","You are good at seeing when an agreement has worn out. The skill is to say so early, at the size of the agreement itself. \"I don't want to be the one who always plans the weekends anymore\" is a sentence a partnership can absorb. Left unsaid for a year, it arrives as something much larger."],"practice":"Sit down with your partner, or someone you share a home with, and each list three things you carry in the household. Swap one of them, and leave one evening this week completely unplanned.","refs":["natal-venus","natal-mars","arkan-14","num-personality","natal-asc","aspect-venus-trine-saturn"],"teachings":["natal-venus-sign","natal-venus-house","natal-mars-sign","natal-mars-house","card-14-relationship","card-14-character","num-personality-essence","num-personality-relationships","natal-asc-sign","aspect-venus-trine-saturn"],"title":"Terms Written in Pencil"},"shadow":{"lede":"You are the one who stays behind to stack the chairs, and you would be hurt if anyone told you to go home.","paragraphs":["In any group you belong to, you end up holding the keys: the spare set to the hall, the password to the shared account, the list of who is bringing what. You are steady and useful, and over the years usefulness has become a kind of insurance. If they need you, they will not drift. The giving is real and generous. The ledger behind it is quieter, a running count of who noticed, who thanked you, who offered to swap. When nobody does, you do not ask. You give a little more and resent a little more, and both stay hidden under a pleasant face.","Shared arrangements are where this gets blurry. You picture a household or a team as fairer than it is, with everyone carrying their part, and then you quietly fill the gaps so the picture holds. Ask who actually owned the task you did last Thursday. Often it was someone else, and you took it before they had the chance to fail at it.","The second edge is correction. When someone points out a mistake in your work, you hear a verdict on your whole self, and you either redo everything at midnight or start planning your exit. A restless part of you reads any discomfort as proof that the whole arrangement was wrong. It was one figure in one column. A correction is information about a task, and you can fix the line and stay."],"practice":"This week, when you catch yourself reaching for a task that belongs to someone else, leave it alone for a day. Write down what you felt while you waited.","refs":["arkan-4","natal-saturn","natal-neptune","natal-pluto","num-lifePath","aspect-sun-square-saturn","aspect-sun-sextile-pluto"],"teachings":["card-4-risk","card-4-inner","natal-saturn-sign","natal-saturn-house","natal-neptune-house","natal-pluto-house","num-lifePath-blindSpots","aspect-sun-square-saturn","aspect-sun-sextile-pluto"],"title":"The Bargain Behind the Favour"}},"keep":["Being needed and being valued are different things.","A correction is about the task, never the whole of you.","Say what you see before the meeting ends."]}},"packet":{"v":1,"locale":"en","timeKnown":true,"factors":[{"id":"arkan-1","kind":"arkan","position":1,"card":1},{"id":"arkan-2","kind":"arkan","position":2,"card":2},{"id":"arkan-3","kind":"arkan","position":3,"card":2},{"id":"arkan-4","kind":"arkan","position":4,"card":3},{"id":"arkan-5","kind":"arkan","position":5,"card":4},{"id":"arkan-6","kind":"arkan","position":6,"card":7},{"id":"arkan-7","kind":"arkan","position":7,"card":5},{"id":"arkan-8","kind":"arkan","position":8,"card":9},{"id":"arkan-12","kind":"arkan","position":12,"card":14},{"id":"arkan-13","kind":"arkan","position":13,"card":8},{"id":"arkan-14","kind":"arkan","position":14,"card":13},{"id":"num-lifePath","kind":"number","role":"lifePath","value":5,"master":false},{"id":"num-expression","kind":"number","role":"expression","value":9,"master":false},{"id":"num-soulUrge","kind":"number","role":"soulUrge","value":1,"master":false},{"id":"num-personality","kind":"number","role":"personality","value":8,"master":false},{"id":"num-birthday","kind":"number","role":"birthday","value":1,"master":false},{"id":"natal-sun","kind":"planet","body":"sun","sign":"aquarius","house":8,"retrograde":false,"alternatives":null},{"id":"natal-moon","kind":"planet","body":"moon","sign":"sagittarius","house":6,"retrograde":false,"alternatives":null},{"id":"natal-mercury","kind":"planet","body":"mercury","sign":"aquarius","house":8,"retrograde":false,"alternatives":null},{"id":"natal-venus","kind":"planet","body":"venus","sign":"capricorn","house":7,"retrograde":false,"alternatives":null},{"id":"natal-mars","kind":"planet","body":"mars","sign":"pisces","house":9,"retrograde":false,"alternatives":null},{"id":"natal-jupiter","kind":"planet","body":"jupiter","sign":"aries","house":10,"retrograde":false,"alternatives":null},{"id":"natal-saturn","kind":"planet","body":"saturn","sign":"taurus","house":11,"retrograde":false,"alternatives":null},{"id":"natal-uranus","kind":"planet","body":"uranus","sign":"aquarius","house":8,"retrograde":false,"alternatives":null},{"id":"natal-neptune","kind":"planet","body":"neptune","sign":"aquarius","house":8,"retrograde":false,"alternatives":null},{"id":"natal-pluto","kind":"planet","body":"pluto","sign":"sagittarius","house":6,"retrograde":false,"alternatives":null},{"id":"natal-asc","kind":"angle","angle":"asc","sign":"cancer"},{"id":"natal-mc","kind":"angle","angle":"mc","sign":"pisces"},{"id":"aspect-moon-trine-jupiter","kind":"aspect","a":"moon","b":"jupiter","aspect":"trine"},{"id":"aspect-sun-sextile-pluto","kind":"aspect","a":"sun","b":"pluto","aspect":"sextile"},{"id":"aspect-venus-trine-saturn","kind":"aspect","a":"venus","b":"saturn","aspect":"trine"},{"id":"aspect-sun-square-saturn","kind":"aspect","a":"sun","b":"saturn","aspect":"square"},{"id":"aspect-mars-conjunction-mc","kind":"aspect","a":"mars","b":"mc","aspect":"conjunction"},{"id":"aspect-uranus-sextile-pluto","kind":"aspect","a":"uranus","b":"pluto","aspect":"sextile"},{"id":"aspect-moon-sextile-mercury","kind":"aspect","a":"moon","b":"mercury","aspect":"sextile"},{"id":"aspect-mars-trine-asc","kind":"aspect","a":"mars","b":"asc","aspect":"trine"},{"id":"aspect-mercury-sextile-jupiter","kind":"aspect","a":"mercury","b":"jupiter","aspect":"sextile"},{"id":"aspect-sun-conjunction-uranus","kind":"aspect","a":"sun","b":"uranus","aspect":"conjunction"},{"id":"aspect-pluto-square-mc","kind":"aspect","a":"pluto","b":"mc","aspect":"square"},{"id":"aspect-moon-square-mars","kind":"aspect","a":"moon","b":"mars","aspect":"square"}]},"frames":{"1":"Your first way of meeting life: a quality learned early, often before you chose it. It is the tool you still reach for under pressure.","2":"What adult life keeps asking you to grow into: a quality that comes through experience, not one given at the start.","3":"Where your whole life leans over decades: a matured form of the first two, not a forecast.","4":"The pull underneath that complicates things: a habit, fear or appetite you often miss in yourself, and the quality hidden inside it once you understand it.","5":"What you knowingly want and work toward: how your ambition looks from the inside.","6":"What becomes possible when your inner tension and your conscious aim stop fighting: your best synthesis.","7":"What you give others when you are most yourself: the effect you have on a room, a team, a family.","8":"The gift or skill that supports that contribution: something to rely on and to train.","12":"What brings you back into balance: the conditions in which you recover.","13":"How you privately see yourself: the story you tell about who you are.","14":"How others first read you: the impression that arrives before you speak."}}</script>
+<script>
+(() => {
+  document.documentElement.classList.add("js");
+  const D = JSON.parse(document.getElementById("data").textContent);
+  const { stages, packet, frames } = D;
+  const A = stages.a, B = stages.b, C = stages.c;
+
+  const NAMES = ["The Fool", "The Magician", "The High Priestess", "The Empress", "The Emperor", "The Hierophant", "The Lovers", "The Chariot", "Strength", "The Hermit", "Wheel of Fortune", "Justice", "The Hanged Man", "Death", "Temperance", "The Devil", "The Tower", "The Star", "The Moon", "The Sun", "Judgement", "The World"];
+  const SLUGS = ["the_fool", "the_magician", "the_high_priestess", "the_empress", "the_emperor", "the_hierophant", "the_lovers", "the_chariot", "strength", "the_hermit", "wheel_of_fortune", "justice", "the_hanged_man", "death", "temperance", "the_devil", "the_tower", "the_star", "the_moon", "the_sun", "judgement", "the_world"];
+  const ROLES = { 1: "Early foundation", 2: "Adult development", 3: "Longer perspective", 4: "Inner tension", 5: "Conscious aim", 6: "Integrating potential", 7: "Contribution", 8: "Resource", 12: "Restoration", 13: "Self-image", 14: "Outward presence" };
+  const READING_ORDER = [1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 14];
+  const ROWS = [[1, 2, 3], [4, 5], [7, 6, 8], [13, 12, 14]];
+  const LINKS = { 4: [1, 2], 5: [2, 3], 6: [4, 5], 7: [1, 5], 8: [2, 6], 12: [7, 8], 13: [1, 4, 6], 14: [3, 5, 6] };
+  // Each card always lies at the same small angle, as a card on a real table would.
+  const TILT = { 1: -1.1, 2: 0.7, 3: -0.5, 4: 1.0, 5: -0.8, 6: 0.4, 7: -0.6, 8: 1.1, 12: -0.9, 13: 0.6, 14: -1.2 };
+  const NUM_LABEL = { lifePath: "Life path", expression: "Expression", soulUrge: "Motivation", personality: "Personality", birthday: "Birthday" };
+  const NUM_MEANING = { lifePath: "The road your life keeps taking.", expression: "What you are able to do and show.", soulUrge: "What you want most deeply.", personality: "What others notice in you first.", birthday: "The day of the month you were born." };
+  const cap = (s) => s[0].toUpperCase() + s.slice(1);
+  const BODY = { asc: "Ascendant", mc: "Midheaven" };
+  const body = (b) => BODY[b] ?? cap(b);
+  const ordinal = (n) => n + (n % 10 === 1 && n !== 11 ? "st" : n % 10 === 2 && n !== 12 ? "nd" : n % 10 === 3 && n !== 13 ? "rd" : "th");
+  const ASPECT = { trine: "trine", sextile: "sextile", square: "square", conjunction: "conjunct", opposition: "opposite" };
+  const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+  const byId = Object.fromEntries(packet.factors.map((f) => [f.id, f]));
+  const cardAt = (pos) => byId[`arkan-${pos}`].card;
+  const art = (c) => `/cards/${String(c).padStart(2, "0")}_${SLUGS[c]}.webp`;
+  const words = (t) => t.split(/\s+/).filter(Boolean).length;
+  const minutes = (n) => Math.max(1, Math.round(n / 215));
+
+  function factorText(f) {
+    if (f.kind === "planet") return `${cap(f.body)} in ${cap(f.sign)}${f.house ? ` in the ${ordinal(f.house)} house` : ""}`;
+    if (f.kind === "angle") return f.angle === "asc" ? `${cap(f.sign)} rising` : `Midheaven in ${cap(f.sign)}`;
+    if (f.kind === "number") return `${NUM_LABEL[f.role].toLowerCase()} number ${f.value}`;
+    if (f.kind === "aspect") return `${body(f.a)} ${ASPECT[f.aspect] ?? f.aspect} ${body(f.b)}`;
+    return f.id;
+  }
+
+  /** The Arkan positions a passage cites: chosen in the order the text cites them, laid in reading order. */
+  function cited(refs, max = 3) {
+    const all = refs.filter((r) => /^arkan-\d+$/.test(r) && byId[r]).map((r) => Number(r.slice(6)));
+    const shown = all.slice(0, max).sort((a, b) => READING_ORDER.indexOf(a) - READING_ORDER.indexOf(b));
+    return { all, shown, extra: all.slice(max) };
+  }
+
+  /** Pace a single block of text: the first sentence is the hook, a short last sentence lands on its own. */
+  const TURN = /^(That is the|The tension|The pull|The harder|Sometimes|Yet )/;
+  function pace(text) {
+    const s = text.split(/(?<=[.!?])\s+(?=[A-Z"“'])/);
+    const hook = s.shift();
+    const last = s.length > 1 && words(s[s.length - 1]) <= 14 ? s.pop() : null;
+    const paras = []; let cur = [];
+    const n = () => words(cur.join(" "));
+    for (const x of s) {
+      if (cur.length && ((TURN.test(x) && n() >= 18) || n() >= 44)) { paras.push(cur.join(" ")); cur = []; }
+      cur.push(x);
+    }
+    if (cur.length) paras.push(cur.join(" "));
+    return { hook, paras, last };
+  }
+
+  function spread(positions, { captions = false } = {}) {
+    return `<div class="spread" data-n="${positions.length}">${positions.map((p, i) => `
+      <div class="slot" style="z-index:${i + 1}">
+        <div class="card" style="--r:${TILT[p]}deg"><img src="${art(cardAt(p))}" alt="" width="896" height="1536" decoding="async"></div>
+        ${captions ? `<p class="cap"><span class="role">${ROLES[p]}</span><span class="name">${NAMES[cardAt(p)]}</span></p>` : ""}
+      </div>`).join("")}</div>`;
+  }
+  /** Read left to right, like the label beside a triptych. */
+  const legend = (positions) => `<ul class="legend">${positions.map((p) => `<li><span class="num">${p}</span><span class="role">${ROLES[p]}</span><span class="name">${NAMES[cardAt(p)]}</span></li>`).join("")}</ul>`;
+
+  function framesList(c, refs) {
+    const others = refs.filter((r) => !/^arkan-/.test(r) && byId[r]).map((r) => factorText(byId[r]));
+    const order = [...c.shown, ...c.extra];
+    return `<ul class="frames">${order.map((p) => `<li><span class="role">${p} · ${ROLES[p]} &nbsp;<i>${NAMES[cardAt(p)]}</i></span><p>${esc(frames[p])}</p></li>`).join("")}</ul>
+      ${others.length ? `<p class="also">Also read from your ${others.length > 1 ? others.slice(0, -1).map(esc).join(", ") + " and " + esc(others[others.length - 1]) : esc(others[0])}.</p>` : ""}`;
+  }
+
+  /* ── Passages ───────────────────────────────────────────── */
+  const passages = new Map();
+  let seq = 0;
+  function passageShell({ id, refs, label, time, heading, headingTag = "h3", inline = true, max = 3 }) {
+    const c = cited(refs, max);
+    passages.set(id, { refs, c, why: false });
+    const one = c.all.length === 1;
+    const whyId = `why-${id}`;
+    return {
+      head: `<div class="head-row"><${heading ? "p" : headingTag} class="label">${label}${time ? `<span class="t">${time} min</span>` : ""}</${heading ? "p" : headingTag}>
+          ${c.all.length ? `<button class="why-btn" type="button" aria-expanded="false" aria-controls="${whyId}" data-why="${id}">${one ? "Why this card?" : "Why these cards?"}<span class="chev" aria-hidden="true"></span></button>` : ""}
+        </div>
+        ${heading ? `<${headingTag} id="h-${id}">${esc(heading)}</${headingTag}>` : ""}`,
+      table: (inline && c.shown.length ? `<figure class="inline-table lit">${spread(c.shown)}<figcaption>${legend(c.shown)}</figcaption></figure>` : "") +
+        (c.all.length ? `<div class="why-body" id="${whyId}" hidden>${framesList(c, refs)}</div>` : ""),
+    };
+  }
+
+  function pacedBody({ hook, paras, last }) {
+    return `<p class="hook ink">${esc(hook)}</p>${paras.map((p) => `<p class="b ink">${esc(p)}</p>`).join("")}${last ? `<p class="landing ink">${esc(last)}</p>` : ""}`;
+  }
+
+  const FACETS = [["temperament", "Temperament"], ["inner", "Inner life"], ["gifts", "Gifts"], ["bonds", "Bonds"], ["direction", "Direction"]];
+  const CHAPTERS = [["mind", "The mind", B, "full"], ["heart", "The heart", B, "entry"], ["work", "Work", B, "entry"], ["shadow", "The shadow", C, "entry"], ["love", "Love", C, "full"], ["becoming", "Becoming", C, "entry"]];
+  // One real sentence from each full chapter, set large.
+  const PULL = { mind: "A structure others can question outlasts one they can only admire.", love: "Two unspoken assumptions can then share one kitchen for years." };
+  const PULL_AFTER = { mind: 0, love: 1 };
+
+  // Read time from the words actually written.
+  const chapterWords = (ch) => words(ch.lede) + ch.paragraphs.reduce((n, p) => n + words(p), 0) + words(ch.practice);
+  const totalWords = words(A.overview.text) + FACETS.reduce((n, [k]) => n + words(A.facets[k].text), 0) + CHAPTERS.reduce((n, [k, , S]) => n + chapterWords(S.chapters[k]), 0) + C.keep.reduce((n, k) => n + words(k), 0);
+  const total = minutes(totalWords);
+
+  // The glance: the four cards this portrait cites most, ties broken by the opening.
+  const counts = {};
+  const allPassages = [A.overview, ...FACETS.map(([k]) => A.facets[k]), ...CHAPTERS.map(([k, , S]) => S.chapters[k])];
+  for (const p of allPassages) for (const pos of new Set(cited(p.refs, 99).all)) counts[pos] = (counts[pos] ?? 0) + 1;
+  const openingOrder = cited(A.overview.refs, 99).all;
+  const rank = (p) => (openingOrder.includes(p) ? openingOrder.indexOf(p) : 99);
+  const top = Object.keys(counts).map(Number).sort((a, b) => counts[b] - counts[a] || rank(a) - rank(b)).slice(0, 4).sort((a, b) => READING_ORDER.indexOf(a) - READING_ORDER.indexOf(b));
+
+  const arrow = `<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M7 1.5v10.5M2.5 7.6 7 12l4.5-4.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+  let html = `
+  <section class="glance" aria-labelledby="title">
+    <div class="glance-text">
+      <p class="label">Your birth portrait</p>
+      <h1 id="title">${esc(A.title)}</h1>
+      <p class="epigraph">${esc(A.epigraph)}</p>
+      <h2 class="label essence-head">If you read nothing else</h2>
+      <ul class="essence">${C.keep.map((k) => `<li>${esc(k)}</li>`).join("")}</ul>
+      <div class="way-in">
+        <a class="begin" href="#opening">Begin the reading ${arrow}</a>
+        <p class="meta"><strong>${total} min read</strong> · an opening, five facets, six chapters</p>
+      </div>
+    </div>
+    <figure class="glance-table lit">
+      ${spread(top, { captions: true })}
+      <figcaption class="meta glance-note">The four cards this portrait returns to most, of the eleven your birth date lays out.</figcaption>
+    </figure>
+  </section>
+
+  <div class="reading" id="reading">
+    <div class="voice">`;
+
+  // The opening
+  {
+    const sh = passageShell({ id: "opening", refs: A.overview.refs, label: "The opening", headingTag: "h2", inline: false, max: 4 });
+    html += `<article class="passage opening" id="opening" data-stage="opening" aria-labelledby="opening-label">
+      ${sh.head.replace('class="label"', 'class="label" id="opening-label"')}${sh.table}${pacedBody(pace(A.overview.text))}</article>`;
+  }
+
+  // Five facets
+  html += `<section class="part facets-part" aria-labelledby="facets-title">
+      <p class="label">Part one</p>
+      <h2 id="facets-title">Five facets</h2>
+      <ul class="facet-index">${FACETS.map(([k, l]) => `<li><a href="#${k}"><span class="label">${l}</span><span class="h">${esc(A.facets[k].heading)}</span></a></li>`).join("")}</ul>`;
+  for (const [k, l] of FACETS) {
+    const f = A.facets[k];
+    const sh = passageShell({ id: k, refs: f.refs, label: l, heading: f.heading });
+    html += `<article class="passage facet" id="${k}" data-stage="${k}" aria-labelledby="h-${k}">${sh.head}${sh.table}${pacedBody(pace(f.text))}</article>`;
+  }
+  html += `</section>`;
+
+  // Six chapters
+  const chMin = (k, S) => minutes(chapterWords(S.chapters[k]));
+  html += `<section class="part chapters-part" aria-labelledby="chapters-title">
+      <p class="label">Part two</p>
+      <h2 id="chapters-title">Six chapters</h2>
+      <p class="meta">Mind, heart and work; shadow, love and becoming. About ${CHAPTERS.reduce((n, [k, , S]) => n + chapterWords(S.chapters[k]), 0) > 0 ? minutes(CHAPTERS.reduce((n, [k, , S]) => n + chapterWords(S.chapters[k]), 0)) : 0} minutes.</p>`;
+  let openEntries = false;
+  for (const [k, l, S, mode] of CHAPTERS) {
+    const ch = S.chapters[k];
+    if (mode === "entry") {
+      if (!openEntries) { html += `<div class="entries">`; openEntries = true; }
+      cited(ch.refs); passages.set(k, { refs: ch.refs, c: cited(ch.refs), why: false });
+      html += `<article class="entry passage" id="${k}" data-stage="${k}" aria-labelledby="h-${k}">
+        <p class="label">${l}</p>
+        <h3 id="h-${k}">${esc(ch.title)}</h3>
+        <p class="entry-lede">${esc(ch.lede)}</p>
+        <p class="onward-row"><a class="onward" href="#${k}">Read this chapter</a></p>
+      </article>`;
+      continue;
+    }
+    if (openEntries) { html += `</div>`; openEntries = false; }
+    const sh = passageShell({ id: k, refs: ch.refs, label: l, heading: ch.title });
+    const ps = ch.paragraphs.map((p, i) => `<p class="b ink">${esc(p)}</p>${i === PULL_AFTER[k] ? `<figure class="pull ink" aria-hidden="true"><p>“${esc(PULL[k])}”</p></figure>` : ""}`).join("");
+    html += `<article class="passage chapter" id="${k}" data-stage="${k}" aria-labelledby="h-${k}">
+      ${sh.head}${sh.table}
+      <p class="lede ink">${esc(ch.lede)}</p>
+      ${ps}
+      <aside class="practice" data-stage="practice-${k}" aria-label="Practice">
+        <div class="slot back" aria-hidden="true"><div class="card"><img src="/cards/back-448.webp" alt="" width="448" height="769" decoding="async"></div></div>
+        <p class="label">The practice</p>
+        <p class="practice-text ink">${esc(ch.practice)}</p>
+      </aside>
+    </article>`;
+  }
+  if (openEntries) html += `</div>`;
+  html += `</section></div>`;
+
+  // The stage (desktop): after the voice in reading order; it is visual, the text carries the meaning.
+  const mmX3 = [12, 46, 80], mmX2 = [29, 63], mmY = [12, 52, 92, 132], MW = 13, MH = 22;
+  const mmPos = {};
+  ROWS.forEach((row, r) => row.forEach((p, i) => { mmPos[p] = { x: (row.length === 2 ? mmX2 : mmX3)[i], y: mmY[r] }; }));
+  const mmThreads = Object.entries(LINKS).flatMap(([to, from]) => from.map((f) => `<line class="mm-thread" data-a="${f}" data-b="${to}" x1="${mmPos[f].x}" y1="${mmPos[f].y}" x2="${mmPos[to].x}" y2="${mmPos[to].y}"/>`)).join("");
+  const mmCards = READING_ORDER.map((p) => `<rect class="mm-card" data-pos="${p}" x="${mmPos[p].x - MW / 2}" y="${mmPos[p].y - MH / 2}" width="${MW}" height="${MH}" rx="1.6"/>`).join("");
+  html += `
+    <aside class="stage lit" aria-label="The cards on the table" aria-live="off">
+      <div class="stage-cards"></div>
+      <figure class="minimap">
+        <svg viewBox="0 0 92 144" role="img" aria-label="Where these cards sit among your eleven">${mmThreads}${mmCards}</svg>
+        <figcaption class="meta">Where these sit among your eleven cards</figcaption>
+      </figure>
+    </aside>
+  </div>`;
+
+  // Numbers, at the end
+  const nums = ["lifePath", "expression", "soulUrge", "personality", "birthday"].map((r) => byId[`num-${r}`]).filter(Boolean);
+  const sun = byId["natal-sun"], moon = byId["natal-moon"], asc = byId["natal-asc"];
+  html += `
+  <section class="numbers" aria-labelledby="numbers-title">
+    <p class="label">From your name and birth date</p>
+    <h2 id="numbers-title">Your numbers</h2>
+    <ul class="nums">${nums.map((n) => `<li><span class="n">${n.value}</span><span class="label">${NUM_LABEL[n.role]}</span><span class="m">${NUM_MEANING[n.role]}</span></li>`).join("")}</ul>
+    <p class="sky"><b>Sun in ${cap(sun.sign)}</b> <span aria-hidden="true">·</span> <b>Moon in ${cap(moon.sign)}</b>${asc ? ` <span aria-hidden="true">·</span> <b>${cap(asc.sign)} rising</b>` : ""}</p>
+    <p class="meta honest">These traditions offer a reflective portrait, not facts about your personality or future. Keep what you recognise.</p>
+    <div class="end"><a href="#title">Read again from the top</a><a href="/portrait/">Read my own portrait</a></div>
+  </section>`;
+
+  const main = document.getElementById("main");
+  main.innerHTML = html;
+
+  /* ── Stage: the current passage's cards, crossfaded ─────────────── */
+  const stage = main.querySelector(".stage-cards");
+  const stageEl = main.querySelector(".stage");
+  let current = null;
+  let layer = null;
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+
+  function stageHTML(key) {
+    if (key.startsWith("practice-")) {
+      const ch = key.slice(9);
+      const S = B.chapters[ch] ? B : C;
+      return `<div class="stack"><div class="spread" data-n="1"><div class="slot"><div class="card" style="--r:-2.4deg"><img src="/cards/back-448.webp" alt="" width="448" height="769"></div></div></div>
+        <p class="cap back-cap"><span class="role">The practice</span><span class="name">${esc(S.chapters[ch].title)}</span></p></div>`;
+    }
+    const p = passages.get(key);
+    if (!p || !p.c.shown.length) return "";
+    const extra = p.c.extra.length ? `<p class="stage-extra">Also cited: ${p.c.extra.map((x) => `${x} · ${NAMES[cardAt(x)]}`).join(", ")}</p>` : "";
+    return `<div class="stack">${spread(p.c.shown)}${p.why ? `<div class="stage-why">${framesList(p.c, p.refs)}</div>` : legend(p.c.shown) + extra}</div>`;
+  }
+
+  function lightMap(positions) {
+    const on = new Set(positions);
+    main.querySelectorAll(".mm-card").forEach((r) => r.classList.toggle("on", on.has(Number(r.dataset.pos))));
+    main.querySelectorAll(".mm-thread").forEach((l) => l.classList.toggle("on", on.has(Number(l.dataset.a)) && on.has(Number(l.dataset.b))));
+  }
+
+  function show(key) {
+    const p = passages.get(key);
+    lightMap(key.startsWith("practice-") || !p ? [] : p.c.all);
+    stageEl.dataset.mode = key.startsWith("practice-") ? "practice" : "passage";
+    const content = stageHTML(key);
+    if (current === content) return;
+    current = content;
+    const next = document.createElement("div");
+    next.className = "layer" + (p?.why ? " why" : "");
+    next.innerHTML = content;
+    stage.append(next);
+    const prev = layer;
+    layer = next;
+    if (reduced.matches) { next.classList.add("on"); prev?.remove(); return; }
+    requestAnimationFrame(() => requestAnimationFrame(() => next.classList.add("on")));
+    if (prev) { prev.classList.remove("on"); setTimeout(() => prev.remove(), 420); }
+  }
+  show("opening");
+
+  // The reading line sits 40% down the window; whichever passage (or practice) crosses it owns the table.
+  const crossing = new Set();
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) e.isIntersecting ? crossing.add(e.target) : crossing.delete(e.target);
+    const inner = [...crossing].filter((el) => ![...crossing].some((o) => o !== el && el.contains(o)));
+    if (inner[0]) show(inner[0].dataset.stage);
+  }, { rootMargin: "-40% 0px -59.5% 0px", threshold: 0 });
+  main.querySelectorAll("[data-stage]").forEach((el) => io.observe(el));
+
+  // Why these cards: the frame lines appear in place (under the stage cards on desktop, under the inline cards on a phone).
+  main.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-why]");
+    if (!btn) return;
+    const id = btn.dataset.why;
+    const p = passages.get(id);
+    p.why = !p.why;
+    btn.setAttribute("aria-expanded", String(p.why));
+    document.getElementById(`why-${id}`).hidden = !p.why;
+    show(id);
+  });
+
+  // Ink-in
+  const inkIO = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); inkIO.unobserve(e.target); }
+  }, { rootMargin: "0px 0px -6% 0px" });
+  main.querySelectorAll(".ink").forEach((el) => inkIO.observe(el));
+})();
+</script>
+</body>
+</html>
