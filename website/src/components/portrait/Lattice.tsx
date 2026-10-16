@@ -2,8 +2,8 @@
 
 /**
  * The lattice's shared parts: one card with its back and its art, and the
- * threads between cards. The Laying deals and turns them; the reader's dock
- * lights them. Each context sets their state by props and custom properties
+ * threads between cards. The Laying deals and turns them; the glance lays the
+ * defining ones on its table; the mini-map lights them. Each context sets their state by props and custom properties
  * (--back-dim, --front-dim), so lattice.module.css stays the one place the
  * card and its threads are drawn.
  */
@@ -39,7 +39,8 @@ export function LatticeCard({ pos, card, turned, label, sizes, onArt, className,
         {/* eslint-disable-next-line @next/next/no-img-element -- the deck's own back, one cached file */}
         <img src="/cards/back-448.webp" alt="" width={448} height={769} decoding="async" />
       </span>
-      <span className={`${styles.face} ${styles.front}`}>
+      {/* The thumbnail (cached since the Laying) lies under the art, so a card shown larger never turns to a blank face. */}
+      <span className={`${styles.face} ${styles.front}`} style={card ? { backgroundImage: `url(${card.thumb})` } : undefined}>
         {card && (
           // eslint-disable-next-line @next/next/no-img-element -- the card's own art, loaded before its turn
           <img src={card.image} srcSet={`${card.thumb} 120w, ${card.image} 896w`} sizes={sizes} alt="" width={896} height={1536} decoding="async"

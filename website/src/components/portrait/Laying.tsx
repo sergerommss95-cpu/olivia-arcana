@@ -222,7 +222,7 @@ export default function Laying({ packet, cards, locale, status, frames, firstNam
                   <li key={pos} className={`${styles.slot} ${turned ? styles.turned : ""} ${now ? styles.now : ""}`} style={vars}>
                     <div className={styles.deal}>
                       <div className={styles.lift}>
-                        <div className={styles.glow} aria-hidden="true" />
+                        <div className={styles.shade} aria-hidden="true" />
                         <LatticeCard pos={pos} card={card} turned={turned} sizes={`${Math.ceil(l.card.w * 1.3)}px`}
                           label={`${t.card} ${pos}, ${roles[pos][locale]}, ${turned && card ? card.name : t.faceDown}`}
                           onArt={() => loaded.current.add(pos)} />

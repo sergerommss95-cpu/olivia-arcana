@@ -1,9 +1,7 @@
 /* website/src/components/portrait/reader.module.css
-   The reading: the lattice docked left, the text set as an almanac leaf,
-   the chapter rail right (A's layout, B's book typography). Below 1100 px
-   the dock and the rail join one sticky bar above a single column.
-   Lapis ground, ivory ink, one gilt accent; motion is transform and opacity
-   on the ritual curve. */
+   The reading after the glance and its bar: the text set as an almanac
+   leaf in one column, then the maps and the end. Lapis ground, ivory ink,
+   one gilt accent; motion is transform and opacity on the ritual curve. */
 
 .reading {
   --ink: #eee6d4;
@@ -27,239 +25,34 @@
 
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-/* Scoped twice to outrank the shell's own focus rule. A passage marks focus with its ribbon instead (below). */
+/* Scoped twice to outrank the shell's own focus rule. */
 .reading.reading :is(a, button):focus-visible {
   outline: 2px solid var(--gilt);
   outline-offset: 3px;
   border-radius: 3px;
 }
-.reading.reading .passage:focus-visible { outline: none; }
 .reading.reading .again:focus-visible { border-radius: 999px; }
+/* A section takes focus when it is gone to (Begin, Contents); the move itself is the cue, not a ring round it. */
+.anchor:focus, .opening:focus, .chapter:focus, .notice:focus { outline: none; }
 
 /* ── Arrival ─────────────────────────────────────────────────── */
 
 /* Ink-in: 950 ms, opacity with an 8 px rise, 90 ms apart. */
 .ink { animation: inkIn 950ms var(--ease) calc(var(--n, 0) * 90ms) both; }
 @keyframes inkIn { from { opacity: 0; transform: translateY(8px); } }
-@keyframes fadeIn { from { opacity: 0; } }
-
-/* ── The bar (narrow) / the side columns (wide) ──────────────── */
-
-.dockbar {
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 calc(var(--gutter) * -1) 36px;
-  padding: 8px var(--gutter);
-  background: rgba(8, 22, 35, 0.94);
-  border-bottom: 1px solid var(--hair);
-  box-shadow: 0 14px 30px -18px rgba(0, 0, 0, 0.7);
-}
-@supports (backdrop-filter: blur(1px)) {
-  .dockbar { background: rgba(8, 22, 35, 0.82); backdrop-filter: blur(14px); }
-}
-
-/* ── The dock ────────────────────────────────────────────────── */
-
-/* Backs show only as cards arrive from the Laying, dimmed as they were there. */
-.dock { min-width: 0; --back-dim: 0.5; }
-/* At rest the cards sit a little back; once a passage is read, its cards lead and the rest recede. */
-.dock[data-state="idle"] li { --front-dim: 0.16; }
-.dock[data-state="active"] li:not([data-lit]) { --front-dim: 0.58; }
-
-.flip { position: absolute; inset: 0; }
-.lift { position: absolute; inset: 0; perspective: 900px; transition: transform 600ms var(--ease); }
-.glow {
-  position: absolute;
-  inset: 0;
-  border-radius: 6px;
-  box-shadow: 0 0 0 1px rgba(201, 177, 130, 0.6), 0 0 36px rgba(201, 177, 130, 0.24), 0 24px 48px rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  transition: opacity 600ms var(--ease);
-}
-[data-lit] .glow { opacity: 1; }
-
-/* The lattice, in its column. */
-.lattice { position: relative; }
-.board { position: relative; }
-.dockCards { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
-.dockSlot { position: absolute; z-index: 1; }
-.dockSlot[data-lit] { z-index: 2; }
-.dockSlot[data-lit] .lift { transform: scale(1.25); }
-.dockCap {
-  composes: numeral from "./type.module.css";
-  position: absolute;
-  left: 50%;
-  top: calc(100% + 5px);
-  margin: 0;
-  transform: translateX(-50%);
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1;
-  color: var(--faint);
-  text-shadow: 0 0 4px var(--lapis), 0 0 8px var(--lapis);
-  transition: transform 600ms var(--ease);
-}
-.dockSlot[data-lit] .dockCap { color: var(--gilt); transform: translate(-50%, calc(var(--h) * 0.125)); }
-.arriving .dockThreads, .arriving .legend { animation: fadeIn 700ms var(--ease) 650ms both; }
-
-.legend {
-  composes: label from "./type.module.css";
-  min-height: 7.5em;
-  margin-top: 10px;
-  line-height: 1.55;
-  color: var(--faint);
-}
-.legend p, .legend ul { margin: 0; padding: 0; list-style: none; }
-.legend b { font-weight: 500; color: var(--gilt); margin-right: 0.5em; }
-.legendKicker { color: var(--soft); margin-bottom: 4px !important; }
-/* The example's label: set apart from the legend by a hairline. */
-.legendNote { margin-bottom: 10px !important; padding-bottom: 10px; border-bottom: 1px solid var(--hair); color: var(--gilt); }
-
-/* The strip: the eleven cards in reading order, fanned when the bar is narrow. */
-.strip { flex: 1; min-width: 0; }
-.stripCards {
-  display: grid;
-  grid-template-columns: repeat(11, minmax(0, 1fr));
-  max-width: 560px;
-  margin: 0 auto;
-  /* Half a card's overhang on each side, so the end cards keep the gutter. */
-  padding: 10px 11px 2px;
-  list-style: none;
-}
-.stripSlot { position: relative; z-index: var(--i); display: flex; justify-content: center; height: 76px; }
-.stripSlot[data-lit] { z-index: 20; }
-.stripSlot .flip { position: relative; inset: auto; flex: none; width: 44px; height: 76px; }
-.stripSlot[data-lit] .lift { transform: translateY(-9px); }
-
-/* ── The rail ────────────────────────────────────────────────── */
-
-.rail { --row: 34px; font: 400 15.5px/1 var(--heading); }
-.railTrack { position: relative; padding-left: 16px; }
-.railTrack::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--hair); }
-/* The ribbon moves to the section being read. */
-.ribbon {
-  position: absolute;
-  left: -0.5px;
-  top: 0;
-  width: 2px;
-  height: var(--row);
-  background: var(--gilt);
-  transform: translateY(calc(var(--at, 0) * var(--row)));
-  transition: transform 600ms var(--ease);
-}
-.railList { margin: 0; padding: 0; list-style: none; }
-.railList li { display: flex; align-items: center; height: var(--row); }
-.railList a, .railList li > span { color: var(--faint); text-decoration: none; transition: color 300ms var(--ease); }
-.railList a:hover, .railList a[aria-current] { color: var(--ink); }
-.railList [data-state="pending"] a { font-style: italic; color: rgba(238, 230, 212, 0.4); }
-.railList [data-state="pending"] a:hover { color: var(--soft); }
-.railList [data-state="unwritten"] > span { color: rgba(238, 230, 212, 0.3); }
-
-.railNarrow { flex: none; display: flex; align-items: center; }
-.progress { position: fixed; z-index: 40; top: 0; left: 0; right: 0; height: 2px; pointer-events: none; }
-.progress span { display: block; height: 100%; background: var(--gilt); transform: scaleX(0); transform-origin: left center; }
-.contents {
-  composes: meta from "./type.module.css";
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  min-height: 44px;
-  padding: 0 6px;
-  border: 0;
-  background: none;
-  font-size: 14px;
-  line-height: 1;
-  cursor: pointer;
-}
-.contentsIcon { position: relative; width: 14px; height: 9px; border-top: 1px solid var(--gilt); border-bottom: 1px solid var(--gilt); }
-.contentsIcon::after { content: ""; position: absolute; left: 0; right: 4px; top: 3px; border-top: 1px solid var(--gilt); }
-
-.sheet {
-  --row: 46px;
-  position: fixed;
-  inset: auto 0 0;
-  width: 100%;
-  max-width: 100%;
-  max-height: 85vh;
-  margin: 0;
-  padding: 18px 24px calc(26px + env(safe-area-inset-bottom));
-  border: 0;
-  border-top: 1px solid var(--hair);
-  border-radius: 14px 14px 0 0;
-  background: #0b1c2c;
-  color: var(--ink);
-  font: 400 20px/1 var(--heading);
-}
-.sheet::backdrop { background: rgba(4, 10, 17, 0.62); }
-.sheet[open] { animation: rise 500ms var(--ease) both; }
-@keyframes rise { from { opacity: 0; transform: translateY(24px); } }
-.sheetHead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.sheetTitle { composes: labelGilt from "./type.module.css"; margin: 0; }
-.close {
-  composes: meta from "./type.module.css";
-  min-height: 44px;
-  padding: 0 4px;
-  border: 0;
-  background: none;
-  font-size: 14px;
-  line-height: 1;
-  cursor: pointer;
-}
 
 /* ── The text ────────────────────────────────────────────────── */
 
 .text { position: relative; width: 100%; max-width: 640px; margin: 0 auto; padding-bottom: 24px; }
 .text p { margin: 0; }
-/* Clear of the sticky bar when a section is jumped to or a passage takes focus. */
-.text :is([data-section], [data-passage]) { scroll-margin-top: 128px; }
+/* Clear of the sticky reading bar when a section is gone to. */
+.text :is([data-section], .anchor), .anchor { scroll-margin-top: 76px; }
 
-.kicker { composes: labelGilt from "./type.module.css"; text-align: center; }
-.title {
-  margin: 18px 0 16px;
-  font: 300 64px/1 var(--display);
-  letter-spacing: -0.005em;
-  text-align: center;
-  text-wrap: balance;
-}
-.title:focus { outline: none; }
-.epigraph {
-  max-width: 30em;
-  margin: 0 auto 36px !important;
-  font: italic 400 24px/1.35 var(--heading);
-  color: var(--gilt);
-  text-align: center;
-  text-wrap: balance;
-}
+/* The opening, after the glance and its bar. */
+.opening { margin-top: 88px; }
 
-/* A passage: the overview, a facet or a chapter. Read, it warms with a faint gilt wash;
-   in keyboard focus a gilt ribbon also runs down its left edge, like a bookmark. */
-.passage { position: relative; margin: 0 -24px; padding: 20px 24px 22px; border-radius: 0 4px 4px 0; outline: none; }
-.passage::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(90deg, rgba(201, 177, 130, 0.085), rgba(201, 177, 130, 0.025) 55%, transparent);
-  opacity: 0;
-  transition: opacity 600ms var(--ease);
-  pointer-events: none;
-}
-.passage:hover::before, .passage:focus-visible::before, .passage:has(:focus-visible)::before { opacity: 1; }
-.passage::after {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 2px;
-  background: var(--gilt);
-  opacity: 0;
-  transition: opacity 300ms var(--ease);
-  pointer-events: none;
-}
-.passage:focus-visible::after { opacity: 1; }
+/* A passage: a facet or a chapter. */
+.passage { position: relative; padding: 20px 0 22px; }
 
 .prose { font-size: 17px; line-height: 1.8; color: var(--body); hanging-punctuation: first; }
 /* A book's paragraphs: indented, not spaced. */
@@ -278,9 +71,7 @@
   font: 400 17px/1 var(--heading);
   color: var(--gilt);
   opacity: 0.5;
-  transition: opacity 600ms var(--ease);
 }
-.passage[data-active] .fleuron { opacity: 1; }
 .heading { margin: 0 0 14px; font: 400 32px/1.15 var(--heading); text-align: center; text-wrap: balance; color: var(--ink); }
 
 .chapter { margin-top: 88px; }
@@ -352,25 +143,6 @@
 .barLede { width: 76%; height: 16px; }
 .barShort { width: 48%; margin-bottom: 16px; }
 .barEnd { width: 62%; justify-self: start; }
-.barKeep { width: 66%; height: 20px; margin: 10px 0; }
-
-/* ── The keep plate ──────────────────────────────────────────── */
-
-.keep {
-  position: relative;
-  margin-top: 96px;
-  padding: 40px clamp(20px, 7%, 56px) 30px;
-  border: 1px solid var(--hair);
-  background: linear-gradient(180deg, rgba(7, 18, 29, 0.55), rgba(7, 18, 29, 0.2));
-  text-align: center;
-}
-/* An engraved plate: a second, gilt rule inside the first. */
-.keep::before { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(201, 177, 130, 0.2); pointer-events: none; }
-.keep:focus { outline: none; }
-.keepTitle { composes: labelGilt from "./type.module.css"; margin: 0 0 8px; }
-.keepLines { margin: 0; padding: 0; list-style: none; }
-.keepLines li { padding: 22px 0; font: 400 26px/1.35 var(--heading); color: var(--ink); text-wrap: balance; }
-.keepLines li + li { border-top: 1px solid var(--hair); }
 
 /* ── Unfinished, and the end ─────────────────────────────────── */
 
@@ -378,8 +150,9 @@
 .noticeKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 8px !important; }
 .notice p + p { font-size: 16px; line-height: 1.7; color: var(--soft); }
 
-/* The text and what follows it (the maps, the end) are siblings in the reading's grid. */
+/* The glance, the bar, the text and what follows it are siblings in the reading's column. */
 .leaf { display: contents; }
+.mapsArea { max-width: 1060px; margin-inline: auto; }
 
 .footer { display: grid; justify-items: center; gap: 22px; max-width: 640px; margin: 96px auto 24px; padding-top: 28px; border-top: 1px solid var(--hair); text-align: center; }
 .note { max-width: 36em; font-size: 14px; line-height: 1.7; color: var(--faint); }
@@ -399,43 +172,16 @@
 .footer[data-keep] .again { border-color: rgba(238, 230, 212, 0.28); color: var(--soft); }
 .footer[data-keep] .again:hover { background: transparent; border-color: var(--gilt); color: var(--ink); }
 
-/* ── Wide: dock · text · rail ────────────────────────────────── */
-
-@media (min-width: 1100px) {
-  .reading {
-    --gutter: 24px;
-    display: grid;
-    grid-template-columns: minmax(280px, 360px) minmax(0, 640px) minmax(120px, 160px);
-    /* The maps take the dock's column too: the dock is held beside the text only, and the rail stays to the end. */
-    grid-template-areas: "dock text rail" "maps maps rail" "foot foot rail";
-    column-gap: clamp(36px, 4.4vw, 64px);
-    justify-content: center;
-    align-items: start;
-  }
-  .dockbar { display: contents; }
-  /* The dock's cell fills the text's row; the dock is held within it (a sticky box keeps to its parent). */
-  .dockCell { grid-area: dock; align-self: stretch; min-width: 0; }
-  .dock { position: sticky; top: 120px; }
-  .rail { grid-area: rail; position: sticky; top: 120px; padding-top: 30px; }
-  .text { grid-area: text; max-width: none; }
-  .mapsArea { grid-area: maps; min-width: 0; }
-  .footer { grid-area: foot; width: 100%; }
-  .text :is([data-section], [data-passage]) { scroll-margin-top: 40px; }
-}
-
 /* ── Phone ───────────────────────────────────────────────────── */
 
 @media (max-width: 719px) {
-  .title { font-size: 44px; line-height: 1.02; }
-  .epigraph { font-size: 21px; margin-bottom: 28px !important; }
-  .passage { margin: 0 -12px; padding: 16px 12px 18px; }
+  .opening { margin-top: 64px; }
+  .passage { padding: 16px 0 18px; }
   .prose { font-size: 16.5px; line-height: 1.75; }
   .overview::first-letter { font-size: 66px; padding-top: 7px; }
   .heading { font-size: 28px; }
   .lede { font-size: 20px; }
   .chapter { margin-top: 64px; }
-  .keep { margin-top: 72px; }
-  .keepLines li { font-size: 22px; padding: 18px 0; }
   .why { margin-left: 0; }
 }
 
@@ -461,19 +207,16 @@
     margin: 0;
     color: var(--ink);
   }
-  /* The dock, the rail, every control and the live region stay on screen. */
-  .dockbar, .sealRow, .footer, .sr { display: none !important; }
+  /* The bar, every control and the live region stay on screen. */
+  .sealRow, .footer, .sr { display: none !important; }
   .text { max-width: none; padding: 0; }
   .ink { animation: none !important; }
   .passage { margin-inline: 0; padding: 0 0 6px; }
-  .passage::before, .passage::after { display: none; }
-  .title { font-size: 44px; }
   .facet, .practice, .notice { break-inside: avoid; }
   .fleuron, .heading, .chapterKicker, .lede, .practiceKicker { break-after: avoid; }
-  /* Each chapter on a new page; the keep plate whole; the maps after the text. */
+  /* Each chapter on a new page; the maps after the text. */
+  .opening { margin-top: 36px; }
   .chapter { break-before: page; margin-top: 0; }
-  .keep { break-inside: avoid; margin-top: 48px; background: none; }
-  .keep::before { border-color: var(--hair); }
   .mapsArea { break-before: page; margin-top: 0; }
   /* Around the portrait, whichever shell holds it: a white page, without the site's masthead, colophon or atmosphere. */
   :global(*):has(.reading) { background: #fff !important; }

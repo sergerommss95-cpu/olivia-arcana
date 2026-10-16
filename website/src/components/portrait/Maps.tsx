@@ -17,6 +17,7 @@ import { ANGLE_SEALS, NUMBER_TITLES, PLANET_NAMES } from "@/lib/portrait/seals.j
 import { eitherSigns, houseName } from "@/lib/portrait/why.js";
 import type { PacketFactor, PortraitPacket } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
+import { registerSection } from "./sections";
 import { LatticeCard, Threads, cardsAt } from "./Lattice";
 import styles from "./maps.module.css";
 
@@ -68,7 +69,7 @@ export default function Maps({ packet, cards, locale, className }: {
   const byId = useMemo(() => new Map(packet.factors.map((f) => [f.id, f])), [packet]);
 
   return (
-    <section id={id} data-section="maps" tabIndex={-1} className={`${styles.maps} ${className ?? ""}`} aria-labelledby={`${id}-title`}>
+    <section id={id} {...registerSection("maps", m.title, [])} tabIndex={-1} className={`${styles.maps} ${className ?? ""}`} aria-labelledby={`${id}-title`}>
       <header className={styles.head}>
         <p className={styles.fleuron} aria-hidden="true">❦</p>
         <h2 id={`${id}-title`} className={styles.title}>{m.title}</h2>

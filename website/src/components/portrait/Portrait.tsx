@@ -10,14 +10,12 @@ import { arkanPortrait } from "@/lib/portrait/arkan.js";
 import { nameNumbers } from "@/lib/portrait/numbers.js";
 import { signsThroughDay } from "@/lib/portrait/uncertain.js";
 import { buildPacket } from "@/lib/portrait/packet.js";
-import { litPositions } from "@/lib/portrait/lattice.js";
 import { forgetSaved, listSaved, loadSaved, savePortrait } from "@/lib/portrait/saved.js";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
 import { forgetInvite, pollPortrait, readInviteFromHash, rememberInvite, rememberJob, settleJob, startPortrait, storedInvite, storedJob, type PortraitPacket, type PortraitStages, type PortraitStatus } from "./client";
 import Laying, { type Frames } from "./Laying";
-import LatticeDock, { measureLaying, type Landing } from "./LatticeDock";
-import Reader, { hasMaps, passageRefs, sectionStates, type SectionKey } from "./Reader";
-import ChapterRail from "./ChapterRail";
+import { measureLaying, type Landing } from "./Glance";
+import Reader from "./Reader";
 import WhyDrawer, { type WhyTarget } from "./WhyDrawer";
 import Keep from "./Keep";
 import Confirm from "./Confirm";
@@ -32,7 +30,7 @@ type Teachings = PortraitStatus["teachings"];
  * A reading being written or reopened. `resumed` is a reading found in storage
  * on load: it waits briefly for its first status, so a finished one opens
  * straight into the reader. One stored before packets were kept has no packet,
- * and no Laying or dock. A kept reading (one saved on this device, or the
+ * and no Laying or cards. A kept reading (one saved on this device, or the
  * example) is read from what is in hand: no server, no network.
  */
 type Phase =
@@ -84,13 +82,10 @@ export default function Portrait(props: PortraitProps) {
 function Phases({ locale, cards, frames }: PortraitProps) {
   const t = PORTRAIT_COPY[locale];
   const [phase, setPhase] = useState<Phase>({ kind: "form" });
-  /** Where the Laying's cards lay when stage A arrived: the dock's cards fly from there. */
+  /** Where the Laying's cards lay when stage A arrived: the glance's cards fly from there. */
   const [landing, setLanding] = useState<Landing | null>(null);
   /** False while a reopened reading waits for its first status. */
   const [grace, setGrace] = useState(true);
-  /** The passage lighting the dock, and the section crossing the reading line. */
-  const [active, setActive] = useState<string | null>(null);
-  const [section, setSection] = useState<SectionKey>("opening");
   /** The passage the Why drawer explains, and the button that opened it. */
   const [why, setWhy] = useState<WhyTarget | null>(null);
   /** For the Laying's kicker only: kept in memory, never stored. */
@@ -196,9 +191,7 @@ function Phases({ locale, cards, frames }: PortraitProps) {
     abort.current = controller;
     let opened = false;
     setLanding(null);
-    setActive(null);
     setWhy(null);
-    setSection("opening");
     setAnnounce(null);
     setKept((listSaved() as SavedSummary[]).some((x) => x.id === id));
     setGrace(!resumed);
@@ -207,7 +200,7 @@ function Phases({ locale, cards, frames }: PortraitProps) {
     pollPortrait(id, (status) => {
       if (controller.signal.aborted) return;
       // Stage A hands over from the Laying to the reader: its cards are measured where they lie,
-      // in the same update that swaps them for the dock. A reading reopened after A has no Laying.
+      // in the same update that swaps them for the glance. A reading reopened after A has no Laying.
       if (status.stages.a && !opened) {
         opened = true;
         const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -325,9 +318,7 @@ function Phases({ locale, cards, frames }: PortraitProps) {
     abort.current?.abort();
     window.clearTimeout(graceTimer.current);
     setLanding(null);
-    setActive(null);
     setWhy(null);
-    setSection("opening");
     setFirstName("");
     setAnnounce(null);
     setEntrySaid("");
@@ -424,13 +415,10 @@ function Phases({ locale, cards, frames }: PortraitProps) {
     ]} />
   ));
 
-  /** The reader with its dock and rail: a live reading, a saved one, or the example. */
+  /** The reader: a live reading, a saved one, or the example. */
   function reading(view: { id: string; packet: PortraitPacket | null; stages: PortraitStages; status: PortraitStatus | null; teachings: Teachings; source: "live" | "saved" | "example" }) {
     const packet = view.packet ?? NO_PACKET;
     const { stages, status, source } = view;
-    // While the Why drawer is open, the dock keeps the cards of the passage it explains.
-    const shown = why?.key ?? active;
-    const lit = shown ? litPositions(passageRefs(stages, shown), packet) : null;
     const isExample = source === "example";
     const keep = status?.status === "done" && !isExample ? (
       <Keep locale={locale} reopened={source === "saved"} kept={kept} packet={packet} stages={stages} teachings={view.teachings} cards={cards}
@@ -438,13 +426,9 @@ function Phases({ locale, cards, frames }: PortraitProps) {
     ) : undefined;
     return (
       <div key={view.id} className={readerStyles.reading} data-reader="" data-example={isExample || undefined}>
-        <div className={readerStyles.dockbar}>
-          {view.packet && hasMaps(packet) && <LatticeDock packet={packet} cards={cards} locale={locale} lit={lit} landing={landing ?? undefined} note={isExample ? t.example.label : undefined} />}
-          <ChapterRail locale={locale} states={sectionStates(stages, status?.status === "failed", hasMaps(packet))} current={section} />
-        </div>
         <Reader stages={stages} status={status} packet={packet} cards={cards} locale={locale} firstName={firstName || undefined}
           kicker={isExample ? t.example.label : undefined} keep={keep} newLabel={isExample ? t.example.leave : undefined} announce={announce}
-          onActive={setActive} onSection={setSection} onWhy={(key, trigger) => setWhy({ key, trigger })} onNew={onNew} />
+          landing={landing ?? undefined} onWhy={(key, trigger) => setWhy({ key, trigger })} onNew={onNew} />
         {why && <WhyDrawer target={why} stages={stages} teachings={view.teachings} packet={packet} cards={cards} locale={locale} frames={frames} onClose={() => setWhy(null)} />}
         {dialog}
       </div>
