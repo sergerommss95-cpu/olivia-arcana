@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Birth Portrait · Frontispiece book</title>
+<meta name="description" content="Direction A for the Birth Portrait reader: the reading as a small book, with the cards as its illustrations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+SC:wght@500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+/* Direction A · Frontispiece book. Lapis grounds, ivory ink, one gilt accent.
+   Light falls from the upper left: card faces catch it, shadows fall down-right. */
+:root {
+  --lapis: #0b1c2c;
+  --abyss: #06111b;
+  --night: #040c14;
+  --sheet: #0a1826;
+  --ink: #eee6d4;
+  --body: rgba(238, 230, 212, 0.88);
+  --soft: rgba(238, 230, 212, 0.74);
+  --hair: rgba(238, 230, 212, 0.14);
+  --gilt: #c9b182;
+  --display: "Cormorant", "Cormorant Garamond", Georgia, serif;
+  --serif: "Cormorant Garamond", "Cormorant", Georgia, serif;
+  --sc: "Cormorant SC", "Cormorant Garamond", Georgia, serif;
+  --sans: "DM Sans", system-ui, sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --wrap: 1256px;
+  --gut: 92px;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 8px 18px 28px -10px rgba(0, 0, 0, 0.6), 22px 44px 70px -22px rgba(0, 0, 0, 0.7);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--lapis); color: var(--ink); -webkit-text-size-adjust: 100%; scroll-padding-top: 76px; }
+body { margin: 0; background: var(--lapis); font: 400 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; font-kerning: normal; }
+html.locked { overflow: hidden; }
+img { display: block; max-width: 100%; }
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
+ul { padding: 0; list-style: none; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--gilt); outline-offset: 3px; border-radius: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 16px; top: -60px; z-index: 50; padding: 10px 16px; background: var(--ink); color: var(--lapis); font: 500 14px/1 var(--sans); border-radius: 999px; text-decoration: none; }
+.skip:focus { top: 12px; }
+.wrap { width: min(100% - 2 * var(--gut), var(--wrap)); margin-inline: auto; }
+
+/* ── One label voice: Cormorant small caps. Meta in DM Sans, sentence case. ── */
+.label { font: 600 16px/1.25 var(--sc); letter-spacing: 0.045em; color: var(--gilt); }
+.meta { font: 400 14px/1.45 var(--sans); color: var(--soft); }
+.meta a { color: var(--ink); text-decoration: underline; text-decoration-color: rgba(238, 230, 212, 0.34); text-underline-offset: 4px; }
+.meta a:hover { text-decoration-color: var(--gilt); }
+.h-section { font: 400 clamp(34px, 3.3vw, 46px)/1.04 var(--display); letter-spacing: -0.005em; color: var(--ink); }
+.prose { font: 500 21px/1.64 var(--serif); color: var(--body); max-width: 27em; hanging-punctuation: first; }
+.prose-lg { font-size: 23px; line-height: 1.6; color: var(--ink); max-width: 27.5em; }
+.lead-in { font: 600 1em/1 var(--sc); letter-spacing: 0.03em; color: var(--ink); }
+
+/* ── Ink-in: opacity and an 8 px rise, once ── */
+.js .ink { opacity: 0; transform: translateY(8px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); transition-delay: var(--d, 0ms); }
+.js .ink.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .ink { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── A card as a thing: real art, rounded like the art, lit from the upper left ── */
+.art { position: relative; display: block; height: var(--h, 200px); aspect-ratio: 896 / 1536; border-radius: 4% / 2.33%; background: #0f2147; box-shadow: var(--shadow); flex: none; }
+.art img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+.art::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(152deg, rgba(255, 246, 228, 0.15) 0%, rgba(255, 246, 228, 0.04) 26%, rgba(255, 246, 228, 0) 46%, rgba(3, 9, 16, 0) 58%, rgba(3, 9, 16, 0.34) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 248, 232, 0.10), inset 0 0 0 0.5px rgba(255, 248, 232, 0.07); }
+
+.cap-name { font: italic 500 19px/1.2 var(--serif); color: var(--ink); }
+.cap-role { font: 600 15px/1.25 var(--sc); letter-spacing: 0.035em; color: var(--soft); }
+
+/* Bands: lapis falling to abyss and back, the light pooled where the plate sits. */
+.band { position: relative; }
+.band-plate, .band-frontis {
+  background:
+    radial-gradient(50% 62% at 26% 40%, rgba(238, 230, 212, 0.05), rgba(238, 230, 212, 0) 72%),
+    linear-gradient(180deg, var(--lapis) 0%, var(--abyss) 16%, #050e17 55%, var(--abyss) 86%, var(--lapis) 100%);
+}
+
+/* ── Bar: wordmark, running head, the mini-map control ── */
+.bar { position: sticky; top: 0; z-index: 30; height: 64px; background: rgba(11, 28, 44, 0.9); -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1); border-bottom: 1px solid transparent; transition: border-color 0.5s var(--ease), background-color 0.5s var(--ease); }
+.bar.scrolled { border-bottom-color: var(--hair); background: rgba(8, 21, 34, 0.92); }
+.bar-in { height: 100%; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
+.wordmark { font: 400 25px/1 var(--display); text-decoration: none; color: var(--ink); justify-self: start; }
+.wordmark span { font: 600 15px/1 var(--sc); letter-spacing: 0.08em; color: var(--soft); margin-left: 2px; }
+.running { font: italic 400 18px/1.2 var(--serif); color: var(--soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 46vw; opacity: 0; transition: opacity 0.5s var(--ease); }
+.running.on { opacity: 1; }
+.mm-toggle { justify-self: end; display: inline-flex; align-items: center; gap: 11px; padding: 8px 4px 8px 8px; border: 0; background: none; cursor: pointer; font: 500 14px/1 var(--sans); color: var(--ink); border-radius: 6px; }
+.mm-toggle span { text-decoration: underline; text-decoration-color: rgba(238, 230, 212, 0.3); text-underline-offset: 5px; transition: text-decoration-color 0.3s; }
+.mm-toggle:hover span, .mm-toggle[aria-expanded="true"] span { text-decoration-color: var(--gilt); }
+.glyph rect { fill: rgba(238, 230, 212, 0.26); transition: fill 0.4s; }
+.glyph rect.lit { fill: var(--gilt); }
+
+/* ── 1 · At a glance ── */
+.glance-head { padding-top: clamp(40px, 5.2vw, 72px); }
+.title { margin-top: 14px; font: 300 clamp(44px, 5.5vw, 80px)/1.0 var(--display); letter-spacing: -0.014em; color: var(--ink); text-wrap: balance; }
+.epigraph { margin-top: 16px; font: italic 400 clamp(22px, 2vw, 28px)/1.3 var(--serif); color: var(--body); }
+.band-plate { margin-top: clamp(28px, 3.4vw, 44px); padding-block: clamp(44px, 4.6vw, 64px) clamp(56px, 5.6vw, 80px); }
+.glance-grid { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "cards truths" "cards way"; column-gap: clamp(56px, 6.6vw, 104px); align-items: start; }
+.defining { grid-area: cards; display: flex; align-items: flex-start; gap: 32px; }
+.shelf { display: flex; align-items: flex-end; height: 304px; }
+.pc figcaption { margin-top: 20px; display: flex; flex-direction: column; gap: 3px; max-width: calc(var(--h) * 0.583 + 26px); }
+.truths { grid-area: truths; padding-top: 6px; }
+.truths ul { margin-top: 18px; }
+.truths li { font: 400 clamp(25px, 2.25vw, 32px)/1.2 var(--display); color: var(--ink); text-wrap: pretty; }
+.truths li + li { margin-top: 22px; }
+.way-in { grid-area: way; align-self: end; padding-top: 40px; padding-bottom: 46px; }
+.begin { margin-top: 16px; display: inline-flex; align-items: center; gap: 12px; padding: 14px 26px 15px 28px; border-radius: 999px; background: var(--ink); color: #0a1826; text-decoration: none; font: 600 20px/1 var(--serif); letter-spacing: 0.005em; box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.75); transition: background-color 0.3s var(--ease), transform 0.3s var(--ease); }
+.begin:hover { background: #f7f0e1; transform: translateY(-1px); }
+.begin:focus-visible { border-radius: 999px; outline-offset: 4px; }
+
+/* ── 2 · Opening, then the facets as a spread ── */
+.opening { padding-top: clamp(96px, 10vw, 150px); }
+.book { display: grid; grid-template-columns: minmax(0, 250px) minmax(0, 1fr); column-gap: clamp(40px, 6vw, 96px); }
+.side { padding-top: 8px; }
+.side .meta { margin-top: 12px; }
+.why-link { margin-top: 26px; display: inline-block; padding: 4px 0; border: 0; background: none; cursor: pointer; font: 500 14.5px/1.3 var(--sans); color: var(--soft); text-decoration: underline; text-decoration-color: rgba(238, 230, 212, 0.3); text-underline-offset: 5px; transition: color 0.3s, text-decoration-color 0.3s; }
+.why-link:hover { color: var(--ink); text-decoration-color: var(--gilt); }
+
+.facets { padding-top: clamp(104px, 11vw, 168px); }
+.facets-head { display: flex; align-items: baseline; gap: 28px; }
+.facet-grid { margin-top: 40px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: clamp(26px, 3vw, 44px); }
+.facet { grid-row: 1; position: relative; padding-top: 26px; border-top: 1px solid var(--hair); cursor: pointer; transition: border-color 0.5s var(--ease); }
+.facet::before { content: ""; position: absolute; left: 0; top: -1px; height: 1px; width: 0; background: var(--gilt); transition: width 0.7s var(--ease); }
+.facet.open::before { width: 100%; }
+.facet-art .art { --h: 124px; transition: transform 0.6s var(--ease); }
+.facet:hover .facet-art .art, .facet.open .facet-art .art { transform: translateY(-3px); }
+.facet-label { margin-top: 22px; font: 600 15.5px/1.2 var(--sc); letter-spacing: 0.045em; color: var(--soft); }
+.facet.open .facet-label { color: var(--gilt); }
+.facet-head { margin-top: 6px; font: 500 25px/1.1 var(--display); color: var(--ink); text-wrap: balance; }
+.facet-head button { padding: 0; border: 0; background: none; text-align: left; cursor: pointer; font: inherit; color: inherit; border-radius: 2px; }
+.facet-head button::after { content: ""; position: absolute; inset: 0; }
+.facet-first { margin-top: 12px; font: 400 18.5px/1.48 var(--serif); color: var(--body); }
+.facet-cue { position: absolute; top: 30px; right: 0; display: inline-flex; align-items: center; gap: 9px; font: 500 13.5px/1 var(--sans); color: var(--soft); }
+.facet:not(.open) .cue-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.facet-cue svg { transition: transform 0.5s var(--ease); }
+.facet.open .facet-cue svg { transform: rotate(45deg); }
+.facet:hover .facet-cue { color: var(--ink); }
+
+.facet-panel { grid-row: 2; grid-column: 1 / -1; display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.7s var(--ease); }
+.facet-panel.open { grid-template-rows: 1fr; }
+.panel-inner { min-height: 0; overflow: hidden; visibility: hidden; transition: visibility 0s linear 0.7s; }
+.facet-panel.open .panel-inner { visibility: visible; transition-delay: 0s; }
+.panel-content { padding-block: 56px 24px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: clamp(26px, 3vw, 44px); opacity: 0; transform: translateY(8px); transition: opacity 0.4s var(--ease), transform 0.7s var(--ease); }
+.facet-panel.open .panel-content { opacity: 1; transform: none; transition-delay: 0.12s; }
+.panel-cards { grid-column: 1; }
+.panel-text { grid-column: 2 / span 4; }
+.panel-caps { margin-top: 28px; display: grid; gap: 8px; }
+.panel-caps li { display: grid; }
+.panel-text .prose { max-width: 27em; }
+
+/* Cascade: cards laid a little over one another, each a step lower. */
+.cascade { display: flex; align-items: flex-start; padding-bottom: calc(var(--n, 3) * 0px); }
+.cas { flex: none; margin-top: calc(var(--i) * 12px); }
+.cas + .cas { margin-left: calc(var(--step) - var(--h) * 0.583); }
+.cas .art { --h: inherit; height: var(--h); }
+
+/* ── 3 · Parts and chapters ── */
+.part { padding-top: clamp(120px, 13vw, 190px); }
+.part-head { display: flex; align-items: baseline; gap: 22px; }
+.h-part { font: 400 clamp(30px, 3vw, 42px)/1.05 var(--display); color: var(--ink); }
+.band-frontis { margin-top: clamp(44px, 5vw, 64px); padding-block: clamp(60px, 6.5vw, 96px); }
+.frontis { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: clamp(48px, 7vw, 112px); align-items: center; }
+.frontis-plate { justify-self: center; display: grid; justify-items: start; }
+.frontis-cards { display: flex; gap: 28px; }
+.frontis-cards .art { --h: clamp(400px, 34vw, 480px); }
+.frontis-cards.n2 .art { --h: clamp(330px, 28vw, 400px); }
+.frontis-plate figcaption { margin-top: 24px; display: grid; gap: 3px; max-width: 290px; }
+.frontis-plate .cap-name { font-size: 23px; }
+.cap-frame { margin-top: 8px; font: italic 400 17px/1.45 var(--serif); color: var(--soft); }
+.numeral { font: 300 clamp(110px, 11vw, 168px)/0.78 var(--display); color: var(--gilt); font-variant-numeric: lining-nums; margin-bottom: 30px; margin-left: -0.04em; }
+.ch-title { margin-top: 10px; font: 400 clamp(38px, 4.4vw, 62px)/1.03 var(--display); letter-spacing: -0.01em; color: var(--ink); text-wrap: balance; max-width: 11em; }
+.lede { margin-top: 24px; font: italic 400 clamp(23px, 2.2vw, 30px)/1.3 var(--serif); color: var(--body); max-width: 21em; text-wrap: pretty; }
+.frontis-title .meta { margin-top: 22px; }
+
+.ch-body { display: grid; grid-template-columns: minmax(0, 250px) minmax(0, 566px) minmax(0, 1fr); column-gap: clamp(40px, 6vw, 96px); padding-top: clamp(64px, 7vw, 104px); align-items: start; }
+.ch-body > .prose { grid-column: 2; max-width: none; }
+.ch-body > .prose + .prose, .ch-body > .pull + .prose { text-indent: 1.5em; margin-top: 0.35em; }
+.margin { grid-column: 1; grid-row: 1 / span 3; padding-top: 6px; position: sticky; top: 104px; }
+.margin .label { font: 500 13.5px/1.3 var(--sans); letter-spacing: 0; color: var(--soft); }
+.m-sentence { display: none; }
+.margin ul { margin-top: 14px; display: grid; gap: 9px; font: 400 14px/1.35 var(--sans); color: var(--soft); }
+.margin li { display: grid; }
+.m-card { font: italic 500 19px/1.2 var(--serif); color: var(--ink); }
+.m-role { font: 400 14px/1.35 var(--sans); color: var(--soft); margin-bottom: 8px; }
+.pull { grid-column: 3; align-self: start; padding-top: 6px; }
+.pull::before { content: ""; display: block; width: 44px; height: 1px; background: var(--gilt); margin-bottom: 22px; }
+.pull p { font: italic 400 clamp(26px, 2.3vw, 33px)/1.2 var(--display); color: var(--ink); text-wrap: balance; }
+
+/* The practice: the one thing in a chapter you do, written on the back of a card. */
+.ritual { grid-column: 2 / span 2; margin-top: 60px; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: 34px; max-width: 700px; padding: 26px 40px 26px 26px; border-radius: 14px; background: linear-gradient(150deg, #0f2438 0%, #0a1a2a 55%, #081624 100%); box-shadow: inset 0 1px 0 rgba(238, 230, 212, 0.07), 0 1px 2px rgba(0, 0, 0, 0.4), 16px 30px 60px -24px rgba(0, 0, 0, 0.75); }
+.ritual .art { --h: 158px; }
+.ritual .label { margin-bottom: 10px; }
+.ritual-text { font: italic 500 23px/1.38 var(--serif); color: var(--ink); text-wrap: pretty; }
+.why-row { grid-column: 2; }
+
+/* Compact entries for the chapters not built out */
+.entries { margin-top: clamp(96px, 10vw, 140px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(48px, 6vw, 96px); }
+.entries.single { grid-template-columns: minmax(0, 1fr); margin-top: clamp(72px, 8vw, 112px); }
+.part .entries.single + .chapter .band-frontis { margin-top: clamp(72px, 8vw, 112px); }
+.entry { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 36px; align-items: start; padding-top: 34px; border-top: 1px solid var(--hair); }
+.entry.wide { grid-template-columns: minmax(0, 250px) minmax(0, 1fr); column-gap: clamp(40px, 6vw, 96px); }
+.entry-text { padding-top: 4px; }
+.entry-num { font: 300 34px/0.8 var(--display); color: var(--gilt); margin-right: 10px; vertical-align: -3px; font-variant-numeric: lining-nums; letter-spacing: 0; }
+.entry-title { margin-top: 12px; font: 400 clamp(28px, 2.5vw, 36px)/1.08 var(--display); color: var(--ink); text-wrap: balance; }
+.entry.wide .entry-title { font-size: clamp(32px, 3vw, 44px); }
+.entry-lede { margin-top: 14px; font: italic 400 20px/1.42 var(--serif); color: var(--body); max-width: 26em; }
+.entry .meta { margin-top: 18px; }
+
+/* ── 4 · The numbers, set as numerals ── */
+.numbers { margin-top: clamp(128px, 13vw, 196px); }
+.band-end { padding-block: clamp(80px, 8vw, 120px) clamp(72px, 7vw, 104px); background: linear-gradient(180deg, var(--lapis) 0%, var(--abyss) 26%, var(--night) 100%); }
+.numbers .h-section { margin-top: 8px; }
+.numerals { margin-top: 52px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(0, 0.7fr); column-gap: clamp(28px, 3.4vw, 52px); border-bottom: 1px solid var(--hair); padding-bottom: 40px; }
+.num { display: flex; flex-direction: column; }
+.num .n { order: -1; font: 300 clamp(96px, 10vw, 150px)/0.86 var(--display); color: var(--ink); font-variant-numeric: lining-nums; margin-left: -0.04em; }
+.num dt { margin-top: 18px; font: 600 16px/1.2 var(--sc); letter-spacing: 0.045em; color: var(--gilt); }
+.num .d { margin-top: 8px; font: 400 17px/1.45 var(--serif); color: var(--soft); max-width: 15em; }
+.num.minor .n { font-size: clamp(64px, 6.4vw, 96px); padding-top: clamp(32px, 3.6vw, 54px); color: var(--body); }
+.sky { margin-top: 32px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font: italic 400 22px/1.3 var(--serif); color: var(--ink); }
+.sky .label { margin-right: 8px; font-style: normal; }
+.sky .dot { color: var(--soft); }
+.maps-link { margin-top: 18px; font: 500 14.5px/1.3 var(--sans); }
+.maps-link a { color: var(--soft); text-decoration-color: rgba(238, 230, 212, 0.3); text-underline-offset: 5px; }
+.colophon { margin-top: clamp(96px, 10vw, 140px); padding-top: 28px; border-top: 1px solid var(--hair); display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: 8px 40px; }
+.col-title { font: 400 26px/1.1 var(--display); }
+.col-actions { display: flex; flex-wrap: wrap; gap: 8px 26px; }
+.col-actions button { padding: 4px 0; border: 0; background: none; cursor: pointer; font: 500 14.5px/1.3 var(--sans); color: var(--ink); text-decoration: underline; text-decoration-color: rgba(238, 230, 212, 0.3); text-underline-offset: 5px; }
+.col-note { grid-column: 2; font: 400 14px/1.45 var(--sans); color: var(--soft); }
+
+/* ── Mini-map: the eleven cards, on demand ── */
+.minimap { position: fixed; z-index: 40; top: 72px; right: max(16px, calc((100vw - var(--wrap)) / 2 - 12px)); width: 408px; max-height: calc(100vh - 88px); overflow: auto; overscroll-behavior: contain; padding: 22px 24px 22px; border-radius: 14px; background: var(--sheet); border: 1px solid var(--hair); box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8), 0 8px 20px -8px rgba(0, 0, 0, 0.5); opacity: 0; transform: translateY(-6px); transition: opacity 0.35s var(--ease), transform 0.5s var(--ease); }
+.minimap.shown { opacity: 1; transform: none; }
+.mm-head, .why-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.mm-head h2 { font: 400 28px/1.1 var(--display); color: var(--ink); }
+.mm-head h2:focus, .why-title:focus { outline: none; }
+.close { padding: 6px 2px; border: 0; background: none; cursor: pointer; font: 500 14px/1 var(--sans); color: var(--soft); text-decoration: underline; text-decoration-color: rgba(238, 230, 212, 0.3); text-underline-offset: 5px; }
+.close:hover { color: var(--ink); }
+.mm-now { margin-top: 8px; font: 400 14px/1.45 var(--sans); color: var(--soft); }
+.mm-now em { font: italic 500 17px/1.2 var(--serif); color: var(--ink); }
+.lattice { position: relative; margin-top: 20px; aspect-ratio: 360 / 600; }
+.threads { position: absolute; inset: 0; width: 100%; height: 100%; }
+.threads line { stroke: rgba(238, 230, 212, 0.16); stroke-width: 1; vector-effect: non-scaling-stroke; stroke-dasharray: 2 4; transition: stroke 0.4s; }
+.threads line.lit { stroke: rgba(201, 177, 130, 0.75); stroke-dasharray: none; }
+.lattice ul { position: absolute; inset: 0; }
+.lc { position: absolute; width: 17.2%; display: grid; justify-items: center; }
+.lc .art { --h: auto; height: auto; width: 100%; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 6px 12px 20px -8px rgba(0, 0, 0, 0.7); opacity: 0.4; filter: saturate(0.8); transition: opacity 0.4s, filter 0.4s, transform 0.5s var(--ease); }
+.lc-name { margin-top: 7px; width: 160%; text-align: center; font: italic 500 14px/1.12 var(--serif); color: rgba(238, 230, 212, 0.56); transition: color 0.4s; }
+.lc.lit .art { opacity: 1; filter: none; transform: translateY(-3px); }
+.lc.lit .lc-name { color: var(--ink); }
+.mm-note { margin-top: 10px; font: 400 13.5px/1.45 var(--sans); color: var(--soft); }
+
+/* ── Why these cards? ── */
+.scrim { position: fixed; inset: 0; z-index: 44; background: rgba(3, 9, 15, 0.6); opacity: 0; transition: opacity 0.4s var(--ease); }
+.scrim.shown { opacity: 1; }
+.why { position: fixed; z-index: 45; top: 0; right: 0; bottom: 0; width: min(500px, 100%); overflow: auto; overscroll-behavior: contain; padding: 26px 40px 48px; background: var(--sheet); border-left: 1px solid var(--hair); box-shadow: -30px 0 80px -30px rgba(0, 0, 0, 0.8); opacity: 0; transform: translateX(16px); transition: opacity 0.35s var(--ease), transform 0.6s var(--ease); }
+.why.shown { opacity: 1; transform: none; }
+.why-title { margin-top: 18px; font: 400 36px/1.06 var(--display); color: var(--ink); text-wrap: balance; }
+.why-lede { margin-top: 14px; font: 400 15px/1.5 var(--sans); color: var(--soft); }
+.why-cards { margin-top: 26px; display: grid; gap: 26px; }
+.why-card { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 20px; align-items: start; }
+.why-card .art { --h: auto; width: 72px; height: auto; }
+.why-role { font: 600 15px/1.2 var(--sc); letter-spacing: 0.04em; color: var(--gilt); }
+.why-name { margin-top: 2px; font: 500 24px/1.1 var(--display); color: var(--ink); }
+.why-frame { margin-top: 8px; font: italic 400 18px/1.42 var(--serif); color: var(--ink); }
+.why-said { margin-top: 8px; font: 400 15px/1.55 var(--sans); color: var(--soft); }
+.why-sub { margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--hair); font: 600 16px/1.2 var(--sc); letter-spacing: 0.045em; color: var(--gilt); }
+.why-others { margin-top: 14px; display: grid; gap: 14px; }
+.why-others li { display: grid; gap: 3px; }
+.why-other { font: italic 500 19px/1.25 var(--serif); color: var(--ink); }
+.why-other-text { font: 400 14.5px/1.5 var(--sans); color: var(--soft); }
+.why-honest { margin-top: 32px; font: italic 400 16px/1.45 var(--serif); color: var(--soft); }
+
+@media (prefers-reduced-motion: reduce) {
+  .facet-panel, .panel-inner, .panel-content, .minimap, .why, .scrim, .facet::before, .art, .lc .art { transition: none !important; }
+}
+
+/* ── Mid widths ── */
+@media (max-width: 1180px) {
+  :root { --gut: 48px; }
+  .glance-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "truths" "cards" "way"; row-gap: 48px; }
+  .facet-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 40px; }
+}
+
+/* ── Phone: designed, not shrunk ── */
+@media (max-width: 760px) {
+  :root { --gut: 20px; }
+  html { scroll-padding-top: 64px; }
+  .bar { height: 56px; }
+  .bar-in { grid-template-columns: 1fr auto; }
+  .running { display: none; }
+  .wordmark { font-size: 23px; }
+  .mm-toggle { gap: 9px; font-size: 13.5px; }
+
+  .glance-head { padding-top: 30px; }
+  .title { margin-top: 10px; font-size: 44px; line-height: 1.02; }
+  .epigraph { margin-top: 12px; font-size: 22px; }
+  .band-plate { margin-top: 26px; padding-block: 34px 52px; background: linear-gradient(180deg, var(--lapis) 0%, var(--abyss) 12%, var(--abyss) 88%, var(--lapis) 100%); }
+  .glance-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "truths" "cards" "way"; row-gap: 40px; }
+  .truths ul { margin-top: 14px; }
+  .truths li { font-size: 26px; line-height: 1.18; }
+  .truths li + li { margin-top: 16px; }
+  .defining { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 16px; }
+  .shelf { height: auto; display: block; }
+  .pc { margin-top: 0; }
+  .pc:nth-child(even) { margin-top: 30px; }
+  .pc .art { height: auto; width: 100%; }
+  .pc figcaption { margin-top: 14px; max-width: none; }
+  .cap-name { font-size: 18px; }
+  .cap-role { font-size: 14px; }
+  .way-in { padding-top: 4px; }
+  .begin { width: 100%; justify-content: center; padding-block: 17px 18px; }
+
+  .opening { padding-top: 84px; }
+  .book { grid-template-columns: minmax(0, 1fr); row-gap: 18px; }
+  .side { display: flex; align-items: baseline; gap: 16px; padding-top: 0; }
+  .side .meta { margin-top: 0; }
+  .prose { font-size: 19.5px; line-height: 1.62; }
+  .prose-lg { font-size: 21px; }
+
+  .facets { padding-top: 92px; }
+  .facets-head { flex-direction: column; gap: 6px; }
+  .facet-grid { margin-top: 26px; grid-template-columns: minmax(0, 1fr); row-gap: 0; border-bottom: 1px solid var(--hair); }
+  .facet { grid-row: auto; display: grid; grid-template-columns: 62px minmax(0, 1fr) 20px; column-gap: 18px; align-items: start; padding-block: 20px 22px; }
+  .facet::before { display: none; }
+  .facet-art { grid-row: 1 / span 3; padding-top: 3px; }
+  .facet-art .art { --h: 106px; }
+  .facet-label { grid-column: 2; margin-top: 0; font-size: 15px; }
+  .facet-head { grid-column: 2; margin-top: 3px; font-size: 24px; }
+  .facet-first { grid-column: 2; margin-top: 8px; font-size: 17.5px; line-height: 1.45; }
+  .facet-cue { grid-column: 3; grid-row: 1; margin-top: 2px; justify-self: end; }
+  .facet-cue .cue-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .facet.open { border-top-color: var(--gilt); }
+  .facet-panel { grid-row: auto; grid-column: auto; }
+  .panel-content { padding-block: 0 34px; grid-template-columns: minmax(0, 1fr); row-gap: 22px; }
+  .panel-cards, .panel-text { grid-column: 1; }
+  .panel-text { order: -1; }
+  .facet.open .facet-first { display: none; }
+  .panel-cards .cascade { --h: 124px !important; --step: 40px !important; }
+  .panel-caps { margin-top: 18px; }
+
+  .part { padding-top: 112px; }
+  .part-head { flex-direction: column; gap: 4px; }
+  .band-frontis { margin-top: 36px; padding-block: 48px 52px; background: linear-gradient(180deg, var(--lapis) 0%, var(--abyss) 10%, var(--abyss) 90%, var(--lapis) 100%); }
+  .frontis { grid-template-columns: minmax(0, 1fr); row-gap: 44px; }
+  .frontis-plate { justify-self: stretch; justify-items: center; }
+  .frontis-cards .art { --h: auto; height: auto; width: min(76vw, 300px); }
+  .frontis-plate figcaption { justify-self: stretch; max-width: none; padding-inline: max(0px, calc((100% - min(76vw, 300px)) / 2)); }
+  .numeral { font-size: 104px; margin-bottom: 18px; }
+  .ch-title { font-size: 40px; }
+  .lede { font-size: 23px; margin-top: 18px; }
+
+  .ch-body { grid-template-columns: minmax(0, 1fr); padding-top: 40px; }
+  .ch-body > * { grid-column: 1 !important; grid-row: auto !important; }
+  .margin { position: static; padding: 0 0 24px; margin-bottom: 26px; border-bottom: 1px solid var(--hair); }
+  .margin .label, .margin ul { display: none; }
+  .m-sentence { display: block; font: 400 15px/1.5 var(--sans); color: var(--soft); }
+  .m-sentence em { font: italic 500 18px/1 var(--serif); color: var(--ink); }
+  .pull { margin-block: 34px 30px; padding-top: 0; }
+  .pull p { font-size: 29px; }
+  .ritual { margin-top: 44px; display: block; padding: 22px 22px 26px; }
+  .ritual::after { content: ""; display: block; clear: both; }
+  .ritual .art { --h: 104px; float: right; margin: 2px 0 10px 20px; }
+  .ritual .label { margin-bottom: 8px; }
+  .ritual-text { font-size: 21px; }
+
+  .entries, .entries.single { grid-template-columns: minmax(0, 1fr); row-gap: 56px; margin-top: 80px; }
+  .entry, .entry.wide { grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+  .entry .cascade { --h: 170px !important; --step: 52px !important; }
+
+  .numerals { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
+  .num .n { font-size: 104px; }
+  .num.minor .n { font-size: 72px; padding-top: 0; }
+  .colophon { grid-template-columns: minmax(0, 1fr); }
+  .col-note { grid-column: 1; }
+
+  .minimap { top: auto; bottom: 0; left: 0; right: 0; width: 100%; max-height: 88vh; border-radius: 18px 18px 0 0; border-bottom: 0; padding: 20px 20px 28px; transform: translateY(24px); }
+  .minimap .lattice { width: min(100%, 330px); margin-inline: auto; }
+  .why { top: auto; width: 100%; max-height: 88vh; border-radius: 18px 18px 0 0; border-left: 0; border-top: 1px solid var(--hair); padding: 22px 22px 40px; transform: translateY(24px); }
+}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#opening">Skip to the portrait</a>
+<header class="bar" id="bar">
+  <div class="wrap bar-in">
+    <a class="wordmark" href="#glance">Olivia <span>Arcana</span></a>
+    <p class="running" id="running" aria-hidden="true"></p>
+    <button type="button" class="mm-toggle" id="mm-toggle" aria-expanded="false" aria-controls="minimap"><svg class="glyph" viewBox="0 0 20 27" width="20" height="27" aria-hidden="true"><rect data-pos="1" x="0" y="0" width="4" height="6" rx="1"/><rect data-pos="2" x="8" y="0" width="4" height="6" rx="1"/><rect data-pos="3" x="16" y="0" width="4" height="6" rx="1"/><rect data-pos="4" x="4" y="7" width="4" height="6" rx="1"/><rect data-pos="5" x="12" y="7" width="4" height="6" rx="1"/><rect data-pos="7" x="0" y="14" width="4" height="6" rx="1"/><rect data-pos="6" x="8" y="14" width="4" height="6" rx="1"/><rect data-pos="8" x="16" y="14" width="4" height="6" rx="1"/><rect data-pos="13" x="0" y="21" width="4" height="6" rx="1"/><rect data-pos="12" x="8" y="21" width="4" height="6" rx="1"/><rect data-pos="14" x="16" y="21" width="4" height="6" rx="1"/></svg><span>Your eleven cards</span></button>
+  </div>
+</header>
+<main>
+
+<section class="glance" id="glance" data-section="" data-mm="the four cards your portrait cites most" data-refs="2 3 5 6 8" aria-labelledby="title">
+  <div class="wrap glance-head">
+    <p class="label ink">A birth portrait</p>
+    <h1 class="title ink" id="title">Soft Entrance, Independent Course</h1>
+    <p class="epigraph ink">You walk in softly and leave with the map redrawn.</p>
+  </div>
+  <div class="band band-plate">
+    <div class="wrap glance-grid">
+      <div class="truths ink">
+        <h2 class="label">Three things to keep</h2>
+        <ul><li>Being needed and being valued are different things.</li><li>A correction is about the task, never the whole of you.</li><li>Say what you see before the meeting ends.</li></ul>
+      </div>
+      <ul class="defining" aria-label="The cards your portrait returns to most">
+        <li class="pc ink" style="--h:304px;--d:0ms"><figure><span class="shelf"><span class="art"><img src="/cards/02_the_high_priestess.webp" srcset="/cards/thumbs/02_the_high_priestess.webp 120w, /cards/02_the_high_priestess.webp 896w" sizes="177px" width="896" height="1536" alt="The High Priestess" decoding="async"></span></span><figcaption><span class="cap-name">The High Priestess</span><span class="cap-role">Adult development and longer perspective</span></figcaption></figure></li><li class="pc ink" style="--h:258px;--d:90ms"><figure><span class="shelf"><span class="art"><img src="/cards/04_the_emperor.webp" srcset="/cards/thumbs/04_the_emperor.webp 120w, /cards/04_the_emperor.webp 896w" sizes="150px" width="896" height="1536" alt="The Emperor" decoding="async"></span></span><figcaption><span class="cap-name">The Emperor</span><span class="cap-role">Conscious aim</span></figcaption></figure></li><li class="pc ink" style="--h:258px;--d:180ms"><figure><span class="shelf"><span class="art"><img src="/cards/07_the_chariot.webp" srcset="/cards/thumbs/07_the_chariot.webp 120w, /cards/07_the_chariot.webp 896w" sizes="150px" width="896" height="1536" alt="The Chariot" decoding="async"></span></span><figcaption><span class="cap-name">The Chariot</span><span class="cap-role">Integrating potential</span></figcaption></figure></li><li class="pc ink" style="--h:258px;--d:270ms"><figure><span class="shelf"><span class="art"><img src="/cards/09_the_hermit.webp" srcset="/cards/thumbs/09_the_hermit.webp 120w, /cards/09_the_hermit.webp 896w" sizes="150px" width="896" height="1536" alt="The Hermit" decoding="async"></span></span><figcaption><span class="cap-name">The Hermit</span><span class="cap-role">Resource</span></figcaption></figure></li>
+      </ul>
+      <div class="way-in ink">
+        <p class="meta">12 min read <span aria-hidden="true">·</span> 5 facets <span aria-hidden="true">·</span> 6 chapters</p>
+        <a class="begin" href="#opening">Begin the portrait<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path d="M8 2.5v10M3.5 8.5 8 13l4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="opening" id="opening" data-section="Opening" data-mm="the cards the Opening was read from" data-refs="2 5 6 8" aria-labelledby="opening-title">
+  <div class="wrap book">
+    <header class="side ink">
+      <h2 class="h-section" id="opening-title">Opening</h2>
+      <p class="meta">1 min read</p>
+    </header>
+    <div class="text ink">
+      <p class="prose prose-lg"><span class="lead-in">You are the one who</span> notices the person standing alone at a party, brings them into the conversation, and then leaves early because you had something of your own to finish. Two habits run side by side in you: a soft, watchful way of entering a room, and a mind that wants its own say over where your life goes. You read people carefully, you explain things well, and you can carry a hard piece of work past the point where others drift off. What you protect most is the right to choose. The pull in you runs between that freedom and a wish to build something that lasts: a plan, a household, a standard others can rely on. Picture a desk with a road atlas on one side and a ring binder on the other; you use both. The harder lesson is speaking up sooner about what you already know.</p>
+      <button type="button" class="why-link" data-why="overview">Why these cards?</button>
+    </div>
+  </div>
+</section>
+
+<section class="facets" id="facets" data-section="Five facets" data-mm="" data-refs="" aria-labelledby="facets-title">
+  <div class="wrap">
+    <header class="facets-head ink">
+      <h2 class="h-section" id="facets-title">Five facets</h2>
+      <p class="meta">Open any one to read it whole.</p>
+    </header>
+    <div class="facet-grid">
+    <div class="facet ink" data-key="temperament" data-refs="13 14" style="--d:0ms">
+      <span class="facet-art"><span class="art"><img src="/cards/08_strength.webp" srcset="/cards/thumbs/08_strength.webp 120w, /cards/08_strength.webp 896w" sizes="72px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span></span>
+      <p class="facet-label">Temperament</p>
+      <h3 class="facet-head"><button type="button" id="fb-temperament" aria-expanded="false" aria-controls="fp-temperament">Warm Door, Cool Eye</button></h3>
+      <p class="facet-first">People bring you the conversation nobody else wants to have.</p>
+      <span class="facet-cue" aria-hidden="true"><span class="cue-text">Read the facet</span><svg viewBox="0 0 12 12" width="12" height="12"><path d="M6 1.5v9M1.5 6h9" stroke="currentColor" stroke-width="1.2"/></svg></span>
+    </div>
+    <div class="facet-panel" id="fp-temperament" role="region" aria-labelledby="fb-temperament">
+      <div class="panel-inner"><div class="panel-content">
+        <div class="panel-cards">
+          <span class="cascade" style="--h:160px;--step:46.6px"><span class="cas" style="--i:0"><span class="art"><img src="/cards/08_strength.webp" srcset="/cards/thumbs/08_strength.webp 120w, /cards/08_strength.webp 896w" sizes="94px" width="896" height="1536" alt="Strength, self-image" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:1"><span class="art"><img src="/cards/13_death.webp" srcset="/cards/thumbs/13_death.webp 120w, /cards/13_death.webp 896w" sizes="94px" width="896" height="1536" alt="Death, outward presence" loading="lazy" decoding="async"></span></span></span>
+          <ul class="panel-caps"><li><span class="cap-role">Self-image</span> <span class="cap-name">Strength</span></li><li><span class="cap-role">Outward presence</span> <span class="cap-name">Death</span></li></ul>
+        </div>
+        <div class="panel-text">
+          <p class="prose">People bring you the conversation nobody else wants to have. You open gently, with a question about their day or a cup put in their hand, and they relax before they notice how closely you are listening. Then something firmer shows. Your manner is capable and decisive, so others assume you will take charge, and you have a frank sense of when an arrangement has run its course. Privately you see yourself as the steady one, able to sit with someone’s anger without flinching. When you think, you step back to look at the whole system. That is the friction. The warmth that lets people talk and the wide-angle mind that answers them can feel like two different people, and a friend who wanted sympathy can receive a clear analysis of the problem instead.</p>
+          <button type="button" class="why-link" data-why="temperament">Why these cards?</button>
+        </div>
+      </div></div>
+    </div>
+    <div class="facet ink" data-key="inner" data-refs="4 12 13" style="--d:70ms">
+      <span class="facet-art"><span class="art"><img src="/cards/14_temperance.webp" srcset="/cards/thumbs/14_temperance.webp 120w, /cards/14_temperance.webp 896w" sizes="72px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span></span>
+      <p class="facet-label">Inner life</p>
+      <h3 class="facet-head"><button type="button" id="fb-inner" aria-expanded="false" aria-controls="fp-inner">Room to Move, Permission to Take</button></h3>
+      <p class="facet-first">You come back to yourself on a long walk, a new route home, or an evening with a book about a place you have never been.</p>
+      <span class="facet-cue" aria-hidden="true"><span class="cue-text">Read the facet</span><svg viewBox="0 0 12 12" width="12" height="12"><path d="M6 1.5v9M1.5 6h9" stroke="currentColor" stroke-width="1.2"/></svg></span>
+    </div>
+    <div class="facet-panel" id="fp-inner" role="region" aria-labelledby="fb-inner">
+      <div class="panel-inner"><div class="panel-content">
+        <div class="panel-cards">
+          <span class="cascade" style="--h:160px;--step:46.6px"><span class="cas" style="--i:0"><span class="art"><img src="/cards/03_the_empress.webp" srcset="/cards/thumbs/03_the_empress.webp 120w, /cards/03_the_empress.webp 896w" sizes="94px" width="896" height="1536" alt="The Empress, inner tension" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:1"><span class="art"><img src="/cards/14_temperance.webp" srcset="/cards/thumbs/14_temperance.webp 120w, /cards/14_temperance.webp 896w" sizes="94px" width="896" height="1536" alt="Temperance, restoration" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:2"><span class="art"><img src="/cards/08_strength.webp" srcset="/cards/thumbs/08_strength.webp 120w, /cards/08_strength.webp 896w" sizes="94px" width="896" height="1536" alt="Strength, self-image" loading="lazy" decoding="async"></span></span></span>
+          <ul class="panel-caps"><li><span class="cap-role">Inner tension</span> <span class="cap-name">The Empress</span></li><li><span class="cap-role">Restoration</span> <span class="cap-name">Temperance</span></li><li><span class="cap-role">Self-image</span> <span class="cap-name">Strength</span></li></ul>
+        </div>
+        <div class="panel-text">
+          <p class="prose">You come back to yourself on a long walk, a new route home, or an evening with a book about a place you have never been. Daily routine settles you only when it has a window in it. You want real say over your own hours. Offers of help can land as attempts to steer you, so you wave them off. Yet you give generously, and part of you keeps quiet score of who gives back. The tension is between that independence and a plain need for warmth: a meal cooked for you, a hand on your shoulder. Balance returns at a pace where work, body and people all fit into one day, with room left to say a strong feeling out loud. Being tender costs you none of your standing.</p>
+          <button type="button" class="why-link" data-why="inner">Why these cards?</button>
+        </div>
+      </div></div>
+    </div>
+    <div class="facet ink" data-key="gifts" data-refs="6 7 8" style="--d:140ms">
+      <span class="facet-art"><span class="art"><img src="/cards/09_the_hermit.webp" srcset="/cards/thumbs/09_the_hermit.webp 120w, /cards/09_the_hermit.webp 896w" sizes="72px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span></span>
+      <p class="facet-label">Gifts</p>
+      <h3 class="facet-head"><button type="button" id="fb-gifts" aria-expanded="false" aria-controls="fp-gifts">The Guide With a Lantern</button></h3>
+      <p class="facet-first">When someone is new to a team, a city or a subject, they end up asking you, and yours is the explanation they remember.</p>
+      <span class="facet-cue" aria-hidden="true"><span class="cue-text">Read the facet</span><svg viewBox="0 0 12 12" width="12" height="12"><path d="M6 1.5v9M1.5 6h9" stroke="currentColor" stroke-width="1.2"/></svg></span>
+    </div>
+    <div class="facet-panel" id="fp-gifts" role="region" aria-labelledby="fb-gifts">
+      <div class="panel-inner"><div class="panel-content">
+        <div class="panel-cards">
+          <span class="cascade" style="--h:160px;--step:46.6px"><span class="cas" style="--i:0"><span class="art"><img src="/cards/07_the_chariot.webp" srcset="/cards/thumbs/07_the_chariot.webp 120w, /cards/07_the_chariot.webp 896w" sizes="94px" width="896" height="1536" alt="The Chariot, integrating potential" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:1"><span class="art"><img src="/cards/05_the_hierophant.webp" srcset="/cards/thumbs/05_the_hierophant.webp 120w, /cards/05_the_hierophant.webp 896w" sizes="94px" width="896" height="1536" alt="The Hierophant, contribution" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:2"><span class="art"><img src="/cards/09_the_hermit.webp" srcset="/cards/thumbs/09_the_hermit.webp 120w, /cards/09_the_hermit.webp 896w" sizes="94px" width="896" height="1536" alt="The Hermit, resource" loading="lazy" decoding="async"></span></span></span>
+          <ul class="panel-caps"><li><span class="cap-role">Integrating potential</span> <span class="cap-name">The Chariot</span></li><li><span class="cap-role">Contribution</span> <span class="cap-name">The Hierophant</span></li><li><span class="cap-role">Resource</span> <span class="cap-name">The Hermit</span></li></ul>
+        </div>
+        <div class="panel-text">
+          <p class="prose">When someone is new to a team, a city or a subject, they end up asking you, and yours is the explanation they remember. You give the rule and the reason the rule exists. Behind that sits long private study: you ask the precise question others skip, and you form your own view before you borrow anyone else’s. You link a small task to the people it will reach, and you spot who has been left out of the plan. Your effort runs hottest when the work moves you, and that is the edge: on flat days the drive thins out. Once you commit, though, you can steer a demanding project past its easy beginning, through the dull middle, to a finish others can see.</p>
+          <button type="button" class="why-link" data-why="gifts">Why these cards?</button>
+        </div>
+      </div></div>
+    </div>
+    <div class="facet ink" data-key="bonds" data-refs="14" style="--d:210ms">
+      <span class="facet-art"><span class="art"><img src="/cards/13_death.webp" srcset="/cards/thumbs/13_death.webp 120w, /cards/13_death.webp 896w" sizes="72px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span></span>
+      <p class="facet-label">Bonds</p>
+      <h3 class="facet-head"><button type="button" id="fb-bonds" aria-expanded="false" aria-controls="fp-bonds">Love in Kept Promises</button></h3>
+      <p class="facet-first">You show love by turning up: the shelf repaired, the appointment remembered, the plan for next spring already pencilled in.</p>
+      <span class="facet-cue" aria-hidden="true"><span class="cue-text">Read the facet</span><svg viewBox="0 0 12 12" width="12" height="12"><path d="M6 1.5v9M1.5 6h9" stroke="currentColor" stroke-width="1.2"/></svg></span>
+    </div>
+    <div class="facet-panel" id="fp-bonds" role="region" aria-labelledby="fb-bonds">
+      <div class="panel-inner"><div class="panel-content">
+        <div class="panel-cards">
+          <span class="cascade" style="--h:160px;--step:46.6px"><span class="cas" style="--i:0"><span class="art"><img src="/cards/13_death.webp" srcset="/cards/thumbs/13_death.webp 120w, /cards/13_death.webp 896w" sizes="94px" width="896" height="1536" alt="Death, outward presence" loading="lazy" decoding="async"></span></span></span>
+          <ul class="panel-caps"><li><span class="cap-role">Outward presence</span> <span class="cap-name">Death</span></li></ul>
+        </div>
+        <div class="panel-text">
+          <p class="prose">You show love by turning up: the shelf repaired, the appointment remembered, the plan for next spring already pencilled in. For you, affection is built and proven over time, and you can forget that the other person also wants to hear it said aloud. Partners and friends expect you to steer, and you often do, though what you want is a bond where your independence is left alone. The pull runs between deep loyalty and a need for open air. You are honest about what a relationship can no longer carry. Sometimes you are too quick to end the whole thing when only one habit needed to go. The stronger move is to name that habit and keep the person.</p>
+          <button type="button" class="why-link" data-why="bonds">Why these cards?</button>
+        </div>
+      </div></div>
+    </div>
+    <div class="facet ink" data-key="direction" data-refs="1 2 3 5 6" style="--d:280ms">
+      <span class="facet-art"><span class="art"><img src="/cards/01_the_magician.webp" srcset="/cards/thumbs/01_the_magician.webp 120w, /cards/01_the_magician.webp 896w" sizes="72px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span></span>
+      <p class="facet-label">Direction</p>
+      <h3 class="facet-head"><button type="button" id="fb-direction" aria-expanded="false" aria-controls="fp-direction">From Quick Hands to Quiet Knowing</button></h3>
+      <p class="facet-first">You started out as the one who could make something from whatever was lying around: a borrowed tool, a few words, a willing friend.</p>
+      <span class="facet-cue" aria-hidden="true"><span class="cue-text">Read the facet</span><svg viewBox="0 0 12 12" width="12" height="12"><path d="M6 1.5v9M1.5 6h9" stroke="currentColor" stroke-width="1.2"/></svg></span>
+    </div>
+    <div class="facet-panel" id="fp-direction" role="region" aria-labelledby="fb-direction">
+      <div class="panel-inner"><div class="panel-content">
+        <div class="panel-cards">
+          <span class="cascade" style="--h:160px;--step:30.2px"><span class="cas" style="--i:0"><span class="art"><img src="/cards/01_the_magician.webp" srcset="/cards/thumbs/01_the_magician.webp 120w, /cards/01_the_magician.webp 896w" sizes="94px" width="896" height="1536" alt="The Magician, early foundation" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:1"><span class="art"><img src="/cards/02_the_high_priestess.webp" srcset="/cards/thumbs/02_the_high_priestess.webp 120w, /cards/02_the_high_priestess.webp 896w" sizes="94px" width="896" height="1536" alt="The High Priestess, adult development" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:2"><span class="art"><img src="/cards/02_the_high_priestess.webp" srcset="/cards/thumbs/02_the_high_priestess.webp 120w, /cards/02_the_high_priestess.webp 896w" sizes="94px" width="896" height="1536" alt="The High Priestess, longer perspective" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:3"><span class="art"><img src="/cards/04_the_emperor.webp" srcset="/cards/thumbs/04_the_emperor.webp 120w, /cards/04_the_emperor.webp 896w" sizes="94px" width="896" height="1536" alt="The Emperor, conscious aim" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:4"><span class="art"><img src="/cards/07_the_chariot.webp" srcset="/cards/thumbs/07_the_chariot.webp 120w, /cards/07_the_chariot.webp 896w" sizes="94px" width="896" height="1536" alt="The Chariot, integrating potential" loading="lazy" decoding="async"></span></span></span>
+          <ul class="panel-caps"><li><span class="cap-role">Early foundation</span> <span class="cap-name">The Magician</span></li><li><span class="cap-role">Adult development</span> <span class="cap-name">The High Priestess</span></li><li><span class="cap-role">Longer perspective</span> <span class="cap-name">The High Priestess</span></li><li><span class="cap-role">Conscious aim</span> <span class="cap-name">The Emperor</span></li><li><span class="cap-role">Integrating potential</span> <span class="cap-name">The Chariot</span></li></ul>
+        </div>
+        <div class="panel-text">
+          <p class="prose">You started out as the one who could make something from whatever was lying around: a borrowed tool, a few words, a willing friend. That quickness still rescues you under pressure. Adult life keeps asking for something slower. It wants you to listen inward, let an answer ripen before you give it, and then say it plainly enough to be met. Over the decades, that quieter knowing becomes your main instrument. You learn by trying things and changing course, and you also want a plan that holds up against real life. Those two pull hard against each other. What works for you is one experiment with a finish line and a date to review it. Leaving the moment a trial gets uncomfortable teaches you less than seeing it through.</p>
+          <button type="button" class="why-link" data-why="direction">Why these cards?</button>
+        </div>
+      </div></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="part" id="part-one" aria-labelledby="part-one-title">
+  <header class="wrap part-head ink" data-section="Part one" data-mm="" data-refs="">
+    <p class="label">Part one</p>
+    <h2 class="h-part" id="part-one-title">Mind, heart and work</h2>
+  </header>
+  
+<article class="chapter" id="ch-mind" data-section="I · The Theory and the Exception" data-title="The Theory and the Exception" data-refs="5" aria-labelledby="ch-mind-title">
+  <div class="band band-frontis">
+    <div class="wrap frontis">
+      <figure class="frontis-plate ink">
+        <span class="frontis-cards n1"><span class="art"><img src="/cards/04_the_emperor.webp" srcset="/cards/thumbs/04_the_emperor.webp 120w, /cards/04_the_emperor.webp 896w" sizes="(max-width: 760px) 70vw, 280px" width="896" height="1536" alt="The Emperor, conscious aim" loading="lazy" decoding="async"></span></span>
+        <figcaption><span class="cap-name">The Emperor</span><span class="cap-role">in the place of conscious aim</span><span class="cap-frame">What you knowingly want and work toward: how your ambition looks from the inside.</span></figcaption>
+      </figure>
+      <header class="frontis-title ink">
+        <p class="numeral" aria-hidden="true">I</p>
+        <p class="label">Chapter one <span aria-hidden="true">·</span> Mind</p>
+        <h3 class="ch-title" id="ch-mind-title">The Theory and the Exception</h3>
+        <p class="lede">You can explain a whole office’s politics in one sentence, and then lose a week to the one colleague who doesn’t fit it.</p>
+        <p class="meta">2 min read</p>
+      </header>
+    </div>
+  </div>
+  <div class="wrap ch-body">
+    <aside class="margin ink" aria-label="Read from">
+      <p class="label">Read from</p>
+      <ul><li><span class="m-card">The Emperor</span><span class="m-role">Conscious aim</span></li><li>Mercury in Aquarius</li><li>Expression 9</li><li>Uranus in Aquarius</li><li>Jupiter in Aries</li><li>Mercury sextile Jupiter</li></ul>
+      <p class="m-sentence">Read from <em>The Emperor</em>, with Mercury in Aquarius, Expression 9, Uranus in Aquarius, Jupiter in Aries and Mercury sextile Jupiter.</p>
+    </aside>
+    <p class="prose ink first" style="grid-row:1"><span class="lead-in">Your mind goes looking</span> for the rule underneath. Hand you a family argument, a failing club or a confusing news story, and you step back until the pattern shows: who benefits, what nobody questions, which arrangement everyone inherited and never chose. That wide view is a pleasure for you, close to play. You also want the plan that comes out of it to be sturdy, with clear roles and a structure that survives a Monday morning. And you like to move. You would sooner test an idea out loud today than polish it in private for a month.</p>
+    <p class="prose ink" style="grid-row:2">A good theory is hungry, though. Once you have a clean explanation, the awkward detail starts to look like noise: the volunteer who quit for reasons unrelated to the system, the neighbour whose story doesn’t match. You care about people beyond the usual circle, so your explanations aim large, sometimes too large for anyone to act on by Friday. Conviction can run ahead of the facts. Picture yourself at a whiteboard, three arrows drawn with confidence, and one sticky note in the corner you keep meaning to deal with.</p>
+    <blockquote class="pull ink" style="grid-row:2 / span 2"><p>A structure others can question outlasts one they can only admire.</p></blockquote>
+    <p class="prose ink" style="grid-row:3">That sticky note is where your thinking gets honest. The best version of you treats the big picture as a working guess and goes hunting for the one case that would change it. People trust your plans more when you show them where to push. A structure others can question outlasts one they can only admire.</p>
+    <div class="ritual ink" style="grid-row:4">
+      <span class="art back"><img src="/cards/back-448.webp" width="448" height="769" alt="" loading="lazy" decoding="async"></span>
+      <div>
+        <p class="label">Practice</p>
+        <p class="ritual-text">Next time you explain a problem to someone, end by naming one fact that would prove you wrong, and ask whether they have seen it.</p>
+      </div>
+    </div>
+    <p class="why-row ink" style="grid-row:5"><button type="button" class="why-link" data-why="mind">Why these cards?</button></p>
+  </div>
+</article>
+  <div class="wrap entries">
+    
+<article class="entry ink" id="ch-heart" data-section="II · The Pause Before the Reply" data-title="The Pause Before the Reply" data-refs="4 12 13" aria-labelledby="ch-heart-title">
+  <span class="cascade" style="--h:206px;--step:60.0px"><span class="cas" style="--i:0"><span class="art"><img src="/cards/03_the_empress.webp" srcset="/cards/thumbs/03_the_empress.webp 120w, /cards/03_the_empress.webp 896w" sizes="130px" width="896" height="1536" alt="The Empress, inner tension" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:1"><span class="art"><img src="/cards/14_temperance.webp" srcset="/cards/thumbs/14_temperance.webp 120w, /cards/14_temperance.webp 896w" sizes="130px" width="896" height="1536" alt="Temperance, restoration" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:2"><span class="art"><img src="/cards/08_strength.webp" srcset="/cards/thumbs/08_strength.webp 120w, /cards/08_strength.webp 896w" sizes="130px" width="896" height="1536" alt="Strength, self-image" loading="lazy" decoding="async"></span></span></span>
+  <div class="entry-text">
+    <p class="label"><span class="entry-num" aria-hidden="true">II</span> Chapter two <span aria-hidden="true">·</span> Heart</p>
+    <h3 class="entry-title" id="ch-heart-title">The Pause Before the Reply</h3>
+    <p class="entry-lede">When something stings, you either go very quiet or act fast, and the action rarely matches the size of the hurt.</p>
+    <p class="meta">2 min read <span aria-hidden="true">·</span> <a href="#ch-heart">Read chapter II</a></p>
+  </div>
+</article>
+    
+<article class="entry ink" id="ch-work" data-section="III · A Name on the Door" data-title="A Name on the Door" data-refs="7 8" aria-labelledby="ch-work-title">
+  <span class="cascade" style="--h:206px;--step:60.0px"><span class="cas" style="--i:0"><span class="art"><img src="/cards/05_the_hierophant.webp" srcset="/cards/thumbs/05_the_hierophant.webp 120w, /cards/05_the_hierophant.webp 896w" sizes="130px" width="896" height="1536" alt="The Hierophant, contribution" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:1"><span class="art"><img src="/cards/09_the_hermit.webp" srcset="/cards/thumbs/09_the_hermit.webp 120w, /cards/09_the_hermit.webp 896w" sizes="130px" width="896" height="1536" alt="The Hermit, resource" loading="lazy" decoding="async"></span></span></span>
+  <div class="entry-text">
+    <p class="label"><span class="entry-num" aria-hidden="true">III</span> Chapter three <span aria-hidden="true">·</span> Work</p>
+    <h3 class="entry-title" id="ch-work-title">A Name on the Door</h3>
+    <p class="entry-lede">You work hardest for a task you believe in, and you go flat the moment it turns into a duty you didn’t pick.</p>
+    <p class="meta">2 min read <span aria-hidden="true">·</span> <a href="#ch-work">Read chapter III</a></p>
+  </div>
+</article>
+  </div>
+</section>
+
+<section class="part" id="part-two" aria-labelledby="part-two-title">
+  <header class="wrap part-head ink" data-section="Part two" data-mm="" data-refs="">
+    <p class="label">Part two</p>
+    <h2 class="h-part" id="part-two-title">Shadow, love and becoming</h2>
+  </header>
+  <div class="wrap entries single">
+<article class="entry ink wide" id="ch-shadow" data-section="IV · The Bargain Behind the Favour" data-title="The Bargain Behind the Favour" data-refs="4" aria-labelledby="ch-shadow-title">
+  <span class="cascade" style="--h:236px;--step:68.8px"><span class="cas" style="--i:0"><span class="art"><img src="/cards/03_the_empress.webp" srcset="/cards/thumbs/03_the_empress.webp 120w, /cards/03_the_empress.webp 896w" sizes="130px" width="896" height="1536" alt="The Empress, inner tension" loading="lazy" decoding="async"></span></span></span>
+  <div class="entry-text">
+    <p class="label"><span class="entry-num" aria-hidden="true">IV</span> Chapter four <span aria-hidden="true">·</span> Shadow</p>
+    <h3 class="entry-title" id="ch-shadow-title">The Bargain Behind the Favour</h3>
+    <p class="entry-lede">You are the one who stays behind to stack the chairs, and you would be hurt if anyone told you to go home.</p>
+    <p class="meta">2 min read <span aria-hidden="true">·</span> <a href="#ch-shadow">Read chapter IV</a></p>
+  </div>
+</article></div>
+  
+<article class="chapter" id="ch-love" data-section="V · Terms Written in Pencil" data-title="Terms Written in Pencil" data-refs="14" aria-labelledby="ch-love-title">
+  <div class="band band-frontis">
+    <div class="wrap frontis">
+      <figure class="frontis-plate ink">
+        <span class="frontis-cards n1"><span class="art"><img src="/cards/13_death.webp" srcset="/cards/thumbs/13_death.webp 120w, /cards/13_death.webp 896w" sizes="(max-width: 760px) 70vw, 280px" width="896" height="1536" alt="Death, outward presence" loading="lazy" decoding="async"></span></span>
+        <figcaption><span class="cap-name">Death</span><span class="cap-role">in the place of outward presence</span><span class="cap-frame">How others first read you: the impression that arrives before you speak.</span></figcaption>
+      </figure>
+      <header class="frontis-title ink">
+        <p class="numeral" aria-hidden="true">V</p>
+        <p class="label">Chapter five <span aria-hidden="true">·</span> Love</p>
+        <h3 class="ch-title" id="ch-love-title">Terms Written in Pencil</h3>
+        <p class="lede">You know exactly who takes the bins out in your house, and you have never once said it out loud.</p>
+        <p class="meta">2 min read</p>
+      </header>
+    </div>
+  </div>
+  <div class="wrap ch-body">
+    <aside class="margin ink" aria-label="Read from">
+      <p class="label">Read from</p>
+      <ul><li><span class="m-card">Death</span><span class="m-role">Outward presence</span></li><li>Venus in Capricorn</li><li>Mars in Pisces</li><li>Outward personality 8</li><li>Cancer rising</li><li>Venus trine Saturn</li></ul>
+      <p class="m-sentence">Read from <em>Death</em>, with Venus in Capricorn, Mars in Pisces, Outward personality 8, Cancer rising and Venus trine Saturn.</p>
+    </aside>
+    <p class="prose ink first" style="grid-row:1"><span class="lead-in">For you, a shared</span> life is a set of quiet agreements: who drives on long trips, who calls the plumber, who remembers the in-laws’ birthdays. You keep your side with real care, and you watch whether the other side is kept. You look capable, so a partner can hand you the steering wheel without asking whether you want it. You enter softly, so you let them guess what you need instead of telling them. Two unspoken assumptions can then share one kitchen for years.</p>
+    <p class="prose ink" style="grid-row:2">The pull runs between that serious, dependable love and a part of you that moves on feeling. Your best days together are unplanned: a detour to the sea because the light was good, a film chosen on impulse, an argument about an idea that runs past midnight. When duty fills every hour, that side goes quiet and the relationship starts to feel like a well-run office.</p>
+    <blockquote class="pull ink" style="grid-row:2 / span 2"><p>Two unspoken assumptions can then share one kitchen for years.</p></blockquote>
+    <p class="prose ink" style="grid-row:3">You are good at seeing when an agreement has worn out. The skill is to say so early, at the size of the agreement itself. “I don’t want to be the one who always plans the weekends anymore” is a sentence a partnership can absorb. Left unsaid for a year, it arrives as something much larger.</p>
+    <div class="ritual ink" style="grid-row:4">
+      <span class="art back"><img src="/cards/back-448.webp" width="448" height="769" alt="" loading="lazy" decoding="async"></span>
+      <div>
+        <p class="label">Practice</p>
+        <p class="ritual-text">Sit down with your partner, or someone you share a home with, and each list three things you carry in the household. Swap one of them, and leave one evening this week completely unplanned.</p>
+      </div>
+    </div>
+    <p class="why-row ink" style="grid-row:5"><button type="button" class="why-link" data-why="love">Why these cards?</button></p>
+  </div>
+</article>
+  <div class="wrap entries single">
+<article class="entry ink wide" id="ch-becoming" data-section="VI · The Part You Play in the Room" data-title="The Part You Play in the Room" data-refs="1 2 3 6" aria-labelledby="ch-becoming-title">
+  <span class="cascade" style="--h:236px;--step:37.5px"><span class="cas" style="--i:0"><span class="art"><img src="/cards/01_the_magician.webp" srcset="/cards/thumbs/01_the_magician.webp 120w, /cards/01_the_magician.webp 896w" sizes="130px" width="896" height="1536" alt="The Magician, early foundation" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:1"><span class="art"><img src="/cards/02_the_high_priestess.webp" srcset="/cards/thumbs/02_the_high_priestess.webp 120w, /cards/02_the_high_priestess.webp 896w" sizes="130px" width="896" height="1536" alt="The High Priestess, adult development" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:2"><span class="art"><img src="/cards/02_the_high_priestess.webp" srcset="/cards/thumbs/02_the_high_priestess.webp 120w, /cards/02_the_high_priestess.webp 896w" sizes="130px" width="896" height="1536" alt="The High Priestess, longer perspective" loading="lazy" decoding="async"></span></span><span class="cas" style="--i:3"><span class="art"><img src="/cards/07_the_chariot.webp" srcset="/cards/thumbs/07_the_chariot.webp 120w, /cards/07_the_chariot.webp 896w" sizes="130px" width="896" height="1536" alt="The Chariot, integrating potential" loading="lazy" decoding="async"></span></span></span>
+  <div class="entry-text">
+    <p class="label"><span class="entry-num" aria-hidden="true">VI</span> Chapter six <span aria-hidden="true">·</span> Becoming</p>
+    <h3 class="entry-title" id="ch-becoming-title">The Part You Play in the Room</h3>
+    <p class="entry-lede">You know what is wrong with a club, a team or a committee months before you say a word about it.</p>
+    <p class="meta">2 min read <span aria-hidden="true">·</span> <a href="#ch-becoming">Read chapter VI</a></p>
+  </div>
+</article></div>
+</section>
+
+<section class="numbers" id="maps" data-section="Your numbers" data-mm="" data-refs="" aria-labelledby="numbers-title">
+  <div class="band band-end">
+    <div class="wrap">
+      <p class="label ink">From your name and birth date</p>
+      <h2 class="h-section ink" id="numbers-title">Your numbers</h2>
+      <dl class="numerals">
+        <div class="num ink" style="--d:0ms"><dt>Life path</dt><dd class="n">5</dd><dd class="d">The road your life keeps taking, read from your full birth date.</dd></div><div class="num ink" style="--d:80ms"><dt>Expression</dt><dd class="n">9</dd><dd class="d">What you are able to do and show, read from every letter of your name.</dd></div><div class="num ink" style="--d:160ms"><dt>Inner motivation</dt><dd class="n">1</dd><dd class="d">What you want most deeply, read from the vowels of your name.</dd></div><div class="num ink" style="--d:240ms"><dt>Outward personality</dt><dd class="n">8</dd><dd class="d">What others notice in you first, read from the consonants of your name.</dd></div><div class="num ink minor" style="--d:320ms"><dt>Birthday</dt><dd class="n">1</dd><dd class="d">The day of the month you were born.</dd></div>
+      </dl>
+      <p class="sky ink"><span class="label">And the sky</span> <span>Sun in Aquarius</span><span class="dot" aria-hidden="true">·</span><span>Moon in Sagittarius</span><span class="dot" aria-hidden="true">·</span><span>Cancer rising</span></p>
+      <p class="maps-link ink"><a href="#maps">See all three maps</a></p>
+      <footer class="colophon ink">
+        <p class="col-title">Keep this portrait</p>
+        <p class="col-actions"><button type="button">Save on this device</button><button type="button">Download as a page</button><button type="button">Print</button></p>
+        <p class="col-note">A saved portrait stays in this browser, without your name or birth details.</p>
+      </footer>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="minimap" id="minimap" role="dialog" aria-modal="false" aria-labelledby="mm-title" hidden>
+  <div class="mm-head">
+    <h2 id="mm-title" tabindex="-1">Your eleven cards</h2>
+    <button type="button" class="close" data-close="minimap">Close</button>
+  </div>
+  <p class="mm-now" id="mm-now"></p>
+  <div class="lattice">
+    <svg class="threads" viewBox="0 0 360 600" preserveAspectRatio="none" aria-hidden="true"><line data-a="1" data-b="4" x1="62" y1="61" x2="121" y2="215"/><line data-a="2" data-b="4" x1="180" y1="61" x2="121" y2="215"/><line data-a="2" data-b="5" x1="180" y1="61" x2="239" y2="215"/><line data-a="3" data-b="5" x1="298" y1="61" x2="239" y2="215"/><line data-a="4" data-b="6" x1="121" y1="215" x2="180" y2="369"/><line data-a="5" data-b="6" x1="239" y1="215" x2="180" y2="369"/><line data-a="1" data-b="7" x1="62" y1="61" x2="62" y2="369"/><line data-a="5" data-b="7" x1="239" y1="215" x2="62" y2="369"/><line data-a="2" data-b="8" x1="180" y1="61" x2="298" y2="369"/><line data-a="6" data-b="8" x1="180" y1="369" x2="298" y2="369"/><line data-a="7" data-b="12" x1="62" y1="369" x2="180" y2="523"/><line data-a="8" data-b="12" x1="298" y1="369" x2="180" y2="523"/><line data-a="1" data-b="13" x1="62" y1="61" x2="62" y2="523"/><line data-a="4" data-b="13" x1="121" y1="215" x2="62" y2="523"/><line data-a="6" data-b="13" x1="180" y1="369" x2="62" y2="523"/><line data-a="3" data-b="14" x1="298" y1="61" x2="298" y2="523"/><line data-a="5" data-b="14" x1="239" y1="215" x2="298" y2="523"/><line data-a="6" data-b="14" x1="180" y1="369" x2="298" y2="523"/></svg>
+    <ul aria-label="The eleven cards of your birth date"><li class="lc" data-pos="1" style="left:8.611%;top:1.333%"><span class="art"><img src="/cards/01_the_magician.webp" srcset="/cards/thumbs/01_the_magician.webp 120w, /cards/01_the_magician.webp 896w" sizes="64px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span><span class="lc-name">The Magician</span><span class="sr">, early foundation<span class="sr-lit"></span></span></li><li class="lc" data-pos="2" style="left:41.389%;top:1.333%"><span class="art"><img src="/cards/02_the_high_priestess.webp" srcset="/cards/thumbs/02_the_high_priestess.webp 120w, /cards/02_the_high_priestess.webp 896w" sizes="64px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span><span class="lc-name">The High Priestess</span><span class="sr">, adult development<span class="sr-lit"></span></span></li><li class="lc" data-pos="3" style="left:74.167%;top:1.333%"><span class="art"><img src="/cards/02_the_high_priestess.webp" srcset="/cards/thumbs/02_the_high_priestess.webp 120w, /cards/02_the_high_priestess.webp 896w" sizes="64px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span><span class="lc-name">The High Priestess</span><span class="sr">, longer perspective<span class="sr-lit"></span></span></li><li class="lc" data-pos="4" style="left:25.000%;top:27.000%"><span class="art"><img src="/cards/03_the_empress.webp" srcset="/cards/thumbs/03_the_empress.webp 120w, /cards/03_the_empress.webp 896w" sizes="64px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span><span class="lc-name">The Empress</span><span class="sr">, inner tension<span class="sr-lit"></span></span></li><li class="lc" data-pos="5" style="left:57.778%;top:27.000%"><span class="art"><img src="/cards/04_the_emperor.webp" srcset="/cards/thumbs/04_the_emperor.webp 120w, /cards/04_the_emperor.webp 896w" sizes="64px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span><span class="lc-name">The Emperor</span><span class="sr">, conscious aim<span class="sr-lit"></span></span></li><li class="lc" data-pos="6" style="left:41.389%;top:52.667%"><span class="art"><img src="/cards/07_the_chariot.webp" srcset="/cards/thumbs/07_the_chariot.webp 120w, /cards/07_the_chariot.webp 896w" sizes="64px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span><span class="lc-name">The Chariot</span><span class="sr">, integrating potential<span class="sr-lit"></span></span></li><li class="lc" data-pos="7" style="left:8.611%;top:52.667%"><span class="art"><img src="/cards/05_the_hierophant.webp" srcset="/cards/thumbs/05_the_hierophant.webp 120w, /cards/05_the_hierophant.webp 896w" sizes="64px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span><span class="lc-name">The Hierophant</span><span class="sr">, contribution<span class="sr-lit"></span></span></li><li class="lc" data-pos="8" style="left:74.167%;top:52.667%"><span class="art"><img src="/cards/09_the_hermit.webp" srcset="/cards/thumbs/09_the_hermit.webp 120w, /cards/09_the_hermit.webp 896w" sizes="64px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span><span class="lc-name">The Hermit</span><span class="sr">, resource<span class="sr-lit"></span></span></li><li class="lc" data-pos="12" style="left:41.389%;top:78.333%"><span class="art"><img src="/cards/14_temperance.webp" srcset="/cards/thumbs/14_temperance.webp 120w, /cards/14_temperance.webp 896w" sizes="64px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span><span class="lc-name">Temperance</span><span class="sr">, restoration<span class="sr-lit"></span></span></li><li class="lc" data-pos="13" style="left:8.611%;top:78.333%"><span class="art"><img src="/cards/08_strength.webp" srcset="/cards/thumbs/08_strength.webp 120w, /cards/08_strength.webp 896w" sizes="64px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span><span class="lc-name">Strength</span><span class="sr">, self-image<span class="sr-lit"></span></span></li><li class="lc" data-pos="14" style="left:74.167%;top:78.333%"><span class="art"><img src="/cards/13_death.webp" srcset="/cards/thumbs/13_death.webp 120w, /cards/13_death.webp 896w" sizes="64px" width="896" height="1536" alt="" loading="lazy" decoding="async"></span><span class="lc-name">Death</span><span class="sr">, outward presence<span class="sr-lit"></span></span></li></ul>
+  </div>
+  <p class="mm-note">A thread joins two cards when one is added to the other to make the next.</p>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="why" id="why" role="dialog" aria-modal="true" aria-labelledby="why-title" hidden>
+  <div class="why-head">
+    <p class="label">Why these cards?</p>
+    <button type="button" class="close" data-close="why">Close</button>
+  </div>
+  <h2 class="why-title" id="why-title" tabindex="-1"></h2>
+  <div class="why-body" id="why-body"></div>
+</aside>
+<template id="why-overview" data-title="Soft Entrance, Independent Course"><p class="why-lede">Each passage is read from a few of your cards, with your numbers and sky alongside. This one drew on:</p><ul class="why-cards"><li class="why-card"><span class="art"><img src="/cards/02_the_high_priestess.webp" srcset="/cards/thumbs/02_the_high_priestess.webp 120w, /cards/02_the_high_priestess.webp 896w" sizes="72px" width="896" height="1536" alt="The High Priestess" loading="lazy" decoding="async"></span><div><p class="why-role">Adult development</p><h3 class="why-name">The High Priestess</h3><p class="why-frame">What adult life keeps asking you to grow into: a quality that comes through experience, not one given at the start.</p><p class="why-said">Growth means translating inner knowledge into an understandable request, boundary or piece of work. Being understood requires sharing enough to be met.</p></div></li><li class="why-card"><span class="art"><img src="/cards/04_the_emperor.webp" srcset="/cards/thumbs/04_the_emperor.webp 120w, /cards/04_the_emperor.webp 896w" sizes="72px" width="896" height="1536" alt="The Emperor" loading="lazy" decoding="async"></span><div><p class="why-role">Conscious aim</p><h3 class="why-name">The Emperor</h3><p class="why-frame">What you knowingly want and work toward: how your ambition looks from the inside.</p><p class="why-said">A structured, decisive style that wants responsibilities to be clear and a plan to survive contact with reality. Respect is built through competence, consistency and the ability to hold a boundary.</p></div></li><li class="why-card"><span class="art"><img src="/cards/07_the_chariot.webp" srcset="/cards/thumbs/07_the_chariot.webp 120w, /cards/07_the_chariot.webp 896w" sizes="72px" width="896" height="1536" alt="The Chariot" loading="lazy" decoding="async"></span><div><p class="why-role">Integrating potential</p><h3 class="why-name">The Chariot</h3><p class="why-frame">What becomes possible when your inner tension and your conscious aim stop fighting: your best synthesis.</p><p class="why-said">Determination, coordinating competing demands, recovering direction after a setback and carrying a demanding undertaking beyond its easy beginning.</p></div></li><li class="why-card"><span class="art"><img src="/cards/09_the_hermit.webp" srcset="/cards/thumbs/09_the_hermit.webp 120w, /cards/09_the_hermit.webp 896w" sizes="72px" width="896" height="1536" alt="The Hermit" loading="lazy" decoding="async"></span><div><p class="why-role">Resource</p><h3 class="why-name">The Hermit</h3><p class="why-frame">The gift or skill that supports that contribution: something to rely on and to train.</p><p class="why-said">Depth of study, precise questions, independent judgement and explaining a difficult subject without relying on fashion or noise.</p></div></li></ul><h3 class="why-sub">And alongside them</h3><ul class="why-others"><li><span class="why-other">Cancer rising</span><span class="why-other-text">Cancer rising describes an entrance through sensing the human climate.</span></li><li><span class="why-other">Sun in Aquarius, 8th house</span><span class="why-other-text">Sun in Aquarius frames identity through independence, contribution and the freedom to question inherited arrangements.</span></li><li><span class="why-other">Inner motivation 1</span><span class="why-other-text">The private motive of 1 is self-authorship: you want a meaningful say over your time, direction and identity.</span></li><li><span class="why-other">Life path 5</span><span class="why-other-text">The path theme of 5 is learning through experience and change.</span></li></ul><p class="why-honest">These traditions offer a way to reflect; they are not facts about you.</p></template>
+<template id="why-temperament" data-title="Warm Door, Cool Eye"><p class="why-lede">Each passage is read from a few of your cards, with your numbers and sky alongside. This one drew on:</p><ul class="why-cards"><li class="why-card"><span class="art"><img src="/cards/08_strength.webp" srcset="/cards/thumbs/08_strength.webp 120w, /cards/08_strength.webp 896w" sizes="72px" width="896" height="1536" alt="Strength" loading="lazy" decoding="async"></span><div><p class="why-role">Self-image</p><h3 class="why-name">Strength</h3><p class="why-frame">How you privately see yourself: the story you tell about who you are.</p><p class="why-said">A steady, courageous style that meets intensity without immediately fighting it or surrendering to it. The central quality is patient command of energy: remaining present when a task or feeling is difficult.</p></div></li><li class="why-card"><span class="art"><img src="/cards/13_death.webp" srcset="/cards/thumbs/13_death.webp 120w, /cards/13_death.webp 896w" sizes="72px" width="896" height="1536" alt="Death" loading="lazy" decoding="async"></span><div><p class="why-role">Outward presence</p><h3 class="why-name">Death</h3><p class="why-frame">How others first read you: the impression that arrives before you speak.</p><p class="why-said">A transformative style able to recognise when a form has reached its limit. Honesty about endings makes room for renewal, even when familiarity makes the old arrangement hard to release.</p></div></li></ul><h3 class="why-sub">And alongside them</h3><ul class="why-others"><li><span class="why-other">Sun in Aquarius, 8th house</span><span class="why-other-text">Sun in Aquarius frames identity through independence, contribution and the freedom to question inherited arrangements.</span></li><li><span class="why-other">Cancer rising</span><span class="why-other-text">Cancer rising describes an entrance through sensing the human climate.</span></li><li><span class="why-other">Mercury in Aquarius, 8th house</span><span class="why-other-text">Thinking steps back to examine a system, questioning assumptions and noticing alternatives that become visible outside the usual frame.</span></li><li><span class="why-other">Outward personality 8</span><span class="why-other-text">A capable, purposeful and authoritative manner may be what people notice first.</span></li></ul><p class="why-honest">These traditions offer a way to reflect; they are not facts about you.</p></template>
+<template id="why-inner" data-title="Room to Move, Permission to Take"><p class="why-lede">Each passage is read from a few of your cards, with your numbers and sky alongside. This one drew on:</p><ul class="why-cards"><li class="why-card"><span class="art"><img src="/cards/03_the_empress.webp" srcset="/cards/thumbs/03_the_empress.webp 120w, /cards/03_the_empress.webp 896w" sizes="72px" width="896" height="1536" alt="The Empress" loading="lazy" decoding="async"></span><div><p class="why-role">Inner tension</p><h3 class="why-name">The Empress</h3><p class="why-frame">The pull underneath that complicates things: a habit, fear or appetite you often miss in yourself, and the quality hidden inside it once you understand it.</p><p class="why-said">Care becomes costly when being needed takes the place of being valued. Overgiving, spending for reassurance or taking over another person’s growth can produce resentment beneath a generous surface.</p></div></li><li class="why-card"><span class="art"><img src="/cards/14_temperance.webp" srcset="/cards/thumbs/14_temperance.webp 120w, /cards/14_temperance.webp 896w" sizes="72px" width="896" height="1536" alt="Temperance" loading="lazy" decoding="async"></span><div><p class="why-role">Restoration</p><h3 class="why-name">Temperance</h3><p class="why-frame">What brings you back into balance: the conditions in which you recover.</p><p class="why-said">Needs a pace in which body, work and relationships can coexist. Harmony includes a place for a strong feeling, not only an absence of conflict.</p></div></li><li class="why-card"><span class="art"><img src="/cards/08_strength.webp" srcset="/cards/thumbs/08_strength.webp 120w, /cards/08_strength.webp 896w" sizes="72px" width="896" height="1536" alt="Strength" loading="lazy" decoding="async"></span><div><p class="why-role">Self-image</p><h3 class="why-name">Strength</h3><p class="why-frame">How you privately see yourself: the story you tell about who you are.</p><p class="why-said">Needs to know that tenderness will not cancel dignity. Anger, desire and fear deserve acknowledgement before they can be handled deliberately.</p></div></li></ul><h3 class="why-sub">And alongside them</h3><ul class="why-others"><li><span class="why-other">Moon in Sagittarius, 6th house</span><span class="why-other-text">Moon in Sagittarius places emotional restoration in space, movement, learning and renewed possibility.</span></li><li><span class="why-other">Inner motivation 1</span><span class="why-other-text">The private motive of 1 is self-authorship: you want a meaningful say over your time, direction and identity.</span></li></ul><p class="why-honest">These traditions offer a way to reflect; they are not facts about you.</p></template>
+<template id="why-gifts" data-title="The Guide With a Lantern"><p class="why-lede">Each passage is read from a few of your cards, with your numbers and sky alongside. This one drew on:</p><ul class="why-cards"><li class="why-card"><span class="art"><img src="/cards/07_the_chariot.webp" srcset="/cards/thumbs/07_the_chariot.webp 120w, /cards/07_the_chariot.webp 896w" sizes="72px" width="896" height="1536" alt="The Chariot" loading="lazy" decoding="async"></span><div><p class="why-role">Integrating potential</p><h3 class="why-name">The Chariot</h3><p class="why-frame">What becomes possible when your inner tension and your conscious aim stop fighting: your best synthesis.</p><p class="why-said">Determination, coordinating competing demands, recovering direction after a setback and carrying a demanding undertaking beyond its easy beginning.</p></div></li><li class="why-card"><span class="art"><img src="/cards/05_the_hierophant.webp" srcset="/cards/thumbs/05_the_hierophant.webp 120w, /cards/05_the_hierophant.webp 896w" sizes="72px" width="896" height="1536" alt="The Hierophant" loading="lazy" decoding="async"></span><div><p class="why-role">Contribution</p><h3 class="why-name">The Hierophant</h3><p class="why-frame">What you give others when you are most yourself: the effect you have on a room, a team, a family.</p><p class="why-said">Explaining a body of knowledge, mentoring, preserving useful standards and helping people enter an unfamiliar community or discipline.</p></div></li><li class="why-card"><span class="art"><img src="/cards/09_the_hermit.webp" srcset="/cards/thumbs/09_the_hermit.webp 120w, /cards/09_the_hermit.webp 896w" sizes="72px" width="896" height="1536" alt="The Hermit" loading="lazy" decoding="async"></span><div><p class="why-role">Resource</p><h3 class="why-name">The Hermit</h3><p class="why-frame">The gift or skill that supports that contribution: something to rely on and to train.</p><p class="why-said">Depth of study, precise questions, independent judgement and explaining a difficult subject without relying on fashion or noise.</p></div></li></ul><h3 class="why-sub">And alongside them</h3><ul class="why-others"><li><span class="why-other">Expression 9</span><span class="why-other-text">Your contribution is connecting a specific task with a larger human meaning.</span></li><li><span class="why-other">Mars in Pisces, 9th house</span><span class="why-other-text">Action responds to inspiration and feeling, adapting to the situation rather than always following a fixed sequence of steps.</span></li><li><span class="why-other">Midheaven in Pisces</span><span class="why-other-text">An imaginative, permeable manner: feel the atmosphere, follow associations and notice what has not yet acquired a clear form.</span></li></ul><p class="why-honest">These traditions offer a way to reflect; they are not facts about you.</p></template>
+<template id="why-bonds" data-title="Love in Kept Promises"><p class="why-lede">Each passage is read from a few of your cards, with your numbers and sky alongside. This one drew on:</p><ul class="why-cards"><li class="why-card"><span class="art"><img src="/cards/13_death.webp" srcset="/cards/thumbs/13_death.webp 120w, /cards/13_death.webp 896w" sizes="72px" width="896" height="1536" alt="Death" loading="lazy" decoding="async"></span><div><p class="why-role">Outward presence</p><h3 class="why-name">Death</h3><p class="why-frame">How others first read you: the impression that arrives before you speak.</p><p class="why-said">Brings honesty about what a relationship can no longer sustain. Distinguish changing a pattern from ending the bond; many endings belong to an agreement or habit, not to the whole person.</p></div></li></ul><h3 class="why-sub">And alongside them</h3><ul class="why-others"><li><span class="why-other">Venus in Capricorn, 7th house</span><span class="why-other-text">Affection takes shape through reliability and investment over time; taking someone seriously can matter more than declaring a feeling quickly.</span></li><li><span class="why-other">Inner motivation 1</span><span class="why-other-text">You want a bond in which independence is respected.</span></li><li><span class="why-other">Outward personality 8</span><span class="why-other-text">Others may expect you to control the outcome.</span></li><li><span class="why-other">Moon in Sagittarius, 6th house</span><span class="why-other-text">Moon in Sagittarius places emotional restoration in space, movement, learning and renewed possibility.</span></li></ul><p class="why-honest">These traditions offer a way to reflect; they are not facts about you.</p></template>
+<template id="why-direction" data-title="From Quick Hands to Quiet Knowing"><p class="why-lede">Each passage is read from a few of your cards, with your numbers and sky alongside. This one drew on:</p><ul class="why-cards"><li class="why-card"><span class="art"><img src="/cards/01_the_magician.webp" srcset="/cards/thumbs/01_the_magician.webp 120w, /cards/01_the_magician.webp 896w" sizes="72px" width="896" height="1536" alt="The Magician" loading="lazy" decoding="async"></span><div><p class="why-role">Early foundation</p><h3 class="why-name">The Magician</h3><p class="why-frame">Your first way of meeting life: a quality learned early, often before you chose it. It is the tool you still reach for under pressure.</p><p class="why-said">An active, articulate style: noticing what can be done with the people, words and tools already available. The central satisfaction is turning an idea into a visible result rather than waiting for ideal conditions.</p></div></li><li class="why-card"><span class="art"><img src="/cards/02_the_high_priestess.webp" srcset="/cards/thumbs/02_the_high_priestess.webp 120w, /cards/02_the_high_priestess.webp 896w" sizes="72px" width="896" height="1536" alt="The High Priestess" loading="lazy" decoding="async"></span><div><p class="why-role">Adult development</p><h3 class="why-name">The High Priestess</h3><p class="why-frame">What adult life keeps asking you to grow into: a quality that comes through experience, not one given at the start.</p><p class="why-said">A receptive, observant nature that looks beneath what is immediately said. Meaning develops in private before it becomes speech; a fast answer is less satisfying than an answer that feels internally true.</p></div></li><li class="why-card"><span class="art"><img src="/cards/02_the_high_priestess.webp" srcset="/cards/thumbs/02_the_high_priestess.webp 120w, /cards/02_the_high_priestess.webp 896w" sizes="72px" width="896" height="1536" alt="The High Priestess" loading="lazy" decoding="async"></span><div><p class="why-role">Longer perspective</p><h3 class="why-name">The High Priestess</h3><p class="why-frame">Where your whole life leans over decades: a matured form of the first two, not a forecast.</p><p class="why-said">Growth means translating inner knowledge into an understandable request, boundary or piece of work. Being understood requires sharing enough to be met.</p></div></li><li class="why-card"><span class="art"><img src="/cards/04_the_emperor.webp" srcset="/cards/thumbs/04_the_emperor.webp 120w, /cards/04_the_emperor.webp 896w" sizes="72px" width="896" height="1536" alt="The Emperor" loading="lazy" decoding="async"></span><div><p class="why-role">Conscious aim</p><h3 class="why-name">The Emperor</h3><p class="why-frame">What you knowingly want and work toward: how your ambition looks from the inside.</p><p class="why-said">A structured, decisive style that wants responsibilities to be clear and a plan to survive contact with reality. Respect is built through competence, consistency and the ability to hold a boundary.</p></div></li><li class="why-card"><span class="art"><img src="/cards/07_the_chariot.webp" srcset="/cards/thumbs/07_the_chariot.webp 120w, /cards/07_the_chariot.webp 896w" sizes="72px" width="896" height="1536" alt="The Chariot" loading="lazy" decoding="async"></span><div><p class="why-role">Integrating potential</p><h3 class="why-name">The Chariot</h3><p class="why-frame">What becomes possible when your inner tension and your conscious aim stop fighting: your best synthesis.</p></div></li></ul><h3 class="why-sub">And alongside them</h3><ul class="why-others"><li><span class="why-other">Life path 5</span><span class="why-other-text">The path theme of 5 is learning through experience and change.</span></li></ul><p class="why-honest">These traditions offer a way to reflect; they are not facts about you.</p></template>
+<template id="why-mind" data-title="The Theory and the Exception"><p class="why-lede">Each passage is read from a few of your cards, with your numbers and sky alongside. This one drew on:</p><ul class="why-cards"><li class="why-card"><span class="art"><img src="/cards/04_the_emperor.webp" srcset="/cards/thumbs/04_the_emperor.webp 120w, /cards/04_the_emperor.webp 896w" sizes="72px" width="896" height="1536" alt="The Emperor" loading="lazy" decoding="async"></span><div><p class="why-role">Conscious aim</p><h3 class="why-name">The Emperor</h3><p class="why-frame">What you knowingly want and work toward: how your ambition looks from the inside.</p><p class="why-said">A structured, decisive style that wants responsibilities to be clear and a plan to survive contact with reality. Respect is built through competence, consistency and the ability to hold a boundary.</p></div></li></ul><h3 class="why-sub">And alongside them</h3><ul class="why-others"><li><span class="why-other">Mercury in Aquarius, 8th house</span><span class="why-other-text">Thinking steps back to examine a system, questioning assumptions and noticing alternatives that become visible outside the usual frame.</span></li><li><span class="why-other">Expression 9</span><span class="why-other-text">Your contribution is connecting a specific task with a larger human meaning.</span></li><li><span class="why-other">Uranus in Aquarius, 8th house</span><span class="why-other-text">Uranus names disruption and independence in modern astrology: the opening that appears when an inherited arrangement can be questioned.</span></li><li><span class="why-other">Jupiter in Aries, 10th house</span><span class="why-other-text">Jupiter names expansion and meaning: the wider frame through which possibility, learning and a sense of purpose become visible.</span></li><li><span class="why-other">A large idea with an examinable claim</span><span class="why-other-text">Detailed thought meets the larger story that gives it meaning.</span></li></ul><p class="why-honest">These traditions offer a way to reflect; they are not facts about you.</p></template>
+<template id="why-love" data-title="Terms Written in Pencil"><p class="why-lede">Each passage is read from a few of your cards, with your numbers and sky alongside. This one drew on:</p><ul class="why-cards"><li class="why-card"><span class="art"><img src="/cards/13_death.webp" srcset="/cards/thumbs/13_death.webp 120w, /cards/13_death.webp 896w" sizes="72px" width="896" height="1536" alt="Death" loading="lazy" decoding="async"></span><div><p class="why-role">Outward presence</p><h3 class="why-name">Death</h3><p class="why-frame">How others first read you: the impression that arrives before you speak.</p><p class="why-said">Brings honesty about what a relationship can no longer sustain. Distinguish changing a pattern from ending the bond; many endings belong to an agreement or habit, not to the whole person.</p></div></li></ul><h3 class="why-sub">And alongside them</h3><ul class="why-others"><li><span class="why-other">Venus in Capricorn, 7th house</span><span class="why-other-text">Affection takes shape through reliability and investment over time; taking someone seriously can matter more than declaring a feeling quickly.</span></li><li><span class="why-other">Mars in Pisces, 9th house</span><span class="why-other-text">Action responds to inspiration and feeling, adapting to the situation rather than always following a fixed sequence of steps.</span></li><li><span class="why-other">Outward personality 8</span><span class="why-other-text">A capable, purposeful and authoritative manner may be what people notice first.</span></li><li><span class="why-other">Cancer rising</span><span class="why-other-text">Cancer rising describes an entrance through sensing the human climate.</span></li><li><span class="why-other">Affection in a dependable agreement</span><span class="why-other-text">Value and affection meet commitment, limits and time.</span></li></ul><p class="why-honest">These traditions offer a way to reflect; they are not facts about you.</p></template>
+<script>
+(() => {
+  const d = document, root = d.documentElement;
+  root.classList.add("js");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = (s, el = d) => el.querySelector(s);
+  const $$ = (s, el = d) => [...el.querySelectorAll(s)];
+
+  // Ink-in, once, as each piece reaches the page.
+  const inks = $$(".ink");
+  if (reduce || !("IntersectionObserver" in window)) inks.forEach((el) => el.classList.add("in"));
+  else {
+    const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }), { rootMargin: "0px 0px -6% 0px", threshold: 0.06 });
+    inks.forEach((el) => io.observe(el));
+  }
+
+  // Facets open in place; one at a time.
+  let openFacet = null;
+  const pieces = $$(".facet");
+  function setFacet(key) {
+    openFacet = key;
+    for (const p of pieces) {
+      const on = p.dataset.key === key;
+      p.classList.toggle("open", on);
+      $("button", p).setAttribute("aria-expanded", String(on));
+      $(".cue-text", p).textContent = on ? "Close" : "Read the facet";
+      d.getElementById(`fp-${p.dataset.key}`).classList.toggle("open", on);
+    }
+    update();
+  }
+  pieces.forEach((p) => p.addEventListener("click", () => setFacet(openFacet === p.dataset.key ? null : p.dataset.key)));
+  window.__openFacet = setFacet;
+
+  // Where the reader is: the running head, the glyph and the mini-map follow it.
+  const sections = $$("[data-section]");
+  const running = $("#running"), bar = $("#bar");
+  const glyphRects = $$(".glyph rect"), cards = $$(".lc"), lines = $$(".threads line");
+  const mmNow = $("#mm-now");
+  const em = (t) => { const e = d.createElement("em"); e.textContent = t; return e; };
+  let current = null;
+  function update() {
+    const y = innerHeight * 0.4;
+    let cur = sections[0];
+    for (const s of sections) if (s.getBoundingClientRect().top <= y) cur = s;
+    current = cur;
+    let refs = cur.dataset.refs, name = cur.dataset.section, title = cur.dataset.title, phrase = cur.dataset.mm;
+    if (cur.id === "facets" && openFacet) {
+      const p = pieces.find((x) => x.dataset.key === openFacet);
+      refs = p.dataset.refs; name = title = $("button", p).textContent; phrase = undefined;
+    }
+    const lit = new Set(refs.split(" ").filter(Boolean));
+    running.textContent = name;
+    running.classList.toggle("on", Boolean(name) && scrollY > 200);
+    bar.classList.toggle("scrolled", scrollY > 8);
+    glyphRects.forEach((r) => r.classList.toggle("lit", lit.has(r.dataset.pos)));
+    cards.forEach((c) => { const on = lit.has(c.dataset.pos); c.classList.toggle("lit", on); $(".sr-lit", c).textContent = on ? ", marked" : ""; });
+    lines.forEach((l) => l.classList.toggle("lit", lit.has(l.dataset.a) && lit.has(l.dataset.b)));
+    if (phrase === undefined) mmNow.replaceChildren("Lit: the cards ", em(title), " was read from.");
+    else if (phrase) mmNow.replaceChildren("Lit: ", phrase, ".");
+    else mmNow.replaceChildren(cur.id === "facets" ? "Open a facet to light the cards it was read from." : "Each passage lights the cards it was read from.");
+  }
+  let ticking = false;
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); } }, { passive: true });
+  addEventListener("resize", update);
+  update();
+
+  // Sheets: the mini-map (non-modal) and Why these cards? (modal).
+  const mm = $("#minimap"), mmBtn = $("#mm-toggle");
+  const why = $("#why"), scrim = $("#scrim"), whyBody = $("#why-body"), whyTitle = $("#why-title");
+  let returnTo = null;
+  function show(el, on) {
+    if (on) { el.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add("shown"))); }
+    else { el.classList.remove("shown"); setTimeout(() => { if (!el.classList.contains("shown")) el.hidden = true; }, reduce ? 0 : 400); }
+  }
+  function minimap(on) {
+    show(mm, on);
+    mmBtn.setAttribute("aria-expanded", String(on));
+    if (on) { update(); $("h2", mm).focus({ preventScroll: true }); }
+  }
+  mmBtn.addEventListener("click", () => minimap(mm.hidden));
+  window.__minimap = minimap;
+
+  function openWhy(key, from) {
+    const t = d.getElementById(`why-${key}`);
+    if (!t) return;
+    whyTitle.textContent = t.dataset.title;
+    whyBody.replaceChildren(t.content.cloneNode(true));
+    returnTo = from;
+    show(scrim, true); show(why, true);
+    root.classList.add("locked");
+    why.scrollTop = 0;
+    whyTitle.focus({ preventScroll: true });
+  }
+  function closeWhy() {
+    show(why, false); show(scrim, false);
+    root.classList.remove("locked");
+    if (returnTo) returnTo.focus({ preventScroll: true });
+  }
+  window.__why = (key) => openWhy(key, null);
+  d.addEventListener("click", (e) => {
+    const w = e.target.closest("[data-why]");
+    if (w) { e.stopPropagation(); openWhy(w.dataset.why, w); return; }
+    const c = e.target.closest("[data-close]");
+    if (c) { c.dataset.close === "why" ? closeWhy() : (minimap(false), mmBtn.focus()); return; }
+    if (!mm.hidden && !mm.contains(e.target) && !mmBtn.contains(e.target)) minimap(false);
+  });
+  scrim.addEventListener("click", closeWhy);
+  d.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    if (!why.hidden) closeWhy();
+    else if (!mm.hidden) { minimap(false); mmBtn.focus(); }
+  });
+  // Keep Tab inside the Why sheet while it is open.
+  why.addEventListener("keydown", (e) => {
+    if (e.key !== "Tab") return;
+    const f = $$("button, a[href]", why);
+    if (!f.length) return;
+    if (e.shiftKey && d.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && d.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+  });
+})();
+
+</script>
+</body>
+</html>
