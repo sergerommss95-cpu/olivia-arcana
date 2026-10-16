@@ -5,8 +5,11 @@
  * from (the mini-map lights them). A section says so on its own element, by
  * spreading `registerSection(…)` on it; the reader watches every such element
  * cross its reading line, so a section added later (a stage landing) is found
- * the same way.
+ * the same way. A section may also change what it says in place (a facet
+ * opening): the reader reads it again.
  */
+
+import { useEffect, useState, type RefObject } from "react";
 
 export type Section = { id: string; title: string; lit: number[] };
 
@@ -30,4 +33,19 @@ export function goTo(id: string) {
   const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   target.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "start" });
   target.focus({ preventScroll: true });
+}
+
+/** Whether an element has come into view yet. Once seen it stays seen, so what inks in on arrival does so once. */
+export function useSeen(ref: RefObject<Element | null>) {
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || seen) return;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) setSeen(true);
+    }, { rootMargin: "0px 0px -10% 0px" });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [ref, seen]);
+  return seen;
 }

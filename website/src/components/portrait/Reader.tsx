@@ -2,28 +2,29 @@
 
 /**
  * The reading, orchestrated: the glance first, then the reading bar, the
- * passages, the maps and the end. The reader keeps one current section (the
- * one crossing its reading line); the bar's running head and the mini-map
- * follow it. Each section says what it is with `registerSection` on its own
- * element. Chapters still being written stand as engraved placeholders and
- * ink in as they land.
+ * opening, the five-facet spread, the chapters, the maps and the end. The
+ * reader keeps one current section (the one crossing its reading line); the
+ * bar's running head and the mini-map follow it. Each section says what it is
+ * with `registerSection` on its own element, and may change it in place (a
+ * facet opening). Chapters still being written stand as engraved placeholders
+ * and ink in as they land.
  */
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import type { MajorCard } from "@/lib/astrology/deck";
 import { litPositions } from "@/lib/portrait/lattice.js";
-import { sealsFor } from "@/lib/portrait/seals.js";
 import type { Chapter, PortraitPacket, PortraitStages, PortraitStatus } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
 import Glance, { type Landing } from "./Glance";
 import ReadingBar from "./ReadingBar";
 import MiniMap from "./MiniMap";
 import Contents, { type ContentsEntry } from "./Contents";
+import Opening, { ReadFrom } from "./Opening";
+import FacetSpread, { FACETS } from "./FacetSpread";
 import Maps from "./Maps";
 import { goTo, readSection, registerSection, sameSection, type Section } from "./sections";
 import styles from "./reader.module.css";
 
-export const FACETS = ["temperament", "inner", "gifts", "bonds", "direction"] as const;
 export const CHAPTERS = { b: ["mind", "heart", "work"], c: ["shadow", "love", "becoming"] } as const;
 type ChapterKey = (typeof CHAPTERS)["b" | "c"][number];
 const NUMERALS = ["I", "II", "III", "IV", "V", "VI"];
@@ -91,15 +92,21 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
     const box = root.current;
     if (!box) return;
     const crossing = new Set<Element>();
-    const observer = new IntersectionObserver((entries) => {
-      for (const e of entries) if (e.isIntersecting) crossing.add(e.target); else crossing.delete(e.target);
+    const pick = () => {
       const first = [...box.querySelectorAll<HTMLElement>("[data-section]")].find((el) => crossing.has(el));
       if (!first) return;
       const next = readSection(first);
       setCurrent((was) => (sameSection(was, next) ? was : next));
+    };
+    const observer = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) crossing.add(e.target); else crossing.delete(e.target);
+      pick();
     }, { rootMargin: READING_LINE });
     box.querySelectorAll("[data-section]").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
+    // A section that changes what it says in place (a facet opening or closing) is read again.
+    const changes = new MutationObserver(pick);
+    changes.observe(box, { subtree: true, attributes: true, attributeFilter: ["data-section", "data-section-title", "data-section-lit"] });
+    return () => { observer.disconnect(); changes.disconnect(); };
   }, [landed]);
 
   // Progress is spoken as chapters land; the region is mounted empty first.
@@ -120,13 +127,11 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
   if (!a) return null;
 
   const lit = (refs: string[]) => litPositions(refs, packet) as number[];
-  const seals = (key: string, refs: string[], name: string) => (
-    <Seals key={`seals-${key}`} refs={refs} packet={packet} cards={cards} locale={locale} name={name} onWhy={(trigger) => onWhy(key, trigger)} />
-  );
 
-  // Ink-in, 90 ms apart: the opening and the five facets after the glance, then each later stage from its own start as it lands.
+  // Ink-in, 90 ms apart: chapters already written after the glance, then each later stage from its own start as it lands.
+  // (The opening and the facets ink in as they come into view.)
   const ink = (n: number) => ({ "--n": n }) as CSSProperties;
-  const startB = atOpen.b ? 6 + FACETS.length : 0;
+  const startB = atOpen.b ? 5 : 0;
   const startC = atOpen.c ? startB + CHAPTERS.b.length : 0;
   // A failure leaves one notice where the first unwritten chapter would be.
   const unwritten = failed ? CHAPTER_ORDER.find((key) => !(stages.b?.chapters[key] || stages.c?.chapters[key])) : undefined;
@@ -142,7 +147,7 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
         <section key={key} id={sectionId(key)} tabIndex={-1} className={`${styles.chapter} ${styles.ink}`} style={ink(order)} aria-labelledby={`${sectionId(key)}-title`}
           {...registerSection(key, chapterTitle(key, i), lit(written.refs))}>
           <ChapterPassage chapterKey={key} chapter={written} kicker={kickerText} practice={r.practice}>
-            {seals(key, written.refs, written.title)}
+            <ReadFrom refs={written.refs ?? []} packet={packet} cards={cards} locale={locale} name={written.title} onWhy={(trigger) => onWhy(key, trigger)} />
           </ChapterPassage>
         </section>
       );
@@ -174,7 +179,7 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
   const partPending = (stage: unknown) => (stage ? undefined : failed ? toc.unwritten : toc.pending);
   const entries: ContentsEntry[] = [
     { id: sectionId("opening"), label: toc.opening, sections: ["glance", "overview"] },
-    { id: sectionId("facets"), label: toc.facets, sections: [...FACETS] },
+    { id: sectionId("facets"), label: toc.facets, sections: ["facets", ...FACETS] },
     { id: sectionId("part-one"), kicker: toc.partOne, label: t.stages.b, pending: partPending(stages.b), children: CHAPTERS.b.map((key, i) => chapterEntry(key, i)) },
     { id: sectionId("part-two"), kicker: toc.partTwo, label: t.stages.c, pending: partPending(stages.c), children: CHAPTERS.c.map((key, i) => chapterEntry(key, i + CHAPTERS.b.length)) },
     ...(maps ? [{ id: sectionId("maps"), label: toc.maps, sections: ["maps"] }] : []),
@@ -191,30 +196,10 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
         contentsOpen={contentsOpen} cardsOpen={cardsOpen} barRef={bar} contentsRef={contentsButton} cardsRef={cardsButton}
         onContents={() => { setCardsOpen(false); setContentsOpen(true); }} onCards={() => setCardsOpen((o) => !o)} />
 
-      <div className={styles.text} data-reader-text="">
-        <section id={sectionId("opening")} tabIndex={-1} className={`${styles.opening} ${styles.ink}`} style={ink(5)} aria-labelledby={`${sectionId("opening")}-title`}
-          {...registerSection("overview", toc.opening, lit(a.overview.refs))}>
-          <h2 id={`${sectionId("opening")}-title`} className={styles.heading}>{toc.opening}</h2>
-          <p className={`${styles.prose} ${styles.overview}`}>{a.overview.text}</p>
-          {seals("overview", a.overview.refs, r.sections.opening)}
-        </section>
+      <Opening stages={{ ...stages, a }} packet={packet} cards={cards} locale={locale} onWhy={onWhy} />
+      <FacetSpread stages={{ ...stages, a }} packet={packet} cards={cards} locale={locale} onWhy={onWhy} />
 
-        <div id={sectionId("facets")} tabIndex={-1} className={styles.anchor}>
-          {FACETS.map((key, i) => {
-            const facet = a.facets[key];
-            if (!facet) return null;
-            return (
-              <article key={key} className={`${styles.passage} ${styles.facet} ${styles.ink}`} style={ink(6 + i)} aria-labelledby={`${sectionId(key)}-title`}
-                {...registerSection(key, facet.heading, lit(facet.refs))}>
-                <p className={styles.fleuron} aria-hidden="true">❦</p>
-                <h2 id={`${sectionId(key)}-title`} className={styles.heading}>{facet.heading}</h2>
-                <p className={styles.prose}>{facet.text}</p>
-                {seals(key, facet.refs, facet.heading)}
-              </article>
-            );
-          })}
-        </div>
-
+      <div className={styles.text}>
         <div id={sectionId("part-one")} tabIndex={-1} className={styles.anchor}>{CHAPTERS.b.map((key, i) => chapter(key, i))}</div>
         <div id={sectionId("part-two")} tabIndex={-1} className={styles.anchor}>{CHAPTERS.c.map((key, i) => chapter(key, i + CHAPTERS.b.length))}</div>
 
@@ -250,7 +235,6 @@ function ChapterPassage({ chapterKey, chapter, kicker, practice, children }: {
 }) {
   return (
     <article className={styles.passage}>
-      <p className={styles.fleuron} aria-hidden="true">❦</p>
       <p className={styles.chapterKicker}>{kicker}</p>
       <h2 id={`${sectionId(chapterKey)}-title`} className={styles.heading}>{chapter.title}</h2>
       <p className={styles.lede}>{chapter.lede}</p>
@@ -268,7 +252,6 @@ function ChapterPassage({ chapterKey, chapter, kicker, practice, children }: {
 function Placeholder({ id, section, title, kicker, pending }: { id: string; section: string; title: string; kicker: string; pending: string }) {
   return (
     <section id={id} tabIndex={-1} className={`${styles.chapter} ${styles.pending}`} aria-busy="true" aria-label={`${kicker}, ${pending}`} {...registerSection(section, title, [])}>
-      <p className={styles.fleuron} aria-hidden="true">❦</p>
       <p className={styles.chapterKicker} aria-hidden="true">{kicker} · <span className={styles.pendingNote}>{pending}</span></p>
       <div className={styles.bars} aria-hidden="true">
         <span className={`${styles.bar} ${styles.barTitle}`} />
@@ -278,40 +261,5 @@ function Placeholder({ id, section, title, kicker, pending }: { id: string; sect
         <span className={`${styles.bar} ${styles.barLine} ${styles.barEnd}`} />
       </div>
     </section>
-  );
-}
-
-/** What a passage was read from, as small pills, and the way into why. */
-function Seals({ refs, packet, cards, locale, name, onWhy }: {
-  refs: string[];
-  packet: PortraitPacket;
-  cards: MajorCard[];
-  locale: PortraitLocale;
-  /** The passage's name, so each "Why this" is told apart by a screen reader. */
-  name: string;
-  onWhy: (trigger: HTMLElement) => void;
-}) {
-  const r = PORTRAIT_COPY[locale].reader;
-  const seals = sealsFor(refs, packet, locale, cards) as { kind: string; key: string; label: string; image?: string; glyph?: string }[];
-  return (
-    <div className={styles.sealRow}>
-      {seals.length > 0 && (
-        // role="list" keeps the list in the accessibility tree while its box is display: contents.
-        <ul role="list" className={styles.seals} aria-label={r.readFrom}>
-          {seals.map((s) => (
-            <li key={s.key} className={styles.seal} data-kind={s.kind}>
-              {/* eslint-disable-next-line @next/next/no-img-element -- the card's own thumbnail, lazily loaded */}
-              {s.image && <img className={styles.sealCard} src={s.image} alt="" width={120} height={206} loading="lazy" decoding="async" />}
-              {!s.image && s.glyph && <span className={styles.sealGlyph} aria-hidden="true">{s.glyph.length === 1 ? `${s.glyph}︎` : s.glyph}</span>}
-              {/* A card seal carries its position: two positions can hold the same card. */}
-              {s.kind === "card" && <span className={styles.sealPos}>{s.key.replace("arkan-", "")}</span>}
-              <span>{s.label}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-      {/* Named with its passage, so each is told apart. */}
-      <button type="button" className={styles.why} aria-label={`${r.why}: ${name}`} aria-haspopup="dialog" onClick={(e) => onWhy(e.currentTarget)}>{r.why}</button>
-    </div>
   );
 }

@@ -1,0 +1,272 @@
+/* website/src/components/portrait/facets.module.css
+   The opening and the five-facet spread (direction A), and the "Read from"
+   note the passages share. Left-aligned editorial headings, the body in DM Sans
+   at the reading measure, the cards as small objects under hairlines. Colours
+   come from the reading (reader.module.css), so print takes them too. Motion
+   is transform and opacity on the ritual curve, and the facets unfold through
+   their grid rows. */
+
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.hSection {
+  margin: 0;
+  font: 400 clamp(34px, 3.3vw, 46px)/1.04 var(--display);
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+/* The body: DM Sans (Onest for Cyrillic), 19 px, at a 58–66 character measure. */
+.prose {
+  max-width: 33em;
+  margin: 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--body);
+  hanging-punctuation: first;
+  text-wrap: pretty;
+}
+
+/* ── Arrival: ink-in once, when the section first comes into view ── */
+
+.ink { opacity: 0; }
+.seen .ink { opacity: 1; animation: inkIn 900ms var(--ease) calc(var(--n, 0) * 90ms) both; }
+@keyframes inkIn { from { opacity: 0; transform: translateY(8px); } }
+
+/* ── A card shown small: the real art, rounded like the art, a soft shadow under it ── */
+
+.art {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 896 / 1536;
+  border-radius: 4.6% / 2.7%;
+  background: #0d2236;
+  box-shadow: 0 1px 1px rgba(1, 6, 12, 0.5), 0 8px 14px -6px rgba(1, 6, 12, 0.55), 0 22px 36px -14px rgba(1, 6, 12, 0.75);
+}
+.art img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+/* Light from above across the face, and the art's own thin edge. */
+.art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(174deg, rgba(255, 244, 224, 0.13) 0%, rgba(255, 244, 224, 0.03) 30%, rgba(0, 0, 0, 0) 55%, rgba(2, 8, 16, 0.34) 100%);
+  box-shadow: inset 0 0 0 1px rgba(201, 177, 130, 0.22);
+}
+
+/* ── What a passage was read from, and the way into why ── */
+
+.provenance { display: grid; justify-items: start; gap: 14px; margin-top: 26px; }
+.readFrom { composes: meta from "./type.module.css"; max-width: 30em; margin: 0; font-size: 14px; line-height: 1.6; text-wrap: pretty; }
+/* Each name holds together across a line end ("The High Priestess", "Moon · Sagittarius"). */
+.readFrom em { font: italic 500 17.5px/1.2 var(--heading); color: var(--ink); white-space: nowrap; }
+.why {
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  font: 500 14px/1.3 var(--font-body), system-ui, sans-serif;
+  color: var(--soft);
+  text-decoration: underline;
+  text-decoration-color: rgba(238, 230, 212, 0.3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  cursor: pointer;
+  transition: color 300ms var(--ease), text-decoration-color 300ms var(--ease);
+}
+.why:hover { color: var(--ink); text-decoration-color: var(--gilt); }
+
+/* ── The opening ─────────────────────────────────────────────── */
+
+.opening {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 22px;
+  margin-top: clamp(84px, 10vw, 150px);
+  scroll-margin-top: 92px;
+}
+.opening:focus, .facets:focus { outline: none; }
+.openingNote { margin-top: 4px; }
+
+/* A drop cap two lines deep, in the display face. */
+.dropCap::first-letter {
+  float: left;
+  margin: 0.1em 0.1em 0 0;
+  font: 400 3.9em/0.78 var(--display);
+  color: var(--gilt);
+}
+@supports (initial-letter: 2) or (-webkit-initial-letter: 2) {
+  .dropCap::first-letter {
+    float: none;
+    margin: 0 0.12em 0 0;
+    font-family: var(--display);
+    font-weight: 400;
+    -webkit-initial-letter: 2;
+    initial-letter: 2;
+  }
+}
+
+/* ── The facets ──────────────────────────────────────────────── */
+
+.facets { margin-top: clamp(92px, 11vw, 168px); scroll-margin-top: 92px; }
+.facetsHead { display: flex; flex-direction: column; gap: 6px; }
+.hint { composes: meta from "./type.module.css"; margin: 0; }
+
+/* A list below 1000 px: each row the card, the name, the heading and the first sentence. */
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); margin-top: 26px; border-bottom: 1px solid var(--hair); }
+.facet {
+  position: relative;
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) 24px;
+  column-gap: 18px;
+  align-items: start;
+  padding: 20px 0 22px;
+  border-top: 1px solid var(--hair);
+  cursor: pointer;
+}
+/* The open facet's rule turns gilt, drawn from the left. */
+.facet::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 1px;
+  background: var(--gilt);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 700ms var(--ease);
+}
+.facet[data-open]::before { transform: none; }
+
+.thumb { grid-column: 1; grid-row: 1 / span 3; display: block; padding-top: 3px; }
+.thumb .art { transition: transform 600ms var(--ease); }
+.facet:hover .thumb .art, .facet[data-open] .thumb .art { transform: translateY(-3px); }
+
+.facetLabel { composes: label from "./type.module.css"; grid-column: 2; grid-row: 1; margin: 0; font-size: 15px; transition: color 400ms var(--ease); }
+.facet[data-open] .facetLabel { color: var(--gilt); }
+.facetHead { grid-column: 2; grid-row: 2; margin: 3px 0 0; font: 500 24px/1.12 var(--heading); letter-spacing: -0.01em; color: var(--ink); text-wrap: balance; }
+.facetFirst { grid-column: 2; grid-row: 3; margin: 8px 0 0; font: 400 17.5px/1.45 var(--heading); color: var(--body); text-wrap: pretty; }
+/* Open in the list, the text beneath begins with this sentence. */
+.facet[data-open] .facetFirst { display: none; }
+
+/* The quiet "+" in the corner; open, it turns to × and says Close. */
+.cue {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 24px;
+  min-height: 24px;
+  margin: -2px -4px 0 0;
+  padding: 4px;
+  border: 0;
+  background: none;
+  font: 500 13.5px/1 var(--font-body), system-ui, sans-serif;
+  color: var(--soft);
+  cursor: pointer;
+  transition: color 300ms var(--ease);
+}
+.cue svg { flex: none; transition: transform 500ms var(--ease); }
+.facet[data-open] .cue svg { transform: rotate(45deg); }
+.facet:hover .cue { color: var(--ink); }
+.cueText { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* The facet's text, unfolding through its grid row. */
+.panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 700ms var(--ease); }
+.panel[data-open] { grid-template-rows: 1fr; }
+/* Closed, it leaves the page (and the tab order) once folded. The bleed keeps focus rings inside the clip. */
+.panelInner { min-height: 0; margin-inline: -8px; padding-inline: 8px; overflow: hidden; visibility: hidden; transition: visibility 0s linear 700ms; }
+.panel[data-open] .panelInner { visibility: visible; transition-delay: 0s; }
+.panelContent {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 26px;
+  padding: 0 0 34px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 400ms var(--ease), transform 700ms var(--ease);
+}
+.panel[data-open] .panelContent { opacity: 1; transform: none; transition-delay: 120ms; }
+.panelText { order: -1; }
+.panelText .provenance { margin-top: 22px; }
+
+/* The facet's cards, each a little over the last and a step lower. */
+.cascade { --h: 124px; --w: calc(var(--h) * 0.5833); display: flex; align-items: flex-start; }
+.cas { flex: none; display: block; width: var(--w); margin-top: calc(var(--i) * 12px); }
+.cas + .cas { margin-left: calc(min(var(--w) * 0.5, (100% - var(--w)) / max(var(--n) - 1, 1)) - var(--w)); }
+.caps { display: grid; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+.caps li { display: grid; }
+.capRole { composes: label from "./type.module.css"; }
+.capName { font: italic 500 19px/1.2 var(--heading); color: var(--ink); }
+
+/* ── Side by side ────────────────────────────────────────────── */
+
+@media (min-width: 1000px) {
+  /* The opening: its heading in the margin, the note held beside the text as it runs. */
+  .opening {
+    grid-template-columns: minmax(0, 250px) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "head text" "note text";
+    column-gap: clamp(40px, 6vw, 96px);
+    row-gap: 0;
+  }
+  .openingHead { grid-area: head; padding-top: 2px; }
+  .openingText { grid-area: text; }
+  .openingNote { grid-area: note; align-self: start; position: sticky; top: 100px; margin-top: 22px; }
+
+  /* The spread: five columns, and the open facet's row beneath them all. */
+  .facetsHead { flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 6px 28px; }
+  .grid { grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: clamp(26px, 3vw, 44px); margin-top: 40px; border-bottom: 0; }
+  .facet { grid-row: 1; grid-template-columns: minmax(0, 1fr) auto; column-gap: 8px; align-content: start; padding: 26px 0 0; }
+  .thumb { grid-column: 1; grid-row: 1; width: 72px; padding-top: 0; }
+  .cue { grid-column: 2; grid-row: 1; align-self: start; margin-top: 0; }
+  .facet[data-open] .cueText { position: static; width: auto; height: auto; overflow: visible; clip-path: none; }
+  .facetLabel { grid-column: 1 / -1; grid-row: 2; margin-top: 22px; }
+  .facetHead { grid-column: 1 / -1; grid-row: 3; margin-top: 6px; font-size: 26px; }
+  .facetFirst, .facet[data-open] .facetFirst { grid-column: 1 / -1; grid-row: 4; display: block; margin-top: 12px; font-size: 18px; line-height: 1.48; }
+
+  .panel { grid-row: 2; grid-column: 1 / -1; }
+  .panelContent { grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: clamp(26px, 3vw, 44px); padding: 56px 0 24px; }
+  .panelCards { grid-column: 1; }
+  .panelText { grid-column: 2 / span 4; order: 0; }
+  .cascade { --h: 160px; }
+  .caps { margin-top: 28px; }
+}
+
+@media (max-width: 719px) {
+  .opening { row-gap: 18px; }
+  .prose { font-size: 18px; line-height: 1.68; }
+}
+
+/* ── Reduced motion: every final state at once ───────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ink { opacity: 1; }
+  .seen .ink { animation: none; }
+  .facet::before, .thumb .art, .cue svg, .panel, .panelInner, .panelContent { transition: none !important; }
+}
+
+/* ── Print: every facet whole, in one column; no controls ────── */
+
+@media print {
+  .ink { opacity: 1 !important; animation: none !important; }
+  .opening { display: block; margin-top: 36px; }
+  .openingHead { margin-bottom: 10px; break-after: avoid; }
+  .openingNote { position: static; margin-top: 14px; }
+  .facets { margin-top: 40px; }
+  .facetsHead .hint, .cue, .why, .facetFirst, .panelCards, .facet::before { display: none !important; }
+  .grid { display: block; border: 0; }
+  .facet { display: block; padding: 18px 0 0; border-top: 1px solid var(--hair); break-after: avoid; }
+  .thumb { display: none; }
+  .facetHead { margin-top: 2px; break-after: avoid; }
+  .panel { display: block; break-inside: avoid; }
+  .panelInner { visibility: visible; overflow: visible; margin: 0; padding: 0; }
+  .panelContent { display: block; padding: 8px 0 6px; opacity: 1; transform: none; }
+  .prose { max-width: none; font-size: 11.5pt; line-height: 1.6; }
+  .readFrom em { font-size: 12pt; }
+}

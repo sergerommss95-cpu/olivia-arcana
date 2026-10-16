@@ -1,7 +1,9 @@
 /* website/src/components/portrait/reader.module.css
-   The reading after the glance and its bar: the text set as an almanac
-   leaf in one column, then the maps and the end. Lapis ground, ivory ink,
-   one gilt accent; motion is transform and opacity on the ritual curve. */
+   The reading around its passages: the colours every part of it takes, the
+   chapters in one column (in line with the opening's text), then the maps and
+   the end. The opening and the facets are drawn by facets.module.css. Lapis
+   ground, ivory ink, one gilt accent; motion is transform and opacity on the
+   ritual curve. */
 
 .reading {
   --ink: #eee6d4;
@@ -33,7 +35,7 @@
 }
 .reading.reading .again:focus-visible { border-radius: 999px; }
 /* A section takes focus when it is gone to (Begin, Contents); the move itself is the cue, not a ring round it. */
-.anchor:focus, .opening:focus, .chapter:focus, .notice:focus { outline: none; }
+.anchor:focus, .chapter:focus, .notice:focus { outline: none; }
 
 /* ── Arrival ─────────────────────────────────────────────────── */
 
@@ -44,90 +46,37 @@
 /* ── The text ────────────────────────────────────────────────── */
 
 .text { position: relative; width: 100%; max-width: 640px; margin: 0 auto; padding-bottom: 24px; }
+/* Beside the opening's margin, in line with its text. */
+@media (min-width: 1000px) { .text { margin-left: calc(250px + clamp(40px, 6vw, 96px)); } }
 .text p { margin: 0; }
 /* Clear of the sticky reading bar when a section is gone to. */
 .text :is([data-section], .anchor), .anchor { scroll-margin-top: 76px; }
 
-/* The opening, after the glance and its bar. */
-.opening { margin-top: 88px; }
-
-/* A passage: a facet or a chapter. */
+/* A chapter's passage. */
 .passage { position: relative; padding: 20px 0 22px; }
 
 .prose { font-size: 17px; line-height: 1.8; color: var(--body); hanging-punctuation: first; }
 /* A book's paragraphs: indented, not spaced. */
 .prose + .prose { text-indent: 1.6em; }
-.overview::first-letter {
-  float: left;
-  padding: 8px 10px 0 0;
-  font: 400 74px/0.8 var(--display);
-  color: var(--gilt);
-}
-
-.facet { margin-top: 40px; }
-.fleuron {
-  margin-bottom: 10px !important;
-  text-align: center;
-  font: 400 17px/1 var(--heading);
-  color: var(--gilt);
-  opacity: 0.5;
-}
-.heading { margin: 0 0 14px; font: 400 32px/1.15 var(--heading); text-align: center; text-wrap: balance; color: var(--ink); }
+.heading { margin: 0 0 14px; font: 400 32px/1.15 var(--heading); text-wrap: balance; color: var(--ink); }
 
 .chapter { margin-top: 88px; }
-.chapterKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 12px !important; text-align: center; }
+.chapterKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 12px !important; }
 .lede {
   max-width: 30em;
-  margin: 0 auto 26px !important;
+  margin: 0 0 26px !important;
   font: italic 400 22px/1.45 var(--heading);
   color: var(--ink);
-  text-align: center;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 .practice { margin: 26px 0 0 2px; padding: 2px 0 2px 22px; border-left: 2px solid var(--gilt); }
 .practiceKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 6px !important; }
 .practice .prose { font-size: 16px; line-height: 1.7; color: var(--ink); }
 
-/* Seals: what the passage was read from, and the way into why. */
-.sealRow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 20px; }
-/* The list's box dissolves, so "Why this" can share the last line of pills. */
-.seals { display: contents; }
-.seal {
-  composes: labelGilt from "./type.module.css";
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 28px;
-  padding: 4px 12px;
-  border: 1px solid rgba(201, 177, 130, 0.35);
-  border-radius: 99px;
-  font-size: 13.5px;
-  line-height: 1.2;
-}
-.seal[data-kind="card"] { padding-left: 4px; }
-.sealCard { display: block; width: 12px; height: 20px; border-radius: 2px; object-fit: cover; box-shadow: 0 0 0 1px rgba(201, 177, 130, 0.45); }
-.sealGlyph { font: 400 13px/1 var(--heading); letter-spacing: 0; }
-.sealPos { composes: numeral from "./type.module.css"; font-size: 15px; color: var(--soft); margin-right: -2px; }
-.sealPos::after { content: " ·"; }
-.why {
-  composes: meta from "./type.module.css";
-  margin-left: auto;
-  padding: 8px 0 4px;
-  border: 0;
-  border-bottom: 1px solid var(--hair);
-  background: none;
-  font-size: 14px;
-  line-height: 1.2;
-  cursor: pointer;
-  transition: color 300ms var(--ease), border-color 300ms var(--ease);
-}
-.why:hover { color: var(--ink); border-bottom-color: var(--gilt); }
-
 /* ── Engraved placeholders: a chapter still being written ────── */
 
-.pending .fleuron { opacity: 0.3; }
 .pendingNote { color: var(--faint); }
-.bars { display: grid; justify-items: center; gap: 13px; margin-top: 20px; }
+.bars { display: grid; justify-items: start; gap: 13px; margin-top: 20px; }
 .bar { position: relative; display: block; width: 100%; height: 11px; overflow: hidden; border-radius: 2px; background: rgba(238, 230, 212, 0.08); }
 /* The shimmer: a pale sheen crossing each bar (transform only). */
 .bar::after {
@@ -142,7 +91,7 @@
 .barTitle { width: 54%; height: 28px; margin-bottom: 6px; }
 .barLede { width: 76%; height: 16px; }
 .barShort { width: 48%; margin-bottom: 16px; }
-.barEnd { width: 62%; justify-self: start; }
+.barEnd { width: 62%; }
 
 /* ── Unfinished, and the end ─────────────────────────────────── */
 
@@ -175,14 +124,11 @@
 /* ── Phone ───────────────────────────────────────────────────── */
 
 @media (max-width: 719px) {
-  .opening { margin-top: 64px; }
   .passage { padding: 16px 0 18px; }
   .prose { font-size: 16.5px; line-height: 1.75; }
-  .overview::first-letter { font-size: 66px; padding-top: 7px; }
   .heading { font-size: 28px; }
   .lede { font-size: 20px; }
   .chapter { margin-top: 64px; }
-  .why { margin-left: 0; }
 }
 
 /* ── Reduced motion: every final state at once ───────────────── */
@@ -208,14 +154,13 @@
     color: var(--ink);
   }
   /* The bar, every control and the live region stay on screen. */
-  .sealRow, .footer, .sr { display: none !important; }
-  .text { max-width: none; padding: 0; }
+  .footer, .sr { display: none !important; }
+  .text { max-width: none; margin: 0; padding: 0; }
   .ink { animation: none !important; }
   .passage { margin-inline: 0; padding: 0 0 6px; }
-  .facet, .practice, .notice { break-inside: avoid; }
-  .fleuron, .heading, .chapterKicker, .lede, .practiceKicker { break-after: avoid; }
+  .practice, .notice { break-inside: avoid; }
+  .heading, .chapterKicker, .lede, .practiceKicker { break-after: avoid; }
   /* Each chapter on a new page; the maps after the text. */
-  .opening { margin-top: 36px; }
   .chapter { break-before: page; margin-top: 0; }
   .mapsArea { break-before: page; margin-top: 0; }
   /* Around the portrait, whichever shell holds it: a white page, without the site's masthead, colophon or atmosphere. */

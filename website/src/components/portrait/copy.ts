@@ -119,6 +119,13 @@ export const PORTRAIT_COPY = {
       idle: "Each passage lights the cards it was read from.",
       litCard: "lit",
     },
+    facets: {
+      hint: "Open any one to read it whole.",
+      names: { temperament: "Temperament", inner: "Inner life", gifts: "Gifts", bonds: "Bonds", direction: "Direction" },
+      /** The "+" in a facet's corner, by its state. */
+      read: "Read {heading}",
+      close: "Close {heading}",
+    },
     toc: {
       opening: "Opening",
       facets: "Five facets",
@@ -136,8 +143,10 @@ export const PORTRAIT_COPY = {
       close: "Close",
       pending: "Being written",
       practice: "Practice",
+      /** Before the names a passage was read from: "Read from The Hermit, The Chariot and Sun · Aquarius." */
       readFrom: "Read from",
-      why: "Why this",
+      and: "and",
+      why: "Why these cards?",
       unfinishedTitle: "Unfinished",
       unfinished: "The rest of this portrait couldn't be written this time. Everything above is complete. Please try again later.",
       newPortrait: "Start a new portrait",
@@ -339,6 +348,12 @@ export const PORTRAIT_COPY = {
       idle: "Кожен фрагмент підсвічує карти, з яких його прочитано.",
       litCard: "світиться",
     },
+    facets: {
+      hint: "Відкрийте будь-яку з них, щоб прочитати повністю.",
+      names: { temperament: "Темперамент", inner: "Внутрішнє життя", gifts: "Дари", bonds: "Зв’язки", direction: "Напрям" },
+      read: "Прочитати «{heading}»",
+      close: "Закрити «{heading}»",
+    },
     toc: {
       opening: "Вступ",
       facets: "П’ять граней",
@@ -356,8 +371,10 @@ export const PORTRAIT_COPY = {
       close: "Закрити",
       pending: "Пишеться",
       practice: "Практика",
-      readFrom: "Прочитано з",
-      why: "Чому так",
+      /** A colon, so the names stay in the nominative: «Джерела: Відлюдник, Колісниця і Сонце · Водолій.» */
+      readFrom: "Джерела:",
+      and: "і",
+      why: "Чому ці карти?",
       unfinishedTitle: "Не завершено",
       unfinished: "Решту портрета цього разу не вдалося написати. Усе, що вище, завершене. Спробуйте пізніше.",
       newPortrait: "Почати новий портрет",
