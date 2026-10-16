@@ -101,5 +101,5 @@ export function sealsFor(refs, packet, locale, cards) {
 
 /** Sign names in both languages, for captions outside the seals. */
 export const SIGN_NAMES = SIGNS;
-/** The other name tables, for the Why drawer's longer lines (why.js). */
-export { PLANETS as PLANET_NAMES, ANGLE_NAMES, NUMBER_TITLES, ASPECTS as ASPECT_NAMES };
+/** The other name tables, for the Why drawer's longer lines (why.js) and the maps. */
+export { PLANETS as PLANET_NAMES, ANGLE_NAMES, ANGLE_SEALS, NUMBER_TITLES, ASPECTS as ASPECT_NAMES };

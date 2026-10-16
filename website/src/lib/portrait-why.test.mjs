@@ -1,7 +1,7 @@
 // website/src/lib/portrait-why.test.mjs
 import test from "node:test";
 import assert from "node:assert/strict";
-import { explain, foundLine, ordinal, teachingFactor, ukIn } from "./portrait/why.js";
+import { eitherSigns, explain, foundLine, houseName, ordinal, teachingFactor, ukIn } from "./portrait/why.js";
 
 const cards = Array.from({ length: 22 }, (_, id) => ({ id, name: `Card ${id}` }));
 const packet = { factors: [
@@ -30,10 +30,21 @@ const plain = (s) => s.replace(/\u00a0/g, " ");
 test("how each card was found", () => {
   assert.equal(plain(foundLine(4, "en")), "Position 4 · from cards 1 + 2");
   assert.equal(plain(foundLine(13, "en")), "Position 13 · from cards 1 + 4 + 6");
-  assert.equal(plain(foundLine(2, "en")), "Position 2 · from your birth date");
   assert.equal(plain(foundLine(4, "uk")), "Позиція 4 · з карт 1 + 2");
-  assert.equal(plain(foundLine(3, "uk")), "Позиція 3 · з вашої дати народження");
   assert.match(foundLine(13, "en"), /^Position\u00a013 · from\u00a0cards\u00a01\u00a0\+\u00a04\u00a0\+\u00a06$/);
+});
+
+test("the first three cards name the part of the date they come from, never the number", () => {
+  assert.deepEqual([1, 2, 3].map((p) => plain(foundLine(p, "en"))), [
+    "Position 1 · from the day you were born",
+    "Position 2 · from your birth month",
+    "Position 3 · from the digits of your birth year",
+  ]);
+  assert.deepEqual([1, 2, 3].map((p) => plain(foundLine(p, "uk"))), [
+    "Позиція 1 · з дня вашого народження",
+    "Позиція 2 · з місяця вашого народження",
+    "Позиція 3 · із цифр року вашого народження",
+  ]);
 });
 
 test("cards come in reading order with their role, name and the cards they came from", () => {
@@ -93,6 +104,14 @@ test("a teaching names its factor", () => {
   assert.equal(teachingFactor("natal-moon-sign-taurus"), "natal-moon");
   assert.equal(teachingFactor("natal-asc-sign"), "natal-asc");
   assert.equal(teachingFactor("aspect-mars-conjunction-mc"), "aspect-mars-conjunction-mc");
+});
+
+test("signs and houses as the maps name them", () => {
+  assert.equal(eitherSigns(["taurus"], "en"), "Taurus");
+  assert.equal(eitherSigns(["taurus", "gemini"], "en"), "Taurus or Gemini");
+  assert.equal(eitherSigns(["pisces", "aries", "taurus"], "uk"), "Риби, Овен або Телець");
+  assert.equal(houseName(8, "en"), "8th house");
+  assert.equal(houseName(8, "uk"), "8-й дім");
 });
 
 test("ordinals", () => {

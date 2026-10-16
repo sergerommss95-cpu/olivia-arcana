@@ -15,14 +15,19 @@
 // --full     capture the whole page height, not just the viewport (this re-lays out
 //            the page and restarts running CSS animations: use it for layout, not timing)
 // --ax       print the accessibility tree's names for the lattice and live region
+// --ax-under S  print the accessibility subtree under the element matching S, in reading order
 // --eval JS  print the value of a page expression after the last shot
 // --focus S  focus the element matching selector S before each shot
 // --scroll S scroll the element matching selector S to the top of the window before each shot
+// --clip S   capture only the element matching S, its whole height (sticky parts stay where the scroll left them)
 // --before JS  evaluate a page expression before each shot (e.g. open a dialog)
 // --wait MS  how long to let --before settle (default 600)
 // --keys K   press keys before each shot (after --focus), e.g. "Tab,Enter,Tab*3,Shift+Tab,Escape";
 //            after each, print where focus is and whether it is inside a dialog
 // --tag T    add T to the file names
+// --record R read the reading from the M2 evidence record R.json instead of the locale's own
+//            (en: m1-en-olena, timed; uk: m1-uk-olena, unknown time with alternatives;
+//            en-timed-tom has a master number)
 
 import { spawn } from "node:child_process";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -31,11 +36,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { setTimeout as sleep } from "node:timers/promises";
 import { citedTeachings, selectTeachings } from "../netlify/portrait/teachings.ts";
-import { birthChart } from "../src/lib/astrology/chart.js";
-import { arkanPortrait } from "../src/lib/portrait/arkan.js";
-import { nameNumbers } from "../src/lib/portrait/numbers.js";
-import { signsThroughDay } from "../src/lib/portrait/uncertain.js";
-import { buildPacket } from "../src/lib/portrait/packet.js";
 
 const CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const JOB_KEY = "olivia:portrait-job";
@@ -54,23 +54,16 @@ function args(argv) {
   return { ...out, width, height, times: String(out.times).split(",").map(Number).sort((a, b) => a - b), aAt: Number(out.aAt), bcAt: Number(out.bcAt), failAt: Number(out.failAt), wait: Number(out.wait) };
 }
 
-/** The reading the page follows: EN from the M2 evidence run, UK from M1's with its packet recalculated. */
-function fixture(locale) {
+/**
+ * The reading the page follows: a finished M2 evidence run, with the teachings
+ * its stages cite. EN is timed; UK (1990-03-03) has no birth time, so its
+ * Moon, Mercury and Venus carry alternatives and there is no Rising.
+ */
+function fixture(locale, record) {
   const bank = readJson(path.join(here, "../netlify/portrait/knowledge/bank.json"));
-  if (locale === "en") {
-    const run = readJson(path.join(repo, "docs/superpowers/evidence/2026-10-16-m2/m2-medium/m1-en-olena.json"));
-    return { id: "fixture-en", packet: run.packet, stages: run.stages, teachings: citedTeachings(selectTeachings(run.packet, bank), bank, run.stages) };
-  }
-  const run = readJson(path.join(repo, "docs/superpowers/evidence/2026-10-15-m1/uk-unknown-time.json"));
-  const date = "1990-03-03", zone = "Europe/Kyiv";
-  const packet = buildPacket({
-    locale: "uk",
-    chart: birthChart({ date, time: null, zone, latitude: 50.45, longitude: 30.52 }),
-    arkan: arkanPortrait(date),
-    numbers: nameNumbers({ date, name: "Олена Коваль", latin: "Olena Koval" }),
-    daySigns: signsThroughDay({ date, zone }),
-  });
-  return { id: "fixture-uk", packet, stages: run.stages, teachings: run.teachings };
+  const name = record ?? (locale === "uk" ? "m1-uk-olena" : "m1-en-olena");
+  const run = readJson(path.join(repo, `docs/superpowers/evidence/2026-10-16-m2/m2-medium/${name}.json`));
+  return { id: `fixture-${name}`, packet: run.packet, stages: run.stages, teachings: citedTeachings(selectTeachings(run.packet, bank), bank, run.stages) };
 }
 
 function statusAt(seconds, fx, opts) {
@@ -155,7 +148,7 @@ function launch() {
 
 async function main() {
   const opts = args(process.argv.slice(2));
-  const fx = fixture(opts.locale);
+  const fx = fixture(opts.locale, opts.record);
   const route = `${opts.base}${opts.locale === "uk" ? "/uk" : ""}/portrait/`;
   mkdirSync(opts.out, { recursive: true });
   // Warm the dev server's compile so the clock below measures the page, not the build.
@@ -239,7 +232,10 @@ async function main() {
         await sleep(400);
       }
       let clip;
-      if (opts.full) {
+      if (opts.clip) {
+        const { result } = await send("Runtime.evaluate", { expression: `(() => { const r = document.querySelector(${JSON.stringify(opts.clip)})?.getBoundingClientRect(); return r && { x: r.left + scrollX, y: r.top + scrollY, width: r.width, height: r.height }; })()`, returnByValue: true });
+        if (result.value) clip = { ...result.value, scale: 1 };
+      } else if (opts.full) {
         const { result } = await send("Runtime.evaluate", { expression: "document.documentElement.scrollHeight", returnByValue: true });
         clip = { x: 0, y: 0, width: opts.width, height: result.value, scale: 1 };
       }
@@ -254,9 +250,24 @@ async function main() {
       const { result, exceptionDetails } = await send("Runtime.evaluate", { expression: opts.eval, returnByValue: true, awaitPromise: true });
       console.log(`eval  ${exceptionDetails ? exceptionDetails.text : JSON.stringify(result.value)}`);
     }
+    if (opts.axUnder) {
+      const { root } = await send("DOM.getDocument", { depth: 0 });
+      const { nodeId } = await send("DOM.querySelector", { nodeId: root.nodeId, selector: opts.axUnder });
+      const { node } = nodeId ? await send("DOM.describeNode", { nodeId }) : { node: null };
+      const { nodes } = await send("Accessibility.getFullAXTree");
+      const byId = new Map(nodes.map((n) => [n.nodeId, n]));
+      const start = node && nodes.find((n) => n.backendDOMNodeId === node.backendNodeId);
+      const walk = (n, depth) => {
+        if (!n) return;
+        const name = n.name?.value?.trim();
+        if (!n.ignored && n.role?.value !== "InlineTextBox" && (name || n.role?.value !== "generic")) console.log(`axu ${"  ".repeat(depth)}${n.role?.value}${name ? ` "${name}"` : ""}`);
+        for (const id of n.childIds ?? []) walk(byId.get(id), n.ignored ? depth : depth + 1);
+      };
+      if (start) walk(start, 0); else console.log(`axu  nothing matches ${opts.axUnder}`);
+    }
     if (opts.ax) {
       const { nodes } = await send("Accessibility.getFullAXTree");
-      const named = nodes.filter((n) => !n.ignored && ["image", "img", "heading", "status", "list", "button", "listitem", "dialog", "link"].includes(n.role?.value) && n.name?.value);
+      const named = nodes.filter((n) => !n.ignored && ["image", "img", "heading", "status", "list", "button", "listitem", "dialog", "link", "term", "definition"].includes(n.role?.value) && n.name?.value);
       for (const n of named) console.log(`ax  ${n.role.value.padEnd(9)} ${n.name.value}`);
       const { result } = await send("Runtime.evaluate", { expression: "[...document.querySelectorAll('[role=status]')].map((el) => el.textContent).join(' | ')", returnByValue: true });
       console.log(`ax  live      ${result.value}`);

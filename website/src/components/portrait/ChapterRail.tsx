@@ -12,7 +12,7 @@ import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
 import { SECTIONS, WIDE, sectionId, useMedia, type SectionKey } from "./Reader";
 import styles from "./reader.module.css";
 
-type State = "ready" | "pending" | "unwritten";
+type State = "ready" | "pending" | "unwritten" | "absent";
 
 /** Scrolls to a section (smoothly unless motion is reduced) and moves focus to its passage. */
 function go(key: SectionKey) {
@@ -31,7 +31,7 @@ function Entries({ locale, states, current, onPick }: { locale: PortraitLocale; 
     <div className={styles.railTrack} style={{ "--at": SECTIONS.indexOf(current) } as CSSProperties}>
       <span className={styles.ribbon} aria-hidden="true" />
       <ol className={styles.railList}>
-        {SECTIONS.map((key) => {
+        {SECTIONS.filter((key) => states[key] !== "absent").map((key) => {
           const state = states[key];
           const note = state === "pending" ? r.pending : state === "unwritten" ? r.unwritten : null;
           return (
@@ -65,8 +65,11 @@ export default function ChapterRail({ locale, states, current }: { locale: Portr
       frame = 0;
       const text = document.querySelector<HTMLElement>("[data-reader-text]");
       if (!text || !bar.current) return;
-      const box = text.getBoundingClientRect();
-      const done = Math.min(1, Math.max(0, (window.innerHeight * 0.4 - box.top) / box.height));
+      // From the text's top to the end of its last section (the maps, when there are maps).
+      const sections = document.querySelectorAll<HTMLElement>("[data-reader] [data-section]");
+      const top = text.getBoundingClientRect().top;
+      const bottom = sections.length ? sections[sections.length - 1].getBoundingClientRect().bottom : text.getBoundingClientRect().bottom;
+      const done = Math.min(1, Math.max(0, (window.innerHeight * 0.4 - top) / (bottom - top)));
       bar.current.style.transform = `scaleX(${done})`;
     };
     const onScroll = () => { if (!frame) frame = requestAnimationFrame(draw); };

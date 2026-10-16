@@ -379,7 +379,10 @@
 .noticeKicker { margin-bottom: 8px !important; font: 400 10px/1.4 var(--mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--gilt); }
 .notice p + p { font-size: 16px; line-height: 1.7; color: var(--soft); }
 
-.footer { display: grid; justify-items: start; gap: 22px; margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--hair); }
+/* The text and what follows it (the maps, the end) are siblings in the reading's grid. */
+.leaf { display: contents; }
+
+.footer { display: grid; justify-items: center; gap: 22px; max-width: 640px; margin: 96px auto 24px; padding-top: 28px; border-top: 1px solid var(--hair); text-align: center; }
 .note { max-width: 36em; font-size: 14px; line-height: 1.7; color: var(--faint); }
 .again {
   padding: 13px 22px;
@@ -400,15 +403,20 @@
     --gutter: 24px;
     display: grid;
     grid-template-columns: minmax(280px, 360px) minmax(0, 640px) minmax(120px, 160px);
-    grid-template-areas: "dock text rail";
+    /* The maps take the dock's column too: the dock is held beside the text only, and the rail stays to the end. */
+    grid-template-areas: "dock text rail" "maps maps rail" "foot foot rail";
     column-gap: clamp(36px, 4.4vw, 64px);
     justify-content: center;
     align-items: start;
   }
   .dockbar { display: contents; }
-  .dock { grid-area: dock; position: sticky; top: 120px; }
+  /* The dock's cell fills the text's row; the dock is held within it (a sticky box keeps to its parent). */
+  .dockCell { grid-area: dock; align-self: stretch; min-width: 0; }
+  .dock { position: sticky; top: 120px; }
   .rail { grid-area: rail; position: sticky; top: 120px; padding-top: 30px; }
   .text { grid-area: text; max-width: none; }
+  .mapsArea { grid-area: maps; min-width: 0; }
+  .footer { grid-area: foot; width: 100%; }
   .text :is([data-section], [data-passage]) { scroll-margin-top: 40px; }
 }
 

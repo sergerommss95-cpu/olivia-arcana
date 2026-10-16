@@ -162,44 +162,47 @@ export default function LatticeDock({ packet, cards, locale, lit, landing }: {
   }
 
   const l = width > 0 ? dockLayout(width, box.room) : null;
+  // The cell spans the text's row only, so the dock is held beside the text and leaves as the maps arrive.
   return (
-    <aside ref={columnRef} className={`${styles.dock} ${styles.lattice} ${landing ? styles.arriving : ""}`} data-dock="" data-state={state} aria-label={t.laying.cards}>
-      {l && (
-        <div className={styles.board} style={{ height: l.height + CAPTION_ROOM }}>
-          <Threads width={width} height={l.height} lines={threads(l)} on={(line) => litSet.has(line.from) && litSet.has(line.to)} draw="shown" lit="fade" className={styles.dockThreads} />
-          <ol className={styles.dockCards}>
-            {READING_ORDER.map((pos, i) => {
-              const p = l.positions[pos];
-              const place = { left: p.x - l.card.w / 2, top: p.y - l.card.h / 2, width: l.card.w, height: l.card.h, "--h": `${l.card.h}px` } as CSSProperties;
-              return (
-                <li key={pos} className={styles.dockSlot} data-lit={litSet.has(pos) || undefined} style={place}>
-                  <div className={styles.flip} data-flip={pos}>
-                    <div className={styles.lift}>
-                      <div className={styles.glow} aria-hidden="true" />
-                      <LatticeCard pos={pos} card={cardAt[pos]} turned={!down.has(pos)} label={label(pos)} sizes={`${Math.ceil(l.card.w * 1.25)}px`} style={turnDelay(i)} />
+    <div className={styles.dockCell}>
+      <aside ref={columnRef} className={`${styles.dock} ${styles.lattice} ${landing ? styles.arriving : ""}`} data-dock="" data-state={state} aria-label={t.laying.cards}>
+        {l && (
+          <div className={styles.board} style={{ height: l.height + CAPTION_ROOM }}>
+            <Threads width={width} height={l.height} lines={threads(l)} on={(line) => litSet.has(line.from) && litSet.has(line.to)} draw="shown" lit="fade" className={styles.dockThreads} />
+            <ol className={styles.dockCards}>
+              {READING_ORDER.map((pos, i) => {
+                const p = l.positions[pos];
+                const place = { left: p.x - l.card.w / 2, top: p.y - l.card.h / 2, width: l.card.w, height: l.card.h, "--h": `${l.card.h}px` } as CSSProperties;
+                return (
+                  <li key={pos} className={styles.dockSlot} data-lit={litSet.has(pos) || undefined} style={place}>
+                    <div className={styles.flip} data-flip={pos}>
+                      <div className={styles.lift}>
+                        <div className={styles.glow} aria-hidden="true" />
+                        <LatticeCard pos={pos} card={cardAt[pos]} turned={!down.has(pos)} label={label(pos)} sizes={`${Math.ceil(l.card.w * 1.25)}px`} style={turnDelay(i)} />
+                      </div>
                     </div>
-                  </div>
-                  <p className={styles.dockCap} aria-hidden="true">{pos}</p>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
-      )}
-      <div className={styles.legend} aria-hidden="true">
-        {lit === null && <p>{t.reader.litIdle}</p>}
-        {lit !== null && lit.length === 0 && <p>{t.reader.litNone}</p>}
-        {lit !== null && lit.length > 0 && (
-          <>
-            <p className={styles.legendKicker}>{t.reader.lit}</p>
-            <ul>
-              {lit.map((pos) => (
-                <li key={pos}><b>{pos} · {roles[pos][locale]}</b> {cardAt[pos]?.name}</li>
-              ))}
-            </ul>
-          </>
+                    <p className={styles.dockCap} aria-hidden="true">{pos}</p>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
         )}
-      </div>
-    </aside>
+        <div className={styles.legend} aria-hidden="true">
+          {lit === null && <p>{t.reader.litIdle}</p>}
+          {lit !== null && lit.length === 0 && <p>{t.reader.litNone}</p>}
+          {lit !== null && lit.length > 0 && (
+            <>
+              <p className={styles.legendKicker}>{t.reader.lit}</p>
+              <ul>
+                {lit.map((pos) => (
+                  <li key={pos}><b>{pos} · {roles[pos][locale]}</b> {cardAt[pos]?.name}</li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      </aside>
+    </div>
   );
 }

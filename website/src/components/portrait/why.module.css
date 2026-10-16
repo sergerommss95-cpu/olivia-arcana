@@ -129,6 +129,8 @@
   font: 400 11px/1.4 var(--mono);
   letter-spacing: 0.02em;
   color: var(--faint);
+  /* A date line wraps in two even halves, never one word alone. */
+  text-wrap: balance;
 }
 
 /* The sigil: the lattice in miniature, this card filled, its sources ringed. */

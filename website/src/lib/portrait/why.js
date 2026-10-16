@@ -23,8 +23,13 @@ import { ANGLE_NAMES, ASPECT_NAMES, NUMBER_TITLES, PLANET_NAMES, SIGN_NAMES } fr
  */
 
 const WORDS = {
-  en: { position: "Position", fromCards: "from cards", fromBirth: "from your birth date", or: "or" },
-  uk: { position: "Позиція", fromCards: "з карт", fromBirth: "з вашої дати народження", or: "або" },
+  en: { position: "Position", fromCards: "from cards", or: "or" },
+  uk: { position: "Позиція", fromCards: "з карт", or: "або" },
+};
+/** The first three cards come straight from the date: which part, never the number itself. */
+const FROM_DATE = {
+  en: { 1: "from the day you were born", 2: "from your birth month", 3: "from the digits of your birth year" },
+  uk: { 1: "з дня вашого народження", 2: "з місяця вашого народження", 3: "із цифр року вашого народження" },
 };
 /** Where a sign is: «у Водолії». */
 const SIGNS_IN = {
@@ -61,6 +66,21 @@ function either(names, or) {
   return names.length < 2 ? names[0] ?? "" : `${names.slice(0, -1).join(", ")} ${or} ${names.at(-1)}`;
 }
 
+/**
+ * A planet's sign, or the signs it may be in: "Taurus or Gemini" / «Телець або Близнюки».
+ * @param {string[]} signs
+ * @param {Locale} locale
+ */
+export function eitherSigns(signs, locale) {
+  const lang = locale === "uk" ? "uk" : "en";
+  return either(signs.map((s) => SIGN_NAMES[s]?.[lang] ?? s), WORDS[lang].or);
+}
+
+/** "8th house" / «8-й дім». @param {number} n @param {Locale} locale */
+export function houseName(n, locale) {
+  return locale === "uk" ? `${n}-й дім` : `${ordinal(n)} house`;
+}
+
 /** "Mercury in Aquarius" / «Меркурій у Водолії»; with several signs, «Місяць у Тельці або Близнюках». */
 function placed(subject, signs, lang) {
   if (lang === "uk") {
@@ -71,16 +91,17 @@ function placed(subject, signs, lang) {
 }
 
 /**
- * How a card was found: "Position 4 · from cards 1 + 2"; the first three come
- * from the birth date itself.
+ * How a card was found: "Position 4 · from cards 1 + 2"; the first three name
+ * the part of the birth date they come from: "Position 2 · from your birth month".
  * @param {number} pos
  * @param {Locale} locale
  */
 export function foundLine(pos, locale) {
-  const w = WORDS[locale === "uk" ? "uk" : "en"];
+  const lang = locale === "uk" ? "uk" : "en";
+  const w = WORDS[lang];
   const from = /** @type {Record<number, number[]>} */ (LINKS)[pos];
   // No-break spaces keep the sum whole; a narrow line breaks after the position.
-  return `${w.position}\u00a0${pos} · ${from ? `${w.fromCards.replace(" ", "\u00a0")}\u00a0${from.join("\u00a0+\u00a0")}` : w.fromBirth}`;
+  return `${w.position}\u00a0${pos} · ${from ? `${w.fromCards.replace(" ", "\u00a0")}\u00a0${from.join("\u00a0+\u00a0")}` : /** @type {Record<number, string>} */ (FROM_DATE[lang])[pos]}`;
 }
 
 /** The factor a teaching speaks of, from its id: card-8-strength → arkan-8, natal-moon-sign-taurus → natal-moon. */
@@ -134,7 +155,7 @@ export function explain(passage, packet, locale, cards, teachings) {
     .sort((a, b) => PLANETS.indexOf(a.body) - PLANETS.indexOf(b.body))
     .map((f) => {
       const signs = f.alternatives?.length > 1 ? f.alternatives : [f.sign];
-      const house = f.house ? (lang === "uk" ? `${f.house}-й дім` : `${ordinal(f.house)} house`) : "";
+      const house = f.house ? houseName(f.house, lang) : "";
       const text = placed(PLANET_NAMES[f.body][lang], signs, lang) + (house ? `, ${house}` : "");
       return { key: f.id, glyph: BODY_GLYPHS[f.body], text, retrograde: Boolean(f.retrograde), uncertain: signs.length > 1 };
     });

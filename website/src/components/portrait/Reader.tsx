@@ -2,8 +2,8 @@
 
 /**
  * The reading, set as an almanac leaf: title and epigraph, the overview with
- * its drop cap, five facets and six chapters under fleurons, and the keep
- * plate. Each passage reports when it is being read (hovered, focused, or
+ * its drop cap, five facets and six chapters under fleurons, the keep plate,
+ * and the maps it was read from. Each passage reports when it is being read (hovered, focused, or
  * crossing the reading line) so the dock can light its cards; its seals sit
  * beneath it with a "Why this" link. Chapters still being written stand as
  * engraved placeholders and ink in as they land.
@@ -14,13 +14,14 @@ import type { MajorCard } from "@/lib/astrology/deck";
 import { sealsFor } from "@/lib/portrait/seals.js";
 import type { Chapter, PortraitPacket, PortraitStages, PortraitStatus } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
+import Maps from "./Maps";
 import styles from "./reader.module.css";
 
 /** From here the dock and the rail stand beside the text; below it they join a sticky bar. */
 export const WIDE = "(min-width: 1100px)";
 export const FACETS = ["temperament", "inner", "gifts", "bonds", "direction"] as const;
 export const CHAPTERS = { b: ["mind", "heart", "work"], c: ["shadow", "love", "becoming"] } as const;
-export const SECTIONS = ["opening", "mind", "heart", "work", "shadow", "love", "becoming", "keep"] as const;
+export const SECTIONS = ["opening", "mind", "heart", "work", "shadow", "love", "becoming", "keep", "maps"] as const;
 export type SectionKey = (typeof SECTIONS)[number];
 type ChapterKey = (typeof CHAPTERS)["b" | "c"][number];
 type PassageEvents = {
@@ -60,10 +61,17 @@ export function passageRefs(stages: PortraitStages, key: string): string[] {
   return passageOf(stages, key)?.refs ?? [];
 }
 
-/** Which stage each section is written in, and whether it has landed, is still being written, or never will be. */
-export function sectionStates(stages: PortraitStages, failed: boolean) {
-  const out = {} as Record<SectionKey, "ready" | "pending" | "unwritten">;
+/** The maps are drawn from the packet alone; a reading kept without one has none. */
+export const hasMaps = (packet: PortraitPacket) => packet.factors.some((f) => f.kind === "arkan");
+
+/**
+ * Which stage each section is written in, and whether it has landed, is still
+ * being written, or never will be. The maps are ready from the start, or absent.
+ */
+export function sectionStates(stages: PortraitStages, failed: boolean, maps: boolean) {
+  const out = {} as Record<SectionKey, "ready" | "pending" | "unwritten" | "absent">;
   for (const key of SECTIONS) {
+    if (key === "maps") { out[key] = maps ? "ready" : "absent"; continue; }
     const stage = key === "opening" ? stages.a : (CHAPTERS.b as readonly string[]).includes(key) ? stages.b : stages.c;
     out[key] = stage ? "ready" : failed ? "unwritten" : "pending";
   }
@@ -123,9 +131,9 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
       const section = inOrder.find((el) => el.dataset.section)?.dataset.section as SectionKey | undefined;
       const passage = inOrder.find((el) => el.dataset.passage)?.dataset.passage;
       if (section) report.current.onSection(section);
-      // Between passages the last one stays lit; the keep plate cites nothing.
+      // Between passages the last one stays lit; the keep plate and the maps cite nothing.
       if (passage) setReading(passage);
-      else if (section === "keep") setReading(null);
+      else if (section === "keep" || section === "maps") setReading(null);
     }, { rootMargin: READING_LINE });
     box.querySelectorAll("[data-section], [data-passage]").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
@@ -160,70 +168,77 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
   // A failure leaves one notice where the first unwritten chapter would be.
   const unwritten = failed ? CHAPTER_ORDER.find((key) => !(stages.b?.chapters[key] || stages.c?.chapters[key])) : undefined;
 
+  // The text, then the maps and the end: siblings in the reading's grid, so the maps can stand wider.
   return (
-    <div ref={root} className={styles.text} data-reader-text="">
-      <section id={sectionId("opening")} data-section="opening" className={styles.opening} aria-labelledby={`${sectionId("opening")}-title`}>
-        <p className={`${styles.kicker} ${styles.ink}`} style={ink(0)}>{firstName ? `${r.kicker} · ${firstName}` : r.kicker}</p>
-        <h1 id={`${sectionId("opening")}-title`} ref={heading} tabIndex={-1} className={`${styles.title} ${styles.ink}`} style={ink(1)}>{a.title}</h1>
-        <p className={`${styles.epigraph} ${styles.ink}`} style={ink(2)}>{a.epigraph}</p>
-        <article className={`${styles.passage} ${styles.ink}`} style={ink(3)} data-passage="overview" data-active={active === "overview" || undefined} tabIndex={0} aria-label={r.sections.opening} {...passageEvents("overview")}>
-          <p className={`${styles.prose} ${styles.overview}`}>{a.overview.text}</p>
-          {seals("overview", a.overview.refs, r.sections.opening)}
-        </article>
-        {FACETS.map((key, i) => {
-          const facet = a.facets[key];
-          if (!facet) return null;
-          return (
-            <article key={key} className={`${styles.passage} ${styles.facet} ${styles.ink}`} style={ink(4 + i)} data-passage={key} data-active={active === key || undefined} tabIndex={0} aria-labelledby={`${sectionId(key)}-title`} {...passageEvents(key)}>
-              <p className={styles.fleuron} aria-hidden="true">❦</p>
-              <h2 id={`${sectionId(key)}-title`} className={styles.heading}>{facet.heading}</h2>
-              <p className={styles.prose}>{facet.text}</p>
-              {seals(key, facet.refs, facet.heading)}
-            </article>
-          );
+    <div ref={root} className={styles.leaf}>
+      <div className={styles.text} data-reader-text="">
+        <section id={sectionId("opening")} data-section="opening" className={styles.opening} aria-labelledby={`${sectionId("opening")}-title`}>
+          <p className={`${styles.kicker} ${styles.ink}`} style={ink(0)}>{firstName ? `${r.kicker} · ${firstName}` : r.kicker}</p>
+          <h1 id={`${sectionId("opening")}-title`} ref={heading} tabIndex={-1} className={`${styles.title} ${styles.ink}`} style={ink(1)}>{a.title}</h1>
+          <p className={`${styles.epigraph} ${styles.ink}`} style={ink(2)}>{a.epigraph}</p>
+          <article className={`${styles.passage} ${styles.ink}`} style={ink(3)} data-passage="overview" data-active={active === "overview" || undefined} tabIndex={0} aria-label={r.sections.opening} {...passageEvents("overview")}>
+            <p className={`${styles.prose} ${styles.overview}`}>{a.overview.text}</p>
+            {seals("overview", a.overview.refs, r.sections.opening)}
+          </article>
+          {FACETS.map((key, i) => {
+            const facet = a.facets[key];
+            if (!facet) return null;
+            return (
+              <article key={key} className={`${styles.passage} ${styles.facet} ${styles.ink}`} style={ink(4 + i)} data-passage={key} data-active={active === key || undefined} tabIndex={0} aria-labelledby={`${sectionId(key)}-title`} {...passageEvents(key)}>
+                <p className={styles.fleuron} aria-hidden="true">❦</p>
+                <h2 id={`${sectionId(key)}-title`} className={styles.heading}>{facet.heading}</h2>
+                <p className={styles.prose}>{facet.text}</p>
+                {seals(key, facet.refs, facet.heading)}
+              </article>
+            );
+          })}
+        </section>
+
+        {CHAPTER_ORDER.map((key, i) => {
+          const order = i < CHAPTERS.b.length ? startB + i : startC + i - CHAPTERS.b.length;
+          const chapter = stages.b?.chapters[key] ?? stages.c?.chapters[key];
+          const kicker = `${NUMERALS[i]} · ${r.sections[key]}`;
+          if (chapter) {
+            return (
+              <section key={key} id={sectionId(key)} data-section={key} className={`${styles.chapter} ${styles.ink}`} style={ink(order)} aria-labelledby={`${sectionId(key)}-title`}>
+                <ChapterPassage chapterKey={key} chapter={chapter} kicker={kicker} active={active === key} events={passageEvents(key)} practice={r.practice}>
+                  {seals(key, chapter.refs, chapter.title)}
+                </ChapterPassage>
+              </section>
+            );
+          }
+          if (unwritten === key) {
+            return (
+              <section key={key} id={sectionId("unfinished")} className={`${styles.notice} ${styles.ink}`} style={ink(0)} aria-labelledby={`${sectionId("unfinished")}-title`}>
+                <p id={`${sectionId("unfinished")}-title`} className={styles.noticeKicker}>{r.unfinishedTitle}</p>
+                <p>{unfinished}</p>
+              </section>
+            );
+          }
+          if (failed) return null;
+          return <Placeholder key={key} id={sectionId(key)} section={key} kicker={kicker} pending={r.pending} />;
         })}
-      </section>
 
-      {CHAPTER_ORDER.map((key, i) => {
-        const order = i < CHAPTERS.b.length ? startB + i : startC + i - CHAPTERS.b.length;
-        const chapter = stages.b?.chapters[key] ?? stages.c?.chapters[key];
-        const kicker = `${NUMERALS[i]} · ${r.sections[key]}`;
-        if (chapter) {
-          return (
-            <section key={key} id={sectionId(key)} data-section={key} className={`${styles.chapter} ${styles.ink}`} style={ink(order)} aria-labelledby={`${sectionId(key)}-title`}>
-              <ChapterPassage chapterKey={key} chapter={chapter} kicker={kicker} active={active === key} events={passageEvents(key)} practice={r.practice}>
-                {seals(key, chapter.refs, chapter.title)}
-              </ChapterPassage>
-            </section>
-          );
-        }
-        if (unwritten === key) {
-          return (
-            <section key={key} id={sectionId("unfinished")} className={`${styles.notice} ${styles.ink}`} style={ink(0)} aria-labelledby={`${sectionId("unfinished")}-title`}>
-              <p id={`${sectionId("unfinished")}-title`} className={styles.noticeKicker}>{r.unfinishedTitle}</p>
-              <p>{unfinished}</p>
-            </section>
-          );
-        }
-        if (failed) return null;
-        return <Placeholder key={key} id={sectionId(key)} section={key} kicker={kicker} pending={r.pending} />;
-      })}
+        {stages.c ? (
+          <section id={sectionId("keep")} data-section="keep" className={`${styles.keep} ${styles.ink}`} style={ink(startC + CHAPTERS.c.length)} tabIndex={-1} aria-labelledby={`${sectionId("keep")}-title`}>
+            <p className={styles.fleuron} aria-hidden="true">❦</p>
+            <h2 id={`${sectionId("keep")}-title`} className={styles.keepTitle} aria-label={t.keep}>{t.keep}</h2>
+            <ul className={styles.keepLines}>{stages.c.keep.map((line, j) => <li key={j}>{line}</li>)}</ul>
+          </section>
+        ) : !failed && (
+          <section id={sectionId("keep")} data-section="keep" className={`${styles.keep} ${styles.pending}`} aria-busy="true" tabIndex={-1} aria-label={`${r.sections.keep}, ${r.pending}`}>
+            <p className={styles.fleuron} aria-hidden="true">❦</p>
+            <p className={styles.chapterKicker} aria-hidden="true">{r.sections.keep} · <span className={styles.pendingNote}>{r.pending}</span></p>
+            <div className={styles.bars} aria-hidden="true">
+              {[0, 1, 2].map((j) => <span key={j} className={`${styles.bar} ${styles.barKeep}`} />)}
+            </div>
+          </section>
+        )}
 
-      {stages.c ? (
-        <section id={sectionId("keep")} data-section="keep" className={`${styles.keep} ${styles.ink}`} style={ink(startC + CHAPTERS.c.length)} tabIndex={-1} aria-labelledby={`${sectionId("keep")}-title`}>
-          <p className={styles.fleuron} aria-hidden="true">❦</p>
-          <h2 id={`${sectionId("keep")}-title`} className={styles.keepTitle} aria-label={t.keep}>{t.keep}</h2>
-          <ul className={styles.keepLines}>{stages.c.keep.map((line, j) => <li key={j}>{line}</li>)}</ul>
-        </section>
-      ) : !failed && (
-        <section id={sectionId("keep")} data-section="keep" className={`${styles.keep} ${styles.pending}`} aria-busy="true" tabIndex={-1} aria-label={`${r.sections.keep}, ${r.pending}`}>
-          <p className={styles.fleuron} aria-hidden="true">❦</p>
-          <p className={styles.chapterKicker} aria-hidden="true">{r.sections.keep} · <span className={styles.pendingNote}>{r.pending}</span></p>
-          <div className={styles.bars} aria-hidden="true">
-            {[0, 1, 2].map((j) => <span key={j} className={`${styles.bar} ${styles.barKeep}`} />)}
-          </div>
-        </section>
-      )}
+        <p className={styles.sr} role="status" aria-live="polite">{said}</p>
+      </div>
+
+      {hasMaps(packet) && <Maps packet={packet} cards={cards} locale={locale} className={styles.mapsArea} />}
 
       {over && (
         <footer className={styles.footer}>
@@ -231,7 +246,6 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
           <button type="button" className={styles.again} onClick={onNew}>{r.newPortrait}</button>
         </footer>
       )}
-      <p className={styles.sr} role="status" aria-live="polite">{said}</p>
     </div>
   );
 }

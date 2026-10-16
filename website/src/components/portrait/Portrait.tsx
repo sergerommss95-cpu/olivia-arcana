@@ -15,7 +15,7 @@ import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
 import { forgetInvite, pollPortrait, readInviteFromHash, rememberInvite, rememberJob, settleJob, startPortrait, storedInvite, storedJob, type PortraitPacket, type PortraitStatus } from "./client";
 import Laying, { type Frames } from "./Laying";
 import LatticeDock, { measureLaying, type Landing } from "./LatticeDock";
-import Reader, { passageRefs, sectionStates, type SectionKey } from "./Reader";
+import Reader, { hasMaps, passageRefs, sectionStates, type SectionKey } from "./Reader";
 import ChapterRail from "./ChapterRail";
 import WhyDrawer, { type WhyTarget } from "./WhyDrawer";
 import styles from "./portrait.module.css";
@@ -214,7 +214,7 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
       <div className={readerStyles.reading} data-reader="">
         <div className={readerStyles.dockbar}>
           {phase.packet && <LatticeDock packet={phase.packet} cards={cards} locale={locale} lit={lit} landing={landing ?? undefined} />}
-          <ChapterRail locale={locale} states={sectionStates(stages, s?.status === "failed")} current={section} />
+          <ChapterRail locale={locale} states={sectionStates(stages, s?.status === "failed", hasMaps(packet))} current={section} />
         </div>
         <Reader stages={stages} status={s} packet={packet} cards={cards} locale={locale} firstName={firstName || undefined}
           onActive={setActive} onSection={setSection} onWhy={(key, trigger) => setWhy({ key, trigger })} onNew={reset} />

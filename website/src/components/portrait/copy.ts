@@ -44,7 +44,7 @@ export const PORTRAIT_COPY = {
     },
     reader: {
       kicker: "Your portrait",
-      sections: { opening: "Opening", mind: "Mind", heart: "Heart", work: "Work", shadow: "Shadow", love: "Love", becoming: "Becoming", keep: "Keep" },
+      sections: { opening: "Opening", mind: "Mind", heart: "Heart", work: "Work", shadow: "Shadow", love: "Love", becoming: "Becoming", keep: "Keep", maps: "Maps" },
       contents: "Contents",
       close: "Close",
       pending: "Being written",
@@ -58,6 +58,30 @@ export const PORTRAIT_COPY = {
       unfinishedTitle: "Unfinished",
       unfinished: "The rest of this portrait couldn't be written this time. Everything above is complete. Please try again later.",
       newPortrait: "Start a new portrait",
+    },
+    maps: {
+      title: "Your maps",
+      lede: "The cards, numbers and sky this portrait was read from.",
+      cards: { kicker: "From your birth date", title: "Your cards", links: "Each card opens its page in the deck." },
+      numbers: {
+        kicker: "From your name and birth date",
+        title: "Your numbers",
+        master: "Master number",
+        roles: {
+          lifePath: "The road your life keeps taking, read from your full birth date.",
+          expression: "What you are able to do and show, read from every letter of your name.",
+          soulUrge: "What you want most deeply, read from the vowels of your name.",
+          personality: "What others notice in you first, read from the consonants of your name.",
+        },
+        birthday: "the day of the month you were born",
+      },
+      sky: {
+        kicker: "From the sky at your birth",
+        title: "Your sky",
+        noRising: "Rising needs a birth time",
+        moved: "Changed sign on the day you were born",
+        others: "Other planets",
+      },
     },
     why: {
       kicker: "Why this",
@@ -119,7 +143,7 @@ export const PORTRAIT_COPY = {
     },
     reader: {
       kicker: "Ваш портрет",
-      sections: { opening: "Вступ", mind: "Розум", heart: "Серце", work: "Справа", shadow: "Тінь", love: "Любов", becoming: "Становлення", keep: "На згадку" },
+      sections: { opening: "Вступ", mind: "Розум", heart: "Серце", work: "Справа", shadow: "Тінь", love: "Любов", becoming: "Становлення", keep: "На згадку", maps: "Карти" },
       contents: "Зміст",
       close: "Закрити",
       pending: "Пишеться",
@@ -133,6 +157,30 @@ export const PORTRAIT_COPY = {
       unfinishedTitle: "Не завершено",
       unfinished: "Решту портрета цього разу не вдалося написати. Усе, що вище, завершене. Спробуйте пізніше.",
       newPortrait: "Почати новий портрет",
+    },
+    maps: {
+      title: "Ваші карти",
+      lede: "Аркани, числа й небо, з яких прочитано цей портрет.",
+      cards: { kicker: "З вашої дати народження", title: "Ваші аркани", links: "Кожна карта відкриває свою сторінку в колоді." },
+      numbers: {
+        kicker: "З вашого імені й дати народження",
+        title: "Ваші числа",
+        master: "Майстер-число",
+        roles: {
+          lifePath: "Дорога, якою йде ваше життя, прочитана з повної дати народження.",
+          expression: "Те, що ви вмієте й показуєте світові, прочитане з усіх літер вашого імені.",
+          soulUrge: "Те, чого ви прагнете найглибше, прочитане з голосних вашого імені.",
+          personality: "Те, що інші помічають у вас першим, прочитане з приголосних вашого імені.",
+        },
+        birthday: "день місяця, коли ви народилися",
+      },
+      sky: {
+        kicker: "З неба в мить вашого народження",
+        title: "Ваше небо",
+        noRising: "Для асцендента потрібен час народження",
+        moved: "Знак змінився впродовж дня вашого народження",
+        others: "Інші планети",
+      },
     },
     why: {
       kicker: "Чому так",
