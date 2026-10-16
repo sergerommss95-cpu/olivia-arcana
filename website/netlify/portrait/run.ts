@@ -76,7 +76,7 @@ export async function runJob({ kv, id, write, bank, deadlineMs = JOB_DEADLINE_MS
         const spent = costCents(result.usage, result.model);
         cents += spent;
         // A provider failure that reported no tokens cost nothing (typically a connection that never opened), so it is retried without using up an attempt, a few times per stage.
-        const free = !result.ok && result.code === "provider" && noTokens(result.usage) && freeRetries < MAX_FREE_RETRIES;
+        const free = !result.ok && result.code === "provider" && noTokens(result.usage) && !("streamed" in result && result.streamed) && freeRetries < MAX_FREE_RETRIES;
         // One line per attempt, never any text. `ok` means the attempt was accepted: the call succeeded and the stage passed its checks. `free` means it did not use up one of the two attempts.
         const log = (accepted: boolean) => console.log(JSON.stringify({ event: "portrait_stage", stage: key, attempt, ms, stopReason: result.stopReason ?? null, model: result.model ?? null, usage: result.usage, cents: spent, refusalCategory: result.refusalCategory ?? null, ok: accepted, free }));
         if (!result.ok) {

@@ -9,7 +9,7 @@ export type Usage = Tokens & { iterations?: (Tokens & { model?: string })[] };
 export type Meta = { stopReason: string | null; model: string | null; refusalCategory: string | null };
 export type WriteResult = Meta & (
   | { ok: true; data: unknown; usage: Usage }
-  | { ok: false; code: "refusal" | "truncated" | "unparseable" | "provider"; usage: Usage }
+  | { ok: false; code: "refusal" | "truncated" | "unparseable" | "provider"; usage: Usage; streamed?: boolean }
 );
 /** `system` and `shared` are the cached front of the request (the voice brief; a job's factors and teachings); `task` is the part that changes per stage and attempt. */
 export type Call = { system: string; shared: string; task: string; schema: object; maxTokens: number; signal?: AbortSignal };
@@ -51,16 +51,22 @@ export function interpret(message: any): WriteResult {
 }
 
 type Options = { apiKey: string; baseURL?: string; timeout: number; maxRetries: number };
-type Streams = { beta: { messages: { stream(params: any, options?: { signal?: AbortSignal }): { finalMessage(): Promise<unknown> } } } };
+type Streams = { beta: { messages: { stream(params: any, options?: { signal?: AbortSignal }): { on(event: "streamEvent", listener: () => void): unknown; finalMessage(): Promise<unknown> } } } };
 
 /** `baseURL` points the client at a gateway (Netlify AI Gateway sets ANTHROPIC_BASE_URL next to its own key); without it the SDK uses its default. */
 export function createWriter({ apiKey, baseURL, model, effort, send, makeClient = (options) => new Anthropic(options) as unknown as Streams }: {
-  apiKey: string; baseURL?: string; model: string; effort: string; send?: (params: object, options: { signal?: AbortSignal }) => Promise<unknown>; makeClient?: (options: Options) => Streams;
+  apiKey: string; baseURL?: string; model: string; effort: string; send?: (params: object, options: { signal?: AbortSignal }, onEvent?: () => void) => Promise<unknown>; makeClient?: (options: Options) => Streams;
 }) {
   // The SDK retries only what failed before a byte streamed (connection errors, 408/409/429/5xx), so more retries cost nothing; a stalled connect would otherwise fail a stage after one retry.
   const client = makeClient({ apiKey, baseURL, timeout: 240_000, maxRetries: 3 });
-  const dispatch = send ?? ((params: object, options: { signal?: AbortSignal }) => client.beta.messages.stream(params, options).finalMessage());
+  const dispatch = send ?? ((params: object, options: { signal?: AbortSignal }, onEvent?: () => void) => {
+    const stream = client.beta.messages.stream(params, options);
+    if (onEvent && typeof stream.on === "function") stream.on("streamEvent", onEvent);
+    return stream.finalMessage();
+  });
   return async function write(call: Call): Promise<WriteResult> {
+    // Once any part of the reply has streamed the call is billed, even if the connection then drops.
+    let streamed = false;
     try {
       const message = await dispatch({
         model,
@@ -71,11 +77,11 @@ export function createWriter({ apiKey, baseURL, model, effort, send, makeClient 
         output_config: { effort, format: { type: "json_schema", schema: call.schema } },
         system: [{ type: "text", text: call.system, cache_control: { type: "ephemeral" } }],
         messages: [{ role: "user", content: [{ type: "text", text: call.shared, cache_control: { type: "ephemeral" } }, { type: "text", text: call.task }] }],
-      }, { signal: call.signal });
+      }, { signal: call.signal }, () => { streamed = true; });
       return interpret(message);
     } catch (error) {
-      console.warn(JSON.stringify({ event: "portrait_provider_failure", status: (error as any)?.status ?? null, type: (error as any)?.type ?? (error as Error)?.name }));
-      return { ok: false, code: "provider", usage: NONE, ...NO_META };
+      console.warn(JSON.stringify({ event: "portrait_provider_failure", status: (error as any)?.status ?? null, type: (error as any)?.type ?? (error as Error)?.name, streamed }));
+      return { ok: false, code: "provider", usage: NONE, streamed, ...NO_META };
     }
   };
 }

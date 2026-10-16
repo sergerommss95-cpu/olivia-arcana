@@ -239,14 +239,14 @@ test("createWriter sends one structured, cached, fallback-enabled request and in
   assert.ok(!("tool_choice" in params));
 });
 
-test("createWriter turns a provider error into a code, logging only event, status and type", async (t) => {
+test("createWriter turns a provider error into a code, logging only event, status, type and whether it streamed", async (t) => {
   const lines = quiet(t);
   const failure = Object.assign(new Error("prompt text and secret detail"), { status: 400, type: "invalid_request_error" });
   const write = createWriter({ apiKey: "test-key", model: "m", effort: "high", send: async () => { throw failure; } });
   const result = await write({ system: "s", shared: "sh", task: "t", schema: {}, maxTokens: 10 });
-  assert.deepEqual(result, { ok: false, code: "provider", usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }, stopReason: null, model: null, refusalCategory: null });
+  assert.deepEqual(result, { ok: false, code: "provider", usage: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }, streamed: false, stopReason: null, model: null, refusalCategory: null });
   assert.equal(lines.length, 1);
-  assert.deepEqual(Object.keys(JSON.parse(lines[0])).sort(), ["event", "status", "type"]);
+  assert.deepEqual(Object.keys(JSON.parse(lines[0])).sort(), ["event", "status", "streamed", "type"]);
   assert.equal(JSON.parse(lines[0]).type, "invalid_request_error");
   assert.equal(JSON.parse(lines[0]).status, 400);
   assert.ok(!lines[0].includes("secret detail"));
@@ -869,4 +869,27 @@ test("after a real repair, paragraphs a little short are kept as residue; far to
   const second = scripted([ok(A), ok(B), ok(shortC(4)), ok(shortC(4))]);
   assert.equal(await runJob({ kv: kv2, id: "j", write: second.write, bank }), "failed");
   assert.equal((await readJob(kv2, "j")).error, "stage_c_invalid");
+});
+
+test("a connection that drops after the reply began streaming was billed, so it uses up an attempt", async (t) => {
+  quiet(t);
+  const kv = memoryStore();
+  await createJob(kv, job);
+  const dropped = () => ({ ...provider(), streamed: true });
+  const { write, calls } = scripted([dropped, dropped, ok(A), ok(B), ok(C)]);
+  assert.equal(await runJob({ kv, id: "j", write, bank, ...instantly }), "failed");
+  assert.equal(calls.length, 2);
+  assert.equal((await readJob(kv, "j")).error, "stage_a_provider");
+});
+
+test("the writer reports whether any part of the reply streamed before a failure", async () => {
+  const { createWriter } = await import("./claude.ts");
+  const call = { system: "s", shared: "x", task: "t", schema: {}, maxTokens: 10 };
+  const midStream = createWriter({ apiKey: "k", model: "m", effort: "low", send: async (_params, _options, onEvent) => { onEvent?.(); throw new Error("socket hang up"); } });
+  const beforeStream = createWriter({ apiKey: "k", model: "m", effort: "low", send: async () => { throw new Error("connect timeout"); } });
+  const warn = console.warn; console.warn = () => {};
+  try {
+    assert.equal((await midStream(call)).streamed, true);
+    assert.equal((await beforeStream(call)).streamed, false);
+  } finally { console.warn = warn; }
 });
