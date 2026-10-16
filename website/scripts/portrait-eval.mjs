@@ -260,7 +260,7 @@ export async function runProfile({ profile, packet, write, bank, variant, model,
   return {
     profile: id, variant, locale: profile.locale, model, effort, dry, gitSha: sha, packet,
     status: outcome === "done" ? "done" : "failed",
-    error: thrown ? `eval_exception:${thrown?.message}` : job?.error ?? (outcome === "skipped" ? "skipped" : null),
+    error: thrown ? `eval_exception:${safeMessage(thrown)}` : job?.error ?? (outcome === "skipped" ? "skipped" : null),
     stages,
     ms: { ...summary.ms, total },
     costCents: job?.costCents ?? summary.cents,
@@ -599,7 +599,11 @@ export function summarize({ variants, results, skipped = [], metrics = null, met
     "## Mean scores", "",
     `| Criterion | ${cell(v1)} | ${cell(v2)} |`, "| --- | --- | --- |");
   for (const criterion of columns) {
-    const mean = (variant) => judged.reduce((n, r) => n + r.combined.scores[variant][criterion], 0) / judged.length;
+    // Only the readings that were scored on this criterion count: English readings have no Ukrainian score.
+    const mean = (variant) => {
+      const values = judged.map((r) => r.combined.scores[variant][criterion]).filter((v) => v != null);
+      return values.length ? values.reduce((a, b) => a + b, 0) / values.length : null;
+    };
     lines.push(`| ${criterion}${criterion === UK_CRITERION ? " (UK only)" : ""} | ${num(mean(v1))} | ${num(mean(v2))} |`);
   }
   lines.push("", "## By profile", "", `Scores read \`${cell(v1)} – ${cell(v2)}\`. Picks are the order 1 and order 2 results.`, "",

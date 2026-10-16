@@ -340,6 +340,50 @@ test("the summary maps picks, scores and reasons back to variant names, order by
   assert.match(md, /## Not judged\n\n- p5: only in old/);
 });
 
+test("the Ukrainian mean covers the Ukrainian profiles only, and other criteria are unaffected", () => {
+  const variants = ["old", "new"];
+  const pair = (profile, locale, o, n) => {
+    const uk = locale === "uk";
+    const orders = [orderOf({ A: "old", B: "new" }, "A", o, n, undefined, uk), orderOf({ A: "new", B: "old" }, "B", n, o, undefined, uk)];
+    return { profile, locale, orders, combined: ev.combineOrders({ variants, orders }), costCents: 2, ms: 1, error: null };
+  };
+  // old scores 2 and new scores 4 on every Ukrainian profile; old 3 and new 5 on every English one.
+  const results = [pair("e1", "en", 3, 5), pair("e2", "en", 3, 5), pair("u1", "uk", 2, 4), pair("u2", "uk", 2, 4)];
+  const md = ev.summarize({ variants, results, meta: { model: "m", effort: "high" } });
+  assert.match(md, /\| ukrainianNaturalness \(UK only\) \| 2\.0 \| 4\.0 \|/);
+  // Over all four profiles: old (3 + 3 + 2 + 2) / 4 = 2.5, new (5 + 5 + 4 + 4) / 4 = 4.5.
+  assert.match(md, /\| recognisability \| 2\.5 \| 4\.5 \|/);
+  assert.match(md, /\| warmth \| 2\.5 \| 4\.5 \|/);
+  // No Ukrainian profile at all: no row (it would be n/a).
+  assert.ok(!ev.summarize({ variants, results: results.slice(0, 2), meta: {} }).includes("ukrainianNaturalness"));
+  // A criterion with no scored value in one variant reads n/a rather than 0.
+  const hollow = pair("u3", "uk", 2, 4);
+  for (const o of hollow.orders) for (const side of ["A", "B"]) o.verdict.scores[side].ukrainianNaturalness = null;
+  hollow.combined = ev.combineOrders({ variants, orders: hollow.orders });
+  assert.match(ev.summarize({ variants, results: [hollow], meta: {} }), /\| warmth \| 2\.0 \| 4\.0 \|/);
+});
+
+test("a runner exception is recorded through the same redaction and clip", async () => {
+  const key = process.env.ANTHROPIC_API_KEY;
+  process.env.ANTHROPIC_API_KEY = "sk-test-secret-value";
+  try {
+    const profile = byId("en-timed-tom");
+    const packet = ev.packetFor(profile, places);
+    // runJob catches a throwing writer itself. Once its stages have landed it reads the bank again to keep the cited teachings, and
+    // that read is outside its catches: the first bank read after the first call throws, so runJob rejects and runProfile records it.
+    let armed = false;
+    const flaky = new Proxy(bank, { get(target, name) { if (armed && name === "sources") { armed = false; throw new Error(`bad bank sk-test-secret-value ${"y".repeat(400)}`); } return target[name]; } });
+    const inner = ev.fakeWriter({ locale: "en", quirks: false, delayMs: 0 });
+    const record = await ev.runProfile({ profile, packet, write: async (call) => { armed = true; return inner(call); }, bank: flaky, variant: "v", model: "m", effort: "low" });
+    assert.equal(record.status, "failed");
+    assert.match(record.error, /^eval_exception:bad bank \[redacted\] y+$/);
+    assert.equal(record.error.length, "eval_exception:".length + 200, "clipped to 200 characters");
+    assert.ok(!record.error.includes("sk-test"));
+  } finally {
+    if (key === undefined) delete process.env.ANTHROPIC_API_KEY; else process.env.ANTHROPIC_API_KEY = key;
+  }
+});
+
 test("the summary says when the run stopped at its budget", () => {
   const md = ev.summarize({ variants: ["old", "new"], results: [], skipped: [{ profile: "p9", reason: "not started: stopped at budget" }], meta: { stoppedAtBudget: true, spentCents: 12, maxCents: 10 } });
   assert.match(md, /\*\*Stopped at budget\*\*: 12c spent against a cap of 10c/);
