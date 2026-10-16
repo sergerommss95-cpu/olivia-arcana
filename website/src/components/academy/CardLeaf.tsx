@@ -115,7 +115,8 @@ export default function CardLeaf({ leaf, locale, ground }: { leaf: Leaf; locale:
       </nav>
 
       <header className={styles.hero}>
-        <figure className={styles.heroFigure}>
+        {/* The name is the heading beside it: no hover plate here. */}
+        <figure className={styles.heroFigure} data-card-label="off">
           <Image src={image} alt={c.image(name)} width={896} height={1536} priority className={styles.heroArt} sizes="(max-width: 800px) 60vw, 320px" />
         </figure>
         <div className={styles.heroText}>

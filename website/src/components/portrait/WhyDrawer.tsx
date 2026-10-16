@@ -246,8 +246,8 @@ function WhyCard({ pos, card, order, still }: { pos: number; card: MajorCard | u
     return () => cancelAnimationFrame(frame);
   }, [art, turned]);
   return (
-    // The row beside it names the card; the art is for the eye.
-    <div className={styles.art} aria-hidden="true">
+    // The row beside it names the card; the art is for the eye (and no hover name plate).
+    <div className={styles.art} aria-hidden="true" data-card-label="off">
       <LatticeCard pos={pos} card={card} turned={turned} label="" sizes="64px" onArt={() => setArt(true)}
         style={{ "--turn-delay": `${240 + order * 140}ms` } as CSSProperties} />
     </div>

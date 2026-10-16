@@ -1,0 +1,81 @@
+/* website/src/components/CardNameHover.module.css
+   The name plate over a card: lapis, a gilt hairline, the card's name in the
+   display serif, and a small notch pointing at the card. Placed by
+   CardNameHover.tsx (left, top, --notch, data-side, data-state). */
+
+.plate {
+  --plate-ground: var(--background, #0b192a);
+  --plate-ink: #eee6d4;
+  --plate-gilt: #c9b182;
+  --plate-hair: rgba(201, 177, 130, 0.35);
+  --plate-ease: var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1));
+  --rise: 4px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2147483000;
+  display: flex;
+  align-items: baseline;
+  gap: 0.45em;
+  max-width: min(22rem, calc(100vw - 16px));
+  padding: 0.38rem 0.9rem 0.44rem;
+  border: 1px solid var(--plate-hair);
+  border-radius: 6px;
+  background: var(--plate-ground);
+  box-shadow: 0 14px 32px rgba(2, 8, 18, 0.5), 0 2px 6px rgba(2, 8, 18, 0.35);
+  color: var(--plate-ink);
+  font-family: var(--font-heading, "Cormorant Garamond"), serif;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  transform: translateY(var(--rise));
+  transition: opacity 140ms var(--plate-ease), transform 140ms var(--plate-ease);
+}
+.plate[data-state="on"] { opacity: 1; transform: none; }
+/* Below the card it settles downward, away from the card, as it does above. */
+.plate[data-side="below"] { --rise: -4px; }
+/* Following a card that lifts as it is hovered (moving to another card stays instant). */
+.plate[data-settle] {
+  transition: opacity 140ms var(--plate-ease), transform 140ms var(--plate-ease),
+    top 180ms var(--plate-ease), left 180ms var(--plate-ease);
+}
+
+.numeral {
+  color: var(--plate-gilt);
+  font-size: 0.8em;
+  letter-spacing: 0.06em;
+}
+.name { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+
+/* The notch: a turned square on the edge that faces the card. */
+.plate::after {
+  content: "";
+  position: absolute;
+  left: var(--notch, 50%);
+  top: 100%;
+  width: 9px;
+  height: 9px;
+  background: var(--plate-ground);
+  border-right: 1px solid var(--plate-hair);
+  border-bottom: 1px solid var(--plate-hair);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.plate[data-side="below"]::after {
+  top: 0;
+  border: 0;
+  border-left: 1px solid var(--plate-hair);
+  border-top: 1px solid var(--plate-hair);
+}
+.plate[data-side="inside"]::after { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .plate, .plate[data-settle] { transform: none; transition: opacity 140ms var(--plate-ease); }
+}
+
+@media print {
+  .plate { display: none; }
+}
