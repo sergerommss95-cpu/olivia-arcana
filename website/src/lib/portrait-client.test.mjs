@@ -10,7 +10,7 @@ globalThis.localStorage = {
   setItem: (key, value) => void store.set(key, String(value)),
   removeItem: (key) => void store.delete(key),
 };
-const { pollPortrait, startPortrait, rememberInvite, storedInvite, forgetInvite, rememberJob, storedJob } = await import("../components/portrait/client.ts");
+const { pollPortrait, startPortrait, rememberInvite, storedInvite, forgetInvite, rememberJob, storedJob, settleJob } = await import("../components/portrait/client.ts");
 
 const reply = (status, body) => ({ status, ok: status >= 200 && status < 300, json: async () => body });
 const state = (status, error = null, stages = {}) => reply(200, { status, stages, teachings: {}, error });
@@ -121,6 +121,17 @@ test("the job id and packet are remembered and cleared", () => {
   rememberJob({ id: "job-1" });
   assert.deepEqual(storedJob(), { id: "job-1" });
   rememberJob(null);
+  assert.equal(storedJob(), null);
+});
+
+test("a finished or failed reading keeps its id and packet; only a missing one is forgotten", () => {
+  rememberJob({ id: "job-1", packet: PACKET });
+  const status = (s, error = null, extra = {}) => ({ status: s, stages: {}, teachings: {}, error, ...extra });
+  for (const s of [status("running"), status("done"), status("failed", "stage_b_invalid"), status("failed", "timeout", { resumable: true }), status("failed", "unconfigured")]) {
+    settleJob(s);
+    assert.deepEqual(storedJob(), { id: "job-1", packet: PACKET }, `${s.status} ${s.error}`);
+  }
+  settleJob(status("failed", "missing"));
   assert.equal(storedJob(), null);
 });
 

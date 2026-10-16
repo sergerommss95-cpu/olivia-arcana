@@ -11,11 +11,14 @@
 //
 // --a-at N   queued/running until N s after the Laying mounts, then stage A
 // --bc-at N  then stages B and C, status "done", with teachings
+// --fail-at N  instead, from N s: status "failed" with stage A only (B could not be written)
 // --full     capture the whole page height, not just the viewport (this re-lays out
 //            the page and restarts running CSS animations: use it for layout, not timing)
 // --ax       print the accessibility tree's names for the lattice and live region
 // --eval JS  print the value of a page expression after the last shot
 // --focus S  focus the element matching selector S before each shot
+// --scroll S scroll the element matching selector S to the top of the window before each shot
+// --before JS  evaluate a page expression before each shot (e.g. open a dialog)
 // --tag T    add T to the file names
 
 import { spawn } from "node:child_process";
@@ -38,14 +41,14 @@ const repo = path.resolve(here, "../..");
 const readJson = (file) => JSON.parse(readFileSync(file, "utf8"));
 
 function args(argv) {
-  const out = { base: "http://localhost:3417", locale: "en", viewport: "1440x900", times: "1,8,35", aAt: Infinity, bcAt: Infinity, out: "shots", reduced: false, full: false, ax: false };
+  const out = { base: "http://localhost:3417", locale: "en", viewport: "1440x900", times: "1,8,35", aAt: Infinity, bcAt: Infinity, failAt: Infinity, out: "shots", reduced: false, full: false, ax: false };
   for (let i = 0; i < argv.length; i++) {
     const key = argv[i].replace(/^--/, "").replace(/-(\w)/g, (_, c) => c.toUpperCase());
     if (["reduced", "full", "ax"].includes(key)) out[key] = true;
     else out[key] = argv[++i];
   }
   const [width, height] = String(out.viewport).split("x").map(Number);
-  return { ...out, width, height, times: String(out.times).split(",").map(Number).sort((a, b) => a - b), aAt: Number(out.aAt), bcAt: Number(out.bcAt) };
+  return { ...out, width, height, times: String(out.times).split(",").map(Number).sort((a, b) => a - b), aAt: Number(out.aAt), bcAt: Number(out.bcAt), failAt: Number(out.failAt) };
 }
 
 /** The reading the page follows: EN from the M2 evidence run, UK from M1's with its packet recalculated. */
@@ -69,6 +72,7 @@ function fixture(locale) {
 
 function statusAt(seconds, fx, opts) {
   if (seconds < opts.aAt) return { status: seconds < 3 ? "queued" : "running", stages: {}, teachings: {}, error: null };
+  if (seconds >= opts.failAt) return { status: "failed", stages: { a: fx.stages.a }, teachings: fx.teachings, error: "stage_b_invalid" };
   if (seconds < opts.bcAt) return { status: "running", stages: { a: fx.stages.a }, teachings: fx.teachings, error: null };
   return { status: "done", stages: fx.stages, teachings: fx.teachings, error: null, costCents: 0 };
 }
@@ -169,11 +173,12 @@ async function main() {
         document.addEventListener("DOMContentLoaded", () => { const s = document.createElement("style"); s.textContent = "nextjs-portal{display:none!important}"; document.head.append(s); });`,
     });
     await send("Fetch.enable", { patterns: [{ urlPattern: "*/api/portrait/*", requestStage: "Request" }] });
+    // The clock starts when the Laying mounts, or the reader, for a reading reopened after stage A.
     const mounted = async () => {
       const deadline = performance.now() + 60_000;
       for (;;) {
-        if (performance.now() > deadline) throw new Error("the Laying never mounted");
-        const { result } = await send("Runtime.evaluate", { expression: "Boolean(document.querySelector('[data-laying]'))", returnByValue: true });
+        if (performance.now() > deadline) throw new Error("neither the Laying nor the reader mounted");
+        const { result } = await send("Runtime.evaluate", { expression: "Boolean(document.querySelector('[data-laying], [data-reader]'))", returnByValue: true });
         if (result.value) return performance.now();
         await sleep(40);
       }
@@ -190,7 +195,19 @@ async function main() {
     for (const t of opts.times) {
       const wait = mountedAt + t * 1000 - performance.now();
       if (wait > 0) await sleep(wait);
-      if (opts.focus) await send("Runtime.evaluate", { expression: `document.querySelector(${JSON.stringify(opts.focus)})?.focus()` });
+      if (opts.focus) {
+        await send("Runtime.evaluate", { expression: `document.querySelector(${JSON.stringify(opts.focus)})?.focus()` });
+        // What the focus sets in motion (a passage lighting its cards) settles before the shot.
+        await sleep(800);
+      }
+      if (opts.before) {
+        await send("Runtime.evaluate", { expression: opts.before, awaitPromise: true });
+        await sleep(600);
+      }
+      if (opts.scroll) {
+        await send("Runtime.evaluate", { expression: `document.querySelector(${JSON.stringify(opts.scroll)})?.scrollIntoView({ block: "start", behavior: "instant" })` });
+        await sleep(400);
+      }
       let clip;
       if (opts.full) {
         const { result } = await send("Runtime.evaluate", { expression: "document.documentElement.scrollHeight", returnByValue: true });

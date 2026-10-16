@@ -10,13 +10,26 @@ import { arkanPortrait } from "@/lib/portrait/arkan.js";
 import { nameNumbers } from "@/lib/portrait/numbers.js";
 import { signsThroughDay } from "@/lib/portrait/uncertain.js";
 import { buildPacket } from "@/lib/portrait/packet.js";
+import { litPositions } from "@/lib/portrait/lattice.js";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
-import { forgetInvite, pollPortrait, readInviteFromHash, rememberInvite, rememberJob, startPortrait, storedInvite, storedJob, type PortraitPacket, type PortraitStatus } from "./client";
+import { forgetInvite, pollPortrait, readInviteFromHash, rememberInvite, rememberJob, settleJob, startPortrait, storedInvite, storedJob, type PortraitPacket, type PortraitStatus } from "./client";
 import Laying, { type Frames } from "./Laying";
+import LatticeDock, { measureLaying, type Landing } from "./LatticeDock";
+import Reader, { passageRefs, sectionStates, type SectionKey } from "./Reader";
+import ChapterRail from "./ChapterRail";
 import styles from "./portrait.module.css";
+import readerStyles from "./reader.module.css";
 
-/** A reading resumed from an id stored before packets were kept has no packet, and no Laying. */
-type Phase = { kind: "form" } | { kind: "working"; id: string; packet: PortraitPacket | null; status: PortraitStatus | null } | { kind: "error"; code: string };
+/**
+ * A reading being written or reopened. `resumed` is a reading found in storage
+ * on load: it waits briefly for its first status, so a finished one opens
+ * straight into the reader. One stored before packets were kept has no packet,
+ * and no Laying or dock.
+ */
+type Phase = { kind: "form" } | { kind: "working"; id: string; packet: PortraitPacket | null; status: PortraitStatus | null; resumed: boolean } | { kind: "error"; code: string };
+/** How long a reopened reading waits for its first status before the Laying starts anyway. */
+const FIRST_STATUS_GRACE = 1200;
+const NO_PACKET: PortraitPacket = { v: 1, locale: "en", timeKnown: false, factors: [] };
 type ErrorKey = keyof (typeof PORTRAIT_COPY)["en"]["errors"];
 
 /** The copy for a finished-but-failed reading: timeout and missing are their own; "unconfigured" is a pause; the rest is "failed". */
@@ -30,8 +43,13 @@ function failureKey(error: string | null): ErrorKey {
 export default function Portrait({ locale, cards, frames }: { locale: PortraitLocale; cards: MajorCard[]; frames: Frames }) {
   const t = PORTRAIT_COPY[locale];
   const [phase, setPhase] = useState<Phase>({ kind: "form" });
-  /** True once the Laying has handed over to the reader (stage A has arrived). */
-  const [settled, setSettled] = useState(false);
+  /** Where the Laying's cards lay when stage A arrived: the dock's cards fly from there. */
+  const [landing, setLanding] = useState<Landing | null>(null);
+  /** False while a reopened reading waits for its first status. */
+  const [grace, setGrace] = useState(true);
+  /** The passage lighting the dock, and the section crossing the reading line. */
+  const [active, setActive] = useState<string | null>(null);
+  const [section, setSection] = useState<SectionKey>("opening");
   /** For the Laying's kicker only: kept in memory, never stored. */
   const [firstName, setFirstName] = useState("");
   const [name, setName] = useState("");
@@ -49,6 +67,7 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
   const [busy, setBusy] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
   const abort = useRef<AbortController | null>(null);
+  const graceTimer = useRef(0);
   const submitting = useRef(false);
   const mounted = useRef(false);
 
@@ -56,7 +75,7 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     mounted.current = true;
     // A reading in progress goes straight to the reader; every setState below lands in the same render.
     const job = storedJob();
-    if (job) follow(job.id, job.packet ?? null);
+    if (job) follow(job.id, job.packet ?? null, true);
     const fromHash = readInviteFromHash();
     if (fromHash) setInvite(fromHash);
     setHasInvite(Boolean(fromHash ?? storedInvite()));
@@ -66,26 +85,38 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     const profile = loadProfile();
     if (profile) { setDate(profile.date); setTime(profile.time ?? ""); setUnknownTime(!profile.time); setPlace(profile.place); setQuery(profile.place[locale] ?? profile.place.en); }
     loadPlaces().then(setPlaces);
-    return () => { mounted.current = false; abort.current?.abort(); };
+    return () => { mounted.current = false; abort.current?.abort(); window.clearTimeout(graceTimer.current); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const matches = useMemo(() => (place && query === (place[locale] ?? place.en) ? [] : searchPlaces(places, query, 6)), [places, query, place, locale]);
   const needsLatin = useMemo(() => Boolean(date) && nameNumbers({ date, name }).status === "needs-latin", [date, name]);
 
-  function follow(id: string, packet: PortraitPacket | null) {
+  function follow(id: string, packet: PortraitPacket | null, resumed: boolean) {
     abort.current?.abort();
+    window.clearTimeout(graceTimer.current);
     const controller = new AbortController();
     abort.current = controller;
-    setSettled(false);
-    setPhase({ kind: "working", id, packet, status: null });
+    let opened = false;
+    setLanding(null);
+    setActive(null);
+    setSection("opening");
+    setGrace(!resumed);
+    if (resumed) graceTimer.current = window.setTimeout(() => setGrace(true), FIRST_STATUS_GRACE);
+    setPhase({ kind: "working", id, packet, status: null, resumed });
     pollPortrait(id, (status) => {
       if (controller.signal.aborted) return;
-      setPhase({ kind: "working", id, packet, status });
-      // A client-side give-up is resumable: the job may still be running, so keep its id.
-      if (status.status === "failed" && !status.resumable) rememberJob(null);
-      // The packet is kept only while the reading is being written.
-      if (status.status === "done") rememberJob({ id });
+      // Stage A hands over from the Laying to the reader: its cards are measured where they lie,
+      // in the same update that swaps them for the dock. A reading reopened after A has no Laying.
+      if (status.stages.a && !opened) {
+        opened = true;
+        const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const lay = still ? {} : measureLaying();
+        setLanding(Object.keys(lay).length ? lay : null);
+      }
+      setPhase({ kind: "working", id, packet, status, resumed });
+      // The stored reading stays after it finishes, so a reload reopens it; an unknown or expired one is forgotten.
+      settleJob(status);
     }, controller.signal);
   }
 
@@ -125,7 +156,7 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
       rememberJob({ id: started.id, packet });
       if (mounted.current) {
         setFirstName(name.trim().split(/\s+/)[0] ?? "");
-        follow(started.id, packet);
+        follow(started.id, packet, false);
       }
     } finally {
       submitting.current = false;
@@ -133,7 +164,8 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
     }
   }
 
-  function reset() { abort.current?.abort(); rememberJob(null); setFirstName(""); setPhase({ kind: "form" }); }
+  /** A new portrait: the stored reading is forgotten. */
+  function reset() { abort.current?.abort(); window.clearTimeout(graceTimer.current); rememberJob(null); setFirstName(""); setLanding(null); setPhase({ kind: "form" }); }
 
   if (phase.kind === "error") {
     return (
@@ -146,56 +178,42 @@ export default function Portrait({ locale, cards, frames }: { locale: PortraitLo
 
   if (phase.kind === "working") {
     const s = phase.status;
-    const a = s?.stages.a, b = s?.stages.b, c = s?.stages.c;
-    const over = s?.status === "done" || s?.status === "failed";
-    // The Laying holds the page until stage A has landed; a failure before then goes to the notice below.
-    if (phase.packet && !settled && !(s?.status === "failed" && !a)) {
-      return <Laying packet={phase.packet} cards={cards} locale={locale} status={s} frames={frames} firstName={firstName || undefined} onSettled={() => setSettled(true)} />;
-    }
-    return (
-      <article className={styles.page} aria-busy={!over}>
-        {!a && !over && (
+    const stages = s?.stages ?? {};
+    if (!stages.a) {
+      // A failure before the opening was written: nothing to keep, one way on.
+      if (s?.status === "failed") {
+        return (
+          <section className={styles.page}>
+            <p className={styles.error} role="alert">{t.errors[failureKey(s.error)]}</p>
+            <button className={styles.button} onClick={reset}>{t.again}</button>
+          </section>
+        );
+      }
+      if (phase.resumed && !s && !grace) return <section className={`${styles.page} ${styles.hold}`} aria-busy="true" />;
+      if (phase.packet) return <Laying packet={phase.packet} cards={cards} locale={locale} status={s} frames={frames} firstName={firstName || undefined} />;
+      return (
+        <section className={styles.page}>
           <div className={styles.waiting} role="status">
             <p className={styles.kicker}>{t.writing}</p>
             <p className={styles.hint}>{t.writingHint}</p>
-            <ol className={styles.stages}>{(["a", "b", "c"] as const).map((k) => <li key={k} data-done={Boolean(s?.stages[k])}>{t.stages[k]}</li>)}</ol>
+            <ol className={styles.stages}>{(["a", "b", "c"] as const).map((k) => <li key={k} data-done={Boolean(stages[k])}>{t.stages[k]}</li>)}</ol>
           </div>
-        )}
-        {a && (
-          <header className={`${styles.reveal} ${styles.head}`}>
-            <h1 className={styles.title}>{a.title}</h1>
-            <p className={styles.epigraph}>{a.epigraph}</p>
-            <p className={styles.overview}>{a.overview.text}</p>
-          </header>
-        )}
-        {a && Object.entries(a.facets).map(([key, facet]) => (
-          <section key={key} className={`${styles.reveal} ${styles.facet}`}>
-            <h2>{facet.heading}</h2>
-            <p>{facet.text}</p>
-          </section>
-        ))}
-        {[b, c].map((stage, i) => stage && Object.entries(stage.chapters).map(([key, ch]) => (
-          <section key={`${i}-${key}`} className={`${styles.reveal} ${styles.chapter}`}>
-            <h2>{ch.title}</h2>
-            <p className={styles.lede}>{ch.lede}</p>
-            {ch.paragraphs.map((p, j) => <p key={j}>{p}</p>)}
-            <p className={styles.practice}>{ch.practice}</p>
-          </section>
-        )))}
-        {c?.keep && (
-          <section className={`${styles.reveal} ${styles.keep}`}>
-            <h2>{t.keep}</h2>
-            <ul>{c.keep.map((line, i) => <li key={i}>{line}</li>)}</ul>
-          </section>
-        )}
-        {s?.status === "failed" && <p className={styles.error} role="alert">{t.errors[failureKey(s.error)]}</p>}
-        {over && (
-          <footer className={styles.footer}>
-            <p className={styles.note}>{t.note}</p>
-            <button className={styles.button} onClick={reset}>{t.again}</button>
-          </footer>
-        )}
-      </article>
+        </section>
+      );
+    }
+
+    const packet = phase.packet ?? NO_PACKET;
+    const lit = active ? litPositions(passageRefs(stages, active), packet) : null;
+    return (
+      <div className={readerStyles.reading} data-reader="">
+        <div className={readerStyles.dockbar}>
+          {phase.packet && <LatticeDock packet={phase.packet} cards={cards} locale={locale} lit={lit} landing={landing ?? undefined} />}
+          <ChapterRail locale={locale} states={sectionStates(stages, s?.status === "failed")} current={section} />
+        </div>
+        {/* "Why this" opens the Why drawer once it exists (M3 Task 4). */}
+        <Reader stages={stages} status={s} packet={packet} cards={cards} locale={locale} firstName={firstName || undefined}
+          onActive={setActive} onSection={setSection} onWhy={() => {}} onNew={reset} />
+      </div>
     );
   }
 

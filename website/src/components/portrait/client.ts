@@ -3,10 +3,12 @@
 // Relative, not "@/": the node test runner imports this file directly.
 import { validatePacket } from "../../lib/portrait/packet.js";
 
-type Facet = { heading: string; text: string };
-type Chapter = { title: string; lede: string; paragraphs: string[]; practice: string };
+/** A passage cites the packet factors it was read from, and the teachings behind them. */
+export type Passage = { text: string; refs: string[]; teachings: string[] };
+export type Facet = Passage & { heading: string };
+export type Chapter = { title: string; lede: string; paragraphs: string[]; practice: string; refs: string[]; teachings: string[] };
 export type PortraitStages = {
-  a?: { title: string; epigraph: string; overview: { text: string }; facets: Record<string, Facet> };
+  a?: { title: string; epigraph: string; overview: Passage; facets: Record<string, Facet> };
   b?: { chapters: Record<string, Chapter> };
   c?: { chapters: Record<string, Chapter>; keep: string[] };
 };
@@ -25,7 +27,11 @@ export type PacketFactor = {
   angle?: string; a?: string; b?: string; aspect?: string;
 };
 export type PortraitPacket = { v: number; locale: string; timeKnown: boolean; factors: PacketFactor[] };
-/** A reading in progress: its id, and the packet so a reload can lay the cards again. */
+/**
+ * The reading on this page: its id, and the packet so a reload can lay the
+ * cards again or reopen the finished reader. Kept after the reading is done;
+ * cleared only by a new portrait or by the server no longer knowing the id.
+ */
 export type StoredJob = { id: string; packet?: PortraitPacket };
 const INVITE = "olivia:portrait-invite";
 const JOB = "olivia:portrait-job";
@@ -49,7 +55,7 @@ export function rememberJob(job: StoredJob | null) {
     else localStorage.removeItem(JOB);
   } catch { /* private mode */ }
 }
-/** The reading in progress, if any. A plain string is an id stored before packets were kept. */
+/** The stored reading, if any. A plain string is an id stored before packets were kept. */
 export function storedJob(): StoredJob | null {
   let raw: string | null;
   try { raw = localStorage.getItem(JOB); } catch { return null; }
@@ -60,6 +66,15 @@ export function storedJob(): StoredJob | null {
   const { id, packet } = value as StoredJob;
   const checked = validatePacket(packet) as { ok: boolean; packet?: PortraitPacket };
   return checked.ok && checked.packet ? { id, packet: checked.packet } : { id };
+}
+
+/**
+ * After each status: an unknown or expired reading (404, "missing") is
+ * forgotten. Anything else, done or failed, stays, so a reload reopens what
+ * was written.
+ */
+export function settleJob(status: PortraitStatus) {
+  if (status.status === "failed" && status.error === "missing") rememberJob(null);
 }
 
 export async function startPortrait(packet: unknown, invite: string): Promise<{ id: string } | { error: string }> {

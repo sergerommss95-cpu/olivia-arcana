@@ -35,16 +35,6 @@
   background: radial-gradient(closest-side, rgba(24, 52, 77, 0.55), rgba(17, 39, 59, 0.22) 55%, transparent);
   pointer-events: none;
 }
-.threads { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
-.latent { fill: none; stroke: var(--gilt); stroke-width: 1; stroke-dasharray: 2 6; opacity: 0.32; }
-/* The mask that draws the latent threads in after the deal. */
-.draw { fill: none; stroke: #fff; stroke-width: 6; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
-.dealt .draw { animation: draw 900ms var(--ease) calc(var(--k) * 30ms) forwards; }
-@keyframes draw { to { stroke-dashoffset: 0; } }
-/* A thread is drawn solid once the card it makes has turned. */
-.lit { fill: none; stroke: var(--gilt); stroke-width: 1; stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0.6; transition: stroke-dashoffset 900ms var(--ease) 160ms; }
-.lit.on { stroke-dashoffset: 0; }
-
 .cards { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
 /* The first card dealt sits on top of the stack. */
 .slot { position: absolute; z-index: calc(20 - var(--i)); }
@@ -61,26 +51,8 @@
 
 .lift { position: absolute; inset: 0; perspective: 900px; transition: transform 700ms var(--ease); }
 .now .lift { transform: scale(1.3); }
-/* Promoted ahead of its turn, so both faces are painted before the card moves. */
-.turn { position: absolute; inset: 0; display: block; transform-style: preserve-3d; transition: transform 700ms var(--ease); will-change: transform; }
-/* One turn, never a double flip: the face shows from the midpoint on. */
-.turned .turn { transform: rotateY(-180deg); }
-.face {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border-radius: 6px;
-  background: #0d2236;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-.face img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.face::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(201, 177, 130, 0.28); }
-.front { transform: rotateY(180deg); }
-/* Backs dim once the deal is done, so the turning cards lead. */
-.back::before { content: ""; position: absolute; inset: 0; z-index: 1; background: #000; opacity: 0; transition: opacity 900ms var(--ease); }
-.dealt .back::before { opacity: 0.5; }
+/* Backs dim once the deal is done, so the turning cards lead (lattice.module.css draws the veil). */
+.dealt { --back-dim: 0.5; }
 .glow {
   position: absolute;
   inset: 0;
@@ -210,10 +182,8 @@
 /* ── Still: reduced motion shows the final state at rest ────── */
 
 .still *, .still *::before, .still *::after { animation: none !important; transition: none !important; }
-.still .draw { stroke-dashoffset: 0; }
 @media (prefers-reduced-motion: reduce) {
   .laying *, .laying *::before, .laying *::after { animation: none !important; transition: none !important; }
-  .laying .draw { stroke-dashoffset: 0; }
 }
 
 /* ── Side by side ────────────────────────────────────────────── */

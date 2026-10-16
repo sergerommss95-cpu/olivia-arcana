@@ -15,6 +15,7 @@ import { READING_ORDER, ROLES, layout, threads } from "@/lib/portrait/lattice.js
 import { SIGN_NAMES } from "@/lib/portrait/seals.js";
 import type { PortraitPacket, PortraitStatus } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
+import { LatticeCard, Threads, cardsAt } from "./Lattice";
 import styles from "./laying.module.css";
 
 type Text = { en: string; uk: string };
@@ -46,7 +47,7 @@ const roles = ROLES as Record<number, Text>;
 const signNames = SIGN_NAMES as Record<string, Text>;
 const glyph = (sign: string) => `${SIGN_GLYPHS[SIGNS.indexOf(sign)] ?? ""}︎`;
 
-export default function Laying({ packet, cards, locale, status, frames, firstName, onSettled }: {
+export default function Laying({ packet, cards, locale, status, frames, firstName }: {
   packet: PortraitPacket;
   cards: MajorCard[];
   locale: PortraitLocale;
@@ -54,8 +55,6 @@ export default function Laying({ packet, cards, locale, status, frames, firstNam
   frames: Frames;
   /** The first word of the typed name, held in memory only; absent on a resumed reading. */
   firstName?: string;
-  /** Called once, when stage A has arrived. */
-  onSettled?: () => void;
 }) {
   const t = PORTRAIT_COPY[locale].laying;
   const [reduced] = useState(() => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -68,14 +67,9 @@ export default function Laying({ packet, cards, locale, status, frames, firstNam
   const column = useRef<HTMLDivElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
   const loaded = useRef(new Set<number>());
-  const settle = useRef(onSettled);
-  const maskId = `laying-${useId().replace(/[^\w-]/g, "")}`;
+  const titleId = `laying-${useId().replace(/[^\w-]/g, "")}-title`;
 
-  const cardAt = useMemo(() => {
-    const out: Record<number, MajorCard | undefined> = {};
-    for (const f of packet.factors) if (f.kind === "arkan" && f.position !== undefined && f.card !== undefined) out[f.position] = cards[f.card];
-    return out;
-  }, [packet, cards]);
+  const cardAt = useMemo(() => cardsAt(packet, cards), [packet, cards]);
 
   // A new phase: start at the top, with focus on its heading.
   useEffect(() => {
@@ -134,9 +128,6 @@ export default function Laying({ packet, cards, locale, status, frames, firstNam
     return () => window.clearTimeout(id);
   }, [progress]);
 
-  const arrived = Boolean(stages.a);
-  useEffect(() => { settle.current = onSettled; });
-  useEffect(() => { if (arrived) settle.current?.(); }, [arrived]);
 
   const l = width > 0 ? layout(width) : null;
   const compact = width > 0 && width < COMPACT_BELOW;
@@ -159,10 +150,10 @@ export default function Laying({ packet, cards, locale, status, frames, firstNam
   }
 
   return (
-    <section className={`${styles.laying} ${reduced ? styles.still : styles.moving} ${dealt ? styles.dealt : ""} ${paused ? styles.paused : ""}`} aria-labelledby={`${maskId}-title`} data-laying="">
+    <section className={`${styles.laying} ${reduced ? styles.still : styles.moving} ${dealt ? styles.dealt : ""} ${paused ? styles.paused : ""}`} aria-labelledby={titleId} data-laying="">
       <div className={styles.side}>
         <p className={styles.kicker}>{firstName ? `${t.kicker} · ${firstName}` : t.kicker}</p>
-        <h1 id={`${maskId}-title`} ref={heading} tabIndex={-1} className={styles.title}>{t.title}</h1>
+        <h1 id={titleId} ref={heading} tabIndex={-1} className={styles.title}>{t.title}</h1>
         <p className={styles.lead}>{t.threads}</p>
 
         <div className={styles.focus}>
@@ -214,21 +205,8 @@ export default function Laying({ packet, cards, locale, status, frames, firstNam
       <div ref={column} className={styles.column}>
         {l && (
           <div className={styles.lattice} style={{ width, height: l.height + (compact ? 22 : CAPTION_ROOM) }}>
-            <svg className={styles.threads} viewBox={`0 0 ${width} ${l.height}`} width={width} height={l.height} aria-hidden="true">
-              <defs>
-                <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width={width} height={l.height}>
-                  {lines.map((line, k) => (
-                    <path key={k} d={line.d} pathLength={1} className={styles.draw} style={{ "--k": k } as CSSProperties} />
-                  ))}
-                </mask>
-              </defs>
-              <g mask={`url(#${maskId})`}>
-                {lines.map((line, k) => <path key={k} d={line.d} className={styles.latent} />)}
-              </g>
-              {lines.map((line, k) => (
-                <path key={k} d={line.d} pathLength={1} className={`${styles.lit} ${isTurned(line.to) ? styles.on : ""}`} />
-              ))}
-            </svg>
+            {/* A thread is drawn solid once the card it makes has turned. */}
+            <Threads width={width} height={l.height} lines={lines} on={(line) => isTurned(line.to)} draw={reduced ? "shown" : dealt ? "drawing" : "hidden"} lit="draw" />
             <ol className={styles.cards} aria-label={t.cards}>
               {READING_ORDER.map((pos, i) => {
                 const p = l.positions[pos];
@@ -245,20 +223,9 @@ export default function Laying({ packet, cards, locale, status, frames, firstNam
                     <div className={styles.deal}>
                       <div className={styles.lift}>
                         <div className={styles.glow} aria-hidden="true" />
-                        <div className={styles.turn} role="img" aria-label={`${t.card} ${pos}, ${roles[pos][locale]}, ${turned && card ? card.name : t.faceDown}`}>
-                          <span className={`${styles.face} ${styles.back}`}>
-                            {/* eslint-disable-next-line @next/next/no-img-element -- the deck's own back, one cached file */}
-                            <img src="/cards/back-448.webp" alt="" width={448} height={769} decoding="async" />
-                          </span>
-                          <span className={`${styles.face} ${styles.front}`}>
-                            {card && (
-                              // eslint-disable-next-line @next/next/no-img-element -- the card's own art, loaded before its turn
-                              <img src={card.image} srcSet={`${card.thumb} 120w, ${card.image} 896w`} sizes={`${Math.ceil(l.card.w * 1.3)}px`} alt="" width={896} height={1536}
-                                onLoad={(e) => { e.currentTarget.decode().catch(() => {}).finally(() => loaded.current.add(pos)); }}
-                                onError={() => loaded.current.add(pos)} />
-                            )}
-                          </span>
-                        </div>
+                        <LatticeCard pos={pos} card={card} turned={turned} sizes={`${Math.ceil(l.card.w * 1.3)}px`}
+                          label={`${t.card} ${pos}, ${roles[pos][locale]}, ${turned && card ? card.name : t.faceDown}`}
+                          onArt={() => loaded.current.add(pos)} />
                       </div>
                     </div>
                     <p className={styles.cap} aria-hidden="true">
