@@ -35,6 +35,7 @@
   border-radius: 3px;
 }
 .reading.reading .passage:focus-visible { outline: none; }
+.reading.reading .again:focus-visible { border-radius: 999px; }
 
 /* ── Arrival ─────────────────────────────────────────────────── */
 
@@ -115,6 +116,8 @@
 .legend p, .legend ul { margin: 0; padding: 0; list-style: none; }
 .legend b { font-weight: 400; color: var(--gilt); margin-right: 0.5em; }
 .legendKicker { color: var(--soft); margin-bottom: 4px !important; }
+/* The example's label: set apart from the legend by a hairline. */
+.legendNote { margin-bottom: 10px !important; padding-bottom: 10px; border-bottom: 1px solid var(--hair); color: var(--gilt); }
 
 /* The strip: the eleven cards in reading order, fanned when the bar is narrow. */
 .strip { flex: 1; min-width: 0; }
@@ -395,6 +398,10 @@
   transition: background-color 400ms var(--ease), color 400ms var(--ease);
 }
 .again:hover { background: var(--gilt); color: var(--lapis); }
+/* Beside the tools for keeping, the way out steps back: saving leads. */
+.footer[data-keep] { gap: 26px; }
+.footer[data-keep] .again { border-color: rgba(238, 230, 212, 0.28); color: var(--soft); }
+.footer[data-keep] .again:hover { background: transparent; border-color: var(--gilt); color: var(--ink); }
 
 /* ── Wide: dock · text · rail ────────────────────────────────── */
 
@@ -440,4 +447,39 @@
 
 @media (prefers-reduced-motion: reduce) {
   .reading *, .reading *::before, .reading *::after { animation: none !important; transition: none !important; }
+}
+
+/* ── Print: ink on white; the text, then the maps ────────────── */
+
+@media print {
+  .reading {
+    --ink: #16161a;
+    --body: #26262b;
+    --soft: #4d4d55;
+    --faint: #66666d;
+    --gilt: #6f5b33;
+    --hair: #d6d2c8;
+    --lapis: #ffffff;
+    display: block;
+    width: auto;
+    margin: 0;
+    color: var(--ink);
+  }
+  /* The dock, the rail, every control and the live region stay on screen. */
+  .dockbar, .sealRow, .footer, .sr { display: none !important; }
+  .text { max-width: none; padding: 0; }
+  .ink { animation: none !important; }
+  .passage { margin-inline: 0; padding: 0 0 6px; }
+  .passage::before, .passage::after { display: none; }
+  .title { font-size: 44px; }
+  .facet, .practice, .notice { break-inside: avoid; }
+  .fleuron, .heading, .chapterKicker, .lede, .practiceKicker { break-after: avoid; }
+  /* Each chapter on a new page; the keep plate whole; the maps after the text. */
+  .chapter { break-before: page; margin-top: 0; }
+  .keep { break-inside: avoid; margin-top: 48px; background: none; }
+  .keep::before { border-color: var(--hair); }
+  .mapsArea { break-before: page; margin-top: 0; }
+  /* Around the portrait, whichever shell holds it: a white page, without the site's masthead, colophon or atmosphere. */
+  :global(*):has(.reading) { background: #fff !important; }
+  :global(body):has(.reading) :global(:is(header, footer, .alm-atmosphere)):not(.reading *) { display: none !important; }
 }

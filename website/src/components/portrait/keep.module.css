@@ -1,0 +1,184 @@
+/* website/src/components/portrait/keep.module.css
+   Keeping a portrait: the tools at the reading's end (save, download, print),
+   the saved list on the entry screen, and the confirm dialog. Lapis ground,
+   ivory ink, one gilt accent; the confirm is an engraved plate like the keep
+   plate. Each root carries the tokens, since the list and the dialog can stand
+   outside the reader. */
+
+.keep, .shelf, .confirm {
+  --ink: #eee6d4;
+  --body: rgba(238, 230, 212, 0.86);
+  --soft: rgba(238, 230, 212, 0.78);
+  --faint: rgba(238, 230, 212, 0.62);
+  --gilt: #c9b182;
+  --hair: rgba(238, 230, 212, 0.14);
+  --lapis: #0b1c2c;
+  --ease: var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1));
+  --heading: var(--font-heading, "Cormorant Garamond"), serif;
+  --mono: var(--font-mono, "IBM Plex Mono"), monospace;
+  --sans: var(--font-body, system-ui), sans-serif;
+}
+
+
+/* Scoped twice to outrank the shell's own focus rule. */
+:is(.keep, .shelf, .confirm):is(.keep, .shelf, .confirm) :is(a, button):focus-visible {
+  outline: 2px solid var(--gilt);
+  outline-offset: 3px;
+}
+/* A pill keeps its round ends in focus. */
+:is(.keep, .shelf, .confirm):is(.keep, .shelf, .confirm) :is(.primary, .plain):focus-visible { border-radius: 999px; }
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+
+.primary, .plain {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  margin: 0;
+  padding: 0 22px;
+  border: 1px solid var(--gilt);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: 500 14px/1.2 var(--sans);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 400ms var(--ease), color 400ms var(--ease), border-color 400ms var(--ease);
+}
+.primary:hover:not([aria-disabled]) { background: var(--gilt); color: var(--lapis); }
+.plain { border-color: rgba(238, 230, 212, 0.28); color: var(--soft); }
+.plain:hover { border-color: var(--gilt); color: var(--ink); }
+.plain[aria-busy] { cursor: progress; color: var(--faint); }
+.swap { display: inline-grid; }
+.label { grid-area: 1 / 1; display: inline-flex; align-items: center; justify-content: center; gap: 10px; }
+.label[data-off] { visibility: hidden; }
+/* Done: the same button, now a result. */
+.primary[data-done] { border-color: rgba(201, 177, 130, 0.4); color: var(--gilt); cursor: default; }
+/* Reopened: said plainly, with the way to forget it beside. */
+.stampRow { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 6px 18px; }
+.stamp { display: inline-flex; align-items: center; gap: 10px; margin: 0; font: 400 20px/1.3 var(--heading); color: var(--ink); }
+.stamp .tick { color: var(--gilt); margin-top: -5px; }
+/* A drawn tick, never an emoji. */
+.tick { display: inline-block; width: 10px; height: 5px; margin-top: -3px; border-left: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); }
+
+.quiet {
+  margin: 0;
+  padding: 10px 0 4px;
+  border: 0;
+  border-bottom: 1px solid var(--hair);
+  background: none;
+  color: var(--soft);
+  font: 400 10px/1.2 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 300ms var(--ease), border-color 300ms var(--ease);
+}
+.quiet:hover { color: var(--ink); border-bottom-color: var(--gilt); }
+
+/* ── At the reading's end ────────────────────────────────────── */
+
+.keep { display: grid; justify-items: center; gap: 18px; width: 100%; }
+.kicker { margin: 0; font: 400 11px/1.4 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gilt); }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 12px; }
+.note { max-width: 30em; margin: 0; font-size: 13px; line-height: 1.6; color: var(--faint); text-wrap: balance; }
+
+/* ── The saved list (entry) ──────────────────────────────────── */
+
+.shelf { margin-top: 3.2rem; color: var(--ink); }
+.shelfTitle { margin: 0 0 14px; font: 400 11px/1.4 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gilt); }
+.shelfTitle:focus { outline: none; }
+.cards { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  border: 1px solid var(--hair);
+  background: rgba(7, 18, 29, 0.38);
+  transition: border-color 400ms var(--ease);
+}
+/* Read like a passage: a faint gilt wash, and a ribbon down the left edge when it has focus. */
+.card::before, .card::after { content: ""; position: absolute; pointer-events: none; opacity: 0; transition: opacity 400ms var(--ease); }
+.card::before { inset: 0; background: linear-gradient(90deg, rgba(201, 177, 130, 0.09), rgba(201, 177, 130, 0.02) 60%, transparent); }
+.card::after { inset: -1px auto -1px -1px; width: 2px; background: var(--gilt); }
+.card:hover, .card:focus-within { border-color: rgba(201, 177, 130, 0.38); }
+.card:hover::before, .card:focus-within::before, .card:has(.open:focus-visible)::after { opacity: 1; }
+.open {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 16px 8px 16px 20px;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.cardTitle { font: 400 22px/1.2 var(--heading); color: var(--ink); text-wrap: balance; }
+.meta { font: 400 10px/1.5 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
+.forget {
+  position: relative;
+  z-index: 1;
+  align-self: stretch;
+  min-width: 44px;
+  margin: 0;
+  padding: 0 20px;
+  border: 0;
+  background: none;
+  color: var(--faint);
+  font: 400 10px/1.2 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 300ms var(--ease);
+}
+.forget:hover { color: var(--ink); }
+.more { margin-top: 14px; }
+
+/* ── The confirm ─────────────────────────────────────────────── */
+
+.confirm {
+  width: min(460px, calc(100vw - 32px));
+  max-width: none;
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--hair);
+  background: var(--lapis);
+  color: var(--ink);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.8);
+}
+.confirm::backdrop { background: rgba(4, 10, 17, 0.66); backdrop-filter: blur(3px); }
+.confirm[open] { animation: rise 500ms var(--ease) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } }
+/* An engraved plate: a second, gilt rule inside the first. */
+.confirmInner { position: relative; padding: 34px clamp(22px, 7%, 40px) 30px; text-align: center; }
+.confirmInner::before { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(201, 177, 130, 0.2); pointer-events: none; }
+.fleuron { margin: 0 0 10px; font: 400 17px/1 var(--heading); color: var(--gilt); }
+.confirmTitle { margin: 0 0 12px; font: 400 30px/1.15 var(--heading); text-wrap: balance; }
+.confirmBody { margin: 0 auto 26px; max-width: 26em; font: 400 16px/1.65 var(--sans); color: var(--body); text-wrap: pretty; }
+.confirmChoices { position: relative; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; }
+.confirmQuiet { position: relative; margin-top: 14px; }
+
+@media (max-width: 480px) {
+  .actions { display: grid; width: 100%; max-width: 340px; }
+  .confirmChoices { display: grid; }
+  .cardTitle { font-size: 20px; }
+  .open { padding-left: 16px; }
+  .forget { padding: 0 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .keep *, .shelf *, .confirm, .confirm * { animation: none !important; transition: none !important; }
+  .card, .card::before, .card::after { transition: none !important; }
+}
+
+@media print {
+  .keep, .confirm { display: none !important; }
+}

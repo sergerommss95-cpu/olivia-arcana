@@ -121,7 +121,7 @@ function ArkanMap({ packet, cards, locale }: { packet: PortraitPacket; cards: Ma
   return (
     <div ref={box} className={styles.arkan}>
       {l && (
-        <div className={`${styles.lattice} ${l.compact ? styles.compact : ""}`} style={{ width, height: l.height + l.cap }}>
+        <div className={`${styles.lattice} ${l.compact ? styles.compact : ""}`} style={{ width, height: l.height + l.cap, "--w": width } as CSSProperties}>
           <Threads width={width} height={l.height} lines={threads(l)} on={() => true} draw="shown" lit="draw" />
           <ol className={styles.cards}>
             {READING_ORDER.map((pos) => {

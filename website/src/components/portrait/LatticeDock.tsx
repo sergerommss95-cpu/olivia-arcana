@@ -92,7 +92,7 @@ function dockLayout(width: number, room: number) {
   return { positions, card: { w, h }, height: h * ROWS_TALL };
 }
 
-export default function LatticeDock({ packet, cards, locale, lit, landing }: {
+export default function LatticeDock({ packet, cards, locale, lit, landing, note }: {
   packet: PortraitPacket;
   cards: MajorCard[];
   locale: PortraitLocale;
@@ -100,6 +100,8 @@ export default function LatticeDock({ packet, cards, locale, lit, landing }: {
   lit: number[] | null;
   /** Where the Laying's cards lay at the hand-off: the dock's cards fly from there. Cards still face down turn in flight. */
   landing?: Landing;
+  /** A line set above the legend: the example says it is one. */
+  note?: string;
 }) {
   const t = PORTRAIT_COPY[locale];
   const wide = useMedia(WIDE);
@@ -189,6 +191,7 @@ export default function LatticeDock({ packet, cards, locale, lit, landing }: {
           </div>
         )}
         <div className={styles.legend} aria-hidden="true">
+          {note && <p className={styles.legendNote}>{note}</p>}
           {lit === null && <p>{t.reader.litIdle}</p>}
           {lit !== null && lit.length === 0 && <p>{t.reader.litNone}</p>}
           {lit !== null && lit.length > 0 && (

@@ -17,6 +17,7 @@
 // --ax       print the accessibility tree's names for the lattice and live region
 // --ax-under S  print the accessibility subtree under the element matching S, in reading order
 // --eval JS  print the value of a page expression after the last shot
+// --setup JS evaluate a page expression first, before --focus and --keys (awaited, then --wait to settle)
 // --focus S  focus the element matching selector S before each shot
 // --scroll S scroll the element matching selector S to the top of the window before each shot
 // --clip S   capture only the element matching S, its whole height (sticky parts stay where the scroll left them)
@@ -28,6 +29,10 @@
 // --record R read the reading from the M2 evidence record R.json instead of the locale's own
 //            (en: m1-en-olena, timed; uk: m1-uk-olena, unknown time with alternatives;
 //            en-timed-tom has a master number)
+// --entry    seed no reading in progress: the page opens on its entry screen
+// --saved N  seed N saved portraits (the M2 records in turn, this locale's first), one a day apart
+// --download DIR  let the page download files into DIR
+// --media M  emulate CSS media M (e.g. print)
 
 import { spawn } from "node:child_process";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -47,7 +52,7 @@ function args(argv) {
   const out = { base: "http://localhost:3417", locale: "en", viewport: "1440x900", times: "1,8,35", aAt: Infinity, bcAt: Infinity, failAt: Infinity, out: "shots", reduced: false, full: false, ax: false, wait: 600 };
   for (let i = 0; i < argv.length; i++) {
     const key = argv[i].replace(/^--/, "").replace(/-(\w)/g, (_, c) => c.toUpperCase());
-    if (["reduced", "full", "ax"].includes(key)) out[key] = true;
+    if (["reduced", "full", "ax", "entry"].includes(key)) out[key] = true;
     else out[key] = argv[++i];
   }
   const [width, height] = String(out.viewport).split("x").map(Number);
@@ -64,6 +69,18 @@ function fixture(locale, record) {
   const name = record ?? (locale === "uk" ? "m1-uk-olena" : "m1-en-olena");
   const run = readJson(path.join(repo, `docs/superpowers/evidence/2026-10-16-m2/m2-medium/${name}.json`));
   return { id: `fixture-${name}`, packet: run.packet, stages: run.stages, teachings: citedTeachings(selectTeachings(run.packet, bank), bank, run.stages) };
+}
+
+/** N saved portraits as saved.js stores them: this locale's records first, newest first, a day apart. */
+function savedSeed(locale, n) {
+  const names = ["m1-en-olena", "en-timed-tom", "en-unknown-aidan", "m1-uk-olena", "uk-timed-taras"];
+  const order = [...names.filter((x) => x.includes(`${locale}-`)), ...names.filter((x) => !x.includes(`${locale}-`))];
+  const now = Date.now();
+  return Array.from({ length: n }, (_, i) => {
+    const run = readJson(path.join(repo, `docs/superpowers/evidence/2026-10-16-m2/m2-medium/${order[i % order.length]}.json`));
+    const f = fixture(run.locale, order[i % order.length]);
+    return { id: `saved-${i + 1}`, locale: run.locale, packet: f.packet, stages: f.stages, teachings: f.teachings, savedAt: now - i * 86_400_000 };
+  });
 }
 
 function statusAt(seconds, fx, opts) {
@@ -104,7 +121,7 @@ const KEYS = { Tab: { code: "Tab", vk: 9 }, Enter: { code: "Enter", vk: 13, text
 /** Where focus is, said briefly: its role or tag, its name, and whether a dialog holds it. */
 const WHERE = `(() => { const el = document.activeElement; if (!el || el === document.body) return "body";
   const name = (el.getAttribute("aria-label") || el.textContent || "").trim().replace(/\\s+/g, " ").slice(0, 60);
-  return \`\${el.getAttribute("role") || el.tagName.toLowerCase()} "\${name}"\${el.closest("[role=dialog]") ? " [in dialog]" : ""}\`; })()`;
+  return \`\${el.getAttribute("role") || el.tagName.toLowerCase()} "\${name}"\${el.closest("[role=dialog], [role=alertdialog], dialog[open]") ? " [in dialog]" : ""}\`; })()`;
 
 /** Presses each key in turn ("Tab*3" thrice, "Shift+Tab" with Shift held) and prints where focus lands. */
 async function press(send, list) {
@@ -188,10 +205,18 @@ async function main() {
     await send("Runtime.enable");
     await send("Log.enable");
     await send("Emulation.setDeviceMetricsOverride", { width: opts.width, height: opts.height, deviceScaleFactor: 1, mobile: opts.width < 720 });
-    await send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: opts.reduced ? "reduce" : "no-preference" }] });
+    await send("Emulation.setEmulatedMedia", { ...(opts.media ? { media: opts.media } : {}), features: [{ name: "prefers-reduced-motion", value: opts.reduced ? "reduce" : "no-preference" }] });
+    if (opts.download) {
+      mkdirSync(opts.download, { recursive: true });
+      await cdp.send("Browser.setDownloadBehavior", { behavior: "allow", downloadPath: path.resolve(opts.download) });
+    }
+    const seed = [
+      opts.entry ? "" : `localStorage.setItem(${JSON.stringify(JOB_KEY)}, ${JSON.stringify(JSON.stringify({ id: fx.id, packet: fx.packet }))});`,
+      opts.saved ? `localStorage.setItem("olivia:portraits:v1", ${JSON.stringify(JSON.stringify(savedSeed(opts.locale, Number(opts.saved))))});` : "",
+    ].join(" ");
     await send("Page.addScriptToEvaluateOnNewDocument", {
       // The site's install banner is told it was dismissed, so it never covers the page.
-      source: `try { localStorage.setItem(${JSON.stringify(JOB_KEY)}, ${JSON.stringify(JSON.stringify({ id: fx.id, packet: fx.packet }))}); localStorage.setItem("olivia-arcana-install-dismissed", String(Date.now())); } catch {}
+      source: `try { ${seed} localStorage.setItem("olivia-arcana-install-dismissed", String(Date.now())); } catch {}
         document.addEventListener("DOMContentLoaded", () => { const s = document.createElement("style"); s.textContent = "nextjs-portal{display:none!important}"; document.head.append(s); });`,
     });
     await send("Fetch.enable", { patterns: [{ urlPattern: "*/api/portrait/*", requestStage: "Request" }] });
@@ -200,7 +225,7 @@ async function main() {
       const deadline = performance.now() + 60_000;
       for (;;) {
         if (performance.now() > deadline) throw new Error("neither the Laying nor the reader mounted");
-        const { result } = await send("Runtime.evaluate", { expression: "Boolean(document.querySelector('[data-laying], [data-reader]'))", returnByValue: true });
+        const { result } = await send("Runtime.evaluate", { expression: `Boolean(document.querySelector(${JSON.stringify(opts.entry ? "[data-portrait-entry]" : "[data-laying], [data-reader]")}))`, returnByValue: true });
         if (result.value) return performance.now();
         await sleep(40);
       }
@@ -217,6 +242,10 @@ async function main() {
     for (const t of opts.times) {
       const wait = mountedAt + t * 1000 - performance.now();
       if (wait > 0) await sleep(wait);
+      if (opts.setup) {
+        await send("Runtime.evaluate", { expression: opts.setup, awaitPromise: true });
+        await sleep(opts.wait);
+      }
       if (opts.focus) {
         await send("Runtime.evaluate", { expression: `document.querySelector(${JSON.stringify(opts.focus)})?.focus()` });
         // What the focus sets in motion (a passage lighting its cards) settles before the shot.

@@ -212,3 +212,18 @@
 @media (prefers-reduced-motion: reduce) {
   .glow { transition: none; }
 }
+
+/* ── Print: ink on white, the lattice scaled to the page ─────── */
+
+@media print {
+  .map, .plate, .skyItem { break-inside: avoid; }
+  .map { margin-top: 36px; padding-top: 28px; }
+  /* The lattice is laid out at its on-screen width (--w); on paper it fits a 640 px column. */
+  .lattice { zoom: min(1, calc(640 / var(--w, 640))); }
+  .lattice::before, .glow { display: none; }
+  .cap { background: #fff; box-shadow: 0 0 6px 3px #fff; }
+  /* Ink does not cast shadows: a hairline frames each card instead. */
+  .skyCard img, .skyBack img { box-shadow: 0 0 0 0.5pt #b9b2a2; }
+  .plate { background: none; }
+  .plate::before { border-color: var(--hair); }
+}

@@ -78,7 +78,7 @@ export function sectionStates(stages: PortraitStages, failed: boolean, maps: boo
   return out;
 }
 
-export default function Reader({ stages, status, packet, cards, locale, firstName, onActive, onSection, onWhy, onNew }: {
+export default function Reader({ stages, status, packet, cards, locale, firstName, kicker, keep, newLabel, announce, onActive, onSection, onWhy, onNew }: {
   stages: PortraitStages;
   status: PortraitStatus | null;
   packet: PortraitPacket;
@@ -86,6 +86,14 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
   locale: PortraitLocale;
   /** The first word of the typed name, in memory only; absent on a reopened reading. */
   firstName?: string;
+  /** In place of "Your portrait" above the title: the example says it is one. */
+  kicker?: string;
+  /** The tools for keeping a finished portrait, at its end. */
+  keep?: ReactNode;
+  /** The way out at the end, when it is not "Start a new portrait". */
+  newLabel?: string;
+  /** Something to say through the live region (a save, a download); `n` tells a repeat apart. */
+  announce?: { text: string; n: number } | null;
   /** The passage lighting the dock, or null. */
   onActive: (key: string | null) => void;
   /** The section crossing the reading line. */
@@ -146,6 +154,13 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
     const id = window.setTimeout(() => setSaid(progress), 400);
     return () => window.clearTimeout(id);
   }, [progress]);
+  // A result is spoken through the same region: cleared first, so saying it again is heard again.
+  useEffect(() => {
+    if (!announce) return;
+    const clear = window.setTimeout(() => setSaid(""), 0);
+    const id = window.setTimeout(() => setSaid(announce.text), 120);
+    return () => { window.clearTimeout(clear); window.clearTimeout(id); };
+  }, [announce]);
 
   if (!a) return null;
 
@@ -173,7 +188,7 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
     <div ref={root} className={styles.leaf}>
       <div className={styles.text} data-reader-text="">
         <section id={sectionId("opening")} data-section="opening" className={styles.opening} aria-labelledby={`${sectionId("opening")}-title`}>
-          <p className={`${styles.kicker} ${styles.ink}`} style={ink(0)}>{firstName ? `${r.kicker} · ${firstName}` : r.kicker}</p>
+          <p className={`${styles.kicker} ${styles.ink}`} style={ink(0)}>{kicker ?? (firstName ? `${r.kicker} · ${firstName}` : r.kicker)}</p>
           <h1 id={`${sectionId("opening")}-title`} ref={heading} tabIndex={-1} className={`${styles.title} ${styles.ink}`} style={ink(1)}>{a.title}</h1>
           <p className={`${styles.epigraph} ${styles.ink}`} style={ink(2)}>{a.epigraph}</p>
           <article className={`${styles.passage} ${styles.ink}`} style={ink(3)} data-passage="overview" data-active={active === "overview" || undefined} tabIndex={0} aria-label={r.sections.opening} {...passageEvents("overview")}>
@@ -241,9 +256,10 @@ export default function Reader({ stages, status, packet, cards, locale, firstNam
       {hasMaps(packet) && <Maps packet={packet} cards={cards} locale={locale} className={styles.mapsArea} />}
 
       {over && (
-        <footer className={styles.footer}>
+        <footer className={styles.footer} data-keep={keep ? "" : undefined}>
+          {keep}
           <p className={styles.note}>{t.note}</p>
-          <button type="button" className={styles.again} onClick={onNew}>{r.newPortrait}</button>
+          <button type="button" className={styles.again} onClick={onNew}>{newLabel ?? r.newPortrait}</button>
         </footer>
       )}
     </div>
