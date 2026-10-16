@@ -19,6 +19,7 @@ import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
 import { LatticeCard } from "./Lattice";
 import type { Frames } from "./Laying";
 import { passageOf } from "./Reader";
+import { portraitFonts } from "./fonts";
 import styles from "./why.module.css";
 
 /** The passage asked about, and the button that asked: focus goes back to it. */
@@ -133,7 +134,7 @@ export default function WhyDrawer({ target, stages, teachings, packet, cards, lo
   );
 
   return createPortal(
-    <div ref={root} className={styles.why} data-leaving={leaving || undefined}>
+    <div ref={root} className={`${portraitFonts.className} ${styles.why}`} data-leaving={leaving || undefined}>
       <div className={styles.backdrop} onClick={close} aria-hidden="true" />
       <div ref={panel} className={styles.panel} role="dialog" aria-modal="true" aria-labelledby={`${id}-title`}>
         <div className={styles.head}>
@@ -150,7 +151,7 @@ export default function WhyDrawer({ target, stages, teachings, packet, cards, lo
                   <li key={c.key} className={styles.cardRow}>
                     <WhyCard pos={c.pos} card={cards[c.card]} order={i} still={still} />
                     <div>
-                      <p className={styles.cardKicker}>{c.pos} · {c.role}</p>
+                      <p className={styles.cardKicker}><span className={styles.pos}>{c.pos}</span> · {c.role}</p>
                       <p className={styles.cardName}>{c.name}</p>
                       {frames[String(c.pos)] && <p className={styles.frame}>{frames[String(c.pos)][locale]}</p>}
                       <p className={styles.found}><Sigil pos={c.pos} from={c.from} />{c.found}</p>
@@ -178,7 +179,7 @@ export default function WhyDrawer({ target, stages, teachings, packet, cards, lo
               <ul className={styles.list}>
                 {lines.sky.map((s) => (
                   <li key={s.key} className={styles.row}>
-                    <span className={`${styles.mark} ${s.glyph.length > 1 ? styles.markLetters : ""}`} aria-hidden="true">{s.glyph.length === 1 ? `${s.glyph}${TEXT}` : s.glyph}</span>
+                    <span className={s.glyph.length > 1 ? styles.markLetters : styles.mark} aria-hidden="true">{s.glyph.length === 1 ? `${s.glyph}${TEXT}` : s.glyph}</span>
                     <p className={styles.line}>
                       {s.text}
                       {s.uncertain && <> <span className={styles.note}>{w.timeUnknown}</span></>}

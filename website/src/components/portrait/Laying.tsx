@@ -174,7 +174,7 @@ export default function Laying({ packet, cards, locale, status, frames, firstNam
           </div>
         </div>
         <p key={`line-${focus}-${focusTurned}`} className={`${styles.line} ${styles.inkIn}`}>
-          <span className={styles.lineRole}>{focus} · {roles[focus][locale]}</span>
+          <span className={styles.lineRole}><span className={styles.capNum}>{focus}</span> · {roles[focus][locale]}</span>
           {focusTurned && focusCard && <span className={styles.lineName}>{focusCard.name}</span>}
         </p>
 
@@ -182,8 +182,8 @@ export default function Laying({ packet, cards, locale, status, frames, firstNam
           <dl className={styles.numbers} aria-label={t.numbersLabel}>
             {numbers.map((n) => (
               <div key={n.key} className={styles.cell}>
-                <dt>{n.label}</dt>
-                <dd>{n.spoken ? <><span aria-hidden="true">{n.shown}</span><span className={styles.sr}>{n.spoken}</span></> : n.shown}</dd>
+                <dt className={styles.term}>{n.label}</dt>
+                <dd className={styles.value}>{n.spoken ? <><span aria-hidden="true">{n.shown}</span><span className={styles.sr}>{n.spoken}</span></> : n.shown}</dd>
               </div>
             ))}
           </dl>
@@ -229,7 +229,7 @@ export default function Laying({ packet, cards, locale, status, frames, firstNam
                       </div>
                     </div>
                     <p className={styles.cap} aria-hidden="true">
-                      <b>{pos}</b>
+                      <b className={styles.capNum}>{pos}</b>
                       {turned && !compact && <span className={`${styles.role} ${styles.inkIn}`}>· {roles[pos][locale]}</span>}
                     </p>
                   </li>

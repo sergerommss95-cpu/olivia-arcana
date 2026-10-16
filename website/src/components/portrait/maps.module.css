@@ -20,7 +20,7 @@
 /* ── One map ─────────────────────────────────────────────────── */
 
 .map { max-width: 880px; margin: 64px auto 0; padding-top: 56px; border-top: 1px solid var(--hair); }
-.kicker { font: 400 11px/1.4 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gilt); }
+.kicker { composes: labelGilt from "./type.module.css"; }
 .mapTitle { margin: 10px 0 0; font: 400 32px/1.15 var(--heading); color: var(--ink); }
 .note { max-width: 34em; margin: 22px auto 0 !important; font-size: 14px; line-height: 1.7; color: var(--soft); text-wrap: balance; }
 
@@ -51,13 +51,11 @@
 .cardLink:hover .glow, .cardLink:focus-visible .glow, .skyCard:hover .glow, .skyCard:focus-visible .glow { opacity: 1; }
 
 .cap {
+  composes: label from "./type.module.css";
   position: absolute;
   left: 50%;
-  top: calc(100% + 9px);
+  top: calc(100% + 8px);
   transform: translateX(-50%);
-  font: 400 10px/1.35 var(--mono);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
   white-space: nowrap;
   color: var(--soft);
   /* Knocked out of the threads, as an engraver letters a map: a feathered patch of ground behind each caption. */
@@ -66,10 +64,10 @@
   background: rgba(12, 30, 47, 0.92);
   box-shadow: 0 0 8px 4px rgba(12, 30, 47, 0.92);
 }
-.cap b { font-weight: 400; color: var(--gilt); }
+.capNum { composes: numeral from "./type.module.css"; font-size: 15px; font-weight: 500; color: var(--gilt); }
 /* Compact: the position above its role, which wraps within its column. */
-.compact .cap { width: var(--cap); white-space: normal; letter-spacing: 0.1em; text-wrap: balance; }
-.compact .cap b { display: block; }
+.compact .cap { width: var(--cap); white-space: normal; text-wrap: balance; }
+.compact .capNum { display: block; }
 .compact .dot { display: none; }
 
 /* ── The numbers plate ───────────────────────────────────────── */
@@ -89,11 +87,12 @@
 .cell + .cell { border-left: 1px solid var(--hair); }
 .cell dd { margin: 0; }
 /* The numeral leads the eye; the role (read first) and its meaning follow. */
-.numeral { order: -1; font: 300 56px/1 var(--display); font-variant-numeric: lining-nums; color: var(--ink); }
-.role { margin-top: 16px; font: 400 10px/1.45 var(--mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--gilt); }
+.numeral { composes: numeral from "./type.module.css"; order: -1; font-size: 56px; font-weight: 300; line-height: 1; color: var(--ink); }
+.role { composes: labelGilt from "./type.module.css"; margin-top: 16px; }
 .meaning { max-width: 17em; margin-top: 10px !important; font-size: 14px; line-height: 1.65; color: var(--soft); text-wrap: pretty; }
 /* A master number keeps its two digits: marked above the numeral like a hallmark. */
 .master {
+  composes: labelGilt from "./type.module.css";
   position: absolute;
   top: 18px;
   left: 50%;
@@ -101,24 +100,22 @@
   padding: 3px 8px;
   border: 1px solid rgba(201, 177, 130, 0.45);
   border-radius: 99px;
-  font: 400 8.5px/1.2 var(--mono);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 12.5px;
+  line-height: 1.2;
   white-space: nowrap;
-  color: var(--gilt);
 }
 
-.birthday { margin-top: 18px !important; font: 400 10px/1.6 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--soft); text-wrap: balance; }
-.birthday b { margin: 0 0.15em; font: 300 22px/1 var(--display); letter-spacing: 0; color: var(--ink); vertical-align: -2px; }
+.birthday { composes: label from "./type.module.css"; margin-top: 18px !important; line-height: 1.6; color: var(--soft); text-wrap: balance; }
+.birthdayNum { composes: numeral from "./type.module.css"; margin: 0 0.15em; font-size: 22px; font-weight: 300; line-height: 1; color: var(--ink); vertical-align: -2px; }
 
 /* ── The sky ─────────────────────────────────────────────────── */
 
 .sky { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin: 40px 0 0; padding: 0; list-style: none; }
 .skyItem { display: flex; flex-direction: column; align-items: center; min-width: 0; }
-.skyKicker { display: flex; align-items: center; gap: 8px; margin-bottom: 18px !important; font: 400 10px/1.4 var(--mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--gilt); }
+.skyKicker { composes: labelGilt from "./type.module.css"; display: flex; align-items: center; gap: 8px; margin-bottom: 18px !important; }
 .skyGlyph { font: 400 15px/1 var(--heading); letter-spacing: 0; }
-/* Rising's mark is two letters (AC), set as the caption is. */
-.skyGlyph.letters { font: 400 10px/1 var(--mono); letter-spacing: 0.08em; }
+/* Rising's mark is two letters (AC): they keep the caption's own small caps. */
+.letters { line-height: 1; }
 /* Every column's cards stand on one line, whatever their size, so the signs line up beneath. */
 .skyCards { display: flex; align-items: flex-end; justify-content: center; gap: 10px; height: 258px; }
 .skyCard, .skyBack { position: relative; display: block; flex: none; width: 150px; aspect-ratio: 120 / 206; border-radius: 8px; }
@@ -142,7 +139,7 @@
 .skyNote { max-width: 17em; margin-top: 10px !important; font: italic 400 16px/1.4 var(--heading); color: var(--soft); text-wrap: balance; }
 
 /* The other planets: a ledger in two columns, read down. */
-.othersTitle { margin: 56px 0 0; font: 400 10px/1.4 var(--mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--gilt); }
+.othersTitle { composes: labelGilt from "./type.module.css"; margin: 56px 0 0; }
 .planets {
   display: grid;
   grid-template-rows: repeat(var(--rows), auto);

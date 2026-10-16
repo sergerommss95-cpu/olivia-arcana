@@ -140,7 +140,7 @@ function ArkanMap({ packet, cards, locale }: { packet: PortraitPacket; cards: Ma
                       </span>
                     </a>
                   )}
-                  <p className={styles.cap} aria-hidden="true"><b>{pos}</b><span className={styles.dot}> · </span>{roles[pos][locale]}</p>
+                  <p className={styles.cap} aria-hidden="true"><b className={styles.capNum}>{pos}</b><span className={styles.dot}> · </span>{roles[pos][locale]}</p>
                 </li>
               );
             })}
@@ -177,7 +177,7 @@ function NumbersPlate({ byId, locale }: { byId: Map<string, PacketFactor>; local
       </dl>
       {birthday?.value !== undefined && (
         <p className={styles.birthday}>
-          {numberTitles.birthday[locale]} <b>{birthday.value}</b><span aria-hidden="true"> · </span><span className={styles.sr}>, </span>{n.birthday}
+          {numberTitles.birthday[locale]} <b className={styles.birthdayNum}>{birthday.value}</b><span aria-hidden="true"> · </span><span className={styles.sr}>, </span>{n.birthday}
         </p>
       )}
     </>
@@ -206,7 +206,7 @@ function SkyCards({ byId, cards, locale }: { byId: Map<string, PacketFactor>; ca
         });
         return (
           <li key={key} className={styles.skyItem}>
-            <p className={styles.skyKicker}><span className={`${styles.skyGlyph} ${glyph.length > 1 ? styles.letters : ""}`} aria-hidden="true">{glyphOf(glyph)}</span>{label}</p>
+            <p className={styles.skyKicker}><span className={glyph.length > 1 ? styles.letters : styles.skyGlyph} aria-hidden="true">{glyphOf(glyph)}</span>{label}</p>
             {dealt.length > 0 ? (
               <>
                 <div className={styles.skyCards} data-pair={dealt.length > 1 || undefined}>

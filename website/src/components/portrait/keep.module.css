@@ -15,7 +15,6 @@
   --lapis: #0b1c2c;
   --ease: var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1));
   --heading: var(--font-heading, "Cormorant Garamond"), serif;
-  --mono: var(--font-mono, "IBM Plex Mono"), monospace;
   --sans: var(--font-body, system-ui), sans-serif;
 }
 
@@ -64,15 +63,14 @@
 .tick { display: inline-block; width: 10px; height: 5px; margin-top: -3px; border-left: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); }
 
 .quiet {
+  composes: meta from "./type.module.css";
   margin: 0;
   padding: 10px 0 4px;
   border: 0;
   border-bottom: 1px solid var(--hair);
   background: none;
-  color: var(--soft);
-  font: 400 10px/1.2 var(--mono);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1.2;
   cursor: pointer;
   transition: color 300ms var(--ease), border-color 300ms var(--ease);
 }
@@ -81,14 +79,14 @@
 /* ── At the reading's end ────────────────────────────────────── */
 
 .keep { display: grid; justify-items: center; gap: 18px; width: 100%; }
-.kicker { margin: 0; font: 400 11px/1.4 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gilt); }
+.kicker { composes: labelGilt from "./type.module.css"; margin: 0; }
 .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 12px; }
 .note { max-width: 30em; margin: 0; font-size: 13px; line-height: 1.6; color: var(--faint); text-wrap: balance; }
 
 /* ── The saved list (entry) ──────────────────────────────────── */
 
 .shelf { margin-top: 3.2rem; color: var(--ink); }
-.shelfTitle { margin: 0 0 14px; font: 400 11px/1.4 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gilt); }
+.shelfTitle { composes: labelGilt from "./type.module.css"; margin: 0 0 14px; }
 .shelfTitle:focus { outline: none; }
 .cards { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
 .card {
@@ -122,8 +120,9 @@
   cursor: pointer;
 }
 .cardTitle { font: 400 22px/1.2 var(--heading); color: var(--ink); text-wrap: balance; }
-.meta { font: 400 10px/1.5 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
+.meta { composes: meta from "./type.module.css"; }
 .forget {
+  composes: meta from "./type.module.css";
   position: relative;
   z-index: 1;
   align-self: stretch;
@@ -132,10 +131,8 @@
   padding: 0 20px;
   border: 0;
   background: none;
-  color: var(--faint);
-  font: 400 10px/1.2 var(--mono);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1.2;
   cursor: pointer;
   transition: color 300ms var(--ease);
 }

@@ -1,0 +1,45 @@
+/* website/src/components/portrait/type.module.css
+   The portrait's one label voice. A label is set in Cormorant's true small
+   caps (Cormorant SC draws lower-case letters as small capitals, Latin and
+   Cyrillic alike), so its text stays in sentence case and is never
+   letter-spaced into capitals. Detail beside it is DM Sans in sentence case;
+   a numeral is Cormorant with lining figures. Other modules take these with
+   `composes` and may set their own size, colour or spacing on top.
+   --font-sc comes from fonts.ts, set on the portrait's root. */
+
+.label {
+  font-family: var(--font-sc, "Cormorant SC"), var(--font-heading, "Cormorant Garamond"), Georgia, serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  font-variant-numeric: lining-nums;
+  color: rgba(238, 230, 212, 0.72);
+}
+.labelGilt { composes: label; color: var(--gilt, #c9b182); }
+
+.meta {
+  font-family: var(--font-body, system-ui), sans-serif;
+  font-size: 13.5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  color: rgba(238, 230, 212, 0.66);
+}
+
+.numeral {
+  font-family: var(--font-display, "Cormorant"), var(--font-heading, "Cormorant Garamond"), Georgia, serif;
+  font-variant-numeric: lining-nums;
+  letter-spacing: 0;
+}
+
+/* Ink on white. A gilt label takes the page's own gilt where it sets one. */
+@media print {
+  .label { color: #4d4d55; }
+  .labelGilt { color: var(--gilt, #6f5b33); }
+  .meta { color: #66666d; }
+}

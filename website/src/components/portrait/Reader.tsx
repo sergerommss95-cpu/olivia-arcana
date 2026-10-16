@@ -337,7 +337,7 @@ function Seals({ refs, packet, cards, locale, name, onWhy }: {
           ))}
         </ul>
       )}
-      {/* Named in sentence case (the label is set in capitals), with its passage so each is told apart. */}
+      {/* Named with its passage, so each is told apart. */}
       <button type="button" className={styles.why} aria-label={`${r.why}: ${name}`} aria-haspopup="dialog" onClick={(e) => onWhy(e.currentTarget)}>{r.why}</button>
     </div>
   );

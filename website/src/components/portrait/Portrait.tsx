@@ -23,6 +23,7 @@ import Keep from "./Keep";
 import Confirm from "./Confirm";
 import SavedList, { SAVED_TITLE_ID, type SavedSummary } from "./SavedList";
 import PlaceField, { placeName } from "./PlaceField";
+import { portraitFonts } from "./fonts";
 import styles from "./portrait.module.css";
 import readerStyles from "./reader.module.css";
 
@@ -73,7 +74,14 @@ function failureKey(error: string | null): ErrorKey {
   return "failed";
 }
 
-export default function Portrait({ locale, cards, frames }: { locale: PortraitLocale; cards: MajorCard[]; frames: Frames }) {
+type PortraitProps = { locale: PortraitLocale; cards: MajorCard[]; frames: Frames };
+
+/** The portrait's root: it carries the label face to every phase, and lays out nothing itself. */
+export default function Portrait(props: PortraitProps) {
+  return <div className={`${portraitFonts.className} ${styles.root}`}><Phases {...props} /></div>;
+}
+
+function Phases({ locale, cards, frames }: PortraitProps) {
   const t = PORTRAIT_COPY[locale];
   const [phase, setPhase] = useState<Phase>({ kind: "form" });
   /** Where the Laying's cards lay when stage A arrived: the dock's cards fly from there. */

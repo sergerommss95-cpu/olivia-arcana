@@ -17,7 +17,6 @@
   --ease: var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1));
   --display: var(--font-display, "Cormorant"), serif;
   --heading: var(--font-heading, "Cormorant Garamond"), serif;
-  --mono: var(--font-mono, "IBM Plex Mono"), monospace;
   --gutter: 20px;
   /* The reading takes the window's width less its gutters, whatever the shell's own padding. */
   --span: min(1288px, calc(100vw - 2 * var(--gutter)));
@@ -91,13 +90,15 @@
 .dockSlot[data-lit] { z-index: 2; }
 .dockSlot[data-lit] .lift { transform: scale(1.25); }
 .dockCap {
+  composes: numeral from "./type.module.css";
   position: absolute;
   left: 50%;
-  top: calc(100% + 7px);
+  top: calc(100% + 5px);
   margin: 0;
   transform: translateX(-50%);
-  font: 400 10px/1 var(--mono);
-  letter-spacing: 0.16em;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
   color: var(--faint);
   text-shadow: 0 0 4px var(--lapis), 0 0 8px var(--lapis);
   transition: transform 600ms var(--ease);
@@ -106,15 +107,14 @@
 .arriving .dockThreads, .arriving .legend { animation: fadeIn 700ms var(--ease) 650ms both; }
 
 .legend {
+  composes: label from "./type.module.css";
   min-height: 7.5em;
   margin-top: 10px;
-  font: 400 10px/1.7 var(--mono);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  line-height: 1.55;
   color: var(--faint);
 }
 .legend p, .legend ul { margin: 0; padding: 0; list-style: none; }
-.legend b { font-weight: 400; color: var(--gilt); margin-right: 0.5em; }
+.legend b { font-weight: 500; color: var(--gilt); margin-right: 0.5em; }
 .legendKicker { color: var(--soft); margin-bottom: 4px !important; }
 /* The example's label: set apart from the legend by a hairline. */
 .legendNote { margin-bottom: 10px !important; padding-bottom: 10px; border-bottom: 1px solid var(--hair); color: var(--gilt); }
@@ -163,6 +163,7 @@
 .progress { position: fixed; z-index: 40; top: 0; left: 0; right: 0; height: 2px; pointer-events: none; }
 .progress span { display: block; height: 100%; background: var(--gilt); transform: scaleX(0); transform-origin: left center; }
 .contents {
+  composes: meta from "./type.module.css";
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -170,10 +171,8 @@
   padding: 0 6px;
   border: 0;
   background: none;
-  color: var(--soft);
-  font: 400 10px/1 var(--mono);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1;
   cursor: pointer;
 }
 .contentsIcon { position: relative; width: 14px; height: 9px; border-top: 1px solid var(--gilt); border-bottom: 1px solid var(--gilt); }
@@ -199,16 +198,15 @@
 .sheet[open] { animation: rise 500ms var(--ease) both; }
 @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
 .sheetHead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.sheetTitle { margin: 0; font: 400 11px/1.4 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gilt); }
+.sheetTitle { composes: labelGilt from "./type.module.css"; margin: 0; }
 .close {
+  composes: meta from "./type.module.css";
   min-height: 44px;
   padding: 0 4px;
   border: 0;
   background: none;
-  color: var(--soft);
-  font: 400 10px/1 var(--mono);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1;
   cursor: pointer;
 }
 
@@ -219,7 +217,7 @@
 /* Clear of the sticky bar when a section is jumped to or a passage takes focus. */
 .text :is([data-section], [data-passage]) { scroll-margin-top: 128px; }
 
-.kicker { font: 400 11px/1.4 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gilt); text-align: center; }
+.kicker { composes: labelGilt from "./type.module.css"; text-align: center; }
 .title {
   margin: 18px 0 16px;
   font: 300 64px/1 var(--display);
@@ -286,7 +284,7 @@
 .heading { margin: 0 0 14px; font: 400 32px/1.15 var(--heading); text-align: center; text-wrap: balance; color: var(--ink); }
 
 .chapter { margin-top: 88px; }
-.chapterKicker { margin-bottom: 12px !important; font: 400 11px/1.4 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gilt); text-align: center; }
+.chapterKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 12px !important; text-align: center; }
 .lede {
   max-width: 30em;
   margin: 0 auto 26px !important;
@@ -296,7 +294,7 @@
   text-wrap: balance;
 }
 .practice { margin: 26px 0 0 2px; padding: 2px 0 2px 22px; border-left: 2px solid var(--gilt); }
-.practiceKicker { margin-bottom: 6px !important; font: 400 10px/1.4 var(--mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--gilt); }
+.practiceKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 6px !important; }
 .practice .prose { font-size: 16px; line-height: 1.7; color: var(--ink); }
 
 /* Seals: what the passage was read from, and the way into why. */
@@ -304,6 +302,7 @@
 /* The list's box dissolves, so "Why this" can share the last line of pills. */
 .seals { display: contents; }
 .seal {
+  composes: labelGilt from "./type.module.css";
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -311,26 +310,23 @@
   padding: 4px 12px;
   border: 1px solid rgba(201, 177, 130, 0.35);
   border-radius: 99px;
-  font: 400 10px/1.2 var(--mono);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gilt);
+  font-size: 13.5px;
+  line-height: 1.2;
 }
 .seal[data-kind="card"] { padding-left: 4px; }
 .sealCard { display: block; width: 12px; height: 20px; border-radius: 2px; object-fit: cover; box-shadow: 0 0 0 1px rgba(201, 177, 130, 0.45); }
 .sealGlyph { font: 400 13px/1 var(--heading); letter-spacing: 0; }
-.sealPos { color: var(--soft); margin-right: -2px; }
+.sealPos { composes: numeral from "./type.module.css"; font-size: 15px; color: var(--soft); margin-right: -2px; }
 .sealPos::after { content: " ·"; }
 .why {
+  composes: meta from "./type.module.css";
   margin-left: auto;
   padding: 8px 0 4px;
   border: 0;
   border-bottom: 1px solid var(--hair);
   background: none;
-  color: var(--soft);
-  font: 400 10px/1.2 var(--mono);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1.2;
   cursor: pointer;
   transition: color 300ms var(--ease), border-color 300ms var(--ease);
 }
@@ -371,7 +367,7 @@
 /* An engraved plate: a second, gilt rule inside the first. */
 .keep::before { content: ""; position: absolute; inset: 6px; border: 1px solid rgba(201, 177, 130, 0.2); pointer-events: none; }
 .keep:focus { outline: none; }
-.keepTitle { margin: 0 0 8px; font: 400 11px/1.4 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gilt); }
+.keepTitle { composes: labelGilt from "./type.module.css"; margin: 0 0 8px; }
 .keepLines { margin: 0; padding: 0; list-style: none; }
 .keepLines li { padding: 22px 0; font: 400 26px/1.35 var(--heading); color: var(--ink); text-wrap: balance; }
 .keepLines li + li { border-top: 1px solid var(--hair); }
@@ -379,7 +375,7 @@
 /* ── Unfinished, and the end ─────────────────────────────────── */
 
 .notice { margin-top: 88px; padding: 22px 26px; border: 1px solid var(--hair); border-left: 2px solid var(--gilt); background: rgba(7, 18, 29, 0.4); }
-.noticeKicker { margin-bottom: 8px !important; font: 400 10px/1.4 var(--mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--gilt); }
+.noticeKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 8px !important; }
 .notice p + p { font-size: 16px; line-height: 1.7; color: var(--soft); }
 
 /* The text and what follows it (the maps, the end) are siblings in the reading's grid. */

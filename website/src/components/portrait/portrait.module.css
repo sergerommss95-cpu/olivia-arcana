@@ -19,14 +19,16 @@
   --amend: #efc2ab;
   --ease: var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1));
   --heading: var(--font-heading, "Cormorant Garamond"), serif;
-  --mono: var(--font-mono, "IBM Plex Mono"), monospace;
   --sans: var(--font-body, system-ui), sans-serif;
   max-width: 44rem;
   margin: 0 auto;
   padding: clamp(2rem, 6vw, 5rem) 1rem 6rem;
   color: var(--ink);
 }
-.kicker { margin: 0; font: 500 0.72rem/1.4 var(--mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--gilt); }
+/* The portrait's root carries the label face (fonts.ts) and lays out nothing itself. */
+.root { display: contents; }
+
+.kicker { composes: labelGilt from "./type.module.css"; margin: 0; }
 .title { font: 400 clamp(2.5rem, 5.2vw, 4.4rem)/1.02 var(--font-display, Cormorant, serif); margin: 0.7rem 0 0; text-wrap: balance; }
 .title:focus, .stoppedTitle:focus { outline: none; }
 
@@ -129,7 +131,7 @@
 .empty { padding: 0.9rem 1rem; color: var(--soft); font-size: 0.92rem; line-height: 1.5; }
 /* A chosen place, told apart from its namesakes: its country and where it lies. */
 .chosen { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 0.15rem 0.6rem; color: var(--soft); }
-.coords { font: 400 0.74rem/1.4 var(--mono); letter-spacing: 0.04em; color: var(--faint); }
+.coords { composes: meta from "./type.module.css"; font-size: 13px; font-variant-numeric: tabular-nums; }
 .tick { display: inline-block; align-self: center; width: 9px; height: 4.5px; margin: -3px 0.1rem 0 0.1rem; border-left: 1.5px solid var(--gilt); border-bottom: 1.5px solid var(--gilt); transform: rotate(-45deg); }
 
 /* ── The notice, the actions, the disclosure ───────────────────── */

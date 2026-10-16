@@ -16,7 +16,6 @@
   --leave: cubic-bezier(0.5, 0, 0.75, 0);
   --display: var(--font-display, "Cormorant"), serif;
   --heading: var(--font-heading, "Cormorant Garamond"), serif;
-  --mono: var(--font-mono, "IBM Plex Mono"), monospace;
   --text: var(--font-body, system-ui), sans-serif;
   --pad: 24px;
   position: fixed;
@@ -71,16 +70,14 @@
   padding: 6px max(var(--pad), calc((100% - 600px) / 2));
   border-bottom: 1px solid var(--hair);
 }
-.kicker { font: 400 11px/1.4 var(--mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--gilt); }
+.kicker { composes: labelGilt from "./type.module.css"; }
 .close {
+  composes: meta from "./type.module.css";
   min-height: 44px;
   padding: 0 4px;
   border: 0;
   background: none;
-  color: var(--soft);
-  font: 400 10px/1 var(--mono);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 14px;
   cursor: pointer;
   transition: color 300ms var(--ease);
 }
@@ -101,14 +98,11 @@
 
 .section { margin-top: 34px; }
 .sectionTitle {
+  composes: label from "./type.module.css";
   display: flex;
   align-items: center;
   gap: 14px;
   margin: 0 0 4px;
-  font: 400 10px/1.4 var(--mono);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--soft);
 }
 .sectionTitle::after { content: ""; flex: 1; height: 1px; background: var(--hair); }
 .list { margin: 0; padding: 0; list-style: none; }
@@ -117,18 +111,18 @@
 .cardRow { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 18px; padding: 16px 0; }
 .cardRow + .cardRow { border-top: 1px solid var(--hair); }
 .art { position: relative; width: 64px; height: 110px; perspective: 700px; }
-.cardKicker { font: 400 10px/1.4 var(--mono); letter-spacing: 0.18em; text-transform: uppercase; color: var(--gilt); }
+.cardKicker { composes: labelGilt from "./type.module.css"; }
+.pos { composes: numeral from "./type.module.css"; font-size: 15px; }
 .cardName { margin-top: 3px; font: 400 22px/1.2 var(--heading); color: var(--ink); }
 .frame { margin-top: 6px; font: 400 14.5px/1.6 var(--text); color: var(--soft); }
-/* Set in sentence case, so the sum stays on one line beside its sigil. */
+/* How the card was found: the sum on one line beside its sigil, its figures in even columns. */
 .found {
+  composes: meta from "./type.module.css";
   display: flex;
   align-items: center;
   gap: 10px;
   margin-top: 10px;
-  font: 400 11px/1.4 var(--mono);
-  letter-spacing: 0.02em;
-  color: var(--faint);
+  font-variant-numeric: lining-nums tabular-nums;
   /* A date line wraps in two even halves, never one word alone. */
   text-wrap: balance;
 }
@@ -145,12 +139,13 @@
 .row + .row { border-top: 1px solid var(--hair); }
 /* Planet and aspect glyphs from one symbol face, so the Sun is drawn the same size as Mercury. */
 .mark { justify-self: center; font: 400 20px/1 "Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "Noto Sans Symbols", var(--heading); color: var(--gilt); }
-.markNumber { font: 300 30px/0.9 var(--display); }
-.markLetters { font: 400 10px/1 var(--mono); letter-spacing: 0.08em; }
+.markNumber { font: 300 30px/0.9 var(--display); font-variant-numeric: lining-nums; }
+/* Rising and Midheaven are marked by two letters, set in the label voice. */
+.markLetters { composes: labelGilt from "./type.module.css"; justify-self: center; line-height: 1; }
 .line { font: 400 15.5px/1.55 var(--text); color: var(--ink); }
 /* A note moves to the next line whole, never split mid-phrase. */
 .note { color: var(--faint); white-space: nowrap; }
-.flag { display: inline-block; margin-left: 10px; font: 400 10px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gilt); white-space: nowrap; }
+.flag { composes: labelGilt from "./type.module.css"; display: inline-block; margin-left: 10px; line-height: 1; white-space: nowrap; }
 
 /* What the traditions say: a label, the teaching, its sources. */
 .teaching { padding: 18px 0 20px; }
@@ -161,10 +156,10 @@
 .sources { display: flex; flex-wrap: wrap; gap: 0 18px; margin: 8px 0 0; padding: 0; list-style: none; }
 /* A block of its own, so a wrapped title keeps one focus ring and a 24 px target. */
 .source {
+  composes: meta from "./type.module.css";
   display: inline-block;
   padding: 4px 0;
-  font: 400 11px/1.5 var(--mono);
-  color: var(--soft);
+  font-size: 13px;
   text-decoration: underline;
   text-decoration-color: var(--hair);
   text-underline-offset: 3px;
