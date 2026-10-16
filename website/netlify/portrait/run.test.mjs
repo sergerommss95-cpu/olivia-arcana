@@ -214,7 +214,7 @@ test("an invented id reaches neither the repair prompt nor the logs in raw form,
   assert.equal(await runJob({ kv: kv2, id: "j", write: second.write, bank }), "done");
   const listed = second.calls[1].task.split("fix every one:\n")[1].split("\n");
   assert.equal(listed.length, 20);
-  assert.equal(listed[0], "refs:overview:bad-0");
+  assert.match(listed[0], /^refs:overview:bad-0 — it cites /);
 });
 
 test("createWriter sends one structured, cached, fallback-enabled request and interprets the reply", async () => {

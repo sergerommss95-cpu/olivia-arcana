@@ -119,3 +119,33 @@ test("the gold examples also pass the safety check, and the chapter example's pa
   }
   assert.equal(checked, 2);
 });
+
+const untimed = { v: 1, locale: "uk", timeKnown: false, factors: [{ id: "natal-venus", kind: "planet", body: "venus", sign: "capricorn", house: null, retrograde: false, alternatives: ["capricorn", "aquarius"] }] };
+const repairTask = (errors) => stageRequest("a", untimed, teachings, {}, errors).task;
+
+test("a repair names the alternative signs an uncertain factor needs", () => {
+  const task = repairTask(["uncertain:bonds:natal-venus"]);
+  assert.match(task, /uncertain:bonds:natal-venus — .*Capricorn or Aquarius.*conditional/);
+});
+
+test("a length repair gives the measured length and the allowed range in characters", () => {
+  assert.match(repairTask(["length:overview:1412"]), /length:overview:1412 — it is 1412 characters; it must be 380–1300 characters/);
+  assert.match(repairTask(["length:bonds:150"]), /it is 150 characters; it must be 220–1000 characters/);
+  assert.match(repairTask(["length:mind:p1:90"]), /it is 90 characters; it must be 200–1150 characters/);
+  assert.match(repairTask(["length:mind:lede"]), /length:mind:lede — it must be 30–240 characters/);
+  assert.match(repairTask(["length:keep:2"]), /length:keep:2 — it must be 20–180 characters/);
+});
+
+test("every check the validator and style lint can fail has a plain explanation", () => {
+  const codes = ['unsafe:overview:"x"', "missing:outline:mind", "refs:bonds:empty", "teachings:gifts:t-1", "focus:inner", "count:mind:paragraphs", "hedge-lead:inner", "hedges:inner:3", 'phrase:inner:"x"', 'gender:inner:"x"', 'repeat:mind:"x"', "uncertain:bonds:natal-venus", "length:overview:10"];
+  const task = repairTask(codes);
+  for (const code of codes) assert.match(task, new RegExp(`${code.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")} — \\S`));
+});
+
+test("an unknown code passes through unchanged", () => {
+  assert.match(repairTask(["novel:thing"]), /^novel:thing$/m);
+});
+
+test("the names rule makes way for alternative signs", () => {
+  assert.match(systemPrompt("en"), /names stay out of the prose unless[^\n]*alternative signs/);
+});

@@ -178,7 +178,9 @@ const REPAIR_MARKER = "Your previous attempt failed these checks; fix every one:
 /** The error codes a repair prompt carries, i.e. why the stage's previous attempt was rejected. */
 export function repairErrors(task) {
   const at = task.indexOf(REPAIR_MARKER);
-  return at < 0 ? [] : task.slice(at + REPAIR_MARKER.length).split("\n\n")[0].split("\n").filter(Boolean);
+  // Each line is "<code> — <what to do>"; the code is what the record keeps.
+  const code = (line) => { const cut = line.lastIndexOf(" — "); return cut < 0 ? line : line.slice(0, cut); };
+  return at < 0 ? [] : task.slice(at + REPAIR_MARKER.length).split("\n\n")[0].split("\n").filter(Boolean).map(code);
 }
 
 /** Per-stage ms (all calls of the stage), attempts and token totals from the recorded calls. */
