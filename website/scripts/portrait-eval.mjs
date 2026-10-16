@@ -651,9 +651,9 @@ const checkVariant = (name) => {
   return name;
 };
 
-/** Hides portrait_* log lines the harness already records per call; everything else (provider failures included) passes through. */
+/** Hides the per-call and per-job log lines the record already holds; validation codes (stage_invalid, style_residue) and provider failures pass through, since the record keeps only the final outcome. */
 export function quietLogs() {
-  const quiet = /^\{"event":"portrait_(?:stage|stage_invalid|style_residue|job)"/;
+  const quiet = /^\{"event":"portrait_(?:stage|job)"/;
   const wrap = (original) => (...args) => { if (typeof args[0] === "string" && quiet.test(args[0])) return; original(...args); };
   const { log, warn } = console;
   console.log = wrap(log.bind(console));
