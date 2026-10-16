@@ -149,3 +149,18 @@ test("an unknown code passes through unchanged", () => {
 test("the names rule makes way for alternative signs", () => {
   assert.match(systemPrompt("en"), /names stay out of the prose unless[^\n]*alternative signs/);
 });
+
+test("an unknown birth time puts each uncertain factor and its possible signs into every stage's task", () => {
+  const moon = { id: "natal-moon", kind: "planet", body: "moon", sign: "gemini", house: null, retrograde: false, alternatives: ["taurus", "gemini"] };
+  const both = { ...untimed, factors: [...untimed.factors, moon] };
+  for (const stage of ["a", "b", "c"]) {
+    const { task } = stageRequest(stage, both, teachings, stage === "a" ? {} : { a: { title: "T" } });
+    assert.match(task, /natal-venus \(Capricorn or Aquarius\)/);
+    assert.match(task, /natal-moon \(Taurus or Gemini\)/);
+  }
+  assert.doesNotMatch(stageRequest("a", packet, teachings, {}).task, /possible sign/);
+});
+
+test("the opening task gives the short fields their limits in characters", () => {
+  assert.match(stageRequest("a", packet, teachings, {}).task, /epigraph[^.]*under 160 characters/);
+});

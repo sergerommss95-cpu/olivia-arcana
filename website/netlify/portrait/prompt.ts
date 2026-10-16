@@ -63,7 +63,7 @@ export function systemPrompt(locale: "en" | "uk") {
 const json = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
 
 const TASK: Record<Stage, string> = {
-  a: `Write the opening: a title (2–6 words), a one-line epigraph, an overview (90–160 words), five facets (50–130 words each, short heading): temperament, inner, gifts, bonds, direction — and an "outline": one sentence for each later chapter (mind, heart, work, shadow, love, becoming) naming the distinct angle that chapter will take. Angles must not overlap each other or the facets.`,
+  a: `Write the opening: a title (2–6 words), a one-line epigraph (under ${LIMITS.epigraph[1]} characters), an overview (90–160 words), five facets (50–130 words each, short heading): temperament, inner, gifts, bonds, direction — and an "outline": one sentence for each later chapter (mind, heart, work, shadow, love, becoming) naming the distinct angle that chapter will take. Angles must not overlap each other or the facets.`,
   b: `Write three chapters: mind, heart, work. Each: title, a one-sentence lede the reader can recognise, 2–3 paragraphs of 60–150 words, one small concrete practice. Write each chapter from its angle in <outline>.`,
   c: `Write three chapters: shadow, love, becoming, in the same form, each from its angle in <outline>; then "keep": three short sentences worth remembering, each under 15 words.`,
 };
@@ -120,6 +120,11 @@ export function stageRequest(stage: Stage, packet: Packet, teachings: Teaching[]
   ].join("\n\n");
   const sections = SECTIONS[stage].map((key) => `- ${key}: build around ${focusFor(key, packet).join(", ") || "the whole portrait"}`).join("\n");
   const parts = [TASK[stage], `Sections and their focus factors (each passage must reference at least one):\n${sections}`];
+  const uncertain = packet.factors.filter((f) => Array.isArray(f.alternatives) && f.alternatives.length > 1);
+  if (uncertain.length) {
+    const listed = uncertain.map((f) => `${f.id} (${(f.alternatives as string[]).map(signName).join(" or ")})`).join(", ");
+    parts.push(`The birth time is unknown, so these factors have more than one possible sign: ${listed}. A passage that lists one of them in "refs" must name each of its possible signs, in conditional sentences ("if your Venus is in Capricorn… if it is in Aquarius…"). If a passage does not need that factor, leave it out of "refs" and build on another focus factor.`);
+  }
   if (earlier.a) {
     const { outline, ...opening } = earlier.a;
     parts.push(`<opening>\n${json(opening)}\n</opening>\nDo not repeat the opening; deepen it.`);
