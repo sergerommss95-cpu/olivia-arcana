@@ -3,7 +3,7 @@
   "html": {
     "path": "index.html",
     "bytes": 41766,
-    "sha256": "fe75ffbb742c75c0da21dcf3d7da30bdc153fefb523e5defb04efaea6a267ea0"
+    "sha256": "ddca85310ad5761db3c86b5bcb02a8f442a0855e83286228a2ee3a8c29bc33fa"
   },
   "locales": {
     "en": "index.html",
@@ -14,8 +14,8 @@
     "scripts": {
       "hero": "assets/hero.571dbb5283ae03b8.js",
       "background": "assets/background.3bba5aa61a93e616.js",
-      "app": "assets/app.0d0b062c6ebd26c1.js",
-      "app-en": "assets/app-en.48c75d85401028cc.js"
+      "app": "assets/app.438681186c2f7323.js",
+      "app-en": "assets/app-en.d26ddbc0dc5ac207.js"
     },
     "stylesheet": "assets/experience.ac323dc3446247a9.css"
   },
@@ -1204,13 +1204,13 @@
       "bytes": 2534536,
       "sha256": "3bba5aa61a93e6167404df17e2e07c751255b869e163882841427bc3ba47c11b"
     },
-    "assets/app.0d0b062c6ebd26c1.js": {
-      "bytes": 1007920,
-      "sha256": "0d0b062c6ebd26c11501dea0aa54b33aa4193414cd201d643be2fc95280ab537"
+    "assets/app.438681186c2f7323.js": {
+      "bytes": 1009082,
+      "sha256": "438681186c2f73239d950fbc5b5031cd4cadb11de8849d30fda9aa46f588cad8"
     },
-    "assets/app-en.48c75d85401028cc.js": {
-      "bytes": 750022,
-      "sha256": "48c75d85401028cc70e0ab256719b28b83f78d3ae349cedb594ac6faf48f7e45"
+    "assets/app-en.d26ddbc0dc5ac207.js": {
+      "bytes": 751184,
+      "sha256": "d26ddbc0dc5ac20783fa114fd383d499eea1ac598855db35dde4e61c80303c36"
     },
     "assets/native-card-assets.a799a6d6de4c8f63.js": {
       "bytes": 18936,

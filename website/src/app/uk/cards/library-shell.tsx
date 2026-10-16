@@ -9,6 +9,7 @@ export default function UkrainianLibraryShell({ children, englishPath = "/cards/
     <footer className={styles.footer}>
       <p>Olivia Arcana · Простір для ваших запитань.</p>
       <p>Карти пропонують погляд для роздумів. Рішення залишається за вами.</p>
+      <p><a href="https://t.me/OliviaArcanaBot" target="_blank" rel="noopener">Olivia у Telegram ↗</a></p>
     </footer>
   </div>;
 }

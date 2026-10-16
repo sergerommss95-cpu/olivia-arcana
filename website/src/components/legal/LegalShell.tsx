@@ -52,6 +52,11 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
             </TransitionLink>
           ))}
         </nav>
+        <p className="alm-colophon-elsewhere">
+          <a href="https://t.me/OliviaArcanaBot" target="_blank" rel="noopener" className="alm-colophon-telegram">
+            Olivia in Telegram ↗
+          </a>
+        </p>
         <p className="alm-colophon-line">© 2026 Olivia Arcana — Tarot, thoughtfully personal.</p>
       </footer>
 
@@ -280,6 +285,26 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
           color: var(--ox);
         }
 
+        .alm-colophon-elsewhere {
+          margin: 0.1rem 0 0;
+          text-align: center;
+        }
+
+        .alm-colophon-telegram {
+          display: inline-flex;
+          align-items: center;
+          min-height: 2.75rem;
+          color: var(--ink-faint);
+          font-size: 0.8rem;
+          letter-spacing: 0.02em;
+          text-decoration: none;
+          transition: color 200ms var(--ease);
+        }
+
+        .alm-colophon-telegram:hover {
+          color: var(--ox);
+        }
+
         .alm-colophon-line {
           margin: 0.8rem auto 0;
           text-align: center;
@@ -308,7 +333,8 @@ export default function LegalShell({ title, updated, children }: LegalShellProps
           .alm-page::before {
             display: none !important;
           }
-          .alm-page nav {
+          .alm-page nav,
+          .alm-colophon-elsewhere {
             display: none !important;
           }
           .legal-prose a {

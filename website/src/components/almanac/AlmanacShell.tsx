@@ -22,6 +22,8 @@ interface AlmanacShellProps {
   narrow?: boolean;
 }
 
+const TELEGRAM_BOT = "https://t.me/OliviaArcanaBot";
+
 const CHROME = {
   en: {
     colophonLinks: [
@@ -33,6 +35,7 @@ const CHROME = {
       ["Cookies", "/cookies"],
       ["Disclaimer", "/disclaimer"],
     ] as Array<[string, string]>,
+    telegram: "Olivia in Telegram ↗",
     line: "© 2026 Olivia Arcana — Tarot, thoughtfully personal.",
   },
   uk: {
@@ -45,6 +48,7 @@ const CHROME = {
       ["Cookies", "/cookies"],
       ["Застереження", "/disclaimer"],
     ] as Array<[string, string]>,
+    telegram: "Olivia у Telegram ↗",
     line: "© 2026 Olivia Arcana — Таро для особистих роздумів.",
   },
 };
@@ -78,6 +82,11 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
             </TransitionLink>
           ))}
         </nav>
+        <p className="alm-colophon-elsewhere">
+          <a href={TELEGRAM_BOT} target="_blank" rel="noopener" className="alm-colophon-telegram">
+            {chrome.telegram}
+          </a>
+        </p>
         <p className="alm-colophon-line">{chrome.line}</p>
 
         {/* The edition's tongue — appended below the closing line so the
@@ -438,6 +447,26 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           color: var(--ox);
         }
 
+        .alm-colophon-elsewhere {
+          margin: 0.1rem 0 0;
+          text-align: center;
+        }
+
+        .alm-colophon-telegram {
+          display: inline-flex;
+          align-items: center;
+          min-height: 2.75rem;
+          color: var(--ink-faint);
+          font-size: 0.8rem;
+          letter-spacing: 0.02em;
+          text-decoration: none;
+          transition: color 200ms var(--ease);
+        }
+
+        .alm-colophon-telegram:hover {
+          color: var(--ox);
+        }
+
         .alm-colophon-lang {
           display: flex;
           justify-content: center;
@@ -488,6 +517,7 @@ export default function AlmanacShell({ children, narrow = false }: AlmanacShellP
           .alm-page nav,
           .alm-mast-cta,
           .alm-btn,
+          .alm-colophon-elsewhere,
           .alm-colophon-lang {
             display: none !important;
           }
