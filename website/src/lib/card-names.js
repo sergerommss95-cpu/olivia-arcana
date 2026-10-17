@@ -3,13 +3,13 @@
  * pointer and focus (components/CardNameHover.tsx). Only the 78 names reach
  * the browser, not the card library.
  *
- * Recognised art: /cards/NN_slug.webp and its thumbs/ and wheel/ cuts,
+ * Recognised art: /cards/NN_slug.webp and its thumbs/, mid/ and wheel/ cuts,
  * /cards-portal/NN_slug.webp, and the reading experience's hashed decks
  * (/experience/assets/NN-slug.<hash>.webp, amielle-v1-NN…, space-between-NN…).
  * NN is the card's place in ALL_CARDS (0–77). Card backs are never a card.
  */
 
-const FACE = /\/cards(?:-portal)?\/(?:thumbs\/|wheel\/)?(\d\d_[a-z_]+)\.(?:webp|png|jpe?g|avif)\b/;
+const FACE = /\/cards(?:-portal)?\/(?:thumbs\/|mid\/|wheel\/)?(\d\d_[a-z_]+)\.(?:webp|png|jpe?g|avif)\b/;
 const DECKS = /\/experience\/assets\/(?:(\d\d-[a-z-]+?)(?:-phone)?|(?:amielle-v1|space-between)-(\d\d)(?:-(?:men|women))?)\.[0-9a-f]{8,}\.webp\b/;
 const BACK = /\/cards\/back[\w-]*\.\w+\b|\/experience\/assets\/(?:card-back|space-between-back)\.[0-9a-f]{8,}\.webp\b/;
 

@@ -15,6 +15,7 @@ import { litPositions } from "@/lib/portrait/lattice.js";
 import { sealsFor } from "@/lib/portrait/seals.js";
 import type { PortraitPacket, PortraitStages } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
+import { cardSrcSet } from "./Lattice";
 import { registerSection, useSeen } from "./sections";
 import styles from "./facets.module.css";
 
@@ -23,9 +24,6 @@ const ID = "portrait-opening";
 
 /** Ink-in order within a section, 90 ms apart. */
 export const inkAt = (n: number) => ({ "--n": n }) as CSSProperties;
-
-/** A dash keeps to the word before it, so no line starts with one. */
-export const tieDashes = (text: string) => text.replace(/ ([—–])/g, "\u00a0$1");
 
 export default function Opening({ stages, packet, cards, locale, onWhy }: {
   stages: PortraitStages & { a: StageA };
@@ -45,7 +43,7 @@ export default function Opening({ stages, packet, cards, locale, onWhy }: {
     <section ref={root} id={ID} tabIndex={-1} className={`${styles.opening} ${seen ? styles.seen : ""}`} aria-labelledby={`${ID}-title`}
       {...registerSection("overview", t.toc.opening, litPositions(refs, packet) as number[])}>
       <h2 id={`${ID}-title`} className={`${styles.hSection} ${styles.openingHead} ${styles.ink}`} style={inkAt(0)}>{t.toc.opening}</h2>
-      <p className={`${styles.prose} ${styles.dropCap} ${styles.openingText} ${styles.ink}`} style={inkAt(1)}>{tieDashes(overview.text)}</p>
+      <p className={`${styles.prose} ${styles.dropCap} ${styles.openingText} ${styles.ink}`} style={inkAt(1)}>{overview.text}</p>
       <ReadFrom refs={refs} packet={packet} cards={cards} locale={locale} name={t.toc.opening} onWhy={(trigger) => onWhy("overview", trigger)}
         className={`${styles.openingNote} ${styles.ink}`} style={inkAt(2)} />
     </section>
@@ -110,7 +108,7 @@ export function CardArt({ card, sizes, className }: { card: MajorCard; sizes: st
   return (
     <span className={`${styles.art} ${className ?? ""}`}>
       {/* eslint-disable-next-line @next/next/no-img-element -- the card's own art, thumbnail first */}
-      <img src={card.image} srcSet={`${card.thumb} 120w, ${card.image} 896w`} sizes={sizes} alt="" width={896} height={1536} loading="lazy" decoding="async" />
+      <img src={card.image} srcSet={cardSrcSet(card)} sizes={sizes} alt="" width={896} height={1536} loading="lazy" decoding="async" />
     </span>
   );
 }

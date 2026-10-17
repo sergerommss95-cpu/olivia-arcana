@@ -11,8 +11,10 @@
 import { useState } from "react";
 import type { MajorCard } from "@/lib/astrology/deck";
 import { buildExport, exportImages, fileName } from "@/lib/portrait/export.js";
+import { typeset } from "@/lib/portrait/typography.js";
 import type { PortraitPacket, PortraitStages, PortraitStatus } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
+import { readyForPrint } from "./Reader";
 import styles from "./keep.module.css";
 
 /** A same-origin image as a data: URI, or null when it cannot be fetched. */
@@ -79,7 +81,7 @@ export default function Keep({ locale, reopened, kept, packet, stages, teachings
     <section className={styles.keep} aria-labelledby="portrait-keeping-title">
       <div className={styles.keepHead}>
         <h2 id="portrait-keeping-title" className={styles.kicker}>{k.title}</h2>
-        {stages.a?.title && <p className={styles.keepTitle}>{stages.a.title}</p>}
+        {stages.a?.title && <p className={styles.keepTitle}>{typeset(stages.a.title, locale)}</p>}
       </div>
       <div className={styles.tools}>
         {/* Reopened from the saved list: a statement, not a button, and the way to forget it. */}
@@ -100,7 +102,7 @@ export default function Keep({ locale, reopened, kept, packet, stages, teachings
             </button>
           )}
           <button type="button" className={styles.text} aria-busy={busy || undefined} onClick={download}>{busy ? k.downloading : k.download}</button>
-          <button type="button" className={styles.text} onClick={() => window.print()}>{k.print}</button>
+          <button type="button" className={styles.text} onClick={() => { const waiting = readyForPrint(); if (waiting) void waiting.then(() => window.print()); else window.print(); }}>{k.print}</button>
         </div>
         <p className={styles.note}>{k.note}</p>
       </div>

@@ -3,6 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { buildExport, escapeHtml, exportImages, fileName } from "./portrait/export.js";
+import { typeset } from "./portrait/typography.js";
 
 const example = (locale) => JSON.parse(readFileSync(new URL(`../../public/portrait/example-${locale}.json`, import.meta.url), "utf8"));
 const deck = (prefix) => Array.from({ length: 22 }, (_, id) => ({ id, name: `${prefix} ${id}`, href: `/cards/c${id}/`, image: `/cards/${id}.webp`, thumb: `/cards/thumbs/${id}.webp` }));
@@ -22,10 +23,10 @@ function passages(stages) {
   return [...out, ...stages.c.keep];
 }
 
-test("every passage, every chapter title and the keep lines appear", () => {
+test("every passage, every chapter title and the keep lines appear, set as the reader sets them", () => {
   for (const locale of ["en", "uk"]) {
     const { html, stages } = exported(locale);
-    for (const text of passages(stages)) assert.ok(html.includes(escapeHtml(text)), `${locale}: missing ${text.slice(0, 60)}`);
+    for (const text of passages(stages)) assert.ok(html.includes(escapeHtml(typeset(text, locale))), `${locale}: missing ${text.slice(0, 60)}`);
   }
 });
 
@@ -76,7 +77,7 @@ test("the reader's order: glance, opening, facets, chapters, numbers, maps, teac
   for (const locale of ["en", "uk"]) {
     const { html, stages } = exported(locale);
     const at = (text) => {
-      const i = html.indexOf(escapeHtml(text));
+      const i = html.indexOf(escapeHtml(typeset(text, locale)));
       assert.ok(i >= 0, `${locale}: missing ${text.slice(0, 40)}`);
       return i;
     };
@@ -119,7 +120,9 @@ test("text is escaped, never markup", () => {
   };
   const html = buildExport({ locale: "en", packet, stages, teachings, cards: deck("Card"), images: {} });
   assert.ok(!html.includes("<b onclick"));
-  assert.ok(html.includes("Tom &amp; Jerry &lt;b onclick=&quot;x()&quot;&gt;it&#39;s&lt;/b&gt;"));
+  // Text, escaped and set as the reader sets it: its quotes and apostrophe turned, its brackets and ampersand escaped.
+  assert.equal(escapeHtml(typeset(hostile, "en")), "Tom &amp; Jerry &lt;b onclick=”x()”&gt;it’s&lt;/b&gt;");
+  assert.ok(html.includes(escapeHtml(typeset(hostile, "en"))));
 });
 
 test("file names are slugged from the title, Cyrillic transliterated", () => {

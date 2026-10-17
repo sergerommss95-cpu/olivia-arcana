@@ -7,7 +7,8 @@ import { Cormorant_SC } from "next/font/google";
 const cormorantSC = Cormorant_SC({
   variable: "--font-sc",
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500"],
+  // 600 for the labels, 500 for a chapter's lead-in.
+  weight: ["500", "600"],
   display: "swap",
   preload: false,
 });

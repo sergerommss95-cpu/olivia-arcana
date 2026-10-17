@@ -56,8 +56,10 @@
 .sheetLattice { width: min(100%, 372px); margin: 20px auto 0; }
 .threads { width: 100%; height: 100%; }
 .cards { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
-.slot { position: absolute; transition: opacity 400ms var(--ease); }
-.lattice[data-state="lit"] .slot:not([data-lit]) { opacity: 0.45; }
+.slot { position: absolute; }
+/* Unlit, a card sits back under its veil (the card's own --front-dim, which keeps its 3D faces whole); its caption only softens, so it can still be read. */
+.lattice[data-state="lit"] .slot:not([data-lit]) { --front-dim: 0.6; }
+.lattice[data-state="lit"] .slot:not([data-lit]) .cap { color: rgba(238, 230, 212, 0.62); }
 .cap {
   composes: label from "./type.module.css";
   position: absolute;
@@ -71,8 +73,10 @@
   text-align: center;
   text-wrap: balance;
   /* A breath of the ground behind the letters, so threads never strike through them. */
-  text-shadow: 0 0 2px var(--knock, var(--lapis)), 0 0 4px var(--knock, var(--lapis)), 0 0 8px var(--knock, var(--lapis)), 0 0 12px var(--knock, var(--lapis));
+  text-shadow: 0 0 1px var(--knock, var(--lapis)), 0 0 2px var(--knock, var(--lapis)), 0 0 3px var(--knock, var(--lapis)), 0 0 4px var(--knock, var(--lapis)), 0 0 6px var(--knock, var(--lapis)), 0 0 9px var(--knock, var(--lapis)), 0 0 14px var(--knock, var(--lapis));
 }
+/* The ground laid under each line of the caption too, so a thread never shows between its words. */
+.capText { padding: 0 3px; background: var(--knock, var(--lapis)); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .capNum { composes: numeral from "./type.module.css"; font-size: calc(var(--cap-size, 13px) + 1px); font-weight: 500; }
 [data-lit] .cap, [data-links] .cap { color: var(--ink); }
 [data-lit] .capNum, [data-links] .capNum { color: var(--gilt); }
@@ -114,7 +118,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .panel { animation: none; }
-  .slot, .link, .link::after { transition: none; }
+  .link, .link::after { transition: none; }
 }
 
 @media print {

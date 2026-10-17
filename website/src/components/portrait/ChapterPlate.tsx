@@ -21,7 +21,7 @@ import type { Chapter, PortraitPacket } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
 import type { Frames } from "./Laying";
 import { cardsAt } from "./Lattice";
-import { CardArt, NameList, ReadFrom, inkAt, namesOf, tieDashes } from "./Opening";
+import { CardArt, NameList, ReadFrom, inkAt, namesOf } from "./Opening";
 import { registerSection, sectionId, useSeen } from "./sections";
 import styles from "./chapters.module.css";
 
@@ -169,7 +169,7 @@ function Frontispiece({ id, numeral, kicker, chapterKey, chapter, packet, cards,
         <header className={`${styles.titles} ${styles.ink}`} style={inkAt(1)}>
           <p className={styles.kicker}><Kicker numeral={numeral} kicker={kicker} /></p>
           <h3 id={`${id}-title`} className={styles.title}>{chapter.title}</h3>
-          <p className={styles.lede}>{tieDashes(chapter.lede)}</p>
+          <p className={styles.lede}>{chapter.lede}</p>
           <p className={styles.minutes}>{t.glance.minutes.replace("{n}", String(minutes))}</p>
         </header>
 
@@ -180,7 +180,7 @@ function Frontispiece({ id, numeral, kicker, chapterKey, chapter, packet, cards,
               <span className={styles.cards} aria-hidden="true">
                 {shown.map((pos, i) => (
                   <span key={pos} className={styles.card} data-card-label={`${pos} · ${roles[pos][locale]} · ${cardAt[pos]?.name}`}>
-                    <CardArt card={cardAt[pos] as MajorCard} sizes={i === 0 ? "(max-width: 859px) 140px, 280px" : "(max-width: 859px) 112px, 224px"} />
+                    <CardArt card={cardAt[pos] as MajorCard} sizes={i === 0 ? "(max-width: 399px) 60vw, (max-width: 719px) 240px, 280px" : "(max-width: 399px) 48vw, (max-width: 719px) 192px, 224px"} />
                   </span>
                 ))}
               </span>
@@ -224,7 +224,7 @@ function Body({ chapterKey, chapter, packet, cards, locale, onWhy }: Shared & { 
   const seen = useSeen(root);
   const quote = useMemo(() => pullQuote(chapter) as { sentence: string; after: number } | null, [chapter]);
   const paragraphs = chapter.paragraphs ?? [];
-  const [lead, rest] = leadIn(tieDashes(paragraphs[0] ?? ""));
+  const [lead, rest] = leadIn(paragraphs[0] ?? "");
 
   return (
     <div ref={root} className={`${styles.body} ${seen ? styles.seen : ""}`}>
@@ -232,12 +232,12 @@ function Body({ chapterKey, chapter, packet, cards, locale, onWhy }: Shared & { 
         {paragraphs.map((p, j) => (
           <Fragment key={j}>
             <p className={`${styles.prose} ${styles.ink}`} style={inkAt(j)}>
-              {j === 0 ? <>{lead && <span className={styles.leadIn}>{lead}</span>}{rest}</> : tieDashes(p)}
+              {j === 0 ? <>{lead && <span className={styles.leadIn}>{lead}</span>}{rest}</> : p}
             </p>
             {/* The sentence again, set apart: already read in the text, so not read twice. */}
             {quote?.after === j && (
               <blockquote className={`${styles.pull} ${styles.ink}`} style={inkAt(j + 1)} aria-hidden="true">
-                <p>{c.quote[0]}{tieDashes(quote.sentence)}{c.quote[1]}</p>
+                <p>{c.quote[0]}{quote.sentence}{c.quote[1]}</p>
               </blockquote>
             )}
           </Fragment>
@@ -246,7 +246,7 @@ function Body({ chapterKey, chapter, packet, cards, locale, onWhy }: Shared & { 
           <Back className={styles.ritualBack} />
           <div className={styles.ritualWords}>
             <p className={styles.ritualLabel}>{c.practice}</p>
-            <p className={styles.ritualText}>{tieDashes(chapter.practice)}</p>
+            <p className={styles.ritualText}>{chapter.practice}</p>
           </div>
         </div>
       </div>

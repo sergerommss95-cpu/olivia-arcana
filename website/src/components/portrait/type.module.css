@@ -2,18 +2,20 @@
    The portrait's one label voice. A label is set in Cormorant's true small
    caps (Cormorant SC draws lower-case letters as small capitals, Latin and
    Cyrillic alike), so its text stays in sentence case and is never
-   letter-spaced into capitals. Detail beside it is DM Sans in sentence case;
-   a numeral is Cormorant with lining figures. Other modules take these with
+   letter-spaced into capitals. Its small capitals are set at 600 and a
+   touch tracked, so they hold their own beside DM Sans and Cormorant
+   italic. Detail beside it is DM Sans in sentence case; a numeral is
+   Cormorant with lining figures. Other modules take these with
    `composes` and may set their own size, colour or spacing on top.
    --font-sc comes from fonts.ts, set on the portrait's root. */
 
 .label {
   font-family: var(--font-sc, "Cormorant SC"), var(--font-heading, "Cormorant Garamond"), Georgia, serif;
-  font-size: 14px;
+  font-size: 15px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.3;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   text-transform: none;
   font-variant-numeric: lining-nums;
   color: rgba(238, 230, 212, 0.72);

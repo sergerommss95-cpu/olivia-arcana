@@ -20,6 +20,7 @@ import type { PacketFactor, PortraitPacket } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
 import { registerSection, useSeen } from "./sections";
 import { LatticeMap } from "./MiniMap";
+import { cardSrcSet } from "./Lattice";
 import styles from "./maps.module.css";
 
 type Text = { en: string; uk: string };
@@ -105,7 +106,7 @@ function Numerals({ byId, locale }: { byId: Map<string, PacketFactor>; locale: P
         <p className={`${styles.birthday} ${styles.ink}`} style={{ "--n": shown.length } as CSSProperties}>
           <span className={styles.role}>{numberTitles.birthday[locale]}</span>
           <span className={styles.birthdayNum}><span className={styles.sr}> </span>{birthday.value}</span>
-          <span className={styles.birthdayText}><span aria-hidden="true">· </span><span className={styles.sr}>, </span>{n.birthday}</span>
+          <span className={styles.birthdayText}><span className={styles.birthdayDot} aria-hidden="true">· </span><span className={styles.sr}>, </span>{n.birthday}</span>
         </p>
       )}
     </>
@@ -141,7 +142,7 @@ function SkyCards({ byId, cards, locale }: { byId: Map<string, PacketFactor>; ca
                   {dealt.map(({ sign, card }) => (
                     <a key={sign} className={styles.skyCard} href={card.href} aria-label={`${label}, ${eitherSigns([sign], locale)}, ${card.name}`} data-card-label={`${label} · ${eitherSigns([sign], locale)} · ${card.name}`}>
                       {/* eslint-disable-next-line @next/next/no-img-element -- the card's own art, lazily loaded */}
-                      <img src={card.thumb} srcSet={`${card.thumb} 120w, ${card.image} 896w`} sizes="(min-width: 720px) 128px, 84px" alt="" width={120} height={206} loading="lazy" decoding="async" />
+                      <img src={card.thumb} srcSet={cardSrcSet(card)} sizes="(min-width: 720px) 128px, 84px" alt="" width={120} height={206} loading="lazy" decoding="async" />
                     </a>
                   ))}
                 </div>

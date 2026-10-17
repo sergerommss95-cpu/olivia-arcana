@@ -16,6 +16,7 @@ import { BODY_GLYPHS, SIGN_CARDS, SIGN_GLYPHS, SIGNS } from "../astrology/consta
 import { definingCards } from "./digest.js";
 import { READING_ORDER, ROLES, ROWS } from "./lattice.js";
 import { PLANETS } from "./packet.js";
+import { typeset, typesetStages } from "./typography.js";
 import { ANGLE_SEALS, NUMBER_TITLES, PLANET_NAMES } from "./seals.js";
 import { eitherSigns, houseName } from "./why.js";
 
@@ -269,7 +270,7 @@ function teachingsHtml(teachings, lang) {
   const w = WORDS[lang];
   const items = Object.values(teachings ?? {}).map((t) => {
     const sources = (t.sources ?? []).filter((s) => s && s.url).map((s) => `<li><a href="${e(s.url)}">${e(s.title)}</a></li>`).join("");
-    return `<li class="teaching"><p class="label">${e(t.label)}</p><p>${e(t.text)}</p>${sources ? `<ul class="sources" aria-label="${e(w.sources)}">${sources}</ul>` : ""}</li>`;
+    return `<li class="teaching"><p class="label">${e(typeset(t.label, lang))}</p><p>${e(typeset(t.text, lang))}</p>${sources ? `<ul class="sources" aria-label="${e(w.sources)}">${sources}</ul>` : ""}</li>`;
   });
   // Every source once, with its address written out: what a printed page can still point to.
   const unique = new Map();
@@ -430,8 +431,10 @@ h1,h2,h3,h4,.label,.lede,.part-head{break-after:avoid}
  * @param {{ locale: Locale, packet: { factors: Factor[] }, stages: Stages, teachings: Teachings, cards: Card[], images: Record<string, string> }} input
  * @returns {string}
  */
-export function buildExport({ locale, packet, stages, teachings, cards, images }) {
+export function buildExport({ locale, packet, stages: written, teachings, cards, images }) {
   const lang = locale === "uk" ? "uk" : "en";
+  // Set as the reader sets it: quotes turned, dashes kept to their words.
+  const stages = typesetStages(written, lang);
   const w = WORDS[lang];
   const byId = factorsById(packet);
   const a = stages?.a;

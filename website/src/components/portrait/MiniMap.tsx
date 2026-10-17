@@ -133,13 +133,13 @@ export function LatticeMap({ packet, cards, locale, lit = [], links = false, siz
               {links && card ? (
                 <a className={styles.link} href={card.href} aria-label={label}>
                   {/* The link names the card; the art is for the eye. */}
-                  <span className={styles.art} aria-hidden="true"><LatticeCard pos={pos} card={card} turned label="" sizes={sizes} /></span>
+                  <span className={styles.art} aria-hidden="true"><LatticeCard pos={pos} card={card} turned label="" sizes={sizes} loading="lazy" /></span>
                 </a>
               ) : (
-                <LatticeCard pos={pos} card={card} turned label={`${label}${on ? `, ${t.minimap.litCard}` : ""}`} sizes={sizes} />
+                <LatticeCard pos={pos} card={card} turned label={`${label}${on ? `, ${t.minimap.litCard}` : ""}`} sizes={sizes} loading="lazy" />
               )}
               {/* The place and the dot hold to the role's first word, so a long role wraps after it, never after the numeral. */}
-              <p className={styles.cap} aria-hidden="true"><span className={styles.capNum}>{pos}</span>{"\u00a0·\u00a0"}{roles[pos][locale]}</p>
+              <p className={styles.cap} aria-hidden="true"><span className={styles.capText}><span className={styles.capNum}>{pos}</span>{"\u00a0·\u00a0"}{roles[pos][locale]}</span></p>
             </li>
           );
         })}

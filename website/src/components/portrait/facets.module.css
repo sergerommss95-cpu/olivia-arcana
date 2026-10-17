@@ -77,6 +77,10 @@
   transition: color 300ms var(--ease), text-decoration-color 300ms var(--ease);
 }
 .why:hover { color: var(--ink); text-decoration-color: var(--gilt); }
+/* A finger's reach (44 px) round the quiet text buttons, without moving a thing. */
+.why, .cue { position: relative; }
+.why::after { content: ""; position: absolute; inset: -9px -8px; }
+.cue::after { content: ""; position: absolute; inset: -10px; }
 
 /* ── The opening ─────────────────────────────────────────────── */
 
@@ -236,6 +240,13 @@
   .panelText { grid-column: 2 / span 4; order: 0; }
   .cascade { --h: 160px; }
   .caps { margin-top: 28px; }
+}
+
+/* A tablet: an open facet's cards stand beside its text, not after it. */
+@media (min-width: 720px) and (max-width: 999px) {
+  .panelContent { grid-template-columns: minmax(0, 1fr) auto; column-gap: 44px; align-items: start; }
+  .panelText { grid-column: 1; grid-row: 1; }
+  .panelCards { grid-column: 2; grid-row: 1; padding-top: 6px; }
 }
 
 @media (max-width: 719px) {

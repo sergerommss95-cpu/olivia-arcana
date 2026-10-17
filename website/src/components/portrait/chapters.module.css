@@ -51,9 +51,9 @@
 
 /* ── The frontispiece ────────────────────────────────────────── */
 
-/* A phone: the plate first, its cards centred, then the words. */
+/* A phone: the plate first, its cards large at the column's left edge over their captions, then the words. */
 .frontis { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 40px; }
-.plate { --w1: 140px; grid-row: 1; display: grid; justify-items: center; margin: 0; }
+.plate { --w1: min(60vw, 240px); grid-row: 1; display: grid; justify-items: start; margin: 0; }
 .titles { grid-row: 2; display: grid; justify-items: start; }
 
 /* The cards as objects: the first large, a second laid over it a step lower, smaller. */
@@ -190,7 +190,6 @@
 /* ── Wider ───────────────────────────────────────────────────── */
 
 @media (min-width: 720px) {
-  .plate { --w1: 180px; }
   .main { font-size: 19px; }
   .prose { line-height: 1.7; }
   .pull { margin: 44px 0 40px; }
@@ -202,8 +201,8 @@
   .ritualText { font-size: 22px; }
 }
 
-/* The plate beside its words. */
-@media (min-width: 860px) {
+/* The plate beside its words, from a tablet up. */
+@media (min-width: 720px) {
   .frontis { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: clamp(48px, 7vw, 112px); align-items: center; }
   /* The plate as wide as its cards (a little more for one), centred in its column. */
   .plate { --w1: clamp(220px, 22vw, 280px); grid-column: 1; grid-row: 1; justify-self: center; justify-items: start; width: calc(var(--w1) + 10px); }

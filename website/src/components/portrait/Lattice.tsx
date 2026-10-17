@@ -20,7 +20,13 @@ export function cardsAt(packet: PortraitPacket, cards: MajorCard[]) {
   return out;
 }
 
-export function LatticeCard({ pos, card, turned, label, sizes, onArt, className, style }: {
+/**
+ * A card's art in its three cuts, for srcset: the 120 px thumbnail, the 420 px
+ * middle cut (public/cards/mid/, made by scripts/card-mid.mjs) and the 896 px art.
+ */
+export const cardSrcSet = (card: MajorCard) => `${card.thumb} 120w, ${card.image.replace("/cards/", "/cards/mid/")} 420w, ${card.image} 896w`;
+
+export function LatticeCard({ pos, card, turned, label, sizes, loading, onArt, className, style }: {
   pos: number;
   card: MajorCard | undefined;
   turned: boolean;
@@ -28,6 +34,8 @@ export function LatticeCard({ pos, card, turned, label, sizes, onArt, className,
   label: string;
   /** The rendered width of the art, for srcset. */
   sizes: string;
+  /** "lazy" where the card is out of sight at first (the maps, the mini-map's closed sheet). */
+  loading?: "lazy" | "eager";
   /** Called once the art is decoded (or failed), so a turn can wait for it. */
   onArt?: () => void;
   className?: string;
@@ -43,7 +51,7 @@ export function LatticeCard({ pos, card, turned, label, sizes, onArt, className,
       <span className={`${styles.face} ${styles.front}`} style={card ? { backgroundImage: `url(${card.thumb})` } : undefined}>
         {card && (
           // eslint-disable-next-line @next/next/no-img-element -- the card's own art, loaded before its turn
-          <img src={card.image} srcSet={`${card.thumb} 120w, ${card.image} 896w`} sizes={sizes} alt="" width={896} height={1536} decoding="async"
+          <img src={card.image} srcSet={cardSrcSet(card)} sizes={sizes} alt="" width={896} height={1536} loading={loading} decoding="async"
             onLoad={onArt && ((e) => { e.currentTarget.decode().catch(() => {}).finally(onArt); })}
             onError={onArt} />
         )}

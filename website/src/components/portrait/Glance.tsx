@@ -181,6 +181,7 @@ export default function Glance({ stages, failed, packet, cards, locale, kicker, 
             {defining.map((d, i) => {
               const card = cardAt[d.positions[0]];
               const said = describe(d, card, locale);
+              // Its place in the phone's fan; a card not in it is hidden on a phone, so it loads lazily and never there.
               const at = fanIndex.indexOf(d.card);
               const vars = { zIndex: i + 1, "--r": `${TILT[d.positions[0]] ?? 0}deg`, "--fan": at - 1, "--fan-lift": at === 1 ? 0 : 1 } as CSSProperties;
               return (
@@ -188,12 +189,13 @@ export default function Glance({ stages, failed, packet, cards, locale, kicker, 
                   <div className={styles.flip} data-flip={d.positions[0]}>
                     <div className={styles.tilt}>
                       <LatticeCard pos={d.positions[0]} card={card} turned={!down.has(d.positions[0])} label={`${t.laying.card} ${said.places}, ${said.roles}, ${said.name}`}
-                        sizes="(max-width: 999px) 130px, 210px" style={{ "--turn-delay": `${160 + i * 60}ms` } as CSSProperties} />
+                        sizes="(max-width: 719px) 130px, (max-width: 999px) 160px, 210px" loading={at >= 0 ? undefined : "lazy"} style={{ "--turn-delay": `${160 + i * 60}ms` } as CSSProperties} />
                     </div>
                   </div>
+                  {/* The name first, as on a plate, so the names hold one line however long a role runs. */}
                   <p className={styles.cap} aria-hidden="true">
-                    <span className={styles.role}>{roles[d.positions[0]][locale]}</span>
                     <span className={styles.name}>{said.name}</span>
+                    <span className={styles.role}>{roles[d.positions[0]][locale]}</span>
                   </p>
                 </li>
               );
@@ -209,7 +211,11 @@ export default function Glance({ stages, failed, packet, cards, locale, kicker, 
               </li>
             ))}
           </ul>
-          <figcaption className={styles.note}>{g.note[defining.length]}</figcaption>
+          {/* Said of the cards shown: all of them side by side, the fan's three on a phone. */}
+          <figcaption className={styles.note}>
+            <span className={styles.noteAll}>{g.note[defining.length]}</span>
+            <span className={styles.noteFan}>{g.note[fanIndex.length]}</span>
+          </figcaption>
         </figure>
       )}
 

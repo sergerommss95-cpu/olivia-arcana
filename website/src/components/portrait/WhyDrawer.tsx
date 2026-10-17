@@ -9,10 +9,11 @@
  * focus to the "Why this" that opened it.
  */
 
-import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import type { MajorCard } from "@/lib/astrology/deck";
 import { ROWS } from "@/lib/portrait/lattice.js";
+import { typeset, typesetStages } from "@/lib/portrait/typography.js";
 import { explain } from "@/lib/portrait/why.js";
 import type { PortraitPacket, PortraitStages, PortraitStatus } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
@@ -69,7 +70,8 @@ export default function WhyDrawer({ target, stages, teachings, packet, cards, lo
   // The drawer opens only on a press, so the window is always there to ask.
   const [still] = useState(() => window.matchMedia("(prefers-reduced-motion: reduce)").matches);
 
-  const passage = passageOf(stages, target.key);
+  const shown = useMemo(() => typesetStages(stages, locale), [stages, locale]);
+  const passage = passageOf(shown, target.key);
   const lines = explain(passage ?? undefined, packet, locale, cards, teachings) as Explained;
   const name = passage?.heading ?? t.reader.sections.opening;
 
@@ -207,8 +209,8 @@ export default function WhyDrawer({ target, stages, teachings, packet, cards, lo
                   const teaching = teachings[tid];
                   return (
                     <li key={tid} className={styles.teaching}>
-                      <p className={styles.teachingLabel}>{teaching.label}</p>
-                      <p className={styles.teachingText}>{teaching.text}</p>
+                      <p className={styles.teachingLabel}>{typeset(teaching.label, locale)}</p>
+                      <p className={styles.teachingText}>{typeset(teaching.text, locale)}</p>
                       {teaching.sources.length > 0 && (
                         <ul className={styles.sources} aria-label={w.sources}>
                           {teaching.sources.map((s, k) => (

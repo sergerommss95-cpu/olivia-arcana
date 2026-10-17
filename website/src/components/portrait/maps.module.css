@@ -167,7 +167,9 @@
   .role { margin-top: 12px; font-size: 15px; }
   .meaning { font-size: 17px; }
   .birthdayNum { font-size: 26px; }
-  .birthdayText { font-size: 17px; }
+  /* What the birthday is takes its own line, so no line starts on the dot. */
+  .birthdayText { flex-basis: 100%; font-size: 17px; }
+  .birthdayDot { display: none; }
 
   .maps { margin-top: 88px; }
   .spread { row-gap: 64px; margin-top: 28px; }

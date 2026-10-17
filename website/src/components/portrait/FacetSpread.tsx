@@ -18,7 +18,7 @@ import { ROLES, litPositions } from "@/lib/portrait/lattice.js";
 import type { PortraitPacket, PortraitStages } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
 import { cardsAt } from "./Lattice";
-import { CardArt, ReadFrom, inkAt, tieDashes } from "./Opening";
+import { CardArt, ReadFrom, inkAt } from "./Opening";
 import { registerSection, useSeen } from "./sections";
 import styles from "./facets.module.css";
 
@@ -83,7 +83,7 @@ export default function FacetSpread({ stages, packet, cards, locale, onWhy }: {
                 )}
                 <p className={styles.facetLabel}>{f.names[key]}</p>
                 <h3 id={head} className={styles.facetHead}>{facet.heading}</h3>
-                <p className={styles.facetFirst}>{tieDashes(firstSentence(facet.text))}</p>
+                <p className={styles.facetFirst}>{firstSentence(facet.text)}</p>
                 <button type="button" className={styles.cue} aria-expanded={on} aria-controls={panel}
                   aria-label={(on ? f.close : f.read).replace("{heading}", facet.heading)} onClick={() => toggle(key)}>
                   <span className={styles.cueText}>{t.reader.close}</span>
@@ -113,7 +113,7 @@ export default function FacetSpread({ stages, packet, cards, locale, onWhy }: {
                       </div>
                     )}
                     <div className={styles.panelText}>
-                      <p className={styles.prose}>{tieDashes(facet.text)}</p>
+                      <p className={styles.prose}>{facet.text}</p>
                       <ReadFrom refs={facet.refs ?? []} packet={packet} cards={cards} locale={locale} name={facet.heading} onWhy={(trigger) => onWhy(key, trigger)} />
                     </div>
                   </div>

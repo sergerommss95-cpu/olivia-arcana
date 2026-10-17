@@ -10,8 +10,9 @@
  * quiet plates while a part is written, filling as it lands.
  */
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { MajorCard } from "@/lib/astrology/deck";
+import { typesetStages } from "@/lib/portrait/typography.js";
 import type { PortraitPacket, PortraitStages, PortraitStatus } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
 import type { Frames } from "./Laying";
@@ -40,10 +41,30 @@ export function passageOf(stages: PortraitStages, key: string): { heading?: stri
   return chapter ? { heading: chapter.title, refs: chapter.refs ?? [], teachings: chapter.teachings ?? [] } : null;
 }
 
+/** How long a print waits for card art still loading, at most. */
+const PRINT_WAIT_MS = 3000;
+
+/**
+ * Print insurance: the reading's lazy card images (a closed facet's cards, the
+ * plates and maps not yet scrolled to) turn eager and are decoded, so a printed
+ * page has no blank cards. Returns what to wait for, or null when every card
+ * is already there. The Print button waits for it (and prints at once, still in
+ * the press, when there is nothing to wait for); a print from the browser's
+ * own menu starts it as the print begins (beforeprint cannot wait).
+ */
+export function readyForPrint(root: ParentNode | null = document.querySelector("[data-reader]")) {
+  const lazy = [...(root ?? document).querySelectorAll<HTMLImageElement>("img[loading='lazy']")].filter((img) => !img.closest("[hidden]"));
+  for (const img of lazy) img.loading = "eager";
+  const pending = lazy.filter((img) => !img.complete);
+  if (!pending.length) return null;
+  const decoded = Promise.all(pending.map((img) => img.decode().catch(() => {})));
+  return Promise.race([decoded, new Promise((resolve) => window.setTimeout(resolve, PRINT_WAIT_MS))]).then(() => {});
+}
+
 /** The maps are drawn from the packet alone; a reading kept without one has none. */
 export const hasMaps = (packet: PortraitPacket) => packet.factors.some((f) => f.kind === "arkan");
 
-export default function Reader({ stages, status, packet, cards, locale, frames, firstName, kicker, keep, newLabel, announce, landing, onWhy, onNew }: {
+export default function Reader({ stages: written, status, packet, cards, locale, frames, firstName, kicker, keep, newLabel, announce, landing, onWhy, onNew }: {
   stages: PortraitStages;
   status: PortraitStatus | null;
   packet: PortraitPacket;
@@ -70,6 +91,8 @@ export default function Reader({ stages, status, packet, cards, locale, frames, 
   const t = PORTRAIT_COPY[locale];
   const r = t.reader;
   const toc = t.toc;
+  // The text as it is set on the page (quotes turned, dashes kept to their words); what is stored stays as written.
+  const stages = useMemo(() => typesetStages(written, locale), [written, locale]);
   const a = stages.a;
   const failed = status?.status === "failed";
   const over = status?.status === "done" || failed;
@@ -105,6 +128,13 @@ export default function Reader({ stages, status, packet, cards, locale, frames, 
     changes.observe(box, { subtree: true, attributes: true, attributeFilter: ["data-section", "data-section-title", "data-section-lit"] });
     return () => { observer.disconnect(); changes.disconnect(); };
   }, [landed]);
+
+  // A print from the browser's menu: what is still lazy starts loading at once.
+  useEffect(() => {
+    const ready = () => { void readyForPrint(root.current); };
+    window.addEventListener("beforeprint", ready);
+    return () => window.removeEventListener("beforeprint", ready);
+  }, []);
 
   // Progress is spoken as chapters land; the region is mounted empty first.
   const unfinished = status?.error === "timeout" ? `${t.errors.timeout} ${t.next.timeout}` : r.unfinished;
