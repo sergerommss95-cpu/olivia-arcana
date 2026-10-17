@@ -1,0 +1,244 @@
+/* The almanac (folio chapter VI): the day in detail. The disclosure rows themselves come from
+   astrology.module.css (.ledger, .row, .glyph, .rowName, .rowMeta, .rowBody); DailyAlmanac adds this
+   module's classes beside them, and every override here is scoped under .almanac so it outranks the
+   shared rule without editing it (the birth chart keeps its rows as they are). Colour and motion
+   tokens come from the folio root (.folio[data-daily]); each fallback is the same brand value. */
+
+/* The band itself (#0b192a ground, top hairline, padding) is DailyLeaf's wrapper (.band.almanacBand),
+   so the section paints nothing of its own and never doubles the hairline. */
+.almanac {
+  margin: 0;
+  color: var(--ink, #ede4d2);
+  /* The shell sets old-style figures on EN only; lining figures keep both locales alike. */
+  font-variant-numeric: lining-nums;
+  interpolate-size: allow-keywords;
+}
+
+.eyebrow {
+  margin: 0 0 1.1rem;
+  color: var(--eyebrow, #c7b28c);
+  font: 500 0.75rem/1.4 var(--font-body), sans-serif;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+.title {
+  margin: 0 0 1.5rem;
+  color: var(--ink, #ede4d2);
+  font: 400 clamp(2.4rem, 4.4vw, 4rem)/0.98 var(--font-heading, "Cormorant Garamond"), serif;
+  font-variant-numeric: lining-nums;
+  letter-spacing: -0.03em;
+}
+.title em { font-weight: 400; }
+@media (max-width: 599px) { .title { font-size: clamp(2rem, 8.6vw, 2.4rem); } }
+.lead {
+  max-width: 34rem;
+  margin: 0 0 clamp(2rem, 4vw, 2.75rem);
+  color: var(--soft, #b7c4ce);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+/* The rows: the brand disclosure, held to the folio's 52rem, as one lifted surface ruled by hairlines
+   (rather than six separate boxes). */
+.ledger { max-width: 52rem; }
+.almanac .ledger { gap: 0; border-radius: 14px; background: var(--lift, #10273a); box-shadow: inset 1px 1px 0 rgba(237, 228, 210, 0.12); }
+.almanac .row { border-radius: 0; background: transparent; box-shadow: none; }
+.almanac .ledger > li + li { border-top: 1px solid var(--hairline, #d8c49c4a); }
+/* the +/− chip is drawn, never read: it stays out of the row's accessible name */
+.almanac .row summary::after { content: "+" / ""; }
+.almanac .row[open] summary::after { content: "−" / ""; }
+.almanac .rowName { text-wrap: balance; }
+.almanac .rowBody p { max-width: 36rem; text-wrap: pretty; }
+/* Each body contains its children's margins, so the open height (and the clip while it grows) is exact. */
+.almanac .rowBody { display: flow-root; }
+.almanac .rowMeta {
+  color: var(--soft, #b7c4ce);
+  font-size: 0.8125rem;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* Opening a row: its content grows from nothing to its own height and fades in (progressive; without
+   interpolate-size the row opens at once and only the fade runs). */
+@supports (interpolate-size: allow-keywords) {
+  .almanac .row::details-content {
+    block-size: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      block-size var(--dur-arrive, 340ms) var(--ease-settle, cubic-bezier(0.22, 1, 0.36, 1)),
+      opacity var(--dur-arrive, 340ms) var(--ease-settle, cubic-bezier(0.22, 1, 0.36, 1)),
+      content-visibility var(--dur-arrive, 340ms) allow-discrete;
+  }
+  .almanac .row[open]::details-content { block-size: auto; opacity: 1; }
+}
+@supports not (interpolate-size: allow-keywords) {
+  .almanac .row[open] .rowBody {
+    animation: inkIn 340ms both;
+    animation-duration: var(--dur-arrive, 340ms);
+    animation-timing-function: var(--ease-settle, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+}
+
+/* The hours of today: the Sun's real height over Kyiv, the horizon, the day's moments and now. */
+.sunStrip { position: relative; height: 104px; margin: 2.6rem 0 2.9rem; }
+.sunStrip svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.sunFill { fill: rgba(237, 228, 210, 0.07); }
+.sunDay { fill: none; stroke: rgba(237, 228, 210, 0.62); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.sunNight { fill: none; stroke: rgba(183, 196, 206, 0.42); stroke-width: 1; stroke-dasharray: 2 4; vector-effect: non-scaling-stroke; }
+/* drawn from 00 towards 24, the way the day runs */
+.horizon { transform-box: view-box; transform-origin: 0 0; }
+.horizon line { stroke-width: 1; vector-effect: non-scaling-stroke; }
+.horizonPast { stroke: rgba(237, 228, 210, 0.5); }
+.horizonLater { stroke: var(--hairline, #d8c49c4a); }
+
+.hour {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  transform: translateX(-50%);
+  color: var(--soft, #b7c4ce);
+  font: 400 0.75rem/1 var(--font-body), sans-serif;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.hour[data-edge="start"] { transform: none; }
+.hour[data-edge="end"] { transform: translateX(-100%); }
+
+/* a moment of the day on the horizon: ivory once it has passed, blue-grey while still to come */
+.event {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--soft, #b7c4ce);
+  box-shadow: 0 0 0 3px var(--ground, #0b192a);
+}
+.event[data-past] { background: var(--ink, #ede4d2); }
+
+/* "Also in the sky today" has no single body: a quiet gold dot (as the now mark) in place of a glyph */
+.mark { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--gold, #b69a65); vertical-align: middle; }
+
+/* Now: a small gold mark on the Sun's path, a 1px tick up to its time. Only on today's leaf. */
+.now { position: absolute; top: 0; bottom: 0; width: 0; }
+.nowDot {
+  position: absolute;
+  top: var(--y);
+  left: -3.5px;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: var(--gold, #b69a65);
+  box-shadow: 0 0 0 2px var(--panel, #10263a);
+}
+.nowTick { position: absolute; top: -0.45rem; left: -0.5px; width: 1px; height: calc(var(--y) + 0.45rem); background: var(--gold, #b69a65); opacity: 0.7; }
+.nowLabel {
+  position: absolute;
+  bottom: calc(100% + 0.6rem);
+  left: 0;
+  transform: translateX(-50%);
+  color: var(--ink, #ede4d2);
+  font: 500 0.75rem/1 var(--font-body), sans-serif;
+  font-variant-numeric: lining-nums tabular-nums;
+  white-space: nowrap;
+}
+.now[data-edge="start"] .nowLabel { transform: translateX(-0.5rem); }
+.now[data-edge="end"] .nowLabel { transform: translateX(calc(-100% + 0.5rem)); }
+
+.times { list-style: none; margin: 0; padding: 0; }
+.times li {
+  display: grid;
+  grid-template-columns: 3.4rem 2.6rem minmax(0, 1fr);
+  gap: 0.4rem;
+  align-items: baseline;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--rule, rgba(181, 196, 199, 0.18));
+  color: var(--soft, #b7c4ce);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.times li[data-past] { color: var(--ink, #ede4d2); }
+.time { color: var(--eyebrow, #c7b28c); font: 500 0.8125rem/1.5 var(--font-body), sans-serif; font-variant-numeric: lining-nums tabular-nums; }
+.timeGlyph { margin-right: 0.4rem; color: var(--soft, #b7c4ce); font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; }
+
+/* The sun path is drawn the first time its row opens, once per page view (DailyAlmanac adds .draw for
+   the length of the sequence; the end state is the plain rules above). Reduced motion: nothing runs. */
+@media (prefers-reduced-motion: no-preference) {
+  .draw .horizon {
+    animation: drawLine 600ms both;
+    animation-timing-function: var(--ease-settle, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+  /* Drawn along its length by a left-to-right wipe: the arc is a graph of time, so the wipe follows the
+     pen exactly, and unlike stroke-dashoffset it stays true with non-scaling-stroke in a stretched viewBox
+     (Chromium dashes those in screen pixels, so pathLength no longer normalises them). */
+  .draw .sunDay {
+    animation: drawArc 1100ms 150ms both;
+    animation-duration: var(--dur-ritual, 1100ms);
+    animation-timing-function: var(--ease-glide, cubic-bezier(0.16, 1, 0.3, 1));
+  }
+  .draw .sunNight {
+    animation: inkIn 600ms 150ms both;
+    animation-timing-function: var(--ease-settle, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+  .draw .sunFill {
+    animation: inkIn 600ms 600ms both;
+    animation-timing-function: var(--ease-settle, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+  .draw .event, .draw .now {
+    animation: inkIn 220ms both;
+    animation-duration: var(--dur-control, 220ms);
+    animation-delay: calc(650ms + var(--i, 0) * 60ms);
+    animation-timing-function: var(--ease-settle, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+}
+@keyframes drawLine { from { transform: scaleX(0); } }
+@keyframes drawArc { from { clip-path: inset(-25% 100% -25% -2%); } to { clip-path: inset(-25% -2% -25% -2%); } }
+@keyframes inkIn { from { opacity: 0; } }
+
+/* the Moon */
+.almanac .moonBody { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1.2rem; align-items: center; }
+.moonDisc { width: 6.5rem; }
+.moonDisc > * { width: 100%; height: auto; }
+.almanac .meta {
+  margin: 0.5rem 0 0;
+  color: var(--soft, #b7c4ce);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+/* what is in force now */
+.season { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.1rem; }
+.almanac .seasonHead { margin: 0; color: var(--ink, #ede4d2); font-size: 0.95rem; line-height: 1.5; font-variant-numeric: lining-nums tabular-nums; }
+.seasonHead strong { font-weight: 500; }
+.track { position: relative; height: 10px; margin: 0.55rem 0 0.4rem; border-radius: 99px; background: rgba(237, 228, 210, 0.06); }
+.bar { position: absolute; top: 0; bottom: 0; border-radius: 99px; background: linear-gradient(90deg, rgba(182, 154, 101, 0.35), rgba(182, 154, 101, 0.72)); }
+.retro { position: absolute; top: 0; bottom: 0; border-radius: 99px; background: repeating-linear-gradient(-45deg, rgba(237, 228, 210, 0.78) 0 2px, rgba(237, 228, 210, 0.12) 2px 6px); }
+.todayLine { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--ink, #ede4d2); opacity: 0.55; }
+.almanac .seasonTheme { margin: 0; color: var(--body, rgba(237, 228, 210, 0.86)); font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: 1.08rem; }
+
+/* the long chapters and the next days */
+.chapter + .chapter, .dates > li + li { margin-top: 1.2rem; padding-top: 1.1rem; border-top: 1px solid var(--rule, rgba(181, 196, 199, 0.18)); }
+.dates { list-style: none; margin: 0; padding: 0; }
+.almanac .date { margin: 0 0 0.2rem; color: var(--eyebrow, #c7b28c); font-size: 0.8125rem; line-height: 1.5; font-variant-numeric: lining-nums tabular-nums; }
+.almanac .date strong { color: inherit; font-weight: 500; }
+
+@media (max-width: 760px) {
+  /* "Also in the sky today" has no meta; on phones the meta takes its own line, so drop the empty one */
+  .almanac .rowMeta:empty { display: none; }
+  .almanac .row summary:has(.rowMeta:empty)::after { grid-row: 1; }
+  .sunStrip { height: 88px; }
+  .times li { grid-template-columns: 3.1rem 2.3rem minmax(0, 1fr); }
+  .almanac .moonBody { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .almanac .moonBody > :last-child { text-align: start; justify-self: stretch; }
+}
+@media (max-width: 480px) {
+  /* the time and its glyph share the first line; the moment takes the full width under them */
+  .times li { grid-template-columns: auto minmax(0, 1fr); row-gap: 0.15rem; }
+  .times li > :nth-child(3) { grid-column: 1 / -1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .almanac .row::details-content { transition: none; }
+  .almanac .row[open] .rowBody { animation: none; }
+}

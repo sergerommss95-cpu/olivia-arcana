@@ -1,0 +1,25 @@
+/*
+ * Provenance: verbatim copy of experience/work/olivia-product/card-material.css (commit 0e04ef1,
+ * sha256 1d21a48111bd1dc76b384427b1af1942afd050c99f8fb7d9c86616530fbf948d). Do not edit below this
+ * comment; re-copy the source instead. Imported as global CSS by ../useCardLight.ts.
+ */
+/* Transparent, artwork-mapped material; the source image remains the surface. */
+.card-material-light {
+  position: absolute;
+  display: block;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-width: none;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  backface-visibility: hidden;
+  contain: strict;
+}
+.card-material-light[hidden] { display: none !important; }
+.card-material-host > .pin-walk-layer { z-index: 2; }
+@media (prefers-reduced-motion: reduce) {
+  .card-material-light { display: none !important; }
+}
