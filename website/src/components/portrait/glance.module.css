@@ -1,0 +1,211 @@
+/* website/src/components/portrait/glance.module.css
+   The glance (direction B's table): the defining cards laid on a lit lapis
+   table at the left, the title, the epigraph and the sentences to keep at the
+   right. Light falls on the cloth, never round the cards: depth is scale, a
+   soft shadow under each card and the pool of lighter lapis beneath them. */
+
+.glance {
+  --ink: #eee6d4;
+  --soft: rgba(238, 230, 212, 0.74);
+  --gilt: #c9b182;
+  --lapis: #0b1c2c;
+  --ease: var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1));
+  --display: var(--font-display, "Cormorant"), var(--font-heading, "Cormorant Garamond"), Georgia, serif;
+  --serif: var(--font-heading, "Cormorant Garamond"), Georgia, serif;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  padding-bottom: 48px;
+  color: var(--ink);
+}
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Ink-in: opacity with an 8 px rise, 90 ms apart. */
+.ink { animation: inkIn 950ms var(--ease) calc(var(--n, 0) * 90ms) both; }
+@keyframes inkIn { from { opacity: 0; transform: translateY(8px); } }
+@keyframes fadeIn { from { opacity: 0; } }
+
+/* ── The words ───────────────────────────────────────────────── */
+
+.text { padding: 30px 0 8px; }
+.kicker { composes: labelGilt from "./type.module.css"; margin: 0; }
+.title {
+  margin: 14px 0 0;
+  font: 300 clamp(44px, 5vw, 72px)/1 var(--display);
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+.title:focus { outline: none; }
+.epigraph {
+  max-width: 22em;
+  margin: 18px 0 0;
+  font: italic 400 26px/1.32 var(--serif);
+  color: var(--soft);
+  text-wrap: balance;
+}
+
+.essence { margin-top: 40px; }
+.essenceHead { composes: label from "./type.module.css"; margin: 0; }
+.keepLines { display: grid; gap: 14px; margin: 14px 0 0; padding: 0; list-style: none; }
+.keepLines li { font: 500 25px/1.28 var(--serif); color: var(--ink); text-wrap: pretty; }
+/* Where the sentences to keep will stand: three engraved bars, a sheen crossing them. */
+.bars { display: grid; gap: 18px; margin-top: 18px; }
+.bar { position: relative; display: block; height: 22px; overflow: hidden; border-radius: 2px; background: rgba(238, 230, 212, 0.08); }
+.bar:nth-of-type(1) { width: 94%; }
+.bar:nth-of-type(2) { width: 86%; }
+.bar:nth-of-type(3) { width: 64%; }
+.bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(238, 230, 212, 0.07) 50%, transparent);
+  transform: translateX(-100%);
+  animation: sheen 2.6s var(--ease) infinite;
+}
+@keyframes sheen { 60%, to { transform: translateX(100%); } }
+
+.wayIn { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 36px; }
+/* The ivory pill: the one solid thing on the page. */
+.begin {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 24px 15px 26px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--lapis);
+  font: 500 15.5px/1 var(--font-body, system-ui), sans-serif;
+  text-decoration: none;
+  transition: background-color 300ms var(--ease);
+}
+.begin:hover { background: #fff8ea; }
+/* Doubled, to outrank a shell's own link colour (the Ukrainian library shell sets `a { color: inherit }`). */
+.glance .begin { color: var(--lapis); }
+.begin svg { width: 14px; height: 14px; }
+.glance .begin:focus-visible { outline: 2px solid var(--gilt); outline-offset: 3px; border-radius: 999px; }
+.meta { composes: meta from "./type.module.css"; margin: 0; color: var(--soft); }
+.meta strong { font-weight: 500; color: var(--ink); }
+
+/* ── The table ───────────────────────────────────────────────── */
+
+.table {
+  position: relative;
+  /* Above the Laying's fading cards, so the flying ones pass over them. */
+  z-index: 6;
+  isolation: isolate;
+  order: -1;
+  margin: 0;
+  padding: 34px 0 30px;
+  container-type: inline-size;
+  /* A card shown large: rounded like the art, set on the cloth with a layered shadow, lit from above. */
+  --card-radius: 4.6% / 2.7%;
+  --card-shadow: 0 1px 1px rgba(1, 6, 12, 0.5), 0 8px 14px -6px rgba(1, 6, 12, 0.55), 0 26px 44px -14px rgba(1, 6, 12, 0.8), 0 60px 90px -36px rgba(1, 6, 12, 0.7);
+  --card-sheen: linear-gradient(174deg, rgba(255, 244, 224, 0.13) 0%, rgba(255, 244, 224, 0.03) 30%, rgba(0, 0, 0, 0) 55%, rgba(2, 8, 16, 0.34) 100%);
+}
+/* Light falling on lapis cloth, brightest just below the cards where the lamp lands, falling off to the abyss. */
+.table::before {
+  content: "";
+  position: absolute;
+  inset: -6% -10%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 44% 28% at 50% 60%, rgba(64, 104, 146, 0.3) 0%, rgba(40, 74, 110, 0.15) 45%, rgba(11, 28, 44, 0) 100%),
+    radial-gradient(ellipse 50% 46% at 50% 47%, rgba(20, 44, 70, 0.55) 0%, rgba(20, 44, 70, 0.22) 55%, rgba(11, 28, 44, 0) 100%);
+}
+
+/* The phone's fan: three cards, each over the last by 40%, turned a little from a common foot. */
+.spread { --cw: 122px; display: flex; justify-content: center; margin: 0; padding: 6px 0 0; list-style: none; }
+.slot { position: relative; flex: none; width: var(--cw); }
+.slot:not([data-fan]) { display: none; }
+.slot[data-fan] ~ .slot[data-fan] { margin-left: calc(var(--cw) * -0.4); }
+.flip { position: relative; width: var(--cw); aspect-ratio: 896 / 1536; }
+.tilt {
+  position: absolute;
+  inset: 0;
+  perspective: 900px;
+  transform: translateY(calc(var(--fan-lift) * 10px)) rotate(calc(var(--fan) * 7deg));
+  transform-origin: 50% 115%;
+}
+.cap { display: none; margin: 0; }
+.role { composes: label from "./type.module.css"; }
+.name { font: italic 400 20px/1.2 var(--serif); color: var(--ink); }
+
+/* One grid for the three rows, so places, roles and names each keep a column. */
+.legend { display: grid; grid-template-columns: auto auto minmax(0, auto); gap: 6px 0.75em; align-items: baseline; width: fit-content; max-width: 100%; margin: 30px auto 0; padding: 0; list-style: none; }
+.legend li { display: contents; }
+.legendNum { composes: numeral from "./type.module.css"; font-size: 17px; font-weight: 500; color: var(--gilt); }
+.legend .name { font-size: 18px; }
+
+.note { composes: meta from "./type.module.css"; max-width: 34em; margin: 22px auto 0; text-align: center; text-wrap: pretty; }
+
+/* Arriving from the Laying: the captions settle in once the cards have landed. */
+.arriving .cap, .arriving .legend, .arriving .note { animation: fadeIn 700ms var(--ease) 650ms both; }
+
+/* The Laying's other cards, left where they lay, fading as the table fills. */
+.ghosts { position: fixed; inset: 0; z-index: 5; pointer-events: none; --back-dim: 0.5; }
+.ghost { position: absolute; animation: ghostOut 600ms var(--ease) both; }
+@keyframes ghostOut { to { opacity: 0; transform: scale(0.96); } }
+
+/* ── Side by side ────────────────────────────────────────────── */
+
+@media (min-width: 1000px) {
+  .glance {
+    grid-template-columns: minmax(0, 56fr) minmax(0, 44fr);
+    min-height: min(calc(100vh - 180px), 760px);
+    padding-bottom: 0;
+  }
+  .table {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 56px 48px 0;
+  }
+  .table::before { inset: -4% 0 -4% -12%; }
+  /* Four cards abreast, each over the last by 22 px, sized to the column and the window. */
+  .spread { --ov: 22px; --cw: min(204px, calc((100cqw + 3 * var(--ov)) / 4), calc(40vh * 0.5833)); justify-content: flex-start; padding-top: 0; }
+  .slot:not([data-fan]) { display: block; }
+  .slot + .slot, .slot[data-fan] ~ .slot[data-fan] { margin-left: calc(var(--ov) * -1); }
+  .tilt { transform: rotate(var(--r, 0deg)); transform-origin: 50% 50%; }
+  .cap { display: grid; gap: 2px; margin-top: 20px; padding-right: calc(var(--ov) + 6px); }
+  .slot:last-child .cap { padding-right: 0; }
+  .legend { display: none; }
+  .note { margin: 34px 0 0; text-align: left; }
+
+  .text { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; justify-content: center; padding: 24px 0 48px 8px; }
+  .keepLines li { font-size: clamp(22px, 1.72vw, 25px); text-wrap: balance; }
+}
+
+/* ── Phone ───────────────────────────────────────────────────── */
+
+@media (max-width: 719px) {
+  .text { padding-top: 26px; }
+  .title { font-size: 44px; line-height: 1.02; }
+  .epigraph { font-size: 22px; }
+  .essence { margin-top: 34px; }
+  .keepLines li { font-size: 22px; line-height: 1.3; }
+  .wayIn { margin-top: 30px; }
+}
+
+/* ── Reduced motion: the final state at once ─────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .glance *, .glance *::before, .glance *::after { animation: none !important; transition: none !important; }
+  .ghosts { display: none; }
+}
+
+/* ── Print: the words, and the cards small ───────────────────── */
+
+@media print {
+  .glance { --ink: #16161a; --soft: #4d4d55; display: block; min-height: 0; }
+  .ink, .cap, .note { animation: none !important; }
+  .begin, .ghosts, .bars, .table::before { display: none !important; }
+  .table { padding: 18px 0 0; --card-shadow: none; --card-sheen: none; }
+  .spread { --cw: 90px; justify-content: flex-start; }
+  .slot:not([data-fan]) { display: block; }
+  .slot + .slot, .slot[data-fan] ~ .slot[data-fan] { margin-left: 8px; }
+  .tilt { transform: none; }
+  .legend { display: none; }
+  .note { text-align: left; margin: 12px 0 0; }
+}

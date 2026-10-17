@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalShell title="Privacy Policy" updated="September 26, 2026">
+    <LegalShell title="Privacy Policy" updated="October 16, 2026">
       <p>
         This policy explains what <strong>Olivia Arcana</strong> (&quot;we&quot;, &quot;us&quot;) handles when
         you use oliviaarcana.com (the &quot;site&quot;). In short: the readings you keep stay in your
@@ -64,6 +64,24 @@ export default function PrivacyPage() {
         On the page for exploring your question, the messages you send in that conversation are sent
         the same way, to prepare each response.
       </p>
+      <h3>Birth portrait (private beta)</h3>
+      <p>
+        The birth portrait is a hidden page, open by invite during a private beta. Your name, birth
+        date, time and place are calculated into cards, numbers and chart signs on your device, and
+        those details are not sent. What is sent is the calculated result and your language: the Arkan
+        cards, the numbers of your name, and the signs, houses and aspects of your chart. They are not
+        your name, birthplace or birth time, but they are derived from them and can reveal your birth
+        date, and, if you gave a time, roughly the time of day.
+      </p>
+      <p>
+        These factors go to our reading service on Netlify (Netlify Functions, with Netlify Blobs to
+        hold the job), which forwards them to <strong>Anthropic</strong>&apos;s Claude, through
+        Netlify&apos;s AI Gateway, to write the portrait. The factors and the written portrait are kept
+        in Netlify Blobs only so that your page can fetch the portrait, and are deleted automatically
+        within 24 hours. Invite codes are checked against stored hashes; the code itself is not stored
+        on our server, only a short hash of it to count each invite&apos;s daily portraits. Your
+        browser remembers the code and the id of a portrait in progress in its local storage.
+      </p>
       <h3>How the AI provider handles it</h3>
       <p>
         Anthropic processes this content to generate the response under its commercial terms, which do
@@ -95,7 +113,7 @@ export default function PrivacyPage() {
 
       <h2>5. Service providers</h2>
       <ul>
-        <li><strong>Netlify</strong> — hosting and the reading service.</li>
+        <li><strong>Netlify</strong> — hosting, the reading service and, for the birth portrait, temporary storage (Netlify Blobs) and the AI Gateway.</li>
         <li><strong>Anthropic</strong> — AI-assisted responses, only when you ask for one.</li>
       </ul>
 
@@ -108,7 +126,9 @@ export default function PrivacyPage() {
       <h2>7. Retention</h2>
       <p>
         What is on your device stays until you delete it or your browser clears it. We don&apos;t keep
-        your questions or readings on our servers. Technical logs are kept by Netlify for a limited
+        your questions or readings on our servers. The exception is the birth portrait: its calculated
+        factors and written text are kept for no more than 24 hours, so that your page can fetch them,
+        and are then deleted automatically. Technical logs are kept by Netlify for a limited
         period under its policies, and AI content by Anthropic as described above.
       </p>
 

@@ -1,0 +1,63 @@
+/* website/src/components/portrait/lattice.module.css
+   One lattice card (the deck's back and its art) and the threads between
+   cards, shared by the Laying, the glance's table and the mini-map. Their
+   state comes in by class and by custom properties set by the context:
+   --back-dim and --front-dim, the black veil over each face (0 to 1), and
+   --card-radius, --card-shadow and --card-sheen for a card shown large. */
+
+.card {
+  --ease: var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1));
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform-style: preserve-3d;
+  transition: transform 700ms var(--ease) var(--turn-delay, 0ms);
+  /* Promoted ahead of its turn, so both faces are painted before the card moves. */
+  will-change: transform;
+}
+/* One turn, never a double flip: the face shows from the midpoint on. */
+.card.turned { transform: rotateY(-180deg); }
+
+.face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--card-radius, 6px);
+  background: #0d2236;
+  box-shadow: var(--card-shadow, 0 18px 40px rgba(0, 0, 0, 0.45));
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.face img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.face::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--card-sheen, none); box-shadow: inset 0 0 0 1px rgba(201, 177, 130, 0.28); }
+/* The veil that dims a face: opacity only, so it eases with the card. */
+.face::before { content: ""; position: absolute; inset: 0; z-index: 1; background: #000; opacity: 0; transition: opacity 600ms var(--ease); }
+.back::before { opacity: var(--back-dim, 0); transition-duration: 900ms; }
+.front::before { opacity: var(--front-dim, 0); }
+.front { transform: rotateY(180deg); background-position: center; background-size: cover; }
+
+/* ── Threads ─────────────────────────────────────────────────── */
+
+.threads { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+.latent { fill: none; stroke: #c9b182; stroke-width: 1; stroke-dasharray: 2 6; opacity: 0.32; }
+/* The mask that draws the latent threads in. */
+.draw { fill: none; stroke: #fff; stroke-width: 6; stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+.drawing { animation: draw 900ms var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1)) calc(var(--k) * 30ms) forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+/* A lit thread drawn along its length (the Laying: once the card it makes has turned)… */
+.drawn { fill: none; stroke: #c9b182; stroke-width: 1; stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0.6; transition: stroke-dashoffset 900ms var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1)) 160ms; }
+.drawn.on { stroke-dashoffset: 0; }
+/* …or brightened in place (the mini-map: between two lit cards). */
+.faded { fill: none; stroke: #c9b182; stroke-width: 1.25; opacity: 0; transition: opacity 600ms var(--ease-ritual, cubic-bezier(0.16, 1, 0.3, 1)); }
+.faded.on { opacity: 0.75; }
+
+@media print {
+  .face { box-shadow: none; }
+  .face::after { box-shadow: inset 0 0 0 0.5pt #b9b2a2; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .face::before, .drawn, .faded { transition: none !important; }
+  .drawing { animation: none; }
+  .draw { stroke-dashoffset: 0; }
+}

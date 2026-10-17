@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant:wght@300;400&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400&display=block');
+:root{--paper:#0b1c2c;--deep:#07121d;--ink:#eee6d4;--soft:rgba(238,230,212,.78);--faint:rgba(238,230,212,.5);--gilt:#c9b182;--hair:rgba(238,230,212,.14);--display:'Cormorant',serif;--heading:'Cormorant Garamond',serif;--body:'DM Sans',sans-serif;--mono:'IBM Plex Mono',monospace}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:radial-gradient(120% 90% at 30% 20%,#11273b 0%,var(--paper) 45%,var(--deep) 100%);color:var(--ink);font:400 16px/1.7 var(--body);-webkit-font-smoothing:antialiased;overflow:hidden}
+.mast{height:96px;display:flex;align-items:center;justify-content:space-between;padding:0 76px}
+.brand{font:400 26px/1 var(--display);letter-spacing:.01em}.brand small{font:500 9px/1 var(--body);letter-spacing:.32em;margin-left:8px;color:var(--soft)}
+.nav{display:flex;gap:30px;font:400 13px/1 var(--body);color:var(--soft)}
+.kicker{font:400 11px/1.4 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--gilt)}
+.card{width:var(--w);aspect-ratio:9/15.6;border-radius:6px;background:center/cover no-repeat;box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 0 1px rgba(201,177,130,.28) inset}
+.back{background-image:url('file:///Users/macbookpro/olivia-arcana/.claude/worktrees/portrait/website/public/cards/back-448.webp')}

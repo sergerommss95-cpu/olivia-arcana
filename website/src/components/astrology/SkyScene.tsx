@@ -728,6 +728,7 @@ export default function SkyScene(props: Props) {
                         <span className={`${styles.hinge} ${standing(i) ? styles.rise : styles.lie}`}>
                           <button type="button" className={`${styles.card} ${standing(i) ? styles.cardLit : ""}`}
                             aria-label={`${card.sign}: ${card.name}`} aria-pressed={focusedSign === i}
+                            data-card-label={nameCards && !standing(i) ? "off" : undefined}
                             onClick={(event) => bring({ kind: "sign", index: i }, event.currentTarget)}
                             {...(nameCards ? {
                               onPointerEnter: (event: React.PointerEvent) => { if (event.pointerType !== "touch") setNamed(i); },

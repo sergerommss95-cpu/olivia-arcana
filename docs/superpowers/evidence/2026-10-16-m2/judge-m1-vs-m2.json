@@ -1,0 +1,346 @@
+{
+  "judge": {
+    "model": "claude-opus-5-5",
+    "effort": "high",
+    "dry": false,
+    "gitSha": "87c5146",
+    "maxCents": 100,
+    "spentCents": 28,
+    "stoppedAtBudget": false
+  },
+  "dirs": [
+    "../docs/superpowers/evidence/2026-10-16-m2/m1-baseline",
+    "../docs/superpowers/evidence/2026-10-16-m2/m2-medium"
+  ],
+  "variants": [
+    "m1-baseline",
+    "m2-medium"
+  ],
+  "results": [
+    {
+      "profile": "m1-en-olena",
+      "locale": "en",
+      "orders": [
+        {
+          "order": {
+            "A": "m1-baseline",
+            "B": "m2-medium"
+          },
+          "verdict": {
+            "winner": "B",
+            "scores": {
+              "A": {
+                "recognisability": 3,
+                "specificity": 3,
+                "distinctness": 2,
+                "warmth": 4,
+                "plainLanguage": 2,
+                "ukrainianNaturalness": null
+              },
+              "B": {
+                "recognisability": 5,
+                "specificity": 4,
+                "distinctness": 4,
+                "warmth": 4,
+                "plainLanguage": 4,
+                "ukrainianNaturalness": null
+              }
+            },
+            "reasons": "Reading B grounds its claims in concrete, confirmable scenes: stacking chairs, holding the hall keys, the midnight draft message, the course outline with empty headings, who takes the bins out. Reading A stays abstract (\"the wide idea,\" \"authorship\"), hedges constantly with \"probably,\" \"may\" and \"likely,\" and repeats its bolded opening lines verbatim. It also recycles phrases like \"author of your own life,\" \"finish line\" and \"exits\" across sections. B has some overlap of its own, but less, and its tone is warm and plain without pep talk."
+          },
+          "winnerVariant": "m2-medium",
+          "calls": [
+            {
+              "ok": true,
+              "code": null,
+              "model": "claude-opus-5-5",
+              "stopReason": "end_turn",
+              "usage": {
+                "input": 8761,
+                "output": 313,
+                "cacheRead": 0,
+                "cacheWrite": 2012,
+                "iterations": [
+                  {
+                    "input": 8761,
+                    "output": 313,
+                    "cacheRead": 0,
+                    "cacheWrite": 2012
+                  }
+                ]
+              },
+              "cents": 6
+            }
+          ],
+          "costCents": 6,
+          "ms": 7454,
+          "error": null
+        },
+        {
+          "order": {
+            "A": "m2-medium",
+            "B": "m1-baseline"
+          },
+          "verdict": {
+            "winner": "A",
+            "scores": {
+              "A": {
+                "recognisability": 5,
+                "specificity": 4,
+                "distinctness": 4,
+                "warmth": 4,
+                "plainLanguage": 5,
+                "ukrainianNaturalness": null
+              },
+              "B": {
+                "recognisability": 3,
+                "specificity": 3,
+                "distinctness": 2,
+                "warmth": 4,
+                "plainLanguage": 3,
+                "ukrainianNaturalness": null
+              }
+            },
+            "reasons": "Reading A is built from concrete, checkable scenes: the midnight draft message, the course outline with nine empty headings, stacking chairs, the bins nobody mentions. These make it easy to recognise and specific to this person. Reading B leans on trait labels and hedges (\"probably\", \"may\", \"likely\"). It repeats each chapter's bold opening line word for word as its first sentence, and two love chapters overlap heavily. A has a few repeated motifs (finish lines, the pull between freedom and structure) but less than B, and its plainer, more concrete warmth makes it the more trustworthy reading."
+          },
+          "winnerVariant": "m2-medium",
+          "calls": [
+            {
+              "ok": true,
+              "code": null,
+              "model": "claude-opus-5-5",
+              "stopReason": "end_turn",
+              "usage": {
+                "input": 8761,
+                "output": 311,
+                "cacheRead": 0,
+                "cacheWrite": 2012,
+                "iterations": [
+                  {
+                    "input": 8761,
+                    "output": 311,
+                    "cacheRead": 0,
+                    "cacheWrite": 2012
+                  }
+                ]
+              },
+              "cents": 6
+            }
+          ],
+          "costCents": 6,
+          "ms": 8909,
+          "error": null
+        }
+      ],
+      "combined": {
+        "winnerVariant": "m2-medium",
+        "picks": [
+          "m2-medium",
+          "m2-medium"
+        ],
+        "agree": true,
+        "scores": {
+          "m1-baseline": {
+            "recognisability": 3,
+            "specificity": 3,
+            "distinctness": 2,
+            "warmth": 4,
+            "plainLanguage": 2.5,
+            "ukrainianNaturalness": null
+          },
+          "m2-medium": {
+            "recognisability": 5,
+            "specificity": 4,
+            "distinctness": 4,
+            "warmth": 4,
+            "plainLanguage": 4.5,
+            "ukrainianNaturalness": null
+          }
+        }
+      },
+      "winnerVariant": "m2-medium",
+      "costCents": 12,
+      "ms": 8909,
+      "error": null
+    },
+    {
+      "profile": "m1-uk-olena",
+      "locale": "uk",
+      "orders": [
+        {
+          "order": {
+            "A": "m1-baseline",
+            "B": "m2-medium"
+          },
+          "verdict": {
+            "winner": "B",
+            "scores": {
+              "A": {
+                "recognisability": 2,
+                "specificity": 3,
+                "distinctness": 2,
+                "warmth": 3,
+                "plainLanguage": 2,
+                "ukrainianNaturalness": 3
+              },
+              "B": {
+                "recognisability": 5,
+                "specificity": 4,
+                "distinctness": 4,
+                "warmth": 4,
+                "plainLanguage": 4,
+                "ukrainianNaturalness": 4
+              }
+            },
+            "reasons": "Reading B grounds each trait in scenes a person could check: the blanket, the marker passed at a meeting, ten open tabs, the refused help with a bag, the document open at 23:30, the shelf of half-finished projects. Reading A stays abstract and hedges constantly with «мабуть», «ймовірно», «можливо». Several of its chapters repeat their opening line word for word and its two love chapters overlap. It also assumes a female reader («самій собі», «господинею», «бажаною»). Reading B has slips («Козорозі», «я скучили», a stray accent), but it is clearly stronger."
+          },
+          "winnerVariant": "m2-medium",
+          "calls": [
+            {
+              "ok": true,
+              "code": null,
+              "model": "claude-opus-5-5",
+              "stopReason": "end_turn",
+              "usage": {
+                "input": 12525,
+                "output": 680,
+                "cacheRead": 0,
+                "cacheWrite": 2206,
+                "iterations": [
+                  {
+                    "input": 12525,
+                    "output": 680,
+                    "cacheRead": 0,
+                    "cacheWrite": 2206
+                  }
+                ]
+              },
+              "cents": 8
+            }
+          ],
+          "costCents": 8,
+          "ms": 11886,
+          "error": null
+        },
+        {
+          "order": {
+            "A": "m2-medium",
+            "B": "m1-baseline"
+          },
+          "verdict": {
+            "winner": "A",
+            "scores": {
+              "A": {
+                "recognisability": 5,
+                "specificity": 4,
+                "distinctness": 4,
+                "warmth": 5,
+                "plainLanguage": 4,
+                "ukrainianNaturalness": 4
+              },
+              "B": {
+                "recognisability": 2,
+                "specificity": 3,
+                "distinctness": 2,
+                "warmth": 3,
+                "plainLanguage": 2,
+                "ukrainianNaturalness": 2
+              }
+            },
+            "reasons": "Reading A is built on concrete, checkable scenes: the blanket, the marker passed at a meeting, the unbought ticket, glasses put away at night, the 11:30 document, the umbrella on the platform. Its claims are stated plainly. Reading B hedges almost every sentence with «мабуть», «ймовірно» and «можливо», and repeats its bold lines word for word. It assumes the reader is a woman («самій собі», «бажаною», «господинею») and keeps restating its Venus and Moon passages. Reading A has small slips («Козорозі», the stray accent, «я скучили») but reads better overall."
+          },
+          "winnerVariant": "m2-medium",
+          "calls": [
+            {
+              "ok": true,
+              "code": null,
+              "model": "claude-opus-5-5",
+              "stopReason": "end_turn",
+              "usage": {
+                "input": 12525,
+                "output": 710,
+                "cacheRead": 0,
+                "cacheWrite": 2206,
+                "iterations": [
+                  {
+                    "input": 12525,
+                    "output": 710,
+                    "cacheRead": 0,
+                    "cacheWrite": 2206
+                  }
+                ]
+              },
+              "cents": 8
+            }
+          ],
+          "costCents": 8,
+          "ms": 13432,
+          "error": null
+        }
+      ],
+      "combined": {
+        "winnerVariant": "m2-medium",
+        "picks": [
+          "m2-medium",
+          "m2-medium"
+        ],
+        "agree": true,
+        "scores": {
+          "m1-baseline": {
+            "recognisability": 2,
+            "specificity": 3,
+            "distinctness": 2,
+            "warmth": 3,
+            "plainLanguage": 2,
+            "ukrainianNaturalness": 2.5
+          },
+          "m2-medium": {
+            "recognisability": 5,
+            "specificity": 4,
+            "distinctness": 4,
+            "warmth": 4.5,
+            "plainLanguage": 4,
+            "ukrainianNaturalness": 4
+          }
+        }
+      },
+      "winnerVariant": "m2-medium",
+      "costCents": 16,
+      "ms": 13432,
+      "error": null
+    }
+  ],
+  "skipped": [],
+  "metrics": {
+    "m1-baseline": {
+      "readings": 2,
+      "seconds": null,
+      "cents": null,
+      "words": 2411.5,
+      "repairs": null,
+      "lint": {
+        "hedge-lead": 28,
+        "hedges": 5,
+        "phrase": 0,
+        "gender": 1,
+        "repeat": 12
+      },
+      "residue": 48
+    },
+    "m2-medium": {
+      "readings": 2,
+      "seconds": 425.8195,
+      "cents": 56.5,
+      "words": 2407.5,
+      "repairs": 1,
+      "lint": {
+        "hedge-lead": 0,
+        "hedges": 0,
+        "phrase": 0,
+        "gender": 0,
+        "repeat": 0
+      },
+      "residue": 0
+    }
+  }
+}

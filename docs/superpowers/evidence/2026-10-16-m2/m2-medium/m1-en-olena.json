@@ -1,0 +1,756 @@
+{
+  "profile": "m1-en-olena",
+  "variant": "m2-medium",
+  "locale": "en",
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "dry": false,
+  "gitSha": "9ff8aca",
+  "packet": {
+    "v": 1,
+    "locale": "en",
+    "timeKnown": true,
+    "factors": [
+      {
+        "id": "arkan-1",
+        "kind": "arkan",
+        "position": 1,
+        "card": 1
+      },
+      {
+        "id": "arkan-2",
+        "kind": "arkan",
+        "position": 2,
+        "card": 2
+      },
+      {
+        "id": "arkan-3",
+        "kind": "arkan",
+        "position": 3,
+        "card": 2
+      },
+      {
+        "id": "arkan-4",
+        "kind": "arkan",
+        "position": 4,
+        "card": 3
+      },
+      {
+        "id": "arkan-5",
+        "kind": "arkan",
+        "position": 5,
+        "card": 4
+      },
+      {
+        "id": "arkan-6",
+        "kind": "arkan",
+        "position": 6,
+        "card": 7
+      },
+      {
+        "id": "arkan-7",
+        "kind": "arkan",
+        "position": 7,
+        "card": 5
+      },
+      {
+        "id": "arkan-8",
+        "kind": "arkan",
+        "position": 8,
+        "card": 9
+      },
+      {
+        "id": "arkan-12",
+        "kind": "arkan",
+        "position": 12,
+        "card": 14
+      },
+      {
+        "id": "arkan-13",
+        "kind": "arkan",
+        "position": 13,
+        "card": 8
+      },
+      {
+        "id": "arkan-14",
+        "kind": "arkan",
+        "position": 14,
+        "card": 13
+      },
+      {
+        "id": "num-lifePath",
+        "kind": "number",
+        "role": "lifePath",
+        "value": 5,
+        "master": false
+      },
+      {
+        "id": "num-expression",
+        "kind": "number",
+        "role": "expression",
+        "value": 9,
+        "master": false
+      },
+      {
+        "id": "num-soulUrge",
+        "kind": "number",
+        "role": "soulUrge",
+        "value": 1,
+        "master": false
+      },
+      {
+        "id": "num-personality",
+        "kind": "number",
+        "role": "personality",
+        "value": 8,
+        "master": false
+      },
+      {
+        "id": "num-birthday",
+        "kind": "number",
+        "role": "birthday",
+        "value": 1,
+        "master": false
+      },
+      {
+        "id": "natal-sun",
+        "kind": "planet",
+        "body": "sun",
+        "sign": "aquarius",
+        "house": 8,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-moon",
+        "kind": "planet",
+        "body": "moon",
+        "sign": "sagittarius",
+        "house": 6,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-mercury",
+        "kind": "planet",
+        "body": "mercury",
+        "sign": "aquarius",
+        "house": 8,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-venus",
+        "kind": "planet",
+        "body": "venus",
+        "sign": "capricorn",
+        "house": 7,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-mars",
+        "kind": "planet",
+        "body": "mars",
+        "sign": "pisces",
+        "house": 9,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-jupiter",
+        "kind": "planet",
+        "body": "jupiter",
+        "sign": "aries",
+        "house": 10,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-saturn",
+        "kind": "planet",
+        "body": "saturn",
+        "sign": "taurus",
+        "house": 11,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-uranus",
+        "kind": "planet",
+        "body": "uranus",
+        "sign": "aquarius",
+        "house": 8,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-neptune",
+        "kind": "planet",
+        "body": "neptune",
+        "sign": "aquarius",
+        "house": 8,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-pluto",
+        "kind": "planet",
+        "body": "pluto",
+        "sign": "sagittarius",
+        "house": 6,
+        "retrograde": false,
+        "alternatives": null
+      },
+      {
+        "id": "natal-asc",
+        "kind": "angle",
+        "angle": "asc",
+        "sign": "cancer"
+      },
+      {
+        "id": "natal-mc",
+        "kind": "angle",
+        "angle": "mc",
+        "sign": "pisces"
+      },
+      {
+        "id": "aspect-moon-trine-jupiter",
+        "kind": "aspect",
+        "a": "moon",
+        "b": "jupiter",
+        "aspect": "trine"
+      },
+      {
+        "id": "aspect-sun-sextile-pluto",
+        "kind": "aspect",
+        "a": "sun",
+        "b": "pluto",
+        "aspect": "sextile"
+      },
+      {
+        "id": "aspect-venus-trine-saturn",
+        "kind": "aspect",
+        "a": "venus",
+        "b": "saturn",
+        "aspect": "trine"
+      },
+      {
+        "id": "aspect-sun-square-saturn",
+        "kind": "aspect",
+        "a": "sun",
+        "b": "saturn",
+        "aspect": "square"
+      },
+      {
+        "id": "aspect-mars-conjunction-mc",
+        "kind": "aspect",
+        "a": "mars",
+        "b": "mc",
+        "aspect": "conjunction"
+      },
+      {
+        "id": "aspect-uranus-sextile-pluto",
+        "kind": "aspect",
+        "a": "uranus",
+        "b": "pluto",
+        "aspect": "sextile"
+      },
+      {
+        "id": "aspect-moon-sextile-mercury",
+        "kind": "aspect",
+        "a": "moon",
+        "b": "mercury",
+        "aspect": "sextile"
+      },
+      {
+        "id": "aspect-mars-trine-asc",
+        "kind": "aspect",
+        "a": "mars",
+        "b": "asc",
+        "aspect": "trine"
+      },
+      {
+        "id": "aspect-mercury-sextile-jupiter",
+        "kind": "aspect",
+        "a": "mercury",
+        "b": "jupiter",
+        "aspect": "sextile"
+      },
+      {
+        "id": "aspect-sun-conjunction-uranus",
+        "kind": "aspect",
+        "a": "sun",
+        "b": "uranus",
+        "aspect": "conjunction"
+      },
+      {
+        "id": "aspect-pluto-square-mc",
+        "kind": "aspect",
+        "a": "pluto",
+        "b": "mc",
+        "aspect": "square"
+      },
+      {
+        "id": "aspect-moon-square-mars",
+        "kind": "aspect",
+        "a": "moon",
+        "b": "mars",
+        "aspect": "square"
+      }
+    ]
+  },
+  "status": "done",
+  "error": null,
+  "stages": {
+    "a": {
+      "epigraph": "You walk in softly and leave with the map redrawn.",
+      "facets": {
+        "bonds": {
+          "heading": "Love in Kept Promises",
+          "refs": [
+            "natal-venus",
+            "arkan-14",
+            "num-soulUrge",
+            "num-personality",
+            "natal-moon"
+          ],
+          "teachings": [
+            "natal-venus-sign",
+            "natal-venus-house",
+            "card-14-relationship",
+            "num-soulUrge-relationships",
+            "num-personality-relationships",
+            "natal-moon-sign"
+          ],
+          "text": "You show love by turning up: the shelf repaired, the appointment remembered, the plan for next spring already pencilled in. For you, affection is built and proven over time, and you can forget that the other person also wants to hear it said aloud. Partners and friends expect you to steer, and you often do, though what you want is a bond where your independence is left alone. The pull runs between deep loyalty and a need for open air. You are honest about what a relationship can no longer carry. Sometimes you are too quick to end the whole thing when only one habit needed to go. The stronger move is to name that habit and keep the person."
+        },
+        "direction": {
+          "heading": "From Quick Hands to Quiet Knowing",
+          "refs": [
+            "arkan-1",
+            "arkan-2",
+            "arkan-3",
+            "num-lifePath",
+            "arkan-5",
+            "arkan-6"
+          ],
+          "teachings": [
+            "card-1-frame",
+            "card-1-character",
+            "card-2-frame",
+            "card-2-character",
+            "card-3-frame",
+            "card-3-growth",
+            "num-lifePath-essence",
+            "num-lifePath-blindSpots",
+            "num-lifePath-development",
+            "card-5-character",
+            "card-5-growth"
+          ],
+          "text": "You started out as the one who could make something from whatever was lying around: a borrowed tool, a few words, a willing friend. That quickness still rescues you under pressure. Adult life keeps asking for something slower. It wants you to listen inward, let an answer ripen before you give it, and then say it plainly enough to be met. Over the decades, that quieter knowing becomes your main instrument. You learn by trying things and changing course, and you also want a plan that holds up against real life. Those two pull hard against each other. What works for you is one experiment with a finish line and a date to review it. Leaving the moment a trial gets uncomfortable teaches you less than seeing it through."
+        },
+        "gifts": {
+          "heading": "The Guide With a Lantern",
+          "refs": [
+            "arkan-8",
+            "arkan-7",
+            "arkan-6",
+            "num-expression",
+            "natal-mars",
+            "natal-mc"
+          ],
+          "teachings": [
+            "card-8-strength",
+            "card-7-strength",
+            "card-7-work",
+            "card-6-strength",
+            "num-expression-essence",
+            "num-expression-strengths",
+            "natal-mars-sign",
+            "natal-mc-sign",
+            "aspect-mars-conjunction-mc"
+          ],
+          "text": "When someone is new to a team, a city or a subject, they end up asking you, and yours is the explanation they remember. You give the rule and the reason the rule exists. Behind that sits long private study: you ask the precise question others skip, and you form your own view before you borrow anyone else's. You link a small task to the people it will reach, and you spot who has been left out of the plan. Your effort runs hottest when the work moves you, and that is the edge: on flat days the drive thins out. Once you commit, though, you can steer a demanding project past its easy beginning, through the dull middle, to a finish others can see."
+        },
+        "inner": {
+          "heading": "Room to Move, Permission to Take",
+          "refs": [
+            "natal-moon",
+            "num-soulUrge",
+            "arkan-12",
+            "arkan-13",
+            "arkan-4"
+          ],
+          "teachings": [
+            "natal-moon-sign",
+            "natal-moon-house",
+            "num-soulUrge-essence",
+            "num-soulUrge-innerWorld",
+            "card-4-risk",
+            "card-4-inner",
+            "card-12-inner",
+            "card-13-inner"
+          ],
+          "text": "You come back to yourself on a long walk, a new route home, or an evening with a book about a place you have never been. Daily routine settles you only when it has a window in it. You want real say over your own hours. Offers of help can land as attempts to steer you, so you wave them off. Yet you give generously, and part of you keeps quiet score of who gives back. The tension is between that independence and a plain need for warmth: a meal cooked for you, a hand on your shoulder. Balance returns at a pace where work, body and people all fit into one day, with room left to say a strong feeling out loud. Being tender costs you none of your standing."
+        },
+        "temperament": {
+          "heading": "Warm Door, Cool Eye",
+          "refs": [
+            "natal-sun",
+            "natal-asc",
+            "natal-mercury",
+            "num-personality",
+            "arkan-14",
+            "arkan-13"
+          ],
+          "teachings": [
+            "natal-sun-sign",
+            "natal-asc-sign",
+            "natal-mercury-sign",
+            "num-personality-essence",
+            "card-14-character",
+            "card-13-character"
+          ],
+          "text": "People bring you the conversation nobody else wants to have. You open gently, with a question about their day or a cup put in their hand, and they relax before they notice how closely you are listening. Then something firmer shows. Your manner is capable and decisive, so others assume you will take charge, and you have a frank sense of when an arrangement has run its course. Privately you see yourself as the steady one, able to sit with someone's anger without flinching. When you think, you step back to look at the whole system. That is the friction. The warmth that lets people talk and the wide-angle mind that answers them can feel like two different people, and a friend who wanted sympathy can receive a clear analysis of the problem instead."
+        }
+      },
+      "outline": {
+        "becoming": "How your sense of a wider circle (friends, groups, a shared future) asks you to turn private knowing into a lasting part you play among others.",
+        "heart": "What happens in the gap between feeling hurt and acting on it, and how naming the feeling separately from the limit changes what you do next.",
+        "love": "What you and a partner each carry in a shared life, and how to make the terms of that sharing explicit while keeping room for play.",
+        "mind": "How your thinking moves between grand explanations and stubborn particulars, and what keeps a big idea honest.",
+        "shadow": "The quiet bargain of overgiving to stay needed, and why a correction can feel like defeat when it is only a correction.",
+        "work": "Which public responsibility deserves your name, and how to set it up so you can finish it without making it a verdict on yourself."
+      },
+      "overview": {
+        "refs": [
+          "natal-asc",
+          "natal-sun",
+          "num-soulUrge",
+          "arkan-8",
+          "arkan-6",
+          "num-lifePath",
+          "arkan-5",
+          "arkan-2"
+        ],
+        "teachings": [
+          "natal-asc-sign",
+          "natal-sun-sign",
+          "num-soulUrge-essence",
+          "card-8-strength",
+          "card-6-strength",
+          "num-lifePath-essence",
+          "card-5-character",
+          "card-2-growth"
+        ],
+        "text": "You are the one who notices the person standing alone at a party, brings them into the conversation, and then leaves early because you had something of your own to finish. Two habits run side by side in you: a soft, watchful way of entering a room, and a mind that wants its own say over where your life goes. You read people carefully, you explain things well, and you can carry a hard piece of work past the point where others drift off. What you protect most is the right to choose. The pull in you runs between that freedom and a wish to build something that lasts: a plan, a household, a standard others can rely on. Picture a desk with a road atlas on one side and a ring binder on the other; you use both. The harder lesson is speaking up sooner about what you already know."
+      },
+      "title": "Soft Entrance, Independent Course"
+    },
+    "b": {
+      "chapters": {
+        "heart": {
+          "lede": "When something stings, you either go very quiet or act fast, and the action rarely matches the size of the hurt.",
+          "paragraphs": [
+            "A remark at dinner, a plan changed without asking you, a friend who decides something for you 'to be helpful': these land harder than you show. Being steered is the injury you feel most, because what you guard is the right to author your own day. So the reaction arrives already dressed as a decision. You cancel, you rewrite the arrangement, you send the crisp message. Or you swing the other way and talk yourself into a hopeful reading, finding the lesson before you have let yourself be annoyed.",
+            "Another pull runs underneath. You give a great deal: the lift to the station, the late phone call, the extra shift covered. You like being the person others lean on. When that goes unthanked, hurt and pride tangle together. Picture the draft message on your phone at midnight, three versions deep, each more reasonable than the last, each hiding the plain sentence: I felt left out. You see yourself as someone who holds steady in a storm, and that picture makes it hard to admit you were shaken.",
+            "What changes things is splitting the moment in two. First comes the feeling, said in its own small sentence. Then comes the limit, which is a separate thing: what you will and won't do from now on. Kept apart, the limit needs far less force, and the people around you can actually meet it. Admitting the sting costs you none of your dignity. It is usually what lets a friendship keep its shape."
+          ],
+          "practice": "The next time a message stings, write two lines before replying: one beginning 'I felt', one beginning 'From now on I will'. Send only what still feels true an hour later.",
+          "refs": [
+            "natal-moon",
+            "num-soulUrge",
+            "arkan-12",
+            "arkan-13",
+            "arkan-4",
+            "aspect-moon-square-mars",
+            "aspect-moon-sextile-mercury"
+          ],
+          "teachings": [
+            "aspect-moon-square-mars",
+            "natal-moon-sign",
+            "num-soulUrge-innerWorld",
+            "card-12-growth",
+            "card-13-inner",
+            "card-4-risk",
+            "aspect-moon-sextile-mercury"
+          ],
+          "title": "The Pause Before the Reply"
+        },
+        "mind": {
+          "lede": "You can explain a whole office's politics in one sentence, and then lose a week to the one colleague who doesn't fit it.",
+          "paragraphs": [
+            "Your mind goes looking for the rule underneath. Hand you a family argument, a failing club or a confusing news story, and you step back until the pattern shows: who benefits, what nobody questions, which arrangement everyone inherited and never chose. That wide view is a pleasure for you, close to play. You also want the plan that comes out of it to be sturdy, with clear roles and a structure that survives a Monday morning. And you like to move. You would sooner test an idea out loud today than polish it in private for a month.",
+            "A good theory is hungry, though. Once you have a clean explanation, the awkward detail starts to look like noise: the volunteer who quit for reasons unrelated to the system, the neighbour whose story doesn't match. You care about people beyond the usual circle, so your explanations aim large, sometimes too large for anyone to act on by Friday. Conviction can run ahead of the facts. Picture yourself at a whiteboard, three arrows drawn with confidence, and one sticky note in the corner you keep meaning to deal with.",
+            "That sticky note is where your thinking gets honest. The best version of you treats the big picture as a working guess and goes hunting for the one case that would change it. People trust your plans more when you show them where to push. A structure others can question outlasts one they can only admire."
+          ],
+          "practice": "Next time you explain a problem to someone, end by naming one fact that would prove you wrong, and ask whether they have seen it.",
+          "refs": [
+            "natal-mercury",
+            "num-expression",
+            "arkan-5",
+            "natal-uranus",
+            "natal-jupiter",
+            "aspect-mercury-sextile-jupiter"
+          ],
+          "teachings": [
+            "natal-mercury-sign",
+            "num-expression-essence",
+            "num-expression-blindSpots",
+            "card-5-character",
+            "card-5-growth",
+            "natal-uranus-sign",
+            "natal-jupiter-sign",
+            "aspect-mercury-sextile-jupiter"
+          ],
+          "title": "The Theory and the Exception"
+        },
+        "work": {
+          "lede": "You work hardest for a task you believe in, and you go flat the moment it turns into a duty you didn't pick.",
+          "paragraphs": [
+            "The responsibility that deserves your name is one where you bring people into something you know well. You are good at the induction nobody else wants to run: the new hire's first month, the community course, the handbook that finally explains why the rule exists. You study a subject until you have your own view, then translate it for people who would otherwise stay outside. Work with a human reason behind it, a cause or a gap in who gets served, gets your full effort. Work that is merely correct gets your attendance.",
+            "The difficulty is in how you carry it. Your drive follows feeling, so you start inspired and loose, adapting as you go. Then the standard you hold for yourself kicks in, and a missed step becomes a judgement on who you are. That pair makes you postpone the dull middle, because unfinished work can't fail. Picture the course outline on your laptop: a beautiful first session and nine empty headings below it.",
+            "What holds you is the patient side, the part that likes things that can be kept up: a weekly slot, a folder that gets maintained, a group that meets on Thursdays for years. Give the inspired work that kind of frame and a finish line sized to an ordinary week. Measure yourself by commitments kept, and let a rough session be just a rough session. Your quiet strength is continuity. People remember the guide who was still there in the second year."
+          ],
+          "practice": "Pick the one thing you teach or explain at work and write its finish line as a date and a deliverable. Book the next three sessions in your calendar before planning any of them in detail.",
+          "refs": [
+            "arkan-7",
+            "arkan-8",
+            "natal-mars",
+            "natal-saturn",
+            "natal-mc",
+            "num-expression",
+            "natal-jupiter",
+            "aspect-sun-square-saturn"
+          ],
+          "teachings": [
+            "card-7-work",
+            "card-8-strength",
+            "natal-mars-sign",
+            "natal-saturn-sign",
+            "natal-mc-sign",
+            "num-expression-work",
+            "natal-jupiter-house",
+            "aspect-sun-square-saturn"
+          ],
+          "title": "A Name on the Door"
+        }
+      }
+    },
+    "c": {
+      "chapters": {
+        "becoming": {
+          "lede": "You know what is wrong with a club, a team or a committee months before you say a word about it.",
+          "paragraphs": [
+            "You sit through the meetings, watch who speaks and who gives up, and form a clear private view of how the thing really works. That inner reading is your deepest asset, and it was slow to arrive. As a younger person you were quicker, the one who grabbed whatever was at hand and made something happen on the spot. Both are still in you. The quick hands get things moving. The quiet knowing tells you which things deserve to move.",
+            "The tension is between the wish to try a group and leave once it bores you, and the pull toward a lasting role with your name on it. You have probably joined and left more circles than most people you know, and each exit felt right at the time. What changes the pattern is staying long enough for your private knowledge to become a public part. You become the person who trains newcomers, who rewrites the rules that no longer fit, who takes the first visible step while everyone else waits for permission.",
+            "When you do commit, you can carry a group through the tired middle of a project and keep its rival camps pointed the same way. That only works once you have said what you see. Silence protects your judgement and keeps it useless to anyone else. The role that fits you grows out of the sentence you were holding back."
+          ],
+          "practice": "At the next gathering of any group you belong to, say one thing you have noticed and kept to yourself. Say it within the first ten minutes, in a single sentence.",
+          "refs": [
+            "arkan-1",
+            "arkan-2",
+            "arkan-3",
+            "arkan-6",
+            "num-lifePath",
+            "natal-jupiter",
+            "natal-saturn"
+          ],
+          "teachings": [
+            "card-1-character",
+            "card-1-growth",
+            "card-2-character",
+            "card-2-growth",
+            "card-3-growth",
+            "card-6-strength",
+            "card-6-work",
+            "num-lifePath-essence",
+            "num-lifePath-development",
+            "natal-jupiter-sign",
+            "natal-jupiter-house",
+            "natal-saturn-house"
+          ],
+          "title": "The Part You Play in the Room"
+        },
+        "love": {
+          "lede": "You know exactly who takes the bins out in your house, and you have never once said it out loud.",
+          "paragraphs": [
+            "For you, a shared life is a set of quiet agreements: who drives on long trips, who calls the plumber, who remembers the in-laws' birthdays. You keep your side with real care, and you watch whether the other side is kept. You look capable, so a partner can hand you the steering wheel without asking whether you want it. You enter softly, so you let them guess what you need instead of telling them. Two unspoken assumptions can then share one kitchen for years.",
+            "The pull runs between that serious, dependable love and a part of you that moves on feeling. Your best days together are unplanned: a detour to the sea because the light was good, a film chosen on impulse, an argument about an idea that runs past midnight. When duty fills every hour, that side goes quiet and the relationship starts to feel like a well-run office.",
+            "You are good at seeing when an agreement has worn out. The skill is to say so early, at the size of the agreement itself. \"I don't want to be the one who always plans the weekends anymore\" is a sentence a partnership can absorb. Left unsaid for a year, it arrives as something much larger."
+          ],
+          "practice": "Sit down with your partner, or someone you share a home with, and each list three things you carry in the household. Swap one of them, and leave one evening this week completely unplanned.",
+          "refs": [
+            "natal-venus",
+            "natal-mars",
+            "arkan-14",
+            "num-personality",
+            "natal-asc",
+            "aspect-venus-trine-saturn"
+          ],
+          "teachings": [
+            "natal-venus-sign",
+            "natal-venus-house",
+            "natal-mars-sign",
+            "natal-mars-house",
+            "card-14-relationship",
+            "card-14-character",
+            "num-personality-essence",
+            "num-personality-relationships",
+            "natal-asc-sign",
+            "aspect-venus-trine-saturn"
+          ],
+          "title": "Terms Written in Pencil"
+        },
+        "shadow": {
+          "lede": "You are the one who stays behind to stack the chairs, and you would be hurt if anyone told you to go home.",
+          "paragraphs": [
+            "In any group you belong to, you end up holding the keys: the spare set to the hall, the password to the shared account, the list of who is bringing what. You are steady and useful, and over the years usefulness has become a kind of insurance. If they need you, they will not drift. The giving is real and generous. The ledger behind it is quieter, a running count of who noticed, who thanked you, who offered to swap. When nobody does, you do not ask. You give a little more and resent a little more, and both stay hidden under a pleasant face.",
+            "Shared arrangements are where this gets blurry. You picture a household or a team as fairer than it is, with everyone carrying their part, and then you quietly fill the gaps so the picture holds. Ask who actually owned the task you did last Thursday. Often it was someone else, and you took it before they had the chance to fail at it.",
+            "The second edge is correction. When someone points out a mistake in your work, you hear a verdict on your whole self, and you either redo everything at midnight or start planning your exit. A restless part of you reads any discomfort as proof that the whole arrangement was wrong. It was one figure in one column. A correction is information about a task, and you can fix the line and stay."
+          ],
+          "practice": "This week, when you catch yourself reaching for a task that belongs to someone else, leave it alone for a day. Write down what you felt while you waited.",
+          "refs": [
+            "arkan-4",
+            "natal-saturn",
+            "natal-neptune",
+            "natal-pluto",
+            "num-lifePath",
+            "aspect-sun-square-saturn",
+            "aspect-sun-sextile-pluto"
+          ],
+          "teachings": [
+            "card-4-risk",
+            "card-4-inner",
+            "natal-saturn-sign",
+            "natal-saturn-house",
+            "natal-neptune-house",
+            "natal-pluto-house",
+            "num-lifePath-blindSpots",
+            "aspect-sun-square-saturn",
+            "aspect-sun-sextile-pluto"
+          ],
+          "title": "The Bargain Behind the Favour"
+        }
+      },
+      "keep": [
+        "Being needed and being valued are different things.",
+        "A correction is about the task, never the whole of you.",
+        "Say what you see before the meeting ends."
+      ]
+    }
+  },
+  "ms": {
+    "a": 77831,
+    "b": 61332,
+    "c": 66339,
+    "total": 144191
+  },
+  "costCents": 57,
+  "attempts": {
+    "a": 1,
+    "b": 1,
+    "c": 1
+  },
+  "repairs": {},
+  "calls": [
+    {
+      "stage": "a",
+      "attempt": 0,
+      "ms": 77831,
+      "ok": true,
+      "code": null,
+      "stopReason": "end_turn",
+      "model": "claude-opus-5-5",
+      "usage": {
+        "input": 374,
+        "output": 5765,
+        "cacheRead": 0,
+        "cacheWrite": 15431,
+        "iterations": [
+          {
+            "input": 374,
+            "output": 5765,
+            "cacheRead": 0,
+            "cacheWrite": 15431
+          }
+        ]
+      },
+      "cents": 20
+    },
+    {
+      "stage": "b",
+      "attempt": 0,
+      "ms": 61332,
+      "ok": true,
+      "code": null,
+      "stopReason": "end_turn",
+      "model": "claude-opus-5-5",
+      "usage": {
+        "input": 2636,
+        "output": 4551,
+        "cacheRead": 0,
+        "cacheWrite": 14854,
+        "iterations": [
+          {
+            "input": 2636,
+            "output": 4551,
+            "cacheRead": 0,
+            "cacheWrite": 14854
+          }
+        ]
+      },
+      "cents": 18
+    },
+    {
+      "stage": "c",
+      "attempt": 0,
+      "ms": 66339,
+      "ok": true,
+      "code": null,
+      "stopReason": "end_turn",
+      "model": "claude-opus-5-5",
+      "usage": {
+        "input": 2617,
+        "output": 5024,
+        "cacheRead": 0,
+        "cacheWrite": 14899,
+        "iterations": [
+          {
+            "input": 2617,
+            "output": 5024,
+            "cacheRead": 0,
+            "cacheWrite": 14899
+          }
+        ]
+      },
+      "cents": 19
+    }
+  ],
+  "tokens": {
+    "input": 5627,
+    "output": 15340,
+    "cacheRead": 0,
+    "cacheWrite": 45184
+  },
+  "lint": {
+    "hedge-lead": 0,
+    "hedges": 0,
+    "phrase": 0,
+    "gender": 0,
+    "repeat": 0
+  },
+  "residue": {
+    "a": [],
+    "b": [],
+    "c": []
+  },
+  "words": {
+    "a": 829,
+    "b": 914,
+    "c": 880,
+    "total": 2623
+  },
+  "teachingsCited": 59
+}

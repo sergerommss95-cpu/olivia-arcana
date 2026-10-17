@@ -62,8 +62,9 @@ export default function CardFigure({
   );
   const Root = as;
   return (
+    // data-card-label="off": the site-wide CardNameHover plate stays away, because this figure names itself
     <Root className={`${d.card} ${className ?? ""}`} style={{ ...style, "--r": `${rotate}deg` } as CSSProperties} data-elev={elevation}
-      aria-labelledby={caption && as === "figure" ? capId : undefined}>
+      data-card-label="off" aria-labelledby={caption && as === "figure" ? capId : undefined}>
       <div className={d.cardFrame}>
         {href ? <a href={href} className={d.cardBody} aria-label={name} tabIndex={inert ? -1 : undefined} aria-hidden={inert || undefined}>{art}</a> : <span className={d.cardBody}>{art}</span>}
         <span className={d.tag} aria-hidden>{name}</span>
