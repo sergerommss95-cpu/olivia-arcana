@@ -7,6 +7,8 @@ const root = {};
   'use strict';
   const C = {};
   // Ukrainian euphony for «у/в» before a sign in the locative case.
+  // «у/в» before an ordinal in the locative («у третьому», «в одинадцятому»).
+  const uOrd = (n) => (/^[аеєиіїоуюя]/.test(C.uk.ordLoc[n]) ? 'в ' : 'у ') + C.uk.ordLoc[n];
   const inUk = (prev, k) => { const n = C.uk.signsLoc[k]; const p = /^[аеєиіїоуюяАЕЄИІЇОУЮЯ]/.test(n) ? 'в' : /^[вфВФ]/.test(n) ? 'у' : /[аеєиіїоуюяАЕЄИІЇОУЮЯ]$/.test(prev) ? 'в' : 'у'; return p + ' ' + n; };
 
   C.en = {
@@ -21,14 +23,14 @@ const root = {};
     houseShort: ['', 'self & body', 'money & worth', 'messages & errands', 'home & family', 'romance & play', 'work & health', 'partners', 'intimacy & shared money', 'travel & study', 'career', 'friends & plans', 'rest & solitude'],
     houseArena: ['', 'your body, your look and how you start things', 'money, possessions and self-worth', 'messages, siblings, neighbours and short trips', 'home, family and your private base', 'romance, pleasure, creativity and play', 'daily work, routines, health and colleagues', 'your partner, close bonds and agreements', 'shared money, debt, trust and intimacy', 'travel, study, beliefs and the wider world', 'career, reputation and ambition', 'friends, groups and the future you are building', 'rest, solitude, sleep and what you keep unsaid'],
     phases: {
-      new: { name: 'New Moon', text: 'The Moon is dark and starting over. Good for choosing one intention and keeping it quiet; poor for forcing results.' },
-      waxingCrescent: { name: 'Waxing crescent', text: 'A thin sliver, growing. Intentions now need a first small, real step: the email, the booking, the first page.' },
-      firstQuarter: { name: 'First quarter', text: 'Half lit and pushing. Expect a small test of commitment — something resists, and you decide whether you meant it.' },
-      waxingGibbous: { name: 'Waxing gibbous', text: 'Almost full. Refine rather than restart: edit, rehearse, adjust the plan you already have.' },
-      full: { name: 'Full Moon', text: 'Fully lit. Feelings and facts become visible; things finish, peak or spill over. See clearly before you react.' },
+      new: { name: 'New Moon', text: 'The Moon is dark and the cycle starts over. A good moment to choose one intention and keep it quiet, rather than force results.' },
+      waxingCrescent: { name: 'Waxing crescent', text: 'A thin sliver, growing. It invites a first small, real step towards an intention: the email, the booking, the first page.' },
+      firstQuarter: { name: 'First quarter', text: 'Half lit and pushing, traditionally read as a test of commitment: if something resists, it is a chance to decide whether you meant it.' },
+      waxingGibbous: { name: 'Waxing gibbous', text: 'Almost full. A time to refine rather than restart: edit, rehearse, adjust the plan you already have.' },
+      full: { name: 'Full Moon', text: 'Fully lit, and traditionally a time when feelings and facts are easier to see and what has been building feels full to the brim. Look clearly before you react.' },
       waningGibbous: { name: 'Waning gibbous', text: 'Light starting to recede. A time to share what you learned, thank people and pass things on.' },
-      lastQuarter: { name: 'Last quarter', text: 'Half lit and letting go. Clear out, cancel, close tabs — make room before the next cycle.' },
-      waningCrescent: { name: 'Waning crescent', text: 'The last sliver. Low tide for stamina: rest, sleep longer, and let unfinished things wait a few days.' }
+      lastQuarter: { name: 'Last quarter', text: 'Half lit and letting go. A good moment to clear out, cancel, close tabs and make room before the next cycle.' },
+      waningCrescent: { name: 'Waning crescent', text: 'The last sliver, often read as low tide for stamina: a time to rest, sleep longer and let unfinished things wait a few days.' }
     },
     quarterNames: { new: 'New Moon', firstQuarter: 'First quarter Moon', full: 'Full Moon', lastQuarter: 'Last quarter Moon' },
     climate: { retro: 'Review', hard: 'Friction', soft: 'Flow', conj: 'Intensified', steady: 'Steady', building: 'Building', peak: 'Peak', releasing: 'Releasing', reset: 'Reset' },
@@ -41,10 +43,10 @@ const root = {};
       inHouse: (n) => 'your ' + C.en.ord(n) + ' house',
       skyIs: (p, s, deg) => p + ' at ' + Math.floor(deg) + '° ' + s,
       aspectLine: (a, asp, b) => a + ' ' + asp + ' ' + b,
-      bridge: { conj: (h1, h2) => h1 === h2 ? 'For you it all lands in your ' + C.en.ord(h1) + ' house: ' + C.en.houseArena[h1] + '.' : 'For you it fuses your ' + C.en.ord(h1) + ' house (' + C.en.houseShort[h1] + ') with your ' + C.en.ord(h2) + ' (' + C.en.houseShort[h2] + ').',
-        soft: (h1, h2) => h1 === h2 ? 'For you the help arrives in your ' + C.en.ord(h1) + ' house: ' + C.en.houseArena[h1] + '.' : 'For you it links your ' + C.en.ord(h1) + ' house (' + C.en.houseShort[h1] + ') with your ' + C.en.ord(h2) + ' (' + C.en.houseShort[h2] + '): today they help each other.',
-        hard: (h1, h2) => h1 === h2 ? 'For you the pressure sits in your ' + C.en.ord(h1) + ' house: ' + C.en.houseArena[h1] + '.' : 'For you it sets your ' + C.en.ord(h1) + ' house (' + C.en.houseShort[h1] + ') against your ' + C.en.ord(h2) + ' (' + C.en.houseShort[h2] + '): something has to give a little.' },
-      rulerNote: (p, sign) => p + ' rules ' + sign + ', so what happens to it happens a little more to you.',
+      bridge: { conj: (h1, h2) => h1 === h2 ? 'For you it all falls in your ' + C.en.ord(h1) + ' house: ' + C.en.houseArena[h1] + '.' : 'For you it joins your ' + C.en.ord(h1) + ' house (' + C.en.houseShort[h1] + ') with your ' + C.en.ord(h2) + ' (' + C.en.houseShort[h2] + ').',
+        soft: (h1, h2) => h1 === h2 ? 'For you the easier current runs through your ' + C.en.ord(h1) + ' house: ' + C.en.houseArena[h1] + '.' : 'For you it links your ' + C.en.ord(h1) + ' house (' + C.en.houseShort[h1] + ') with your ' + C.en.ord(h2) + ' (' + C.en.houseShort[h2] + '): today they can support each other.',
+        hard: (h1, h2) => h1 === h2 ? 'For you the tension sits in your ' + C.en.ord(h1) + ' house: ' + C.en.houseArena[h1] + '.' : 'For you it pulls your ' + C.en.ord(h1) + ' house (' + C.en.houseShort[h1] + ') against your ' + C.en.ord(h2) + ' (' + C.en.houseShort[h2] + '): notice what each asks of the other.' },
+      rulerNote: (p, sign) => p + ' rules ' + sign + ', so its movements are traditionally read as speaking a little more to you.',
       retroNow: (p, start, end) => p + ' has been retrograde since ' + start + ' and turns direct on ' + end + '.',
       retroSoon: (p, start, end) => p + ' turns retrograde on ' + start + ' (until ' + end + ').',
       stationToday: (p, turns, time) => p + ' turns ' + (turns === 'retrograde' ? 'retrograde' : 'direct') + ' at ' + time + '.',
@@ -57,8 +59,8 @@ const root = {};
       moonHouse: (n, theme) => 'For you it is in your ' + C.en.ord(n) + ' house (' + C.en.houseShort[n] + '): ' + theme.charAt(0).toLowerCase() + theme.slice(1) + '.',
       also: 'Also',
       lunationFact: (q, ms, ss, time) => q === 'full' ? 'The Moon is full in ' + C.en.signs[ms] + ' at ' + time + ', opposite the Sun in ' + C.en.signs[ss] + '.' : q === 'new' ? 'New Moon in ' + C.en.signs[ms] + ' at ' + time + ': the Sun and Moon meet and the cycle starts again.' : C.en.quarterNames[q] + ' in ' + C.en.signs[ms] + ' at ' + time + ': the Moon squares the Sun in ' + C.en.signs[ss] + '.',
-      lunationHouse: (n) => 'For you it lands in your ' + C.en.ord(n) + ' house (' + C.en.houseShort[n] + ').',
-      lunationHeadline: (q, n) => ({ new: 'A clean start in ', firstQuarter: 'A test of nerve in ', full: 'Things come to a head in ', lastQuarter: 'Letting go in ' })[q] + C.en.houseHead[n],
+      lunationHouse: (n) => 'For you it falls in your ' + C.en.ord(n) + ' house (' + C.en.houseShort[n] + ').',
+      lunationHeadline: (q, n) => ({ new: 'Room for a fresh start in ', firstQuarter: 'A question of nerve in ', full: 'Seeing clearly in ', lastQuarter: 'Letting go in ' })[q] + C.en.houseHead[n],
       lunationToday: (q, s, time) => C.en.quarterNames[q] + ' in ' + C.en.signs[s] + ' at ' + time,
       keepInMind: 'Keep in mind',
       alsoToday: 'Also today',
@@ -95,7 +97,7 @@ const root = {};
       greet: h => h >= 5 && h < 12 ? 'Good morning' : h >= 12 && h < 17 ? 'Good afternoon' : h >= 17 && h < 23 ? 'Good evening' : 'Good night',
       writingStory: s => 'Olivia is choosing a story for ' + s + '…',
       threadLabel: 'Yesterday’s clue', noticed: 'Noticed', notThisTime: 'Not this time',
-      replyYes: 'Good eye. Noticing is how a horoscope turns into self-knowledge.', replyNo: 'That’s fine. Some clues arrive a day late, so keep it in mind today.',
+      replyYes: 'Good eye. Noticing is how a horoscope turns into self-knowledge.', replyNo: 'That’s fine. Some things are easier to notice a day later, so keep it in mind today.',
       closingTitle: s => 'That is your day, ' + s + '.', tomorrow: 'Tomorrow', newSky: (h, m) => 'A new sky in ' + (h ? h + ' h ' : '') + m + ' min',
       deeperTitle: 'Go deeper', practiceLabel: 'Tonight',
       bookTitle: 'Your book of days', bookSub: 'The days you have read, kept on this device.', backToday: '← Back to today', pastDay: 'Reading from',
@@ -119,14 +121,14 @@ const root = {};
     houseShort: ['', 'я і тіло', 'гроші й цінність', 'листування й справи', 'дім і родина', 'романтика й гра', 'робота й здоров’я', 'партнерство', 'близькість і спільні гроші', 'подорожі й навчання', 'кар’єра', 'друзі й плани', 'відпочинок і тиша'],
     houseArena: ['', 'ваше тіло, вигляд і те, як ви починаєте', 'гроші, речі й відчуття власної цінності', 'повідомлення, брати й сестри, сусіди, короткі поїздки', 'дім, родина й ваша приватна опора', 'романтика, задоволення, творчість і гра', 'щоденна робота, звички, здоров’я й колеги', 'партнер, близькі стосунки й домовленості', 'спільні гроші, борги, довіра й близькість', 'подорожі, навчання, переконання й широкий світ', 'кар’єра, репутація й амбіції', 'друзі, спільноти й майбутнє, яке ви будуєте', 'відпочинок, самотність, сон і невисловлене'],
     phases: {
-      new: { name: 'Новий Місяць', text: 'Місяць темний і починає спочатку. Час обрати один намір і не розголошувати його; не час вичавлювати результати.' },
-      waxingCrescent: { name: 'Молодий Місяць', text: 'Тонкий серп, що росте. Намірам потрібен перший малий і справжній крок: лист, бронювання, перша сторінка.' },
-      firstQuarter: { name: 'Перша чверть', text: 'Освітлена половина, що тисне вперед. Буде невелика перевірка рішучості: щось опирається — і ви вирішуєте, чи справді цього хотіли.' },
-      waxingGibbous: { name: 'Місяць, що росте до повні', text: 'Майже повний. Доопрацьовуйте, а не починайте заново: редагуйте, репетируйте, підлаштовуйте вже наявний план.' },
-      full: { name: 'Повний Місяць', text: 'Повністю освітлений. Почуття й факти стають видимими; щось завершується, досягає піку чи переливається через край. Спершу роздивіться, потім реагуйте.' },
+      new: { name: 'Новий Місяць', text: 'Місяць темний, і цикл починається спочатку. Добрий час обрати один намір і не розголошувати його, а не вичавлювати результати.' },
+      waxingCrescent: { name: 'Молодий Місяць', text: 'Тонкий серп, що росте. Він запрошує зробити перший малий і справжній крок до наміру: лист, бронювання, перша сторінка.' },
+      firstQuarter: { name: 'Перша чверть', text: 'Освітлена половина, що тисне вперед; традиційно її читають як перевірку рішучості: якщо щось опирається, це нагода вирішити, чи справді ви цього хотіли.' },
+      waxingGibbous: { name: 'Місяць, що росте до повні', text: 'Майже повний. Час доопрацьовувати, а не починати заново: редагувати, репетирувати, підлаштовувати вже наявний план.' },
+      full: { name: 'Повний Місяць', text: 'Повністю освітлений; традиційно це час, коли почуття й факти легше роздивитися, а те, що назрівало, ніби налите по вінця. Спершу роздивіться, потім реагуйте.' },
       waningGibbous: { name: 'Спадний Місяць', text: 'Світло починає відступати. Час ділитися тим, чого навчилися, дякувати людям і передавати справи далі.' },
-      lastQuarter: { name: 'Остання чверть', text: 'Освітлена половина, що відпускає. Розчищайте, скасовуйте, закривайте вкладки — звільніть місце перед новим циклом.' },
-      waningCrescent: { name: 'Старий Місяць', text: 'Останній серп. Відплив сил: відпочивайте, спіть довше й дайте незавершеному кілька днів зачекати.' }
+      lastQuarter: { name: 'Остання чверть', text: 'Освітлена половина, що відпускає. Добрий час розчистити, скасувати, закрити вкладки й звільнити місце перед новим циклом.' },
+      waningCrescent: { name: 'Старий Місяць', text: 'Останній серп, який часто читають як відплив сил: час відпочити, поспати довше й дати незавершеному кілька днів зачекати.' }
     },
     quarterNames: { new: 'Новий Місяць', firstQuarter: 'Перша чверть', full: 'Повний Місяць', lastQuarter: 'Остання чверть' },
     climate: { retro: 'Перегляд', hard: 'Тертя', soft: 'Легкість', conj: 'Посилення', steady: 'Рівно', building: 'Наростання', peak: 'Пік', releasing: 'Відпускання', reset: 'Перезапуск' },
@@ -135,13 +137,13 @@ const root = {};
       exactAt: (time) => 'точно о ' + time,
       exactOn: (date, past) => past ? 'точно було ' + date + ', тепер слабшає' : 'точно ' + date,
       applying: 'наростає', separating: 'слабшає',
-      inHouse: (n) => 'ваш ' + n + '-й дім',
+      inHouse: (n) => 'ваш ' + n + '-й будинок',
       skyIs: (p, s, deg) => p + ' — ' + Math.floor(deg) + '° ' + s,
       aspectLine: (a, asp, b) => a + ' ' + asp + ' ' + b,
-      bridge: { conj: (h1, h2) => h1 === h2 ? 'Для вас усе сходиться у ' + C.uk.ordLoc[h1] + ' домі: ' + C.uk.houseArena[h1] + '.' : 'Для вас це зливає ' + h1 + '-й дім (' + C.uk.houseShort[h1] + ') з ' + h2 + '-м (' + C.uk.houseShort[h2] + ').',
-        soft: (h1, h2) => h1 === h2 ? 'Для вас підтримка приходить у ' + C.uk.ordLoc[h1] + ' домі: ' + C.uk.houseArena[h1] + '.' : 'Для вас це поєднує ' + h1 + '-й дім (' + C.uk.houseShort[h1] + ') і ' + h2 + '-й (' + C.uk.houseShort[h2] + '): сьогодні вони допомагають одне одному.',
-        hard: (h1, h2) => h1 === h2 ? 'Для вас тиск зосереджений у ' + C.uk.ordLoc[h1] + ' домі: ' + C.uk.houseArena[h1] + '.' : 'Для вас це зіштовхує ' + h1 + '-й дім (' + C.uk.houseShort[h1] + ') і ' + h2 + '-й (' + C.uk.houseShort[h2] + '): комусь доведеться трохи поступитися.' },
-      rulerNote: (p, signKey) => p + ' — управитель ' + C.uk.signsGen[signKey] + ', тож усе, що відбувається з ним, трохи більше стосується вас.',
+      bridge: { conj: (h1, h2) => h1 === h2 ? 'Для вас усе сходиться ' + uOrd(h1) + ' будинку: ' + C.uk.houseArena[h1] + '.' : 'Для вас це зводить разом ' + h1 + '-й будинок (' + C.uk.houseShort[h1] + ') і ' + h2 + '-й (' + C.uk.houseShort[h2] + ').',
+        soft: (h1, h2) => h1 === h2 ? 'Для вас ця легкість припадає на ' + h1 + '-й будинок: ' + C.uk.houseArena[h1] + '.' : 'Для вас це поєднує ' + h1 + '-й будинок (' + C.uk.houseShort[h1] + ') і ' + h2 + '-й (' + C.uk.houseShort[h2] + '): сьогодні вони можуть підтримати одне одного.',
+        hard: (h1, h2) => h1 === h2 ? 'Для вас напруга зосереджена ' + uOrd(h1) + ' будинку: ' + C.uk.houseArena[h1] + '.' : 'Для вас це зіштовхує ' + h1 + '-й будинок (' + C.uk.houseShort[h1] + ') і ' + h2 + '-й (' + C.uk.houseShort[h2] + '): варто помітити, чого кожен із них просить від іншого.' },
+      rulerNote: (p, signKey) => { const venus = signKey === 'taurus' || signKey === 'libra'; return p + (venus ? ' — управителька ' : ' — управитель ') + C.uk.signsGen[signKey] + ', тож ' + (venus ? 'її' : 'його') + ' рух традиційно читають як трохи ближчий до вас.'; },
       retroNow: (p, start, end, pk) => p + ' ' + (pk === 'venus' ? 'ретроградна' : 'ретроградний') + ' з ' + start + ' і ' + (pk === 'venus' ? 'стане директною ' : 'стане директним ') + end + '.',
       retroSoon: (p, start, end, pk) => p + ' ' + (pk === 'venus' ? 'стане ретроградною ' : 'стане ретроградним ') + start + ' (до ' + end + ').',
       stationToday: (p, turns, time, pk) => p + ' ' + (turns === 'retrograde' ? (pk === 'venus' ? 'розвертається в ретроград' : 'розвертається в ретроград') : 'знову йде прямо') + ' о ' + time + '.',
@@ -151,11 +153,11 @@ const root = {};
       lunationTitle: (q, s) => C.uk.quarterNames[q] + ' ' + inUk(C.uk.quarterNames[q], s),
       moonUntil: (s, time, next) => 'Місяць ' + inUk('Місяць', s) + ' до ' + time + (next ? ', далі — ' + inUk('—', next) : ''),
       moonSince: (s) => 'Місяць ' + inUk('Місяць', s),
-      moonHouse: (n, theme) => 'Для вас він у ' + C.uk.ordLoc[n] + ' домі (' + C.uk.houseShort[n] + '): ' + theme.charAt(0).toLowerCase() + theme.slice(1) + '.',
+      moonHouse: (n, theme) => 'Для вас він ' + uOrd(n) + ' будинку (' + C.uk.houseShort[n] + '): ' + theme.charAt(0).toLowerCase() + theme.slice(1) + '.',
       also: 'Також',
       lunationFact: (q, ms, ss, time) => q === 'full' ? 'Повний Місяць ' + inUk('Місяць', ms) + ' о ' + time + ' — навпроти Сонця ' + inUk('Сонця', ss) + '.' : q === 'new' ? 'Новий Місяць ' + inUk('Місяць', ms) + ' о ' + time + ': Сонце й Місяць зустрічаються, і цикл починається знову.' : C.uk.quarterNames[q] + ' ' + inUk(C.uk.quarterNames[q], ms) + ' о ' + time + ': Місяць у квадраті до Сонця ' + inUk('Сонця', ss) + '.',
-      lunationHouse: (n) => 'Для вас це відбувається у ' + C.uk.ordLoc[n] + ' домі (' + C.uk.houseShort[n] + ').',
-      lunationHeadline: (q, n) => ({ new: 'Чистий початок: ', firstQuarter: 'Перевірка рішучості: ', full: 'Усе виходить назовні: ', lastQuarter: 'Час відпустити: ' })[q] + C.uk.houseHead[n],
+      lunationHouse: (n) => 'Для вас це припадає на ' + n + '-й будинок (' + C.uk.houseShort[n] + ').',
+      lunationHeadline: (q, n) => ({ new: 'Місце для нового початку: ', firstQuarter: 'Питання рішучості: ', full: 'Час роздивитися: ', lastQuarter: 'Час відпустити: ' })[q] + C.uk.houseHead[n],
       lunationToday: (q, s, time) => C.uk.quarterNames[q] + ' ' + inUk(C.uk.quarterNames[q], s) + ' о ' + time,
       keepInMind: 'Майте на увазі',
       alsoToday: 'Також сьогодні',
@@ -164,8 +166,8 @@ const root = {};
       until: (d) => 'до ' + d,
       since: (d) => 'з ' + d,
       today: 'сьогодні', tomorrow: 'завтра',
-      cardBridgeSign: (card, signKey, planet, n) => 'У системі Золотої Зорі карта «' + card + '» належить ' + C.uk.signsLoc[signKey].replace(/і$|ах$|у$|ї$/, m => m) + ' — точніше, знаку ' + C.uk.signs[signKey] + '. І саме зараз ' + planet + ' перебуває в ' + C.uk.signsLoc[signKey] + ', у вашому ' + C.uk.ordLoc[n] + ' домі. Тож читайте карту через сферу: ' + C.uk.houseArena[n] + '.',
-      cardBridgePlanet: (card, planet, n) => 'У системі Золотої Зорі «' + card + '» — карта планети ' + planet + ', а ця планета зараз у вашому ' + C.uk.ordLoc[n] + ' домі. Читайте її через сферу: ' + C.uk.houseArena[n] + '.',
+      cardBridgeSign: (card, signKey, planet, n) => 'У системі Золотої Зорі карта «' + card + '» належить ' + C.uk.signsLoc[signKey].replace(/і$|ах$|у$|ї$/, m => m) + ' — точніше, знаку ' + C.uk.signs[signKey] + '. І саме зараз ' + planet + ' перебуває в ' + C.uk.signsLoc[signKey] + ', у вашому ' + C.uk.ordLoc[n] + ' будинку. Тож читайте карту через сферу: ' + C.uk.houseArena[n] + '.',
+      cardBridgePlanet: (card, planet, n) => 'У системі Золотої Зорі «' + card + '» — карта планети ' + planet + ', а ця планета зараз у вашому ' + C.uk.ordLoc[n] + ' будинку. Читайте її через сферу: ' + C.uk.houseArena[n] + '.',
       cardBridgeDecan: (card, planet, signKey, live) => 'Карта «' + card + '» несе ' + planet + ' в ' + C.uk.signsLoc[signKey] + (live ? ' — і саме там сьогодні ' + live + '.' : '.'),
       cardWithTheme: (theme) => 'На тлі сьогоднішньої теми — «' + theme + '»:',
       personalNone: 'Сьогодні немає тісних контактів до ваших натальних планет. Читання спирається на спільне небо — це чесно, а не порожньо.',
@@ -183,8 +185,8 @@ const root = {};
       personalTitle: 'Зробити персональним', personalSub: 'Додайте дату народження, щоб побачити, чого сьогоднішні планети торкаються у вашій карті. Дата народження залишається на цьому пристрої; у ваше читання потрапляють лише обчислені контакти планет.',
       birthDate: 'Дата народження', birthTime: 'Час народження (необов’язково)', offset: 'UTC-зсув у момент народження', offsetHint: 'напр. +03:00', addBirth: 'Показати мої транзити', removeBirth: 'Видалити дані народження', remember: 'Запам’ятати на цьому пристрої',
       transitsTitle: 'Ваші транзити сьогодні', natalRing: 'Внутрішнє коло: ваші натальні планети',
-      why: 'Як це обчислено', whyText: 'Положення обчислено на полудень за київським часом за Astronomy Engine 2.1.19 (видимі геоцентричні, тропічний зодіак). Доми — соляр­ні: відлічуються від вашого сонячного знака, як заведено в гороскопах за знаком; це не доми вашої натальної карти. Аспекти — з тісними орбісами (3°, для Місяця 5°). Час станцій, переходів, точних аспектів і фаз обчислено з точністю до хвилини. Тлумачення — оригінальний текст для роздумів, а не прогноз подій.',
-      positions: 'Усі положення', retro: 'ретроградно', house: 'дім', today: 'Сьогодні', share: 'Скопіювати рядок дня',
+      why: 'Як це обчислено', whyText: 'Положення обчислено на полудень за київським часом за Astronomy Engine 2.1.19 (видимі геоцентричні, тропічний зодіак). Будинки — соляр­ні: відлічуються від вашого сонячного знака, як заведено в гороскопах за знаком; це не будинки вашої натальної карти. Аспекти — з тісними орбісами (3°, для Місяця 5°). Час станцій, переходів, точних аспектів і фаз обчислено з точністю до хвилини. Тлумачення — оригінальний текст для роздумів, а не прогноз подій.',
+      positions: 'Усі положення', retro: 'ретроградно', house: 'будинок', today: 'Сьогодні', share: 'Скопіювати рядок дня',
       copied: 'Скопійовано', footer: 'Астрологічне тлумачення для роздумів, а не прогноз подій. Календар за київським часом.',
       wheelLabel: 'Зодіакальне коло з сьогоднішніми планетами', loading: 'Обчислюємо сьогоднішнє небо…', keyLine: 'Рядок, який варто запам’ятати',
       writing: s => 'Olivia читає сьогоднішнє небо для ' + s + '…', writingHint: 'Першого разу ваш Claude один раз попросить дозволу для цієї сторінки. Читання пишеться з обчислених фактів нижче.',
@@ -192,7 +194,7 @@ const root = {};
       greet: h => h >= 5 && h < 12 ? 'Доброго ранку' : h >= 12 && h < 17 ? 'Доброго дня' : h >= 17 && h < 23 ? 'Доброго вечора' : 'Доброї ночі',
       writingStory: s => 'Olivia добирає історію для ' + s + '…',
       threadLabel: 'Вчорашня підказка', noticed: 'Помічено', notThisTime: 'Не цього разу',
-      replyYes: 'Влучно. Саме так гороскоп стає знанням про себе.', replyNo: 'Нічого страшного. Деякі підказки приходять із запізненням, тож тримайте її в голові й сьогодні.',
+      replyYes: 'Влучно. Саме так гороскоп стає знанням про себе.', replyNo: 'Нічого страшного. Деякі речі легше помітити наступного дня, тож тримайте її в голові й сьогодні.',
       closingTitle: s => 'Це ваш день, ' + s + '.', tomorrow: 'Завтра', newSky: (h, m) => 'Нове небо через ' + (h ? h + ' год ' : '') + m + ' хв',
       deeperTitle: 'Глибше', practiceLabel: 'Увечері',
       bookTitle: 'Ваша книга днів', bookSub: 'Прочитані дні, збережені на цьому пристрої.', backToday: '← Повернутися до сьогодні', pastDay: 'Читання від',
@@ -200,8 +202,8 @@ const root = {};
     }
   };
   // Simplify the Golden Dawn sign bridge in Ukrainian (avoid inflecting sign names after «належить»).
-  C.uk.t.cardBridgeSign = (card, signKey, planet, n) => 'У системі Золотої Зорі «' + card + '» — карта знака ' + C.uk.signs[signKey] + '. І саме зараз ' + planet + ' перебуває в ' + C.uk.signsLoc[signKey] + ', у вашому ' + C.uk.ordLoc[n] + ' домі. Тож читайте карту через сферу: ' + C.uk.houseArena[n] + '.';
-  C.uk.t.cardBridgePlanet = (card, planetGen, n) => 'У системі Золотої Зорі «' + card + '» — карта ' + planetGen + ', а ця планета зараз у вашому ' + C.uk.ordLoc[n] + ' домі. Читайте її через сферу: ' + C.uk.houseArena[n] + '.';
+  C.uk.t.cardBridgeSign = (card, signKey, planet, n) => 'У системі Золотої Зорі «' + card + '» — карта знака ' + C.uk.signs[signKey] + '. І саме зараз ' + planet + ' перебуває в ' + C.uk.signsLoc[signKey] + ', у вашому ' + C.uk.ordLoc[n] + ' будинку. Тож читайте карту через сферу: ' + C.uk.houseArena[n] + '.';
+  C.uk.t.cardBridgePlanet = (card, planetGen, n) => 'У системі Золотої Зорі «' + card + '» — карта ' + planetGen + ', а ця планета зараз у вашому ' + C.uk.ordLoc[n] + ' будинку. Читайте її через сферу: ' + C.uk.houseArena[n] + '.';
 
   root.OLIVIA_TODAY_COPY = C;
 

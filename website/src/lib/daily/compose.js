@@ -250,10 +250,16 @@ const root = { OLIVIA_TODAY_ENGINE: ENGINE, OLIVIA_TODAY_COPY: COPY, OLIVIA_TODA
     };
     const areas = [];
     const progress = p => { const st = D.stays[p]; return st && st.enteredAt && st.leavesAt ? Math.max(0, Math.min(1, (D.asOf - st.enteredAt) / (st.leavesAt - st.enteredAt))) : null; };
+    // An area whose planet already led the reading must not reprint it: take the first real line (sign line,
+    // retrograde line, a live aspect, the named Moon phase) that the reader has not been shown yet.
+    const shown = [...lead, ...alsoPara, ...moonPara, ...keep.map(k => k.text), topEntry ? topEntry.scene : ''].join(' ');
+    const fresh = list => list.find(x => x && !shown.includes(x)) || list.find(Boolean) || '';
+    const phaseLine = key => { const p = c.phases[key]; return p.name + ': ' + (/^(Moon|Місяць)/.test(p.text) ? p.text : p.text.charAt(0).toLowerCase() + p.text.slice(1)); };
+    const liveAspects = p => D.aspects.filter(a => (a.a === p || a.b === p) && a.period !== 'era').map(a => aspectText(a.a, a.b, a.family, lang));
     if (sign) {
       const vH = H('venus'), vE = entry('venus', vH, lang);
       if (vE) areas.push({ key: 'love', planet: 'venus', house: vH, climate: climateFor('venus'), theme: vE.theme, progress: progress('venus'), leaves: D.stays.venus.leavesAt,
-        text: isUsed('venus', vH) ? vE.scene : vE.text + (D.retro.venus?.state === 'retrograde' && !keep.some(k => k.planet === 'venus') ? ' ' + retroLine('venus', vH, lang) : '') });
+        text: isUsed('venus', vH) ? fresh([signLine('venus', byKey.venus.sign, lang), D.retro.venus?.state === 'retrograde' ? retroLine('venus', vH, lang) : '', ...liveAspects('venus'), vE.scene]) : vE.text + (D.retro.venus?.state === 'retrograde' && !keep.some(k => k.planet === 'venus') ? ' ' + retroLine('venus', vH, lang) : '') });
       markUsed('venus', vH);
       const workPick = ['mercury', 'mars', 'saturn', 'sun', 'jupiter'].map(p => ({ p, h: H(p) }))
         .sort((x, y) => (([2, 6, 10].includes(y.h) ? 2 : 0) - ([2, 6, 10].includes(x.h) ? 2 : 0)) || (isUsed(x.p, x.h) - isUsed(y.p, y.h)))
@@ -263,7 +269,7 @@ const root = { OLIVIA_TODAY_ENGINE: ENGINE, OLIVIA_TODAY_COPY: COPY, OLIVIA_TODA
       markUsed(workPick.p, workPick.h);
       const mE = entry('moon', moonH, lang);
       const phaseClimate = { new: 'reset', waxingCrescent: 'building', firstQuarter: 'building', waxingGibbous: 'building', full: 'peak', waningGibbous: 'releasing', lastQuarter: 'releasing', waningCrescent: 'releasing' }[D.moon.phase];
-      if (mE) areas.push({ key: 'self', planet: 'moon', house: moonH, climate: phaseClimate, theme: mE.theme, progress: progress('moon'), leaves: D.stays.moon.leavesAt, text: isUsed('moon', moonH) ? signLine('moon', moonB.sign, lang) + ' ' + c.phases[D.moon.phase].text : mE.text });
+      if (mE) areas.push({ key: 'self', planet: 'moon', house: moonH, climate: phaseClimate, theme: mE.theme, progress: progress('moon'), leaves: D.stays.moon.leavesAt, text: isUsed('moon', moonH) ? fresh([signLine('moon', moonB.sign, lang), phaseLine(D.moon.phase), ...liveAspects('moon')]) : mE.text });
     }
 
     // ---- do / avoid / ask / scene
@@ -385,7 +391,7 @@ const root = { OLIVIA_TODAY_ENGINE: ENGINE, OLIVIA_TODAY_COPY: COPY, OLIVIA_TODA
       if (!here.length) return '';
       const names = here.map(b => c.planets[b.key]).join(lang === 'uk' ? ' і ' : ' and ');
       const h = sign ? eng.house(sign, eng.SIGNS.indexOf(s)) : null;
-      if (lang === 'uk') return 'У деканах Золотої Зорі «' + cardName + '» — це ' + placeIn('uk', p, s) + '. Сьогодні в ' + c.signsLoc[s] + ' — ' + names + (h ? ', у вашому ' + c.ordLoc[h] + ' домі. Читайте карту через сферу: ' + c.houseArena[h] + '.' : '.');
+      if (lang === 'uk') return 'У деканах Золотої Зорі «' + cardName + '» — це ' + placeIn('uk', p, s) + '. Сьогодні в ' + c.signsLoc[s] + ' — ' + names + (h ? ', у вашому ' + c.ordLoc[h] + ' будинку. Читайте карту через сферу: ' + c.houseArena[h] + '.' : '.');
       return 'In the Golden Dawn decans, ' + cardName + ' is ' + placeIn('en', p, s).replace(/^the /, 'the ') + '. Today ' + c.signs[s] + ' holds ' + names + (h ? ' — your ' + c.ord(h) + ' house, so read the card through ' + c.houseArena[h] + '.' : '.');
     }
     return '';
