@@ -3,6 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { buildExport, escapeHtml, exportImages, fileName } from "./portrait/export.js";
+import { typeset } from "./portrait/typography.js";
 
 const example = (locale) => JSON.parse(readFileSync(new URL(`../../public/portrait/example-${locale}.json`, import.meta.url), "utf8"));
 const deck = (prefix) => Array.from({ length: 22 }, (_, id) => ({ id, name: `${prefix} ${id}`, href: `/cards/c${id}/`, image: `/cards/${id}.webp`, thumb: `/cards/thumbs/${id}.webp` }));
@@ -22,10 +23,10 @@ function passages(stages) {
   return [...out, ...stages.c.keep];
 }
 
-test("every passage, every chapter title and the keep lines appear", () => {
+test("every passage, every chapter title and the keep lines appear, set as the reader sets them", () => {
   for (const locale of ["en", "uk"]) {
     const { html, stages } = exported(locale);
-    for (const text of passages(stages)) assert.ok(html.includes(escapeHtml(text)), `${locale}: missing ${text.slice(0, 60)}`);
+    for (const text of passages(stages)) assert.ok(html.includes(escapeHtml(typeset(text, locale))), `${locale}: missing ${text.slice(0, 60)}`);
   }
 });
 
@@ -66,10 +67,45 @@ test("maps, teachings with sources, the honest line and the footer", () => {
 test("the Ukrainian export speaks Ukrainian", () => {
   const { html } = exported("uk");
   assert.match(html, /<html lang="uk">/);
-  for (const label of ["Практика", "Три речення, які варто зберегти", "Ваші числа", "Ваше небо", "Інші планети", "Що кажуть традиції", "Ранні основи", "Життєвий шлях", "Для асцендента потрібен час народження"]) {
+  for (const label of ["Практика на цей тиждень", "Якщо прочитаєте лише це", "Частина перша", "Розділ перший", "Ваші числа", "Ваше небо", "Інші планети", "Що кажуть традиції", "Ранні основи", "Життєвий шлях", "Для асцендента потрібен час народження"]) {
     assert.ok(html.includes(label), `missing ${label}`);
   }
-  for (const label of ["Practice", "Your numbers", "Other planets", "What the traditions say"]) assert.ok(!html.includes(label), `English left in: ${label}`);
+  for (const label of ["Practice", "If you read nothing else", "Part one", "Chapter one", "Your numbers", "Other planets", "What the traditions say"]) assert.ok(!html.includes(label), `English left in: ${label}`);
+});
+
+test("the reader's order: glance, opening, facets, chapters, numbers, maps, teachings", () => {
+  for (const locale of ["en", "uk"]) {
+    const { html, stages } = exported(locale);
+    const at = (text) => {
+      const i = html.indexOf(escapeHtml(typeset(text, locale)));
+      assert.ok(i >= 0, `${locale}: missing ${text.slice(0, 40)}`);
+      return i;
+    };
+    const order = [
+      at(stages.a.title), at(stages.c.keep[0]), at(stages.a.overview.text), at(stages.a.facets.temperament.heading),
+      at(stages.b.chapters.mind.title), at(stages.c.chapters.becoming.practice),
+      html.indexOf('class="numbers"'), html.indexOf('class="maps"'), html.indexOf('class="teachings"'), at(locale === "uk" ? "Написано в Olivia Arcana" : "Written by Olivia Arcana"),
+    ];
+    for (let i = 1; i < order.length; i++) assert.ok(order[i - 1] < order[i], `${locale}: step ${i} is out of order`);
+    // Within the maps the cards come before the sky.
+    assert.ok(html.indexOf('class="lattice"') < html.indexOf('class="sky"'));
+  }
+});
+
+test("labels speak in the reader's one voice: sentence case, never letter-spaced capitals", () => {
+  const { html } = exported("en");
+  assert.ok(!/text-transform:\s*uppercase/i.test(html));
+  assert.ok(!/letter-spacing:\s*\.[1-9]/.test(html), "no letter-spaced labels");
+  assert.match(html, /<p class="label">If you read nothing else<\/p>|<h2 class="label">If you read nothing else<\/h2>/);
+  assert.match(html, /<p class="label">Part one<\/p>/);
+});
+
+test("the numbers are set as numerals, a master number hallmarked", () => {
+  const { packet, stages, teachings } = example("en");
+  const master = { ...packet, factors: packet.factors.map((f) => (f.id === "num-expression" ? { ...f, value: 11, master: true } : f)) };
+  const html = buildExport({ locale: "en", packet: master, stages, teachings, cards: deck("Card"), images: {} });
+  assert.match(html, /<span class="numeral">11<\/span> <span class="label master">Master number<\/span>/);
+  assert.ok(!html.includes('class="plate"'));
 });
 
 test("text is escaped, never markup", () => {
@@ -84,7 +120,9 @@ test("text is escaped, never markup", () => {
   };
   const html = buildExport({ locale: "en", packet, stages, teachings, cards: deck("Card"), images: {} });
   assert.ok(!html.includes("<b onclick"));
-  assert.ok(html.includes("Tom &amp; Jerry &lt;b onclick=&quot;x()&quot;&gt;it&#39;s&lt;/b&gt;"));
+  // Text, escaped and set as the reader sets it: its quotes and apostrophe turned, its brackets and ampersand escaped.
+  assert.equal(escapeHtml(typeset(hostile, "en")), "Tom &amp; Jerry &lt;b onclick=”x()”&gt;it’s&lt;/b&gt;");
+  assert.ok(html.includes(escapeHtml(typeset(hostile, "en"))));
 });
 
 test("file names are slugged from the title, Cyrillic transliterated", () => {

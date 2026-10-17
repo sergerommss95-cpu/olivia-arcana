@@ -1,17 +1,20 @@
 "use client";
 
 /**
- * Keeping a finished portrait: save it in this browser (the button then reads
- * «Saved»), download it as one standalone page, or print it. A portrait
- * reopened from the saved list says it is saved and offers to forget it.
- * Results are spoken through the reader's live region (`onSay`).
+ * Keeping a finished portrait, in the reading's closing band: its title set
+ * once more under "Keep this portrait", then save it in this browser (the
+ * button then reads «Saved»), download it as one standalone page, or print
+ * it. A portrait reopened from the saved list says it is saved and offers to
+ * forget it. Results are spoken through the reader's live region (`onSay`).
  */
 
 import { useState } from "react";
 import type { MajorCard } from "@/lib/astrology/deck";
 import { buildExport, exportImages, fileName } from "@/lib/portrait/export.js";
+import { typeset } from "@/lib/portrait/typography.js";
 import type { PortraitPacket, PortraitStages, PortraitStatus } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
+import { readyForPrint } from "./Reader";
 import styles from "./keep.module.css";
 
 /** A same-origin image as a data: URI, or null when it cannot be fetched. */
@@ -75,30 +78,34 @@ export default function Keep({ locale, reopened, kept, packet, stages, teachings
 
   const stamped = reopened && kept;
   return (
-    // Headings and quiet links are set in capitals; each is named in sentence case.
     <section className={styles.keep} aria-labelledby="portrait-keeping-title">
-      <h2 id="portrait-keeping-title" className={styles.kicker} aria-label={k.title}>{k.title}</h2>
-      {/* Reopened from the saved list: a statement, not a button, and the way to forget it. */}
-      {stamped && (
-        <div className={styles.stampRow}>
-          <p className={styles.stamp}><span className={styles.tick} aria-hidden="true" />{k.savedHere}</p>
-          <button type="button" className={styles.quiet} data-keep-forget="" aria-label={k.forget} onClick={onForget}>{k.forget}</button>
-        </div>
-      )}
-      <div className={styles.actions}>
-        {!stamped && (
-          // Saved, it keeps its place, its width and its focus: the same button, now reading «Saved».
-          // Both labels share one cell, so the row does not move; the one not shown is hidden from everyone.
-          <button type="button" className={`${styles.primary} ${styles.swap}`} data-keep-save="" data-done={kept || undefined} aria-disabled={kept || undefined}
-            onClick={() => { if (!kept) onSave(); }}>
-            <span className={styles.label} data-off={kept || undefined}>{k.save}</span>
-            <span className={styles.label} data-off={!kept || undefined}><span className={styles.tick} aria-hidden="true" />{k.saved}</span>
-          </button>
-        )}
-        <button type="button" className={styles.plain} aria-busy={busy || undefined} onClick={download}>{busy ? k.downloading : k.download}</button>
-        <button type="button" className={styles.plain} onClick={() => window.print()}>{k.print}</button>
+      <div className={styles.keepHead}>
+        <h2 id="portrait-keeping-title" className={styles.kicker}>{k.title}</h2>
+        {stages.a?.title && <p className={styles.keepTitle}>{typeset(stages.a.title, locale)}</p>}
       </div>
-      <p className={styles.note}>{k.note}</p>
+      <div className={styles.tools}>
+        {/* Reopened from the saved list: a statement, not a button, and the way to forget it. */}
+        {stamped && (
+          <div className={styles.stampRow}>
+            <p className={styles.stamp}><span className={styles.tick} aria-hidden="true" />{k.savedHere}</p>
+            <button type="button" className={`${styles.text} ${styles.soft}`} data-keep-forget="" onClick={onForget}>{k.forget}</button>
+          </div>
+        )}
+        <div className={styles.actions}>
+          {!stamped && (
+            // Saved, it keeps its place, its width and its focus: the same button, now reading «Saved».
+            // Both labels share one cell, so the row does not move; the one not shown is hidden from everyone.
+            <button type="button" className={`${styles.save} ${styles.swap}`} data-keep-save="" data-done={kept || undefined} aria-disabled={kept || undefined}
+              onClick={() => { if (!kept) onSave(); }}>
+              <span className={styles.label} data-off={kept || undefined}>{k.save}</span>
+              <span className={styles.label} data-off={!kept || undefined}><span className={styles.tick} aria-hidden="true" />{k.saved}</span>
+            </button>
+          )}
+          <button type="button" className={styles.text} aria-busy={busy || undefined} onClick={download}>{busy ? k.downloading : k.download}</button>
+          <button type="button" className={styles.text} onClick={() => { const waiting = readyForPrint(); if (waiting) void waiting.then(() => window.print()); else window.print(); }}>{k.print}</button>
+        </div>
+        <p className={styles.note}>{k.note}</p>
+      </div>
     </section>
   );
 }

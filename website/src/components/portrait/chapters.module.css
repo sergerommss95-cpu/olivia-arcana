@@ -1,0 +1,262 @@
+/* website/src/components/portrait/chapters.module.css
+   The chapters as plates in a book (direction A), in two parts. Each opens on
+   a frontispiece in a lapis→abyss band: the cards large at the left, the small
+   gilt numeral, the title and the lede at the right. The body follows at the
+   reading measure, with what it was read from held in the margin and a pull
+   quote hung in the other; the practice is written on the back of a card.
+   Colours come from the reading (reader.module.css), so print takes them too.
+   Motion is opacity and an 8 px rise on the ritual curve. */
+
+/* ── A part ──────────────────────────────────────────────────── */
+
+.part { margin-top: clamp(120px, 13vw, 190px); scroll-margin-top: 76px; }
+.part:focus, .chapter:focus, .notice:focus { outline: none; }
+.partHead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 22px; scroll-margin-top: 76px; }
+.partKicker { composes: labelGilt from "./type.module.css"; margin: 0; font-size: 15px; }
+.partTitle {
+  margin: 0;
+  font: 400 clamp(34px, 3.3vw, 46px)/1.04 var(--display);
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+/* ── Arrival: ink-in once, as each part of a plate first comes into view ── */
+
+.ink { opacity: 0; }
+.seen .ink { opacity: 1; animation: inkIn 900ms var(--ease) calc(var(--n, 0) * 90ms) both; }
+@keyframes inkIn { from { opacity: 0; transform: translateY(8px); } }
+
+/* ── A chapter ───────────────────────────────────────────────── */
+
+.chapter { scroll-margin-top: 52px; }
+.partHead + .chapter { margin-top: clamp(28px, 3vw, 44px); }
+.chapter + .chapter { margin-top: clamp(64px, 7vw, 104px); }
+
+/* The band: lapis falling to abyss and back across the window's width (drawn as
+   the band's border image, which overflows the column without scrolling), and
+   a little more light where the plate lies. */
+.band {
+  position: relative;
+  padding-block: clamp(48px, 6.5vw, 96px) clamp(32px, 6.5vw, 96px);
+  border-image: linear-gradient(180deg, rgba(4, 11, 19, 0) 0%, rgba(4, 11, 19, 0.5) 16%, rgba(3, 9, 16, 0.68) 55%, rgba(4, 11, 19, 0.5) 86%, rgba(4, 11, 19, 0) 100%) fill 0 / 0 / 0 100vmax;
+}
+.band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(46% 58% at 23% 46%, rgba(238, 230, 212, 0.045), rgba(238, 230, 212, 0) 72%);
+}
+
+/* ── The frontispiece ────────────────────────────────────────── */
+
+/* A phone: the plate first, its cards large at the column's left edge over their captions, then the words. */
+.frontis { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 40px; }
+.plate { --w1: min(60vw, 240px); grid-row: 1; display: grid; justify-items: start; margin: 0; }
+.titles { grid-row: 2; display: grid; justify-items: start; }
+
+/* The cards as objects: the first large, a second laid over it a step lower, smaller. */
+.cards { display: flex; align-items: flex-start; }
+.card { flex: none; display: block; width: var(--w1); }
+.card + .card { width: calc(var(--w1) * 0.8); margin-top: calc(var(--w1) * 0.3); margin-left: calc(var(--w1) * -0.36); }
+/* Shown large, a card takes a deeper shadow: it lies on the cloth, lit from above. */
+.card > span {
+  box-shadow: 0 1px 1px rgba(1, 6, 12, 0.5), 0 8px 14px -6px rgba(1, 6, 12, 0.55), 0 26px 44px -14px rgba(1, 6, 12, 0.8), 0 60px 90px -36px rgba(1, 6, 12, 0.7);
+}
+
+/* Museum captions: the name, the place, what the place means to you. */
+/* On a phone they keep to the column's left edge, with the words beneath. */
+.captions { display: grid; gap: 20px; justify-self: stretch; max-width: 34em; margin-top: 26px; }
+.caption { display: grid; gap: 2px; }
+.capName { font: italic 500 22px/1.2 var(--heading); color: var(--ink); }
+.capRole { composes: label from "./type.module.css"; }
+.capFrame { margin-top: 7px; font: italic 400 17px/1.45 var(--heading); color: rgba(238, 230, 212, 0.8); text-wrap: pretty; }
+/* No card cited: the back, and the sky or numbers the chapter reads from. */
+.capNames { composes: meta from "./type.module.css"; margin: 0; line-height: 1.6; text-wrap: pretty; }
+.capNames em { font: italic 500 17px/1.2 var(--heading); color: var(--ink); white-space: nowrap; }
+.plate[data-cards="0"] .cards { width: var(--w1); }
+
+/* The words: the small gilt numeral beside "Chapter one · Mind", the title, the lede. */
+.kicker { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 14px; margin: 0; font: inherit; }
+.numeral { composes: numeral from "./type.module.css"; font-size: 44px; font-weight: 400; line-height: 1; color: var(--gilt); }
+.kickerText { composes: labelGilt from "./type.module.css"; font-size: 15px; }
+.title {
+  max-width: 12em;
+  margin: 14px 0 0;
+  font: 300 clamp(36px, 4vw, 56px)/1.04 var(--display);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.lede { max-width: 21em; margin: 22px 0 0; font: italic 400 clamp(23px, 2vw, 28px)/1.34 var(--heading); color: var(--body); text-wrap: pretty; }
+.minutes { composes: meta from "./type.module.css"; margin: 20px 0 0; }
+
+/* ── The body ────────────────────────────────────────────────── */
+
+.body { display: grid; grid-template-columns: minmax(0, 1fr); padding-top: clamp(20px, 4.4vw, 64px); }
+/* DM Sans (Onest for Cyrillic) at a 58–66 character measure; floats (the pull quote) stay inside. */
+.main { display: flow-root; max-width: 31.5em; font-size: 18px; }
+.prose {
+  margin: 0;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.68;
+  color: var(--body);
+  hanging-punctuation: first;
+  text-wrap: pretty;
+}
+/* A book's paragraphs: indented, barely spaced. */
+.prose + .prose, .pull + .prose { margin-top: 0.35em; text-indent: 1.5em; }
+/* The first words in small capitals, as a chapter of a book begins. */
+.leadIn { font: 500 1.14em/1 var(--font-sc, "Cormorant SC"), var(--heading); letter-spacing: 0.03em; color: var(--ink); }
+
+/* One sentence set apart: a short gilt rule, then the words, the opening quote hung outside the line. */
+.pull { margin: 36px 0 32px; }
+.pull::before { content: ""; display: block; width: 44px; height: 1px; margin-bottom: 20px; background: var(--gilt); }
+.pull p { margin: 0; font: italic 400 29px/1.22 var(--heading); text-indent: -0.36em; color: var(--ink); text-wrap: balance; }
+
+/* The practice, written on the back of a card: a lapis band falling to abyss. */
+.ritual {
+  margin-top: 44px;
+  padding: 22px 22px 24px;
+  border-radius: 14px;
+  background: linear-gradient(150deg, #0f2438 0%, #0a1a2a 55%, #081624 100%);
+  box-shadow: inset 0 1px 0 rgba(238, 230, 212, 0.07), 0 1px 2px rgba(1, 6, 12, 0.4), 0 30px 60px -24px rgba(1, 6, 12, 0.75);
+}
+.ritual::after { content: ""; display: block; clear: both; }
+.ritualBack { float: right; width: 62px; margin: 2px 0 10px 18px; }
+.ritualLabel { composes: labelGilt from "./type.module.css"; margin: 0 0 8px; }
+.ritualText { margin: 0; font: italic 500 21px/1.4 var(--heading); color: var(--ink); text-wrap: pretty; }
+
+/* What the chapter was read from closes it on a phone; beside the text, it stays in the margin. */
+.body .note { margin-top: 30px; }
+
+/* ── The card back ───────────────────────────────────────────── */
+
+.back {
+  position: relative;
+  display: block;
+  aspect-ratio: 448 / 769;
+  border-radius: 4.6% / 2.7%;
+  box-shadow: 0 1px 1px rgba(1, 6, 12, 0.5), 0 8px 14px -6px rgba(1, 6, 12, 0.55), 0 22px 36px -14px rgba(1, 6, 12, 0.75);
+}
+.back img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+.plate .back { width: var(--w1); }
+.plate[data-cards="0"] .back { box-shadow: 0 1px 1px rgba(1, 6, 12, 0.5), 0 8px 14px -6px rgba(1, 6, 12, 0.55), 0 26px 44px -14px rgba(1, 6, 12, 0.8), 0 60px 90px -36px rgba(1, 6, 12, 0.7); }
+
+/* ── A chapter still being written ───────────────────────────── */
+
+/* Quiet: no band of its own, so a run of them does not stripe the page. */
+.quiet { padding-block: clamp(28px, 3vw, 44px); border-image-source: none; }
+.quiet::before { content: none; }
+.quiet .plate { --w1: 96px; }
+.ghost { opacity: 0.4; box-shadow: none; }
+.pendingNote { color: var(--faint); }
+.bars { display: grid; justify-items: start; gap: 14px; width: min(100%, 520px); margin-top: 22px; }
+.bar { position: relative; display: block; width: 92%; height: 13px; overflow: hidden; border-radius: 2px; background: rgba(238, 230, 212, 0.08); }
+.bar:nth-child(1) { width: 78%; height: 26px; }
+.bar:nth-child(2) { width: 52%; height: 26px; margin-bottom: 10px; }
+.bar:nth-child(4) { width: 64%; }
+/* A pale sheen crossing each bar (transform only). */
+.bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(238, 230, 212, 0.07) 50%, transparent);
+  transform: translateX(-100%);
+  animation: sheen 2.6s var(--ease) infinite;
+}
+@keyframes sheen { 60%, to { transform: translateX(100%); } }
+
+/* ── A part that could not be written ────────────────────────── */
+
+.notice {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 26px;
+  align-items: start;
+  max-width: 680px;
+  margin-top: clamp(28px, 3vw, 44px);
+  padding-top: 28px;
+  border-top: 1px solid var(--hair);
+  scroll-margin-top: 76px;
+}
+.noticeBack { width: 58px; opacity: 0.55; box-shadow: none; }
+.noticeTitle { composes: labelGilt from "./type.module.css"; margin: 0 0 8px; font-size: 15px; }
+.noticeText { max-width: 32em; margin: 0; font: 400 17px/1.7 var(--font-body), system-ui, sans-serif; color: var(--soft); }
+
+/* ── Wider ───────────────────────────────────────────────────── */
+
+@media (min-width: 720px) {
+  .main { font-size: 19px; }
+  .prose { line-height: 1.7; }
+  .pull { margin: 44px 0 40px; }
+  .pull p { font-size: clamp(30px, 2.4vw, 34px); }
+  .ritual { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: 30px; margin-top: 56px; padding: 24px 34px 24px 24px; }
+  .ritual::after { content: none; }
+  .ritualBack { float: none; width: 92px; margin: 0; }
+  .ritualLabel { margin-bottom: 10px; }
+  .ritualText { font-size: 22px; }
+}
+
+/* The plate beside its words, from a tablet up. */
+@media (min-width: 720px) {
+  .frontis { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: clamp(48px, 7vw, 112px); align-items: center; }
+  /* The plate as wide as its cards (a little more for one), centred in its column. */
+  .plate { --w1: clamp(220px, 22vw, 280px); grid-column: 1; grid-row: 1; justify-self: center; justify-items: start; width: calc(var(--w1) + 10px); }
+  .plate[data-cards="2"] { width: calc(var(--w1) * 1.44); }
+  .titles { grid-column: 2; grid-row: 1; }
+  .captions { justify-self: start; width: 100%; }
+  .quiet .plate { --w1: 132px; }
+}
+
+/* The body beside its margin, in line with the opening's text. */
+@media (min-width: 1000px) {
+  .body { grid-template-columns: minmax(0, 250px) minmax(0, 1fr); column-gap: clamp(40px, 6vw, 96px); }
+  .main { grid-column: 2; grid-row: 1; }
+  .body .note { grid-column: 1; grid-row: 1; align-self: start; position: sticky; top: 100px; margin-top: 4px; }
+}
+
+/* Room in the far margin: the pull quote hangs there, beside the paragraph after its own. */
+@media (min-width: 1280px) {
+  .pull {
+    --room: min(300px, calc(var(--span, 1288px) - 250px - clamp(40px, 6vw, 96px) - 31.5em - 56px));
+    float: right;
+    clear: right;
+    width: var(--room);
+    margin: 0.3em calc(-1 * var(--room) - 56px) 24px 0;
+    font-size: 19px;
+  }
+  .pull p { text-wrap: pretty; }
+}
+
+/* ── Reduced motion: every final state at once ───────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ink { opacity: 1; }
+  .seen .ink, .bar::after { animation: none; }
+}
+
+/* ── Print: each part and chapter on a new page, the text alone ── */
+
+@media print {
+  .ink { opacity: 1 !important; animation: none !important; }
+  .part { margin-top: 0; break-before: page; }
+  .partHead { break-after: avoid; }
+  .chapter + .chapter { margin-top: 0; break-before: page; }
+  .band { padding-block: 18px 6px; border-image-source: none; }
+  .band::before, .plate, .minutes, .pull, .ritualBack, .quiet, .noticeBack { display: none !important; }
+  .frontis { display: block; }
+  .title, .kicker, .lede { break-after: avoid; }
+  .title { max-width: none; font-size: 26pt; }
+  .lede { max-width: none; font-size: 15pt; }
+  .numeral { font-size: 26pt; }
+  .body { display: block; padding-top: 12px; }
+  .main { max-width: none; font-size: 11.5pt; }
+  .ritual { display: block; margin-top: 18px; padding: 10px 14px; border: 1px solid var(--hair); background: none; box-shadow: none; break-inside: avoid; }
+  .ritualText { font-size: 13pt; }
+  .body .note { position: static; margin-top: 12px; }
+  .notice { display: block; break-inside: avoid; }
+}

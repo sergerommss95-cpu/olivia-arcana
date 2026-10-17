@@ -16,8 +16,8 @@ test("a card's art names it in English and Ukrainian", () => {
   assert.equal(cardFromSrc("/cards/77_king_of_pentacles.webp").uk, "Король Пентаклів");
 });
 
-test("thumbs, wheel and portal cuts name the same card", () => {
-  for (const src of ["/cards/thumbs/17_the_star.webp", "/cards/wheel/17_the_star.webp", "/cards-portal/17_the_star.webp", "https://oliviaarcana.com/cards/thumbs/17_the_star.webp?v=2"]) {
+test("thumbs, mid, wheel and portal cuts name the same card", () => {
+  for (const src of ["/cards/thumbs/17_the_star.webp", "/cards/mid/17_the_star.webp", "/cards/wheel/17_the_star.webp", "/cards-portal/17_the_star.webp", "https://oliviaarcana.com/cards/thumbs/17_the_star.webp?v=2"]) {
     assert.equal(cardFromSrc(src)?.en, "The Star", src);
   }
 });
@@ -47,6 +47,7 @@ test("every card file on disk, and every experience deck card, has a name", () =
   for (const f of files) assert.ok(cardFromSrc(`/cards/${f}`), f);
   for (const f of readdirSync(new URL("cards/thumbs/", pub))) assert.ok(cardFromSrc(`/cards/thumbs/${f}`), f);
   for (const f of readdirSync(new URL("cards/wheel/", pub))) assert.ok(cardFromSrc(`/cards/wheel/${f}`), f);
+  for (const f of readdirSync(new URL("cards/mid/", pub))) assert.ok(cardFromSrc(`/cards/mid/${f}`), f);
   const manifest = JSON.parse(readFileSync(new URL("experience/manifest.json", pub), "utf8"));
   for (const [deck, { back, cards }] of Object.entries(manifest.decks)) {
     assert.equal(cardFromSrc(`/experience/${back}`), null, `${deck} back`);

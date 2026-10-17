@@ -1,61 +1,38 @@
 "use client";
 
 /**
- * Your maps: the three things the portrait was read from, set as the book's
- * end plates. The eleven Arkan cards in their lattice, face up and still, each
- * a way to its page in the deck; the numbers of the name and date on an
- * engraved plate; and the sky as cards (Sun, Moon, Rising, as the site's
- * birth chart deals them), with the other planets listed beneath.
+ * The reading's end matter: its numbers, then its maps. The numbers of the
+ * name and date are set like type, four numerals in a row in a deep band, a
+ * master number hallmarked, the birthday small beneath. The maps face each
+ * other like end papers: the eleven Arkan cards in their lattice (the
+ * mini-map's own, full size and still, each card a way to its page in the
+ * deck), and the sky as cards (Sun, Moon, Rising, as the site's birth chart
+ * deals them) with the other planets listed beneath.
  */
 
-import { useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useMemo, useRef, type CSSProperties } from "react";
 import type { MajorCard } from "@/lib/astrology/deck";
 import { BODY_GLYPHS, SIGN_CARDS, SIGN_GLYPHS, SIGNS } from "@/lib/astrology/constants.js";
-import { READING_ORDER, ROLES, ROWS, threads } from "@/lib/portrait/lattice.js";
 import { PLANETS } from "@/lib/portrait/packet.js";
 import { ANGLE_SEALS, NUMBER_TITLES, PLANET_NAMES } from "@/lib/portrait/seals.js";
 import { eitherSigns, houseName } from "@/lib/portrait/why.js";
 import type { PacketFactor, PortraitPacket } from "./client";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
-import { registerSection } from "./sections";
-import { LatticeCard, Threads, cardsAt } from "./Lattice";
+import { registerSection, useSeen } from "./sections";
+import { LatticeMap } from "./MiniMap";
+import { cardSrcSet } from "./Lattice";
 import styles from "./maps.module.css";
 
 type Text = { en: string; uk: string };
-const roles = ROLES as Record<number, Text>;
 const numberTitles = NUMBER_TITLES as Record<string, Text>;
 const planetNames = PLANET_NAMES as Record<string, Text>;
 const angleSeals = ANGLE_SEALS as Record<string, Text>;
 /** Text presentation, so a glyph is never drawn as an emoji. */
-const TEXT = "︎";
+const TEXT = "\ufe0e";
 const glyphOf = (g: string) => (g.length === 1 ? `${g}${TEXT}` : g);
 const signGlyph = (sign: string) => glyphOf(SIGN_GLYPHS[SIGNS.indexOf(sign)] ?? "");
-const PLATE = ["lifePath", "expression", "soulUrge", "personality"] as const;
-
-/** The lattice's design width (lattice.js); narrower than this it is laid out compact. */
-const DESIGN_WIDTH = 820;
-const COMPACT_BELOW = 720;
-const CARD_RATIO = 149 / 86;
-
-/**
- * The lattice's rows and columns (lattice.js) with room under every row for
- * its captions: one line wide, up to three when compact, where they wrap.
- */
-function mapLayout(width: number) {
-  const compact = width < COMPACT_BELOW;
-  const w = compact ? Math.min(66, width * 0.19) : 86 * (width / DESIGN_WIDTH);
-  const h = w * CARD_RATIO;
-  const cap = compact ? 48 : 34;
-  const pitch = h + cap + (compact ? 10 : 20);
-  const cols = compact ? [0.17, 0.5, 0.83] : [0.15, 0.5, 0.85];
-  const between = [(cols[0] + cols[1]) / 2, (cols[1] + cols[2]) / 2];
-  const positions: Record<number, { x: number; y: number }> = {};
-  ROWS.forEach((row, r) => {
-    const xs = row.length === 2 ? between : cols;
-    row.forEach((pos, c) => { positions[pos] = { x: xs[c] * width, y: h / 2 + pitch * r }; });
-  });
-  return { positions, card: { w, h }, height: h + pitch * (ROWS.length - 1), cap, compact };
-}
+const NUMBERS = ["lifePath", "expression", "soulUrge", "personality"] as const;
+export const MAPS_ID = "portrait-maps";
 
 export default function Maps({ packet, cards, locale, className }: {
   packet: PortraitPacket;
@@ -63,122 +40,73 @@ export default function Maps({ packet, cards, locale, className }: {
   locale: PortraitLocale;
   className?: string;
 }) {
-  const t = PORTRAIT_COPY[locale];
-  const m = t.maps;
-  const id = "portrait-maps";
+  const m = PORTRAIT_COPY[locale].maps;
   const byId = useMemo(() => new Map(packet.factors.map((f) => [f.id, f])), [packet]);
+  const numbers = useRef<HTMLElement>(null);
+  const seen = useSeen(numbers);
 
+  // Gone to from the contents as one place: the numbers first, the maps after.
   return (
-    <section id={id} {...registerSection("maps", m.title, [])} tabIndex={-1} className={`${styles.maps} ${className ?? ""}`} aria-labelledby={`${id}-title`}>
-      <header className={styles.head}>
-        <p className={styles.fleuron} aria-hidden="true">❦</p>
-        <h2 id={`${id}-title`} className={styles.title}>{m.title}</h2>
-        <p className={styles.lede}>{m.lede}</p>
-      </header>
-
-      <section className={styles.map} aria-labelledby={`${id}-cards`}>
-        <p className={styles.kicker}>{m.cards.kicker}</p>
-        <h3 id={`${id}-cards`} className={styles.mapTitle}>{m.cards.title}</h3>
-        <ArkanMap packet={packet} cards={cards} locale={locale} />
-        <p className={styles.note}>{t.laying.threads} {m.cards.links}</p>
-      </section>
-
-      <section className={styles.map} aria-labelledby={`${id}-numbers`}>
+    <div id={MAPS_ID} tabIndex={-1} className={`${styles.end} ${className ?? ""}`}>
+      <section ref={numbers} {...registerSection("numbers", m.numbers.title, [])} className={`${styles.numbers} ${seen ? styles.seen : ""}`} aria-labelledby={`${MAPS_ID}-numbers`}>
         <p className={styles.kicker}>{m.numbers.kicker}</p>
-        <h3 id={`${id}-numbers`} className={styles.mapTitle}>{m.numbers.title}</h3>
-        <NumbersPlate byId={byId} locale={locale} />
+        <h2 id={`${MAPS_ID}-numbers`} className={styles.hSection}>{m.numbers.title}</h2>
+        <Numerals byId={byId} locale={locale} />
       </section>
 
-      <section className={styles.map} aria-labelledby={`${id}-sky`}>
-        <p className={styles.kicker}>{m.sky.kicker}</p>
-        <h3 id={`${id}-sky`} className={styles.mapTitle}>{m.sky.title}</h3>
-        <SkyCards byId={byId} cards={cards} locale={locale} />
-        <OtherPlanets byId={byId} locale={locale} />
-      </section>
-    </section>
-  );
-}
-
-/** The eleven cards, face up and still, threads drawn; each card opens its page. */
-function ArkanMap({ packet, cards, locale }: { packet: PortraitPacket; cards: MajorCard[]; locale: PortraitLocale }) {
-  const t = PORTRAIT_COPY[locale];
-  const box = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
-  const cardAt = useMemo(() => cardsAt(packet, cards), [packet, cards]);
-
-  useLayoutEffect(() => {
-    const el = box.current;
-    if (!el) return;
-    const measure = () => setWidth(Math.floor(Math.min(el.clientWidth, DESIGN_WIDTH)));
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  const l = width > 0 ? mapLayout(width) : null;
-  // A compact caption wraps within its column; the two-card row has the same pitch.
-  const captionWidth = l ? Math.floor(width * 0.33 - 8) : 0;
-  return (
-    <div ref={box} className={styles.arkan}>
-      {l && (
-        <div className={`${styles.lattice} ${l.compact ? styles.compact : ""}`} style={{ width, height: l.height + l.cap, "--w": width } as CSSProperties}>
-          <Threads width={width} height={l.height} lines={threads(l)} on={() => true} draw="shown" lit="draw" />
-          <ol className={styles.cards}>
-            {READING_ORDER.map((pos) => {
-              const p = l.positions[pos];
-              const card = cardAt[pos];
-              const label = `${t.laying.card} ${pos}, ${roles[pos][locale]}, ${card?.name ?? ""}`;
-              const place = { left: p.x - l.card.w / 2, top: p.y - l.card.h / 2, width: l.card.w, height: l.card.h, "--cap": `${captionWidth}px` } as CSSProperties;
-              return (
-                <li key={pos} className={styles.slot} style={place}>
-                  {card && (
-                    <a className={styles.cardLink} href={card.href} aria-label={label}>
-                      <span className={styles.glow} aria-hidden="true" />
-                      {/* The link names the card; the art is for the eye. */}
-                      <span className={styles.art} aria-hidden="true">
-                        <LatticeCard pos={pos} card={card} turned label="" sizes={`${Math.ceil(l.card.w)}px`} />
-                      </span>
-                    </a>
-                  )}
-                  <p className={styles.cap} aria-hidden="true"><b className={styles.capNum}>{pos}</b><span className={styles.dot}> · </span>{roles[pos][locale]}</p>
-                </li>
-              );
-            })}
-          </ol>
+      <section {...registerSection("maps", m.title, [])} className={styles.maps} aria-labelledby={`${MAPS_ID}-title`}>
+        <header className={styles.head}>
+          <h2 id={`${MAPS_ID}-title`} className={styles.hSection}>{m.title}</h2>
+          <p className={styles.hint}>{m.lede}</p>
+        </header>
+        <div className={styles.spread}>
+          <section className={styles.map} aria-labelledby={`${MAPS_ID}-cards`}>
+            <p className={styles.kicker}>{m.cards.kicker}</p>
+            <h3 id={`${MAPS_ID}-cards`} className={styles.mapTitle}>{m.cards.title}</h3>
+            <LatticeMap packet={packet} cards={cards} locale={locale} links sizes="(min-width: 720px) 96px, 64px" className={styles.lattice} />
+            <p className={styles.note}>{PORTRAIT_COPY[locale].laying.threads} {m.cards.links}</p>
+          </section>
+          <section className={styles.map} aria-labelledby={`${MAPS_ID}-sky`}>
+            <p className={styles.kicker}>{m.sky.kicker}</p>
+            <h3 id={`${MAPS_ID}-sky`} className={styles.mapTitle}>{m.sky.title}</h3>
+            <SkyCards byId={byId} cards={cards} locale={locale} />
+            <OtherPlanets byId={byId} locale={locale} />
+          </section>
         </div>
-      )}
+      </section>
     </div>
   );
 }
 
-/** Four engraved cells (the numeral, its role, what the role means), the birthday number beneath. */
-function NumbersPlate({ byId, locale }: { byId: Map<string, PacketFactor>; locale: PortraitLocale }) {
+/** Four numerals in a row, each over its role and what the role means; a master number hallmarked; the birthday small beneath. */
+function Numerals({ byId, locale }: { byId: Map<string, PacketFactor>; locale: PortraitLocale }) {
   const n = PORTRAIT_COPY[locale].maps.numbers;
-  const shown = PLATE.flatMap((role) => {
+  const shown = NUMBERS.flatMap((role) => {
     const f = byId.get(`num-${role}`);
     return f?.value !== undefined ? [{ role, value: f.value, master: Boolean(f.master) }] : [];
   });
   const birthday = byId.get("num-birthday");
   return (
     <>
-      <dl className={styles.plate} style={{ "--cells": shown.length } as CSSProperties}>
-        {shown.map((x) => (
-          <div key={x.role} className={styles.cell} data-master={x.master || undefined}>
-            {/* Named in sentence case: the visible role is set in capitals. */}
-            <dt className={styles.role} aria-label={numberTitles[x.role][locale]}>{numberTitles[x.role][locale]}</dt>
-            <dd className={styles.numeral}>
-              {x.value}
-              {/* The hallmark is set in capitals; it is spoken in sentence case. */}
-              {x.master && <><span className={styles.master} aria-hidden="true">{n.master}</span><span className={styles.sr}>, {n.master}</span></>}
-            </dd>
-            <dd className={styles.meaning}>{n.roles[x.role]}</dd>
-          </div>
-        ))}
-      </dl>
+      {shown.length > 0 && (
+        <dl className={styles.numerals} style={{ "--cells": shown.length } as CSSProperties}>
+          {shown.map((x, i) => (
+            <div key={x.role} className={`${styles.num} ${styles.ink}`} style={{ "--n": i } as CSSProperties}>
+              <dt className={styles.role}>{numberTitles[x.role][locale]}</dt>
+              <dd className={styles.figure}>
+                <span className={styles.numeral}>{x.value}</span>
+                {x.master && <span className={styles.master}><span className={styles.sr}>, </span>{n.master}</span>}
+              </dd>
+              <dd className={styles.meaning}>{n.roles[x.role]}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
       {birthday?.value !== undefined && (
-        <p className={styles.birthday}>
-          {numberTitles.birthday[locale]} <b className={styles.birthdayNum}>{birthday.value}</b><span aria-hidden="true"> · </span><span className={styles.sr}>, </span>{n.birthday}
+        <p className={`${styles.birthday} ${styles.ink}`} style={{ "--n": shown.length } as CSSProperties}>
+          <span className={styles.role}>{numberTitles.birthday[locale]}</span>
+          <span className={styles.birthdayNum}><span className={styles.sr}> </span>{birthday.value}</span>
+          <span className={styles.birthdayText}><span className={styles.birthdayDot} aria-hidden="true">· </span><span className={styles.sr}>, </span>{n.birthday}</span>
         </p>
       )}
     </>
@@ -212,10 +140,9 @@ function SkyCards({ byId, cards, locale }: { byId: Map<string, PacketFactor>; ca
               <>
                 <div className={styles.skyCards} data-pair={dealt.length > 1 || undefined}>
                   {dealt.map(({ sign, card }) => (
-                    <a key={sign} className={styles.skyCard} href={card.href} aria-label={`${label}, ${eitherSigns([sign], locale)}, ${card.name}`}>
-                      <span className={styles.glow} aria-hidden="true" />
+                    <a key={sign} className={styles.skyCard} href={card.href} aria-label={`${label}, ${eitherSigns([sign], locale)}, ${card.name}`} data-card-label={`${label} · ${eitherSigns([sign], locale)} · ${card.name}`}>
                       {/* eslint-disable-next-line @next/next/no-img-element -- the card's own art, lazily loaded */}
-                      <img src={card.thumb} srcSet={`${card.thumb} 120w, ${card.image} 896w`} sizes="(min-width: 720px) 150px, 96px" alt="" width={120} height={206} loading="lazy" decoding="async" />
+                      <img src={card.thumb} srcSet={cardSrcSet(card)} sizes="(min-width: 720px) 128px, 84px" alt="" width={120} height={206} loading="lazy" decoding="async" />
                     </a>
                   ))}
                 </div>
@@ -229,7 +156,7 @@ function SkyCards({ byId, cards, locale }: { byId: Map<string, PacketFactor>; ca
             ) : (
               <>
                 <div className={styles.skyCards}>
-                  <span className={styles.skyBack}>
+                  <span className={styles.skyBack} data-card-label="off">
                     {/* eslint-disable-next-line @next/next/no-img-element -- the deck's own back, one cached file */}
                     <img src="/cards/back-448.webp" alt="" width={448} height={769} loading="lazy" decoding="async" />
                   </span>
@@ -254,7 +181,7 @@ function OtherPlanets({ byId, locale }: { byId: Map<string, PacketFactor>; local
   if (!others.length) return null;
   return (
     <>
-      <h4 className={styles.othersTitle} aria-label={t.maps.sky.others}>{t.maps.sky.others}</h4>
+      <h4 className={styles.othersTitle}>{t.maps.sky.others}</h4>
       <ul className={styles.planets} style={{ "--rows": Math.ceil(others.length / 2) } as CSSProperties}>
         {others.map(({ body, f }) => (
           <li key={body} className={styles.planet}>

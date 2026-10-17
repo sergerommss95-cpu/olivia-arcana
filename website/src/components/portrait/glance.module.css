@@ -137,6 +137,7 @@
 .legend .name { font-size: 18px; }
 
 .note { composes: meta from "./type.module.css"; max-width: 34em; margin: 22px auto 0; text-align: center; text-wrap: pretty; }
+.noteAll { display: none; }
 
 /* Arriving from the Laying: the captions settle in once the cards have landed. */
 .arriving .cap, .arriving .legend, .arriving .note { animation: fadeIn 700ms var(--ease) 650ms both; }
@@ -145,6 +146,11 @@
 .ghosts { position: fixed; inset: 0; z-index: 5; pointer-events: none; --back-dim: 0.5; }
 .ghost { position: absolute; animation: ghostOut 600ms var(--ease) both; }
 @keyframes ghostOut { to { opacity: 0; transform: scale(0.96); } }
+
+/* A tablet: the same fan, larger. */
+@media (min-width: 720px) and (max-width: 999px) {
+  .spread { --cw: 156px; }
+}
 
 /* ── Side by side ────────────────────────────────────────────── */
 
@@ -168,10 +174,12 @@
   .slot:not([data-fan]) { display: block; }
   .slot + .slot, .slot[data-fan] ~ .slot[data-fan] { margin-left: calc(var(--ov) * -1); }
   .tilt { transform: rotate(var(--r, 0deg)); transform-origin: 50% 50%; }
-  .cap { display: grid; gap: 2px; margin-top: 20px; padding-right: calc(var(--ov) + 6px); }
+  .cap { display: grid; gap: 3px; margin-top: 20px; padding-right: calc(var(--ov) + 14px); }
   .slot:last-child .cap { padding-right: 0; }
   .legend { display: none; }
   .note { margin: 34px 0 0; text-align: left; }
+  .noteAll { display: inline; }
+  .noteFan { display: none; }
 
   .text { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; justify-content: center; padding: 24px 0 48px 8px; }
   .keepLines li { font-size: clamp(22px, 1.72vw, 25px); text-wrap: balance; }
@@ -208,4 +216,6 @@
   .tilt { transform: none; }
   .legend { display: none; }
   .note { text-align: left; margin: 12px 0 0; }
+  .noteAll { display: inline; }
+  .noteFan { display: none; }
 }

@@ -1,7 +1,9 @@
 /* website/src/components/portrait/reader.module.css
-   The reading after the glance and its bar: the text set as an almanac
-   leaf in one column, then the maps and the end. Lapis ground, ivory ink,
-   one gilt accent; motion is transform and opacity on the ritual curve. */
+   The reading around its passages: the colours every part of it takes and
+   the closing band. The opening and the facets are drawn by facets.module.css,
+   the chapters by chapters.module.css, the numbers and maps by
+   maps.module.css. Lapis ground, ivory ink, one gilt accent; motion is
+   transform and opacity on the ritual curve. */
 
 .reading {
   --ink: #eee6d4;
@@ -33,156 +35,76 @@
 }
 .reading.reading .again:focus-visible { border-radius: 999px; }
 /* A section takes focus when it is gone to (Begin, Contents); the move itself is the cue, not a ring round it. */
-.anchor:focus, .opening:focus, .chapter:focus, .notice:focus { outline: none; }
+.anchor:focus { outline: none; }
 
-/* ── Arrival ─────────────────────────────────────────────────── */
-
-/* Ink-in: 950 ms, opacity with an 8 px rise, 90 ms apart. */
-.ink { animation: inkIn 950ms var(--ease) calc(var(--n, 0) * 90ms) both; }
-@keyframes inkIn { from { opacity: 0; transform: translateY(8px); } }
-
-/* ── The text ────────────────────────────────────────────────── */
-
-.text { position: relative; width: 100%; max-width: 640px; margin: 0 auto; padding-bottom: 24px; }
-.text p { margin: 0; }
 /* Clear of the sticky reading bar when a section is gone to. */
-.text :is([data-section], .anchor), .anchor { scroll-margin-top: 76px; }
+.anchor { scroll-margin-top: 76px; }
 
-/* The opening, after the glance and its bar. */
-.opening { margin-top: 88px; }
-
-/* A passage: a facet or a chapter. */
-.passage { position: relative; padding: 20px 0 22px; }
-
-.prose { font-size: 17px; line-height: 1.8; color: var(--body); hanging-punctuation: first; }
-/* A book's paragraphs: indented, not spaced. */
-.prose + .prose { text-indent: 1.6em; }
-.overview::first-letter {
-  float: left;
-  padding: 8px 10px 0 0;
-  font: 400 74px/0.8 var(--display);
-  color: var(--gilt);
-}
-
-.facet { margin-top: 40px; }
-.fleuron {
-  margin-bottom: 10px !important;
-  text-align: center;
-  font: 400 17px/1 var(--heading);
-  color: var(--gilt);
-  opacity: 0.5;
-}
-.heading { margin: 0 0 14px; font: 400 32px/1.15 var(--heading); text-align: center; text-wrap: balance; color: var(--ink); }
-
-.chapter { margin-top: 88px; }
-.chapterKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 12px !important; text-align: center; }
-.lede {
-  max-width: 30em;
-  margin: 0 auto 26px !important;
-  font: italic 400 22px/1.45 var(--heading);
-  color: var(--ink);
-  text-align: center;
-  text-wrap: balance;
-}
-.practice { margin: 26px 0 0 2px; padding: 2px 0 2px 22px; border-left: 2px solid var(--gilt); }
-.practiceKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 6px !important; }
-.practice .prose { font-size: 16px; line-height: 1.7; color: var(--ink); }
-
-/* Seals: what the passage was read from, and the way into why. */
-.sealRow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 20px; }
-/* The list's box dissolves, so "Why this" can share the last line of pills. */
-.seals { display: contents; }
-.seal {
-  composes: labelGilt from "./type.module.css";
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 28px;
-  padding: 4px 12px;
-  border: 1px solid rgba(201, 177, 130, 0.35);
-  border-radius: 99px;
-  font-size: 13.5px;
-  line-height: 1.2;
-}
-.seal[data-kind="card"] { padding-left: 4px; }
-.sealCard { display: block; width: 12px; height: 20px; border-radius: 2px; object-fit: cover; box-shadow: 0 0 0 1px rgba(201, 177, 130, 0.45); }
-.sealGlyph { font: 400 13px/1 var(--heading); letter-spacing: 0; }
-.sealPos { composes: numeral from "./type.module.css"; font-size: 15px; color: var(--soft); margin-right: -2px; }
-.sealPos::after { content: " ·"; }
-.why {
-  composes: meta from "./type.module.css";
-  margin-left: auto;
-  padding: 8px 0 4px;
-  border: 0;
-  border-bottom: 1px solid var(--hair);
-  background: none;
-  font-size: 14px;
-  line-height: 1.2;
-  cursor: pointer;
-  transition: color 300ms var(--ease), border-color 300ms var(--ease);
-}
-.why:hover { color: var(--ink); border-bottom-color: var(--gilt); }
-
-/* ── Engraved placeholders: a chapter still being written ────── */
-
-.pending .fleuron { opacity: 0.3; }
-.pendingNote { color: var(--faint); }
-.bars { display: grid; justify-items: center; gap: 13px; margin-top: 20px; }
-.bar { position: relative; display: block; width: 100%; height: 11px; overflow: hidden; border-radius: 2px; background: rgba(238, 230, 212, 0.08); }
-/* The shimmer: a pale sheen crossing each bar (transform only). */
-.bar::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(238, 230, 212, 0.07) 50%, transparent);
-  transform: translateX(-100%);
-  animation: sheen 2.6s var(--ease) infinite;
-}
-@keyframes sheen { 60%, to { transform: translateX(100%); } }
-.barTitle { width: 54%; height: 28px; margin-bottom: 6px; }
-.barLede { width: 76%; height: 16px; }
-.barShort { width: 48%; margin-bottom: 16px; }
-.barEnd { width: 62%; justify-self: start; }
-
-/* ── Unfinished, and the end ─────────────────────────────────── */
-
-.notice { margin-top: 88px; padding: 22px 26px; border: 1px solid var(--hair); border-left: 2px solid var(--gilt); background: rgba(7, 18, 29, 0.4); }
-.noticeKicker { composes: labelGilt from "./type.module.css"; margin-bottom: 8px !important; }
-.notice p + p { font-size: 16px; line-height: 1.7; color: var(--soft); }
-
-/* The glance, the bar, the text and what follows it are siblings in the reading's column. */
+/* The glance, the bar, the passages and what follows them are siblings in the reading's column. */
 .leaf { display: contents; }
-.mapsArea { max-width: 1060px; margin-inline: auto; }
+.mapsArea { display: block; }
 
-.footer { display: grid; justify-items: center; gap: 22px; max-width: 640px; margin: 96px auto 24px; padding-top: 28px; border-top: 1px solid var(--hair); text-align: center; }
-.note { max-width: 36em; font-size: 14px; line-height: 1.7; color: var(--faint); }
-.again {
-  padding: 13px 22px;
-  border: 1px solid var(--gilt);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--ink);
-  font: 500 14px/1 var(--font-body, system-ui), sans-serif;
-  cursor: pointer;
-  transition: background-color 400ms var(--ease), color 400ms var(--ease);
+/* ── The closing band: keeping, the honest line, the way out ─── */
+
+/* A band of deeper lapis across the window's width (the border image overflows the column without scrolling). */
+.closing {
+  position: relative;
+  margin-top: clamp(72px, 7vw, 112px);
+  padding-block: clamp(56px, 6vw, 88px) clamp(36px, 4vw, 52px);
+  border-image: linear-gradient(180deg, rgba(4, 11, 19, 0) 0%, rgba(4, 11, 19, 0.55) 20%, rgba(3, 9, 16, 0.72) 58%, rgba(4, 11, 19, 0.4) 86%, rgba(4, 11, 19, 0) 100%) fill 0 / 0 / 0 100vmax;
 }
-.again:hover { background: var(--gilt); color: var(--lapis); }
-/* Beside the tools for keeping, the way out steps back: saving leads. */
-.footer[data-keep] { gap: 26px; }
-.footer[data-keep] .again { border-color: rgba(238, 230, 212, 0.28); color: var(--soft); }
-.footer[data-keep] .again:hover { background: transparent; border-color: var(--gilt); color: var(--ink); }
+/* Without the tools for keeping (the example, a failure): its label and title, and the way out leading. */
+.closingRow { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 30px; }
+.closingHead { display: grid; justify-items: start; gap: 10px; }
+.closingKicker { composes: labelGilt from "./type.module.css"; margin: 0; font-size: 15px; }
+.closingTitle { max-width: 16em; margin: 0; font: italic 400 clamp(26px, 2.4vw, 34px)/1.18 var(--heading); color: var(--ink); text-wrap: balance; }
+.closingTools { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; }
+.closingFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px 48px;
+  margin-top: clamp(44px, 5vw, 72px);
+  padding-top: 22px;
+  border-top: 1px solid var(--hair);
+}
+.note { max-width: 40em; margin: 0; font-size: 14px; line-height: 1.7; color: var(--faint); text-wrap: pretty; }
+/* The way out leads: an ivory pill, as Begin is at the reading's start. */
+.again {
+  min-height: 48px;
+  padding: 0 24px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--lapis);
+  font: 500 15px/1 var(--font-body, system-ui), sans-serif;
+  cursor: pointer;
+  transition: background-color 300ms var(--ease);
+}
+.again:hover { background: #fff8ea; }
+/* Beside the tools for keeping it steps back: quiet and underlined, saving leads. */
+.closing[data-keep] .again {
+  min-height: 0;
+  padding: 6px 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--soft);
+  font-size: 14.5px;
+  line-height: 1.3;
+  text-decoration: underline;
+  text-decoration-color: rgba(238, 230, 212, 0.3);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  transition: color 300ms var(--ease), text-decoration-color 300ms var(--ease);
+}
+.closing[data-keep] .again:hover { color: var(--ink); text-decoration-color: var(--gilt); }
+.reading.reading .closing[data-keep] .again:focus-visible { border-radius: 3px; }
 
-/* ── Phone ───────────────────────────────────────────────────── */
-
-@media (max-width: 719px) {
-  .opening { margin-top: 64px; }
-  .passage { padding: 16px 0 18px; }
-  .prose { font-size: 16.5px; line-height: 1.75; }
-  .overview::first-letter { font-size: 66px; padding-top: 7px; }
-  .heading { font-size: 28px; }
-  .lede { font-size: 20px; }
-  .chapter { margin-top: 64px; }
-  .why { margin-left: 0; }
+@media (min-width: 1080px) {
+  /* The same split as the maps above: label and title at the left, what to do at the right. */
+  .closingRow { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: clamp(56px, 6vw, 112px); align-items: end; }
 }
 
 /* ── Reduced motion: every final state at once ───────────────── */
@@ -191,7 +113,7 @@
   .reading *, .reading *::before, .reading *::after { animation: none !important; transition: none !important; }
 }
 
-/* ── Print: ink on white; the text, then the maps ────────────── */
+/* ── Print: ink on white; the glance, the text, then the numbers and maps ── */
 
 @media print {
   .reading {
@@ -207,16 +129,9 @@
     margin: 0;
     color: var(--ink);
   }
-  /* The bar, every control and the live region stay on screen. */
-  .sealRow, .footer, .sr { display: none !important; }
-  .text { max-width: none; padding: 0; }
-  .ink { animation: none !important; }
-  .passage { margin-inline: 0; padding: 0 0 6px; }
-  .facet, .practice, .notice { break-inside: avoid; }
-  .fleuron, .heading, .chapterKicker, .lede, .practiceKicker { break-after: avoid; }
-  /* Each chapter on a new page; the maps after the text. */
-  .opening { margin-top: 36px; }
-  .chapter { break-before: page; margin-top: 0; }
+  /* The bar, every control, the closing band and the live region stay on screen. */
+  .closing, .sr { display: none !important; }
+  /* The numbers and the maps after the chapters, each on a new page. */
   .mapsArea { break-before: page; margin-top: 0; }
   /* Around the portrait, whichever shell holds it: a white page, without the site's masthead, colophon or atmosphere. */
   :global(*):has(.reading) { background: #fff !important; }

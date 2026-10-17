@@ -202,8 +202,9 @@
 /* ── The plain waiting state ───────────────────────────────────── */
 
 .waiting { padding: 4rem 0; }
-/* A reopened reading, for the moment before its first status: the page keeps its height. */
-.hold { min-height: 70vh; }
+/* A reopened reading, for the moment before its first status: the page keeps a window's height, so the
+   site's footer never rises into view and is pushed away again when the reading opens (a layout shift). */
+.hold { min-height: 100vh; }
 .stages { list-style: none; padding: 0; display: grid; gap: 0.6rem; }
 .stages li { opacity: 0.45; transition: opacity 0.6s var(--ease); }
 .stages li[data-done="true"] { opacity: 1; color: var(--gilt); }

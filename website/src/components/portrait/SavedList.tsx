@@ -8,6 +8,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { typeset } from "@/lib/portrait/typography.js";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
 import styles from "./keep.module.css";
 
@@ -39,10 +40,11 @@ export default function SavedList({ locale, items, onOpen, onForget }: {
       <ul ref={list} className={styles.cards}>
         {shown.map((item) => {
           const elsewhere = item.locale !== locale;
-          const name = `${item.title}, ${date.format(item.savedAt)}, ${s.language[item.locale]}`;
+          const title = typeset(item.title, item.locale);
+          const name = `${title}, ${date.format(item.savedAt)}, ${s.language[item.locale]}`;
           const body = (
             <>
-              <span className={styles.cardTitle} lang={elsewhere ? item.locale : undefined}>{item.title}</span>
+              <span className={styles.cardTitle} lang={elsewhere ? item.locale : undefined}>{title}</span>
               <span className={styles.meta}>{date.format(item.savedAt)} · {s.language[item.locale]}</span>
             </>
           );
@@ -53,7 +55,7 @@ export default function SavedList({ locale, items, onOpen, onForget }: {
               ) : (
                 <button type="button" className={styles.open} data-saved-open="" aria-label={name} onClick={() => onOpen(item.id)}>{body}</button>
               )}
-              <button type="button" className={styles.forget} aria-label={s.forgetLabel.replace("{title}", item.title)} onClick={() => onForget(item)}>{s.forget}</button>
+              <button type="button" className={styles.forget} aria-label={s.forgetLabel.replace("{title}", title)} onClick={() => onForget(item)}>{s.forget}</button>
             </li>
           );
         })}

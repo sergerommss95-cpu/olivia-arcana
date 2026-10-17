@@ -11,6 +11,7 @@ import { nameNumbers } from "@/lib/portrait/numbers.js";
 import { signsThroughDay } from "@/lib/portrait/uncertain.js";
 import { buildPacket } from "@/lib/portrait/packet.js";
 import { forgetSaved, listSaved, loadSaved, savePortrait } from "@/lib/portrait/saved.js";
+import { typeset } from "@/lib/portrait/typography.js";
 import { PORTRAIT_COPY, type PortraitLocale } from "./copy";
 import { forgetInvite, pollPortrait, readInviteFromHash, rememberInvite, rememberJob, settleJob, startPortrait, storedInvite, storedJob, type PortraitPacket, type PortraitStages, type PortraitStatus } from "./client";
 import Laying, { type Frames } from "./Laying";
@@ -422,11 +423,11 @@ function Phases({ locale, cards, frames }: PortraitProps) {
     const isExample = source === "example";
     const keep = status?.status === "done" && !isExample ? (
       <Keep locale={locale} reopened={source === "saved"} kept={kept} packet={packet} stages={stages} teachings={view.teachings} cards={cards}
-        onSave={save} onForget={() => setAsking({ kind: "forget", id: view.id, title: stages.a?.title ?? "", from: "reader" })} onSay={say} />
+        onSave={save} onForget={() => setAsking({ kind: "forget", id: view.id, title: typeset(stages.a?.title ?? "", locale), from: "reader" })} onSay={say} />
     ) : undefined;
     return (
       <div key={view.id} className={readerStyles.reading} data-reader="" data-example={isExample || undefined}>
-        <Reader stages={stages} status={status} packet={packet} cards={cards} locale={locale} firstName={firstName || undefined}
+        <Reader stages={stages} status={status} packet={packet} cards={cards} locale={locale} frames={frames} firstName={firstName || undefined}
           kicker={isExample ? t.example.label : undefined} keep={keep} newLabel={isExample ? t.example.leave : undefined} announce={announce}
           landing={landing ?? undefined} onWhy={(key, trigger) => setWhy({ key, trigger })} onNew={onNew} />
         {why && <WhyDrawer target={why} stages={stages} teachings={view.teachings} packet={packet} cards={cards} locale={locale} frames={frames} onClose={() => setWhy(null)} />}
@@ -570,7 +571,7 @@ function Phases({ locale, cards, frames }: PortraitProps) {
         </details>
         <p className={styles.status} role="status">{entrySaid}</p>
         {saved.length > 0 && (
-          <SavedList locale={locale} items={saved} onOpen={(id) => openSaved(id, "push")} onForget={(item) => setAsking({ kind: "forget", id: item.id, title: item.title, from: "list" })} />
+          <SavedList locale={locale} items={saved} onOpen={(id) => openSaved(id, "push")} onForget={(item) => setAsking({ kind: "forget", id: item.id, title: typeset(item.title, item.locale), from: "list" })} />
         )}
       </div>
       {dialog}

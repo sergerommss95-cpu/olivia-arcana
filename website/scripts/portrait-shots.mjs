@@ -35,6 +35,7 @@
 // --saved N  seed N saved portraits (the M2 records in turn, this locale's first), one a day apart
 // --download DIR  let the page download files into DIR
 // --media M  emulate CSS media M (e.g. print)
+// --dpr N    device pixel ratio (default 1; a phone is 3), so srcset picks what that screen would
 
 import { spawn } from "node:child_process";
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -51,14 +52,14 @@ const repo = path.resolve(here, "../..");
 const readJson = (file) => JSON.parse(readFileSync(file, "utf8"));
 
 function args(argv) {
-  const out = { base: "http://localhost:3417", locale: "en", viewport: "1440x900", times: "1,8,35", aAt: Infinity, bcAt: Infinity, failAt: Infinity, out: "shots", reduced: false, full: false, ax: false, wait: 600 };
+  const out = { base: "http://localhost:3417", locale: "en", viewport: "1440x900", times: "1,8,35", aAt: Infinity, bcAt: Infinity, failAt: Infinity, out: "shots", reduced: false, full: false, ax: false, wait: 600, dpr: 1 };
   for (let i = 0; i < argv.length; i++) {
     const key = argv[i].replace(/^--/, "").replace(/-(\w)/g, (_, c) => c.toUpperCase());
     if (["reduced", "full", "ax", "entry"].includes(key)) out[key] = true;
     else out[key] = argv[++i];
   }
   const [width, height] = String(out.viewport).split("x").map(Number);
-  return { ...out, width, height, times: String(out.times).split(",").map(Number).sort((a, b) => a - b), aAt: Number(out.aAt), bcAt: Number(out.bcAt), failAt: Number(out.failAt), wait: Number(out.wait) };
+  return { ...out, width, height, times: String(out.times).split(",").map(Number).sort((a, b) => a - b), aAt: Number(out.aAt), bcAt: Number(out.bcAt), failAt: Number(out.failAt), wait: Number(out.wait), dpr: Number(out.dpr) };
 }
 
 /**
@@ -225,7 +226,7 @@ async function main() {
     await send("Page.enable");
     await send("Runtime.enable");
     await send("Log.enable");
-    await send("Emulation.setDeviceMetricsOverride", { width: opts.width, height: opts.height, deviceScaleFactor: 1, mobile: opts.width < 720 });
+    await send("Emulation.setDeviceMetricsOverride", { width: opts.width, height: opts.height, deviceScaleFactor: opts.dpr, mobile: opts.width < 720 });
     await send("Emulation.setEmulatedMedia", { ...(opts.media ? { media: opts.media } : {}), features: [{ name: "prefers-reduced-motion", value: opts.reduced ? "reduce" : "no-preference" }] });
     if (opts.download) {
       mkdirSync(opts.download, { recursive: true });
@@ -259,7 +260,7 @@ async function main() {
     await send("Page.navigate", { url: route });
     mountedAt = await mounted();
 
-    const tag = `${opts.locale}-${opts.width}x${opts.height}${opts.reduced ? "-reduced" : ""}${opts.tag ? `-${opts.tag}` : ""}`;
+    const tag = `${opts.locale}-${opts.width}x${opts.height}${opts.dpr !== 1 ? `@${opts.dpr}x` : ""}${opts.reduced ? "-reduced" : ""}${opts.tag ? `-${opts.tag}` : ""}`;
     for (const t of opts.times) {
       const wait = mountedAt + t * 1000 - performance.now();
       if (wait > 0) await sleep(wait);
