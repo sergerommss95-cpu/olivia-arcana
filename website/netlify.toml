@@ -36,6 +36,18 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# Resized card faces (scripts/card-sizes.mjs) keep the masters' unhashed names, so a regenerated
+# card must still reach readers: cache for a week, not immutable.
+[[headers]]
+  for = "/cards/w448/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/cards/w640/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
 # Internal copies: the motion reference and the standalone experience snapshot
 # (the homepage renders the same product). Keep them out of search results.
 [[headers]]

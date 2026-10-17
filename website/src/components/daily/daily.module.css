@@ -1,105 +1,506 @@
-/* Your day — the parts Olivia Astrology does not already have. Uses the astrology page tokens
-   (--ink, --body, --soft, --faint, --rule, --gold, --gold-bright, --panel, --panel-rim, --hairline, --ease),
-   which the page root (astrology.module.css .page) defines. */
+/* Your day, set as a printed leaf (the "Folio" build spec, 16 Oct 2026). The almanac rows live in
+   almanac.module.css; this file is the leaf itself: tokens, bands, the seven chapters and their motion.
 
-/* the day's leading event, under the title */
-.eventLine { margin: 1.1rem 0 0; color: var(--soft); font-size: 0.92rem; line-height: 1.6; }
-.eventLabel { display: block; margin-bottom: 0.2rem; color: var(--gold); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; }
+   Rules that hold everywhere below:
+   - The end state is the default CSS. Entry states exist only under [data-arrive], [data-land] or an
+     IntersectionObserver's data-entry="armed", so the prerender, JS-off, hidden tabs and reduced motion
+     show the complete page.
+   - Text only ever fades. Cards move by the individual rotate/scale properties on their frame, so the
+     card's own angle (--r, a transform) is never fought over.
+   - Elevation changes animate the opacity of a pre-rendered shadow layer, never box-shadow itself. */
 
-/* the sign's card beside the title (as the Moon stands on the astrology hub) */
-.signCard { display: grid; justify-items: center; gap: 1rem; text-align: center; text-decoration: none; }
-.signCard img { width: min(13rem, 52vw); height: auto; border-radius: 12px; box-shadow: 0 22px 44px rgba(2, 8, 18, 0.5), 0 0 0 1px rgba(216, 196, 156, 0.22); transition: transform var(--dur-control, 220ms) var(--ease-control); }
-.signCard:hover img { transform: translateY(-3px) rotate(-1deg); }
-.signCardText { display: grid; gap: 0.2rem; max-width: 19rem; }
-.signCardText .note { margin: 0.2rem 0 0; }
-.signCardName { font-family: var(--font-heading, "Cormorant Garamond"), serif; font-size: 1.6rem; line-height: 1.15; color: var(--ink); }
-
-/* choosing a sign: filled lapis chips (BRAND.md secondary) */
-.signs { margin-top: clamp(2.2rem, 5vw, 3rem); }
-.signList { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.signChip { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 44px; padding: 0 1rem 0 0.85rem; border: 0; border-radius: 14px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); color: var(--body); font: 400 0.92rem/1 var(--font-body), sans-serif; cursor: pointer; transition: background var(--dur-control, 220ms) var(--ease-control), color var(--dur-control, 220ms) var(--ease-control); }
-.signChip:hover { color: var(--ink); background: #12283d; }
-.signChip[aria-pressed="true"] { background: linear-gradient(180deg, #f2e5c8, #dccaab); color: #183043; box-shadow: 0 8px 20px rgba(2, 8, 18, 0.3); }
-.signGlyph { font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; font-size: 1.05rem; color: var(--gold); }
-.signChip[aria-pressed="true"] .signGlyph { color: #183043; }
-
-/* the reading */
-.reading { max-width: 42rem; }
-.reading > p { margin: 0 0 1rem; color: var(--body); font-size: 1.04rem; line-height: 1.8; }
-.bridge { padding-left: 1rem; box-shadow: inset 2px 0 0 var(--hairline); color: var(--ink) !important; }
-.scene { margin: 1.8rem 0 0; }
-.scene blockquote { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: 1.35rem; line-height: 1.45; color: var(--ink); }
-.doAvoid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; margin-top: 1.8rem; }
-.panel { padding: 1.1rem 1.2rem 1.2rem; border-radius: 14px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); }
-.panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
-.panel li { color: var(--body); font-size: 0.98rem; line-height: 1.6; }
-.ask { margin-top: 2rem; padding-top: 1.4rem; border-top: 1px solid var(--rule); }
-.askQ { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: clamp(1.4rem, 3vw, 1.75rem); line-height: 1.35; color: var(--ink); text-wrap: balance; }
-
-/* three areas, each with its planet's card */
-.areas { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
-.area { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: 1.1rem; align-items: start; padding: 1.1rem 1.2rem; border-radius: 14px; background: var(--panel); box-shadow: inset 0 1px 0 var(--panel-rim); }
-.areaCard img { display: block; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 8px 18px rgba(2, 8, 14, 0.45), 0 0 0 1px rgba(216, 196, 156, 0.22); transition: transform var(--dur-control, 220ms) var(--ease-control); }
-.areaCard:hover img { transform: translateY(-2px) rotate(-1.5deg); }
-.areaText .note { margin-top: 0.5rem; }
-.areaName { margin: 0; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-weight: 400; font-size: 1.45rem; line-height: 1.15; color: var(--ink); }
-.areaMeta { margin: 0.25rem 0 0; color: var(--soft); font-size: 0.84rem; line-height: 1.5; }
-
-/* the almanac: the hours of the day under the Sun's real path */
-.sunStrip { position: relative; height: 104px; margin: 0.6rem 0 2rem; }
-.sunStrip svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.sunFill { fill: rgba(230, 207, 158, 0.12); }
-.sunDay { fill: none; stroke: var(--gold); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
-.sunNight { fill: none; stroke: var(--faint); stroke-width: 1; stroke-dasharray: 2 4; vector-effect: non-scaling-stroke; }
-.horizon { stroke: var(--rule); stroke-width: 1; vector-effect: non-scaling-stroke; }
-.hour { position: absolute; top: calc(74% + 12px); transform: translateX(-50%); color: var(--faint); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.62rem; }
-.hour:first-of-type { transform: none; }
-.hour:last-of-type { transform: translateX(-100%); }
-.event { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 3px var(--panel); }
-.nowDot { position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff4d2, #e6cf9e 60%, #b8975a); box-shadow: 0 0 12px 3px rgba(230, 207, 158, 0.35); }
-.nowDot::after { content: attr(data-t); position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); color: var(--ink); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.62rem; white-space: nowrap; }
-.times { list-style: none; margin: 0; padding: 0; }
-.times li { display: grid; grid-template-columns: 3.2rem 2.6rem minmax(0, 1fr); gap: 0.4rem; align-items: baseline; padding: 0.55rem 0; border-top: 1px solid var(--rule); color: var(--body); font-size: 0.95rem; line-height: 1.5; }
-.time { color: var(--gold); font-family: var(--font-mono, ui-monospace), monospace; font-size: 0.74rem; font-variant-numeric: tabular-nums; }
-.timeGlyph { color: var(--soft); font-family: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif; margin-right: 0.4rem; }
-
-/* the Moon */
-.moonBody { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1.2rem; align-items: center; }
-.moonDisc { width: 6.5rem; }
-.moonDisc > * { width: 100%; height: auto; }
-
-/* what is in force now */
-.season { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
-.seasonHead { margin: 0 !important; color: var(--ink) !important; font-size: 0.95rem !important; }
-.seasonHead strong { font-weight: 500; }
-.track { position: relative; height: 10px; margin: 0.55rem 0 0.4rem; border-radius: 99px; background: rgba(238, 230, 212, 0.06); }
-.bar { position: absolute; top: 0; bottom: 0; border-radius: 99px; background: linear-gradient(90deg, rgba(201, 177, 130, 0.35), rgba(201, 177, 130, 0.7)); }
-.retro { position: absolute; top: 0; bottom: 0; border-radius: 99px; background: repeating-linear-gradient(-45deg, rgba(230, 207, 158, 0.9) 0 2px, rgba(230, 207, 158, 0.15) 2px 6px); }
-.todayLine { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--ink); opacity: 0.55; }
-.seasonTheme { margin: 0 !important; font-family: var(--font-heading, "Cormorant Garamond"), serif; font-style: italic; font-size: 1.08rem !important; color: var(--body) !important; }
-
-/* the long chapters and the next days */
-.chapter + .chapter, .dates li + li { margin-top: 1.2rem; padding-top: 1.1rem; border-top: 1px solid var(--rule); }
-.dates { list-style: none; margin: 0; padding: 0; }
-.date { margin: 0 0 0.2rem !important; color: var(--gold) !important; font-size: 0.84rem !important; }
-.date strong { font-weight: 500; }
-
-@media (max-width: 760px) {
-  .doAvoid { grid-template-columns: 1fr; }
-  .area { grid-template-columns: 3.4rem minmax(0, 1fr); padding: 1rem; }
-  .moonBody { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+/* ---------- tokens (the daily root; nothing in website/src defines them) ---------- */
+.folio[data-daily] {
+  --ease-settle: cubic-bezier(.22, 1, .36, 1);
+  --ease-glide: cubic-bezier(.16, 1, .3, 1);
+  --ease-control: cubic-bezier(.2, .7, .2, 1);
+  --dur-press: 160ms;
+  --dur-control: 220ms;
+  --dur-arrive: 340ms;
+  --dur-ritual: 1100ms;
+  --ink: #ede4d2;
+  --body: rgba(237, 228, 210, .86);
+  --muted: #c6c2b7;
+  --soft: #b7c4ce;
+  --gold: #b69a65;
+  --eyebrow: #c7b28c;
+  --hairline: #d8c49c4a;
+  --ground: #0b192a;
+  --lift: #10273a;
+  --deep: #091725;
+  --night: #071522;
+  --ghost: #b5aa8720;
+  --elev-lie: 1px 2px 0 #ac956a55, 6px 10px 16px rgba(7, 21, 34, .45);
+  --elev-lift: 1px 2px 0 #ac956a85, 15px 23px 35px rgba(2, 8, 18, .5);
+  --elev-held: 1px 2px 0 #ac956a85, 22px 34px 60px rgba(2, 8, 18, .55), 2px 3px 4px rgba(7, 21, 34, .55);
+  --rim: inset 1px 1px 0 rgba(237, 228, 210, .12);
+  --symbols: "Segoe UI Symbol", "Apple Symbols", "Noto Sans Symbols", var(--font-heading), serif;
+  --text: 17px;
+  max-width: 76rem;
+  color: var(--ink);
+  font-variant-numeric: lining-nums;
 }
-@media (prefers-reduced-motion: reduce) {
-  .signCard img, .areaCard img, .signChip { transition: none; }
+@media (min-width: 1024px) { .folio[data-daily] { --text: 18px; } }
+
+/* ---------- shared type ---------- */
+.eyebrow { margin: 0 0 .9rem; color: var(--eyebrow); font: 500 12px/1.4 var(--font-body), sans-serif; letter-spacing: .17em; text-transform: uppercase; }
+.head { margin: 0 0 1.5rem; font: 400 clamp(2.4rem, 4.4vw, 4rem)/.98 var(--font-heading), serif; font-variant-numeric: lining-nums; letter-spacing: -.03em; color: var(--ink); text-wrap: balance; }
+.head span, .head em { display: block; }
+/* phones: section heads sit a step under the headline (33.5px against 41px at 390) */
+@media (max-width: 599px) { .head { font-size: clamp(2rem, 8.6vw, 2.4rem); } }
+.head em { font-style: italic; }
+.sectionLead { margin: 0; max-width: 34rem; color: var(--soft); font-size: 15px; line-height: 1.6; text-wrap: pretty; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.primary { display: inline-flex; align-items: center; gap: 22px; min-height: 48px; padding: .6rem .7rem .6rem 1.25rem; border: 1px solid #ead9b8; border-radius: 14px; background: linear-gradient(155deg, #f2e5c8, #dccaab); box-shadow: inset 0 1px 0 #fff4dc, 0 4px 13px rgba(2, 9, 20, .25); color: #183043; font: 500 15px/1.2 var(--font-body), sans-serif; text-decoration: none; cursor: pointer; transition: translate var(--dur-control) var(--ease-control), filter var(--dur-control) var(--ease-control); }
+.folio .primary { color: #183043; }
+.primary:not(:has(i)) { padding-inline: 1.25rem; justify-content: center; }
+.primary i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #2332470b; font: normal 1.05rem/1 var(--font-body), sans-serif; }
+.primary:hover { translate: 0 -1px; filter: brightness(1.03); }
+.primary:active { translate: 0 1px; transition-duration: var(--dur-press); }
+
+/* ---------- bands: full-bleed tonal planes painted by border-image outset (no scrollable overflow; the
+   shells clip horizontally), each with a straight hairline at its top edge ---------- */
+.band { position: relative; --band: var(--ground); border-image: conic-gradient(var(--band) 0 0) fill 0 // 0 100vw; padding-block: clamp(4.5rem, 10vw, 8rem); }
+.band::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; border-image: conic-gradient(var(--hairline) 0 0) fill 0 // 0 100vw; pointer-events: none; }
+.front { border-image: linear-gradient(transparent, var(--ground) 9rem) fill 0 // 0 100vw; }
+.front::before { content: none; }
+.pauseBand { --band: var(--lift); }
+.areasBand { --band: var(--deep); }
+.skyBand { --band: var(--night); --faint: var(--soft); padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(4.5rem, 10vw, 7rem); }
+.almanacBand { --band: var(--ground); padding-block: clamp(3rem, 7vw, 5.5rem) clamp(4.5rem, 10vw, 7rem); }
+.doorBand { --band: var(--lift); padding-bottom: clamp(3rem, 6vw, 4.5rem); }
+
+/* ---------- crumb (wide screens only) ---------- */
+.crumb { display: none; }
+@media (min-width: 1024px) {
+  .crumb { display: block; }
+  .crumb ol { list-style: none; display: flex; gap: .5rem; margin: 0 0 1.5rem; padding: 0; color: var(--soft); font: 400 12px/1.4 var(--font-body), sans-serif; }
+  .crumb a { color: var(--soft); text-decoration: none; }
+  .crumb a:hover { color: var(--ink); }
 }
 
-/* the card of the day: one card, its words beside it */
-.dayCard { display: grid; grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr); gap: clamp(1.4rem, 4vw, 2.8rem); align-items: center; }
-.dayFlip { max-width: 15rem; margin: 0; }
-.dayCardText { max-width: 34rem; }
-.dayCardText .dealtLead { margin: 0 0 1.2rem; }
+/* ---------- I · frontispiece ---------- */
+.front { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "date" "h1" "event" "plate" "lead" "control"; align-items: start; padding-block: .5rem clamp(3rem, 7vh, 5rem); }
+.dateRow { grid-area: date; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; column-gap: 1rem; }
+.dateLine { margin: 0; min-height: 1.2em; color: var(--muted); font: italic 400 1.25rem/1.2 var(--font-heading), serif; font-variant-numeric: lining-nums tabular-nums; }
+.otherDay { margin: 0; color: var(--soft); font-size: 15px; line-height: 1.5; }
+.otherDay a { white-space: nowrap; }
+/* phones: only the link shows beside the date (the sentence stays for screen readers), in its short form
+   where the full one would wrap the row («До сьогодні»; its accessible name stays the full label) */
+.backShort { display: none; }
+@media (max-width: 599px) {
+  .otherNote, .backLong { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .backShort { display: inline; }
+}
+.otherDay a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--hairline); text-underline-offset: .25em; }
+.h1 { grid-area: h1; margin: .9rem 0 0; max-width: 11em; font: 400 clamp(2.125rem, 10.5vw, 3.4rem)/.98 var(--font-heading), serif; font-variant-numeric: lining-nums; letter-spacing: -.03em; color: var(--ink); text-wrap: balance; }
+.h1:focus { outline: none; }
+/* the generic title (no reading yet) is a homepage two-line head: roman, then italic, filling the reserved lines */
+.h1 > span, .h1 > em { display: block; }
+.h1 > em { font-style: italic; }
+/* reserved lines for the headline: one on phones (no blank line under a short one), two from 600px */
+@media (max-width: 599px) { .h1 { min-height: .98em; min-height: 1lh; } }
+@media (min-width: 600px) { .h1 { min-height: 1.96em; min-height: 2lh; } }
+.event { grid-area: event; margin-top: 2rem; width: min(100%, 34rem); min-height: 5.6rem; }
+/* the reserve is for a ruler that may come; once the reading is set, a day without one closes the gap */
+.folio[data-ready] .event:not(:has(.ruler)) { min-height: 0; }
+.eventLabel { margin: 0 0 .5rem; color: var(--eyebrow); font: 500 12px/1.4 var(--font-body), sans-serif; letter-spacing: .17em; text-transform: uppercase; }
+.kicker { margin: 0 0 .7rem; color: var(--ink); font: 500 15px/1.4 var(--font-body), sans-serif; font-variant-numeric: lining-nums tabular-nums; text-wrap: balance; }
+.kGlyph { display: inline-block; width: 15px; height: 15px; vertical-align: -2px; color: var(--gold); }
+.eventReserve { height: 5.6rem; }
+.lead { grid-area: lead; margin: 1.6rem 0 0; max-width: 34rem; min-height: 6.4em; min-height: 4lh; color: var(--body); font-size: 1.0625rem; line-height: 1.6; text-wrap: pretty; }
+.control { grid-area: control; margin-top: 2rem; min-width: 0; }
+.plateCol { grid-area: plate; display: grid; justify-items: center; margin-top: 2.25rem; min-width: 0; }
+.plateReserve { width: min(60vw, 15rem); aspect-ratio: 448 / 880; }
+@media (max-width: 599px) {
+  .eventLabel { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .event { min-height: 3.7rem; }
+  .eventReserve { height: 3.7rem; }
+}
+@media (min-width: 900px) {
+  .front {
+    grid-template-columns: minmax(0, 1fr) clamp(20rem, 30vw, 27rem);
+    grid-template-areas: "date plate" "h1 plate" "event plate" "lead plate" "control plate" ". plate";
+    grid-template-rows: repeat(5, auto) 1fr;
+    column-gap: clamp(3rem, 7vw, 7rem);
+    padding-block: clamp(.5rem, 2vh, 1.5rem) clamp(3rem, 7vh, 5rem);
+  }
+  .h1 { font-size: clamp(3.4rem, 6.2vw, 5.6rem); }
+  .lead { font-size: 1.1875rem; }
+  /* the note, ruler, lead and sign control share one right edge; in that measure the Ukrainian note keeps its
+     short link («До сьогодні»), so it stays beside the date and never pushes the headline down */
+  .dateRow, .control { max-width: 34rem; }
+  .backLong { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .backShort { display: inline; }
+  /* the generic title's italic line ("in the sky and the cards") is set a step smaller so it holds one line */
+  .h1 > em { font-size: .9em; }
+  .plateCol { margin-top: clamp(1.5rem, 4vh, 3rem); }
+  .plateReserve { width: clamp(15rem, 20vw, 19rem); }
+}
+
+/* the day ruler: real instants on the Kyiv day, 24px */
+.ruler { position: relative; }
+.rulerArt { position: relative; height: 24px; }
+.rulerTrack { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; transform-origin: left center; }
+.trackPast { stroke: rgba(237, 228, 210, .5); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.trackLater { stroke: var(--hairline); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.tick { stroke: var(--hairline); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.rulerEnd { position: absolute; top: 13px; color: var(--soft); font: 400 12px/1 var(--font-body), sans-serif; font-variant-numeric: lining-nums tabular-nums; }
+.rulerEnd + .rulerEnd { translate: -100% 0; }
+.nowTick { position: absolute; top: 3.5px; width: 1px; height: 9px; margin-left: -.5px; background: var(--ink); }
+.eventNode { position: absolute; top: 8px; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 2px var(--ground); }
+
+/* ---------- the card figure (CardFigure) ---------- */
+.card { position: relative; margin: 0; display: grid; justify-items: center; min-width: 0; }
+.cardFrame { position: relative; width: 100%; }
+.cardBody { position: relative; display: block; border-radius: 12px; isolation: isolate; transform: rotate(var(--r, 0deg)); text-decoration: none; transition: transform var(--dur-control) var(--ease-control); }
+.cardBody::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; box-shadow: var(--elev, var(--elev-lift)); pointer-events: none; }
+.card[data-elev="lie"] { --elev: var(--elev-lie); }
+.card[data-elev="held"] { --elev: var(--elev-held); }
+.face { position: relative; display: block; overflow: hidden; border-radius: 12px; aspect-ratio: 448 / 768; background: var(--lift); }
+.face > img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.face::after { content: ""; position: absolute; inset: 0; z-index: 2; border-radius: inherit; box-shadow: var(--rim), 0 0 0 1px rgba(216, 196, 156, .18); pointer-events: none; }
 .reversedArt { transform: rotate(180deg); }
-@media (max-width: 640px) {
-  .dayCard { grid-template-columns: 1fr; justify-items: center; text-align: center; }
-  .dayFlip { width: min(15rem, 64vw); }
+@media (hover: hover) and (pointer: fine) {
+  a.cardBody:hover { transform: translateY(-4px) rotate(calc(var(--r, 0deg) * .7)); }
+}
+/* the name tag: one card at a time, on fine-pointer hover or keyboard focus, on a hairline leader */
+.tag { position: absolute; left: 50%; bottom: calc(100% + 24px); z-index: 6; translate: -50% 0; padding: 6px 10px; border-radius: 8px; background: rgba(11, 25, 42, .82); box-shadow: 0 0 0 1px var(--hairline); color: var(--ink); font: 400 1.1rem/1.2 var(--font-heading), serif; font-variant-numeric: lining-nums; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 160ms var(--ease-control); }
+.tag::after { content: ""; position: absolute; left: 50%; top: 100%; width: 1px; height: 24px; background: var(--hairline); }
+@media (hover: hover) and (pointer: fine) {
+  .cardBody:hover ~ .tag { opacity: 1; transition: opacity var(--dur-control) var(--ease-control) 60ms; }
+}
+.cardBody:focus-visible ~ .tag { opacity: 1; transition: opacity var(--dur-control) var(--ease-control) 60ms; }
+/* two-level museum caption, never rotated */
+.caption { display: grid; justify-items: center; gap: .2rem; margin-top: 1.4rem; text-align: center; }
+.capTitle { color: var(--ink); font: 500 1.25rem/1.2 var(--font-heading), serif; font-variant-numeric: lining-nums; }
+.nowrap { white-space: nowrap; }
+.capRole { color: var(--soft); font: 400 13px/1.45 var(--font-body), sans-serif; font-variant-numeric: lining-nums tabular-nums; }
+.capNote { max-width: 19rem; margin-top: .55rem; color: var(--soft); font-size: 15px; line-height: 1.55; text-wrap: pretty; }
+
+/* ---------- the hero plate ---------- */
+.plate { position: relative; isolation: isolate; margin: 0; display: grid; justify-items: center; width: 100%; --pw: min(42vw, 10.5rem); --sw: min(60vw, 15rem); }
+.plate::before { content: ""; position: absolute; inset: -60%; z-index: -2; background: radial-gradient(ellipse 58% 52% at 50% 44%, rgba(237, 228, 210, .075), transparent 68%); pointer-events: none; }
+.plateGhost { position: absolute; z-index: -1; left: -4%; top: -6%; color: var(--ghost); font: 300 46vw/.8 var(--font-heading), serif; letter-spacing: -.06em; font-variant-numeric: lining-nums; pointer-events: none; user-select: none; }
+.plateGhost > span { display: block; }
+.plateCards { display: flex; justify-content: center; align-items: flex-start; }
+.plateExitA { position: relative; z-index: 1; width: var(--sw); }
+.plate[data-kind="pair"] .plateExitA { width: var(--pw); }
+.plateExitB { position: relative; z-index: 2; width: var(--pw); margin-left: calc(var(--pw) * -.3); translate: 0 1.5rem; }
+.chord { position: relative; width: calc(var(--pw) * 1.7); height: 1px; margin-top: 3.1rem; background: var(--hairline); }
+.chordDisc { position: absolute; left: 50%; top: 50%; translate: -50% -50%; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--ground); box-shadow: 0 0 0 1px var(--hairline); color: var(--gold); }
+.chordDisc > svg { display: block; }
+.plateCaps { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 1rem; width: 100%; max-width: 20rem; margin-top: 1.4rem; text-align: center; }
+.plate[data-kind="pair"] .plateCaps { width: min(100%, calc(var(--pw) * 2.05)); max-width: none; margin-top: 1.1rem; }
+.plateCap { display: grid; align-content: start; gap: .2rem; }
+/* phones: a pair caption stacks its role and house, the separator becoming the line break */
+@media (max-width: 599px) { .plateCap .sep { display: block; height: 0; overflow: hidden; } }
+/* a pair's captions are narrow at every width: each sets its role and its place as two lines */
+.plate[data-kind="pair"] .plateCap .sep { display: block; height: 0; overflow: hidden; }
+@media (max-width: 359px) {
+  .plate[data-kind="pair"] .plateExitA { width: min(56vw, 13rem); }
+  .plateExitB, .chord, .plateCapB { display: none; }
+  .plate[data-kind="pair"] .plateCaps { width: auto; }
+}
+/* 360–374 (the commonest Android width) keeps the pair, so an aspect never reads as one card's omen */
+@media (min-width: 360px) and (max-width: 374px) { .plate[data-kind="pair"] .capTitle { font-size: 1.1rem; } }
+/* one column: the day's numeral centred behind the top of the plate, so both digits read as one numeral. Its
+   figures (from .08em under the box top) rise just to the column's 2.25rem gap, never into the text above. */
+@media (max-width: 899px) { .plateGhost { left: 50%; top: calc(-2.25rem - .08em); translate: -50% 0; font-size: min(50vw, 16rem); } }
+@media (min-width: 900px) {
+  .plate { --pw: clamp(11rem, 13vw, 13rem); --sw: clamp(15rem, 20vw, 19rem); }
+  /* -22%: a long Ukrainian headline (26 October at 1024–1280) reaches the column's edge; the numeral stays clear of it */
+  .plateGhost { left: -22%; top: -8%; font-size: clamp(14rem, 24vw, 22rem); }
+  .plateExitB { margin-left: calc(var(--pw) * -.22); }
+  .chord { width: calc(var(--pw) * 1.78); }
+  .plate[data-kind="pair"] .plateCaps { width: min(100%, calc(var(--pw) * 2.3)); }
+}
+
+/* one light pool per chapter, as the hero's: a static ivory glow behind each chapter's card */
+.readingAside, .spreadFigure, .doorCard { isolation: isolate; }
+.readingInline, .dayCard .dayFlip { position: relative; isolation: isolate; }
+.readingAside::before, .readingInline::before, .dayCard .dayFlip::before, .doorCard::before, .spreadFigure::before { content: ""; position: absolute; inset: -45%; z-index: -2; background: radial-gradient(ellipse 55% 50% at 50% 45%, rgba(237, 228, 210, .055), transparent 70%); pointer-events: none; }
+.spreadFigure::before { background: radial-gradient(ellipse 55% 50% at 50% 45%, rgba(237, 228, 210, .04), transparent 70%); }
+
+/* ---------- II · the reading ---------- */
+.readingBand { padding-top: clamp(3.5rem, 7vw, 6rem); padding-bottom: clamp(3.5rem, 8vw, 6rem); }
+.readingBand .head { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.readingGrid { display: grid; grid-template-columns: minmax(0, 36rem); }
+.readingText > :first-child { margin-top: 0 !important; }
+.readingText > p { margin: 0 0 1em; color: var(--body); font-size: var(--text); line-height: 1.65; text-wrap: pretty; }
+.bridge { max-width: 30em; margin: 2.5rem 0 !important; color: var(--ink) !important; font: 400 clamp(1.4rem, 2.2vw, 1.65rem)/1.38 var(--font-heading), serif !important; font-variant-numeric: lining-nums !important; }
+@media (min-width: 360px) {
+  .dropCap::first-letter { float: left; margin: .06em .1em 0 0; color: var(--ink); font: 400 5.1em/.8 var(--font-heading), serif; }
+  @supports (initial-letter: 3) {
+    .dropCap::first-letter { float: none; margin: 0 .1em 0 0; font-size: 1em; line-height: inherit; initial-letter: 3; }
+  }
+}
+.scene { margin: 2.5rem 0; }
+.scene .eyebrow { margin-bottom: .7rem; }
+.scene blockquote { margin: 0; max-width: 26em; color: var(--ink); font: italic 400 clamp(1.55rem, 2.8vw, 2rem)/1.22 var(--font-heading), serif; font-variant-numeric: lining-nums; letter-spacing: -.01em; text-wrap: balance; hanging-punctuation: first; }
+.worth { display: grid; grid-template-columns: 1fr 1px 1fr; column-gap: clamp(1.5rem, 4vw, 3rem); margin-top: 3rem; }
+.worthRule { background: var(--hairline); }
+.worth h3 { margin: 0 0 .8rem; color: var(--ink); font: italic 400 1.4rem/1.2 var(--font-heading), serif; font-variant-numeric: lining-nums; }
+.worth ul { list-style: none; margin: 0; padding: 0; }
+.worth li { color: var(--body); font-size: var(--text); line-height: 1.6; text-wrap: pretty; }
+.worth li + li { margin-top: 1.1em; }
+@media (max-width: 760px) {
+  .worth { grid-template-columns: 1fr; row-gap: 2rem; }
+  .worthRule { height: 1px; }
+}
+.readingInline { display: flex; justify-content: center; margin: 2.5rem 0 3rem; }
+.readingInline .card { width: min(60vw, 15rem); }
+.readingAside { display: none; }
+@media (min-width: 1024px) and (min-height: 760px) {
+  .readingGrid { grid-template-columns: minmax(0, 36rem) clamp(18rem, 24vw, 22rem); justify-content: space-between; column-gap: clamp(3rem, 7vw, 7rem); }
+  .readingInline { display: none; }
+  .readingAside { display: flex; justify-content: center; position: sticky; top: max(12vh, 5.5rem); align-self: start; }
+  .readingAside .card { width: clamp(16rem, 20vw, 19rem); }
+}
+
+/* ---------- III · the pause ---------- */
+.pause { display: grid; justify-items: center; row-gap: 2.5rem; }
+/* phones: the slip first, then the heading, then the card */
+.pauseHead { width: 100%; order: 1; }
+.pauseCard { order: 2; }
+.pause .slip { margin-bottom: 1rem; }
+/* a container, so the card of the day sits beside its text only where its own column has room: just above
+   1024px the pause's right column is about 470px and the button label would wrap */
+.pauseCard { width: 100%; min-width: 0; container-type: inline-size; }
+@media (min-width: 1024px) {
+  /* the heading spans the band; under it the slip's top meets the card's top */
+  .pause { grid-template-columns: minmax(0, 25rem) minmax(0, 1fr); column-gap: clamp(3rem, 7vw, 7rem); row-gap: clamp(2.5rem, 5vw, 3.5rem); align-items: start; justify-items: stretch; }
+  .pauseHead { grid-column: 1 / -1; order: 0; }
+  .pause .slip { margin-bottom: 0; }
+  /* a first visit has no question: heading, lead and card form one centred block (46rem keeps the card beside its text) */
+  .pauseSolo { grid-template-columns: minmax(0, 46rem); justify-content: center; }
+  .pauseSolo .pauseHead { text-align: center; }
+  .pauseSolo .sectionLead { margin-inline: auto; }
+  .pauseSolo .dayCard { justify-content: center; }
+  /* side by side, the face-down card and its prompt are one group centred under the heading */
+  @container (min-width: 34rem) {
+    .pauseSolo .dayCard { grid-template-columns: clamp(14rem, 18vw, 16rem) max-content; }
+  }
+}
+/* the reading's question on the homepage's paper slip: the one ivory surface on the page */
+.slip { position: relative; width: min(100%, 22rem); padding: 2rem 1.8rem 2.6rem; background: #e8e0ce; color: #1b3445; transform: rotate(-1deg); box-shadow: 1px 2px 0 #aa9e8599, 11px 20px 32px #02091059; }
+.slip::before { content: ""; position: absolute; inset: 6px; border: 1px solid #8a7c572b; pointer-events: none; }
+/* #716140 is the homepage's #756543 deepened just enough for 4.5:1 on the paper (4.59:1) */
+.slipLabel { margin: 0; color: #716140; font: 500 12px/1.4 var(--font-body), sans-serif; letter-spacing: .17em; text-transform: uppercase; }
+.slipQ { margin: 1.3rem 0 2rem; font: italic 400 clamp(1.6rem, 2.4vw, 2.25rem)/1.14 var(--font-heading), serif; font-variant-numeric: lining-nums; letter-spacing: -.02em; text-wrap: balance; }
+.slipLine { display: block; width: 65%; height: 1px; background: #a9946852; }
+.slipMark { position: absolute; right: 1.35rem; bottom: .25rem; color: #8f80572c; font: italic 400 5.5rem/1 var(--font-heading), serif; pointer-events: none; }
+@media (min-width: 1024px) { .slip { width: auto; max-width: 25rem; transform: rotate(-1.5deg); } }
+
+/* the card of the day */
+.dayCard { display: grid; justify-items: center; gap: 2rem; }
+.dayCard .dayFlip { width: min(64vw, 15rem); max-width: none; margin: 0; }
+.dayCardText { width: 100%; max-width: 24rem; }
+@media (max-width: 759px) { .dayCardText .primary { width: min(100%, 22rem); } }
+@container (min-width: 34rem) {
+  /* top-aligned, so the reveal text growing the row never pushes the turning card down; face down, the
+     prompt sits at the card's middle */
+  .dayCard { grid-template-columns: clamp(14rem, 18vw, 16rem) minmax(0, 24rem); justify-items: start; align-items: start; column-gap: clamp(2rem, 4vw, 3.5rem); }
+  .dayCard[data-face="down"] .dayCardText { align-self: center; }
+  .dayCard .dayFlip { width: 100%; }
+}
+.approach { position: relative; perspective: 1400px; transition: transform var(--dur-control) var(--ease-control); }
+/* face down: the still halo and the lying shadow; face up: the lifted shadow. Only their opacity changes. */
+.approach::before, .approach::after { content: ""; position: absolute; inset: 0; border-radius: 12px; pointer-events: none; transition: opacity var(--dur-arrive) var(--ease-settle); }
+.approach::before { box-shadow: 0 0 0 1px #d8c49c4a, 0 30px 70px rgba(237, 228, 210, .06), var(--elev-lie); }
+.approach::after { box-shadow: var(--elev-lift); opacity: 0; }
+/* turning: the halo leaves at once and the lifted shadow lands with the face (a card mounted face up has no transition) */
+.dayCard[data-face="up"] .approach::before { opacity: 0; transition-duration: var(--dur-press); }
+.dayCard[data-face="up"] .approach::after { opacity: 1; transition: opacity var(--dur-arrive) var(--ease-settle) 900ms; }
+.folio .dayCard .dayFlip .daySide { box-shadow: none; }
+.cardHit { position: absolute; inset: 0; z-index: 3; display: block; padding: 0; border: 0; border-radius: 12px; background: none; cursor: pointer; }
+@media (hover: hover) and (pointer: fine) {
+  .dayCard[data-face="down"] .approach:hover { transform: translateY(-4px) rotate(-1deg); }
+}
+.dayLead { margin: 0 0 1.2rem; color: var(--ink); font: italic 400 clamp(1.3rem, 2vw, 1.45rem)/1.4 var(--font-heading), serif; font-variant-numeric: lining-nums; text-wrap: balance; }
+.dayName { margin: 0; color: var(--ink); font: 400 clamp(1.9rem, 3vw, 2.4rem)/1.05 var(--font-heading), serif; font-variant-numeric: lining-nums; }
+.dayName:focus { outline: none; }
+.dayOrientation { margin: .45rem 0 0; color: var(--eyebrow); font: 500 12px/1.4 var(--font-body), sans-serif; letter-spacing: .17em; text-transform: uppercase; }
+.dayText { margin: 1rem 0 0; color: var(--body); font-size: var(--text); line-height: 1.65; }
+/* roman, so the slip keeps the band's only italic question */
+.dayQuestion { margin: 1rem 0 0; color: var(--soft); font: 400 15px/1.6 var(--font-body), sans-serif; font-variant-numeric: lining-nums; text-wrap: balance; }
+
+/* ---------- IV · where the day touches you ---------- */
+.spreads { margin-top: clamp(3.5rem, 7vw, 5.5rem); }
+.spread { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "fig" "text"; }
+.spread + .spread { margin-top: clamp(4.5rem, 10vh, 7rem); }
+.spread + .spread::before { content: ""; position: absolute; left: 50%; top: calc(clamp(4.5rem, 10vh, 7rem) / -2); width: 4rem; height: 1px; translate: -50% 0; background: var(--hairline); }
+.areaName { grid-area: head; margin: 0 0 1.75rem; color: var(--ink); font: 400 clamp(1.9rem, 2.8vw, 2.4rem)/1.05 var(--font-heading), serif; font-variant-numeric: lining-nums; text-wrap: balance; }
+.areaName em { font-style: italic; }
+.spreadFigure { grid-area: fig; position: relative; isolation: isolate; display: grid; justify-items: center; margin-bottom: 2rem; }
+.spreadFigure .card { width: min(64vw, 15rem); }
+.spread[data-side="left"] .spreadFigure .card { --r: -2deg !important; translate: -1rem 0; }
+.spread[data-side="right"] .spreadFigure .card { --r: 2deg !important; translate: 1rem 0; }
+.houseGhost { position: absolute; z-index: -1; top: -1rem; left: 4%; color: var(--ghost); font: 300 38vw/.8 var(--font-heading), serif; letter-spacing: -.06em; font-variant-numeric: lining-nums; pointer-events: none; user-select: none; }
+.spread[data-side="right"] .houseGhost { left: auto; right: 4%; }
+.areaText { grid-area: text; margin: 0; max-width: 34rem; color: var(--body); font-size: var(--text); line-height: 1.65; text-wrap: pretty; }
+@media (min-width: 1024px) {
+  .spread { grid-template-columns: clamp(16rem, 20vw, 19rem) minmax(0, 34rem); grid-template-rows: 1fr auto auto 1fr; grid-template-areas: "fig ." "fig head" "fig text" "fig ."; column-gap: clamp(3rem, 7vw, 7rem); justify-content: center; }
+  .spread[data-side="right"] { grid-template-columns: minmax(0, 34rem) clamp(16rem, 20vw, 19rem); grid-template-areas: ". fig" "head fig" "text fig" ". fig"; }
+  .spreadFigure { margin-bottom: 0; }
+  .spreadFigure .card { width: 100%; }
+  .spread .spreadFigure .card { --r: unset; translate: none; }
+  .houseGhost { top: -8%; left: -46%; font-size: clamp(12rem, 20vw, 18rem); }
+  .spread[data-side="right"] .houseGhost { left: auto; right: -46%; }
+  .areaName { margin-bottom: 1.25rem; }
+}
+/* just above 1024 the gutter is narrow: the numeral moves in and shrinks so it is never cut at the window's edge */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .houseGhost { left: -30%; font-size: clamp(9rem, 16vw, 18rem); }
+  .spread[data-side="right"] .houseGhost { right: -30%; }
+}
+
+/* ---------- VII · door and colophon ---------- */
+.door { display: grid; justify-items: center; row-gap: 2.5rem; }
+.doorCard { width: min(52vw, 13rem); }
+.doorText { width: 100%; max-width: 34rem; }
+.doorBody { margin: 0 0 1.75rem; color: var(--body); font-size: 17px; line-height: 1.6; text-wrap: pretty; }
+@media (min-width: 900px) {
+  .door { grid-template-columns: 14rem minmax(0, 34rem); justify-content: center; align-items: center; column-gap: clamp(3rem, 7vw, 7rem); }
+  .doorCard { width: 14rem; }
+}
+.colophon { position: relative; display: grid; justify-items: center; margin-top: clamp(4rem, 8vw, 6rem); padding-top: 2.5rem; text-align: center; }
+.colophon::before { content: ""; position: absolute; top: 0; left: 50%; width: min(100%, 40rem); height: 1px; translate: -50% 0; background: var(--hairline); }
+.method { max-width: 32rem; margin: 0; color: var(--soft); font-size: 14px; line-height: 1.6; text-wrap: pretty; }
+.boundary { margin: 1.5rem 0 0; color: var(--ink); font: italic 400 1.4rem/1.3 var(--font-heading), serif; font-variant-numeric: lining-nums; text-wrap: balance; }
+
+/* ---------- the sign control ---------- */
+.signControl { max-width: 42rem; }
+.signControl[data-mode="pending"] { height: 48px; }
+.signRow { display: flex; align-items: center; gap: .75rem; width: 100%; min-height: 48px; padding: 0 .6rem 0 1rem; border: 0; border-radius: 14px; background: var(--lift); box-shadow: inset 0 1px 0 rgba(201, 215, 216, .1); color: var(--ink); text-align: left; cursor: pointer; transition: background-color var(--dur-control) var(--ease-control); }
+.signRow:hover { background: #12283d; }
+.signRowGlyph { width: 1.2rem; color: var(--gold); font: 1.15rem/1 var(--symbols); text-align: center; }
+.signRowName { font: 500 15px/1.2 var(--font-body), sans-serif; }
+.signRowAction { margin-left: auto; color: var(--soft); font: 400 14px/1.2 var(--font-body), sans-serif; }
+.chipToggle { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: rgba(237, 228, 210, .08); color: var(--gold); font: 400 1rem/1 var(--font-body), sans-serif; }
+.chipsWrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--dur-arrive) var(--ease-settle); }
+.chipsWrap[data-open] { grid-template-rows: 1fr; }
+.chipsInner { min-height: 0; overflow: hidden; }
+.signControl[data-mode="compact"] .chips { padding-top: .6rem; }
+.chips { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .4rem; }
+.chip { display: flex; align-items: center; justify-content: center; gap: .4rem; width: 100%; min-height: 44px; padding: 0 .45rem; border: 0; border-radius: 12px; background: var(--lift); box-shadow: inset 0 1px 0 rgba(201, 215, 216, .1); color: var(--body); font: 400 14px/1.15 var(--font-body), sans-serif; cursor: pointer; transition: background-color var(--dur-control) var(--ease-control), color var(--dur-control) var(--ease-control); }
+.chip:hover { background: #12283d; color: var(--ink); }
+.chip[aria-pressed="true"] { background: linear-gradient(180deg, #f2e5c8, #dccaab); color: #183043; }
+.chipGlyph { flex: none; color: var(--gold); font: 1rem/1 var(--symbols); }
+.chip[aria-pressed="true"] .chipGlyph { color: #183043; }
+/* the focus ring sits inside the chip, so the closed grid's overflow never clips it */
+.folio .chip:focus-visible { outline-offset: -4px; }
+.folio .chip[aria-pressed="true"]:focus-visible { outline-color: #183043; }
+.chipName { min-width: 0; overflow-wrap: normal; hyphens: none; }
+/* the narrowest phones: the glyph over the name, so every name (Sagittarius, «Близнюки») sits whole */
+@media (max-width: 374px) {
+  .chip { flex-direction: column; gap: 2px; min-height: 52px; padding: .35rem .25rem; }
+  .chipGlyph { font-size: .9rem; }
+}
+/* four across from 600px: on wide screens the control keeps the lead's 34rem, where six would crowd "Sagittarius" */
+@media (min-width: 600px) { .chips { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* ---------- arrival: once per date and sign per tab, keyed to the reading being ready ---------- */
+/* without an arrival to play (a same-tab reload), the generic copy still hands over to the reading with the
+   340ms fade, never a cut: the hidden headline and lead transition back in (the rules below win while
+   hiding, and the arrival's own keyframes run under [data-arrive]) */
+.folio:not([data-arrive]) .h1, .folio:not([data-arrive]) .lead { transition: opacity var(--dur-arrive) var(--ease-settle); }
+@media screen { .folio[data-await] .generic { opacity: 0; transition: opacity var(--dur-press) var(--ease-control); } }
+.folio[data-arrive] .dateLine { animation: fadeIn var(--dur-arrive) var(--ease-settle) both; }
+.folio[data-arrive] .otherDay { animation: fadeIn var(--dur-arrive) var(--ease-settle) 40ms both; }
+.folio[data-arrive] .h1 { animation: fadeIn var(--dur-ritual) var(--ease-settle) 80ms both; }
+.folio[data-arrive] .eventLabel, .folio[data-arrive] .kicker, .folio[data-arrive] .rulerEnd, .folio[data-arrive] .nowTick { animation: fadeIn var(--dur-arrive) var(--ease-settle) 200ms both; }
+.folio[data-arrive] .rulerTrack { animation: drawOn var(--dur-ritual) var(--ease-glide) 200ms both; }
+.folio[data-arrive] .eventNode { animation: fadeIn var(--dur-control) var(--ease-control) 700ms both; }
+.folio[data-arrive] .lead { animation: fadeIn var(--dur-arrive) var(--ease-settle) 300ms both; }
+.folio[data-arrive] .control { animation: fadeIn var(--dur-arrive) var(--ease-settle) 380ms both; }
+
+/* the plate is set down once card A's art has decoded (its wait is taken out of every delay) */
+@media screen {
+  .plate[data-land="hold"]::before, .plate[data-land$="-wait"]::before { opacity: 0; }
+  .plate[data-land="hold"] .plateCards, .plate[data-land="hold"] .chord, .plate[data-land="hold"] .plateCaps, .plate[data-land="hold"] .plateGhost,
+  .plate[data-land$="-wait"] .plateCards, .plate[data-land$="-wait"] .chord, .plate[data-land$="-wait"] .plateCaps, .plate[data-land="arrival-wait"] .plateGhost { opacity: 0; }
+}
+.plate[data-land="arrival-play"] .plateGhost { animation: fadeIn var(--dur-ritual) var(--ease-settle) max(0ms, calc(120ms - var(--waited))) both; }
+.plate[data-land$="-play"] .plateA > .cardFrame { animation: fadeIn var(--dur-arrive) var(--ease-settle) max(0ms, calc(150ms - var(--waited))) both, cardLand var(--dur-ritual) var(--ease-glide) max(0ms, calc(150ms - var(--waited))) both; }
+.plate[data-land$="-play"] .plateB > .cardFrame { animation: fadeIn var(--dur-arrive) var(--ease-settle) max(0ms, calc(250ms - var(--waited))) both, cardLand var(--dur-ritual) var(--ease-glide) max(0ms, calc(250ms - var(--waited))) both; }
+.plate[data-land$="-play"] .plateA .cardBody::before { animation: shadowIn var(--dur-ritual) var(--ease-glide) max(0ms, calc(150ms - var(--waited))) both; }
+.plate[data-land$="-play"] .plateB .cardBody::before { animation: shadowIn var(--dur-ritual) var(--ease-glide) max(0ms, calc(250ms - var(--waited))) both; }
+.plate[data-land$="-play"] .chord { animation: drawOn var(--dur-ritual) var(--ease-settle) max(0ms, calc(550ms - var(--waited))) both; }
+.plate[data-land$="-play"] .chordDisc { animation: fadeIn var(--dur-control) var(--ease-control) max(0ms, calc(1000ms - var(--waited))) both; }
+.plate[data-land$="-play"] .plateCaps { animation: fadeIn var(--dur-arrive) var(--ease-settle) max(0ms, calc(700ms - var(--waited))) both; }
+.chord { transform-origin: center; }
+
+/* the plate's exit as it scrolls away: CSS only, the one scrubbed element on the page */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .plate { view-timeline: --folio-plate block; }
+    .plateExitA, .plateExitB { animation: exitTurn linear both; animation-timeline: --folio-plate; animation-range: exit 0% exit 100%; }
+    .plateExitA { --exit: 1.5deg; }
+    .plateExitB { --exit: -1.5deg; }
+    .plateGhost > span { animation: exitGhost linear both; animation-timeline: --folio-plate; animation-range: exit 0% exit 100%; }
+    .plate::before { animation: exitPool linear both; animation-timeline: --folio-plate; animation-range: exit 0% exit 100%; }
+  }
+}
+
+/* ---------- entries, once, when first seen (IntersectionObserver via useEntry) ---------- */
+/* the waiting ("armed") states are for the screen only: print and Save as PDF show the whole leaf */
+@media screen {
+  .readingBand[data-entry="armed"] .head { opacity: 0; }
+  .readingBand[data-entry="armed"]::before { transform: scaleX(0); }
+  .readingAside[data-entry="armed"] .cardFrame, .readingInline[data-entry="armed"] .cardFrame,
+  .spread[data-entry="armed"] .cardFrame { opacity: 0; }
+  .readingAside[data-entry="armed"] .caption, .readingInline[data-entry="armed"] .caption,
+  .spread[data-entry="armed"] .caption, .spread[data-entry="armed"] .houseGhost, .spread[data-entry="armed"] .areaText { opacity: 0; }
+  .slip[data-entry="armed"] { opacity: 0; rotate: 1deg; }
+  .dayCard[data-entry="armed"] .approach { transform: rotateX(8deg) rotateY(-5deg) scale(.96); }
+}
+.readingBand[data-entry="play"] .head { animation: fadeIn var(--dur-arrive) var(--ease-settle) both; }
+.readingBand[data-entry="play"]::before { animation: drawOn var(--dur-ritual) var(--ease-settle) both; }
+
+.readingAside[data-entry="play"] .cardFrame, .readingInline[data-entry="play"] .cardFrame,
+.spread[data-entry="play"] .cardFrame { animation: settleIn var(--dur-ritual) var(--ease-glide) both; }
+.readingAside[data-entry="play"] .caption, .readingInline[data-entry="play"] .caption,
+.spread[data-entry="play"] .caption { animation: fadeIn var(--dur-arrive) var(--ease-settle) 240ms both; }
+.spread[data-entry="play"] .houseGhost { animation: fadeIn var(--dur-ritual) var(--ease-settle) both; }
+.spread[data-entry="play"] .areaText { animation: fadeIn var(--dur-arrive) var(--ease-settle) 160ms both; }
+
+/* the paper is opaque almost at once; only its half degree settles slowly */
+.slip[data-entry="play"] { animation: fadeIn var(--dur-arrive) var(--ease-settle) both, slipTurn var(--dur-ritual) var(--ease-glide) both; }
+
+/* the turn: the birth chart's turnOver path, but eased in to the edge and out from it, so the card never
+   stalls edge-on (turnOver's per-interval ease-out holds it near 90° for a third of a second) */
+.dayInner.turning { animation: dayTurn var(--dur-ritual) linear both; }
+@keyframes dayTurn {
+  0% { transform: rotateY(0); animation-timing-function: cubic-bezier(.55, 0, .85, .35); }
+  45% { transform: translateY(-22px) rotateY(95deg) scale(1.05); animation-timing-function: cubic-bezier(.15, .65, .3, 1); }
+  100% { transform: rotateY(180deg); }
+}
+
+.dayCard[data-entry="play"] .approach { animation: approach var(--dur-ritual) var(--ease-glide) both; }
+.dayReveal[data-reveal="turn"] { animation: fadeIn var(--dur-arrive) var(--ease-settle) 1550ms both; }
+
+/* a sign change: the hero text and the reading fade out, swap, and fade back in */
+.folio[data-swap="out"] .swap { opacity: 0; transition: opacity var(--dur-press) var(--ease-control); }
+.folio[data-swap="in"] .swap { animation: fadeIn var(--dur-arrive) var(--ease-settle) both; }
+
+@keyframes fadeIn { from { opacity: 0; } }
+@keyframes drawOn { from { transform: scaleX(0); } }
+@keyframes cardLand { from { scale: 1.02; rotate: 1.5deg; } }
+@keyframes shadowIn { from { opacity: .35; } }
+@keyframes settleIn { from { opacity: 0; rotate: 1.5deg; scale: .985; } }
+@keyframes slipTurn { from { rotate: 1deg; } }
+@keyframes approach { from { transform: rotateX(8deg) rotateY(-5deg) scale(.96); } }
+@keyframes exitTurn { to { rotate: var(--exit, 0deg); } }
+@keyframes exitGhost { to { translate: 0 -4rem; } }
+@keyframes exitPool { to { opacity: .4; } }
+
+/* print: every entry at its end state, nothing mid-flight */
+@media print {
+  .folio[data-daily] *, .folio[data-daily] *::before, .folio[data-daily] *::after { animation: none !important; transition: none !important; }
+}
+
+/* reduced motion: everything instant (the scripts also skip observers, the plate's landing and card light) */
+@media (prefers-reduced-motion: reduce) {
+  .folio[data-daily] *, .folio[data-daily] *::before, .folio[data-daily] *::after { animation-duration: 0s !important; animation-delay: 0s !important; transition-duration: 0s !important; transition-delay: 0s !important; animation-iteration-count: 1 !important; }
 }

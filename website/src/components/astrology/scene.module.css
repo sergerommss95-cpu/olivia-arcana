@@ -76,6 +76,9 @@
 .threadTension { stroke: #d9b56c; opacity: 0.3; }
 .threads .threadOn { opacity: 0.95; stroke-width: 1.8; }
 .threads .dim { opacity: 0.04; }
+/* Beside a leading body's lit threads (opt-in), the others recede to 30% of their rest */
+.threads .threadEase.threadRest { opacity: 0.048; }
+.threads .threadTension.threadRest { opacity: 0.09; }
 /* Another moment laid over the chart: a silver inner ring, and silver lines where its planets meet these */
 .nowRing { fill: none; stroke: rgba(200, 215, 236, 0.4); stroke-width: 1; stroke-dasharray: 3 6; }
 .contact { stroke: rgba(214, 228, 246, 0.75); stroke-width: 1.3; stroke-linecap: round; }
@@ -185,6 +188,83 @@
 .panelCard:hover img { transform: translateY(-2px) rotate(-1.5deg); }
 .panelCard:focus-visible { outline: 2px solid #e6cf9e; outline-offset: 4px; border-radius: 6px; }
 
+/* ---- Opt-ins for the daily folio (TonightSky / SkyScene props); nothing below applies without them ---- */
+
+/* playWhenSeen: the plate, deal, orbs and threads wait, paused at their first frame, until the scene is seen;
+   then the folio's timings (durations here, delays inline). The loops are not even started while waiting, and
+   rest while the scene is offscreen or the tab hidden. */
+.scene[data-play] .plane > .plate:not(.threadLayer) { animation: plateIn var(--glide) var(--ease) backwards; }
+.scene[data-play] .engraved { animation: engraveIn var(--glide) var(--ease) backwards; }
+.scene[data-play] .dealt { animation-duration: var(--deal, 700ms); }
+.scene[data-play] .orbWrap { animation-duration: 600ms; }
+@keyframes plateIn { from { opacity: 0; scale: 0.94; } }
+@keyframes engraveIn { from { opacity: 0; } }
+.scene[data-play="wait"] .plane > .plate:not(.threadLayer), .scene[data-play="wait"] .engraved, .scene[data-play="wait"] .dealt,
+.scene[data-play="wait"] .orbWrap, .scene[data-play="wait"] .threads path { animation-play-state: paused; }
+.scene[data-play="wait"] .silk span, .scene[data-play="wait"] .cardLit { animation-name: none; }
+.scene[data-play="wait"] .shadow { opacity: 0; }
+.scene[data-idle] .silk span, .scene[data-idle] .cardLit { animation-play-state: paused; }
+/* The fit measures the plate unscaled, whatever its entry is doing (important beats a running animation) */
+.scene[data-measuring] .plane > .plate:not(.threadLayer) { scale: none !important; }
+
+/* nameCards: the lying cards lit rather than dimmed, and each named on a fine pointer's hover or keyboard focus.
+   The tag stands upright on its card's slot (as a planet's does) and is sized against the fit's --k, so it reads
+   at 1.1rem whatever the scale; its hairline leader ends at the card's far edge. */
+.scene[data-names]:not([data-view="stars"]) .lie .card { filter: brightness(0.84) saturate(0.95); }
+.scene[data-names]:not([data-view="stars"]) .lie .card:hover, .scene[data-names]:not([data-view="stars"]) .lie .card:focus-visible { filter: none; }
+.cardTag {
+  position: absolute; left: 0; bottom: calc(48px + 24px / var(--k, 1)); transform: translateX(-50%);
+  padding: 0.34em 0.57em; border: calc(1px / var(--k, 1)) solid #d8c49c4a; border-radius: calc(8px / var(--k, 1));
+  background: rgba(11, 25, 42, 0.82); color: #ede4d2;
+  font: 400 calc(1.1rem / var(--k, 1))/1.15 var(--font-heading, "Cormorant Garamond"), serif; white-space: nowrap;
+  pointer-events: none; opacity: 0; visibility: hidden;
+  transition: opacity 160ms var(--ease-control, cubic-bezier(0.2, 0.7, 0.2, 1)), visibility 0s linear 160ms;
+}
+.cardTag::after { content: ""; position: absolute; left: 50%; top: 100%; width: calc(1px / var(--k, 1)); height: calc(24px / var(--k, 1)); background: #d8c49c4a; }
+.cardTagOn { opacity: 1; visibility: visible; transition: opacity 220ms var(--ease-control, cubic-bezier(0.2, 0.7, 0.2, 1)) 60ms, visibility 0s linear 60ms; }
+.scene[data-turning] .cardTag { opacity: 0; visibility: hidden; transition: none; }
+
+/* sans: the scene's small labels in the body face at 12px, as the folio's eyebrows, never IBM Plex Mono.
+   The standing cards' role labels live inside the scaled 3D scene, where 12px renders at 6–10px on screen, so the
+   folio drops them: the caption says the gold cards are the Sun's and the Moon's, and the ledger names them. */
+.wrap[data-sans] .role { display: none; }
+.wrap[data-sans] .panelKicker, .wrap[data-sans] .panelLabel { font-family: var(--font-body), "Segoe UI Symbol", "Apple Symbols", sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.17em; }
+.wrap[data-sans] .angleMark { font-family: var(--font-body), sans-serif; }
+.wrap[data-sans] .panelKicker { color: #c7b28c; }
+.wrap[data-sans] .panelLabel { color: #b7c4ce; }
+
+/* TonightSky: the folio's two-line head, its Kyiv timestamp chip (set under it as its dateline), and the ledger
+   that names cards in text */
+.skyHead { display: flex; flex-direction: column; align-items: flex-start; gap: 0.9rem; margin: 0 0 clamp(1.25rem, 3vw, 2rem); }
+.skyHead > h2 { margin: 0; }
+.skyTitle { margin: 0 0 clamp(1.25rem, 3vw, 2rem); color: #ede4d2; font: 400 clamp(2.4rem, 4.4vw, 4rem)/0.98 var(--font-heading, "Cormorant Garamond"), serif; letter-spacing: -0.03em; text-wrap: balance; font-variant-numeric: lining-nums; }
+@media (max-width: 599px) { .skyTitle { font-size: clamp(2rem, 8.6vw, 2.4rem); } }
+.skyTitle > span { display: block; }
+.skyTitle > span + span { font-style: italic; }
+.stamp { margin: 0; min-width: 9.5em; padding: 0.42rem 0.72rem; border: 1px solid #d8c49c4a; border-radius: 10px; background: #10273a; color: #b7c4ce; font: 400 13px/1.2 var(--font-body), sans-serif; font-variant-numeric: lining-nums tabular-nums; text-align: center; white-space: nowrap; }
+ul.ledger > li { grid-template-columns: 2rem minmax(0, 1fr); }
+.ledgerGlyphs { display: grid; justify-items: center; gap: 0.2rem; line-height: 1; }
+.ledgerMeta { color: #b7c4ce; font: 400 13px/1.5 var(--font-body), sans-serif; font-variant-numeric: lining-nums tabular-nums; }
+.ledgerMeta .ledgerCard { color: #ede4d2; text-decoration: underline; text-decoration-color: #d8c49c4a; text-underline-offset: 0.25em; transition: color 220ms var(--ease-control, cubic-bezier(0.2, 0.7, 0.2, 1)), text-decoration-color 220ms var(--ease-control, cubic-bezier(0.2, 0.7, 0.2, 1)); }
+.ledgerMeta .ledgerCard:hover { color: #e6cf9e; text-decoration-color: currentColor; }
+
+@media (max-width: 760px) {
+  ul.ledger > li { grid-template-columns: 1.6rem minmax(0, 1fr); }
+}
+/* the folio's controls end on its column's right edge (the full-bleed scene is 100vw; 100cqw is the column) */
+.wrap[data-sans] { container-type: inline-size; }
+@media (min-width: 761px) { .wrap[data-sans] .controls { right: max(16px, calc((100vw - 100cqw) / 2)); } }
+
+/* TonightMoon sans (the folio's first-visit plate): its date labels as the folio's eyebrows, and stacked on the
+   narrowest phones. (0,1,2) selectors, so they outrank the shared .moonDates dt rule. */
+.moonSans dl dt { font: 500 12px/1.4 var(--font-body), sans-serif; letter-spacing: 0.17em; text-transform: uppercase; color: #c7b28c; }
+.moonSans dl dd { font-variant-numeric: lining-nums tabular-nums; }
+@media (max-width: 399px) {
+  aside.moonSans { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  aside.moonSans > svg { margin-left: 0; }
+  aside.moonSans > div { justify-items: center; }
+  aside.moonSans dl { justify-content: center; }
+}
 @media (max-width: 760px) {
   /* Phones: the ring fills the width; the standing cards and the orbs grow so they still read. */
   .scene { --tilt: 54deg; --lit: 1.9; }
@@ -198,6 +278,8 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .silk span, .dealt, .cardLit, .orbWrap, .panel { animation: none; }
-  .threads line { animation: none; stroke-dashoffset: 0; }
+  .threads path { animation: none; stroke-dashoffset: 0; }
   .camera, .plane, .stand, .hinge, .card, .shadow, .engraved, .angleMark, .starName { transition: none; }
+  .scene[data-play] .plane > .plate:not(.threadLayer), .scene[data-play] .engraved { animation: none; }
+  .cardTag, .cardTagOn, .ledgerMeta .ledgerCard { transition: none; }
 }

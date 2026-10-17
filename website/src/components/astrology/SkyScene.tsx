@@ -87,6 +87,16 @@ type Props = {
   /** Another moment's planets laid over these (today's, or any day since birth): a silver inner ring. */
   transits?: Placement[] | null;
   transitLabels?: Record<string, string>;
+  // Opt-ins for the daily folio, all off by default so /astrology and the birth chart are unchanged.
+  /** Hold the plate, the deal, the orbs and the threads until the scene is 40% in view (once), then play them
+      on the folio's timings, dealt outward from the Sun's sign; rest the silk and the float while out of sight. */
+  playWhenSeen?: boolean;
+  /** Light the lying sign cards, and name each on a fine pointer's hover or keyboard focus, one at a time. */
+  nameCards?: boolean;
+  /** A body whose aspect threads are lit at rest and drawn first, at a pen's even speed; the others recede. */
+  lightKey?: string | null;
+  /** The small labels (roles, panel kickers) in the body face, at least 12px, instead of IBM Plex Mono. */
+  sans?: boolean;
 };
 
 export type Contact = { now: string; natal: string; aspect: string; orb: number };
@@ -222,21 +232,55 @@ const Plate = memo(function Plate({ uid, start, bodies, spread, ascendant, midhe
   );
 });
 
+type Point = { x: number; y: number };
+/** How long a pen takes to draw a bowed thread at an even 0.6 units per ms, within 360–1100ms (in seconds). */
+const penTime = (p: Point, bow: Point, q: Point) => {
+  let length = 0, x = p.x, y = p.y;
+  for (let k = 1; k <= 16; k++) {
+    const t = k / 16, u = 1 - t;
+    const nx = u * u * p.x + 2 * u * t * bow.x + t * t * q.x, ny = u * u * p.y + 2 * u * t * bow.y + t * t * q.y;
+    length += Math.hypot(nx - x, ny - y); x = nx; y = ny;
+  }
+  return Math.min(1.1, Math.max(0.36, length / 600));
+};
+
+type ThreadsProps = { start: number; threads: AspectFound[]; longitudes: Record<string, number>; lightKey: string | null; lead?: string | null; play?: boolean };
+
 /** The aspect threads, on their own layer so lighting one does not redraw the sky beneath. */
-const Threads = memo(function Threads({ start, threads, longitudes, lightKey }: { start: number; threads: AspectFound[]; longitudes: Record<string, number>; lightKey: string | null }) {
+const Threads = memo(function Threads({ start, threads, longitudes, lightKey, lead: wanted = null, play = false }: ThreadsProps) {
   const point = pointer(start);
+  const holds = (found: AspectFound, key: string | null) => !!key && (found.a === key || found.b === key);
+  const drawn = threads.map((found) => {
+    const a = longitudes[found.a], b = longitudes[found.b];
+    if (a === undefined || b === undefined) return null;
+    const p = point(a, R.chord), q = point(b, R.chord);
+    return { found, p, q, bow: { x: C + ((p.x + q.x) / 2 - C) * 0.3, y: C + ((p.y + q.y) / 2 - C) * 0.3 } };
+  });
+  // A leading body leads only if it holds a thread (a conjunction draws none); then its threads are drawn first,
+  // one after another at pen speed, and the rest follow. Otherwise every thread keeps its own stagger.
+  const lead = drawn.some((d) => d && holds(d.found, wanted)) ? wanted : null;
+  const paced = !!lead || play;
+  const timing = new Map<AspectFound, React.CSSProperties>();
+  if (paced) {
+    let pen = play ? 1.2 : 1.8, after = 0;
+    for (const d of drawn) if (d && holds(d.found, lead)) {
+      const time = penTime(d.p, d.bow, d.q);
+      timing.set(d.found, { animationDelay: `${pen.toFixed(2)}s`, animationDuration: `${time.toFixed(2)}s`, animationTimingFunction: "linear" });
+      pen += time;
+    }
+    for (const d of drawn) if (d && !timing.has(d.found)) timing.set(d.found, { animationDelay: `${(pen + after++ * (play ? 0.06 : 0.08)).toFixed(2)}s` });
+  }
   return (
     <svg className={`${styles.plate} ${styles.threadLayer}`} viewBox={`0 0 ${SIZE} ${SIZE}`} aria-hidden>
       {/* Aspects: gold threads bowed towards the centre, quiet until a planet is touched */}
       <g className={styles.threads}>
-        {threads.map((found, i) => {
-          const a = longitudes[found.a], b = longitudes[found.b];
-          if (a === undefined || b === undefined) return null;
-          const p = point(a, R.chord), q = point(b, R.chord);
-          const bow = { x: C + ((p.x + q.x) / 2 - C) * 0.3, y: C + ((p.y + q.y) / 2 - C) * 0.3 };
-          const on = !!lightKey && (found.a === lightKey || found.b === lightKey);
+        {drawn.map((d, i) => {
+          if (!d) return null;
+          const { found, p, q, bow } = d;
+          const on = holds(found, lightKey);
           return <path key={`${found.a}-${found.b}`} d={`M${f(p.x)},${f(p.y)} Q${f(bow.x)},${f(bow.y)} ${f(q.x)},${f(q.y)}`} pathLength={1}
-            className={`${HARMONIOUS.has(found.aspect) ? styles.threadEase : styles.threadTension} ${on ? styles.threadOn : lightKey ? styles.dim : ""}`} style={{ animationDelay: `${1.8 + i * 0.08}s` }} />;
+            className={`${HARMONIOUS.has(found.aspect) ? styles.threadEase : styles.threadTension} ${on ? styles.threadOn : lightKey ? styles.dim : lead ? (holds(found, lead) ? styles.threadOn : styles.threadRest) : ""}`}
+            style={paced ? timing.get(found) : { animationDelay: `${1.8 + i * 0.08}s` }} />;
         })}
       </g>
     </svg>
@@ -245,6 +289,7 @@ const Threads = memo(function Threads({ start, threads, longitudes, lightKey }: 
 
 export default function SkyScene(props: Props) {
   const { locale, bodies, ascendant, midheaven, aspects, signCards, labels, bodyInfo, aspectNames, strings, revealed, roleNames, description, transits, transitLabels } = props;
+  const { playWhenSeen = false, nameCards = false, lightKey: lead = null, sans = false } = props;
   const uid = useId().replace(/:/g, "");
   const sceneRef = useRef<HTMLDivElement>(null);
   const planeRef = useRef<HTMLDivElement>(null);
@@ -266,6 +311,8 @@ export default function SkyScene(props: Props) {
   const [turned, setTurned] = useState(false);
   const [touched, setTouched] = useState(false);
   const [layout, setLayout] = useState(0); // bumped when the fit changes, so the camera re-aims
+  const [play, setPlay] = useState<"wait" | "go" | undefined>(playWhenSeen ? "wait" : undefined);
+  const [named, setNamed] = useState<number | null>(null); // the lying card whose name shows (nameCards)
 
   const start = ascendant?.longitude ?? 0;
   const point = pointer(start);
@@ -291,6 +338,8 @@ export default function SkyScene(props: Props) {
   const standing = (i: number) => !stars && focus?.kind !== "body" && (roles.has(i) || focusedSign === i);
   const lightKey = hover ?? (focus?.kind === "body" ? focus.key : null);
   const dealFrom = ascendant?.index ?? 0;
+  // The folio deals outward from the Sun's sign, both ways round: how many signs away a card lies
+  const fromSun = (i: number) => { const step = (i - (sun?.index ?? dealFrom) + 12) % 12; return Math.min(step, 12 - step); };
 
   /** Set the plane's tilt, lean and turn. The plane's own transform is written directly, and the
       turn and lean go to the items layer only (the cards, planets and marks that counter-turn), so
@@ -378,6 +427,32 @@ export default function SkyScene(props: Props) {
     observer.observe(scene);
     return () => observer.disconnect();
   }, [applyMotion]);
+
+  // playWhenSeen: the entry waits, paused at its first frame, until 40% of the scene is in view (once). It plays
+  // at once without an observer, under reduced motion, in a hidden tab, or when the scene is already in view or
+  // above it at mount. Afterwards the silk and the float rest while the scene is offscreen or the tab hidden.
+  // After the fit (declared above), so the scene is measured at its real height.
+  useEffect(() => {
+    const scene = sceneRef.current;
+    if (!playWhenSeen || !scene) return;
+    const box = scene.getBoundingClientRect();
+    const shown = Math.min(box.bottom, window.innerHeight) - Math.max(box.top, 0);
+    const go = () => setPlay("go");
+    if (typeof IntersectionObserver === "undefined" || window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      || document.hidden || box.bottom <= 0 || shown >= box.height * 0.4) go();
+    if (typeof IntersectionObserver === "undefined") return;
+    let inView = shown > 0;
+    const rest = () => scene.toggleAttribute("data-idle", !inView || document.hidden);
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      if (entry.intersectionRatio >= 0.399) go();
+      rest();
+    }, { threshold: [0, 0.4] });
+    observer.observe(scene);
+    document.addEventListener("visibilitychange", rest);
+    rest();
+    return () => { observer.disconnect(); document.removeEventListener("visibilitychange", rest); scene.removeAttribute("data-idle"); };
+  }, [playWhenSeen]);
 
   // Aim the camera: at the whole ring, at the card or planet brought to the front, or down into the stars.
   // Imperative, so zooming never re-renders the scene.
@@ -599,9 +674,10 @@ export default function SkyScene(props: Props) {
   }
 
   return (
-    <div className={styles.wrap} onKeyDown={onKey}>
+    <div className={styles.wrap} onKeyDown={onKey} data-sans={sans ? "" : undefined}>
       <div className={styles.scene} ref={sceneRef} data-light={lightKey ? "" : undefined} data-view={stars ? "stars" : undefined}
-        data-close={focus ? "" : undefined} data-touched={touched ? "" : undefined} data-now={nowList.length ? "" : undefined}>
+        data-close={focus ? "" : undefined} data-touched={touched ? "" : undefined} data-now={nowList.length ? "" : undefined}
+        data-play={play} data-names={nameCards ? "" : undefined}>
         <div className={styles.silk} aria-hidden><span /><span /><span /></div>
         <p className={styles.srOnly}>{description}</p>
         <div className={styles.fit}>
@@ -609,7 +685,7 @@ export default function SkyScene(props: Props) {
             <div className={styles.stage}>
               <div className={styles.plane} ref={planeRef}>
                 <Plate uid={uid} start={start} bodies={bodies} spread={spread} ascendant={ascendant} midheaven={midheaven} />
-                <Threads start={start} threads={threads} longitudes={longitudes} lightKey={lightKey} />
+                <Threads start={start} threads={threads} longitudes={longitudes} lightKey={lightKey} lead={lead} play={playWhenSeen} />
                 {nowList.length > 0 && <NowLayer start={start} transits={nowList} natal={longitudes} contacts={contacts} />}
 
                 {/* Invisible, unanimated stand-ins for the cards, lying and standing at every place (the sky
@@ -643,13 +719,22 @@ export default function SkyScene(props: Props) {
                     const at = point(i * 30 + 15, R.cards);
                     const role = roles.get(i) ?? (focusedSign === i ? [`${SIGN_GLYPHS[i]}${TEXT} ${card.sign}`] : undefined);
                     const order = (i - dealFrom + 12) % 12;
+                    // The folio's deal: outward from the Sun's sign, 220ms + 45ms a sign, the standing cards last and slower
+                    const deal = playWhenSeen ? { ["--delay" as string]: `${roles.has(i) ? 0.6 : (0.22 + fromSun(i) * 0.045).toFixed(3)}s`, ["--deal" as string]: roles.has(i) ? "900ms" : "700ms" } : null;
+                    const unname = () => setNamed((n) => (n === i ? null : n));
                     return (
                       <span key={card.href} className={`${styles.slot} ${styles.dealt}`}
-                        style={{ ...place(at), ["--dx" as string]: `${f(C - at.x)}px`, ["--dy" as string]: `${f(C - at.y)}px`, ["--delay" as string]: `${0.2 + order * 0.11}s` }}>
+                        style={{ ...place(at), ["--dx" as string]: `${f(C - at.x)}px`, ["--dy" as string]: `${f(C - at.y)}px`, ["--delay" as string]: `${0.2 + order * 0.11}s`, ...deal }}>
                         <span className={`${styles.hinge} ${standing(i) ? styles.rise : styles.lie}`}>
                           <button type="button" className={`${styles.card} ${standing(i) ? styles.cardLit : ""}`}
                             aria-label={`${card.sign}: ${card.name}`} aria-pressed={focusedSign === i}
-                            onClick={(event) => bring({ kind: "sign", index: i }, event.currentTarget)}>
+                            onClick={(event) => bring({ kind: "sign", index: i }, event.currentTarget)}
+                            {...(nameCards ? {
+                              onPointerEnter: (event: React.PointerEvent) => { if (event.pointerType !== "touch") setNamed(i); },
+                              onPointerLeave: unname,
+                              onFocus: (event: React.FocusEvent<HTMLElement>) => { if (event.currentTarget.matches(":focus-visible")) setNamed(i); },
+                              onBlur: unname,
+                            } : {})}>
                             {role && standing(i) && <span className={styles.role}>{role.join(" · ")}</span>}
                             <span className={styles.art}>
                               {/* eslint-disable-next-line @next/next/no-img-element -- static card art */}
@@ -657,6 +742,12 @@ export default function SkyScene(props: Props) {
                             </span>
                           </button>
                         </span>
+                        {/* Its name, upright above the lying card like a planet's tag, for a pointer or keyboard */}
+                        {nameCards && (
+                          <span className={styles.stand} aria-hidden>
+                            <span className={`${styles.cardTag} ${named === i && !standing(i) && !focus && !stars ? styles.cardTagOn : ""}`}>{card.name}</span>
+                          </span>
+                        )}
                       </span>
                     );
                   })}
@@ -666,7 +757,7 @@ export default function SkyScene(props: Props) {
                   {bodies.map((body, i) => {
                     const at = point(spread[i], R.planet);
                     return (
-                      <span key={body.key} className={styles.slot} style={{ ...place(at), ["--delay" as string]: `${1.5 + i * 0.06}s` }}>
+                      <span key={body.key} className={styles.slot} style={{ ...place(at), ["--delay" as string]: playWhenSeen ? `${(0.7 + i * 0.04).toFixed(2)}s` : `${1.5 + i * 0.06}s` }}>
                         <span className={styles.stand}>
                           <span className={`${styles.orbWrap} ${lightKey === body.key ? styles.orbFocus : ""}`} aria-hidden
                             onPointerEnter={() => setHover(body.key)} onPointerLeave={() => setHover(null)}
