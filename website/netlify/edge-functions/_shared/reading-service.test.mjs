@@ -344,3 +344,13 @@ test('Amielle receives trusted relationship meanings in both languages without t
  }
  assert.throws(()=>validateReading({...valid,deckId:'unknown'}));
 });
+
+test('completed Amielle Minor meanings are edition-aware while private reflection data is excluded',()=>{
+ const base={...valid,deckId:'space-between',spreadId:'single',cards:[{id:22,orientation:'upright'}]};
+ const legacy=readingContext(validateReading(base)).cards[0].symbolicMeaning;
+ const current=validateReading({...base,artworkEdition:'amielle-relationships-v2',origin:{practice:'astrology',cardId:0,role:'Sun'},response:'Private words',followups:[{now:'Private return'}]});
+ assert.notEqual(readingContext(current).cards[0].symbolicMeaning,legacy);
+ assert.equal(current.origin,undefined);assert.equal(current.response,undefined);assert.equal(current.followups,undefined);
+ assert.throws(()=>validateReading({...base,artworkEdition:'unknown'}));
+ assert.throws(()=>validateReading({...base,deckId:'olivia',artworkEdition:'amielle-relationships-v2'}));
+});

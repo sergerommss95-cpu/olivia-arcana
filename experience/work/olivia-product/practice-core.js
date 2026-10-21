@@ -53,7 +53,19 @@ function identity(kind, id) {
 }
 
 function emptyMetadata(kind, id) {
-  return { ...identity(kind, id), topic: '', nextStep: '', revisitDate: '', outcome: '', reviewedAt: null };
+  return { ...identity(kind, id), topic: '', nextStep: '', revisitDate: '', outcome: '', reviewedAt: null, title: '', response: '', resonance: '', originalResponse: '', originalNextStep: '', followups: [] };
+}
+
+function resonance(value) {
+  if (!['', 'resonates', 'unsure', 'disagree'].includes(value)) fail('Choose a valid reflection response.');
+  return value;
+}
+function followups(values) {
+  if (!Array.isArray(values) || values.length > 100) fail('A reading may hold at most 100 follow-ups.');
+  return values.map(value => {
+    if (!object(value) || value.createdAt === null) fail('A dated follow-up is required.');
+    return { createdAt: timestamp(value.createdAt), now: text(value.now, 'What changed', 2000, true), nextStep: text(value.nextStep, 'Next step', 400) };
+  });
 }
 
 function metadata(value) {
@@ -65,6 +77,12 @@ function metadata(value) {
     revisitDate: calendarDate(value.revisitDate, true),
     outcome: text(value.outcome, 'What happened', 2000),
     reviewedAt: timestamp(value.reviewedAt),
+    title: text(value.title ?? '', 'Title', 120).trim(),
+    response: text(value.response ?? '', 'Personal response', 2000),
+    resonance: resonance(value.resonance ?? ''),
+    originalResponse: text(value.originalResponse ?? '', 'Original response', 4000),
+    originalNextStep: text(value.originalNextStep ?? '', 'Original step', 400),
+    followups: followups(value.followups ?? []),
   };
 }
 
@@ -143,11 +161,33 @@ export function saveMetadata(storage, value) {
   if (!object(value)) fail('Practice details must be an object.');
   const { kind, id } = identity(value.kind, value.id);
   const entries = loadMetadata(storage);
-  const entry = metadata({ ...getMetadata(entries, kind, id), ...value });
+  const prior = getMetadata(entries, kind, id);
+  if(value.followups!==undefined&&prior.followups.some((entry,index)=>JSON.stringify(entry)!==JSON.stringify(value.followups[index])))fail('A newer dated follow-up is already saved. Reopen the reading before adding your words.');
+  const entry = metadata({ ...prior, ...value,
+    originalResponse: prior.originalResponse || value.originalResponse || value.response || '',
+    originalNextStep: prior.originalNextStep || prior.nextStep || value.originalNextStep || value.nextStep || '',
+  });
   const index = entries.findIndex(item => item.kind === kind && item.id === id);
   if (index === -1) entries.push(entry); else entries[index] = entry;
   write(storage, METADATA_KEY, 'entries', entries);
   return entry;
+}
+
+/** Append a dated return; previous words remain intact and exportable. */
+export function appendFollowup(storage, kind, id, {now, nextStep = '', createdAt = new Date().toISOString(), revisitDate = ''}) {
+  const prior = getMetadata(loadMetadata(storage), kind, id);
+  const entry = {createdAt, now, nextStep};
+  followups([...prior.followups, entry]);
+  return saveMetadata(storage, {...prior, followups: [...prior.followups, entry], outcome: now,
+    nextStep, reviewedAt: revisitDate ? null : createdAt, revisitDate});
+}
+
+/** Explicitly described counts; never inferred personality or diagnosis. */
+export function practiceRetrospective(entries) {
+  const valid = metadataList(entries);
+  return { reflected: valid.filter(entry => entry.response || entry.nextStep).length,
+    revisited: valid.filter(entry => entry.followups.length || entry.reviewedAt).length,
+    returns: valid.reduce((sum, entry) => sum + entry.followups.length, 0), topics: deriveTopics(valid) };
 }
 
 /** Remove only one reading's follow-up metadata; return it so callers can undo. */

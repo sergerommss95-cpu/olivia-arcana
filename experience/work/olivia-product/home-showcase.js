@@ -2,6 +2,7 @@ import {showArt} from './held-art.js';
 import {MEMBERSHIP_LIVE} from './membership.js';
 /** Lightweight, explicitly labelled product examples. No draws or records are created here. */
 const UK = {
+  sampleNextStep:'Прогуляйтеся в тиші, перш ніж просити ще одну пораду. Помітьте думку, яку хочете зберегти.',
   practiceKicker:'Особиста практика у трьох моментах', practiceTitle:'Залиште місце<br><em>для іншого погляду.</em>', begin:'Почніть зі свого запитання',
   yourQuestion:'ВАШЕ ЗАПИТАННЯ', exampleQuestion:'Що потребує моєї уваги,<br>поки я обмірковую зміни?', bringQuestion:'Принесіть запитання.', questionCaption:'Щось незавершене. Або просто те, як ви почуваєтеся сьогодні.',
   chooseCard:'Оберіть свою карту.', fullDeck:'78 карт. Ваш власний вибір.', cardCaption:'Відкрийте її. Прочитайте значення поруч зі своїм запитанням.',

@@ -3,7 +3,8 @@ export const DEFAULT_DECK_ID='olivia';
 export const DECK_PREFERENCE_KEY='olivia-preferred-deck-v1';
 export const DECK_IDS=Object.freeze(['olivia','space-between']);
 export function resolveDeckId(id){return DECK_IDS.includes(id)?id:DEFAULT_DECK_ID;}
-export const AMIELLE_EDITION='amielle-relationships-v1';
+export const AMIELLE_EDITION='amielle-relationships-v2';
+export const AMIELLE_LEGACY_EDITION='amielle-relationships-v1';
 export const ARTWORK_PREFERENCE_KEY='olivia-amielle-artwork-v1';
 export const ARTWORK_CHOICES=Object.freeze(['woman-man','men','women']);
 export function createDeckController({original,collections={},storage}){
@@ -11,20 +12,21 @@ export function createDeckController({original,collections={},storage}){
  const complete=id=>registry[id]?.back&&Array.from({length:78},(_,i)=>registry[id].cards?.[i]).every(Boolean);
  let preferred=DEFAULT_DECK_ID,artwork='woman-man';
  try{const saved=storage?.getItem(DECK_PREFERENCE_KEY);if(DECK_IDS.includes(saved)&&complete(saved))preferred=saved;const choice=storage?.getItem(ARTWORK_PREFERENCE_KEY);if(ARTWORK_CHOICES.includes(choice))artwork=choice;}catch{}
- const choiceFor=id=>({deckId:resolveDeckId(id),...(id==='space-between'&&complete(AMIELLE_EDITION)?{artworkEdition:AMIELLE_EDITION,artworkVariant:artwork}:{})});
+ const currentEdition=()=>complete(AMIELLE_EDITION)?AMIELLE_EDITION:AMIELLE_LEGACY_EDITION;
+ const choiceFor=id=>({deckId:resolveDeckId(id),...(id==='space-between'&&complete(currentEdition())?{artworkEdition:currentEdition(),artworkVariant:artwork}:{})});
  const forRecord=record=>{const id=resolveDeckId(record?.deckId),base=registry[id]||original;
-  if(id!=='space-between'||record?.artworkEdition!==AMIELLE_EDITION||!complete(AMIELLE_EDITION))return base;
-  const edition=registry[AMIELLE_EDITION],variant=ARTWORK_CHOICES.includes(record?.artworkVariant)?record.artworkVariant:'woman-man';
+  if(id!=='space-between'||![AMIELLE_EDITION,AMIELLE_LEGACY_EDITION].includes(record?.artworkEdition)||!complete(record.artworkEdition))return base;
+  const edition=registry[record.artworkEdition],variant=ARTWORK_CHOICES.includes(record?.artworkVariant)?record.artworkVariant:'woman-man';
   return variant==='woman-man'?edition:{...edition,cards:{...edition.cards,...edition.variants?.[variant]}};
  };
  let active=choiceFor(preferred);
  const get=id=>forRecord(choiceFor(id));
  const assets={...original,get back(){return forRecord(active).back;},get cards(){return forRecord(active).cards;},get deckId(){return active.deckId;},forRecord};
  return {assets,original,get,getSelectedId:()=>preferred,getActiveId:()=>active.deckId,getArtworkChoice:()=>artwork,getChoice:()=>({...choiceFor(preferred)}),availableIds:()=>DECK_IDS.filter(complete),
-  artworkChoices(id='space-between'){if(id!=='space-between'||!complete(AMIELLE_EDITION))return [];const edition=registry[AMIELLE_EDITION];return ARTWORK_CHOICES.map(value=>({value,src:value==='woman-man'?edition.cards[6]:edition.variants?.[value]?.[6]})).filter(choice=>choice.src);},
+  artworkChoices(id='space-between'){if(id!=='space-between'||!complete(currentEdition()))return [];const edition=registry[currentEdition()];return ARTWORK_CHOICES.map(value=>({value,src:value==='woman-man'?edition.cards[6]:edition.variants?.[value]?.[6]})).filter(choice=>choice.src);},
   use(value){active=typeof value==='object'&&value!==null?{...value,deckId:resolveDeckId(value.deckId)}:choiceFor(complete(resolveDeckId(value))?resolveDeckId(value):DEFAULT_DECK_ID);return forRecord(active);},
   select(id){if(!DECK_IDS.includes(id)||!complete(id))return false;preferred=id;active=choiceFor(id);try{storage?.setItem(DECK_PREFERENCE_KEY,id);}catch{}return true;},
-  selectArtwork(value){if(!ARTWORK_CHOICES.includes(value)||!complete(AMIELLE_EDITION))return false;artwork=value;active=choiceFor(preferred);try{storage?.setItem(ARTWORK_PREFERENCE_KEY,value);}catch{}return true;}
+  selectArtwork(value){if(!ARTWORK_CHOICES.includes(value)||!complete(currentEdition()))return false;artwork=value;active=choiceFor(preferred);try{storage?.setItem(ARTWORK_PREFERENCE_KEY,value);}catch{}return true;}
  };
 }
 export function deckInfo(id,locale='en'){

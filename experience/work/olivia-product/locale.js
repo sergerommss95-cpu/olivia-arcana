@@ -123,7 +123,7 @@ export function initLocale(root = document.body) {
 
 /** Ukrainian notes are native renderings of the curated English (card-notes-uk.js). */
 export function localizeCardNotes(cardId, notes, options = {}) {
-  if(options.artworkEdition==='amielle-relationships-v1'){const meaning=amiellePreparedMeaning(cardId,options.orientation==='reversed'||options.reversed===true,options.locale||getLocale());if(meaning)return {...notes,...meaning};}
+  if(['amielle-relationships-v1','amielle-relationships-v2'].includes(options.artworkEdition)){const meaning=amiellePreparedMeaning(cardId,options.orientation==='reversed'||options.reversed===true,options.locale||getLocale(),options.artworkEdition);if(meaning)return {...notes,...meaning};}
   if ((options.locale || getLocale()) !== 'uk') return notes;
   const native = UK_NOTES[cardId];
   if (!native) return notes;

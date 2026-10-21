@@ -16,6 +16,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { LOCALE_NAMES, LOCALE_FLAGS, type Locale } from "../lib/i18n/translations";
 import { useLocale } from "../lib/i18n/useLocale";
 
+import { localizedRoute } from "../lib/i18n/route-locale";
+
 const LOCALES: Locale[] = ["en", "uk", "ru", "de", "fr", "ar", "es", "pt"];
 
 interface Props {
@@ -40,9 +42,8 @@ export default function LanguageSwitcher({ openUp = false }: Props) {
     setLocale(locale);
     setOpen(false);
     if (locale === "en" || locale === "uk") {
-      const unprefixed = location.pathname.replace(/^\/uk(?=\/|$)/, "") || "/";
-      const localized = unprefixed === "/" || /^\/cards(?:\/|$)/.test(unprefixed);
-      if (localized) location.assign((locale === "uk" ? "/uk" + (unprefixed === "/" ? "/" : unprefixed) : unprefixed) + location.search + location.hash);
+      const localized = localizedRoute(location.pathname, locale);
+      if (localized) location.assign(localized + location.search + location.hash);
       else if (locale === "uk") location.assign("/uk/");
     }
   };
