@@ -158,6 +158,127 @@ def no_aniso(m):
     return m
 
 
+def mat_zinc(name='ZincBlock', base=(0.43, 0.44, 0.45), rough=(0.36, 0.52)):
+    """Heavy zinc-plated / die-cast steel block: matte mottled metal, faint spangle, edges rubbed brighter and smoother
+    (Bevel-node edge mask), a little grime."""
+    m = new_mat(name)
+    nb = NB(m)
+    p = principled(m)
+    p.inputs['Metallic'].default_value = 1.0
+    tc = nb.n('ShaderNodeTexCoord')
+    geo = nb.n('ShaderNodeNewGeometry')
+    bv = nb.n('ShaderNodeBevel', {'samples': 6}, Radius=0.0012)
+    dp = nb.n('ShaderNodeVectorMath', {'operation': 'DOT_PRODUCT'})
+    nb.l(bv, 'Normal', dp, 0)
+    nb.l(geo, 'Normal', dp, 1)
+    edge = nb.n('ShaderNodeMapRange', **{'From Min': 0.997, 'From Max': 0.94})
+    nb.L.new(dp.outputs['Value'], edge.inputs['Value'])
+    vor = nb.n('ShaderNodeTexVoronoi', Scale=420.0)
+    nb.l(tc, 'Object', vor, 'Vector')
+    mot = nb.n('ShaderNodeTexNoise', Scale=90.0, Detail=6.0, Roughness=0.62)
+    nb.l(tc, 'Object', mot, 'Vector')
+    fin = nb.n('ShaderNodeTexNoise', Scale=1400.0, Detail=3.0)
+    nb.l(tc, 'Object', fin, 'Vector')
+    cr = nb.ramp(mot, 'Fac', [(0.3, tuple(c * 0.78 for c in base)), (0.72, base)])
+    sp = nb.ramp(vor, 'Color', [(0.0, (0.94, 0.94, 0.94)), (1.0, (1.06, 1.06, 1.06))])
+    col = nb.n('ShaderNodeMix', {'data_type': 'RGBA', 'blend_type': 'MULTIPLY'})
+    col.inputs[0].default_value = 1.0
+    nb.L.new(cr.outputs['Color'], col.inputs[6])
+    nb.L.new(sp.outputs['Color'], col.inputs[7])
+    cedge = nb.mix(col, tuple(min(1.0, c * 1.35) for c in base), edge)
+    nb.L.new(nb.out_of(cedge), p.inputs['Base Color'])
+    rr = nb.ramp(mot, 'Fac', [(0.3, (rough[0],) * 3), (0.72, (rough[1],) * 3)])
+    redge = nb.mix(rr, (rough[0] * 0.55,) * 3, edge)
+    nb.L.new(nb.out_of(redge), p.inputs['Roughness'])
+    h = nb.math('ADD', nb.math('MULTIPLY', fin, None, vb=0.5), nb.math('MULTIPLY', vor, None, vb=0.3))
+    bmp = nb.n('ShaderNodeBump', Strength=0.35, Distance=6e-6)
+    nb.l(h, 0, bmp, 'Height')
+    nb.l(bmp, 'Normal', p, 'Normal')
+    return m
+
+
+def mat_nameplate(name='MakerPlate'):
+    """Small satin steel maker's plate with rows of fine engraved marks that read as text but are not legible (no
+    glyphs): dashes of random length in two rows. Plate local X = width, Z = height (built in XZ)."""
+    m = new_mat(name)
+    nb = NB(m)
+    p = principled(m)
+    p.inputs['Metallic'].default_value = 1.0
+    tc = nb.n('ShaderNodeTexCoord')
+    sep = nb.n('ShaderNodeSeparateXYZ')
+    nb.l(tc, 'Object', sep, 0)
+    # rows: |sin| bands in Z (2 rows inside the plate), dashes: thresholded noise along X
+    rowz = nb.math('MULTIPLY', None, None, vb=2 * math.pi / 0.0032)
+    nb.L.new(sep.outputs['Z'], rowz.inputs[0])
+    rs = nb.math('SINE', rowz)
+    row = nb.n('ShaderNodeMapRange', **{'From Min': 0.55, 'From Max': 0.75})
+    nb.L.new(rs.outputs[0], row.inputs['Value'])
+    inside = nb.n('ShaderNodeMapRange', **{'From Min': 0.0033, 'From Max': 0.0029})
+    az = nb.math('ABSOLUTE', None, None)
+    nb.L.new(sep.outputs['Z'], az.inputs[0])
+    nb.L.new(az.outputs[0], inside.inputs['Value'])
+    dz = nb.math('SNAP', None, None, vb=0.0032)
+    nb.L.new(sep.outputs['Z'], dz.inputs[0])
+    cmb = nb.n('ShaderNodeCombineXYZ')
+    nb.L.new(sep.outputs['X'], cmb.inputs['X'])
+    nb.L.new(dz.outputs[0], cmb.inputs['Y'])
+    dash = nb.n('ShaderNodeTexNoise', Scale=900.0, Detail=0.0)
+    nb.l(cmb, 'Vector', dash, 'Vector')
+    dm = nb.n('ShaderNodeMapRange', **{'From Min': 0.47, 'From Max': 0.5})
+    nb.l(dash, 'Fac', dm, 'Value')
+    inx = nb.n('ShaderNodeMapRange', **{'From Min': 0.0082, 'From Max': 0.0076})
+    ax = nb.math('ABSOLUTE', None, None)
+    nb.L.new(sep.outputs['X'], ax.inputs[0])
+    nb.L.new(ax.outputs[0], inx.inputs['Value'])
+    eng = nb.math('MULTIPLY', nb.math('MULTIPLY', row, dm), nb.math('MULTIPLY', inside, inx))
+    mark = eng
+    mot = nb.n('ShaderNodeTexNoise', Scale=300.0, Detail=5.0)
+    nb.l(tc, 'Object', mot, 'Vector')
+    cr = nb.ramp(mot, 'Fac', [(0.3, (0.40, 0.40, 0.40)), (0.7, (0.58, 0.58, 0.59))])
+    col = nb.mix(cr, (0.05, 0.05, 0.05), mark)
+    nb.L.new(nb.out_of(col), p.inputs['Base Color'])
+    rr = nb.mix((0.28, 0.28, 0.28), (0.6, 0.6, 0.6), mark)
+    nb.L.new(nb.out_of(rr), p.inputs['Roughness'])
+    bmp = nb.n('ShaderNodeBump', Strength=0.8, Distance=8e-5, attrs={'invert': True})
+    nb.l(mark, 0, bmp, 'Height')
+    nb.l(bmp, 'Normal', p, 'Normal')
+    return m
+
+
+def mat_masking(name='MaskingTape', color=(0.56, 0.53, 0.46)):
+    """Ordinary matte paper tape: pale cream, slightly translucent (subsurface + a little transmission), fine crepe
+    across the strip, soft creases. Uses the ribbon UVs (u along, v across, metres)."""
+    m = mat_principled(name, color=color, rough=0.78, spec=0.3)
+    nb = NB(m)
+    p = principled(m)
+    p.inputs['Subsurface Weight'].default_value = 0.35
+    p.inputs['Subsurface Scale'].default_value = 0.0006
+    p.inputs['Transmission Weight'].default_value = 0.12
+    uv = nb.n('ShaderNodeUVMap')
+    crepe = nb.n('ShaderNodeTexWave', {'wave_type': 'BANDS', 'bands_direction': 'X'}, Scale=780.0, Distortion=4.0,
+                 Detail=3.0, **{'Detail Scale': 2.0})
+    nb.l(uv, 'UV', crepe, 'Vector')
+    crease = nb.n('ShaderNodeTexWave', {'wave_type': 'BANDS', 'bands_direction': 'X'}, Scale=38.0, Distortion=9.0,
+                  Detail=2.0)
+    nb.l(uv, 'UV', crease, 'Vector')
+    cz = nb.n('ShaderNodeMapRange', **{'From Min': 0.86, 'From Max': 0.98})
+    nb.l(crease, 'Fac', cz, 'Value')
+    tc = nb.n('ShaderNodeTexCoord')
+    fib = nb.n('ShaderNodeTexNoise', Scale=2600.0, Detail=5.0)
+    nb.l(tc, 'Object', fib, 'Vector')
+    dirt = nb.n('ShaderNodeTexNoise', Scale=150.0, Detail=4.0)
+    nb.l(tc, 'Object', dirt, 'Vector')
+    cr = nb.ramp(dirt, 'Fac', [(0.3, tuple(c * 0.86 for c in color)), (0.7, color)])
+    cmix = nb.mix(cr, tuple(c * 0.8 for c in color), cz)
+    nb.L.new(nb.out_of(cmix), p.inputs['Base Color'])
+    h = nb.math('ADD', nb.math('ADD', nb.math('MULTIPLY', crepe, None, vb=0.5), nb.math('MULTIPLY', fib, None, vb=0.3)),
+                nb.math('MULTIPLY', cz, None, vb=1.4))
+    bmp = nb.n('ShaderNodeBump', Strength=0.45, Distance=2.2e-5)
+    nb.l(h, 0, bmp, 'Height')
+    nb.l(bmp, 'Normal', p, 'Normal')
+    return m
+
+
 def _a1_paint(name, color, rough, scale, **kw):
     """A1's worn-paint shader (door_ff.mat_worn_paint) at macro grain; plain mat_paint if door_ff is unavailable."""
     try:
@@ -199,7 +320,11 @@ def macro_mats():
     M['cable'] = mat_principled('MCable', color=(0.03, 0.03, 0.032), rough=0.55)
     M['alu'] = mat_macro_steel('MAluminium', base=(0.80, 0.81, 0.82), rough=(0.26, 0.42), brush='X', scale=1.6,
                                streak=0.9, scratch=0.4, grime=0.06, aniso=0.55)
-    M['tape'] = mat_gaff_macro()
+    M['tape'] = mat_masking()
+    M['zinc'] = mat_zinc('MZincBlock')
+    M['nameplate'] = mat_nameplate('MMakerPlate')
+    M['rivet'] = mat_metal('MRivet', base=(0.55, 0.55, 0.56), rough=(0.2, 0.32), scale=400.0, bump=0.0, grime=0.2,
+                           scratches=0.0)
     M['black'] = mat_principled('MBlack', color=(0.004, 0.004, 0.0045), rough=0.6)
     M['glass'] = mat_lens_glass()
     # drill bit: ground HSS lands and point, darker oxide flutes, satin shank
@@ -639,9 +764,21 @@ def mag_plate(M, side, proto, name, loosen=(0.0, 0.0, 0.0, 0.0), coll=None, cabl
     g, w, h, t = PL['gap'], PL['w'], PL['h'], PL['t']
     yb = 0.0 if side < 0 else -FRAME_PROUD
     xa, xb = sorted((side * g, side * (g + w)))
-    blk = rbox(name + '_block', xa, xb, yb - t, yb + 0.0003, -h / 2, h / 2, bev=0.0025, seg=3, mat=M['magface'],
+    blk = rbox(name + '_block', xa, xb, yb - t, yb + 0.0003, -h / 2, h / 2, bev=0.0025, seg=3, mat=M['zinc'],
                coll=coll)
     parts, screws = [blk], []
+    # small maker's plate (engraving texture, illegible) with two rivets, on the block front
+    xc = side * (g + w / 2)
+    npl = rbox(name + '_maker', xc - 0.0105, xc + 0.0105, yb - t - 0.0004, yb - t + 0.0001, 0.026, 0.0352, bev=0.0002,
+               coll=coll)
+    set_mat(npl, M['nameplate'])
+    parts.append(npl)
+    for sx_ in (-1, 1):
+        rv = prim('sphere', name + '_rivet', (xc + sx_ * 0.0092, yb - t - 0.0004, 0.0306), seg=16, ring=8, r=0.00055,
+                  coll=coll)
+        rv.scale = (1, 0.5, 1)
+        set_mat(rv, M['rivet'])
+        parts.append(rv)
     rng = random.Random(11 + side)
     k = 0
     for zz in (PL['sdz'], -PL['sdz']):
