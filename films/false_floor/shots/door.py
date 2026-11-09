@@ -20,7 +20,8 @@ import door_ff as D
 
 SHOT = arg('--shot', 'S14')
 FRAMES = {'S00': 252, 'S01': 252, 'S10': 252, 'S14': 252, 'S20': 1, 'S25': 252, 'S32': 162, 'S52': 252,
-          'N2': 90, 'N8': 75}       # N*: v2 test sequence 'The Night' (script/SEQ_NIGHT.json)
+          'N2': 90, 'N8': 75,       # N*: v2 test sequence 'The Night' (script/SEQ_NIGHT.json)
+          'C3': 90, 'C4': 80, 'C5': 40, 'C11': 90}   # C*: v2 COLD OPEN (script/SEQ_COLD.json), Monday morning
 N = FRAMES[SHOT]
 H = 6                       # handles
 A, B = H + 1, N - H         # first / last frame used by the cut
@@ -32,19 +33,22 @@ setup_render(1, N, res=(2560, 1440) if STILL else RES_FINAL, samples=96 if STILL
              clamp=4.0, vol_step=6.0, shutter=0.5)
 world_color((0.0012, 0.0013, 0.0016))
 
-need_vault = SHOT in ('S00', 'S01', 'S25', 'S32', 'S52', 'N8') and not arg('--novault')
+need_vault = SHOT in ('S00', 'S01', 'S25', 'S32', 'S52', 'N8', 'C3', 'C4', 'C5', 'C11') and not arg('--novault')
 # S00/S01 keep the door_ff dial + painted contact plates they were approved/rendered with; every later shot matches A2's
 # macros (zinc contact blocks, top-reading lens hood) per the lead.
 S = D.build_set(vault=need_vault, stair=True, grate=True, cctv=True, key=(SHOT == 'S25'), a2=SHOT not in ('S00', 'S01'),
                 forced=(0.0, 0.0) if SHOT == 'N8' else (0.6, 0.62), debris=SHOT != 'N8')   # N8: before the boxes
+COLD = SHOT in ('C3', 'C4', 'C5', 'C11')     # Monday morning = after the heist: door wide open, boxes forced, papers down
+if COLD:
+    SEIS = D.build_seismic(S)                # on the door's inner face near the hinge edge (VO: "A seismic sensor.")
 
 # ---- door / grate states -----------------------------------------------------------------------------------------
 AJAR = 2.0                  # S00/S52 hairline (degrees)
 OPEN = 112.0                # wide open (S01/S32/start of S52)
 door, grate = S['door'], S['grate']
-D.set_bolts(S, extended=SHOT in ('S10', 'S14', 'S20', 'S25', 'S01', 'S32', 'N2'))   # thrown bolts read best on the open door
-D.set_door(S, {'S00': AJAR, 'S01': OPEN, 'S32': OPEN, 'S52': OPEN}.get(SHOT, 0.0))
-grate.rotation_euler.z = {'S01': R(84), 'S32': R(84), 'N2': R(78), 'N8': R(78)}.get(SHOT, 0.0)
+D.set_bolts(S, extended=SHOT in ('S10', 'S14', 'S20', 'S25', 'S01', 'S32', 'N2') or COLD)   # thrown bolts read best on the open door
+D.set_door(S, OPEN if COLD else {'S00': AJAR, 'S01': OPEN, 'S32': OPEN, 'S52': OPEN}.get(SHOT, 0.0))
+grate.rotation_euler.z = R(84) if COLD else {'S01': R(84), 'S32': R(84), 'N2': R(78), 'N8': R(78)}.get(SHOT, 0.0)
 S['dial'].rotation_euler.z = R(-23.0)        # resting position of the wheel (an arbitrary number; no numerals shown)
 
 # ---- camera helpers ----------------------------------------------------------------------------------------------
@@ -340,6 +344,134 @@ elif SHOT in ('N2', 'N8'):
                 kp.easing = 'EASE_OUT'
         shake(cam, 0.003, 0.0015, scale=12, seed=8)
         motes_box = ((-1.1, 0.8, 0.2), (1.1, 4.5, 2.6))
+
+elif COLD:
+    # v2 COLD OPEN (script/SEQ_COLD.json): Monday 17 Feb 2003, the guard (lib/cast.py) finds the vault open.
+    import cast as CA
+    import human as HU
+    import mocap as MC
+    from mathutils import Vector as V3
+
+    def smooth_keys(ob, interp='BEZIER', easing=None):
+        for fc in fcurves(ob):
+            for kp in fc.keyframe_points:
+                kp.interpolation = interp
+                if easing:
+                    kp.easing = easing
+                else:
+                    kp.handle_left_type = kp.handle_right_type = 'AUTO_CLAMPED'
+
+    def door_pt(local):
+        """World position of a point given in door coordinates (door shut), for the door standing OPEN."""
+        bpy.context.view_layer.update()
+        return door.matrix_world @ (door.matrix_parent_inverse @ V3(local)) if False else \
+            V3((D.HINGE_X, D.HINGE_Y, 0.0)) + V3((math.cos(-R(OPEN)) * (local[0] - D.HINGE_X) - math.sin(-R(OPEN)) * (local[1] - D.HINGE_Y),
+                                                   math.sin(-R(OPEN)) * (local[0] - D.HINGE_X) + math.cos(-R(OPEN)) * (local[1] - D.HINGE_Y),
+                                                   local[2]))
+
+    if SHOT == 'C3':
+        # FPV behind the guard: down the last of the flight as he walks off the stairs onto the landing and through the
+        # open grate; the antechamber battens stutter on as he crosses the threshold. Before that, the room beyond the
+        # bars is lit only by the warm vault doorway.
+        LA = D.light_ante(S, 'day', scale=1.5, k=4800)
+        D.light_vault(S, 'warm', key_power=40.0, spill=60.0)
+        sc.view_settings.exposure = 1.25
+        slope = math.atan2(0.18, 0.28)
+        fl = light('AREA', 'StairFill', (0.0, -7.6, 2.5 + 2.6 * 0.18 / 0.28 - 0.15), (-slope, 0, 0), energy=150.0,
+                   color=kelvin(5000), size=1.3, size_y=2.6, shape='RECTANGLE')
+        fl.visible_glossy = False
+        fx = LA['fix']
+        D.key_fixture(fx['A'], [(1, 0.0), (34, 0.0), (35, 0.8), (37, 0.0), (41, 0.5), (42, 1.0), (44, 0.15), (47, 1.0),
+                                (49, 0.6), (51, 1.0)])
+        D.key_fixture(fx['B'], [(1, 0.0), (36, 0.0), (37, 0.6), (39, 0.0), (43, 0.9), (45, 0.0), (48, 1.0), (50, 0.4),
+                                (52, 1.0)])
+        g = CA.make('guard')
+        MC.apply(g, MC.load('02', '02_01'), start_frame=1, src_range=(0, 342), step=4, pos=(0.10, -4.92), yaw_deg=180)
+        cam = make_cam(22, 4.0, [(1, (0.1, -4.6, 1.2)), (N, (0.1, -2.4, 1.2))])
+        cam_path(cam, [(1, (0.22, -7.15, 1.36 + 1.42), (0.08, -3.2, 0.95), R(-4)),
+                       (A, (0.21, -7.0, 1.27 + 1.42), (0.08, -3.1, 0.95), R(-3)),
+                       (40, (0.02, -5.75, 0.48 + 1.25), (0.1, -2.6, 1.05), R(3)),
+                       (62, (0.06, -5.0, 1.62), (0.1, -1.6, 1.15), R(-1)),
+                       (N, (0.12, -4.25, 1.6), (0.05, -0.6, 1.12), R(0))])
+        smooth_keys(cam)
+        shake(cam, 0.005, 0.003, scale=8, seed=31)
+        motes_box = ((-0.7, -7.0, 0.3), (0.7, -3.9, 3.2))
+
+    elif SHOT == 'C4':
+        # Over the guard's right shoulder as he stops dead: the door standing wide open, the lit, forced vault beyond.
+        D.light_ante(S, 'monday', scale=1.1)
+        D.light_vault(S, 'warm', key_power=45.0, spill=70.0)
+        sc.view_settings.exposure = 1.0
+        g = CA.make('guard')
+        HU.place(g, 0.16, -1.78, 180)
+        CA.arms_down(g, 'L', 0.12, 0.04)
+        CA.arms_down(g, 'R', 0.12, 0.04)
+        CA.grip(g, 'L', 0.3)
+        CA.grip(g, 'R', 0.3)
+        CA.head_turn(g, -4, 7)
+        cam = make_cam(35, 2.8, [(1, (-0.15, 0.4, 1.0))])
+        cam_path(cam, [(1, (0.60, -2.62, 1.52), (-0.18, 0.7, 1.05), R(0)),
+                       (A, (0.59, -2.60, 1.52), (-0.18, 0.7, 1.05), R(0)),
+                       (N, (0.50, -2.26, 1.50), (-0.22, 0.8, 1.05), R(0.6))])
+        smooth_keys(cam, 'SINE', 'EASE_IN_OUT')
+        shake(cam, 0.0015, 0.0008, scale=30, seed=41)
+        motes_box = ((-1.0, -1.6, 0.3), (1.2, 0.6, 2.3))
+
+    elif SHOT == 'C5':
+        # Fast macro push onto the seismic sensor on the inner face of the open door.
+        D.light_ante(S, 'monday', scale=1.1)
+        D.light_vault(S, 'warm', key_power=45.0, spill=70.0)
+        sc.view_settings.exposure = 1.0
+        p = door_pt((-0.34, D.BODY_Y[1] + 0.036, 1.96))
+        nrm = V3((math.cos(-R(OPEN)) * 0 - math.sin(-R(OPEN)) * 1, math.sin(-R(OPEN)) * 0 + math.cos(-R(OPEN)) * 1, 0))
+        side = V3((-nrm.y, nrm.x, 0))
+        kl = light('AREA', 'SeisKey', p + nrm * 0.6 + V3((0, 0, 0.45)) + side * 0.25, energy=14.0, color=kelvin(4800),
+                   size=0.35, target=p)
+        kl.visible_glossy = True
+        cam = make_cam(55, 2.2, [(1, tuple(p))])
+        cam_path(cam, [(1, tuple(p + nrm * 0.95 + side * 0.18 + V3((0, 0, 0.16)))), tuple(p), R(-2)),
+                       (A, tuple(p + nrm * 0.90 + side * 0.17 + V3((0, 0, 0.15)))), tuple(p), R(-2)),
+                       (N, tuple(p + nrm * 0.17 + side * 0.03 + V3((0, 0, 0.02)))), tuple(p + V3((0, 0, -0.004))), R(0))])
+        smooth_keys(cam, 'EXPO', 'EASE_OUT')
+        shake(cam, 0.0008, 0.0006, scale=20, seed=51)
+        motes_box = (tuple(p + V3((-0.4, -0.4, -0.3))), tuple(p + V3((0.4, 0.4, 0.3))))
+
+    else:   # C11
+        # From inside the vault looking out: the guard small in the doorway, phone to his ear; fast pull back down the
+        # aisle between the forced box walls and the papers on the floor.
+        D.light_ante(S, 'monday', scale=1.3)
+        D.light_vault(S, 'warm', key_power=40.0, spill=0.0)
+        sc.view_settings.exposure = 0.8
+        g = CA.make('guard')
+        HU.place(g, 0.18, -0.52, 182)
+        CA.arms_down(g, 'L', 0.12, 0.04)
+        CA.grip(g, 'L', 0.3)
+        bpy.context.view_layer.update()
+        rw = g.rig.matrix_world
+        head = rw @ g.rig.pose.bones['Head'].head
+        rdir = ((rw @ g.rig.pose.bones['RightArm'].head) - (rw @ g.rig.pose.bones['LeftArm'].head)).normalized()
+        ear = head + rdir * 0.085 + V3((0, 0, 0.07))
+        CA.reach(g, 'R', ear + rdir * 0.03 - V3((0, 0, 0.06)), elbow_drop=0.42)
+        CA.grip(g, 'R', 0.9)
+        CA.head_turn(g, 6, 4)
+        bpy.context.view_layer.update()
+        pb = g.rig.pose.bones['RightHand']
+        hp = g.rig.matrix_world @ pb.tail
+        ph = box('Phone', (0.012, 0.05, 0.11), tuple(hp + (ear - hp) * 0.45), bev=0.004,
+                 mat=mat_principled('PhoneBlack', color=(0.02, 0.02, 0.022), rough=0.35, spec=0.5))
+        ph.rotation_euler = (ear - hp).to_track_quat('Z', 'Y').to_euler()
+        co = ph.constraints.new('CHILD_OF')
+        co.target = g.rig
+        co.subtarget = 'RightHand'
+        bpy.context.view_layer.update()
+        co.inverse_matrix = (g.rig.matrix_world @ pb.matrix).inverted()
+        cam = make_cam(28, 3.2, [(1, (0.18, -0.5, 1.5))])
+        cam_path(cam, [(1, (0.05, 1.45, 1.52), (0.16, -0.6, 1.42), R(0)),
+                       (A, (0.05, 1.55, 1.52), (0.16, -0.6, 1.42), R(0)),
+                       (N, (-0.05, 5.0, 1.68), (0.16, -0.6, 1.3), R(-1.5))])
+        smooth_keys(cam, 'SINE', 'EASE_OUT')
+        shake(cam, 0.003, 0.0015, scale=12, seed=11)
+        motes_box = ((-1.1, 0.8, 0.2), (1.1, 5.0, 2.6))
 
 if motes_box:
     motes('Motes', 260, motes_box[0], motes_box[1], r=(0.0005, 0.0013), seed=7, drift=(0.02, 0.03, 0.05), start=1, end=N)

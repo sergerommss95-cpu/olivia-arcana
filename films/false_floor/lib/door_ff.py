@@ -1208,6 +1208,38 @@ def build_set(coll=None, vault=True, stair=True, grate=True, cctv=True, key=True
     return S
 
 
+def build_seismic(S, coll=None, x=-0.34, z=1.96):
+    """Opt-in prop: the seismic sensor bolted on the door's inner (vault-side) face near the hinge edge: a small grey
+    powder-coated unit with a raised lid, four corner screws, a cable gland and an armoured cable running to the hinge
+    edge. Built with the door shut (call before set_door); rides on the door pivot. Returns the unit."""
+    M = S['M']
+    piv = S['door']
+    bpy.context.view_layer.update()
+    by = BODY_Y[1]
+    grey = M.get('sensor') or mat_worn_paint('SensorGrey', color=(0.30, 0.305, 0.30), rough=(0.38, 0.5), edge=0.5,
+                                             scuff=0.15, low=0.0, bev_r=0.002, scale=8.0)
+    M['sensor'] = grey
+    parts = [xbox('SeisBase', x - 0.055, x + 0.055, by, by + 0.022, z - 0.04, z + 0.04, grey, bev=0.004, seg=3, coll=coll),
+             xbox('SeisLid', x - 0.046, x + 0.046, by + 0.02, by + 0.036, z - 0.031, z + 0.031, grey, bev=0.005, seg=3,
+                  coll=coll),
+             xbox('SeisWin', x + 0.012, x + 0.036, by + 0.0355, by + 0.0375, z - 0.012, z + 0.012, M['black'], bev=0.001,
+                  coll=coll)]
+    sp = screw_proto(M, r=0.0045, h=0.003)
+    for sx in (-1, 1):
+        for sz in (-1, 1):
+            parts.append(place(sp, 'SeisScrew', (x + sx * 0.047, by + 0.022, z + sz * 0.032), rot=(0, 0, math.pi)))
+    gl = prim('cyl', 'SeisGland', (x - 0.062, by + 0.013, z), (0, math.radians(90), 0), seg=6, r=0.008, depth=0.016,
+              coll=coll)
+    set_mat(gl, M['galv'])
+    parts.append(gl)
+    parts += pipe('SeisCable', [(x - 0.07, by + 0.013, z), (-0.47, by + 0.013, z), (-0.47, by + 0.013, 1.42),
+                                (-0.505, by - 0.02, 1.36)], 0.005, M['cable'], coll=coll, seg=12)
+    for o in parts:
+        if o.parent is None:
+            parent(o, piv, keep=True)
+    return parts[0]
+
+
 def set_door(S, angle_deg, frame=None):
     """Door opening angle in degrees (0 shut, ~112 wide open). Keys it if frame is given."""
     S['door'].rotation_euler.z = -math.radians(angle_deg)

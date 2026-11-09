@@ -33,9 +33,9 @@ SPEC = {   # exactly the approved lineup (stills/v2/D_cast_lineup.jpg): each cha
                  assets=[('clothes/male_elegantsuit01', dict(tint=(0.75, 0.62, 0.48), sat=0.5, val=1.3)),
                          ('clothes/shoes01', dict(tint=(0.16, 0.12, 0.1), sat=0.3)), ('clothes/fedora01', dict(tint=(0.5, 0.45, 0.38))),
                          ('eyebrows/eyebrow003', dict(tint=(1.6, 1.6, 1.6)))]),
-    'guard': dict(gender=1, age=48, muscle=0.5, weight=0.65, height=0.5, skin='light',
-                  assets=[('clothes/male_casualsuit01', dict(tint=(0.55, 0.6, 0.7), sat=0.5)), ('clothes/shoes04', {}),
-                          ('hair/short04', {}), ('eyebrows/eyebrow001', {})]),
+    'guard': dict(gender=1, age=48, muscle=0.5, weight=0.65, height=0.5, skin='light',     # navy uniform blazer + tie
+                  assets=[('clothes/male_elegantsuit01', dict(tint=(0.32, 0.38, 0.62), sat=0.55, val=0.9)), ('clothes/shoes04', {}),
+                          ('hair/short04', dict(tint=(0.7, 0.66, 0.62))), ('eyebrows/eyebrow001', {})]),
     'vancamp': dict(gender=1, age=68, muscle=0.45, weight=0.55, height=0.45, skin='ruddy',
                     assets=[('clothes/male_casualsuit05', dict(tint=(0.55, 0.6, 0.45), sat=0.5)), ('clothes/shoes02', {}),
                             ('clothes/fedora01', dict(tint=(0.35, 0.33, 0.28))), ('eyebrows/eyebrow003', {})]),

@@ -13,7 +13,7 @@ import mocap as MC
 from mathutils import Vector
 
 SHOT = arg('--shot', 'N3')
-N = {'N3': 76, 'N5': 100}[SHOT]
+N = {'N3': 76, 'N5': 100, 'C7': 70}[SHOT]
 R = math.radians
 reset()
 setup_render(1, N, res=RES_FINAL, samples=40, look='Medium High Contrast', clamp=6.0, vol_step=4.0, shutter=0.5)
@@ -143,6 +143,30 @@ elif SHOT == 'N5':
     ease(cam)
     shake(cam, 0.004, 0.002, scale=20, seed=9)
     cam.data.dof.focus_distance = 1.75
+
+elif SHOT == 'C7':
+    # Monday morning: the guard's face as he takes in the open door. Lights on, door wide open behind the camera.
+    S = D.build_set(vault=True, stair=True, grate=True, cctv=True, key=False, a2=True)
+    D.set_door(S, 112.0)
+    S['grate'].rotation_euler.z = R(84)
+    D.light_ante(S, 'monday', scale=1.1)
+    D.light_vault(S, 'warm')
+    gd = CA.make('guard')
+    HU.place(gd, 0.35, -1.75, 188)
+    CA.arms_down(gd, 'L', 0.12)
+    CA.arms_down(gd, 'R', 0.12)
+    CA.grip(gd, 'L', 0.35)
+    CA.grip(gd, 'R', 0.35)
+    # head: looks at the open door, then lowers into the vault (keyed)
+    for f, yaw, pitch in ((1, 14, -4), (24, 12, -4), (52, 2, 9), (N, 0, 10)):
+        CA.head_turn(gd, yaw, pitch)
+        for b_ in ('Neck1', 'Head'):
+            gd.rig.pose.bones[b_].keyframe_insert('rotation_euler', frame=f)
+    cam = camera('CamC7', lens=55, fstop=2.0)
+    cam_path(cam, [(1, (0.98, -0.72, 1.6), (0.33, -1.72, 1.66), 0.0), (N, (0.8, -0.98, 1.62), (0.33, -1.74, 1.64), 0.0)])
+    ease(cam)
+    shake(cam, 0.003, 0.0015, scale=24, seed=17)
+    cam.data.dof.focus_distance = 1.05
 
 bpy.context.scene.camera = cam
 finish(SHOT)

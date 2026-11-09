@@ -25,11 +25,12 @@ def arg(name, default):
 
 
 def main():
-    ids = [x for x in sys.argv[1:] if x[:1] in ('S', 'N') and x[1:].isdigit()]
+    ids = [x for x in sys.argv[1:] if x[:1] in ('S', 'N', 'C') and x[1:].isdigit()]
     samples = arg('--samples', '40')
     still_samples = arg('--still-samples', '96')
     shots = {s['id']: s for s in json.load(open(os.path.join(FF, 'script', 'SHOTS_v2.json')))['shots']}
-    for s_ in json.load(open(os.path.join(FF, 'script', 'SEQ_NIGHT.json')))['shots']:
+    for s_ in (json.load(open(os.path.join(FF, 'script', 'SEQ_NIGHT.json')))['shots'] +
+               json.load(open(os.path.join(FF, 'script', 'SEQ_COLD.json')))['shots']):
         if s_['kind'] == '3D':
             shots[s_['id']] = s_
     clips = os.path.join(FF, 'out', 'clips')

@@ -17,6 +17,7 @@ FILMS = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FF = os.path.join(FILMS, 'false_floor')
 SHOTS = {s['id']: s for s in json.load(open(os.path.join(FF, 'script', 'SHOTS_v2.json')))['shots']}
 SHOTS.update({s['id']: s for s in json.load(open(os.path.join(FF, 'script', 'SEQ_NIGHT.json')))['shots'] if s['kind'] == '3D'})
+SHOTS.update({s['id']: s for s in json.load(open(os.path.join(FF, 'script', 'SEQ_COLD.json')))['shots'] if s['kind'] == '3D'})
 STATUS = os.path.join(FF, 'out', 'dispatch.json')
 LOG = os.path.join(FF, 'out', 'dispatch.log')
 
