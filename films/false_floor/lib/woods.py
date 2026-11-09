@@ -472,17 +472,17 @@ def mat_leaf(name='Leaf'):
     geo = g.node('ShaderNodeNewGeometry')
     col = g.mixc(g.mul(geo.outputs['Backfacing'], 0.3), col, g.mixc(0.5, col, (0.16, 0.10, 0.06)))
     # wetness: per-leaf + patches
-    wn_f, _ = g.noise(co, 16.0, 4.0, 0.55, dist=0.25)
-    wpatch = g.maprange(wn_f, 0.52, 0.6)                        # glossy wet patches (film of water)
+    wn_f, _ = g.noise(co, 34.0, 4.0, 0.55, dist=0.3)
+    wpatch = g.mul(g.maprange(wn_f, 0.55, 0.62), g.maprange(rnd3, 0.25, 0.55))   # glossy water film, some leaves
     damp = g.maprange(rnd2, 0.1, 0.9, 0.25, 0.9)                 # per-leaf soak (darkening)
     wet = g.math('MAXIMUM', g.mul(wpatch, g.maprange(rnd2, 0.0, 0.5, 0.45, 1.0)), g.mul(damp, 0.35))
     col = g.mixc(g.mul(damp, 0.55), col, g.mixc(1.0, col, (0.62, 0.5, 0.42), 'MULTIPLY'))
     col = g.mixc(g.mul(wpatch, 0.35), col, g.mixc(1.0, col, (0.7, 0.58, 0.5), 'MULTIPLY'))
     g.feed(p.inputs['Base Color'], col)
-    g.feed(p.inputs['Roughness'], g.mixf(wpatch, 0.74, 0.1))
-    g.feed(p.inputs['Coat Weight'], g.mul(wpatch, 0.65))
-    g.feed(p.inputs['Specular IOR Level'], g.mixf(wpatch, 0.2, 0.5))
-    _pset(p, Coat_Roughness=0.04)
+    g.feed(p.inputs['Roughness'], g.mixf(wpatch, 0.74, 0.16))
+    g.feed(p.inputs['Coat Weight'], g.mul(wpatch, 0.4))
+    g.feed(p.inputs['Specular IOR Level'], g.mixf(wpatch, 0.2, 0.4))
+    _pset(p, Coat_Roughness=0.06)
     fine_f, _ = g.noise(co, 420.0, 3.0, 0.6)
     h = g.add(g.mul(veins, 0.6), g.mul(fine_f, 0.4))
     nrm = g.bump(h, 0.22, 0.0007)
@@ -508,9 +508,11 @@ def mat_soil(name='Soil', far_from=2.2, far_to=3.6):
     _, y, _ = g.sep(co)
     n1, _ = g.noise(co, 9.0, 8.0, 0.6)
     soil = g.ramp(n1, [(0.3, (0.008, 0.0055, 0.004)), (0.6, (0.016, 0.010, 0.0065)), (0.8, (0.026, 0.017, 0.010))])
-    bits = g.voronoi(co, 220.0, 'F1')
-    bit = g.mul(g.maprange(bits.outputs['Distance'], 0.1, 0.35, 1.0, 0.0), g.gt(g.sep(bits.outputs['Color'])[0], 0.6))
-    soil = g.mixc(g.mul(bit, 0.8), soil, (0.05, 0.022, 0.008))
+    bits = g.voronoi(co, 130.0, 'F1')
+    br = g.sep(bits.outputs['Color'])[0]
+    bit = g.mul(g.maprange(bits.outputs['Distance'], 0.15, 0.4, 1.0, 0.0), g.gt(br, 0.45))
+    bitc = g.ramp(br, [(0.45, (0.03, 0.013, 0.005)), (0.75, (0.075, 0.03, 0.009)), (1.0, (0.12, 0.05, 0.015))])
+    soil = g.mixc(g.mul(bit, 0.85), soil, bitc)
     # leaf mosaic: distorted voronoi cells ~ leaf size, coloured from the leaf palette
     dn, dc = g.noise(co, 8.0, 2.0, 0.5)
     co2 = g.vmath('ADD', co, g.vmath('SCALE', g.vmath('SUBTRACT', dc, (0.5, 0.5, 0.5)), scale=0.05))
@@ -524,14 +526,22 @@ def mat_soil(name='Soil', far_from=2.2, far_to=3.6):
     litter = g.mixc(g.mul(gap, 0.8), litter, (0.02, 0.013, 0.008))
     far = g.maprange(y, far_from, far_to)
     col = g.mixc(far, soil, litter)
+    path = g.attr('path').outputs['Factor']
+    pn, _ = g.noise(co, 14.0, 5.0, 0.6)
+    pathm = g.math('MINIMUM', g.mul(path, g.maprange(pn, 0.3, 0.55, 0.6, 1.2)), 1.0)
+    mud = g.ramp(pn, [(0.3, (0.018, 0.014, 0.010)), (0.7, (0.045, 0.034, 0.024))])
+    mud = g.mixc(g.mul(bit, 0.6), mud, bitc)
+    col = g.mixc(pathm, col, mud)
     g.feed(p.inputs['Base Color'], col)
     wn, _ = g.noise(co, 3.0, 3.0, 0.5)
-    wet = g.maprange(wn, 0.4, 0.6, 0.2, 0.8)
-    g.feed(p.inputs['Roughness'], g.mixf(far, g.mixf(wet, 0.7, 0.18), 0.7))
-    g.feed(p.inputs['Coat Weight'], g.mul(g.mul(wet, 0.4), g.sub(1.0, far)))
+    wet = g.maprange(wn, 0.45, 0.62, 0.0, 1.0)
+    g.feed(p.inputs['Roughness'], g.mixf(pathm, g.mixf(far, g.mixf(wet, 0.82, 0.45), 0.75), g.mixf(wet, 0.55, 0.22)))
+    g.feed(p.inputs['Coat Weight'], g.add(g.mul(g.mul(wet, 0.2), g.sub(1.0, far)), g.mul(pathm, g.mul(wet, 0.5))))
+    g.feed(p.inputs['Specular IOR Level'], g.mixf(wet, 0.15, 0.35))
     _pset(p, Coat_Roughness=0.1)
     hb, _ = g.noise(co, 120.0, 6.0, 0.6)
-    g.feed(p.inputs['Normal'], g.bump(g.add(hb, gap), 0.35, 0.002))
+    cl = g.voronoi(co, 60.0, 'F1')
+    g.feed(p.inputs['Normal'], g.bump(g.add(g.add(hb, gap), g.add(g.mul(cl.outputs['Distance'], -0.8), bit)), 0.6, 0.002))
     return m
 
 
@@ -592,7 +602,7 @@ def mat_binbag(name='BinBag'):
     co = g.tc().outputs['Object']
     tear = g.attr('tear').outputs['Factor']
     n1, _ = g.noise(co, 9.0, 4.0, 0.5)
-    rough = g.maprange(n1, 0.35, 0.65, 0.22, 0.42)
+    rough = g.maprange(n1, 0.35, 0.65, 0.28, 0.48)
     # crinkle creases: voronoi edges (sharp lines) at two scales
     dn, dc = g.noise(co, 20.0, 2.0, 0.5)
     cod = g.vmath('ADD', co, g.vmath('SCALE', g.vmath('SUBTRACT', dc, (0.5, 0.5, 0.5)), scale=0.02))
@@ -608,8 +618,8 @@ def mat_binbag(name='BinBag'):
     g.feed(p.inputs['Base Color'], col)
     g.feed(p.inputs['Roughness'], g.mixf(whit, rough, 0.55))
     wn, _ = g.noise(co, 6.0, 3.0, 0.5)
-    g.feed(p.inputs['Coat Weight'], g.maprange(wn, 0.45, 0.62, 0.0, 0.45))
-    _pset(p, Coat_Roughness=0.05, Specular_IOR_Level=0.45)
+    g.feed(p.inputs['Coat Weight'], g.maprange(wn, 0.45, 0.62, 0.0, 0.35))
+    _pset(p, Coat_Roughness=0.05, Specular_IOR_Level=0.4)
     g.feed(p.inputs['Normal'], g.bump(h, 0.35, 0.002))
     return m
 
@@ -961,31 +971,35 @@ def ground_height(X, Y, P):
     rs, sl = P.get('rise_start', 3.0), P.get('rise_slope', 0.05)
     t = np.clip((Y - rs) / 2.0, 0, 1)
     z = z + sl * np.where(Y > rs, (Y - rs) - 1.0 * (1 - t) * (Y - rs) * 0.5, 0.0)
+    if P.get('trough') is not None:
+        z = z - P['trough'](X, Y)
     for (cx, cy, rx, ry, depth) in P.get('puddles', []):
         r = np.sqrt(((X - cx) / rx) ** 2 + ((Y - cy) / ry) ** 2) * (1 + 0.22 * _fbm(X, Y, 9.0, 77, 3))
         z = z - depth * _smoothstep(1.0, 0.45, r)
     return z
 
 
-def build_ground(P, hf, mat_near, mat_far=None, coll=None):
-    """Near relief mesh (cm-res) over the heightfield region + a coarse far ground out to the fog."""
+def build_ground(P, hf, mat_near, mat_far=None, coll=None, res=0.012, attr_fn=None, far_res=1.0):
+    """Near relief mesh (cm-res) over the heightfield region + a coarse far ground out to the fog.
+    attr_fn(X, Y) -> {name: values} adds float point attributes to both meshes (the soil shader reads 'path')."""
     x0, x1, y0, y1 = P['near']
-    res = 0.012
     xs = np.arange(x0 - 0.1, x1 + 0.1 + 1e-9, res)
     ys = np.arange(y0 - 0.1, y1 + 0.2 + 1e-9, res)
     X, Y = np.meshgrid(xs, ys)
     Z = ground_height(X, Y, P)
     V = np.stack([X.ravel(), Y.ravel(), Z.ravel()], -1)
-    o = mesh_from_np('GroundNear', V, _grid_faces(len(ys), len(xs)), coll, smooth=True)
+    o = mesh_from_np('GroundNear', V, _grid_faces(len(ys), len(xs)), coll, smooth=True,
+                     attrs=attr_fn(X.ravel(), Y.ravel()) if attr_fn else None)
     set_mat(o, mat_near)
     hf.h[:] = ground_height(hf.X, hf.Y, P).astype(np.float32)
     # far ground: coarse fan out to 60 m (slightly below near mesh in the overlap)
-    fx = np.linspace(-45, 45, 91)
-    fy = np.concatenate([np.linspace(y1 - 0.3, 8, 30), np.linspace(8.5, 70, 40)])
+    fx = np.arange(-45, 45 + 1e-6, far_res)
+    fy = np.concatenate([np.arange(y1 - 0.3, max(y1 + 6, 12), far_res * 0.5), np.linspace(max(y1 + 6, 12) + 0.5, 70, 40)])
     FX, FY = np.meshgrid(fx, fy)
     FZ = ground_height(FX, FY, P) - 0.006
     VF = np.stack([FX.ravel(), FY.ravel(), FZ.ravel()], -1)
-    of = mesh_from_np('GroundFar', VF, _grid_faces(len(fy), len(fx)), coll, smooth=True)
+    of = mesh_from_np('GroundFar', VF, _grid_faces(len(fy), len(fx)), coll, smooth=True,
+                      attrs=attr_fn(FX.ravel(), FY.ravel()) if attr_fn else None)
     set_mat(of, mat_far or mat_near)
     return o, of
 
@@ -1293,11 +1307,8 @@ def crumpled_wad(name, loc, r, mat, coll=None, seed=0):
 
 # ============================================================================ bin bag
 
-def build_binbag(hf, center, yaw, mat, coll=None, size=(0.28, 0.20, 0.11), mouth=(-0.55, -0.8, 0.15), seed=11,
-                 res=(176, 88)):
-    """Lumpy, half-emptied black bin bag lying on its side: gathered neck at local +x with radial pleats running
-    into the body, contents bulging the film, sagging film between them, torn open on the `mouth` side with the
-    ragged edge slumped onto the leaves. 'tear' attribute = proximity to the torn edge (stretch whitening)."""
+def _bag_bmesh(size, mouth, seed, res, tear=True):
+    """Lumpy half-full bin bag in local coords (neck at +x, z up, bottom ~ -size z). tear=False: closed bag."""
     rng = random.Random(seed)
     bm = bmesh.new()
     bmesh.ops.create_uvsphere(bm, u_segments=res[0], v_segments=res[1], radius=1.0)
@@ -1317,8 +1328,7 @@ def build_binbag(hf, center, yaw, mat, coll=None, size=(0.28, 0.20, 0.11), mouth
         r -= 0.16 * max(0.0, p.z) * max(0.0, 1.0 - 3.0 * bsum)          # film sags between contents
         r += -0.045 * abs(mnoise.noise(q * 2.6)) - 0.02 * abs(mnoise.noise(q * 6.0)) - 0.008 * abs(mnoise.noise(q * 14.0))
         x, y, z = p.x * r * sx, p.y * r * sy, p.z * r * sz
-        # gathered neck at +x with radial pleats running back into the body
-        t = _sstep(0.35, 1.0, p.x)
+        t = _sstep(0.35, 1.0, p.x)                                        # gathered neck, radial pleats
         phi = math.atan2(p.z, p.y)
         pleat = abs(math.sin(phi * 4.0 + 0.8 * mnoise.noise(q * 1.5)))
         amp = 0.05 + 0.3 * t
@@ -1326,20 +1336,45 @@ def build_binbag(hf, center, yaw, mat, coll=None, size=(0.28, 0.20, 0.11), mouth
         y *= k
         z = z * k + 0.25 * sz * t
         x += 0.32 * sx * t * t
-        # torn mouth: film around the hole slumps and spreads onto the ground
         md = p.dot(dm)
         thr = 0.42 + 0.10 * mnoise.noise(q * 4.0) + 0.05 * mnoise.noise(q * 13.0) + 0.03 * mnoise.noise(q * 37.0)
-        near = _sstep(thr - 0.4, thr, md)
-        z = z * (1 - 0.55 * near) - 0.35 * sz * near
-        x += 0.16 * sx * near * dm.x
-        y += 0.16 * sy * near * dm.y
+        if tear:
+            near = _sstep(thr - 0.4, thr, md)                              # torn film slumps onto the ground
+            z = z * (1 - 0.55 * near) - 0.35 * sz * near
+            x += 0.16 * sx * near * dm.x
+            y += 0.16 * sy * near * dm.y
+        else:
+            z = max(z, -0.75 * sz) if p.z < 0 else z                       # closed: slightly flat bottom
         v.co = Vector((x, y, z))
-        v[lay] = md - thr
+        v[lay] = (md - thr) if tear else -1.0
     kill = [f for f in bm.faces if sum(v[lay] for v in f.verts) / len(f.verts) > 0]
     bmesh.ops.delete(bm, geom=kill, context='FACES')
     loose = [v for v in bm.verts if not v.link_faces]
     bmesh.ops.delete(bm, geom=loose, context='VERTS')
-    me = bpy.data.meshes.new('BinBag')
+    return bm
+
+
+def build_bag_flight(name, size, mat, coll=None, seed=11, res=(120, 60)):
+    """Closed, tied bag for throws: local coords, origin at its centre (animate location/rotation/scale)."""
+    bm = _bag_bmesh(size, (-0.55, -0.8, 0.15), seed, res, tear=False)
+    o = from_bmesh(name, bm, coll, smooth=True, angle=70)
+    a = o.data.attributes.new('tear', 'FLOAT', 'POINT')
+    a.data.foreach_set('value', np.zeros(len(o.data.vertices), np.float32))
+    set_mat(o, mat)
+    sub = o.modifiers.new('Subd', 'SUBSURF')
+    sub.levels = 0
+    sub.render_levels = 1
+    return o
+
+
+def build_binbag(hf, center, yaw, mat, coll=None, size=(0.28, 0.20, 0.11), mouth=(-0.55, -0.8, 0.15), seed=11,
+                 res=(176, 88), pivot=False, name='BinBag'):
+    """Lumpy, half-emptied black bin bag lying on its side: gathered neck at local +x with radial pleats running
+    into the body, contents bulging the film, sagging film between them, torn open on the `mouth` side with the
+    ragged edge slumped onto the leaves. 'tear' attribute = proximity to the torn edge (stretch whitening).
+    pivot=True puts the object origin at the bag centre (for settle animation) instead of the world origin."""
+    bm = _bag_bmesh(size, mouth, seed, res, tear=True)
+    me = bpy.data.meshes.new(name)
     bm.to_mesh(me)
     bm.free()
     V = np.zeros((len(me.vertices), 3))
@@ -1352,13 +1387,14 @@ def build_binbag(hf, center, yaw, mat, coll=None, size=(0.28, 0.20, 0.11), mouth
     zmin = Vw[:, 2].min()
     base = float(np.quantile(gs, 0.5))
     Vw[:, 2] += base - zmin - 0.012
-    # bottom conforms to the litter (soft film settles over the leaves)
-    lowz = gs + 0.0025
-    Vw[:, 2] = np.maximum(Vw[:, 2], lowz)
-    me.vertices.foreach_set('co', Vw.ravel())
+    Vw[:, 2] = np.maximum(Vw[:, 2], gs + 0.0025)                       # bottom settles over the leaves
+    neck = tuple(Vw[int(np.argmax(V[:, 0]))])
+    piv = np.array([center[0], center[1], base]) if pivot else np.zeros(3)
+    me.vertices.foreach_set('co', (Vw - piv).ravel())
     me.update()
-    o = bpy.data.objects.new('BinBag', me)
+    o = bpy.data.objects.new(name, me)
     link(o, coll)
+    o.location = tuple(piv)
     shade(o, True, 70)
     bm2 = bmesh.new()
     bm2.from_mesh(me)
@@ -1367,8 +1403,9 @@ def build_binbag(hf, center, yaw, mat, coll=None, size=(0.28, 0.20, 0.11), mouth
     tear = np.zeros(len(me.vertices), np.float32)
     if bverts:
         B = np.array(bverts)
-        for i0 in range(0, len(Vw), 1024):
-            chunk = Vw[i0:i0 + 1024]
+        Vl = Vw - piv
+        for i0 in range(0, len(Vl), 1024):
+            chunk = Vl[i0:i0 + 1024]
             d = np.sqrt(((chunk[:, None, :] - B[None, :, :]) ** 2).sum(-1)).min(1)
             tear[i0:i0 + 1024] = np.clip(1 - d / 0.04, 0, 1) ** 1.5
     a = me.attributes.new('tear', 'FLOAT', 'POINT')
@@ -1377,9 +1414,7 @@ def build_binbag(hf, center, yaw, mat, coll=None, size=(0.28, 0.20, 0.11), mouth
     sub = o.modifiers.new('Subd', 'SUBSURF')
     sub.levels = 0
     sub.render_levels = 1
-    # neck tip in world space (for the knot)
-    i = int(np.argmax(V[:, 0]))
-    o['neck'] = tuple(Vw[i])
+    o['neck'] = neck
     return o
 
 
@@ -1819,3 +1854,453 @@ def droplets_on(obj, n, rmin, rmax, mat, coll=None, seed=0, normal_min=0.45, reg
     except Exception:
         pass
     return o
+
+
+# ============================================================================ the SF2 / S36 macro tableau
+
+def make_materials():
+    return dict(leaf=mat_leaf(), soil=mat_soil(), bark=mat_bark(), twig=mat_twig(), bag=mat_binbag(),
+                receipt=mat_paper('ReceiptPaper', base=(0.66, 0.65, 0.61), kind='receipt', wet_amt=0.75, seed=3,
+                                  ink_col=(0.10, 0.10, 0.11), rough=0.45),
+                envelope=mat_paper('EnvelopePaper', base=(0.62, 0.60, 0.55), kind='envelope', wet_amt=0.8, seed=5),
+                document=mat_paper('DocPaper', base=(0.68, 0.67, 0.63), kind='document', wet_amt=0.6, seed=9),
+                wad=mat_paper('WadPaper', base=(0.58, 0.57, 0.54), kind='plain', wet_amt=0.5, seed=13),
+                crust=mat_crust(), crumb=mat_crumb(), salami=mat_salami(), stone=mat_rough_diamond(),
+                water=mat_water(), drop=mat_water('Drop', tint=(1, 1, 1), rough=0.0))
+
+
+def build_tableau(cfg):
+    """Macro evidence tableau (SF2 style frame, reused for S36). cfg keys: CAM, GROUND, LAYOUT, LEAVES, LITTER_Z,
+    SEED, DEBUG, DOLLY, NODOF, CLOSEUP, RES, SAMPLES, LENS_K (render lens = CAM lens * LENS_K, composition stays on
+    the CAM lens so a wider render adds safe room around the same layout), FSTOP (render f-stop override)."""
+    import time
+    T0 = time.time()
+    CAM, GROUND, LAYOUT, LEAVES = cfg['CAM'], cfg['GROUND'], cfg['LAYOUT'], cfg['LEAVES']
+    LITTER_Z, SEED, DEBUG, DOLLY = cfg['LITTER_Z'], cfg['SEED'], cfg['DEBUG'], cfg['DOLLY']
+    LENS_K = cfg.get('LENS_K', 1.0)
+    arg = lambda name, default=None, cast=str: {'--nodof': cfg.get('NODOF'), '--closeup': cfg.get('CLOSEUP')}.get(name)
+    # ------------------------------------------------------------------------------------------------ scene
+    sc = reset()
+    setup_render(1, CAM['frames'] if DOLLY else 1, res=cfg.get('RES', RES_FINAL), samples=cfg.get('SAMPLES', 48), mb=False, look='Medium High Contrast',
+                 bounces=(2, 2, 3), clamp=5.0, filter_glossy=0.6, adaptive=0.03, exposure=-0.35)
+    sc.cycles.transparent_max_bounces = 8
+    woods_world(strength=2.2)
+    rng = random.Random(SEED)
+    nrng = np.random.RandomState(SEED)
+
+
+    def cam_pose(t):
+        (ax, ay), (bx, by) = CAM['dolly']
+        x, y = ax + (bx - ax) * t, ay + (by - ay) * t
+        loc = Vector((x, y, CAM['h']))
+        p, yw = math.radians(CAM['pitch']), math.radians(CAM['yaw'])
+        tgt = loc + Vector((math.sin(yw) * math.cos(p), math.cos(yw) * math.cos(p), -math.sin(p)))
+        return loc, tgt
+
+
+    rig = CamRig(*cam_pose(0.5), lens=CAM['lens'], roll=math.radians(CAM['roll']))
+    rigs = [CamRig(*cam_pose(t), lens=CAM['lens'] * LENS_K, roll=math.radians(CAM['roll'])) for t in (0.0, 1.0)]
+
+
+    def G(u, v, z=None):
+        p = rig.ground(u, v, LITTER_Z if z is None else z)
+        return p.x, p.y
+
+
+    C_LEAF, C_PROP, C_BG = collection('Leaves'), collection('Props'), collection('Background')
+
+    # ground + heightfield
+    pu = LAYOUT['puddle']
+    px, py = G(pu[0], pu[1])
+    GROUND['puddles'] = [(px, py, pu[2], pu[3], pu[4])]
+    hf = HField(*GROUND['near'], cell=0.004)
+    M = make_materials()
+    build_ground(GROUND, hf, M['soil'], coll=C_BG)
+
+    # ------------------------------------------------------------------------------------------------ litter pass 1
+    protos = make_leaf_protos(M['leaf'], seed=SEED + 4)
+
+
+    GAP = np.clip((_fbm(hf.X, hf.Y, 5.0, 91, 3) + 0.42) * 2.6, 0.35, 1.0).astype(np.float32)   # small damp-soil gaps
+
+
+    def dens(x, y):
+        iv = (rigs[0].in_view(x, y, 0.14) | rigs[1].in_view(x, y, 0.14)).astype(float)
+        base = np.clip(1.0 - (y - 1.7) / 2.2, 0.35, 1.0)
+        r = np.sqrt(((x - px) / (pu[2] * 0.9)) ** 2 + ((y - py) / (pu[3] * 0.9)) ** 2)
+        pud = np.clip(r, 0.12, 1.0)
+        return iv * base * pud * hf.sample(x, y, GAP)
+
+
+    _sxy = G(*LAYOUT['sandwich'])
+    _su, _sv, _sd = rig.project((_sxy[0], _sxy[1], LITTER_Z))
+
+
+    def sightline(x, y):
+        """Between lens and hero: only flat, face-up leaves so the cut face is not hidden."""
+        u, v, d = rig.project((x, y, LITTER_Z))
+        return abs(u - _su) < 0.30 and d < _sd - 0.03
+
+
+    L1 = scatter_leaves(hf, protos, LEAVES['n1'], rng, C_LEAF, dens, flat_zone=sightline)
+    hf.make_smooth()
+    _g0 = ground_height(hf.X, hf.Y, GROUND)
+    _m = (rigs[0].in_view(hf.X, hf.Y, 0.0)) & (hf.Y < 1.5)
+    print(f'[info] litter pass 1: {len(L1)} leaves, litter thickness in view (y<1.5): mean '
+          f'{float((hf.h - _g0)[_m].mean()) * 1000:.1f} mm, p90 {float(np.quantile((hf.h - _g0)[_m], 0.9)) * 1000:.1f} mm '
+          f' t={time.time() - T0:.1f}s', flush=True)
+
+    # twigs
+    twigs = []
+    for i, (u, v, yaw, L, r) in enumerate([(-0.98, -0.70, 0.9, 0.30, 0.0030), (0.36, -0.10, 2.6, 0.26, 0.0026),
+                                            (-0.08, 0.12, 0.35, 0.40, 0.0042), (0.88, -0.58, 1.9, 0.22, 0.0024)]):
+        x, y = G(u, v)
+        twigs += build_twig(f'Twig{i}', hf, (x, y), yaw, L, r, M['twig'], C_PROP, seed=50 + i, branches=2)
+    hf.stamp_object(twigs, block=False)
+    hf.make_smooth()
+
+    # ------------------------------------------------------------------------------------------------ props
+    sx, sy = G(*LAYOUT['sandwich'])
+    bx, by = G(*LAYOUT['bag'])
+    # bin bag: torn mouth facing the sandwich / camera
+    mouth_local = (-0.55, -0.8, 0.15)
+    ang_to = math.atan2(sy - by, sx - bx) - math.radians(25)
+    bag_yaw = ang_to - math.atan2(mouth_local[1], mouth_local[0])
+    bag = build_binbag(hf, (bx, by), bag_yaw, M['bag'], C_PROP, size=LAYOUT['bag_size'], mouth=mouth_local, seed=11)
+    knot('BagKnot', Vector(bag['neck']), 0.02, M['bag'], C_PROP, seed=3)
+    hf.stamp_object(bag, block=True)
+    mouth_w = Vector((bx, by, 0)) + Matrix.Rotation(bag_yaw, 3, 'Z') @ Vector((mouth_local[0], mouth_local[1], 0)).normalized() \
+        * LAYOUT['bag_size'][1] * 0.9
+    for i, (dx, dy, r) in enumerate([(0.0, 0.0, 0.034), (0.05, 0.03, 0.026), (-0.04, 0.035, 0.022)]):
+        w = Vector((mouth_w.x + dx, mouth_w.y + dy, 0))
+        w.z = float(hf.sample_s(np.array([w.x]), np.array([w.y]))[0]) + r * 0.55
+        wd = crumpled_wad(f'Wad{i}', w, r, M['wad'], C_PROP, seed=i + 2)
+        hf.stamp_object(wd, block=True)
+
+    # sandwich
+    cvec = Vector((rig.loc.x - sx, rig.loc.y - sy))
+    ang_c = math.atan2(cvec.y, cvec.x)
+    if LAYOUT['sandwich_mirror']:
+        s_yaw = ang_c - math.radians(45) + math.radians(LAYOUT['sandwich_delta'])
+    else:
+        s_yaw = ang_c + math.radians(45) - math.radians(LAYOUT['sandwich_delta'])
+    s_root, s_parts, SP = build_sandwich((sx, sy, 0.0), s_yaw, M, C_PROP, seed=21, tilt=(0.05, -0.03))
+    if LAYOUT['sandwich_mirror']:
+        s_root.scale = (1, -1, 1)
+    bpy.context.view_layer.update()
+    bot = s_parts[0]
+    mw = bot.matrix_world
+    vs = [mw @ v.co for v in bot.data.vertices if v.co.z < 0.008]
+    VX = np.array([[v.x, v.y, v.z] for v in vs])
+    off = hf.sample_s(VX[:, 0], VX[:, 1]) - VX[:, 2]
+    s_root.location.z = float(np.quantile(off, 0.7)) - 0.003
+    hf.stamp_object(s_parts, block=True)
+    bpy.context.view_layer.update()
+    cut_center = s_root.matrix_world @ Vector((SP['L'], 0.0, SP['zc'] + 0.006))
+    crumbs(26, (cut_center.x, cut_center.y, 0), 0.09, M, C_PROP, seed=4, hf=hf)
+
+    # paper
+    ex, ey = G(LAYOUT['envelope'][0], LAYOUT['envelope'][1])
+    env = build_envelope(hf, (ex, ey, LAYOUT['envelope'][2]), M['envelope'], C_PROP)
+    hf.stamp_object(env, block=False)
+    rx_, ry_ = G(LAYOUT['receipt'][0], LAYOUT['receipt'][1])
+    rec = build_receipt(hf, (rx_, ry_, LAYOUT['receipt'][2]), M['receipt'], C_PROP)
+    hf.stamp_object(rec, block=False)
+    dx_, dy_ = G(LAYOUT['document'][0], LAYOUT['document'][1])
+    doc = build_document(hf, (dx_, dy_, LAYOUT['document'][2]), M['document'], C_PROP)
+    hf.stamp_object(doc, block=False)
+
+    # rough stones
+    stones = []
+    for i, (u, v, s) in enumerate(LAYOUT['stones']):
+        x, y = G(u, v)
+        z = float(hf.sample_s(np.array([x]), np.array([y]))[0]) + s * 0.55
+        st = rough_stone(f'Stone{i}', (x, y, z), s, M['stone'], C_PROP, seed=30 + i)
+        stones.append(st)
+    hf.stamp_object(stones, block=True)
+
+    hf.make_smooth()
+
+    # ------------------------------------------------------------------------------------------------ litter pass 2
+    L2 = scatter_leaves(hf, protos, LEAVES['n2'], rng, C_LEAF, dens, avoid=True, name='Leaf2', flat_zone=sightline)
+    # a few leaves that blew onto the bag
+    bag_leaves = []
+    for i in range(LEAVES['on_bag']):
+        a = rng.uniform(0, 2 * math.pi)
+        d = rng.uniform(0.0, 0.12)
+        o = place_leaf(hf, protos[rng.randrange(len(protos))], bx + d * math.cos(a), by + d * math.sin(a), rng, C_LEAF,
+                       scale=rng.uniform(0.8, 1.0), max_tilt=40, quant=0.7, name='LeafBag')
+        bag_leaves.append(o)
+    bpy.context.view_layer.update()
+    touch = []
+    smw = s_root.matrix_world
+    for (lx, ly, sc_, mt, q) in [(0.012, -0.042, 0.85, 34, 0.8), (0.052, -0.050, 0.95, 30, 0.75),
+                                 (0.035, 0.002, 0.55, 30, 0.85), (0.10, 0.048, 0.9, 30, 0.75)]:
+        w = smw @ Vector((lx, ly, 0.0))
+        touch.append(place_leaf(hf, protos[rng.randrange(len(protos))], w.x, w.y, rng, C_LEAF, scale=sc_, flip=False,
+                                max_tilt=mt, quant=q, name='LeafTouch'))
+
+
+    def leaves_on_sheet(obj, n, near_edge=0.03):
+        me = obj.data
+        ed = np.zeros(len(me.vertices), np.float32)
+        me.attributes['edge'].data.foreach_get('value', ed)
+        co = np.zeros(len(me.vertices) * 3)
+        me.vertices.foreach_get('co', co)
+        co = co.reshape(-1, 3)
+        used = set(v for f in me.polygons for v in f.vertices)
+        flat = co[:, 2] - hf.sample_s(co[:, 0], co[:, 1]) < 0.008
+        idx = [i for i in range(len(co)) if ed[i] < near_edge and flat[i] and i in used]
+        out = []
+        for _ in range(n):
+            if not idx:
+                break
+            i = idx[rng.randrange(len(idx))]
+            out.append(place_leaf(hf, protos[rng.randrange(len(protos))], co[i, 0], co[i, 1], rng, C_LEAF,
+                                  scale=rng.uniform(0.75, 1.0), flip=False, max_tilt=20, quant=0.66, name='LeafSheet'))
+        return out
+
+
+    touch += leaves_on_sheet(env, 2) + leaves_on_sheet(rec, 1) + leaves_on_sheet(doc, 2)
+    print(f'[info] litter pass 2: {len(L2)} + {len(bag_leaves)} on bag + {len(touch)} touching props  '
+          f't={time.time() - T0:.1f}s', flush=True)
+
+    # shallow water in the puddle hollow (leaves below the level read as submerged)
+    pz = float(ground_height(np.array([px]), np.array([py]), GROUND)[0]) + pu[4] * 0.62
+    build_puddle('Puddle', px, py, pu[2] * 1.15, pu[3] * 1.15, pz, M['water'], C_PROP, seed=2)
+
+    # dew beads on the bag
+    droplets_on(bag, 260, 0.0009, 0.0032, M['drop'], C_PROP, seed=8, normal_min=0.35, name='BagDrops')
+
+    # ------------------------------------------------------------------------------------------------ background
+    trng = random.Random(SEED + 99)
+    trunks = []
+    tries = 0
+    while len(trunks) < 34 and tries < 4000:
+        tries += 1
+        y = 3.6 + 26.0 * trng.random() ** 1.5
+        x = trng.uniform(-(0.65 * y + 1.5), 0.65 * y + 1.5)
+        if any((x - t[0]) ** 2 + (y - t[1]) ** 2 < 1.6 ** 2 for t in trunks):
+            continue
+        trunks.append((x, y))
+    for i, (x, y) in enumerate(trunks):
+        z0 = float(ground_height(np.array([x]), np.array([y]), GROUND)[0])
+        r = trng.uniform(0.10, 0.28)
+        build_trunk(f'Trunk{i}', (x, y, z0), r, 16.0, M['bark'], C_BG, seed=i,
+                    lean=(trng.uniform(-0.03, 0.03), trng.uniform(-0.02, 0.02)))
+    # fallen mossy log across the mid-background + a few bare saplings
+    lx, ly = G(0.15, 0.42)
+    lz = float(ground_height(np.array([lx]), np.array([ly]), GROUND)[0])
+    log_pts = [(lx - 1.4 + 2.8 * k / 20, ly + 0.25 * math.sin(k / 20 * 2.0), lz + 0.06) for k in range(21)]
+    tube_mesh('Log', log_pts, [0.11 - 0.03 * k / 20 for k in range(21)], 20, C_BG, M['bark'], noise_amp=0.08, seed=3)
+    for i in range(7):
+        x, y = trng.uniform(-1.5, 1.5), trng.uniform(2.0, 4.5)
+        z0 = float(ground_height(np.array([x]), np.array([y]), GROUND)[0])
+        h = trng.uniform(0.6, 1.8)
+        pts = [(x + 0.04 * math.sin(k * 0.7 + i), y + 0.03 * math.cos(k * 0.5 + i), z0 + h * k / 12) for k in range(13)]
+        tube_mesh(f'Sapling{i}', pts, [0.008 * (1 - 0.8 * k / 12) + 0.001 for k in range(13)], 6, C_BG, M['twig'])
+
+    # ------------------------------------------------------------------------------------------------ light + camera
+    if DEBUG:
+        light('SUN', 'DebugSun', (0, 0, 5), rot=(math.radians(35), 0, math.radians(20)), energy=4.0, size=5)
+    else:
+        # overcast: the dome does most of it; a big soft key from above-behind, a little cool fill from camera side
+        light('AREA', 'Key', (0.4, 4.6, 5.2), energy=520, color=kelvin(6800), size=10.0, size_y=6.0, shape='RECTANGLE',
+              target=(0.0, 0.8, 0.0))
+        light('AREA', 'Fill', (-1.0, -1.6, 0.9), energy=18, color=kelvin(9500), size=2.0, target=(0.0, 0.7, 0.0))
+        for m in list(bpy.data.materials):
+            if m.name not in ('Water', 'Drop'):
+                fog_wrap(m)
+
+    cam = camera('CamSF2', lens=CAM['lens'] * LENS_K, fstop=None if (DEBUG or arg('--nodof')) else cfg.get('FSTOP', CAM['fstop']), ratio=1.0,
+                 blades=9, clip=(0.01, 200))
+    foc = empty('FocusSF2', cut_center, C_PROP)
+    if cam.data.dof.use_dof:
+        cam.data.dof.focus_object = foc
+    if arg('--closeup'):
+        cam.data.lens = 60
+        cc = cut_center
+        d = Vector((rig.loc.x - cc.x, rig.loc.y - cc.y, 0)).normalized()
+        cam.location = cc + d * 0.28 + Vector((0, 0, 0.09))
+        cam.rotation_euler = look_rot(cam.location, cc + Vector((0, 0, -0.01)))
+    elif DOLLY:
+        keys = []
+        for k in range(5):
+            t = k / 4
+            loc, tgt = cam_pose(t)
+            keys.append((1 + (CAM['frames'] - 1) * t, tuple(loc), tuple(tgt), math.radians(CAM['roll'])))
+        cam_path(cam, keys)
+    else:
+        loc, tgt = cam_pose(0.5)
+        cam.location = loc
+        cam.rotation_euler = look_rot(loc, tgt, math.radians(CAM['roll']))
+    print(f'[info] build done t={time.time() - T0:.1f}s objects={len(bpy.data.objects)}', flush=True)
+    return dict(cam=cam, rig=rig, hf=hf, M=M, sandwich=s_root, bag=bag, cut_center=cut_center)
+
+
+# ============================================================================ wider sets (S31 / S33 / S35)
+
+def forest_floor(GROUND, hf, rigs, M, coll_leaf, coll_bg, rng, n, seed, fade=(4.0, 7.0), extra_dens=None,
+                 flat_zone=None, scale=(0.85, 1.15), ground_res=0.02, attr_fn=None, floor=0.25):
+    """Ground mesh + leaf litter pass over the cameras' view, density fading with distance from the lens."""
+    build_ground(GROUND, hf, M['soil'], coll=coll_bg, res=ground_res, attr_fn=attr_fn, far_res=0.5)
+    protos = make_leaf_protos(M['leaf'], seed=seed + 4)
+    GAP = np.clip((_fbm(hf.X, hf.Y, 5.0, 91, 3) + 0.42) * 2.6, 0.35, 1.0).astype(np.float32)
+    c = rigs[0].loc
+
+    def dens(x, y):
+        iv = np.zeros(np.shape(x), bool)
+        for r_ in rigs:
+            iv |= r_.in_view(x, y, 0.12)
+        d = np.sqrt((np.asarray(x) - c.x) ** 2 + (np.asarray(y) - c.y) ** 2)
+        base = np.clip(1.0 - (d - fade[0]) / (fade[1] - fade[0]), floor, 1.0)
+        out = iv * base * hf.sample(x, y, GAP)
+        if extra_dens is not None:
+            out = out * extra_dens(x, y)
+        return out
+    L = scatter_leaves(hf, protos, n, rng, coll_leaf, dens, flat_zone=flat_zone, scale=scale)
+    hf.make_smooth()
+    return protos, dens, L
+
+
+def trunk_field(GROUND, M, coll, rng, n, ymin, ymax, xk=0.65, xpad=1.5, min_d=1.6, r=(0.10, 0.28), keep_out=None,
+                fixed=(), height=16.0):
+    pts = [(x, y, rr) for (x, y, rr) in fixed]
+    tries = 0
+    while len(pts) < n + len(fixed) and tries < 6000:
+        tries += 1
+        y = ymin + (ymax - ymin) * rng.random() ** 1.5
+        x = rng.uniform(-(xk * y + xpad), xk * y + xpad)
+        if keep_out is not None and keep_out(x, y):
+            continue
+        if any((x - t[0]) ** 2 + (y - t[1]) ** 2 < min_d ** 2 for t in pts):
+            continue
+        pts.append((x, y, rng.uniform(*r)))
+    objs = []
+    for i, (x, y, rr) in enumerate(pts):
+        z0 = float(ground_height(np.array([x]), np.array([y]), GROUND)[0])
+        objs.append(build_trunk(f'Trunk{i}', (x, y, z0), rr, height, M['bark'], coll, seed=i + 1,
+                                lean=(rng.uniform(-0.03, 0.03), rng.uniform(-0.02, 0.02))))
+    return pts, objs
+
+
+def daylight(debug, key=((0.4, 4.6, 5.2), (0.0, 0.8, 0.0)), key_e=520, key_size=(10.0, 6.0),
+             fill=((-1.0, -1.6, 0.9), (0.0, 0.7, 0.0)), fill_e=18, world_strength=2.2, fog=True,
+             skip=('Water', 'Drop')):
+    woods_world(strength=world_strength)
+    if debug:
+        light('SUN', 'DebugSun', (0, 0, 5), rot=(math.radians(35), 0, math.radians(20)), energy=4.0, size=5)
+        return
+    light('AREA', 'Key', key[0], energy=key_e, color=kelvin(6800), size=key_size[0], size_y=key_size[1],
+          shape='RECTANGLE', target=key[1])
+    light('AREA', 'Fill', fill[0], energy=fill_e, color=kelvin(9500), size=2.0, target=fill[1])
+    if fog:
+        for m in list(bpy.data.materials):
+            if m.name not in skip:
+                fog_wrap(m)
+
+
+def small_packet(name, hf, place, mat, coll=None, seed=0):
+    """Folded diamond-paper style packet (~10 x 6 cm), slightly opened."""
+    W, H = 0.10, 0.065
+
+    def ang(t):
+        return 0.5 * _sstep(H / 3 - 0.002, H / 3 + 0.002, t) - 0.35 * _sstep(2 * H / 3 - 0.002, 2 * H / 3 + 0.002, t)
+    o = build_sheet(name, hf, W, H, 18, 18, ang, place, mat, coll, crumple=0.0008, seed=seed, sag=0.001)
+    return o
+
+
+def spill_items(hf, origin, direction, items, M, coll, rng, reach=(0.15, 0.9), spread=0.8, stamp=True):
+    """Scatter paper items in a fan from a bag mouth. items: list of kinds
+    ('envelope', 'receipt', 'document', 'packet', 'wad', 'stone'). Returns objects (stamped into hf)."""
+    out = []
+    base = math.atan2(direction[1], direction[0])
+    for i, kind in enumerate(items):
+        a = base + rng.uniform(-spread, spread)
+        d = rng.uniform(*reach) * (0.6 if kind in ('wad', 'stone') else 1.0)
+        x, y = origin[0] + math.cos(a) * d, origin[1] + math.sin(a) * d
+        yaw = rng.uniform(0, 2 * math.pi)
+        if kind == 'envelope':
+            o = build_envelope(hf, (x, y, yaw), M['envelope'], coll, seed=rng.randrange(100))
+        elif kind == 'receipt':
+            o = build_receipt(hf, (x, y, yaw), M['receipt'], coll, seed=rng.randrange(100))
+        elif kind == 'document':
+            o = build_document(hf, (x, y, yaw), M['document'], coll, seed=rng.randrange(100),
+                               a1=rng.uniform(0.1, 0.6), a2=rng.uniform(-1.0, -0.2))
+        elif kind == 'packet':
+            o = small_packet(f'Packet{i}', hf, (x, y, yaw), M['document'], coll, seed=rng.randrange(100))
+        elif kind == 'wad':
+            r = rng.uniform(0.022, 0.04)
+            z = float(hf.sample_s(np.array([x]), np.array([y]))[0]) + r * 0.55
+            o = crumpled_wad(f'Wad{i}', (x, y, z), r, M['wad'], coll, seed=rng.randrange(100))
+        else:
+            s_ = rng.uniform(0.005, 0.009)
+            z = float(hf.sample_s(np.array([x]), np.array([y]))[0]) + s_ * 0.55
+            o = rough_stone(f'Stone{i}', (x, y, z), s_, M['stone'], coll, seed=rng.randrange(1000))
+        o['kind'] = kind
+        if stamp:
+            hf.stamp_object(o, block=kind in ('wad', 'stone'))
+            hf.make_smooth()
+        out.append(o)
+    return out
+
+
+def recentre(o):
+    """Move a world-space mesh object's origin to its bounding-box centre (for keyframed motion)."""
+    me = o.data
+    co = np.zeros(len(me.vertices) * 3)
+    me.vertices.foreach_get('co', co)
+    co = co.reshape(-1, 3)
+    c = (co.min(0) + co.max(0)) / 2
+    me.vertices.foreach_set('co', (co - c).ravel())
+    me.update()
+    o.location = Vector(tuple(c)) + o.location
+    return o
+
+
+def walking_stick(name, base, top, mat_wood, mat_tip, coll=None, r=0.0125, seed=3):
+    """Wooden walking stick with a crook handle, built along local z then aimed from base to top (top = where
+    the shaft rests). Rubber ferrule at the foot."""
+    L = (Vector(top) - Vector(base)).length + 0.08
+    pts, radii = [], []
+    n = 40
+    for i in range(n):
+        t = i / (n - 1)
+        z = t * L
+        x = 0.004 * math.sin(t * 5.0 + seed) + 0.003 * math.sin(t * 13.0)
+        pts.append((x, 0.0, z))
+        radii.append(r * (0.9 + 0.1 * t) * (1 + 0.04 * mnoise.noise(Vector((t * 9, seed, 0)))))
+    R = 0.045
+    for k in range(1, 22):                              # crook: half-turn hook over the top
+        a = math.pi * k / 21
+        pts.append((R - R * math.cos(a), 0.0, L + R * math.sin(a)))
+        radii.append(r * (1.0 - 0.1 * k / 21))
+    for k in range(1, 5):
+        pts.append((2 * R, 0.0, L - 0.012 * k))
+        radii.append(r * 0.88)
+    shaft = tube_mesh(name, pts, radii, 14, coll, mat_wood, cap=True)
+    ferrule = tube_mesh(name + 'Tip', [(0, 0, -0.002), (0, 0, 0.035)], [r * 1.08, r * 1.05], 14, coll, mat_tip)
+    root = empty(name + 'Root', base, coll)
+    for o in (shaft, ferrule):
+        o.parent = root
+    d = (Vector(top) - Vector(base)).normalized()
+    root.rotation_euler = d.to_track_quat('Z', 'Y').to_euler()
+    return root, shaft
+
+
+def mat_stick(name='StickWood'):
+    m = new_mat(name)
+    g = SG(m)
+    p = g.principled()
+    co = g.tc().outputs['Object']
+    grain = g.vmath('MULTIPLY', co, (900.0, 900.0, 25.0))
+    gn, _ = g.noise(grain, 1.0, 6.0, 0.6, dist=0.5)
+    col = g.ramp(gn, [(0.3, (0.045, 0.018, 0.007)), (0.55, (0.10, 0.045, 0.016)), (0.8, (0.16, 0.08, 0.03))])
+    wn, _ = g.noise(co, 60.0, 3.0, 0.5)
+    worn = g.maprange(wn, 0.6, 0.7)
+    col = g.mixc(g.mul(worn, 0.5), col, (0.20, 0.13, 0.07))
+    g.feed(p.inputs['Base Color'], col)
+    g.feed(p.inputs['Roughness'], g.mixf(worn, 0.32, 0.6))
+    _pset(p, Coat_Weight=0.6, Coat_Roughness=0.18, Specular_IOR_Level=0.5)
+    g.feed(p.inputs['Normal'], g.bump(gn, 0.15, 0.0005))
+    return m

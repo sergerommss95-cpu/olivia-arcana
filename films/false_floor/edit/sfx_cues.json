@@ -1,0 +1,445 @@
+[
+ {
+  "shot": "S00",
+  "key": "elec__hum_low",
+  "t": 0.0,
+  "gain": -27,
+  "dur": 30
+ },
+ {
+  "shot": "S00",
+  "key": "whoosh__deep_air",
+  "t": 1.0,
+  "gain": -22
+ },
+ {
+  "shot": "S01",
+  "key": "metal__resonant_whoosh_hit",
+  "t": 0.3,
+  "gain": -15
+ },
+ {
+  "shot": "S02",
+  "key": "paper__rustle",
+  "t": 1.5,
+  "gain": -24,
+  "dur": 6
+ },
+ {
+  "shot": "S03",
+  "key": "servo__mech_movements",
+  "t": 1.4,
+  "gain": -20
+ },
+ {
+  "shot": "S03",
+  "key": "ff__sound_logo",
+  "t": 5.2,
+  "gain": -11
+ },
+ {
+  "shot": "S04",
+  "key": "wind__deep_cinematic_hum",
+  "t": 0.0,
+  "gain": -28,
+  "dur": 16
+ },
+ {
+  "shot": "S05",
+  "key": "paper__slide",
+  "t": 2.0,
+  "gain": -20
+ },
+ {
+  "shot": "S06",
+  "key": "servo__mech_movements",
+  "t": 1.0,
+  "gain": -24
+ },
+ {
+  "shot": "S08",
+  "key": "wind__deep_cinematic_hum",
+  "t": 0.0,
+  "gain": -32,
+  "dur": 15
+ },
+ {
+  "shot": "S09",
+  "key": "clock__tick_single_closemic",
+  "t": 0.6,
+  "gain": -22
+ },
+ {
+  "shot": "S09",
+  "key": "clock__tick_single_closemic",
+  "t": 6.0,
+  "gain": -22
+ },
+ {
+  "shot": "S09",
+  "key": "mech__tool_click",
+  "t": 12.5,
+  "gain": -14
+ },
+ {
+  "shot": "S10",
+  "key": "mech__gear_lock_metallic",
+  "t": 6.5,
+  "gain": -13
+ },
+ {
+  "shot": "S10",
+  "key": "servo__mech_movements",
+  "t": 7.2,
+  "gain": -19
+ },
+ {
+  "shot": "S11",
+  "key": "mech__tool_click",
+  "t": 2.0,
+  "gain": -22
+ },
+ {
+  "shot": "S12",
+  "key": "paper__quick_movement",
+  "t": 0.6,
+  "gain": -20
+ },
+ {
+  "shot": "S12",
+  "key": "paper__quick_movement",
+  "t": 6.5,
+  "gain": -20
+ },
+ {
+  "shot": "S12",
+  "key": "paper__quick_movement",
+  "t": 12.5,
+  "gain": -20
+ },
+ {
+  "shot": "S12",
+  "key": "paper__quick_movement",
+  "t": 18.5,
+  "gain": -18
+ },
+ {
+  "shot": "S14",
+  "key": "elec__hum_low",
+  "t": 0.0,
+  "gain": -25,
+  "dur": 11
+ },
+ {
+  "shot": "S16",
+  "key": "clock__watch_crown_spin",
+  "t": 1.0,
+  "gain": -15
+ },
+ {
+  "shot": "S16",
+  "key": "mech__tool_click",
+  "t": 6.0,
+  "gain": -18
+ },
+ {
+  "shot": "S17",
+  "key": "mech__gear_lock",
+  "t": 2.0,
+  "gain": -12
+ },
+ {
+  "shot": "S18",
+  "key": "elec__hum_low",
+  "t": 0.0,
+  "gain": -24,
+  "dur": 15
+ },
+ {
+  "shot": "S19",
+  "key": "servo__mech_movements",
+  "t": 0.8,
+  "gain": -24
+ },
+ {
+  "shot": "S20",
+  "key": "wind__deep_cinematic_hum",
+  "t": 0.0,
+  "gain": -27,
+  "dur": 14
+ },
+ {
+  "shot": "S21",
+  "key": "servo__pneumatic_release",
+  "t": 7.0,
+  "gain": -18
+ },
+ {
+  "shot": "S21",
+  "key": "elec__hum_low",
+  "t": 0.0,
+  "gain": -26,
+  "dur": 20
+ },
+ {
+  "shot": "S22",
+  "key": "paper__slide",
+  "t": 2.5,
+  "gain": -18
+ },
+ {
+  "shot": "S23",
+  "key": "wind__mountain_top",
+  "t": 0.0,
+  "gain": -26,
+  "dur": 6
+ },
+ {
+  "shot": "S24",
+  "key": "metal__clank_plate_drop",
+  "t": 2.2,
+  "gain": -17
+ },
+ {
+  "shot": "S24",
+  "key": "servo__mech_movements",
+  "t": 4.5,
+  "gain": -18
+ },
+ {
+  "shot": "S25",
+  "key": "clock__watch_crown_spin",
+  "t": 0.6,
+  "gain": -12
+ },
+ {
+  "shot": "S25",
+  "key": "mech__gear_lock_metallic",
+  "t": 4.2,
+  "gain": -9
+ },
+ {
+  "shot": "S25",
+  "key": "servo__hydraulic_door",
+  "t": 6.2,
+  "gain": -11
+ },
+ {
+  "shot": "S25",
+  "key": "metal__slam_submarine",
+  "t": 7.4,
+  "gain": -13
+ },
+ {
+  "shot": "S26",
+  "key": "paper__slide",
+  "t": 1.0,
+  "gain": -20
+ },
+ {
+  "shot": "S26",
+  "key": "elec__powerup_static",
+  "t": 12.0,
+  "gain": -13
+ },
+ {
+  "shot": "S26",
+  "key": "elec__machine_activation",
+  "t": 12.3,
+  "gain": -16
+ },
+ {
+  "shot": "S27",
+  "key": "elec__hum_low",
+  "t": 0.0,
+  "gain": -24,
+  "dur": 13
+ },
+ {
+  "shot": "S27",
+  "key": "mech__gear_shuffle",
+  "t": 1.6,
+  "gain": -12
+ },
+ {
+  "shot": "S27",
+  "key": "mech__gear_lock_fast_tap",
+  "t": 2.6,
+  "gain": -14
+ },
+ {
+  "shot": "S27",
+  "key": "metal__clank_plate_drop",
+  "t": 3.8,
+  "gain": -16
+ },
+ {
+  "shot": "S27",
+  "key": "mech__gear_lock_fast_tap",
+  "t": 5.0,
+  "gain": -14
+ },
+ {
+  "shot": "S27",
+  "key": "metal__clank_plate_drop",
+  "t": 6.4,
+  "gain": -16
+ },
+ {
+  "shot": "S27",
+  "key": "mech__gear_shuffle",
+  "t": 7.6,
+  "gain": -13
+ },
+ {
+  "shot": "S27",
+  "key": "mech__gear_lock_fast_tap",
+  "t": 9.0,
+  "gain": -14
+ },
+ {
+  "shot": "S28",
+  "key": "paper__rustle",
+  "t": 0.5,
+  "gain": -24,
+  "dur": 8
+ },
+ {
+  "shot": "S30",
+  "key": "whoosh__deep_air",
+  "t": 0.5,
+  "gain": -22
+ },
+ {
+  "shot": "S31",
+  "key": "wind__dark_storm_gust",
+  "t": 0.0,
+  "gain": -18
+ },
+ {
+  "shot": "S31",
+  "key": "paper__rustle",
+  "t": 2.0,
+  "gain": -18,
+  "dur": 8
+ },
+ {
+  "shot": "S31",
+  "key": "paper__quick_movement",
+  "t": 4.0,
+  "gain": -14
+ },
+ {
+  "shot": "S32",
+  "key": "elec__hum_low",
+  "t": 0.0,
+  "gain": -26,
+  "dur": 7
+ },
+ {
+  "shot": "S33",
+  "key": "wind__mountain_top",
+  "t": 0.0,
+  "gain": -24,
+  "dur": 12
+ },
+ {
+  "shot": "S34",
+  "key": "mech__tool_click",
+  "t": 0.3,
+  "gain": -16
+ },
+ {
+  "shot": "S35",
+  "key": "wind__mountain_top",
+  "t": 0.0,
+  "gain": -26,
+  "dur": 8
+ },
+ {
+  "shot": "S36",
+  "key": "paper__pages_moving",
+  "t": 1.0,
+  "gain": -24
+ },
+ {
+  "shot": "S37",
+  "key": "boom__sub_knock",
+  "t": 5.5,
+  "gain": -13
+ },
+ {
+  "shot": "S39",
+  "key": "paper__slide",
+  "t": 1.0,
+  "gain": -20
+ },
+ {
+  "shot": "S40",
+  "key": "metal__hammer_hit",
+  "t": 1.2,
+  "gain": -18
+ },
+ {
+  "shot": "S43",
+  "key": "servo__mech_movements",
+  "t": 0.5,
+  "gain": -20
+ },
+ {
+  "shot": "S46",
+  "key": "wind__deep_cinematic_hum",
+  "t": 0.0,
+  "gain": -32,
+  "dur": 10
+ },
+ {
+  "shot": "S47",
+  "key": "servo__mech_movements",
+  "t": 1.0,
+  "gain": -18
+ },
+ {
+  "shot": "S47",
+  "key": "boom__sub_knock",
+  "t": 3.0,
+  "gain": -15
+ },
+ {
+  "shot": "S49",
+  "key": "whoosh__wind_swoosh",
+  "t": 0.5,
+  "gain": -22
+ },
+ {
+  "shot": "S50",
+  "key": "whoosh__wind_swoosh",
+  "t": 0.5,
+  "gain": -22
+ },
+ {
+  "shot": "S51",
+  "key": "elec__hum_low",
+  "t": 0.0,
+  "gain": -27,
+  "dur": 10
+ },
+ {
+  "shot": "S52",
+  "key": "servo__hydraulic_door",
+  "t": 1.0,
+  "gain": -12
+ },
+ {
+  "shot": "S52",
+  "key": "metal__slam_heavy_door_mixkit",
+  "t": 6.5,
+  "gain": -10
+ },
+ {
+  "shot": "S52",
+  "key": "ff__sound_logo",
+  "t": 9.5,
+  "gain": -10
+ }
+]

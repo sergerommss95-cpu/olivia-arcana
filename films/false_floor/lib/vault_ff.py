@@ -73,9 +73,12 @@ def door_proto(M, coll=None):
     return proto
 
 
-def build_wall(M, y0=0.0, cols=22, rows=13, z0=0.18, coll=None, seed=7, forced=0.62, side=1):
-    """Wall + cells + doors. Returns dict(doors=[(obj, col, row, state)], loose=[...])."""
+def build_wall(M, y0=0.0, cols=22, rows=13, z0=0.18, coll=None, seed=7, forced=0.62, side=1, closed=False):
+    """Wall + cells + doors. Returns dict(doors=[(obj, col, row, state)], loose=[...]).
+    closed=True: every door shut (the BEFORE state); the door's pivot empty is obj.parent (rotate .z to open)."""
     rng = random.Random(seed)
+    if closed:
+        forced = -1.0     # roll < forced never true: every door stays shut (RNG still advances the same way)
     proto = door_proto(M, coll)
     if side > 0:
         root = empty('WallRoot', (WALL_X, y0, z0), coll=coll)
@@ -172,8 +175,9 @@ def pouch(name, mat, coll=None, seed=0):
     return o
 
 
-def scatter_debris(M, area_min, area_max, count=140, seed=11, coll=None, near=None):
-    """Floor debris. near: (x, y) point where density concentrates (under the wall)."""
+def scatter_debris(M, area_min, area_max, count=140, seed=11, coll=None, near=None, avoid=None):
+    """Floor debris. near: (x, y) point where density concentrates (under the wall).
+    avoid: optional [(x, y, radius), ...] keep-out discs (hero props); skipped items still advance the RNG."""
     rng = random.Random(seed)
     made = []
     kinds = (['env'] * 30 + ['paper'] * 22 + ['kraft'] * 12 + ['pouch'] * 10 + ['parcel'] * 8 + ['card'] * 6 +
@@ -212,5 +216,8 @@ def scatter_debris(M, area_min, area_max, count=140, seed=11, coll=None, near=No
             z = 0.0016
         o.location = (x, y, z)
         o.rotation_euler = (rng.uniform(-0.04, 0.04), rng.uniform(-0.04, 0.04), rz)
+        if avoid and any((x - ax) ** 2 + (y - ay) ** 2 < ar * ar for ax, ay, ar in avoid):
+            bpy.data.objects.remove(o)
+            continue
         made.append(o)
     return made
