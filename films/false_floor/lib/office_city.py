@@ -1211,24 +1211,46 @@ def build_table(M, coll=None, seed=5):
     spots = [(-0.006, 0.002, 0.0026), (0.004, -0.004, 0.0021), (0.011, 0.006, 0.0018), (-0.015, -0.007, 0.0016),
              (0.001, 0.012, 0.0014), (-0.022, 0.009, 0.002), (0.019, -0.011, 0.0013), (0.026, 0.004, 0.0017),
              (-0.002, -0.015, 0.0012), (0.014, 0.018, 0.0011)]
+    # surface heights first (ray casts onto the parcel / pad), then drop each stone so its lowest point rests there
+    bpy.context.view_layer.update()
+    dg = bpy.context.evaluated_depsgraph_get()
+    sc = bpy.context.scene
+
+    def surf(x, y, r):
+        zs = []
+        for dx, dy in ((0, 0), (r, 0), (-r, 0), (0, r), (0, -r), (0.7 * r, 0.7 * r), (-0.7 * r, -0.7 * r)):
+            hit, loc_, *_ = sc.ray_cast(dg, Vector((x + dx, y + dy, 0.3)), Vector((0, 0, -1)))
+            zs.append(loc_.z if hit else z0)
+        return max(zs)
+
+    items = []
     for k, (u, v, s_) in enumerate(spots):
         p = R @ Vector((u, v, 0))
-        rough_stone(f'Stone{k}', (p.x, p.y, z0 + 0.0004 - 0.0005 + s_ * 0.78), s_, M['stone'], coll, seed=40 + k)
+        items.append(('rough', f'Stone{k}', p.x, p.y, s_, 40 + k))
     for k, (u, v, r_) in enumerate(((0.008, -0.001, 0.0019), (-0.010, 0.011, 0.0015))):
         p = R @ Vector((u, v, 0))
-        brilliant(f'Polished{k}', (p.x, p.y, z0 + 0.0002), r_, M['polished'], coll,
-                  rot=(math.radians(rng.uniform(70, 100)), 0, rng.uniform(0, 6)))
-    for k, (x, y, s_) in enumerate(((0.092, -0.052, 0.0019), (0.103, -0.041, 0.0014), (0.081, -0.067, 0.0012))):
-        rough_stone(f'Spill{k}', (x, y, z0 + s_ * 0.78), s_, M['stone'], coll, seed=80 + k)
+        items.append(('pol', f'Polished{k}', p.x, p.y, r_, 60 + k))
+    for k, (x, y, s_) in enumerate(((0.072, -0.03, 0.0019), (0.084, -0.019, 0.0014), (0.061, -0.047, 0.0012))):
+        items.append(('rough', f'Spill{k}', x, y, s_, 80 + k))
+    heights = [surf(x, y, s_ * 0.9) for _, _, x, y, s_, _ in items]
+    for (kind, nm, x, y, s_, sd), zs in zip(items, heights):
+        if kind == 'rough':
+            o = rough_stone(nm, (x, y, zs), s_, M['stone'], coll, seed=sd)
+        else:
+            o = brilliant(nm, (x, y, zs), s_, M['polished'], coll,
+                          rot=(math.radians(rng.uniform(70, 100)), 0, rng.uniform(0, 6)))
+        Rm = o.rotation_euler.to_matrix()
+        zmin = min((Rm @ v.co).z for v in o.data.vertices)
+        o.location.z = zs - zmin + 0.00002
     A['subject'] = Vector((0.0, 0.0, z0 + 0.002))
-    build_tweezers('Tweezers', (0.205, -0.135, z0), math.radians(146), M, coll)
-    build_loupe('Loupe', (-0.125, -0.075, z0), math.radians(25), M, coll)
-    build_carat_scale('PocketScale', (0.17, 0.13, z0), math.radians(-28), M, coll, lid_angle=108)
-    build_pen('Pen', (-0.17, 0.10, z0), math.radians(118), M, coll)
+    build_tweezers('Tweezers', (0.205, -0.118, z0), math.radians(148), M, coll)
+    build_loupe('Loupe', (-0.112, -0.055, z0), math.radians(25), M, coll)
+    build_carat_scale('PocketScale', (0.135, 0.105, z0), math.radians(-24), M, coll, lid_angle=108)
+    build_pen('Pen', (-0.085, -0.142, z0), math.radians(17), M, coll)
     for k in range(3):
-        build_closed_parcel(f'Parcel{k}', (-0.035 + 0.003 * k, 0.175 + 0.004 * k, z0 + 0.0032 * k),
-                            math.radians(-5 + 9 * k), M, coll, seed=10 + k)
-    build_closed_parcel('ParcelLone', (0.075, 0.105, z0), math.radians(24), M, coll, seed=21)
+        build_closed_parcel(f'Parcel{k}', (-0.095 + 0.003 * k, 0.12 + 0.004 * k, z0 + 0.0032 * k),
+                            math.radians(-14 + 9 * k), M, coll, seed=10 + k)
+    build_closed_parcel('ParcelLone', (0.03, 0.135, z0), math.radians(8), M, coll, seed=21)
     return A
 
 
@@ -1656,9 +1678,9 @@ def build_camera_unit(name, M, base, out, aim, coll=None):
     o1 = ob(name + 'Bracket', bm, [M['cam_body']], coll, smooth=40)
     d = (Vector(aim) - arm_end).normalized()
     q = d.to_track_quat('X', 'Z')
-    body = rbox(name + 'Body', (0.26, 0.085, 0.085), (0.0, 0, 0), M['cam_body'], bev=0.012, seg=3)
-    hood = rbox(name + 'Hood', (0.32, 0.11, 0.008), (0.03, 0, 0.052), M['cam_body'], bev=0.003)
-    lens = cyl(name + 'Lens', (0.131, 0, 0), 0.026, 0.004, M['cam_glass'], rot=(0, math.pi / 2, 0), seg=24)
+    body = rbox(name + 'Body', (0.34, 0.11, 0.11), (0.0, 0, 0), M['cam_body'], bev=0.015, seg=3)
+    hood = rbox(name + 'Hood', (0.42, 0.14, 0.01), (0.04, 0, 0.066), M['cam_body'], bev=0.004)
+    lens = cyl(name + 'Lens', (0.171, 0, 0), 0.034, 0.004, M['cam_glass'], rot=(0, math.pi / 2, 0), seg=24)
     piv = empty(name + 'Head', tuple(arm_end + Vector((0, 0, 0.05))), coll, size=0.05)
     for p_ in (body, hood, lens):
         parent(p_, piv, keep=False)
@@ -1802,8 +1824,8 @@ def build_street(M, coll=None, night=True, seed=11):
     corner_cams = []
     corner_fac = []
     for side in (-1, 1):
-        r = build_facade(f'Corner{side}', M, 1, 0.0, 22.0, 24.0 if side < 0 else 27.0, 'pale' if side < 0 else 'grey',
-                         seed + 90 + side, coll, hw=0.0, entrances=(1,), cams=[(3.2, 4.75)])
+        r = build_facade(f'Corner{side}', M, 1, 0.0, 22.0, 12.6 if side < 0 else 27.0, 'pale' if side < 0 else 'grey',
+                         seed + 90 + side, coll, hw=0.0, entrances=(1,), cams=[(3.2, 4.75), (13.5, 4.75)])
         o = r['obj']
         o.rotation_euler.z = math.pi / 2
         o.location = (-hw, yin, 0.0) if side < 0 else (hw + 22.0, yin, 0.0)

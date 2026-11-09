@@ -537,7 +537,7 @@ def mat_soil(name='Soil', far_from=2.2, far_to=3.6):
     g.feed(p.inputs['Base Color'], col)
     wn, _ = g.noise(co, 3.0, 3.0, 0.5)
     wet = g.maprange(wn, 0.45, 0.62, 0.0, 1.0)
-    pw = g.mul(pathm, g.maprange(wn, 0.55, 0.62))
+    pw = g.mul(pathm, g.maprange(wn, 0.6, 0.66))
     g.feed(p.inputs['Roughness'], g.mixf(pathm, g.mixf(far, g.mixf(wet, 0.85, 0.62), 0.8), g.mixf(pw, 0.75, 0.4)))
     g.feed(p.inputs['Coat Weight'], g.add(g.mul(g.mul(wet, 0.08), g.sub(1.0, far)), g.mul(pw, 0.2)))
     g.feed(p.inputs['Specular IOR Level'], g.mixf(wet, 0.15, 0.28))
@@ -2329,4 +2329,27 @@ def mat_stick(name='StickWood'):
     g.feed(p.inputs['Roughness'], g.mixf(worn, 0.32, 0.6))
     _pset(p, Coat_Weight=0.6, Coat_Roughness=0.18, Specular_IOR_Level=0.5)
     g.feed(p.inputs['Normal'], g.bump(gn, 0.15, 0.0005))
+    return m
+
+
+def mat_fog_soft(name='SoftFog', density=0.015, color=(0.78, 0.82, 0.88), anisotropy=0.5, noise_scale=0.35):
+    """Volume for a fog box with no visible box: density fades to zero at every side, denser near the ground,
+    broken up by low-frequency noise. Use with volume_box()."""
+    m = new_mat(name)
+    nt = m.node_tree
+    for n in list(nt.nodes):
+        if n.type != 'OUTPUT_MATERIAL':
+            nt.nodes.remove(n)
+    g = SG(m)
+    v = g.node('ShaderNodeVolumePrincipled')
+    v.inputs['Color'].default_value = (*color, 1)
+    v.inputs['Anisotropy'].default_value = anisotropy
+    gx, gy, gz = g.sep(g.tc().outputs['Generated'])
+    edge = g.mul(g.mul(g.maprange(gx, 0.0, 0.18), g.maprange(gx, 1.0, 0.82)),
+                 g.mul(g.maprange(gy, 0.0, 0.15), g.maprange(gy, 1.0, 0.85)))
+    hz = g.maprange(gz, 0.95, 0.05, 0.0, 1.0, interp='SMOOTHSTEP')
+    nz, _ = g.noise(g.tc().outputs['Object'], noise_scale, 3.0, 0.55)
+    brk = g.maprange(nz, 0.3, 0.75, 0.25, 1.4)
+    g.feed(v.inputs['Density'], g.mul(g.mul(g.mul(edge, hz), brk), density))
+    g.L.new(v.outputs[0], g.out().inputs['Volume'])
     return m

@@ -703,7 +703,10 @@ def crank_tool(M, c, r, y0=WALL_Y0, z0=0.18, name='Crank', coll=None):
     root = empty(name, (face, dc, L.z), coll=coll)
     stand = 0.085
     ps = []
-    ps.append(box(name + 'Bridge', (0.032, 0.42, 0.042), (-stand, 0, 0), coll=coll, bev=0.004, seg=2, mat=M['tool']))
+    ps.append(box(name + 'Bridge', (0.04, 0.42, 0.055), (-stand, 0, 0), coll=coll, bev=0.005, seg=2, mat=M['tool']))
+    for sz in (-1, 1):       # welded flanges: reads as a heavy fabricated clamp, not a bar
+        ps.append(box(name + 'Flange', (0.07, 0.4, 0.008), (-stand + 0.012, 0, sz * 0.031), coll=coll, bev=0.002,
+                      mat=M['tool']))
     for sy in (-1, 1):
         ps.append(box(name + 'Foot', (stand - 0.014, 0.034, 0.05), (-(stand - 0.014) / 2 - 0.007, sy * 0.195, 0),
                       coll=coll, bev=0.003, mat=M['tool']))

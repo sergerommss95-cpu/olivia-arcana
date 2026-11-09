@@ -48,7 +48,7 @@ def shot_office(dusk=False):
                  bounces=(3, 3, 4), exposure=-0.2 if not dusk else 0.0)
     world_color((0.0, 0.0, 0.0), 0.0)
     M = office_mats()
-    A = build_office(M, door_angle=92.0, blinds_tilt=50.0 if not dusk else 56.0, lamp_on=dusk, lamp_energy=16.0)
+    A = build_office(M, door_angle=72.0, blinds_tilt=50.0 if not dusk else 56.0, lamp_on=dusk, lamp_energy=16.0)
     o = OFF
     wx0, wx1, wz0, wz1 = o['win']
     wxc, wzc = (wx0 + wx1) / 2, (wz0 + wz1) / 2
@@ -65,7 +65,7 @@ def shot_office(dusk=False):
         opp = rbox('OppositeBlock', (30.0, 6.0, 26.0), (wxc, o['y1'] + 16.0, 13.0 - 9.0), fm, bev=0)
         no_shadow(opp)
     if DEBUG:
-        debug_light((0.8, 2.5, 0.9), (0.6, 2.0, 2.4), energy=600, size=1.5)
+        debug_light((-0.4, 2.5, 0.9), (-0.4, 1.8, 2.4), energy=600, size=1.5)
     elif not dusk:
         sun('Sun', (-0.30, -0.86, -0.47), 4.2, kelvin(4700), angle=0.6)
         light('AREA', 'SkyFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(90), 0, 0), energy=260.0,
@@ -82,8 +82,8 @@ def shot_office(dusk=False):
                         noise_scale=1.4, contrast=(0.3, 0.75))
         volume_box('Haze', ((o['x0'] + o['x1']) / 2, o['y1'] / 2, o['H'] / 2), (o['x1'] - o['x0'] - 0.02, o['y1'] - 0.02,
                    o['H'] - 0.02), hz)
-    foc = empty('Focus', (0.75, 2.45, 0.95))
-    cam_at('CamOffice', (-0.78, -1.28, 1.40), (0.52, 2.9, 1.0), 28.0, 4.0, foc, roll=0.0)
+    foc = empty('Focus', (-0.35, 2.45, 0.95))
+    cam_at('CamOffice', (-0.15, -0.82, 1.45), (-0.30, 3.0, 1.02), 24.0, 4.0, foc, roll=0.0)
 
 
 # ============================================================================ S05 dealer's table
@@ -151,7 +151,7 @@ def shot_street(night=True):
         cam_at('CamNight', (-3.3, -2.6, 1.3), (1.0, 26.0, 3.6), 30.0, 4.0, foc, roll=0.0)
     else:
         foc = empty('FocusD', (0.5, 9.0, 1.5))
-        cam_at('CamDusk', (6.8, -13.0, 5.6), (-0.6, 20.0, 5.2), 36.0, 5.6, foc, roll=0.0)
+        cam_at('CamDusk', (-3.2, -24.0, 2.1), (2.2, 14.0, 6.6), 40.0, 5.6, foc, roll=0.0)
 
 
 reset()

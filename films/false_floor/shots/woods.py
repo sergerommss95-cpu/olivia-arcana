@@ -180,7 +180,7 @@ if SHOT == 'S31':
     C_LEAF, C_PROP, C_BG = collection('Leaves'), collection('Props'), collection('Background')
     M = make_materials()
     M['soil'] = mat_soil('SoilS31', far_from=5.5, far_to=8.0)
-    FOG.update(color=(0.0035, 0.004, 0.0055), strength=1.0, start=2.5, dist=7.0, refl=1.0)
+    FOG.update(color=(0.0030, 0.0038, 0.0055), strength=1.0, start=2.5, dist=7.0, refl=1.0)
 
     def aim(loc, pitch, yaw=0.0):
         p_, y_ = math.radians(pitch), math.radians(yaw)
@@ -311,22 +311,22 @@ if SHOT == 'S31':
 
     # ---- light: cold moonless sky, distant sodium glow from the motorway through thin fog
     woods_world(sky_zenith=(0.010, 0.013, 0.020), sky_horizon=(0.0025, 0.003, 0.004), strength=1.0)
-    SODIUM = (1.0, 0.40, 0.075)
+    GLOW = tuple(0.45 * c + 0.55 for c in kelvin(2700))     # distant motorway lights: desaturated amber-white
     if DEBUG:
         light('SUN', 'DebugSun', (0, 0, 5), rot=(math.radians(35), 0, math.radians(20)), energy=4.0, size=5)
     else:
-        light('AREA', 'Sky', (0.5, 3.0, 9.0), energy=90, color=kelvin(11000), size=14.0, target=(0, 3.0, 0))
-        light('AREA', 'Sodium', (-15.0, 27.0, 3.2), energy=800, color=SODIUM, size=12.0, size_y=2.5,
-              shape='RECTANGLE', target=(0.0, 3.0, 0.4))
-        light('AREA', 'Sodium2', (-5.0, 37.0, 4.0), energy=450, color=SODIUM, size=8.0, size_y=2.0,
+        # moonless overcast: cold dome + a cool soft key from camera right so plastic and paper read
+        light('AREA', 'Sky', (0.5, 3.0, 9.0), energy=110, color=kelvin(11000), size=14.0, target=(0, 3.0, 0))
+        light('AREA', 'CoolKey', (2.2, 0.6, 1.7), energy=5.0, color=kelvin(9000), size=3.0, target=(0.0, 2.3, 0.1))
+        # small, faint glow far off between the trunks where the motorway is
+        light('AREA', 'RoadGlow', (-9.0, 30.0, 2.6), energy=160, color=GLOW, size=5.0, size_y=1.5,
               shape='RECTANGLE', target=(0.0, 3.0, 0.4))
         for m in list(bpy.data.materials):
             if m.name not in ('Water', 'Drop'):
                 fog_wrap(m)
-        fogm = mat_volume('NightFog', density=0.016, color=(0.8, 0.82, 0.85), anisotropy=0.6, noise_scale=0.35,
-                          contrast=(0.3, 0.75))
-        vb = volume_box('FogBank', (-2.0, 17.5, 1.3), (26.0, 25.0, 2.6), fogm, C_BG)
-        key(vb, 'location', [(1, (-2.0, 17.5, 1.3)), (N, (-1.1, 17.8, 1.3))], interp='LINEAR')
+        fogm = mat_fog_soft('NightFog', density=0.02, color=(0.74, 0.8, 0.88), anisotropy=0.5, noise_scale=0.35)
+        vb = volume_box('FogBank', (-2.0, 18.5, 1.6), (30.0, 28.0, 3.2), fogm, C_BG)
+        key(vb, 'location', [(1, (-2.0, 18.5, 1.6)), (N, (-1.1, 18.8, 1.6))], interp='LINEAR')
     cam = camera('CamS31', lens=32.0, fstop=None if (DEBUG or arg('--nodof')) else 2.8, ratio=1.0, blades=9,
                  clip=(0.02, 300))
     cam_path(cam, [(1, tuple(loc0), tuple(tgt0), 0.0), (N, tuple(loc1), tuple(tgt1), 0.0)])
