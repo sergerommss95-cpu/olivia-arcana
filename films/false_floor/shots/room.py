@@ -220,11 +220,16 @@ elif SHOT == 'S26':
     pir, ls, cc = sensors(taped=True, led=False)
     fx = fixtures(on=(0, 0, 0))
     # spill bounce: the lit floor patch inside the doorway throws a little light back up (keeps the ceiling readable)
-    ante_spill()
+    ante_spill(energy=120.0)
     # bounce from the lit floor patch / boxes, placed off the foam's path so nothing gets a near-field hot spot
-    light('AREA', 'SpillBounce', (-0.5, 5.0, 0.01), (0, 0, 0), energy=6.0, color=kelvin(5000), size=1.0, size_y=1.2,
+    light('AREA', 'SpillBounce', (-0.5, 5.0, 0.01), (0, 0, 0), energy=26.0, color=kelvin(5000), size=1.0, size_y=1.2,
           shape='RECTANGLE', target=(-0.25, 4.9, 2.9))
-    light('AREA', 'CornerBounce', (-1.0, 4.7, 2.0), energy=3.0, color=kelvin(5000), size=0.8, target=PIR_CORNER)
+    light('AREA', 'CornerBounce', (-1.0, 4.7, 2.0), energy=9.0, color=kelvin(5000), size=0.8, target=PIR_CORNER)
+    # the doorway as a soft source for the whole room (cool), and a dim room bounce so the walls never go to black
+    light('AREA', 'DoorwaySoft', (0.0, 6.15, 1.1), energy=40.0, color=kelvin(5600), size=0.9, size_y=1.9,
+          shape='RECTANGLE', target=(0.0, 2.0, 1.0))
+    light('AREA', 'RoomBounce', (0.0, 3.0, 2.85), energy=10.0, color=kelvin(5000), size=2.2, size_y=5.0,
+          shape='RECTANGLE', target=(0.0, 3.0, 0.0))
     foam = foam_sheet(M)
     pirw = Vector(pir['root'].location)
 
@@ -395,9 +400,13 @@ elif SHOT == 'S34':
     tpos = empty('TorchPos', (-1.0, 0.85, 1.42))
     key(tpos, 'location', [(1, (-1.02, 0.8, 1.42)), (N, (-0.9, 1.05, 1.38))])
     shake(tpos, 0.004, 0.0, scale=7, seed=34)
-    core = light('SPOT', 'TorchCore', (0, 0, 0), energy=150.0, color=kelvin(3700), spot=17.0, blend=0.4, radius=0.012)
-    spill = light('SPOT', 'TorchSpill', (0, 0, 0), energy=55.0, color=kelvin(3600), spot=50.0, blend=1.0, radius=0.02)
-    ante_spill(energy=22.0, kelv=5600)
+    core = light('SPOT', 'TorchCore', (0, 0, 0), energy=260.0, color=kelvin(3700), spot=17.0, blend=0.4, radius=0.012)
+    spill = light('SPOT', 'TorchSpill', (0, 0, 0), energy=120.0, color=kelvin(3600), spot=55.0, blend=1.0, radius=0.02)
+    ante_spill(energy=60.0, kelv=5600)
+    light('AREA', 'DoorwaySoft', (0.0, 6.15, 1.1), energy=30.0, color=kelvin(5800), size=0.9, size_y=1.9,
+          shape='RECTANGLE', target=(0.3, 2.5, 0.3))
+    light('AREA', 'RoomBounce', (0.0, 3.0, 2.85), energy=12.0, color=kelvin(5200), size=2.2, size_y=5.0,
+          shape='RECTANGLE', target=(0.0, 3.0, 0.0))
     for L in (core, spill):
         L.parent = tpos
         track_to(L, aim)
@@ -426,7 +435,8 @@ elif SHOT == 'S28':
     debris_after(avoid=[(C[0], C[1], 0.78)])
     sorted_loot(M, C)
     fx = fixtures()
-    cream_key(pos=(-0.35, 4.5, 1.9), aim=(0.15, 2.9, 0.0), energy=30.0, size=0.3)   # side-back: paper edges catch it
+    cream_key(pos=(-0.35, 4.5, 1.9), aim=(0.15, 2.9, 0.0), energy=45.0, size=0.3)   # side-back: paper edges catch it
+    light('AREA', 'FrontFill', (-1.0, 2.3, 0.9), energy=10.0, color=kelvin(4800), size=1.0, target=(0.2, 3.0, 0.0))
     light('AREA', 'Bounce', (0.0, -0.4, 0.6), energy=2.5, color=kelvin(5200), size=2.0, target=(0.5, 2.5, 0.8))
     foc = empty('FocusS28', (C[0] - 0.42, C[1] + 0.06, 0.01))
     cam = lens_cam('CamS28', 32, 2.8, foc)
@@ -439,10 +449,11 @@ elif SHOT == 'S45a':
     walls('after')
     sensors(taped=True, led=False)
     debris_after()
-    fx = fixtures()
+    fx = fixtures(strength=1.3)
     cream_key()
     light('AREA', 'Bounce', (0.0, -0.4, 0.6), energy=2.5, color=kelvin(5200), size=2.0, target=(0.5, 2.5, 0.8))
-    light('AREA', 'FloorBounce', (-0.2, 4.4, 0.05), energy=22.0, color=kelvin(4400), size=1.4, target=(-0.2, 4.8, 2.9))
+    light('AREA', 'FloorBounce', (-0.2, 4.4, 0.05), energy=70.0, color=kelvin(4400), size=1.6, target=(-0.2, 4.8, 2.9))
+    light('AREA', 'CeilWash', (0.5, 4.3, 1.4), energy=25.0, color=kelvin(4300), size=1.0, target=(-0.25, 4.95, 2.9))
     lsw = Vector(LIGHT_SENSOR)
     foc = empty('FocusS45a', tuple(lsw + Vector((0, 0, -0.016))))
     cam = lens_cam('CamS45a', 40, 2.8, foc)
@@ -458,7 +469,7 @@ elif SHOT == 'S45b':
     debris_after(avoid=[(C[0], C[1], 0.78)])
     sorted_loot(M, C)
     fx = fixtures()
-    cream_key(pos=(-1.1, 3.7, 1.15), aim=(0.15, 3.0, 0.0), energy=30.0, size=0.3)     # raking: every pile casts
+    cream_key(pos=(-1.1, 3.7, 1.15), aim=(0.15, 3.0, 0.0), energy=55.0, size=0.3)     # raking: every pile casts
     light('AREA', 'Bounce', (0.0, -0.4, 0.6), energy=2.5, color=kelvin(5200), size=2.0, target=(0.5, 2.5, 0.8))
     foc = empty('FocusS45b', (C[0], C[1], 0.0))
     cam = lens_cam('CamS45b', 35, 5.6, foc)
@@ -471,11 +482,17 @@ elif SHOT == 'S51':
     walls('after')
     sensors(taped=True, led=False)
     debris_after()
-    fx = fixtures(on=(0, 0, 1))
-    cream_key(pos=(-0.55, 5.3, 2.7), aim=(1.25, 3.4, 1.3), energy=46.0, size=0.3)
+    fx = fixtures(on=(0.25, 0.55, 1))
+    cream_key(pos=(-0.55, 5.3, 2.7), aim=(1.25, 3.4, 1.3), energy=50.0, size=0.3)
+    light('AREA', 'FloorBounce', (0.0, 3.5, 0.05), energy=14.0, color=kelvin(4600), size=1.5, size_y=4.0,
+          shape='RECTANGLE', target=(0.0, 3.5, 2.9))
     foc = empty('FocusS51', (1.2, 3.6, 1.2))
     cam = lens_cam('CamS51', 24, 4.0, foc)
     cam.location = (-0.78, 5.75, 1.18)
     look_at(cam, (0.95, 1.4, 1.05))
 
+# Per-shot exposure toward the lead's luma targets (pre-grade: ~0.2-0.3 mean night, 0.3-0.4 lit, p99 ~0.8).
+# S02 and S27 were released at 0.0 and stay there.
+EXPO = {'S02': 0.0, 'S27': 0.0}
+sc.view_settings.exposure = EXPO.get(SHOT, 0.0) + arg('--ev', 0.0, float)
 finish(f'{SHOT}')

@@ -45,10 +45,10 @@ def debug_light(target, loc, energy=600.0, size=4.0):
 
 def shot_office(dusk=False):
     setup_render(1, 1, res=STILL, samples=64, mb=False, look='Medium High Contrast', clamp=5.0,
-                 bounces=(3, 3, 4), exposure=-1.1 if not dusk else 0.0)
+                 bounces=(3, 3, 4), exposure=-0.55 if not dusk else 1.1)
     world_color((0.0, 0.0, 0.0), 0.0)
     M = office_mats()
-    A = build_office(M, door_angle=72.0, blinds_tilt=50.0 if not dusk else 56.0, lamp_on=dusk, lamp_energy=30.0)
+    A = build_office(M, door_angle=72.0, blinds_tilt=50.0 if not dusk else 56.0, lamp_on=dusk, lamp_energy=40.0)
     o = OFF
     wx0, wx1, wz0, wz1 = o['win']
     wxc, wzc = (wx0 + wx1) / 2, (wz0 + wz1) / 2
@@ -56,7 +56,7 @@ def shot_office(dusk=False):
     if not dusk:
         sky = mat_emission('SkyDay', (0.80, 0.88, 1.0), 1.5)
     else:
-        sky = mat_emission('SkyDusk', (0.10, 0.20, 0.55), 0.9)
+        sky = mat_emission('SkyDusk', (0.10, 0.20, 0.55), 1.2)
     card = rbox('SkyCard', (14.0, 0.05, 9.0), (wxc, o['y1'] + 4.5, 2.0), sky, bev=0)
     no_shadow(card)
     if dusk:
@@ -68,14 +68,14 @@ def shot_office(dusk=False):
         debug_light((-0.4, 2.5, 0.9), (-0.4, 1.8, 2.4), energy=600, size=1.5)
     elif not dusk:
         sun('Sun', (-0.16, -0.84, -0.52), 24.0, kelvin(4300), angle=0.25)
-        light('AREA', 'SkyFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=120.0,
+        light('AREA', 'SkyFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=200.0,
               color=kelvin(9000), size=wx1 - wx0, size_y=wz1 - wz0, shape='RECTANGLE')
-        light('AREA', 'CorridorTroffer', (-0.7, -1.0, o['cor_h'] - 0.02), energy=18.0, color=kelvin(4100),
+        light('AREA', 'CorridorTroffer', (-0.7, -1.0, o['cor_h'] - 0.02), energy=24.0, color=kelvin(4100),
               size=0.3, size_y=1.2, shape='RECTANGLE')
     else:
-        light('AREA', 'DuskFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=90.0,
+        light('AREA', 'DuskFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=170.0,
               color=(0.35, 0.55, 1.0), size=wx1 - wx0, size_y=wz1 - wz0, shape='RECTANGLE')
-        light('AREA', 'CorridorNight', (-1.6, -1.7, o['cor_h'] - 0.02), energy=13.0, color=kelvin(4300),
+        light('AREA', 'CorridorNight', (-1.6, -1.7, o['cor_h'] - 0.02), energy=20.0, color=kelvin(4300),
               size=0.25, size_y=0.6, shape='RECTANGLE')
     if HAZE:
         hz = mat_volume('OfficeHaze', density=0.022 if not dusk else 0.012, color=(0.9, 0.9, 0.9), anisotropy=0.6,
@@ -112,7 +112,8 @@ def shot_table():
 # ============================================================================ S11 bag macro
 
 def shot_bag():
-    setup_render(1, 1, res=STILL, samples=96, mb=False, look='Medium High Contrast', clamp=4.0, bounces=(3, 3, 4))
+    setup_render(1, 1, res=STILL, samples=96, mb=False, look='Medium High Contrast', clamp=4.0, bounces=(3, 3, 4),
+                 exposure=0.3)
     world_color((0.0, 0.0, 0.0), 0.0)
     M = bag_mats()
     A = build_bag(M)
@@ -120,9 +121,9 @@ def shot_bag():
     if DEBUG:
         debug_light(tuple(L), (0.0, -0.6, 0.6), energy=80, size=1.5)
     else:
-        light('AREA', 'Window', (-0.95, 0.02, 0.42), energy=30.0, color=kelvin(6400), size=0.9, size_y=1.2,
+        light('AREA', 'Window', (-0.95, 0.02, 0.42), energy=58.0, color=kelvin(6400), size=0.9, size_y=1.2,
               shape='RECTANGLE', target=tuple(L))
-        light('AREA', 'Fill', (-0.2, -0.9, 0.3), energy=1.6, color=kelvin(6000), size=0.8, target=tuple(L))
+        light('AREA', 'Fill', (-0.2, -0.9, 0.3), energy=4.0, color=kelvin(6000), size=0.8, target=tuple(L))
         light('AREA', 'Rim', (0.55, 0.35, 0.45), energy=5.0, color=kelvin(3000), size=0.35, target=(0.0, 0.0, 0.15))
         light('AREA', 'Glint', tuple(L + Vector((-0.36, -0.52, 0.30))), energy=2.2, color=kelvin(7000), size=0.07,
               target=tuple(L))
@@ -135,18 +136,18 @@ def shot_bag():
 
 def shot_street(night=True):
     setup_render(1, 1, res=STILL, samples=64, mb=False, look='Medium High Contrast', clamp=6.0, bounces=(2, 3, 4),
-                 exposure=1.3 if night else 0.6)
+                 exposure=2.2 if night else 1.5)
     M = street_mats(night=night)
     A = build_street(M, night=night)
     if night:
-        world_sky((0.0022, 0.0034, 0.0075), (0.010, 0.0075, 0.006), strength=1.0, glow=((0.03, 0.014, 0.004), 0.5))
+        world_sky((0.006, 0.009, 0.018), (0.022, 0.017, 0.013), strength=1.0, glow=((0.035, 0.018, 0.006), 0.5))
     else:
-        world_sky((0.010, 0.022, 0.065), (0.07, 0.085, 0.11), strength=1.0, glow=((0.10, 0.075, 0.06), 0.35))
+        world_sky((0.018, 0.038, 0.10), (0.11, 0.13, 0.16), strength=1.0, glow=((0.14, 0.10, 0.075), 0.35))
     if DEBUG:
         sun('DebugSun', (0.3, 0.5, -0.8), 2.0, (1, 1, 1), angle=5)
         world_color((0.3, 0.3, 0.3), 1.0)
     if HAZE:
-        hz = mat_volume('StreetMist', density=0.0018 if night else 0.0012, color=(0.85, 0.85, 0.85), anisotropy=0.6)
+        hz = mat_volume('StreetMist', density=0.0014 if night else 0.0011, color=(0.85, 0.85, 0.85), anisotropy=0.6)
         volume_box('Mist', (0.0, 45.0, 6.0), (2 * ST['hw'] - 0.1, 100.0, 12.0), hz)
     if night:
         foc = empty('FocusN', (0.5, 12.0, 1.0))

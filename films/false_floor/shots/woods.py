@@ -340,6 +340,63 @@ if SHOT == 'S31':
     if cam.data.dof.use_dof:
         cam.data.dof.focus_object = foc
 
+if SHOT == 'S31' and arg('--sf2'):
+    # v2 style frame C: Speedy at the edge of the woods mid-throw, silhouetted by the car's headlights in the fog
+    import human as HU
+    T0 = throws[0]
+    start = T0['land'] + Vector(T0['launch'])
+    d = (T0['land'] - start)
+    d.z = 0
+    d.normalize()
+    sp = HU.make_human('speedy', gender=1, age=55, muscle=0.4, weight=0.55, height=0.4, skin='olive',
+                       assets=[('clothes/male_casualsuit05', dict(tint=(0.3, 0.32, 0.3), sat=0.4, val=0.7)),
+                               ('clothes/shoes01', dict(tint=(0.14, 0.11, 0.09), sat=0.3)), ('hair/short01', dict(tint=(0.55, 0.53, 0.5))),
+                               ('eyebrows/eyebrow001', {})])
+    yaw = math.degrees(math.atan2(d.y, d.x)) + 90.0          # rig faces -Y; turn to face the throw direction
+    base = start - d * 0.35
+    HU.place(sp, base.x, base.y, yaw, z=max(0.0, start.z - 1.62))
+    R3 = sp.rig.matrix_world.to_3x3()
+    HU.aim(sp, 'RightArm', R3 @ Vector((-0.25, -0.9, 0.55)))
+    HU.aim(sp, 'RightForeArm', R3 @ Vector((-0.1, -1.0, 0.7)))
+    HU.aim(sp, 'LeftArm', R3 @ Vector((0.45, 0.6, -0.5)))
+    HU.aim(sp, 'LeftForeArm', R3 @ Vector((0.3, 0.2, -1.0)))
+    HU.aim(sp, 'RightUpLeg', R3 @ Vector((-0.05, 0.35, -1)))
+    HU.aim(sp, 'LeftUpLeg', R3 @ Vector((0.05, -0.3, -1)))
+    HU.aim(sp, 'LeftLeg', R3 @ Vector((0.0, 0.15, -1)))
+    HU.rot(sp, 'Spine1', x=-8, z=-18)
+    HU.rot(sp, 'Head', x=-4, z=-10)
+    # the car on the shoulder behind him: two headlights into the fog
+    car = base - d * 3.2 + Vector((0, 0, 0))
+    side = Vector((-d.y, d.x, 0)) * 0.62
+    for k, sgn in enumerate((-1, 1)):
+        hl = car + side * sgn * 0.5 + Vector((0, 0, 0.68))
+        light('SPOT', f'Headlight{k}', tuple(hl), energy=1400, color=(1.0, 0.93, 0.8), spot=55.0, blend=0.5, radius=0.06,
+              target=tuple(T0['land'] + Vector((0, 0, 0.4))))
+        disc = prim('cyl', f'HeadlightLens{k}', loc=tuple(hl), r=0.09, depth=0.02)
+        disc.rotation_mode = 'QUATERNION'
+        disc.rotation_quaternion = Vector((0, 0, 1)).rotation_difference(d)
+        disc.data.materials.append(mat_emission(f'HLLens{k}', (1.0, 0.92, 0.78), 60.0))
+    near = mat_fog_soft('NearFog', density=0.012, color=(0.8, 0.84, 0.9), anisotropy=0.6, noise_scale=0.5)
+    volume_box('NearFog', tuple((base + T0['land']) / 2 + Vector((0, 0, 1.4))), (9.0, 9.0, 2.8), near, C_BG)
+    # camera: low, from beyond the landing spot, looking back at the thrower against the lights
+    sd = Vector((-d.y, d.x, 0))
+    if (sd.dot(Vector(tuple(loc0)) - base)) < 0:
+        sd = -sd                                           # stay on the side the woods camera lives on
+    gz = sp.rig.location.z
+    cl = base + sd * 3.3 + d * 1.6 + Vector((0, 0, 0))
+    cl.z = gz + 1.05
+    cam.animation_data_clear()
+    for c in list(cam.constraints):
+        cam.constraints.remove(c)
+    cam.location = cl
+    tg = base - d * 0.7
+    tg.z = gz + 1.2
+    cam.rotation_euler = look_rot(tuple(cl), tuple(tg), 0.0)
+    cam.data.lens = 30.0
+    if cam.data.dof.use_dof:
+        cam.data.dof.focus_object = None
+        cam.data.dof.focus_distance = (cl - base).length
+
 if SHOT not in ('S36', 'S35', 'S33', 'S31'):
     raise SystemExit(f'unknown shot {SHOT}')
 

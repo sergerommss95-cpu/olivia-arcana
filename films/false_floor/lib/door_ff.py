@@ -425,7 +425,9 @@ def mat_tube(name, strength=14.0, k=5600):
     s = nb.n('ShaderNodeSeparateXYZ')
     nb.L.new(v, s.inputs[0])
     endm = _m(nb, 'MULTIPLY', _maprange(nb, s.outputs['Z'], 0.0, 0.035, 0.35, 1.0), _maprange(nb, s.outputs['Z'], 0.965, 1.0, 1.0, 0.35))
-    nb.L.new(_m(nb, 'MULTIPLY', endm, None, vb=strength), e.inputs['Strength'])
+    st = _m(nb, 'MULTIPLY', endm, None, vb=strength)
+    st.node.name = 'TubeStrength'          # inputs[1] = strength (keyable: flicker)
+    nb.L.new(st, e.inputs['Strength'])
     nt.links.new(e.outputs[0], nt.nodes['Material Output'].inputs['Surface'])
     return m
 
@@ -1022,7 +1024,7 @@ def fixture(M, name, loc, length=1.22, axis='X', rot=None, on=True, power=32.0, 
     return {'root': root, 'tubes': trs, 'light': lt, 'mat_on': mon}
 
 
-def light_ante(S, state='day', scale=1.0, on=None, night=None, coll=None):
+def light_ante(S, state='day', scale=1.0, on=None, night=None, coll=None, k=None):
     """Antechamber light. Presets: 'day' (battens A, B and the stair batten on, cold), 'monday' (same, a touch warmer and
     brighter), 'night' (battens off; a small hard source high in the stairwell throws the grate's bars across the floor
     and door), 'dark' (near black: only a faint trickle down the stairs). `on` overrides which battens are lit (subset
@@ -1030,6 +1032,8 @@ def light_ante(S, state='day', scale=1.0, on=None, night=None, coll=None):
     presets = {'day': (('A', 'B', 'S'), 30.0, 6200, 0.0), 'monday': (('A', 'B', 'S'), 38.0, 5200, 0.0),
                'night': ((), 30.0, 6200, 520.0), 'dark': ((), 30.0, 6200, 12.0)}
     lit, pw, kk, nl = presets[state]
+    if k is not None:
+        kk = k
     if on is not None:
         lit = on
     if night is not None:
@@ -1066,6 +1070,29 @@ def light_ante(S, state='day', scale=1.0, on=None, night=None, coll=None):
             out['night'] = light('POINT', 'StairNight', (bp[0] - sgn * 0.05, bp[1], bp[2]), energy=nl, color=kelvin(4300),
                                  radius=0.03, coll=coll)
     return out
+
+
+def key_fixture(f, pairs, extra=()):
+    """Flicker/switch a lit fixture: pairs = [(frame, level 0..1)], CONSTANT steps. Keys the area light's energy and the
+    tubes' emission; `extra` = more lights to key with the same levels (e.g. a bounce fill)."""
+    lts = ([f['light']] if f.get('light') else []) + list(extra)
+    for lt in lts:
+        e0 = lt.data.energy
+        for fr, v in pairs:
+            lt.data.energy = e0 * v
+            lt.data.keyframe_insert('energy', frame=fr)
+        lt.data.energy = e0 * pairs[-1][1]
+    sock = f['mat_on'].node_tree.nodes['TubeStrength'].inputs[1]
+    s0 = sock.default_value
+    for fr, v in pairs:
+        sock.default_value = s0 * v
+        sock.keyframe_insert('default_value', frame=fr)
+    for idb in [lt.data for lt in lts] + [f['mat_on'].node_tree]:
+        ad = idb.animation_data
+        if ad and ad.action:
+            for fc in fcurves(idb):
+                for kp in fc.keyframe_points:
+                    kp.interpolation = 'CONSTANT'
 
 
 def light_vault(S, state='warm', coll=None, leak=False, key_power=55.0, spill=70.0, tube_power=42.0):

@@ -1532,7 +1532,7 @@ def street_mats(night=True):
     M['alu_dark'] = mat_paint('AluDark', color=(0.025, 0.026, 0.028), rough=(0.3, 0.45), scale=2.0, wear=0.1)
     M['shutter'] = mat_corrugated('Shutter', base=(0.17, 0.175, 0.18))
     M['shutter2'] = mat_corrugated('ShutterLight', base=(0.28, 0.285, 0.29), pitch=0.09)
-    dark = 0.86 if night else 0.42
+    dark = 0.72 if night else 0.42
     M['win'] = mat_office_glass('OfficeWin', dark_frac=dark, strength=1.4 if night else 2.0, cool_frac=0.65)
     M['win_shop'] = mat_office_glass('ShopWin', dark_frac=0.9, strength=0.8, cool_frac=0.8)
     M['lobby'] = mat_office_glass('LobbyWin', dark_frac=0.0, strength=1.1, cool_frac=1.0)
