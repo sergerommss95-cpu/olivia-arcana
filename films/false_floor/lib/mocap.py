@@ -190,7 +190,7 @@ def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg
             if d.length < 1e-6:
                 continue
             _aim_fast(rig, ob_name, Ryaw @ d)
-        rig.location = (pos[0], pos[1], 0) + Ryaw @ Vector((off.x, off.y, 0)) + Vector((0, 0, off.z))
+        rig.location = Vector((pos[0], pos[1], 0)) + Ryaw @ Vector((off.x, off.y, 0)) + Vector((0, 0, off.z))
         rig.keyframe_insert('location', frame=f)
         for pb in rig.pose.bones:
             pb.keyframe_insert('rotation_quaternion' if pb.rotation_mode == 'QUATERNION' else 'rotation_euler', frame=f)
