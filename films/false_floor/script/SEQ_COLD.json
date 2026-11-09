@@ -1,32 +1,129 @@
 {
  "note": "v2 COLD OPEN (~50 s), VO beats 00-03. Same rules as SEQ_NIGHT: approved cast via lib/cast.py ONLY (guard = navy blazer), camera always moving into the scene, 2-4 s shots, readable on a phone (mean luma ~0.25-0.35 before grade; Monday morning: building lights ON), 6-frame handles, motion blur, Cycles AgX MHC. Characters: CMU walk via lib/mocap.py (hands curl automatically), poses via CA.reach/arms_down/head_turn/grip. Lanes/positions must never let bodies intersect each other or set geometry. Monday state = AFTER the heist: door wide open, boxes forced, papers on the floor.",
  "shots": [
-  {"id": "C1", "owner": "C_office_city", "script": "shots/office_city.py", "kind": "3D", "render_frames": 90, "vo": "Monday, the 17th of February, 2003.",
-   "shot": "Monday morning, cold grey-blue daylight in the diamond district street (S04/S23 set, dry or damp, a few lit windows). Low drone moving forward behind the GUARD walking (CMU walk) toward the Diamond Centre entrance; he enters frame from the right and leads us in."},
-  {"id": "C2", "owner": "LEAD", "script": "shots/lead.py", "kind": "3D", "render_frames": 80, "vo": "Two floors beneath the diamond district of Antwerp,",
-   "shot": "Building section (S03 set): camera plunges from street level straight down through the cut floors to Level -2, the vault glowing."},
-  {"id": "C3", "owner": "A1_door", "script": "shots/door.py", "kind": "3D", "render_frames": 90, "vo": "a guard walks into the vault",
-   "shot": "FPV behind the GUARD walking down the stairwell to Level -2 (CMU walk); at the bottom the antechamber fluorescents flicker ON (2-3 stutters, then on). Grate open (Monday)."},
-  {"id": "C4", "owner": "A1_door", "script": "shots/door.py", "kind": "3D", "render_frames": 80, "vo": "and finds the impossible.",
-   "shot": "Over the GUARD's shoulder as he stops dead in the antechamber: the 3-ton door standing WIDE OPEN, the lit vault beyond with forced boxes and papers; slow push past his shoulder. He stands still (static pose, arms down, head slightly up)."},
-  {"id": "C5", "owner": "A1_door", "script": "shots/door.py", "kind": "3D", "render_frames": 40, "vo": "A seismic sensor.",
-   "shot": "Fast macro push onto the seismic sensor: a small grey sensor unit with a cable bolted on the inner face of the open door near the hinge edge; shallow focus; quick."},
-  {"id": "S18", "kind": "CLIP", "vo": "A magnetic seal.", "shot": "existing macro, field lines"},
-  {"id": "C6", "owner": "B_room", "script": "shots/room.py", "kind": "3D", "render_frames": 50, "vo": "Heat, light and motion detectors.",
-   "shot": "Vault ceiling corner: heat/motion detector (white PIR housing), light sensor, CCTV camera; quick push-up and pan across them; vault lights on."},
-  {"id": "C7", "owner": "LEAD", "script": "shots/night.py", "kind": "3D", "render_frames": 70, "vo": "And not one alarm had made a sound.",
-   "shot": "The GUARD's face, close, 3/4 front, slow push in; antechamber light, the open door's edge out of focus behind him; he looks from the door down into the vault."},
-  {"id": "C8", "owner": "B_room", "script": "shots/room.py", "kind": "3D", "render_frames": 90, "vo": "A hundred and nine deposit boxes, forced open.",
-   "shot": "The GUARD walks slowly into the vault aisle between walls of FORCED-OPEN boxes (N10 end state), papers on the floor; camera follows behind him low, then rises to show the walls."},
-  {"id": "C9", "owner": "B_room", "script": "shots/room.py", "kind": "3D", "render_frames": 60, "vo": "Diamonds, gold, cash, gone.",
-   "shot": "Floor macro dolly: emptied diamond papers (folded parcels, open), empty jewellery trays, torn envelopes, a few gold flecks; low and fast."},
-  {"id": "C10", "owner": "B_room", "script": "shots/room.py", "kind": "3D", "render_frames": 150, "vo": "And the strangest part: the thieves had sorted through it all right here, on the floor, and left jewels and passports lying where they fell.",
-   "shot": "Top-down slow crane down over the SORTED piles on the vault floor (paper parcels in one pile, boxes in another, passports, a few jewels left behind); at the end the GUARD's shoes step into frame."},
-  {"id": "C11", "owner": "A1_door", "script": "shots/door.py", "kind": "3D", "render_frames": 90, "vo": "Police would call it the heist of the century.",
-   "shot": "Wide from inside the vault looking out: the GUARD small in the open doorway, phone to his ear (CA.reach right hand to his ear, grip), camera pulling back fast through the box aisle."},
-  {"id": "C12", "owner": "LEAD", "script": "shots/lead.py", "kind": "3D", "render_frames": 110, "vo": "But this break-in didn't start that weekend. It started two years earlier",
-   "shot": "Building section reverse: from the vault the camera rises up through the floors to an upper-floor office that lights up; an orange line connects office and vault."},
-  {"id": "C13", "owner": "C_office_city", "script": "shots/office_city.py", "kind": "3D", "render_frames": 80, "vo": "two floors upstairs.",
-   "shot": "The TENANT at his office window (style frame B, approved): slow push in, he turns his head a little toward the room; afternoon sun through the blinds. Title FALSE FLOOR lands in the edit."}
+  {
+   "id": "C1",
+   "owner": "C_office_city",
+   "script": "shots/office_city.py",
+   "kind": "3D",
+   "render_frames": 90,
+   "vo": "Monday, the 17th of February, 2003.",
+   "shot": "Monday morning, cold grey-blue daylight in the diamond district street (S04/S23 set, dry or damp, a few lit windows). Low drone moving forward behind the GUARD walking (CMU walk) toward the Diamond Centre entrance; he enters frame from the right and leads us in."
+  },
+  {
+   "id": "C2",
+   "owner": "LEAD",
+   "script": "shots/lead.py",
+   "kind": "3D",
+   "render_frames": 80,
+   "vo": "Two floors beneath the diamond district of Antwerp,",
+   "shot": "Building section (S03 set): camera plunges from street level straight down through the cut floors to Level -2, the vault glowing."
+  },
+  {
+   "id": "C3",
+   "owner": "A1_door",
+   "script": "shots/door.py",
+   "kind": "3D",
+   "render_frames": 90,
+   "vo": "a guard walks into the vault",
+   "shot": "FPV behind the GUARD walking down the stairwell to Level -2 (CMU walk); at the bottom the antechamber fluorescents flicker ON (2-3 stutters, then on). Grate open (Monday)."
+  },
+  {
+   "id": "C4",
+   "owner": "A1_door",
+   "script": "shots/door.py",
+   "kind": "3D",
+   "render_frames": 80,
+   "vo": "and finds the impossible.",
+   "shot": "Over the GUARD's shoulder as he stops dead in the antechamber: the 3-ton door standing WIDE OPEN, the lit vault beyond with forced boxes and papers; slow push past his shoulder. He stands still (static pose, arms down, head slightly up)."
+  },
+  {
+   "id": "C5",
+   "owner": "A1_door",
+   "script": "shots/door.py",
+   "kind": "3D",
+   "render_frames": 40,
+   "vo": "A seismic sensor.",
+   "shot": "Fast macro push onto the seismic sensor: a small grey sensor unit with a cable bolted on the inner face of the open door near the hinge edge; shallow focus; quick."
+  },
+  {
+   "id": "S18",
+   "kind": "CLIP",
+   "vo": "A magnetic seal.",
+   "shot": "existing macro, field lines"
+  },
+  {
+   "id": "C6",
+   "owner": "B_room",
+   "script": "shots/room.py",
+   "kind": "3D",
+   "render_frames": 50,
+   "vo": "Heat, light and motion detectors.",
+   "shot": "Vault ceiling corner: heat/motion detector (white PIR housing), light sensor, CCTV camera; quick push-up and pan across them; vault lights on."
+  },
+  {
+   "id": "C7",
+   "owner": "LEAD",
+   "script": "shots/night.py",
+   "kind": "3D",
+   "render_frames": 70,
+   "vo": "And not one alarm had made a sound.",
+   "shot": "The GUARD's face, close, 3/4 front, slow push in; antechamber light, the open door's edge out of focus behind him; he looks from the door down into the vault."
+  },
+  {
+   "id": "C8",
+   "owner": "B_room",
+   "script": "shots/room.py",
+   "kind": "3D",
+   "render_frames": 90,
+   "vo": "A hundred and nine deposit boxes, forced open.",
+   "shot": "The GUARD walks slowly into the vault aisle between walls of FORCED-OPEN boxes (N10 end state), papers on the floor; camera follows behind him low, then rises to show the walls."
+  },
+  {
+   "id": "C9",
+   "owner": "B_room",
+   "script": "shots/room.py",
+   "kind": "3D",
+   "render_frames": 60,
+   "vo": "Diamonds, gold, cash, gone.",
+   "shot": "Floor macro dolly: emptied diamond papers (folded parcels, open), empty jewellery trays, torn envelopes, a few gold flecks; low and fast."
+  },
+  {
+   "id": "C10",
+   "owner": "B_room",
+   "script": "shots/room.py",
+   "kind": "3D",
+   "render_frames": 240,
+   "vo": "And the strangest part: the thieves had sorted through it all right here, on the floor, and left jewels and passports lying where they fell.",
+   "shot": "Top-down slow crane down over the SORTED piles on the vault floor (paper parcels in one pile, boxes in another, passports, a few jewels left behind); at the end the GUARD's shoes step into frame.",
+   "stretch": 1.6
+  },
+  {
+   "id": "C11",
+   "owner": "A1_door",
+   "script": "shots/door.py",
+   "kind": "3D",
+   "render_frames": 90,
+   "vo": "Police would call it the heist of the century.",
+   "shot": "Wide from inside the vault looking out: the GUARD small in the open doorway, phone to his ear (CA.reach right hand to his ear, grip), camera pulling back fast through the box aisle."
+  },
+  {
+   "id": "C12",
+   "owner": "LEAD",
+   "script": "shots/lead.py",
+   "kind": "3D",
+   "render_frames": 110,
+   "vo": "But this break-in didn't start that weekend. It started two years earlier",
+   "shot": "Building section reverse: from the vault the camera rises up through the floors to an upper-floor office that lights up; an orange line connects office and vault."
+  },
+  {
+   "id": "C13",
+   "owner": "C_office_city",
+   "script": "shots/office_city.py",
+   "kind": "3D",
+   "render_frames": 80,
+   "vo": "two floors upstairs.",
+   "shot": "The TENANT at his office window (style frame B, approved): slow push in, he turns his head a little toward the room; afternoon sun through the blinds. Title FALSE FLOOR lands in the edit."
+  }
  ]
 }
