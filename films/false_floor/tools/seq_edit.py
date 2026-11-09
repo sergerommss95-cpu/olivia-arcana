@@ -30,9 +30,11 @@ SEQS = {
     'cold': dict(
         plan='SEQ_COLD.json', beats=[0, 1, 2, 3], end_word={}, music=('ff_COLD', 0.0, -14), tail=3.0,
         cuts=[('C1', 0, 'Monday'), ('C2', 0, 'Two'), ('C3', 0, 'a'), ('C4', 0, 'and'), ('S01', 1, 'Three'),
-              ('C5', 1, 'A'), ('S18', 1, 'A#2'), ('C6', 1, 'Heat'), ('C7', 1, 'And'), ('C8', 2, 'A'),
+              ('C5', 1, 'A'), ('S18', 1, 'A#2'), ('C6', 1, 'Heat'), ('C7', 1, 'motion'), ('C8', 2, 'A'),
               ('C9', 2, 'Diamonds'), ('C10', 2, 'And'), ('C11', 3, 'Police'), ('C12', 3, 'But'), ('C13', 3, 'two#2')],
-        inoff={'S01': 96, 'S18': 40}),
+        inoff={'S01': 96, 'S18': 40},
+        speed={'C6': 2.0},                       # whip through the sensor pan (frame skipping, never blending)
+        post={'C10': (1.16, 3.5)}),              # slow push + turn on the top-down so it never sits still
 }
 CFG = None
 CUTS, INOFF, BEATS = [], {}, []
@@ -268,11 +270,11 @@ def date_card(i, lines):
     for j, (txt, f) in enumerate(((lines[0], _FONT['big']), (lines[1], _FONT['small']))):
         t = max(0.0, min(1.0, (i - 6 - j * 5) / 12))
         a = int(255 * (t * t * (3 - 2 * t)))
-        y = int((H - (200 if j == 0 else 140) * k) + (1 - t) * 14 * k)
+        y = int((H - (300 if j == 0 else 236) * k) + (1 - t) * 14 * k)
         d.text((int(100 * k), y), txt, font=f, fill=(236, 232, 223, a))
     if i > 8:
         t = max(0.0, min(1.0, (i - 8) / 14))
-        d.rectangle([int(100 * k), int(H - 112 * k), int(100 * k + 90 * k * t), int(H - 108 * k)], fill=(228, 68, 46, 255))
+        d.rectangle([int(100 * k), int(H - 196 * k), int(100 * k + 90 * k * t), int(H - 192 * k)], fill=(228, 68, 46, 255))
     return lay
 
 
@@ -285,6 +287,9 @@ def render_seg(e, path, n, preview):
     rng = np.random.default_rng(abs(hash(e['id'])) % 1000)
     if src.mode == 'clip':
         fr = src.clip_frames(n)[INOFF.get(e['id'], 0):]
+        sp = CFG.get('speed', {}).get(e['id'], 1.0)
+        if sp != 1.0:
+            fr = fr[np.round(np.arange(0, len(fr), sp)).astype(int).clip(0, len(fr) - 1)]
         src.n_clip = len(fr)
         frames = [Image.fromarray(fr[i]) for i in range(min(n, len(fr)))]
         if n > len(fr):                      # past the clip's end: a slow push on the last frame (never a dead freeze)
@@ -320,7 +325,17 @@ def render_seg(e, path, n, preview):
     enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{E.W}x{E.H}', '-r', str(E.FPS),
                             '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-crf', '23' if preview else '16', '-pix_fmt', 'yuv420p',
                             path], stdin=subprocess.PIPE)
+    post = CFG.get('post', {}).get(e['id'])
     for i, im in enumerate(frames):
+        if post:                             # 2D push-in + slight turn over the shot (keeps a still crane alive)
+            z, rdeg = post
+            u = i / max(1, n - 1)
+            u = u * u * (3 - 2 * u)
+            zz = 1.0 + (z - 1.0) * u
+            im = im.rotate(rdeg * u, resample=Image.BICUBIC, expand=False)
+            w_, h_ = im.size
+            cw, ch = w_ / (zz * 1.06), h_ / (zz * 1.06)
+            im = im.resize((w_, h_), Image.BICUBIC, box=((w_ - cw) / 2, (h_ - ch) / 2, (w_ + cw) / 2, (h_ + ch) / 2))
         im = E.grade(im, rng, expos[i]).convert('RGBA')
         im = Image.alpha_composite(im, label)
         if e['id'] in ('S24', 'S18') and src.mode == 'clip':

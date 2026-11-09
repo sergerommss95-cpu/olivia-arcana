@@ -66,9 +66,10 @@
    "owner": "LEAD",
    "script": "shots/night.py",
    "kind": "3D",
-   "render_frames": 70,
+   "render_frames": 112,
    "vo": "And not one alarm had made a sound.",
-   "shot": "The GUARD's face, close, 3/4 front, slow push in; antechamber light, the open door's edge out of focus behind him; he looks from the door down into the vault."
+   "shot": "The GUARD's face, close, 3/4 front, slow push in; antechamber light, the open door's edge out of focus behind him; he looks from the door down into the vault.",
+   "stretch": 1.6
   },
   {
    "id": "C8",
