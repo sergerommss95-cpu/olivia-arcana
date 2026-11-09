@@ -181,9 +181,9 @@ elif SHOT == 'S21':
     tp = lens_c + Vector((-0.02, 0, -0.03))
     cam_path(cam, [(1, tuple(p0), tuple(tc), 0.0),
                    (72, tuple(p0 + Vector((0.03, 0.06, 0.01))), tuple(tc), 0.0),
-                   (102, tuple(p0 + Vector((0.12, 0.18, 0.05))), tuple(tp), 0.0),
-                   (186, tuple(p0 + Vector((0.15, 0.27, 0.06))), tuple(tp), 0.0),
-                   (216, tuple(p0 + Vector((0.08, 0.22, 0.03))), tuple(tc), 0.0),
+                   (104, tuple(p0 + Vector((0.36, 0.52, 0.34))), tuple(tp), 0.0),
+                   (184, tuple(p0 + Vector((0.4, 0.6, 0.37))), tuple(tp), 0.0),
+                   (218, tuple(p0 + Vector((0.08, 0.22, 0.03))), tuple(tc), 0.0),
                    (N, tuple(p0 + Vector((0.09, 0.27, 0.03))), tuple(tc), 0.0)])
     eased(cam, 'location')
     eased(cam, 'rotation_euler')
@@ -211,8 +211,8 @@ elif SHOT == 'S26':
         d = Vector((pirw.x - xy[0], pirw.y - xy[1]))
         return math.atan2(-d.x, d.y)        # local +Y of the sheet toward the sensor
 
-    path = [(1, (0.0, 6.95)), (40, (0.05, 6.05)), (95, (0.42, 5.05)), (150, (0.62, 4.05)), (205, (0.7, 3.1)),
-            (N, (0.72, 2.3))]
+    path = [(1, (0.0, 7.0)), (40, (0.08, 6.1)), (100, (0.5, 5.35)), (160, (0.68, 4.7)), (210, (0.72, 4.15)),
+            (N, (0.74, 3.7))]
     for f, (x, y) in path:
         foam.location = (x, y, 0.13)
         foam.keyframe_insert('location', frame=f)
@@ -230,13 +230,13 @@ elif SHOT == 'S26':
             m.scale, m.strength, m.phase = 14.0, 0.02, 7.0 + fc.array_index
     lsw = Vector(LIGHT_SENSOR)
     foc = empty('FocusS26', (0.4, 5.2, 1.0))
-    key(foc, 'location', [(1, (0.05, 6.1, 1.0)), (60, (0.3, 5.3, 1.0)), (150, (0.62, 4.1, 1.0)),
-                          (178, (0.62, 4.0, 1.4)), (236, tuple(lsw)), (N, tuple(lsw))])
+    key(foc, 'location', [(1, (0.05, 6.2, 1.0)), (100, (0.5, 5.35, 1.0)), (150, (0.66, 4.85, 1.1)),
+                          (226, tuple(lsw)), (N, tuple(lsw))])
     cam = lens_cam('CamS26', 28, 2.0, foc)
-    cam_path(cam, [(1, (-0.62, 1.45, 0.52), (0.25, 6.1, 1.25), 0.0),
-                   (150, (-0.6, 2.35, 0.62), (0.55, 4.6, 1.3), 0.0),
-                   (236, (-0.42, 3.95, 1.78), tuple(lsw + Vector((0.02, 0.05, 0.0))), 0.0),
-                   (N, (-0.41, 4.0, 1.82), tuple(lsw + Vector((0.02, 0.05, 0.0))), 0.0)])
+    cam_path(cam, [(1, (-0.66, 1.2, 0.5), (0.3, 6.1, 1.3), 0.0),
+                   (125, (-0.6, 1.75, 0.58), (0.6, 5.0, 1.45), 0.0),
+                   (232, (-0.34, 4.5, 2.3), tuple(lsw + Vector((0.03, 0.06, 0.0))), 0.0),
+                   (N, (-0.335, 4.52, 2.31), tuple(lsw + Vector((0.03, 0.06, 0.0))), 0.0)])
     eased(cam, 'location')
     eased(cam, 'rotation_euler')
     shake(cam, 0.002, 0.0012, scale=12, seed=26)
@@ -349,8 +349,8 @@ elif SHOT == 'S02':
     cam = lens_cam('CamS02', 28, 2.2, foc)
     cam_path(cam, [(1, (0.7, -0.2, 2.55), (1.15, 3.3, 1.95), 0.03),
                    (125, (0.62, 0.95, 1.45), (1.05, 3.1, 0.85), 0.015),
-                   (232, (0.48, 2.06, 0.34), (0.8, 2.6, 0.0), 0.0),
-                   (N, (0.475, 2.08, 0.33), (0.79, 2.6, 0.0), 0.0)])
+                   (232, (0.56, 2.2, 0.31), (0.8, 2.6, 0.0), 0.0),
+                   (N, (0.555, 2.215, 0.3), (0.795, 2.6, 0.0), 0.0)])
     eased(cam, 'location')
     eased(cam, 'rotation_euler')
     shake(cam, 0.002, 0.001, scale=12, seed=2)

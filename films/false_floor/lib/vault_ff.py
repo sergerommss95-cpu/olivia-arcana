@@ -630,7 +630,7 @@ def cctv(M, loc=CCTV_LOC, aim=(0.1, 1.0, 0.9), wall_pt=None, name='CCTV', coll=N
     root.rotation_euler = d.to_track_quat('Y', 'Z').to_euler()
     ps = []
     ps.append(box(name + 'Housing', (0.082, 0.25, 0.074), (0, 0, 0), coll=coll, bev=0.006, seg=3, mat=M['housing']))
-    ps.append(box(name + 'Bezel', (0.088, 0.016, 0.08), (0, 0.129, 0), coll=coll, bev=0.004, mat=M['socket']))
+    ps.append(box(name + 'Bezel', (0.088, 0.016, 0.08), (0, 0.129, 0), coll=coll, bev=0.004, mat=M['lensblack']))
     ps.append(box(name + 'Glass', (0.07, 0.002, 0.062), (0, 0.1375, 0), coll=coll, mat=M['camglass']))
     lb = prim('cyl', name + 'Barrel', (0, 0.112, 0.003), (math.radians(90), 0, 0), seg=32, r=0.021, depth=0.045, coll=coll)
     set_mat(lb, M['lensblack'])
@@ -667,8 +667,8 @@ def cctv(M, loc=CCTV_LOC, aim=(0.1, 1.0, 0.9), wall_pt=None, name='CCTV', coll=N
     if wall_pt is None:
         wall_pt = (loc[0], END_Y, loc[2] - 0.1)
     arm = cyl_between(name + 'Arm', bw, wall_pt, 0.0085, M['socket'], coll=coll)
-    wp = box(name + 'WallPlate', (0.07, 0.01, 0.1), (wall_pt[0], wall_pt[1] - 0.004, wall_pt[2]), coll=coll, bev=0.002,
-             mat=M['socket'])
+    wp = box(name + 'WallPlate', (0.06, 0.01, 0.075), (wall_pt[0], wall_pt[1] - 0.004, wall_pt[2]), coll=coll, bev=0.002,
+             mat=M['housing'])
     g = root.matrix_world @ Vector((0, -0.148, -0.018))
     cord(name + 'Cable', [tuple(g), (g.x, g.y + 0.03, g.z - 0.05), (wall_pt[0] - 0.05, wall_pt[1] - 0.012, wall_pt[2] - 0.08),
                           (wall_pt[0] - 0.06, wall_pt[1] - 0.006, wall_pt[2] - 0.4),
@@ -839,16 +839,16 @@ def pouch_empty(M, name, loc, rz=0.0, mat=None, coll=None, seed=0, length=0.12, 
             return width / 2 * (1 - 0.06 * (u - 0.2))
         if u < 0.8:
             k = (u - 0.66) / 0.14
-            return width / 2 * (1 - k * k * (3 - 2 * k)) * 0.97 + 0.009 * k
+            return width / 2 * (1 - k * k * (3 - 2 * k)) * 0.97 + 0.008 * k
         k = (u - 0.8) / 0.2
-        return 0.009 + 0.022 * k ** 0.7
+        return 0.008 + 0.026 * k ** 0.6
 
     def thick(u):
         if u < 0.66:
-            return 0.013 + 0.005 * math.sin(u * 9 + ph[0]) * math.sin(u * 3.1)
-        if u < 0.82:
-            return 0.013 + 0.005 * (u - 0.66) / 0.16
-        return 0.018 - 0.004 * (u - 0.82) / 0.18
+            return 0.017 + 0.006 * math.sin(u * 9 + ph[0]) * math.sin(u * 3.1)
+        if u < 0.8:
+            return 0.017 + 0.003 * (u - 0.66) / 0.14
+        return 0.02 + 0.012 * ((u - 0.8) / 0.2) ** 0.6
 
     bm = bmesh.new()
     rings = []
@@ -859,14 +859,15 @@ def pouch_empty(M, name, loc, rz=0.0, mat=None, coll=None, seed=0, length=0.12, 
         ring_ = []
         for iv in range(nv):
             v = 2 * math.pi * iv / nv
-            ruff = 1 + (0.18 * math.sin(7 * v + ph[1]) if u > 0.82 else 0.0)
+            ruff = 1 + (0.3 * math.sin(7 * v + ph[1]) * min(1.0, (u - 0.8) / 0.08) if u > 0.8 else 0.0)
             w2 = w * (1 + 0.07 * math.sin(u * 11 + ph[0] + v) * (1 if u < 0.75 else 0.3))
             yv = w2 * math.cos(v) * ruff
             sv = math.sin(v)
-            zv = t / 2 * (sv if sv > 0 else 0.35 * sv) * ruff          # slumped: flat underside, soft top
+            flat = 0.35 if u < 0.78 else 0.7
+            zv = t / 2 * (sv if sv > 0 else flat * sv) * ruff          # slumped: flat underside, soft top
             if sv > 0 and u < 0.75:                                     # crushed-fabric folds on top
                 zv += sv * (0.0028 * math.sin(x * 140 + yv * 60 + ph[2]) + 0.0018 * math.sin(yv * 190 - x * 70 + ph[1]))
-            ring_.append(bm.verts.new((x, yv, zv + 0.35 * t / 2 + 0.0006)))
+            ring_.append(bm.verts.new((x, yv, zv + flat * t / 2 + 0.0006)))
         rings.append(ring_)
     for iu in range(nu):
         a, b = rings[iu], rings[iu + 1]
@@ -887,7 +888,7 @@ def pouch_empty(M, name, loc, rz=0.0, mat=None, coll=None, seed=0, length=0.12, 
     bpy.context.view_layer.update()
     mw = o.matrix_world
     xn = -length / 2 + 0.79 * length
-    loop = [mw @ Vector((xn, 0.0108 * math.cos(a), 0.0068 + 0.0072 * math.sin(a))) for a in
+    loop = [mw @ Vector((xn, 0.0098 * math.cos(a), 0.0082 + 0.0094 * math.sin(a))) for a in
             [2 * math.pi * k / 12 for k in range(13)]]
     cmat = M.get('cord_mat') or mat_principled('PouchCord', color=(0.5, 0.42, 0.25), rough=0.6, spec=0.3)
     M['cord_mat'] = cmat
@@ -1096,4 +1097,4 @@ def clear_loose(wall, zones):
         for ax, ay, ar in zones:
             x, y = ld.location.x, ld.location.y
             if (x - ax) ** 2 + (y - ay) ** 2 < ar * ar:
-                ld.location.x = math.copysign(WALL_X - 0.22, x)
+                ld.location.y = ay + math.copysign(ar + 0.12, y - ay)

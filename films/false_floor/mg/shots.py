@@ -801,8 +801,9 @@ class S43(Shot):
 
     def screen(self, L, f):
         k = ease_in_out(ramp(f, self.t_in + 24, 12))
-        Text('HIS ACCOUNT · DISPUTED BY INVESTIGATORS', 'Medium', 22, M, 1028, 'ink', 3, 'l', 'line').draw(L, f, a=0.7 * k)
-        Text(CASE, 'Medium', 22, W - M, 1028, 'concrete', 3, 'r', 'line').draw(L, f)
+        F = 10 ** 6     # labels are present from frame 1 (screen-locked); only the ink label waits for its panel
+        Text('HIS ACCOUNT · DISPUTED BY INVESTIGATORS', 'Medium', 22, M, 1028, 'ink', 3, 'l', 'line').draw(L, F, a=0.7 * k)
+        Text(CASE, 'Medium', 22, W - M, 1028, 'concrete', 3, 'r', 'line').draw(L, F)
 
 
 class S44(Shot):
@@ -944,10 +945,11 @@ class S47(Shot):
 
     def screen(self, L, f):
         d = self.d(f)
-        Text('TWO ACCOUNTS · ONE VAULT', 'Medium', 22, M, 1028, 'ink', 3, 'l', 'line').draw(L, f, a=0.7)
+        F = 10 ** 6
+        Text('TWO ACCOUNTS · ONE VAULT', 'Medium', 22, M, 1028, 'ink', 3, 'l', 'line').draw(L, F, a=0.7)
         k = clamp01((d - 560) / 80)
-        Text(CASE, 'Medium', 22, W - M, 1028, 'concrete', 3, 'r', 'line').draw(L, f, a=1 - k)
-        Text(CASE, 'Medium', 22, W - M, 1028, 'ink', 3, 'r', 'line').draw(L, f, a=0.7 * k)
+        Text(CASE, 'Medium', 22, W - M, 1028, 'concrete', 3, 'r', 'line').draw(L, F, a=1 - k)
+        Text(CASE, 'Medium', 22, W - M, 1028, 'ink', 3, 'r', 'line').draw(L, F, a=0.7 * k)
 
 
 # ============================================================================= S49 · timeline 2009 -> 2017

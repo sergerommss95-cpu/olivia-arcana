@@ -563,7 +563,7 @@ class Shot:
         if self.static_screen and self._screen_cache is not None:
             return self._screen_cache
         L = Layer()
-        self.screen(L, f)
+        self.screen(L, 10 ** 6 if self.static_screen else f)   # a cached screen layer must be the settled state
         r = L.downsample()
         if self.static_screen:
             self._screen_cache = r

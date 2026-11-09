@@ -67,7 +67,7 @@ def shot_office(dusk=False):
     if DEBUG:
         debug_light((-0.4, 2.5, 0.9), (-0.4, 1.8, 2.4), energy=600, size=1.5)
     elif not dusk:
-        sun('Sun', (-0.30, -0.86, -0.47), 4.2, kelvin(4700), angle=0.6)
+        sun('Sun', (0.22, -0.86, -0.47), 4.2, kelvin(4700), angle=0.6)
         light('AREA', 'SkyFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(90), 0, 0), energy=260.0,
               color=kelvin(9000), size=wx1 - wx0, size_y=wz1 - wz0, shape='RECTANGLE')
         light('AREA', 'CorridorTroffer', (-1.4, -1.3, o['cor_h'] - 0.02), energy=40.0, color=kelvin(4100),
@@ -151,7 +151,7 @@ def shot_street(night=True):
         cam_at('CamNight', (-3.3, -2.6, 1.3), (1.0, 26.0, 3.6), 30.0, 4.0, foc, roll=0.0)
     else:
         foc = empty('FocusD', (0.5, 9.0, 1.5))
-        cam_at('CamDusk', (-3.2, -24.0, 2.1), (2.2, 14.0, 6.6), 40.0, 5.6, foc, roll=0.0)
+        cam_at('CamDusk', (-3.0, -21.0, 1.9), (2.3, 14.0, 6.4), 38.0, 5.6, foc, roll=0.0)
 
 
 reset()

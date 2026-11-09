@@ -52,9 +52,11 @@ def main():
     src, outp = sys.argv[1], sys.argv[2]
     voice, model, stab = arg('--voice'), arg('--model', 'eleven_v4'), float(arg('--stability', 0.5))
     beats = parse(src)
-    chapters = []
+    chapters = []          # (chapter name, beats) chunks of <= MAXC characters, split at beat boundaries
+    MAXC = int(arg('--max-chars', 1800))
     for b in beats:
-        if not chapters or chapters[-1][0] != b['chapter']:
+        if (not chapters or chapters[-1][0] != b['chapter'] or
+                sum(len(beat_text(x)) + 2 for x in chapters[-1][1]) + len(beat_text(b)) > MAXC):
             chapters.append((b['chapter'], []))
         chapters[-1][1].append(b)
     cache = outp + '_chapters'
@@ -86,8 +88,9 @@ def main():
         st, en = al['character_start_times_seconds'], al['character_end_times_seconds']
         nchar = len(st)
         if ci:
-            track.append(np.zeros(int(GAP_CHAPTER * SR), np.float32))
-            t += GAP_CHAPTER
+            gap = GAP_CHAPTER if ch != chapters[ci - 1][0] else 0.35
+            track.append(np.zeros(int(gap * SR), np.float32))
+            t += gap
         base = t
         for (s0, s1), b, tx in zip(spans, bs, texts):
             i0 = min(s0, nchar - 1)

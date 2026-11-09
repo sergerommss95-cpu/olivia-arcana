@@ -90,7 +90,7 @@ def mat_gaff_macro(name='GaffTapeMacro'):
     nb.l(rr, 'Color', p, 'Roughness')
     cr = nb.ramp(nz2, 'Fac', [(0.3, (0.009, 0.009, 0.010)), (0.75, (0.02, 0.02, 0.021))])   # dust / handling
     nb.l(cr, 'Color', p, 'Base Color')
-    bmp = nb.n('ShaderNodeBump', Strength=0.6, Distance=0.00002)
+    bmp = nb.n('ShaderNodeBump', Strength=0.35, Distance=0.000015)
     nb.l(h, 0, bmp, 'Height')
     nb.l(bmp, 'Normal', p, 'Normal')
     return m
@@ -156,6 +156,22 @@ def mat_macro_steel(name, base=(0.5, 0.51, 0.53), rough=(0.14, 0.32), brush='X',
     return m
 
 
+def mat_turned(name, base, rough=(0.1, 0.2), grime=0.12):
+    """Lathe-turned bar stock (parts built along local Z): fine circumferential turning marks, no crack scratches."""
+    m = mat_metal(name, base=base, rough=rough, scale=6.0, bump=1.0, brushed=(0.05, 0.05, 40.0), grime=grime,
+                  scratches=0.0)
+    set_bump(m, 0.4, 4e-6)
+    return m
+
+
+def no_aniso(m):
+    p = principled(m)
+    p.inputs['Anisotropic'].default_value = 0.0
+    for l in list(p.inputs['Tangent'].links):
+        m.node_tree.links.remove(l)
+    return m
+
+
 def macro_mats():
     M = {}
     # door steel: tumbler vault 'edge' (brushed machined steel) base + roughness, horizontal brushing at macro grain
@@ -163,9 +179,9 @@ def macro_mats():
     # vertical-brushed variant (door edge faces / key boss plate)
     M['door_v'] = mat_macro_steel('MDoorSteelV', base=(0.48, 0.49, 0.51), rough=(0.16, 0.34), brush='Z')
     # frame: dark painted steel with worn edges (A1: dark painted frame)
-    M['frame'] = mat_paint('MFramePaint', color=(0.024, 0.026, 0.028), rough=(0.32, 0.52), scale=25.0, wear=0.3,
+    M['frame'] = mat_paint('MFramePaint', color=(0.011, 0.012, 0.013), rough=(0.38, 0.5), scale=25.0, wear=0.3,
                            edge_metal=(0.42, 0.42, 0.44))
-    set_bump(M['frame'], 0.5, 1.2e-4)
+    set_bump(M['frame'], 0.3, 1.5e-5)
     M['dark'] = mat_metal('MDarkSteel', base=(0.08, 0.085, 0.09), rough=(0.28, 0.5), scale=30.0, bump=1.0, grime=0.3)
     set_bump(M['dark'], 0.4, 3e-5)
     # lathe-turned parts (local Z = turning axis): tumbler vault 'satin'
@@ -175,9 +191,10 @@ def macro_mats():
     M['chrome'] = mat_metal('MChrome', base=(0.78, 0.79, 0.8), rough=(0.05, 0.14), scale=60.0, bump=0.0, grime=0.15,
                             scratches=0.15)
     # magnetic contact blocks: fly-cut machined steel (arcs from a far-off cutter centre), a touch darker than the door
-    M['block'] = mat_concentric('MBlockFlycut', base=(0.36, 0.37, 0.38), rough=(0.18, 0.32), rings=26000.0, bump=0.5,
+    M['block'] = mat_concentric('MBlockFlycut', base=(0.42, 0.43, 0.44), rough=(0.16, 0.3), rings=26000.0, bump=0.5,
                                 center=(0.11, 0.0, 0.16), axis='Y')
-    set_bump(M['block'], 0.5, 1.6e-6)
+    set_bump(M['block'], 0.7, 3e-6)
+    no_aniso(M['block'])
     M['magnet'] = mat_metal('MMagnetFace', base=(0.16, 0.16, 0.165), rough=(0.32, 0.45), scale=200.0, bump=0.0,
                             grime=0.2)
     M['screw'] = mat_metal('MScrewOxide', base=(0.045, 0.045, 0.05), rough=(0.26, 0.42), scale=400.0, bump=0.0,
@@ -199,10 +216,8 @@ def macro_mats():
     M['point'] = mat_metal('MBitPoint', base=(0.66, 0.66, 0.68), rough=(0.08, 0.16), scale=300.0, bump=0.0, grime=0.1)
     M['shank'] = mat_metal('MBitShank', base=(0.42, 0.42, 0.43), rough=(0.18, 0.3), scale=300.0, bump=0.0, grime=0.25)
     # key: part two (shaft + bit) bright nickel steel, part one (bow) blued steel, knurled coupling
-    M['nickel'] = mat_metal('MKeyNickel', base=(0.6, 0.59, 0.56), rough=(0.12, 0.24), scale=60.0, bump=0.0, grime=0.25,
-                            scratches=0.3)
-    M['blued'] = mat_metal('MKeyBlued', base=(0.10, 0.108, 0.12), rough=(0.16, 0.3), scale=60.0, bump=0.0, grime=0.2,
-                           scratches=0.3)
+    M['nickel'] = mat_turned('MKeyNickel', base=(0.6, 0.59, 0.56), rough=(0.1, 0.2))
+    M['blued'] = mat_turned('MKeyBlued', base=(0.10, 0.108, 0.12), rough=(0.14, 0.26))
     M['knurl'] = mat_metal('MKnurl', base=(0.55, 0.55, 0.57), rough=(0.14, 0.28), scale=200.0, bump=0.0, grime=0.35)
     return M
 
@@ -640,6 +655,7 @@ def mag_plate(M, side, proto, name, loosen=(0.0, 0.0), coll=None):
     sxc = side * (g + fw / 2)
     for k, zz in enumerate((PL['screw_z'], -PL['screw_z'])):
         sc_ = linked_copy(proto, f'{name}_screw{k}', coll=coll)
+        sc_.hide_render = False
         sc_.rotation_euler = (math.radians(90), 0, math.radians(random.Random(k * 7 + side).uniform(0, 60)))
         sc_.location = (sxc, -ft - loosen[k], zz)
         screws.append(sc_)

@@ -337,7 +337,7 @@ def mix(tl, total, vo_path, out_wav, music=None, music_gain=-22.0, music_offset=
 
 
 def main():
-    vo_path = os.path.join(FF, arg('--vo', 'out/vo/vo_george_v01'))
+    vo_path = os.path.join(FF, arg('--vo', 'out/vo/vo_george_v4_v01'))
     out = os.path.join(FF, arg('--out', 'out/FALSE_FLOOR_E02_v01.mp4'))
     preview = bool(arg('--preview'))
     shots = json.load(open(os.path.join(FF, 'script', 'SHOTS_v2.json')))['shots']

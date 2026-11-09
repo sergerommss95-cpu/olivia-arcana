@@ -35,7 +35,7 @@ need_vault = SHOT in ('S00', 'S01', 'S25', 'S32', 'S52') and not arg('--novault'
 S = D.build_set(vault=need_vault, stair=True, grate=True, cctv=True, key=(SHOT == 'S25'))
 
 # ---- door / grate states -----------------------------------------------------------------------------------------
-AJAR = 1.0                  # S00/S52 hairline (degrees)
+AJAR = 2.0                  # S00/S52 hairline (degrees)
 OPEN = 112.0                # wide open (S01/S32/start of S52)
 door, grate = S['door'], S['grate']
 D.set_bolts(S, extended=SHOT in ('S10', 'S14', 'S20', 'S25', 'S01', 'S32'))   # thrown bolts read best on the open door
@@ -67,13 +67,13 @@ haze_on = not arg('--nohaze')
 
 # ---- shots -------------------------------------------------------------------------------------------------------
 if SHOT in ('S00', 'S52'):
-    # The two ends of the film, framed identically: low, near black, the door ajar a hairline, warm vault light leaking
-    # through the seam and under the door; a whisper of cold light trickles down the stairs behind us.
+    # The two ends of the film, framed identically: low, near black, the door ajar, warm vault light escaping as a
+    # hairline round the free edge and under the door; a whisper of cold light trickles down the stairs behind us.
     D.light_ante(S, 'dark')
-    LV = D.light_vault(S, 'warm')
-    P0, T0 = (0.12, -2.95, 0.40), (0.30, 0.0, 0.66)       # S00 first frame == S52 last frame
-    P1, T1 = (0.16, -2.12, 0.36), (0.33, 0.0, 0.62)
-    cam = make_cam(35, 2.4, [(1, (0.45, -0.1, 0.5))])
+    LV = D.light_vault(S, 'warm', leak=True, spill=70.0 if SHOT == 'S52' else 0.0)
+    P0, T0 = (0.44, -2.95, 0.40), (0.30, 0.0, 0.50)       # S00 first frame == S52 last frame
+    P1, T1 = (0.42, -2.10, 0.36), (0.31, 0.0, 0.48)
+    cam = make_cam(35, 2.4, [(1, (0.5, -0.1, 0.45))])
     if SHOT == 'S00':
         cam_path(cam, [(1, P0, T0, 0.0), (A, P0, T0, 0.0), (N, P1, T1, 0.0)])
     else:
@@ -90,17 +90,22 @@ if SHOT in ('S00', 'S52'):
             for kp in fc.keyframe_points:
                 kp.interpolation = 'SINE'
                 kp.easing = 'EASE_IN_OUT'
-        # the low bounce cards behind the door only matter once the seam is narrow
-        b, b2 = LV['leak']
-        for lt, e in ((b, 30.0), (b2, 40.0)):
-            key_data(lt.data, lt, 'energy', [(1, e * 0.15), (d1 - 50, e * 0.2), (d1 - 5, e)])
+        # the seam glow only exists once the door is almost home
+        lk = LV['leak']
+        for lt in lk['lights']:
+            e = lt.data.energy
+            key_data(lt.data, lt, 'energy', [(1, 0.0), (d1 - 14, 0.0), (d1 - 2, e)])
+        g = lk['strength']
+        key_socket(g, [(1, 0.0), (d1 - 14, 0.0), (d1 - 2, g.default_value)])
+        sp = LV['spill']
+        key_data(sp.data, sp, 'energy', [(1, 70.0), (d0 + 40, 70.0), (d1 - 8, 0.0)])
     shake(cam, 0.0015, 0.0008, scale=40, seed=3)
     motes_box = ((-0.9, -2.0, 0.05), (1.2, -0.15, 1.6))
 
 elif SHOT == 'S01':
     # Reveal: start tight on the free edge of the open door (chrome bolts, 0.4 m of steel), pull back and around to show
     # the door standing wide open with the forced vault beyond. Warm vault light pours out; the antechamber is cold, low.
-    D.light_ante(S, 'day', scale=0.32, on=('B', 'S'))
+    D.light_ante(S, 'day', scale=0.45, on=('B', 'S'))
     D.light_vault(S, 'warm')
     cam = make_cam(32, 2.0, [(1, (-0.74, -1.40, 0.9)), (95, (-0.74, -1.40, 0.9)), (205, (-0.3, 0.35, 1.0))])
     cam_path(cam, [(1, (-0.57, -2.02, 0.66), (-0.80, -1.36, 1.16), 0.0),

@@ -54,6 +54,7 @@ KEYPAD = Vector((1.10, 0.0, 1.40))
 ROOM_X, ROOM_BACK, CEIL = 1.95, -3.80, 2.50
 STAIR_HW, STAIR_RISE, STAIR_RUN, STAIR_N, STAIR_Y0 = 0.75, 0.18, 0.28, 16, -5.0
 GATE_HW = 0.62
+NIGHT_LAMP = (0.69, -7.7, 3.05)      # bulkhead on the right stair wall
 VAULT_CEIL = 2.95
 
 
@@ -415,9 +416,9 @@ def mat_tube(name, strength=14.0, k=5600):
 
 def mats():
     M = {}
-    M['panel'] = mat_machined('DoorPanel', base=(0.50, 0.505, 0.515), rough=(0.15, 0.27), axis='X', aniso=0.55,
+    M['panel'] = mat_machined('DoorPanel', base=(0.52, 0.525, 0.535), rough=(0.21, 0.34), axis='X', aniso=0.55,
                               smudge=0.55, scratch=0.4)
-    M['border'] = mat_machined('DoorBorder', base=(0.46, 0.465, 0.475), rough=(0.17, 0.30), axis='Z', aniso=0.5,
+    M['border'] = mat_machined('DoorBorder', base=(0.48, 0.485, 0.495), rough=(0.22, 0.36), axis='Z', aniso=0.5,
                                smudge=0.6, scratch=0.35)
     M['edge'] = mat_machined('DoorEdge', base=(0.44, 0.445, 0.455), rough=(0.2, 0.34), axis='Z', aniso=0.4, smudge=0.7,
                              scratch=0.25)
@@ -427,7 +428,7 @@ def mats():
                                scratch=0.15, bump=0.01, dark=0.85)
     M['dark'] = mat_machined('DarkSteel', base=(0.10, 0.10, 0.105), rough=(0.3, 0.46), axis='Z', aniso=0.2, smudge=0.8,
                              scratch=0.4, dark=0.6)
-    M['frame'] = mat_worn_paint('FramePaint', color=(0.045, 0.05, 0.052), rough=(0.34, 0.52), edge=0.9, scuff=0.6,
+    M['frame'] = mat_worn_paint('FramePaint', color=(0.075, 0.08, 0.08), rough=(0.34, 0.52), edge=0.9, scuff=0.6,
                                 low=1.0, steel=(0.40, 0.40, 0.41), sheen=0.15)
     M['grate'] = mat_worn_paint('GratePaint', color=(0.05, 0.055, 0.052), rough=(0.4, 0.6), edge=1.0, scuff=0.5,
                                 low=0.8, bev_r=0.003, scale=2.0)
@@ -440,7 +441,7 @@ def mats():
     M['engine'] = None
     M['hole'] = mat_principled('DoorHole', color=(0.004, 0.004, 0.004), rough=0.6)
     M['glass'] = mat_principled('LensGlass', color=(0.9, 0.92, 0.95), rough=0.02, transmission=1.0, ior=1.52)
-    M['magface'] = mat_worn_paint('MagFace', color=(0.30, 0.30, 0.29), rough=(0.45, 0.6), edge=0.5, scuff=0.2, low=0.0,
+    M['magface'] = mat_worn_paint('MagFace', color=(0.19, 0.19, 0.185), rough=(0.45, 0.6), edge=0.5, scuff=0.2, low=0.0,
                                   bev_r=0.002, scale=6.0)
     M['galv'] = mat_machined('Galvanised', base=(0.38, 0.385, 0.39), rough=(0.38, 0.55), axis='Z', aniso=0.0, smudge=1.0,
                              scratch=0.1, bump=0.02, dark=0.55)
@@ -626,13 +627,13 @@ def build_door(M, coll=None, numerals=False, key=True):
     hp = [ycyl('HHub', 0, -0.07, 0.0, 0, 0.042, M['chrome'], seg=48, bev=0.006, bseg=3),
           ycyl('HHubCap', 0, -0.078, -0.068, 0, 0.03, M['border'], seg=48, bev=0.003)]
     for i, a in enumerate((math.radians(30), math.radians(150), math.radians(270))):
-        sp_ = prim('cyl', f'HSpoke{i}', (math.cos(a) * 0.1, -0.052, math.sin(a) * 0.1), (0, 0, 0), seg=24, r=0.0125,
-                   r2=0.0095, depth=0.17, coll=coll)
+        sp_ = prim('cyl', f'HSpoke{i}', (math.cos(a) * 0.1, -0.052, math.sin(a) * 0.1), (0, 0, 0), seg=24, r=0.017,
+                   r2=0.0125, depth=0.17, coll=coll)
         sp_.rotation_euler = (0, math.pi / 2 - a, 0)
         bevel(sp_, 0.002, 2)
         set_mat(sp_, M['chrome'])
         hp.append(sp_)
-        kb = prim('sphere', f'HKnob{i}', (math.cos(a) * 0.19, -0.052, math.sin(a) * 0.19), seg=32, ring=16, r=0.024,
+        kb = prim('sphere', f'HKnob{i}', (math.cos(a) * 0.19, -0.052, math.sin(a) * 0.19), seg=32, ring=16, r=0.029,
                   coll=coll)
         set_mat(kb, M['chrome'])
         hp.append(kb)
@@ -989,7 +990,7 @@ def light_ante(S, state='day', scale=1.0, on=None, night=None, coll=None):
     and door), 'dark' (near black: only a faint trickle down the stairs). `on` overrides which battens are lit (subset
     of 'A', 'B', 'S'), `night` the stairwell source power (W), `scale` the batten power."""
     presets = {'day': (('A', 'B', 'S'), 30.0, 6200, 0.0), 'monday': (('A', 'B', 'S'), 38.0, 5200, 0.0),
-               'night': ((), 30.0, 6200, 260.0), 'dark': ((), 30.0, 6200, 22.0)}
+               'night': ((), 30.0, 6200, 90.0), 'dark': ((), 30.0, 6200, 14.0)}
     lit, pw, kk, nl = presets[state]
     if on is not None:
         lit = on
@@ -998,7 +999,7 @@ def light_ante(S, state='day', scale=1.0, on=None, night=None, coll=None):
     pw *= scale
     M = S['M']
     f = {}
-    f['A'] = fixture(M, 'FixA', (0.35, -1.15, CEIL - 0.012), axis='X', on='A' in lit, power=pw, k=kk, coll=coll)
+    f['A'] = fixture(M, 'FixA', (0.0, -0.78, CEIL - 0.012), axis='X', on='A' in lit, power=pw * 1.25, k=kk, coll=coll)
     f['B'] = fixture(M, 'FixB', (-0.3, -2.95, CEIL - 0.012), axis='X', on='B' in lit, power=pw * 0.8, k=kk, coll=coll)
     out = {'fix': f}
     if S.get('stair_built'):
@@ -1007,13 +1008,28 @@ def light_ante(S, state='day', scale=1.0, on=None, night=None, coll=None):
         slope = math.atan2(STAIR_RISE, STAIR_RUN)
         f['S'] = fixture(M, 'FixS', (0.0, y, zs - 0.01), axis='X', rot=(-slope, 0, 0), on='S' in lit, power=16.0 * scale,
                          k=5000, coll=coll, strength=10.0)
+        # bulkhead night light on the stair wall (caged glass dome); lit only in the night states
+        bp = NIGHT_LAMP
+        cage = prim('sphere', 'BulkGlass', bp, seg=24, ring=12, r=0.06, coll=coll)
+        cage.scale = (0.5, 1.0, 0.7)
+        gl = mat_emission('BulkGlassOn', color=kelvin(4300), strength=18.0) if nl > 0 else M['tube_off']
+        set_mat(cage, gl)
+        no_shadow(cage)
+        xbox('BulkBase', bp[0] + 0.03, bp[0] + 0.06, bp[1] - 0.09, bp[1] + 0.09, bp[2] - 0.07, bp[2] + 0.07, M['housing'],
+             bev=0.008, coll=coll)
+        for dz in (-0.03, 0.0, 0.03):
+            r = prim('torus', 'BulkCage', R=0.055, r=0.003, seg=24, seg2=6, coll=coll)
+            r.location = (bp[0] - 0.005, bp[1], bp[2] + dz)
+            r.rotation_euler = (0, math.radians(90), 0)
+            r.scale = (0.7, 1.0, 1.0)
+            set_mat(r, M['dark'])
         if nl > 0:
-            out['night'] = light('POINT', 'StairNight', (0.05, -9.2, 4.6), energy=nl, color=kelvin(4300), radius=0.04,
-                                 coll=coll)
+            out['night'] = light('POINT', 'StairNight', (bp[0] - 0.05, bp[1], bp[2]), energy=nl, color=kelvin(4300),
+                                 radius=0.03, coll=coll)
     return out
 
 
-def light_vault(S, state='warm', coll=None, leak=True, key_power=40.0):
+def light_vault(S, state='warm', coll=None, leak=False, key_power=55.0, spill=70.0, tube_power=42.0):
     """Lights inside the vault room. 'warm': ceiling tubes on (warm-white, 'lights blazing') + a cream key that writes
     the box lips + low invisible bounce cards near the door so light leaks through the door seam. 'off': nothing."""
     out = {}
@@ -1023,7 +1039,7 @@ def light_vault(S, state='warm', coll=None, leak=True, key_power=40.0):
     k = 3700
     ts = []
     for i, y in enumerate((1.5, 3.3, 5.1)):
-        f = fixture(M, f'FixV{i}', (0.0, y, VAULT_CEIL - 0.01), axis='Y', on=True, power=26.0, k=k, coll=coll, tubes=1,
+        f = fixture(M, f'FixV{i}', (0.0, y, VAULT_CEIL - 0.01), axis='Y', on=True, power=tube_power, k=k, coll=coll, tubes=1,
                     strength=12.0)
         ts.append(f)
     out['tubes'] = ts
@@ -1031,14 +1047,45 @@ def light_vault(S, state='warm', coll=None, leak=True, key_power=40.0):
     kl = light('AREA', 'VaultKey', (0.95, 1.1, 2.7), energy=key_power, color=kelvin(3500), size=0.3, coll=coll)
     track_to(kl, aim)
     out['key'] = kl
+    if spill:
+        # the lit room seen as a light source from outside: a warm soft panel just inside the doorway, aimed out through
+        # the opening (lays the warm trapezoid on the antechamber floor, warms the open door's back and its bolts)
+        sp = light('AREA', 'DoorSpill', (0.0, WALL_T + 0.35, 1.25), (math.radians(-80), 0, 0), energy=spill,
+                   color=kelvin(3500), size=1.0, size_y=1.9, shape='RECTANGLE', coll=coll)
+        try:
+            sp.visible_glossy = False
+        except Exception:
+            pass
+        out['spill'] = sp
     if leak:
-        # low warm bounce right behind the door (motivated by the lit floor): makes the seam glow when the door is ajar
-        b = light('AREA', 'LeakLow', (0.1, 1.35, 0.06), (math.radians(-90), 0, 0), energy=30.0, color=kelvin(3300), size=1.4,
-                  size_y=0.1, shape='RECTANGLE', coll=coll)
-        b2 = light('AREA', 'LeakSide', (0.95, 1.2, 1.1), (math.radians(-90), 0, math.radians(-25)), energy=40.0,
-                   color=kelvin(3400), size=0.25, size_y=2.0, shape='RECTANGLE', coll=coll)
-        out['leak'] = (b, b2)
+        out['leak'] = leak_lights(coll)
     return out
+
+
+def leak_lights(coll=None, under=10.0, side=6.0, glow=6.0, k=3200):
+    """Warm light escaping through the seams of the ajar door (motivated by the lit vault behind it):
+    - a thin strip source in the bottom gap and one in the free-edge slit, aimed out at the antechamber: they lay a warm
+      fan across the threshold and a blade of light on the floor, and catch the chamfers either side of the slit;
+    - two hairline emissive strips, seen only through the gaps (on the threshold under the plate, and on the sliver of
+      rebate step behind the slit).
+    Use only while the door is ajar (S00, the end of S52): with the door open they would show. Returns dict of lights,
+    emissive objects and the glow material's strength socket (for keying)."""
+    lu = light('AREA', 'LeakUnder', (0.0, -0.075, 0.0135), (math.radians(-90), 0, 0), energy=under, color=kelvin(k),
+               size=1.12, size_y=0.004, shape='RECTANGLE', coll=coll)
+    ls = light('AREA', 'LeakSide', (REB_HW - 0.003, -0.05, 1.07), (math.radians(-90), 0, 0), energy=side, color=kelvin(k),
+               size=0.004, size_y=2.05, shape='RECTANGLE', coll=coll)
+    for lt in (lu, ls):
+        try:
+            lt.visible_glossy = False
+        except Exception:
+            pass
+    gm = mat_emission('LeakGlow', color=kelvin(k - 300), strength=glow)
+    g1 = xbox('LeakGlowUnder', -0.57, 0.57, PLATE_Y[0] + 0.004, -0.03, 0.0081, 0.0085, gm, coll=coll)
+    g2 = xbox('LeakGlowSlit', PLATE_HW - 0.002, REB_HW - 0.0003, -0.0214, -0.0204, PLATE_Z[0], REB_TOP - 0.003, gm, coll=coll)
+    for g in (g1, g2):
+        no_shadow(g)
+    strength = gm.node_tree.nodes['Emission'].inputs['Strength']
+    return {'lights': (lu, ls), 'glow': (g1, g2), 'strength': strength}
 
 
 # ----------------------------------------------------------------------------- vault room (SF1 look) behind the door

@@ -191,7 +191,9 @@ def mat_weave(name, color, period=0.0011, axes=('X', 'Z'), rough=0.86, bump=0.5,
     p.inputs['Sheen Weight'].default_value = sheen
     p.inputs['Sheen Roughness'].default_value = 0.5
     p.inputs['Specular IOR Level'].default_value = 0.35
-    s.put(s.bump(h, bump, period * 0.35), p.inputs['Normal'])
+    cr = s.tex('ShaderNodeTexNoise', co, Scale=18.0, Detail=4.0, Roughness=0.55, Distortion=0.4)
+    nrm = s.bump(cr.outputs['Fac'], 0.12, 0.004)
+    s.put(s.bump(h, bump, period * 0.35, normal=nrm), p.inputs['Normal'])
     return m
 
 
@@ -1116,8 +1118,8 @@ def table_mats():
     return M
 
 
-def build_open_parcel(name, loc, rot_z, M, coll=None, c=0.090, e=0.040, a=0.046, side_open=(7.0, 12.0),
-                      end_open=(17.0, 11.0), res=0.0014, seed=2):
+def build_open_parcel(name, loc, rot_z, M, coll=None, c=0.090, e=0.040, a=0.046, side_open=(11.0, 19.0),
+                      end_open=(26.0, 15.0), res=0.0012, seed=2):
     """Diamond paper opened: the centre panel flat (blue liner up), side flaps and end flaps lifted at different
     angles with crease memory and light crumple. Top surface = liner (slot 0), underside = white paper (slot 1)."""
     L, W = c + 2 * e, 3 * a
@@ -1147,10 +1149,13 @@ def build_open_parcel(name, loc, rot_z, M, coll=None, c=0.090, e=0.040, a=0.046,
                 z = d * math.sin(ang) + z * math.cos(ang)
             # centre panel sags slightly into a shallow valley; crumple
             cv = max(0.0, 1 - (abs(v) / (a / 2)) ** 2) * max(0.0, 1 - (abs(u) / (c / 2)) ** 4)
-            z += -0.0006 * cv
+            z += -0.00025 * cv
+            # crease memory: a soft ridge along each fold line (the paper was folded the other way)
+            for dd in (abs(abs(v) - a / 2), abs(abs(u) - c / 2) if abs(v) <= a / 2 + 0.002 else 1.0):
+                z += 0.00035 * math.exp(-(dd / 0.0012) ** 2)
             p = Vector((u, v, 0)) * 60.0 + sd
-            z += 0.00045 * mnoise.noise(p) + 0.00015 * mnoise.noise(p * 3.1)
-            row.append(bm.verts.new((x, y, z + 0.0004)))
+            z += 0.00025 * (1 + mnoise.noise(p)) + 0.0001 * mnoise.noise(p * 3.1)
+            row.append(bm.verts.new((x, y, z + 0.00045)))
         verts.append(row)
     for i in range(nu):
         for j in range(nv):
@@ -1208,9 +1213,9 @@ def build_table(M, coll=None, seed=5):
     A['parcel'] = par
     # stones in the centre valley of the parcel + a few on the pad
     R = Matrix.Rotation(rot, 3, 'Z')
-    spots = [(-0.006, 0.002, 0.0026), (0.004, -0.004, 0.0021), (0.011, 0.006, 0.0018), (-0.015, -0.007, 0.0016),
-             (0.001, 0.012, 0.0014), (-0.022, 0.009, 0.002), (0.019, -0.011, 0.0013), (0.026, 0.004, 0.0017),
-             (-0.002, -0.015, 0.0012), (0.014, 0.018, 0.0011)]
+    spots = [(-0.006, 0.002, 0.0031), (0.005, -0.005, 0.0025), (0.013, 0.007, 0.0021), (-0.016, -0.008, 0.0019),
+             (0.001, 0.013, 0.0017), (-0.024, 0.009, 0.0024), (0.021, -0.012, 0.0016), (0.028, 0.004, 0.002),
+             (-0.003, -0.017, 0.0015), (0.015, 0.019, 0.0013), (-0.013, 0.017, 0.0014)]
     # surface heights first (ray casts onto the parcel / pad), then drop each stone so its lowest point rests there
     bpy.context.view_layer.update()
     dg = bpy.context.evaluated_depsgraph_get()
@@ -1227,10 +1232,10 @@ def build_table(M, coll=None, seed=5):
     for k, (u, v, s_) in enumerate(spots):
         p = R @ Vector((u, v, 0))
         items.append(('rough', f'Stone{k}', p.x, p.y, s_, 40 + k))
-    for k, (u, v, r_) in enumerate(((0.008, -0.001, 0.0019), (-0.010, 0.011, 0.0015))):
+    for k, (u, v, r_) in enumerate(((0.0085, 0.0025, 0.0019), (-0.010, 0.011, 0.0015))):
         p = R @ Vector((u, v, 0))
         items.append(('pol', f'Polished{k}', p.x, p.y, r_, 60 + k))
-    for k, (x, y, s_) in enumerate(((0.072, -0.03, 0.0019), (0.084, -0.019, 0.0014), (0.061, -0.047, 0.0012))):
+    for k, (x, y, s_) in enumerate(((0.088, 0.012, 0.0022), (0.099, 0.026, 0.0016), (0.079, -0.006, 0.0014))):
         items.append(('rough', f'Spill{k}', x, y, s_, 80 + k))
     heights = [surf(x, y, s_ * 0.9) for _, _, x, y, s_, _ in items]
     for (kind, nm, x, y, s_, sd), zs in zip(items, heights):
@@ -1243,9 +1248,9 @@ def build_table(M, coll=None, seed=5):
         zmin = min((Rm @ v.co).z for v in o.data.vertices)
         o.location.z = zs - zmin + 0.00002
     A['subject'] = Vector((0.0, 0.0, z0 + 0.002))
-    build_tweezers('Tweezers', (0.205, -0.118, z0), math.radians(148), M, coll)
+    build_tweezers('Tweezers', (0.178, -0.118, z0), math.radians(119), M, coll)
     build_loupe('Loupe', (-0.112, -0.055, z0), math.radians(25), M, coll)
-    build_carat_scale('PocketScale', (0.135, 0.105, z0), math.radians(-24), M, coll, lid_angle=108)
+    build_carat_scale('PocketScale', (0.118, 0.142, z0), math.radians(-20), M, coll, lid_angle=108)
     build_pen('Pen', (-0.085, -0.142, z0), math.radians(17), M, coll)
     for k in range(3):
         build_closed_parcel(f'Parcel{k}', (-0.095 + 0.003 * k, 0.12 + 0.004 * k, z0 + 0.0032 * k),
@@ -1801,10 +1806,10 @@ def build_street(M, coll=None, night=True, seed=11):
     for k in range(int((yend - yin) / 1.2)):
         rbox('GutterJoint', (0.43, 0.008, 0.002), (0.0, yin + k * 1.2, 0.0045), M['stone_dark'], bev=0)
     # building fronts: left (side -1) and right (+1)
-    specs_l = [(yin, 21.0, 24.0, 'pale', (2,), [(3.0, 4.75), (14.0, 4.75)]),
-               (21.0, 38.0, 31.0, 'glass', (1,), [(29.0, 4.75)]),
-               (38.0, 52.0, 19.0, 'brick', (), [(44.0, 4.75)]),
-               (52.0, 70.0, 27.0, 'grey', (0,), [(60.0, 4.75)]),
+    specs_l = [(yin, 21.0, 12.6, 'pale', (2,), [(3.0, 4.75), (14.0, 4.75)]),
+               (21.0, 38.0, 19.4, 'glass', (1,), [(29.0, 4.75)]),
+               (38.0, 52.0, 16.0, 'brick', (), [(44.0, 4.75)]),
+               (52.0, 70.0, 23.0, 'grey', (0,), [(60.0, 4.75)]),
                (70.0, yend, 22.0, 'pale', (), [])]
     specs_r = [(yin, 17.0, 27.0, 'grey', (), [(10.5, 4.75)]),
                (17.0, 33.0, 22.0, 'pale', (1,), [(24.0, 4.75)]),

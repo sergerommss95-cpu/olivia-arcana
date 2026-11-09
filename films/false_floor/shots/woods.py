@@ -174,7 +174,7 @@ if SHOT == 'S31':
     N = 252                                   # render frames incl. 6-frame handles (cut 7..246)
     sc = reset()
     setup_render(1, N, res=RES_FINAL, samples=40, mb=True, shutter=0.5, look='Medium High Contrast', bounces=(2, 2, 3),
-                 clamp=4.0, filter_glossy=0.6, adaptive=0.03, exposure=1.2, vol_bounces=0, vol_step=2.0)
+                 clamp=4.0, filter_glossy=0.6, adaptive=0.03, exposure=2.5, vol_bounces=0, vol_step=2.0)
     sc.cycles.transparent_max_bounces = 8
     rng = random.Random(SEED)
     C_LEAF, C_PROP, C_BG = collection('Leaves'), collection('Props'), collection('Background')
@@ -317,7 +317,7 @@ if SHOT == 'S31':
     else:
         # moonless overcast: cold dome + a cool soft key from camera right so plastic and paper read
         light('AREA', 'Sky', (0.5, 3.0, 9.0), energy=110, color=kelvin(11000), size=14.0, target=(0, 3.0, 0))
-        light('AREA', 'CoolKey', (2.2, 0.6, 1.7), energy=5.0, color=kelvin(9000), size=3.0, target=(0.0, 2.3, 0.1))
+        light('AREA', 'CoolKey', (2.2, 0.6, 1.7), energy=7.0, color=kelvin(9000), size=3.0, target=(0.0, 2.3, 0.1))
         # small, faint glow far off between the trunks where the motorway is
         light('AREA', 'RoadGlow', (-9.0, 30.0, 2.6), energy=160, color=GLOW, size=5.0, size_y=1.5,
               shape='RECTANGLE', target=(0.0, 3.0, 0.4))

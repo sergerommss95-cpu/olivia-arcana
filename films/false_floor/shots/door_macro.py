@@ -185,13 +185,12 @@ ANCH = {'door_contact': (-0.0025, -0.013, 0.0), 'frame_contact': (0.0025, -0.013
 
 def s18():
     plates()
-    tgt = Vector((0.0, -0.014, 0.0))
-    cam = camera('CamS18', lens=60, fstop=5.0, ratio=1.6)
-    foc = empty('FocusS18', (0.0, -0.021, 0.0))
+    tgt = Vector((0.0, -0.016, 0.010))
+    cam = camera('CamS18', lens=60, fstop=8.0, ratio=1.6)
+    foc = empty('FocusS18', (0.0, -0.021, 0.012))
     cam.data.dof.focus_object = foc
-    dr = (-0.30, -0.89, 0.34)
-    cam_path(cam, [(1, from_dir(tgt, dr, 0.20), tuple(tgt), 0.0),
-                   (N, from_dir(tgt, (-0.26, -0.90, 0.35), 0.15), tuple(tgt), 0.0)])
+    cam_path(cam, [(1, from_dir(tgt, (-0.30, -0.88, 0.40), 0.235), tuple(tgt), 0.0),
+                   (N, from_dir(tgt, (-0.25, -0.89, 0.40), 0.185), tuple(tgt), 0.0)])
     shake(cam, 0.00015, 0.0004, scale=20, seed=4)
     night_plate_lights()
     macro_motes('Motes', (0.0, -0.05, 0.01), (0.09, 0.09, 0.07), count=170, seed=5, start=1, end=N)
@@ -201,9 +200,9 @@ def s18():
 
 def night_plate_lights():
     # hard cream key grazing from upper left (screw heads, block chamfers); cool top rim; very low cool fill.
-    light('AREA', 'Key', (-0.17, -0.085, 0.15), energy=0.9, color=CREAM, size=0.008, target=(0.0, -0.012, 0.0))
-    light('AREA', 'Rim', (0.03, -0.035, 0.17), energy=0.22, color=COOL, size=0.03, target=(0.0, -0.014, 0.01))
-    light('AREA', 'Fill', (0.14, -0.20, -0.06), energy=0.05, color=COOL, size=0.15, target=(0.0, -0.01, 0.0))
+    light('AREA', 'Key', (-0.12, -0.05, 0.20), energy=0.9, color=CREAM, size=0.008, target=(0.0, -0.014, 0.012))
+    light('AREA', 'Rim', (0.05, -0.02, 0.17), energy=0.22, color=COOL, size=0.03, target=(0.0, -0.014, 0.02))
+    light('AREA', 'Fill', (0.12, -0.22, -0.09), energy=0.09, color=(0.75, 0.83, 1.0), size=0.16, target=(0.0, -0.01, 0.0))
     light('AREA', 'Kick', (0.16, -0.06, 0.02), energy=0.12, color=CREAM, size=0.006, target=(0.0145, -0.02, 0.0))
 
 
@@ -216,22 +215,24 @@ def s22():
     pts = [(-0.072, 0.0), (fx0 - 0.0026, 0.0), (fx0, -0.0027), (fx0, -ft), (bx0 - 0.0021, -ft), (bx0, -ft - 0.0022),
            (bx0, yb + 0.0011), (bx0 + 0.0011, yb), (-0.0068, yb)]
     tape_strip(M, pts, -0.0095, 0.0095, name='TapeStrip', seed=5)
-    tgt0 = Vector((-0.0175, -0.0085, 0.031))
-    tgt1 = Vector((-0.017, -0.019, 0.002))
-    cam = camera('CamS22', lens=70, fstop=5.6, ratio=1.6)
-    foc = empty('FocusS22', tuple(tgt0 + Vector((0, -0.0005, 0))))
+    scr = Vector((-0.0175, -0.0094, 0.031))        # raised top screw head
+    tp = Vector((-0.016, -0.0222, 0.0))            # tape across the block front
+    cam = camera('CamS22', lens=70, fstop=7.0, ratio=1.6)
+    foc = empty('FocusS22', tuple(scr))
     cam.data.dof.focus_object = foc
-    cam_path(cam, [(1, from_dir(tgt0, (-0.40, -0.80, 0.45), 0.12), tuple(tgt0), 0.0),
-                   (N, from_dir(tgt1, (-0.46, -0.80, 0.36), 0.115), tuple(tgt1), 0.0)])
-    key(foc, 'location', [(1, tuple(tgt0)), (70, tuple(tgt0)), (180, (-0.017, -0.0222, 0.004)),
-                          (N, (-0.017, -0.0222, 0.004))])
+    cam_path(cam, [(1, from_dir(scr, (-0.70, -0.55, 0.46), 0.085), tuple(scr + Vector((0.0, 0.0, -0.002))), 0.0),
+                   (110, from_dir(scr + Vector((0.0, -0.004, -0.012)), (-0.62, -0.66, 0.42), 0.095),
+                    tuple(scr + Vector((0.0, -0.004, -0.012))), 0.0),
+                   (N, from_dir(tp, (-0.50, -0.78, 0.38), 0.105), tuple(tp + Vector((-0.004, 0.0, 0.004))), 0.0)])
+    key(foc, 'location', [(1, tuple(scr)), (75, tuple(scr)), (175, tuple(tp + Vector((-0.004, 0.0, 0.002)))),
+                          (N, tuple(tp + Vector((-0.004, 0.0, 0.002))))])
     shake(cam, 0.00015, 0.0004, scale=20, seed=8)
-    # daylight-ish: the room's neutral overhead fluorescents (broad, soft) + a soft neutral fill; no hard night key
-    light('AREA', 'Overhead', (-0.05, -0.35, 0.45), energy=6.0, color=kelvin(5200), size=0.25, size_y=0.06,
-          shape='RECTANGLE', target=(-0.01, -0.01, 0.0))
-    light('AREA', 'Side', (-0.30, -0.12, 0.10), energy=1.5, color=kelvin(5000), size=0.12, target=(-0.015, -0.01, 0.0))
-    light('AREA', 'Fill', (0.25, -0.30, 0.0), energy=0.6, color=kelvin(6000), size=0.3, target=(0.0, -0.01, 0.0))
-    bpy.context.scene.world.node_tree.nodes['Background'].inputs['Color'].default_value = (0.006, 0.0062, 0.0065, 1)
+    # daylight-ish: the room's neutral overhead fluorescents (broad, soft, from above) + a soft neutral side; no hard key
+    light('AREA', 'Overhead', (-0.04, -0.22, 0.40), energy=2.2, color=kelvin(5200), size=0.25, size_y=0.06,
+          shape='RECTANGLE', target=(-0.015, -0.01, 0.01))
+    light('AREA', 'Side', (-0.30, -0.10, 0.12), energy=0.5, color=kelvin(5000), size=0.12, target=(-0.015, -0.01, 0.0))
+    light('AREA', 'Fill', (0.25, -0.30, -0.05), energy=0.18, color=kelvin(6000), size=0.3, target=(0.0, -0.01, 0.0))
+    bpy.context.scene.world.node_tree.nodes['Background'].inputs['Color'].default_value = (0.004, 0.0042, 0.0045, 1)
     macro_motes('Motes', (-0.02, -0.05, 0.02), (0.08, 0.08, 0.07), count=110, seed=9, start=1, end=N)
     debug_light(cam)
     return cam
