@@ -136,13 +136,9 @@ def _zup(v):
 
 
 def _curl(rig, amount):
-    from mathutils import Euler
+    import human as HU
     for side in ('Left', 'Right'):
-        for bn, deg in ((f'{side}FingerBase', 38), (f'{side}HandFinger1', 75)):
-            rig.pose.bones[bn].rotation_quaternion = Euler((math.radians(deg * amount), 0, 0), 'XYZ').to_quaternion()
-        t = 'LThumb' if side == 'Left' else 'RThumb'
-        rig.pose.bones[t].rotation_quaternion = Euler((math.radians(20 * amount), 0,
-                                                       math.radians((-1 if side == 'Left' else 1) * 25 * amount)), 'XYZ').to_quaternion()
+        HU.curl(rig, side, amount)
 
 
 def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg=0.0, scale=None, root_motion=True, hands=0.35,
@@ -357,20 +353,41 @@ def _twist(rig, bone, loc_ref, want_world, k=1.0):
 CLAV_DROP = 18.0     # degrees the clavicle drops when the arm hangs straight down (vs the A-pose rest)
 
 
-def shoulder_follow(rig, clav, arm_dir_world, drop=CLAV_DROP):
-    """Set a clavicle from where its upper arm points (world dir): rest angle relative to the spine, dropped by `drop`
-    degrees as the arm comes down from the A-pose rest (-48 deg) to hanging (-85 deg), raised when the arm lifts.
-    Without it, lowering the arm from the A-pose rest piles the deltoid up into a boxy pad."""
+def shoulder_follow(rig, clav, arm_dir_world, drop=CLAV_DROP, protract=None):
+    """Set a clavicle from where its upper arm points (world dir), the way a shoulder girdle actually moves:
+    * elevation: rest angle relative to the spine, dropped by `drop` degrees as the arm comes down from the A-pose
+      rest (-48 deg) to hanging (-85 deg), raised when the arm lifts (else lowering the arm piles the deltoid up);
+    * protraction: when the arm swings forward the clavicle/scapula slides forward with it (`protract` x the arm's
+      forward swing, scaled by how horizontal the arm is). Without it a forward reach rotates the whole shoulder
+      mass about the joint and balloons the upper back."""
+    if protract is None:
+        protract = CLAV_PROTRACT
     pb = rig.pose.bones[clav]
     pb.matrix_basis = Matrix.Identity(4)
     bpy.context.view_layer.update()
     a = Vector(arm_dir_world).normalized()
-    elev = math.degrees(math.asin(max(-1.0, min(1.0, a.z))))
+    mw = rig.matrix_world.to_3x3().normalized()
+    par = pb.parent
+    Rp = (par.matrix.to_3x3() @ par.bone.matrix_local.to_3x3().inverted()) if par else Matrix.Identity(3)
+    up = (mw @ Rp @ Vector((0, 0, 1))).normalized()
+    fwd = (mw @ Rp @ Vector((0, -1, 0))).normalized()
+    elev = math.degrees(math.asin(max(-1.0, min(1.0, a.dot(up)))))
     t = max(-1.6, min(1.2, (-48.0 - elev) / 37.0))
-    mw = rig.matrix_world.to_3x3()
     cur = (mw @ (pb.tail - pb.head)).normalized()
-    ax = cur.cross(Vector((0, 0, -1)))
-    if ax.length < 1e-4 or abs(t * drop) < 0.05:
-        return
-    want = Matrix.Rotation(math.radians(drop * t), 3, ax.normalized()) @ cur
-    _aim_fast(rig, clav, mw.inverted() @ want)
+    lat = (cur - up * cur.dot(up)).normalized()
+    want = cur
+    ax = cur.cross(-up)
+    if ax.length > 1e-4 and abs(t * drop) > 0.05:
+        want = Matrix.Rotation(math.radians(drop * t), 3, ax.normalized()) @ want
+    ah = a - up * a.dot(up)
+    if ah.length > 1e-4 and protract:
+        phi = math.degrees(math.atan2(a.dot(fwd), max(1e-4, a.dot(lat))))
+        th = protract * max(0.0, phi) * ah.length
+        th = min(th, 35.0)
+        sgn = 1.0 if up.cross(cur).dot(fwd) > 0 else -1.0
+        want = Matrix.Rotation(math.radians(sgn * th), 3, up) @ want
+    if (want - cur).length > 1e-5:
+        _aim_fast(rig, clav, mw.inverted() @ want)
+
+
+CLAV_PROTRACT = 0.5

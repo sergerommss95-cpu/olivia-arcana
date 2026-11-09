@@ -293,8 +293,90 @@ def _asset_mat(a, name, tint=None, sat=1.0, val=1.0, rough=0.75, sheen=0.1):
 
 
 
-SHOULDER_SMOOTH = 60          # weight-diffusion iterations at the shoulders (0 = MakeHuman weights as shipped)
-SHOULDER_SET = ('Spine1', 'LeftShoulder', 'LeftArm', 'RightShoulder', 'RightArm')
+FINGER_JOINTS = (0.47, 0.77)          # proximal / middle / distal phalanx split along each finger (MCP -> tip)
+
+
+def finger_bones(side):
+    """New per-finger chains made by _split_fingers: [(proximal, middle, distal)] x 4, index .. little."""
+    return [(f'{side}F{k}_1', f'{side}F{k}_2', f'{side}F{k}_3') for k in range(4)]
+
+
+def _split_fingers(arm, weights, V):
+    """The cmu_mb rig drives all four fingers with ONE chain (FingerBase -> HandFinger1): a 'grip' bent flat fingers
+    at the knuckle and never wrapped a handle. Give each finger its own 3-bone chain (children of HandFinger1, so the
+    old knuckle bend still works), found from the mesh: finger vertices split into 4 by their position across the
+    hand, joints at FINGER_JOINTS of each finger's length, weights blended across each joint.
+    Must run in armature EDIT mode, before the weights are handed to the meshes."""
+    import numpy as np
+    out = dict(weights)
+    for side in ('Left', 'Right'):
+        hf = arm.edit_bones[f'{side}HandFinger1']
+        lst = weights.get(f'{side}HandFinger1', [])
+        if len(lst) < 40:
+            continue
+        ids = np.array([vi for vi, w in lst])
+        ws = np.array([w for vi, w in lst])
+        P = V[ids]
+        h0 = np.array(hf.head)
+        a = np.array(hf.tail - hf.head)
+        a /= np.linalg.norm(a)
+        rel = P - h0
+        sa = rel @ a
+        perp = rel - np.outer(sa, a)
+        U, S_, Vt = np.linalg.svd(perp - perp.mean(0), full_matrices=False)
+        e1, e2 = Vt[0], Vt[1]
+        lat, thk = perp @ e1, perp @ e2
+        core = ws > 0.5
+        c = np.quantile(lat[core], [0.125, 0.375, 0.625, 0.875])          # 1-D k-means, 4 fingers side by side
+        for _ in range(20):
+            lab = np.argmin(np.abs(lat[:, None] - c[None, :]), 1)
+            c = np.array([lat[lab == k].mean() if (lab == k).any() else c[k] for k in range(4)])
+        order = np.argsort(c)
+        if side == 'Left':
+            order = order[::-1]
+        z_axis = hf.z_axis.copy()
+        new = {}
+        names = finger_bones(side)
+        for k, ci in enumerate(order):
+            m = lab == ci
+            if m.sum() < 8:
+                continue
+            mc = m & core if (m & core).sum() >= 4 else m
+            s_k, s_t = float(np.quantile(sa[mc], 0.05)), float(sa[m].max())
+            L = max(s_t - s_k, 1e-3)
+            cl, ct = float(lat[m].mean()), float(np.median(thk[m]))
+            def pt(sv):
+                return Vector(tuple(h0 + a * sv + e1 * cl + e2 * ct))
+            js = [s_k, s_k + FINGER_JOINTS[0] * L, s_k + FINGER_JOINTS[1] * L, s_t]
+            parent = hf
+            for j in range(3):
+                eb = arm.edit_bones.new(names[k][j])
+                eb.head, eb.tail = pt(js[j]), pt(js[j + 1])
+                eb.align_roll(z_axis)
+                eb.parent = parent
+                eb.use_connect = j > 0
+                eb.use_deform = True
+                parent = eb
+            t = (sa[m] - s_k) / L
+            def sm(x):
+                x = np.clip(x, 0, 1)
+                return x * x * (3 - 2 * x)
+            f12 = sm((t - FINGER_JOINTS[0]) / 0.14 + 0.5)
+            f23 = sm((t - FINGER_JOINTS[1]) / 0.12 + 0.5)
+            parts = (1 - f12, f12 * (1 - f23), f12 * f23)
+            for j in range(3):
+                wj = ws[m] * parts[j]
+                new[names[k][j]] = [[int(v), float(w)] for v, w in zip(ids[m], wj) if w > 0.003]
+        assigned = set(int(v) for k in new for v, _ in new[k])
+        out[f'{side}HandFinger1'] = [[vi, w] for vi, w in lst if vi not in assigned]
+        out.update(new)
+        SETS['hand'] |= set(new)
+    return out
+
+
+SHOULDER_SMOOTH = 30          # weight-diffusion iterations at the shoulders (0 = MakeHuman weights as shipped)
+SHOULDER_SET = ('LeftShoulder', 'LeftArm', 'RightShoulder', 'RightArm')   # Spine1 left out: it ballooned the back
+PRESERVE_VOLUME = False       # dual-quaternion skinning puffed shoulders into a hump on any forward reach
 
 
 def _smooth_shoulder_weights(weights, faces, nv, iters, alpha=0.6):
@@ -375,7 +457,7 @@ def wear_assets(name, rig, Vmh, Vbl_shift, weights, items):
             push.mid_level = 0.0
         am = ob.modifiers.new('Armature', 'ARMATURE')
         am.object = rig
-        am.use_deform_preserve_volume = True
+        am.use_deform_preserve_volume = PRESERVE_VOLUME
         if not ('hair' in rel or 'eyebrow' in rel):
             sub = ob.modifiers.new('Sub', 'SUBSURF')
             sub.levels = sub.render_levels = 1
@@ -534,6 +616,7 @@ def make_human(name, gender=1.0, age=35, muscle=0.5, weight=0.5, height=0.5, pro
         if d['parent']:
             eb.parent = arm.edit_bones[d['parent']]
             eb.use_connect = d['use_connect']
+    weights = _split_fingers(arm, weights, V)
     bpy.ops.object.mode_set(mode='OBJECT')
 
     # body mesh (body group only) + eyes
@@ -639,7 +722,7 @@ def make_human(name, gender=1.0, age=35, muscle=0.5, weight=0.5, height=0.5, pro
     body.parent = rig
     mod = body.modifiers.new('Armature', 'ARMATURE')
     mod.object = rig
-    mod.use_deform_preserve_volume = True
+    mod.use_deform_preserve_volume = PRESERVE_VOLUME
     sub = body.modifiers.new('Sub', 'SUBSURF')
     sub.levels = sub.render_levels = subdiv
     body.data.materials.append(_mat(f'Skin_{skin}', SKIN[skin], rough=0.5, sss=0.18, spec=0.4, bump=0.04, bump_scale=900))
@@ -723,7 +806,7 @@ def make_human(name, gender=1.0, age=35, muscle=0.5, weight=0.5, height=0.5, pro
         sol.offset = 1.0
         a = ob.modifiers.new('Armature', 'ARMATURE')
         a.object = rig
-        a.use_deform_preserve_volume = True
+        a.use_deform_preserve_volume = PRESERVE_VOLUME
         s_ = ob.modifiers.new('Sub', 'SUBSURF')
         s_.levels = s_.render_levels = 1 if shell != 'hair' else 2
         ob.data.materials.append(_mat(f'{shell}_{kind}_{"%.2f%.2f%.2f" % col}', col, **KIND[kind]))
@@ -769,6 +852,34 @@ def rot(h, bone, x=0.0, y=0.0, z=0.0):
     else:
         pb.rotation_euler = e
     bpy.context.view_layer.update()
+
+
+def curl(rig, side, amount, sign=1.0):
+    """Close a hand on the per-finger chains: amount 1 = fist round a ~3 cm handle, ~0.3 = relaxed hang."""
+    from mathutils import Euler
+    S_ = side if side in ('Left', 'Right') else ('Left' if side == 'L' else 'Right')
+    T_ = 'LThumb' if S_ == 'Left' else 'RThumb'
+    pbs = rig.pose.bones
+
+    def setr(bn, x=0.0, z=0.0):
+        if bn not in pbs:
+            return
+        pb = pbs[bn]
+        e = Euler((math.radians(x), 0.0, math.radians(z)), 'XYZ')
+        if pb.rotation_mode == 'QUATERNION':
+            pb.rotation_quaternion = e.to_quaternion()
+        else:
+            pb.rotation_euler = e
+    a, s = amount, sign
+    split = f'{S_}F0_2' in pbs
+    setr(f'{S_}FingerBase', s * (10 if split else 38) * a)
+    setr(f'{S_}HandFinger1', s * (55 if split else 75) * a)
+    for k, (p1, p2, p3) in enumerate(finger_bones(S_)):
+        spread = (k - 1.5) * 1.5 * a           # fingers fan in slightly as they close
+        setr(p1, s * 4 * a, spread)
+        setr(p2, s * (80 + 6 * k) * a)
+        setr(p3, s * 55 * a)
+    setr(T_, s * 20 * a, (-1 if S_ == 'Left' else 1) * 25 * a)
 
 
 def place(h, x, y, yaw_deg=0.0, z=0.0):

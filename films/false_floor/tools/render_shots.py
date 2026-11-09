@@ -45,6 +45,9 @@ def main():
             out_mkv = os.path.join(clips, f'{sid}.mkv')
             if os.path.exists(out_mkv) and '--force' not in sys.argv:
                 continue
+            frames = os.path.join(FF, 'out', 'renders', sid)
+            if '--force' in sys.argv and os.path.isdir(frames):
+                shutil.rmtree(frames)      # never reuse frames left by an older, interrupted render of this shot
             cmd = ['python3', RB, script, '--', '--shot', sid, '--anim', '--from', '1', '--to', str(n), '--samples', samples]
             if s.get('stretch'):
                 cmd += ['--stretch', str(s['stretch'])]

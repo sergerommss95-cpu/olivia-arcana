@@ -556,6 +556,11 @@ elif SHOT == 'N9':
         t = min(1.0, (f - POP) / 6.0)
         return -2 * math.pi * (2.3 + 0.28 * (1 - (1 - t) ** 2))
     prev_e = {}
+    hstate = {}
+    KEYED = ('RightArm', 'RightForeArm', 'RightHand', 'LeftArm', 'LeftForeArm', 'Neck1', 'Head')
+    for b in KEYED:          # euler keys on a hand turning round a crank flipped between equivalent solutions
+        pbs[b].rotation_mode = 'QUATERNION'
+    CA.HOLD_DEBUG = bool(arg('--holddbg'))
     for f in range(1, N + 1, 2):
         a = ang(f)
         lean = 0.018 * math.sin(a + 0.6)                     # body works with the crank
@@ -575,17 +580,16 @@ elif SHOT == 'N9':
         tool['crank'].keyframe_insert('rotation_euler', index=0, frame=f)
         bpy.context.view_layer.update()
         gp = grip(a)
-        shw = m.rig.matrix_world @ pbs['RightArm'].head
-        ik(m, 'R', gp - (gp - shw).normalized() * 0.075, pole=(-0.3, -0.6, -1.0))    # palm wraps the grip
+        CA.hold(m, 'R', gp, (1.0, 0.0, 0.0), pole=(-0.3, -0.6, -1.0), radius=0.0125, amount=0.95, state=hstate)
         CA.arms_down(m, 'L', 0.14, 0.08)                                             # left arm hangs relaxed
         CA.head_turn(m, yaw=-8 + 4 * math.sin(a), pitch=-10)
-        for b in ('RightArm', 'RightForeArm', 'LeftArm', 'LeftForeArm', 'Neck1', 'Head'):
-            e = pbs[b].rotation_euler.copy()
-            if b in prev_e:
-                e.make_compatible(prev_e[b])        # no euler flips between keys
-            pbs[b].rotation_euler = e
-            prev_e[b] = e.copy()
-            pbs[b].keyframe_insert('rotation_euler', frame=f)
+        for b in KEYED:
+            q = pbs[b].rotation_quaternion.copy()
+            if b in prev_e and q.dot(prev_e[b]) < 0:
+                q.negate()                          # quaternion keys, sign-continuous: no flips between keys
+            pbs[b].rotation_quaternion = q
+            prev_e[b] = q.copy()
+            pbs[b].keyframe_insert('rotation_quaternion', frame=f)
     # the door bulges under the draw, then buckles and pops; the clamp kicks
     key(pv, 'rotation_euler', [(1, 0.0), (10, 0.0), (POP - 1, math.radians(3.0)), (POP + 1, math.radians(15.0)),
                                (POP + 3, math.radians(12.0)), (POP + 6, math.radians(13.0))], index=2)

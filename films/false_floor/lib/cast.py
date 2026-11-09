@@ -108,11 +108,104 @@ def torch(h, side, aim_at, power=900.0, parent_to_hand=True):
 
 
 def grip(h, side, amount=1.0, sign=1.0):
-    """Close the hand: amount 1 = fist round a handle, ~0.3 = relaxed hang (walking). The CMU rig has one finger
-    chain (FingerBase -> HandFinger1) driving all four fingers, plus the thumb."""
+    """Close the hand: amount 1 = fist round a handle, ~0.3 = relaxed hang (walking). Each finger has its own
+    3-joint chain (human._split_fingers), plus the thumb."""
+    HU.curl(h.rig, side, amount, sign)
+    bpy.context.view_layer.update()
+
+
+def ik_arm(h, side, wrist, pole=(0.0, 0.0, -1.0)):
+    """Two-bone IK over HU.aim: shoulder -> elbow -> wrist lands on `wrist` (world), elbow toward `pole` (world dir)."""
+    import math
     S_ = 'Left' if side == 'L' else 'Right'
-    T_ = 'LThumb' if side == 'L' else 'RThumb'
-    s = sign
-    HU.rot(h, f'{S_}FingerBase', x=s * 38 * amount)
-    HU.rot(h, f'{S_}HandFinger1', x=s * 75 * amount)
-    HU.rot(h, T_, x=s * 20 * amount, z=(-1 if side == 'L' else 1) * 25 * amount)
+    bpy.context.view_layer.update()
+    pa, pf = h.rig.pose.bones[f'{S_}Arm'], h.rig.pose.bones[f'{S_}ForeArm']
+    L1, L2 = pa.length, pf.length
+    sh = h.rig.matrix_world @ pa.head
+    t = Vector(wrist)
+    d = max(abs(L1 - L2) + 1e-3, min((t - sh).length, L1 + L2 - 1e-3))
+    u = (t - sh).normalized()
+    pv_ = Vector(pole)
+    v = (pv_ - pv_.dot(u) * u).normalized()
+    ca = (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d)
+    sa = math.sqrt(max(0.0, 1 - ca * ca))
+    elbow = sh + L1 * (ca * u + sa * v)
+    HU.aim(h, f'{S_}Arm', elbow - sh)
+    bpy.context.view_layer.update()
+    el = h.rig.matrix_world @ pf.head
+    HU.aim(h, f'{S_}ForeArm', sh + u * d - el)
+
+
+HOLD_DEBUG = False
+
+
+def hold(h, side, center, axis, pole=(0.0, 0.0, -1.0), radius=0.0125, amount=0.95, max_cross=40.0, state=None):
+    """Power grip on a cylinder (world centre + axis): the arm is solved so the cylinder lies across the palm at the
+    base of the fingers, the hand is turned to face it and the fingers close round it. The palm faces the cylinder
+    from the side the forearm comes in (least wrist bend); the cylinder may cross the palm up to `max_cross` degrees
+    off square (real grips on a handle that points at the body are oblique). Pass the same `state` dict on every
+    frame of an animation: where the forearm lines up with the handle the choice is ambiguous and the previous
+    frame's palm decides, so the hand never flips."""
+    import math
+    from mathutils import Matrix
+    S_ = 'Left' if side == 'L' else 'Right'
+    rig = h.rig
+    bl = rig.data.bones
+    C = bl[f'{S_}Hand'].matrix_local.to_3x3().inverted() @ bl[f'{S_}HandFinger1'].matrix_local.to_3x3()
+    fdir_rest = bl[f'{S_}HandFinger1'].matrix_local.to_3x3().col[1]
+    knuck = sum((Vector(bl[p1].head_local) for p1, _, _ in HU.finger_bones(S_) if p1 in bl), Vector()) / 4.0
+    d_k = (knuck - Vector(bl[f'{S_}Hand'].head_local)).dot(fdir_rest)
+    g = Vector(axis).normalized()
+    c = Vector(center)
+    st = state if state is not None else {}
+    bpy.context.view_layer.update()
+    sh = rig.matrix_world @ rig.pose.bones[f'{S_}Arm'].head
+    wrist = c - (c - sh).normalized() * (d_k + 0.01)
+    cmax = math.cos(math.radians(90.0 - max_cross))
+    Lat = Fd = Pn = None
+    for _ in range(4):
+        ik_arm(h, side, wrist, pole)
+        mw = rig.matrix_world
+        pf = rig.pose.bones[f'{S_}ForeArm']
+        f = ((mw @ pf.tail) - (mw @ pf.head)).normalized()
+        n = g.cross(f)
+        prev = st.get('Pn')
+        if prev is None:
+            R3 = mw.to_3x3().normalized()
+            prev = R3 @ (rig.pose.bones[f'{S_}Hand'].matrix.to_3x3() @ C).col[2]
+        prev = (prev - g * prev.dot(g))
+        prev = prev.normalized() if prev.length > 1e-6 else g.orthogonal().normalized()
+        if n.length > 1e-6:
+            nn = n.normalized()
+            if nn.dot(prev) < 0:
+                nn = -nn
+            wgt = min(1.0, n.length / 0.4)               # near-parallel forearm: lean on last frame's palm
+            Pn = (nn * wgt + prev * (1.0 - wgt)).normalized()
+        else:
+            Pn = prev
+        Fd = f - Pn * f.dot(Pn)
+        Fd = Fd.normalized() if Fd.length > 1e-6 else st.get('Fd', Pn.orthogonal()).normalized()
+        e = Pn.cross(g).normalized()                     # in the palm plane, square to the handle
+        al, be = Fd.dot(g), Fd.dot(e)
+        if abs(be) < 1e-3 and 'Fd' in st:
+            be = math.copysign(max(abs(be), 1e-3), st['Fd'].dot(e))
+        if abs(al) > cmax:
+            al = math.copysign(cmax, al)
+        be = math.copysign(math.sqrt(max(0.0, 1 - al * al)), be if be != 0 else 1.0)
+        Fd = (g * al + e * be).normalized()
+        Lat = Fd.cross(Pn).normalized()
+        wrist = c - Pn * (radius + 0.014) - Fd * (d_k - 0.012)
+    ik_arm(h, side, wrist, pole)
+    if 'Pn' in st and HOLD_DEBUG:
+        print('HOLD', round(math.degrees(st['Pn'].angle(Pn)), 1), round(math.degrees(st['Fd'].angle(Fd)), 1),
+              'f.g', round(f.dot(g), 2), '|n|', round(n.length, 2), 'al', round(al, 2), 'be', round(be, 2), flush=True)
+    st['Pn'], st['Fd'] = Pn.copy(), Fd.copy()
+    mw = rig.matrix_world
+    R3 = mw.to_3x3().normalized()
+    Rpalm = Matrix((Lat, Fd, Pn)).transposed()
+    Rhand = R3.inverted() @ Rpalm @ C.inverted()
+    pb = rig.pose.bones[f'{S_}Hand']
+    head = pb.matrix.to_translation()
+    pb.matrix = Matrix.Translation(head) @ Rhand.to_4x4()
+    bpy.context.view_layer.update()
+    grip(h, side, amount)
