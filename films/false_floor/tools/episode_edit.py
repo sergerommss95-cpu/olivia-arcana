@@ -279,12 +279,49 @@ def mix(tl, total, vo_path, out_wav, music=None, music_gain=-22.0, music_offset=
             if L > 0:
                 fx_bus[at:at + L] += x[:L]
     out = vo_bus * 1.0 + fx_bus
+    plan_p = os.path.join(FF, 'edit', 'music_plan.json')
+    if os.path.exists(plan_p) and not music:
+        plan = json.load(open(plan_p))
+        mdir = os.path.join(os.path.dirname(FF), 'tumbler', 'audio', 'music')
+        bed = np.zeros((n, 2), np.float32)
+        cache = {}
+        for c in plan['chapters']:
+            span = [e for e in tl if e['chapter'].split(' ')[0] == c['chapter']]
+            if not span:
+                continue
+            a = int(span[0]['t0'] * SR)
+            b = int((span[-1]['t0'] + span[-1]['dur']) * SR)
+            if c['track'] not in cache:
+                cache[c['track']] = load_wav(os.path.join(mdir, c['track'] + '.wav'))
+            src = cache[c['track']]
+            o = int(c['offset'] * SR)
+            seg = src[o:o + (b - a)].copy()
+            fade = min(len(seg) // 2, int(1.5 * SR))
+            if fade > 0:
+                seg[:fade] *= np.linspace(0, 1, fade)[:, None]
+                seg[-fade:] *= np.linspace(1, 0, fade)[:, None]
+            bed[a:a + len(seg)] += seg * 10 ** (c['gain'] / 20)
+        for d in plan.get('drops', []):
+            e = next((x for x in tl if x['id'] == d['shot']), None)
+            if not e:
+                continue
+            seg_len = e['vo_src'][1] - e['vo_src'][0]
+            at = e['vo_at'] + (0 if d['at'] == 'vo_start' else seg_len + float(d['at'].split('-')[1]) * -1)
+            a, L = int(at * SR), int(d['len'] * SR)
+            env = np.ones(n, np.float32)
+            env[max(0, a - SR // 4):a] = np.linspace(1, 0, min(a, SR // 4))
+            env[a:a + L] = 0
+            env[a + L:a + L + SR // 2] = np.linspace(0, 1, len(env[a + L:a + L + SR // 2]))
+            bed *= env[:, None]
+            fx_bus *= np.where(np.arange(n) < a, 1.0, np.where(np.arange(n) < a + L, 0.15, 1.0))[:, None]
+        vo_env = np.sqrt(np.convolve(vo_bus[:, 0] ** 2, np.ones(SR // 5) / (SR // 5), 'same'))
+        bed *= np.where(vo_env > 0.01, 0.55, 1.0)[:, None]
+        out += bed
     if music:
         m = load_wav(music)
         o = int(music_offset * SR)
         seg = m[o:o + n]
         env = np.full(len(seg), 10 ** (music_gain / 20), np.float32)
-        # duck under the VO (simple envelope follower)
         vo_env = np.sqrt(np.convolve((vo_bus[:len(seg), 0] ** 2), np.ones(SR // 5) / (SR // 5), 'same'))
         env *= np.where(vo_env > 0.01, 0.6, 1.0)
         out[:len(seg)] += seg * env[:, None]

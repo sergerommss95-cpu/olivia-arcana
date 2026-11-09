@@ -137,11 +137,13 @@ def _alpha_mask(mask, a):
 # ----------------------------------------------------------------------------- 3x premultiplied canvas
 
 class Layer:
-    """Premultiplied RGBA canvas at 3x. Every primitive is drawn as an 'L' coverage mask and pasted with a solid colour:
-    Image.paste(colour, box, mask) on a premultiplied canvas is exactly the 'over' operator."""
+    """Premultiplied canvas at 3x (RGB colour band + L alpha band). Every primitive is an 'L' coverage mask pasted with a
+    solid colour: a plain linear blend per band, which on premultiplied data is exactly the 'over' operator."""
 
     def __init__(self):
-        self.im = Image.new('RGBA', (W * S, H * S), (0, 0, 0, 0))
+        # premultiplied colour and alpha kept as separate bands: Pillow treats RGBA paste/resize as straight alpha
+        self.rgb = Image.new('RGB', (W * S, H * S), (0, 0, 0))
+        self.al = Image.new('L', (W * S, H * S), 0)
         self.bb = None
 
     def _grow(self, x0, y0, x1, y1):
@@ -163,7 +165,9 @@ class Layer:
         if (cx0, cy0, cx1, cy1) != (x3, y3, x3 + mw, y3 + mh):
             mask = mask.crop((cx0 - x3, cy0 - y3, cx1 - x3, cy1 - y3))
         mask = _alpha_mask(mask, a)
-        self.im.paste(col(color) + (255,), (cx0, cy0, cx1, cy1), mask)
+        box = (cx0, cy0, cx1, cy1)
+        self.rgb.paste(col(color), box, mask)
+        self.al.paste(255, box, mask)
         self._grow(cx0, cy0, cx1, cy1)
 
     def group(self, fn, color, a=1.0, bbox=None):
@@ -252,8 +256,12 @@ class Layer:
         if ox1 <= ox0 or oy1 <= oy0:
             return None
         box = (S * (X0 + ox0 / s), S * (Y0 + oy0 / s), S * (X0 + ox1 / s), S * (Y0 + oy1 / s))
-        reg = self.im.resize((ox1 - ox0, oy1 - oy0), Image.LANCZOS, box=box)
-        return np.asarray(reg).astype(np.float32) / 255.0, ox0, oy0
+        size = (ox1 - ox0, oy1 - oy0)
+        rgb = np.asarray(self.rgb.resize(size, Image.LANCZOS, box=box)).astype(np.float32)
+        al = np.asarray(self.al.resize(size, Image.LANCZOS, box=box)).astype(np.float32)
+        out = np.concatenate([rgb, al[..., None]], -1) / 255.0
+        out[..., :3] = np.minimum(out[..., :3], out[..., 3:4])     # Lanczos ringing must not break premultiplication
+        return out, ox0, oy0
 
 
 def cut_path(pts, prog):

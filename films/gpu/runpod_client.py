@@ -13,7 +13,7 @@ The RunPod API key is read from /root/.runpod/api_key (never from the repo). Pod
 import base64, io, json, os, secrets, subprocess, sys, tarfile, time, urllib.request, urllib.error
 
 KEYF = '/root/.runpod/api_key'
-STATE = '/root/.runpod/state.json'
+STATE = os.environ.get('RUNPOD_STATE', '/root/.runpod/state.json')
 HERE = os.path.dirname(os.path.abspath(__file__))
 IMAGE = 'runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04'
 
@@ -104,7 +104,7 @@ def upload(dirs):
     with tarfile.open(fileobj=buf, mode='w:gz') as t:
         for d in dirs:
             t.add(d, arcname=os.path.basename(os.path.normpath(d)),
-                  filter=lambda ti: None if any(x in ti.name for x in ('/out', '/tests', '/audio/raw', '/audio/sfx', '/audio/music', '__pycache__', '.mp4')) else ti)
+                  filter=lambda ti: None if any(x in ti.name for x in ('/out', '/tests', '/audio', '/assets_private', '__pycache__', '.mp4', '.wav', '/blend')) else ti)
     print(worker('POST', '/upload', buf.getvalue(), timeout=600), f'{len(buf.getvalue()) / 1e6:.1f} MB')
 
 
