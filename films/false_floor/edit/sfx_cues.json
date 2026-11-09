@@ -504,5 +504,12 @@
   "t": 2.7,
   "gain": -16,
   "note": "aluminium plate seats (cut f66)"
+ },
+ {
+  "shot": "S00",
+  "key": "el__fluoro_flicker_on",
+  "t": 0.3,
+  "gain": -9,
+  "note": "S00 redesign: tubes flicker on (cut f8-30)"
  }
 ]

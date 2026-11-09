@@ -8,7 +8,7 @@
  "shots": [
   {
    "id": "S00",
-   "chapter": "COLD OPEN (0:00\u20130:50)",
+   "chapter": "COLD OPEN (0:00–0:50)",
    "kind": "3D",
    "owner": "A1_door",
    "vo_start": 0.0,
@@ -16,14 +16,14 @@
    "seconds": 12.0,
    "frames": 312,
    "tag": "3D",
-   "shot": "Black. A hairline of warm light under a steel door. The door is already open; we just can't see it yet.",
+   "shot": "Level −2 antechamber: fluorescent tubes flicker on (by ~1 s), revealing the steel door standing slightly ajar, a warm hairline of vault light in the gap. Readable from the first second (Collin note: no pitch-black opening).",
    "vo": "Monday, the 17th of February, 2003. Two floors beneath the diamond district of Antwerp, a guard walks into the vault and finds the impossible.",
    "render_seconds": 10.0,
    "render_frames": 252
   },
   {
    "id": "S01",
-   "chapter": "COLD OPEN (0:00\u20130:50)",
+   "chapter": "COLD OPEN (0:00–0:50)",
    "kind": "3D",
    "owner": "A1_door",
    "vo_start": 11.851,
@@ -38,7 +38,7 @@
   },
   {
    "id": "S02",
-   "chapter": "COLD OPEN (0:00\u20130:50)",
+   "chapter": "COLD OPEN (0:00–0:50)",
    "kind": "3D",
    "owner": "B_room",
    "vo_start": 23.862,
@@ -53,7 +53,7 @@
   },
   {
    "id": "S03",
-   "chapter": "COLD OPEN (0:00\u20130:50)",
+   "chapter": "COLD OPEN (0:00–0:50)",
    "kind": "3D",
    "owner": "LEAD",
    "vo_start": 40.391,
@@ -61,14 +61,14 @@
    "seconds": 9.79,
    "frames": 259,
    "tag": "MG over 3D",
-   "shot": "The building section; planes separate to reveal Level \u22122. `FALSE FLOOR \u00b7 CASE 02` settles bottom-left over the moving picture (no stop, sound logo tucked under the VO).",
+   "shot": "The building section; planes separate to reveal Level −2. `FALSE FLOOR · CASE 02` settles bottom-left over the moving picture (no stop, sound logo tucked under the VO).",
    "vo": "Police would call it the heist of the century. But this break-in didn't start that weekend. It started two years earlier two floors upstairs.",
    "render_seconds": 9.79,
    "render_frames": 247
   },
   {
    "id": "S04",
-   "chapter": "1 \u00b7 THE FORTRESS (0:50\u20131:45)",
+   "chapter": "1 · THE FORTRESS (0:50–1:45)",
    "kind": "3DS",
    "owner": "C_office_city",
    "vo_start": 50.777,
@@ -77,7 +77,7 @@
    "frames": 404,
    "tag": "PH",
    "shot": "The diamond district at dusk (3D, replaces the 2009 photo): a short street of stone and glass office fronts, steel bollards across the entrance, a small police post kiosk, cameras on the facades; cold dusk sky, first streetlights on; empty, no people, no legible signs.",
-   "vo": "If you wanted to steal a fortune in diamonds, this is the hardest place on earth to try. A few short streets beside Antwerp's central station. Steel bollards. Cameras on every fa\u00e7ade. A police post on the corner.",
+   "vo": "If you wanted to steal a fortune in diamonds, this is the hardest place on earth to try. A few short streets beside Antwerp's central station. Steel bollards. Cameras on every façade. A police post on the corner.",
    "render_frames": 1,
    "still_res": [
     2560,
@@ -86,7 +86,7 @@
   },
   {
    "id": "S05",
-   "chapter": "1 \u00b7 THE FORTRESS (0:50\u20131:45)",
+   "chapter": "1 · THE FORTRESS (0:50–1:45)",
    "kind": "3DS",
    "owner": "C_office_city",
    "vo_start": 66.457,
@@ -104,7 +104,7 @@
   },
   {
    "id": "S06",
-   "chapter": "1 \u00b7 THE FORTRESS (0:50\u20131:45)",
+   "chapter": "1 · THE FORTRESS (0:50–1:45)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 80.315,
@@ -112,14 +112,14 @@
    "seconds": 17.73,
    "frames": 429,
    "tag": "MG (S3 god-view)",
-   "shot": "The vertical stack: street (bollards, police post) \u2192 ground floor (guards) \u2192 offices \u2192 Level \u22122 (the vault).",
+   "shot": "The vertical stack: street (bollards, police post) → ground floor (guards) → offices → Level −2 (the vault).",
    "vo": "At the centre sits the Antwerp Diamond Centre. Offices above. Two floors below, the vault where dealers lock everything they won't leave on a desk over a weekend. And it has one rule: you can't rent a box in the basement unless you're a tenant upstairs.",
    "render_frames": 426,
    "vo_offset_in_shot": 0.25
   },
   {
    "id": "S07",
-   "chapter": "1 \u00b7 THE FORTRESS (0:50\u20131:45)",
+   "chapter": "1 · THE FORTRESS (0:50–1:45)",
    "kind": "HOLD",
    "owner": "EDIT",
    "vo_start": 99.915,
@@ -133,7 +133,7 @@
   },
   {
    "id": "S08",
-   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "chapter": "2 · THE TENANT (1:45–3:15)",
    "kind": "3DS",
    "owner": "C_office_city",
    "vo_start": 106.774,
@@ -151,7 +151,7 @@
   },
   {
    "id": "S09",
-   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "chapter": "2 · THE TENANT (1:45–3:15)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 118.35,
@@ -160,13 +160,13 @@
    "frames": 369,
    "tag": "MG",
    "shot": "Calendar strip, ~two years of days ticking past to one orange tick: 15 FEB 2003.",
-   "vo": "He pays his rent on time. He chats in the corridors. Month after month, he becomes the most ordinary face in the building. And the lease buys him the only thing he actually came for \u2014 his own box, in the vault.",
+   "vo": "He pays his rent on time. He chats in the corridors. Month after month, he becomes the most ordinary face in the building. And the lease buys him the only thing he actually came for — his own box, in the vault.",
    "render_frames": 365,
    "vo_offset_in_shot": 0.25
   },
   {
    "id": "S10",
-   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "chapter": "2 · THE TENANT (1:45–3:15)",
    "kind": "3D",
    "owner": "A1_door",
    "vo_start": 135.427,
@@ -174,14 +174,14 @@
    "seconds": 12.95,
    "frames": 335,
    "tag": "3D",
-   "shot": "POV down the stairwell to Level \u22122; a steel grate unlocks remotely.",
+   "shot": "POV down the stairwell to Level −2; a steel grate unlocks remotely.",
    "vo": "Every visit gets him minutes downstairs, legitimately. And while other tenants look at their diamonds, he's looking at everything else. The sensors. The door. How long the guard takes to buzz him in.",
    "render_seconds": 10.0,
    "render_frames": 252
   },
   {
    "id": "S11",
-   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "chapter": "2 · THE TENANT (1:45–3:15)",
    "kind": "3DS",
    "owner": "C_office_city",
    "vo_start": 148.228,
@@ -199,7 +199,7 @@
   },
   {
    "id": "S12",
-   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "chapter": "2 · THE TENANT (1:45–3:15)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 151.95,
@@ -207,14 +207,14 @@
    "seconds": 27.62,
    "frames": 658,
    "tag": "MG",
-   "shot": "Four name cards, no faces, one at a time: THE GENIUS \u00b7 THE MONSTER \u00b7 THE KING OF KEYS \u00b7 SPEEDY.",
+   "shot": "Four name cards, no faces, one at a time: THE GENIUS · THE MONSTER · THE KING OF KEYS · SPEEDY.",
    "vo": "He doesn't do it alone. Police connect him to a loose network of Italian thieves called the School of Turin, men later described only by nicknames. The Genius: alarms. The Monster: locks, wiring, driving. The King of Keys: an old forger whose real name would never be known. And Speedy, a long-time friend. Anxious. Paranoid. Keep him in mind.",
    "render_frames": 663,
    "vo_offset_in_shot": 0.25
   },
   {
    "id": "S13",
-   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "chapter": "2 · THE TENANT (1:45–3:15)",
    "kind": "HOLD",
    "owner": "EDIT",
    "vo_start": 181.623,
@@ -228,7 +228,7 @@
   },
   {
    "id": "S14",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3D",
    "owner": "A1_door",
    "vo_start": 186.318,
@@ -243,7 +243,7 @@
   },
   {
    "id": "S15",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3D",
    "owner": "A2_macro",
    "vo_start": 196.774,
@@ -251,14 +251,14 @@
    "seconds": 8.34,
    "frames": 224,
    "tag": "3D",
-   "shot": "A drill bit approaches the door edge\u2026 freeze. **[DROP]** 1 s of silence.",
+   "shot": "A drill bit approaches the door edge… freeze. **[DROP]** 1 s of silence.",
    "vo": "Not that you'd get twelve seconds. Inside the steel is a seismic sensor that trips at the first vibration.",
    "render_seconds": 8.34,
    "render_frames": 212
   },
   {
    "id": "S16",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3D",
    "owner": "A2_macro",
    "vo_start": 204.563,
@@ -266,14 +266,14 @@
    "seconds": 12.54,
    "frames": 325,
    "tag": "3D",
-   "shot": "Macro: the combination wheel 0\u201399; push into the small lens on top where a single digit sits.",
+   "shot": "Macro: the combination wheel 0–99; push into the small lens on top where a single digit sits.",
    "vo": "Then the combination: a wheel numbered zero to ninety-nine, four numbers in order, and the digits can only be read through a small lens on top, so nobody behind you can see them.",
    "render_seconds": 10.0,
    "render_frames": 252
   },
   {
    "id": "S17",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3D",
    "owner": "A2_macro",
    "vo_start": 216.948,
@@ -288,7 +288,7 @@
   },
   {
    "id": "S18",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3D",
    "owner": "A2_macro",
    "vo_start": 224.387,
@@ -303,7 +303,7 @@
   },
   {
    "id": "S19",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 234.235,
@@ -318,7 +318,7 @@
   },
   {
    "id": "S20",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3DS",
    "owner": "A1_door",
    "vo_start": 262.181,
@@ -336,7 +336,7 @@
   },
   {
    "id": "S21",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3D",
    "owner": "B_room",
    "vo_start": 276.241,
@@ -351,7 +351,7 @@
   },
   {
    "id": "S22",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3D",
    "owner": "A2_macro",
    "vo_start": 296.316,
@@ -366,7 +366,7 @@
   },
   {
    "id": "S23",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3DS",
    "owner": "C_office_city",
    "vo_start": 307.005,
@@ -374,7 +374,7 @@
    "seconds": 6.16,
    "frames": 172,
    "tag": "MG",
-   "shot": "`SATURDAY \u00b7 15 FEBRUARY 2003` builds over the empty night district (S6).",
+   "shot": "`SATURDAY · 15 FEBRUARY 2003` builds over the empty night district (S6).",
    "vo": "Saturday night. The district is closed for the weekend. The dealers' stones are downstairs.",
    "render_frames": 1,
    "still_res": [
@@ -384,7 +384,7 @@
   },
   {
    "id": "S24",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3D",
    "owner": "A2_macro",
    "vo_start": 313.015,
@@ -399,7 +399,7 @@
   },
   {
    "id": "S25",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3D",
    "owner": "A1_door",
    "vo_start": 323.168,
@@ -414,7 +414,7 @@
   },
   {
    "id": "S26",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3D",
    "owner": "B_room",
    "vo_start": 336.931,
@@ -429,7 +429,7 @@
   },
   {
    "id": "S27",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3D",
    "owner": "B_room",
    "vo_start": 351.43,
@@ -437,14 +437,14 @@
    "seconds": 12.92,
    "frames": 334,
    "tag": "3D",
-   "shot": "Fluorescent tubes flicker on with a mechanical hum. A hand-cranked tool on a box door; doors snap open in a wave. Corner counter `001 / 189` \u2026 `054 / 189` \u2026 `109 / 189`, each tick on a clack.",
+   "shot": "Fluorescent tubes flicker on with a mechanical hum. A hand-cranked tool on a box door; doors snap open in a wave. Corner counter `001 / 189` … `054 / 189` … `109 / 189`, each tick on a clack.",
    "vo": "Then the boxes. They don't try seventeen thousand combinations. They force them, with a custom hand-cranked device. One box. Then ten. Then fifty. A hundred and nine.",
    "render_seconds": 10.0,
    "render_frames": 252
   },
   {
    "id": "S28",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "3DS",
    "owner": "B_room",
    "vo_start": 364.205,
@@ -462,7 +462,7 @@
   },
   {
    "id": "S29",
-   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "chapter": "3 · LOCK AND KEY (3:15–7:30)",
    "kind": "HOLD",
    "owner": "EDIT",
    "vo_start": 378.215,
@@ -476,7 +476,7 @@
   },
   {
    "id": "S30",
-   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "chapter": "4 · TWO PLACES (7:30–9:45)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 379.31,
@@ -484,14 +484,14 @@
    "seconds": 11.01,
    "frames": 269,
    "tag": "MG",
-   "shot": "Schematic map: Antwerp \u2192 E19 \u2192 Brussels, labelled *not a reconstructed escape route*.",
+   "shot": "Schematic map: Antwerp → E19 → Brussels, labelled *not a reconstructed escape route*.",
    "vo": "According to Notarbartolo, the plan was simple: burn everything from the job and the safe house. Tape. Tools. Packaging. Food.",
    "render_frames": 264,
    "vo_offset_in_shot": 0.25
   },
   {
    "id": "S31",
-   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "chapter": "4 · TWO PLACES (7:30–9:45)",
    "kind": "3D",
    "owner": "E_woods",
    "vo_start": 396.776,
@@ -506,7 +506,7 @@
   },
   {
    "id": "S32",
-   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "chapter": "4 · TWO PLACES (7:30–9:45)",
    "kind": "3D",
    "owner": "A1_door",
    "vo_start": 414.651,
@@ -521,7 +521,7 @@
   },
   {
    "id": "S33",
-   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "chapter": "4 · TWO PLACES (7:30–9:45)",
    "kind": "3DS",
    "owner": "E_woods",
    "vo_start": 420.742,
@@ -539,7 +539,7 @@
   },
   {
    "id": "S34",
-   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "chapter": "4 · TWO PLACES (7:30–9:45)",
    "kind": "3D",
    "owner": "B_room",
    "vo_start": 431.186,
@@ -554,7 +554,7 @@
   },
   {
    "id": "S35",
-   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "chapter": "4 · TWO PLACES (7:30–9:45)",
    "kind": "3DS",
    "owner": "E_woods",
    "vo_start": 434.608,
@@ -572,7 +572,7 @@
   },
   {
    "id": "S36",
-   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "chapter": "4 · TWO PLACES (7:30–9:45)",
    "kind": "3DS",
    "owner": "E_woods",
    "vo_start": 440.945,
@@ -580,7 +580,7 @@
    "seconds": 12.97,
    "frames": 335,
    "tag": "3D-S",
-   "shot": "Macro dolly across the wet leaves: a receipt, a torn envelope, loose stones, papers\u2026 **[DROP]**",
+   "shot": "Macro dolly across the wet leaves: a receipt, a torn envelope, loose stones, papers… **[DROP]**",
    "vo": "Receipts. Envelopes. Loose stones. Paperwork that points straight back to an office in the Diamond Centre. And half a salami sandwich.",
    "render_frames": 1,
    "still_res": [
@@ -590,7 +590,7 @@
   },
   {
    "id": "S37",
-   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "chapter": "4 · TWO PLACES (7:30–9:45)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 441.54,
@@ -599,13 +599,13 @@
    "frames": 303,
    "tag": "MG",
    "shot": "`DNA` builds in cream, then `MATCH` in orange. Never a percentage.",
-   "vo": "Investigators take DNA from that sandwich, and it goes into the case file. Ten layers of security beaten in one night \u2014 and the thing they couldn't wipe clean was lunch.",
+   "vo": "Investigators take DNA from that sandwich, and it goes into the case file. Ten layers of security beaten in one night — and the thing they couldn't wipe clean was lunch.",
    "render_frames": 287,
    "vo_offset_in_shot": 0.25
   },
   {
    "id": "S38",
-   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "chapter": "4 · TWO PLACES (7:30–9:45)",
    "kind": "3DS",
    "owner": "C_office_city",
    "vo_start": 464.848,
@@ -623,7 +623,7 @@
   },
   {
    "id": "S39",
-   "chapter": "5 \u00b7 THE TENANT RETURNS (9:45\u201311:00)",
+   "chapter": "5 · THE TENANT RETURNS (9:45–11:00)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 459.15,
@@ -631,14 +631,14 @@
    "seconds": 16.25,
    "frames": 397,
    "tag": "MG",
-   "shot": "`FRIDAY \u00b7 21 FEBRUARY 2003`; detective name cards AGIM DE BRUYCKER \u00b7 PATRICK PEYS.",
+   "shot": "`FRIDAY · 21 FEBRUARY 2003`; detective name cards AGIM DE BRUYCKER · PATRICK PEYS.",
    "vo": "If you're an honest businessman, you show up for work. So five days after the heist, Leonardo Notarbartolo walks back into the Diamond Centre. Detectives Agim De Bruycker and Patrick Peys of the diamond squad are waiting.",
    "render_frames": 390,
    "vo_offset_in_shot": 0.25
   },
   {
    "id": "S40",
-   "chapter": "5 \u00b7 THE TENANT RETURNS (9:45\u201311:00)",
+   "chapter": "5 · THE TENANT RETURNS (9:45–11:00)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 474.3,
@@ -646,14 +646,14 @@
    "seconds": 14.58,
    "frames": 400,
    "tag": "MG",
-   "shot": "Court timeline: 2005 \u00b7 10 YEARS; three cards \u00b7 5 YEARS; THE KING OF KEYS card stays blank.",
+   "shot": "Court timeline: 2005 · 10 YEARS; three cards · 5 YEARS; THE KING OF KEYS card stays blank.",
    "vo": "In 2005, an appeals court in Antwerp sentences him to ten years for organising the heist. Three more men, the ones police believe are Speedy, the Monster and the Genius, get five years each.",
    "render_frames": 350,
    "vo_offset_in_shot": 0.25
   },
   {
    "id": "S41",
-   "chapter": "5 \u00b7 THE TENANT RETURNS (9:45\u201311:00)",
+   "chapter": "5 · THE TENANT RETURNS (9:45–11:00)",
    "kind": "3DS",
    "owner": "B_room",
    "vo_start": 502.71,
@@ -671,7 +671,7 @@
   },
   {
    "id": "S42",
-   "chapter": "5 \u00b7 THE TENANT RETURNS (9:45\u201311:00)",
+   "chapter": "5 · THE TENANT RETURNS (9:45–11:00)",
    "kind": "HOLD",
    "owner": "EDIT",
    "vo_start": 513.457,
@@ -685,7 +685,7 @@
   },
   {
    "id": "S43",
-   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "chapter": "6 · TWO STORIES (11:00–13:15)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 506.43,
@@ -700,7 +700,7 @@
   },
   {
    "id": "S44",
-   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "chapter": "6 · TWO STORIES (11:00–13:15)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 517.705,
@@ -709,13 +709,13 @@
    "frames": 632,
    "tag": "MG (left)",
    "shot": "Claims typeset one by one, each prefixed *HE SAYS*.",
-   "vo": "He says he wasn't the mastermind at all. He says a diamond dealer hired the crew to stage a robbery for the insurance money. He says they rehearsed in a replica vault so they could work in the dark. And his biggest claim: when they opened the bags, most were nearly empty, the stones quietly moved out before the weekend. Twenty million, he says. Not a hundred. \u2026",
+   "vo": "He says he wasn't the mastermind at all. He says a diamond dealer hired the crew to stage a robbery for the insurance money. He says they rehearsed in a replica vault so they could work in the dark. And his biggest claim: when they opened the bags, most were nearly empty, the stones quietly moved out before the weekend. Twenty million, he says. Not a hundred. …",
    "render_frames": 589,
    "vo_offset_in_shot": 0.25
   },
   {
    "id": "S45",
-   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "chapter": "6 · TWO STORIES (11:00–13:15)",
    "kind": "3DS",
    "owner": "B_room",
    "vo_start": 557.757,
@@ -733,7 +733,7 @@
   },
   {
    "id": "S46",
-   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "chapter": "6 · TWO STORIES (11:00–13:15)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 560.62,
@@ -748,7 +748,7 @@
   },
   {
    "id": "S47",
-   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "chapter": "6 · TWO STORIES (11:00–13:15)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 569.58,
@@ -757,13 +757,13 @@
    "frames": 424,
    "tag": "MG",
    "shot": "The two panels slide apart (the false-floor reveal) onto an empty orange space.",
-   "vo": "So why tell it? If he's telling the truth, the real crime happened inside the building, and he's the fall guy. If he isn't \u2014 then a story where the vault was mostly empty is a very convenient story for the one man who knows where the rest went.",
+   "vo": "So why tell it? If he's telling the truth, the real crime happened inside the building, and he's the fall guy. If he isn't — then a story where the vault was mostly empty is a very convenient story for the one man who knows where the rest went.",
    "render_frames": 404,
    "vo_offset_in_shot": 0.25
   },
   {
    "id": "S48",
-   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "chapter": "6 · TWO STORIES (11:00–13:15)",
    "kind": "HOLD",
    "owner": "EDIT",
    "vo_start": 603.039,
@@ -777,7 +777,7 @@
   },
   {
    "id": "S49",
-   "chapter": "7 \u00b7 WHERE ARE THE DIAMONDS? (13:15\u201314:45)",
+   "chapter": "7 · WHERE ARE THE DIAMONDS? (13:15–14:45)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 589.39,
@@ -785,14 +785,14 @@
    "seconds": 18.89,
    "frames": 481,
    "tag": "MG",
-   "shot": "Timeline: 2009 PAROLED \u00b7 2010 MILAN \u00b7 2011 WARRANT \u00b7 2013 PARIS \u00b7 2017.",
+   "shot": "Timeline: 2009 PAROLED · 2010 MILAN · 2011 WARRANT · 2013 PARIS · 2017.",
    "vo": "Paroled in 2009, the year his story runs. In 2010, police in Milan find about a kilogram of diamonds hidden between the seats of his car. He says they're cheap industrial stones he bought legally. Belgian police say they're of the highest quality.",
    "render_frames": 453,
    "vo_offset_in_shot": 0.25
   },
   {
    "id": "S50",
-   "chapter": "7 \u00b7 WHERE ARE THE DIAMONDS? (13:15\u201314:45)",
+   "chapter": "7 · WHERE ARE THE DIAMONDS? (13:15–14:45)",
    "kind": "MG",
    "owner": "D_mg",
    "vo_start": 607.18,
@@ -800,14 +800,14 @@
    "seconds": 13.3,
    "frames": 333,
    "tag": "MG",
-   "shot": "A line Turin \u2192 Paris CDG.",
+   "shot": "A line Turin → Paris CDG.",
    "vo": "He never compensates his victims. He breaks his parole. And in 2013, on a layover in Paris, a European warrant catches up with him. He serves out his sentence.",
    "render_frames": 319,
    "vo_offset_in_shot": 0.25
   },
   {
    "id": "S51",
-   "chapter": "7 \u00b7 WHERE ARE THE DIAMONDS? (13:15\u201314:45)",
+   "chapter": "7 · WHERE ARE THE DIAMONDS? (13:15–14:45)",
    "kind": "3DS",
    "owner": "B_room",
    "vo_start": 638.816,
@@ -825,7 +825,7 @@
   },
   {
    "id": "S52",
-   "chapter": "7 \u00b7 WHERE ARE THE DIAMONDS? (13:15\u201314:45)",
+   "chapter": "7 · WHERE ARE THE DIAMONDS? (13:15–14:45)",
    "kind": "3D",
    "owner": "A1_door",
    "vo_start": 648.078,
@@ -833,7 +833,7 @@
    "seconds": 19.48,
    "frames": 492,
    "tag": "3D",
-   "shot": "The door swings shut to a hairline of warm light (mirror of the first frame).",
+   "shot": "The lit antechamber; the door swings shut to a hairline of warm light; the fluorescents cut out only in the last ~0.8 s (mirror of the opening).",
    "vo": "Ten layers of steel and sensors, beaten by hair spray, tape and a sheet of foam. The heist of the century, undone by a man walking his land looking for litter and half a salami sandwich. So what do you think: was the tenant upstairs the mastermind, or the fall guy?",
    "render_seconds": 10.0,
    "render_frames": 252

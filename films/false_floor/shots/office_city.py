@@ -70,7 +70,7 @@ def shot_office(dusk=False):
         sun('Sun', (-0.16, -0.84, -0.52), 24.0, kelvin(4300), angle=0.25)
         light('AREA', 'SkyFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=120.0,
               color=kelvin(9000), size=wx1 - wx0, size_y=wz1 - wz0, shape='RECTANGLE')
-        light('AREA', 'CorridorTroffer', (-1.0, -1.1, o['cor_h'] - 0.02), energy=30.0, color=kelvin(4100),
+        light('AREA', 'CorridorTroffer', (-0.7, -1.0, o['cor_h'] - 0.02), energy=18.0, color=kelvin(4100),
               size=0.3, size_y=1.2, shape='RECTANGLE')
     else:
         light('AREA', 'DuskFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=90.0,

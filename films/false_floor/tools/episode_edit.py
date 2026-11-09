@@ -129,12 +129,24 @@ class Source:
             self.placeholder = t is None
 
     def clip_frames(self, n_needed):
+        if getattr(self, '_fr', None) is not None:
+            return self._fr
         raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', self.clip, '-vf', f'scale={W}:{H}:flags=lanczos', '-pix_fmt', 'rgb24',
                               '-f', 'rawvideo', '-'], capture_output=True).stdout
         a = np.frombuffer(raw, np.uint8).reshape(-1, H, W, 3)
         if self.e.get('src_kind') == '3D':          # 3D renders carry 6-frame handles at both ends
-            return a[6:max(7, len(a) - 6)]
+            a = a[6:max(7, len(a) - 6)]
+        self._fr = a
         return a
+
+    def samples(self):
+        """A few frames for the exposure balance."""
+        if self.mode == 'clip':
+            fr = self.clip_frames(0)
+            return [Image.fromarray(fr[j]) for j in np.linspace(0, len(fr) - 1, 5).astype(int)]
+        if self.mode == 'still' and self.still is not None:
+            return [self.still]
+        return []
 
     def frame_iter(self, n):
         if self.mode == 'clip':
@@ -156,9 +168,32 @@ class Source:
                 yield kb(self.still, i / max(1, n - 1), seed)
 
 
-def grade(im, rng):
+def shot_exposure(frames):
+    """Per-shot exposure balance for 3D renders (phones show low-key renders as black). From a few sample frames:
+    gain puts the bright end (p99 luma) near 0.82 (max x3.2), then a midtone gamma lifts the mean luma to >= 0.26.
+    Never darkens a shot. Returns (gain, gamma)."""
+    Ys = []
+    for im in frames:
+        a = np.asarray(im.resize((240, 135), Image.BILINEAR)).astype(np.float32) / 255.0
+        Ys.append(a @ np.array([0.2126, 0.7152, 0.0722], np.float32))
+    Y = np.concatenate([y.ravel() for y in Ys])
+    hi = float(np.percentile(Y, 99.0))
+    gain = float(np.clip(0.82 / max(hi, 1e-3), 1.0, 3.2))
+    m = float(np.clip(Y * gain, 0, 1).mean())
+    gamma = float(np.clip(np.log(0.26) / np.log(max(m, 1e-3)), 0.55, 1.0)) if m < 0.26 else 1.0
+    return gain, gamma
+
+
+def grade(im, rng, expo=(1.0, 1.0)):
     x = np.asarray(im).astype(np.float32) / 255.0
-    x = x * x * (3 - 2 * x) * 0.5 + x * 0.5
+    gain, gamma = expo
+    if gain != 1.0 or gamma != 1.0:
+        x = x * gain
+        x = np.where(x > 0.8, 0.8 + 0.2 * np.tanh((x - 0.8) / 0.2), x)       # soft shoulder, no clipped highlights
+        x = np.clip(x, 0, 1) ** gamma
+    # gentle S-curve; lighter on low-key shots so the shadows keep detail
+    k = 0.5 if gamma >= 0.95 else 0.3
+    x = x * x * (3 - 2 * x) * k + x * (1 - k)
     Y = x @ np.array([0.2126, 0.7152, 0.0722], np.float32)
     x = Y[..., None] + (x - Y[..., None]) * 0.86
     small = Image.fromarray((np.clip(x, 0, 1) * 255).astype(np.uint8)).resize((W // 8, H // 8), Image.BILINEAR)
@@ -173,7 +208,7 @@ def grade(im, rng):
 
 def make_vig():
     yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
-    return 1 - 0.3 * np.clip(((xx / W - 0.5) * 2) ** 2 * 0.7 + ((yy / H - 0.5) * 2) ** 2 * 0.55 - 0.12, 0, 1)
+    return 1 - 0.22 * np.clip(((xx / W - 0.5) * 2) ** 2 * 0.7 + ((yy / H - 0.5) * 2) ** 2 * 0.55 - 0.12, 0, 1)
 
 
 VIG = make_vig()
@@ -275,9 +310,14 @@ def render_segment(args):
     enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{ow}x{oh}', '-r', str(FPS),
                             '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-crf', '16' if not preview else '23',
                             '-pix_fmt', 'yuv420p', path], stdin=subprocess.PIPE)
+    expo = (1.0, 1.0)
+    if is3d and not getattr(src, 'placeholder', False):
+        smp = src.samples()
+        if smp:
+            expo = shot_exposure(smp)
     for i, im in enumerate(src.frame_iter(n)):
         if is3d:
-            im = grade(im, rng)
+            im = grade(im, rng, expo)
         im = im.convert('RGBA')
         if is3d:
             im = Image.alpha_composite(im, label)
@@ -315,7 +355,7 @@ def render_segment(args):
         enc.stdin.write(im.tobytes())
     enc.stdin.close()
     enc.wait()
-    return e['id'], n, src.mode
+    return e['id'], n, src.mode + (f' gain {expo[0]:.2f} gamma {expo[1]:.2f}' if expo != (1.0, 1.0) else '')
 
 
 # ----------------------------------------------------------------------------- audio
