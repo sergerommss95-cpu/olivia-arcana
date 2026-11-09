@@ -341,12 +341,6 @@
    "gain_db": -8
   },
   {
-   "key": "mech__gear_lock_metallic",
-   "shot": "5A",
-   "f": 44,
-   "gain_db": -4
-  },
-  {
    "key": "hit__trailer_logo_impact",
    "shot": "5B",
    "f": 0,
@@ -357,6 +351,12 @@
    "shot": "5B",
    "f": 0,
    "gain_db": -7
+  },
+  {
+   "key": "mech__gear_lock_metallic",
+   "shot": "5A2",
+   "f": 5,
+   "gain_db": -3
   }
  ]
 }

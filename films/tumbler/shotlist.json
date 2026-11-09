@@ -145,11 +145,20 @@
   {
    "id": "5A",
    "script": "shots/act5_title.py",
-   "cut_frames": 48,
+   "cut_frames": 31,
    "render_frames": 60,
    "cut_in": 7,
-   "cut_out": 54,
-   "desc": "Banknote guilloche rosette turns -> dissolves into the dial, clicks to 0"
+   "cut_out": 37,
+   "desc": "Banknote fills frame flat (T4), push into the guilloche rosette; luma-dissolves into 5A2 from f33"
+  },
+  {
+   "id": "5A2",
+   "script": "shots/act5_title.py",
+   "cut_frames": 17,
+   "render_frames": 36,
+   "cut_in": 14,
+   "cut_out": 30,
+   "desc": "Combination dial head-on (same size/rotation as the 5A rosette); clicks to 0 at f19 (film frame 576)"
   },
   {
    "id": "5B",

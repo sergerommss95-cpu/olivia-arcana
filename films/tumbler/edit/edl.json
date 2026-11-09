@@ -133,11 +133,21 @@
   {
    "id": "5A",
    "in": 7,
-   "out": 54,
+   "out": 37,
    "grade": "act5",
    "tin": {
     "type": "dissolve",
     "n": 4
+   }
+  },
+  {
+   "id": "5A2",
+   "in": 14,
+   "out": 30,
+   "grade": "act5",
+   "tin": {
+    "type": "luma",
+    "n": 10
    }
   },
   {
