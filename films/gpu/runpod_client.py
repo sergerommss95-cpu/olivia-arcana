@@ -79,7 +79,7 @@ def create(gpu, cloud):
     start = ('apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq libxrender1 libxi6 libxkbcommon0 libsm6 '
              'libgl1 libxxf86vm1 libxfixes3 libegl1 xz-utils ffmpeg >/tmp/apt.log 2>&1; '
              'echo $AGENT_B64 | base64 -d > /agent.py && python3 /agent.py')
-    body = {'name': 'false-floor-render', 'imageName': IMAGE, 'gpuTypeIds': [g.strip() for g in gpu.split(',')], 'gpuCount': 1, 'cloudType': cloud,
+    body = {'name': 'claude-false-floor-render', 'imageName': IMAGE, 'gpuTypeIds': [g.strip() for g in gpu.split(',')], 'gpuCount': 1, 'cloudType': cloud,
             'containerDiskInGb': 40, 'volumeInGb': 0, 'ports': ['8000/http'],
             'env': {'AGENT_TOKEN': tok, 'AGENT_B64': agent, 'NVIDIA_DRIVER_CAPABILITIES': 'all'},
             'dockerStartCmd': ['bash', '-c', start]}
