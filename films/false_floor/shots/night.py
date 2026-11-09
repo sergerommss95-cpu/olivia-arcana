@@ -177,11 +177,32 @@ elif SHOT == 'C7':
         CA.head_turn(gd, yaw, pitch)
         for b_ in ('Neck1', 'Head'):
             gd.rig.pose.bones[b_].keyframe_insert('rotation_euler', frame=f)
+    # focus rides on his eyes (a fixed focus distance let the face go soft as he lowers his head toward the lens),
+    # and the frame follows the eyes down so the chin is not cut at the end
+    def eye_mid(f):
+        bpy.context.scene.frame_set(f)
+        dg = bpy.context.evaluated_depsgraph_get()
+        ev = gd.eyes.evaluated_get(dg)
+        me = ev.to_mesh()
+        p = sum(((gd.eyes.matrix_world @ v.co) for v in me.vertices), Vector()) / len(me.vertices)
+        ev.to_mesh_clear()
+        return p
+    e1, eN = eye_mid(1), eye_mid(N)
+    bpy.context.scene.frame_set(1)
+    foc = bpy.data.objects.new('C7_focus', None)
+    bpy.context.scene.collection.objects.link(foc)
+    foc.location = e1
+    co = foc.constraints.new('CHILD_OF')
+    co.target = gd.rig
+    co.subtarget = 'Head'
+    bpy.context.view_layer.update()
+    co.inverse_matrix = (gd.rig.matrix_world @ gd.rig.pose.bones['Head'].matrix).inverted()
     cam = camera('CamC7', lens=55, fstop=2.0)
-    cam_path(cam, [(1, (0.98, -0.72, 1.6), (0.33, -1.72, 1.66), 0.0), (N, (0.8, -0.98, 1.62), (0.33, -1.74, 1.64), 0.0)])
+    cam_path(cam, [(1, (0.98, -0.72, 1.6), e1 + Vector((0.0, 0.0, -0.02)), 0.0),
+                   (N, (0.8, -0.98, 1.6), eN + Vector((0.0, 0.0, -0.035)), 0.0)])
     ease(cam)
     shake(cam, 0.003, 0.0015, scale=24, seed=17)
-    cam.data.dof.focus_distance = 1.05
+    cam.data.dof.focus_object = foc
 
 bpy.context.scene.camera = cam
 finish(SHOT)
