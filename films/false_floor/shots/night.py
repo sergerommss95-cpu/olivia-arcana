@@ -59,7 +59,8 @@ if SHOT == 'N3':
     haze(0.014)
     W = MC.load('02', '02_01')
     nfr = len(W['frames'])
-    crew = [('king', -0.32, -3.3, 0), ('genius', 0.38, -3.4, 60), ('monster', -0.45, -3.85, 130), ('speedy', 0.45, -3.75, 200)]
+    # one lane each (different leg lengths walk at different speeds): >= 0.55 m between lanes, nobody overtakes
+    crew = [('king', -0.85, -3.25, 0), ('genius', 0.32, -3.35, 60), ('monster', -0.28, -3.95, 130), ('speedy', 0.88, -3.8, 200)]
     hs = {}
     for who, x, y, off in crew:
         h = CA.make(who)

@@ -153,6 +153,18 @@ def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg
                 hidden.append(m)
     _, P00, _ = fk(M, a)
     root0 = _zup(P00['root'])
+    # twist references: each bone's local 'front' (or 'up' for feet/toes) axis, from the rest pose (rig faces -Y)
+    for pb in rig.pose.bones:
+        pb.rotation_mode = 'QUATERNION'
+    bpy.context.view_layer.update()
+    TW = {}
+    for name in ORDER[1:]:
+        bone = rig.data.bones[name]
+        Rl = bone.matrix_local.to_3x3()
+        ref_world = Vector((0, 0, 1)) if name.endswith(('Foot', 'ToeBase')) else Vector((0, -1, 0))
+        src_ref = np.array([0.0, 1.0, 0.0]) if name.endswith(('Foot', 'ToeBase')) else np.array([0.0, 0.0, 1.0])
+        TW[name] = (Rl.inverted() @ ref_world, src_ref)
+    prevq = {}
     rest_hips_z = rig.data.bones['Hips'].head_local.z
     f, src = start_frame, float(a)
     while src <= b:
@@ -190,10 +202,19 @@ def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg
             if d.length < 1e-6:
                 continue
             _aim_fast(rig, ob_name, Ryaw @ d)
+            # twist: turn the bone about its own axis so its front/up matches the captured segment's
+            loc_ref, src_ref = TW[ob_name]
+            want_ref = Ryaw @ _zup(W[sname] @ src_ref)
+            _twist(rig, ob_name, loc_ref, want_ref)
         rig.location = Vector((pos[0], pos[1], 0)) + Ryaw @ Vector((off.x, off.y, 0)) + Vector((0, 0, off.z))
         rig.keyframe_insert('location', frame=f)
         for pb in rig.pose.bones:
-            pb.keyframe_insert('rotation_quaternion' if pb.rotation_mode == 'QUATERNION' else 'rotation_euler', frame=f)
+            q = pb.rotation_quaternion.copy()
+            if pb.name in prevq and q.dot(prevq[pb.name]) < 0:      # keep quaternions continuous (no flips in blur)
+                q.negate()
+                pb.rotation_quaternion = q
+            prevq[pb.name] = q
+            pb.keyframe_insert('rotation_quaternion', frame=f)
             pb.keyframe_insert('location', frame=f)
         f += 1
         src += step
@@ -210,4 +231,24 @@ def _aim_fast(rig, bone, world_dir):
     m = pb.matrix.copy()
     head = m.to_translation()
     pb.matrix = Matrix.Translation(head) @ q.to_matrix().to_4x4() @ Matrix.Translation(-head) @ m
+    bpy.context.view_layer.update()
+
+
+def _twist(rig, bone, loc_ref, want_world):
+    """Rotate a pose bone about its own axis so that its local reference axis points as close as possible to
+    want_world (both projected on the plane perpendicular to the bone)."""
+    pb = rig.pose.bones[bone]
+    M3 = pb.matrix.to_3x3()
+    axis = (M3 @ Vector((0, 1, 0))).normalized()
+    cur = M3 @ loc_ref
+    cur = cur - axis * cur.dot(axis)
+    w = Vector(want_world) - axis * Vector(want_world).dot(axis)
+    if cur.length < 1e-5 or w.length < 1e-5:
+        return
+    cur.normalize()
+    w.normalize()
+    ang = math.atan2(cur.cross(w).dot(axis), max(-1.0, min(1.0, cur.dot(w))))
+    m = pb.matrix.copy()
+    head = m.to_translation()
+    pb.matrix = Matrix.Translation(head) @ Matrix.Rotation(ang, 4, axis) @ Matrix.Translation(-head) @ m
     bpy.context.view_layer.update()

@@ -2,29 +2,98 @@
  "note": "v2 test sequence 'The Night' (~32 s). Fast cutting, camera always moving INTO the scene, the approved cast (lib/cast.py). 3D shots render frames 1..render_frames with 6-frame handles each side (cut uses 7..N-6). CLIP = existing rendered clip reused. 24 fps, 1920x1080, Cycles, AgX Medium High Contrast. Brightness: readable on a phone (mean luma ~0.2-0.35 before grade), moody by contrast not darkness. Lights in the vault/antechamber are ON during the break-in (investigators; sensor taped).",
  "vo": "beats 23 + 24 + 'Then the dial. Then the key.' (beat 25) + 27 from out/vo/vo_george_v4_v01",
  "shots": [
-  {"id": "N1", "owner": "C_office_city", "script": "shots/office_city.py", "kind": "3D", "render_frames": 80, "seconds": 2.8,
+  {
+   "id": "N1",
+   "owner": "C_office_city",
+   "script": "shots/office_city.py",
+   "kind": "3D",
+   "render_frames": 104,
+   "seconds": 2.8,
    "vo": "Saturday night. The district is closed for the weekend.",
-   "shot": "Night street of the diamond district (S23 set, wet, sodium + cool light, empty). FAST low drone push along the street toward the Diamond Centre entrance/garage mouth: start ~0.6 m above the wet setts, bollards whip past close to lens (motion blur), end rising slightly onto the building entrance. Feels like speed, not a slow pan."},
-  {"id": "N2", "owner": "A1_door", "script": "shots/door.py", "kind": "3D", "render_frames": 90, "seconds": 3.2,
+   "shot": "Night street of the diamond district (S23 set, wet, sodium + cool light, empty). FAST low drone push along the street toward the Diamond Centre entrance/garage mouth: start ~0.6 m above the wet setts, bollards whip past close to lens (motion blur), end rising slightly onto the building entrance. Feels like speed, not a slow pan.",
+   "stretch": 1.3
+  },
+  {
+   "id": "N2",
+   "owner": "A1_door",
+   "script": "shots/door.py",
+   "kind": "3D",
+   "render_frames": 90,
+   "seconds": 3.2,
    "vo": "The dealers' stones are downstairs.",
-   "shot": "FPV dive down the stairwell to Level -2 (door set stair + grate): camera rushes down the flight just above the steps, slight roll into the turn, torch beams ahead; at the bottom the grate stands open and the crew (Monster + Speedy from lib/cast.py) are walking away from camera through it toward the door (CMU walk via lib/mocap.py, '02','02_01'). Lights: stairwell batten + antechamber on."},
-  {"id": "N3", "owner": "LEAD", "script": "shots/night.py", "kind": "3D", "render_frames": 76, "seconds": 2.6,
+   "shot": "FPV dive down the stairwell to Level -2 (door set stair + grate): camera rushes down the flight just above the steps, slight roll into the turn, torch beams ahead; at the bottom the grate stands open and the crew (Monster + Speedy from lib/cast.py) are walking away from camera through it toward the door (CMU walk via lib/mocap.py, '02','02_01'). Lights: stairwell batten + antechamber on."
+  },
+  {
+   "id": "N3",
+   "owner": "LEAD",
+   "script": "shots/night.py",
+   "kind": "3D",
+   "render_frames": 76,
+   "seconds": 2.6,
    "vo": "Down at the door,",
-   "shot": "Low tracking shot behind the four crew walking up to the vault door (mocap walk), torch beams sweeping the door; camera low (0.5 m) moving forward faster than them, slipping between Monster and Speedy."},
-  {"id": "S24", "kind": "CLIP", "seconds": 3.6, "vo": "a custom aluminium plate goes over the magnets, holding the two halves together.", "shot": "existing macro, with post field lines"},
-  {"id": "N5", "owner": "LEAD", "script": "shots/night.py", "kind": "3D", "render_frames": 100, "seconds": 3.6,
+   "shot": "Low tracking shot behind the four crew walking up to the vault door (mocap walk), torch beams sweeping the door; camera low (0.5 m) moving forward faster than them, slipping between Monster and Speedy."
+  },
+  {
+   "id": "S24",
+   "kind": "CLIP",
+   "seconds": 3.6,
+   "vo": "a custom aluminium plate goes over the magnets, holding the two halves together.",
+   "shot": "existing macro, with post field lines"
+  },
+  {
+   "id": "N5",
+   "owner": "LEAD",
+   "script": "shots/night.py",
+   "kind": "3D",
+   "render_frames": 100,
+   "seconds": 3.6,
    "vo": "The door moves. The field never breaks.",
-   "shot": "Over the Monster's shoulder: King of Keys hauls the handle, the 3-ton door starts to swing toward camera, warm vault light spills across the crew; camera pushes in and arcs."},
-  {"id": "S16", "kind": "CLIP", "seconds": 1.3, "vo": "Then the dial.", "shot": "existing macro (fast section)"},
-  {"id": "S17", "kind": "CLIP", "seconds": 1.4, "vo": "Then the key.", "shot": "A2 key macro; render frames 60-130 only"},
-  {"id": "N8", "owner": "A1_door", "script": "shots/door.py", "kind": "3D", "render_frames": 75, "seconds": 2.6,
+   "shot": "Over the Monster's shoulder: King of Keys hauls the handle, the 3-ton door starts to swing toward camera, warm vault light spills across the crew; camera pushes in and arcs."
+  },
+  {
+   "id": "S16",
+   "kind": "CLIP",
+   "seconds": 1.3,
+   "vo": "Then the dial.",
+   "shot": "existing macro (fast section)"
+  },
+  {
+   "id": "S17",
+   "kind": "CLIP",
+   "seconds": 1.4,
+   "vo": "Then the key.",
+   "shot": "A2 key macro; render frames 60-130 only"
+  },
+  {
+   "id": "N8",
+   "owner": "A1_door",
+   "script": "shots/door.py",
+   "kind": "3D",
+   "render_frames": 128,
+   "seconds": 2.6,
    "vo": "Then the boxes.",
-   "shot": "REVERSE from inside the vault (vault=True): the door swings open toward camera's left, the crew silhouetted in the doorway, torch beams flare into the lens through thin haze; camera inside the vault dollies back fast revealing the box walls either side."},
-  {"id": "N9", "owner": "B_room", "script": "shots/room.py", "kind": "3D", "render_frames": 120, "seconds": 4.4,
+   "shot": "REVERSE from inside the vault (vault=True): the door swings open toward camera's left, the crew silhouetted in the doorway, torch beams flare into the lens through thin haze; camera inside the vault dollies back fast revealing the box walls either side.",
+   "stretch": 1.7
+  },
+  {
+   "id": "N9",
+   "owner": "B_room",
+   "script": "shots/room.py",
+   "kind": "3D",
+   "render_frames": 120,
+   "seconds": 4.4,
    "vo": "They don't try seventeen thousand combinations. They force them, with a custom hand-cranked device.",
-   "shot": "The Monster (lib/cast.py) at the box wall cranking a custom hand-cranked forcing device clamped on one box (simple steel frame + crank handle + screw); the crank turns, the box door buckles and pops open. Handheld close camera pushing in; sparks/dust optional; vault lights on."},
-  {"id": "N10", "owner": "B_room", "script": "shots/room.py", "kind": "3D", "render_frames": 170, "seconds": 6.5,
+   "shot": "The Monster (lib/cast.py) at the box wall cranking a custom hand-cranked forcing device clamped on one box (simple steel frame + crank handle + screw); the crank turns, the box door buckles and pops open. Handheld close camera pushing in; sparks/dust optional; vault lights on."
+  },
+  {
+   "id": "N10",
+   "owner": "B_room",
+   "script": "shots/room.py",
+   "kind": "3D",
+   "render_frames": 170,
+   "seconds": 6.5,
    "vo": "One box. Then ten. Then fifty. A hundred and nine.",
-   "shot": "Accelerating wave: camera rushes down the vault aisle as box doors burst open in sequence along the walls, slow at first (one... ten) then a cascade (fifty... 109), contents spilling; motion blur; end on the wall of 109 open boxes. Count overlay added in the edit."}
+   "shot": "Accelerating wave: camera rushes down the vault aisle as box doors burst open in sequence along the walls, slow at first (one... ten) then a cascade (fifty... 109), contents spilling; motion blur; end on the wall of 109 open boxes. Count overlay added in the edit."
+  }
  ]
 }

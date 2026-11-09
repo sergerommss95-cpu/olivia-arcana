@@ -326,8 +326,13 @@ def wear_assets(name, rig, Vmh, Vbl_shift, weights, items):
             for k, w in dct.items():
                 if w > 0.01:
                     g.add([k], min(1.0, w), 'REPLACE')
+        if not ('hair' in rel or 'eyebrow' in rel):
+            push = ob.modifiers.new('Push', 'DISPLACE')      # garments sit a few mm off the body: no poke-through
+            push.strength = 0.004 if 'shoes' not in rel else 0.002
+            push.mid_level = 0.0
         am = ob.modifiers.new('Armature', 'ARMATURE')
         am.object = rig
+        am.use_deform_preserve_volume = True
         if not ('hair' in rel or 'eyebrow' in rel):
             sub = ob.modifiers.new('Sub', 'SUBSURF')
             sub.levels = sub.render_levels = 1
@@ -589,6 +594,7 @@ def make_human(name, gender=1.0, age=35, muscle=0.5, weight=0.5, height=0.5, pro
     body.parent = rig
     mod = body.modifiers.new('Armature', 'ARMATURE')
     mod.object = rig
+    mod.use_deform_preserve_volume = True
     sub = body.modifiers.new('Sub', 'SUBSURF')
     sub.levels = sub.render_levels = subdiv
     body.data.materials.append(_mat(f'Skin_{skin}', SKIN[skin], rough=0.5, sss=0.18, spec=0.4, bump=0.04, bump_scale=900))
@@ -672,6 +678,7 @@ def make_human(name, gender=1.0, age=35, muscle=0.5, weight=0.5, height=0.5, pro
         sol.offset = 1.0
         a = ob.modifiers.new('Armature', 'ARMATURE')
         a.object = rig
+        a.use_deform_preserve_volume = True
         s_ = ob.modifiers.new('Sub', 'SUBSURF')
         s_.levels = s_.render_levels = 1 if shell != 'hair' else 2
         ob.data.materials.append(_mat(f'{shell}_{kind}_{"%.2f%.2f%.2f" % col}', col, **KIND[kind]))

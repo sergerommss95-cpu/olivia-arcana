@@ -1046,6 +1046,11 @@ def finish(shot):
         sc.cycles.samples = samples
     pct = arg('--pct', 100, int)
     sc.render.resolution_percentage = pct
+    stretch = arg('--stretch', None, float)   # slow the whole animation down by rendering more frames (no blending)
+    if stretch and stretch != 1.0:
+        sc.render.frame_map_old = 100
+        sc.render.frame_map_new = int(round(100 * stretch))
+        sc.frame_end = int(round(sc.frame_end * stretch))
     border = arg('--border', None)   # x0,x1,y0,y1 in frame fractions (y from the TOP), for close material checks
     if border:
         x0, x1, y0, y1 = [float(v) for v in str(border).split(',')]

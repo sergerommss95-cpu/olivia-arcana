@@ -45,6 +45,8 @@ def main():
             if os.path.exists(out_mkv) and '--force' not in sys.argv:
                 continue
             cmd = ['python3', RB, script, '--', '--shot', sid, '--anim', '--from', '1', '--to', str(n), '--samples', samples]
+            if s.get('stretch'):
+                cmd += ['--stretch', str(s['stretch'])]
             r = subprocess.run(cmd, capture_output=True, text=True)
             frames = os.path.join(FF, 'out', 'renders', sid)
             ok = r.returncode == 0 and os.path.isdir(frames) and len([f for f in os.listdir(frames) if f.endswith('.png')]) >= n
