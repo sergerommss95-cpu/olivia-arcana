@@ -560,10 +560,16 @@ elif SHOT == 'N9':
         a = ang(f)
         lean = 0.018 * math.sin(a + 0.6)                     # body works with the crank
         jolt = 0.045 * math.exp(-(f - POP) / 5.0) if f >= POP else 0.0
-        m.rig.location = (base.x + lean - jolt, base.y, base.z)
-        m.rig.rotation_euler = (0, 0, math.radians(90 + 2.5 * math.sin(a)))
+        # sway and jolt pivot about the planted feet (sliding the whole rig skated the shoes across the floor);
+        # the torso, not the feet, takes the twist that works with the crank
+        th = math.atan2(lean - jolt, 1.0)
+        piv = Vector((base.x, base.y, 0.0))
+        m.rig.matrix_world = (Matrix.Translation(piv) @ Matrix.Rotation(th, 4, 'Y') @ Matrix.Translation(-piv) @
+                              Matrix.Translation(base) @ Matrix.Rotation(math.radians(90), 4, 'Z'))
         m.rig.keyframe_insert('location', frame=f)
         m.rig.keyframe_insert('rotation_euler', frame=f)
+        HU.rot(m, 'LowerBack', y=2.5 * math.sin(a))
+        pbs['LowerBack'].keyframe_insert('rotation_euler', frame=f)
         bpy.context.view_layer.update()
         tool['crank'].rotation_euler.x = a
         tool['crank'].keyframe_insert('rotation_euler', index=0, frame=f)

@@ -23,6 +23,7 @@ MAP = {
     'LeftUpLeg': 'lfemur', 'LeftLeg': 'ltibia', 'LeftFoot': 'lfoot', 'LeftToeBase': 'ltoes',
     'RightUpLeg': 'rfemur', 'RightLeg': 'rtibia', 'RightFoot': 'rfoot', 'RightToeBase': 'rtoes',
 }
+TORSO_REL = ('LowerBack', 'Spine', 'Spine1', 'Neck', 'Neck1', 'Head')
 ORDER = ['Hips', 'LowerBack', 'Spine', 'Spine1', 'Neck', 'Neck1', 'Head', 'LeftShoulder', 'LeftArm', 'LeftForeArm', 'LeftHand',
          'RightShoulder', 'RightArm', 'RightForeArm', 'RightHand', 'LeftUpLeg', 'LeftLeg', 'LeftFoot', 'LeftToeBase',
          'RightUpLeg', 'RightLeg', 'RightFoot', 'RightToeBase']
@@ -144,8 +145,13 @@ def _curl(rig, amount):
                                                        math.radians((-1 if side == 'Left' else 1) * 25 * amount)), 'XYZ').to_quaternion()
 
 
-def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg=0.0, scale=None, root_motion=True, hands=0.35):
-    """Bake CMU motion onto human h. Source frames are 120 fps; step=5 gives 24 fps real time (smaller = slow-mo)."""
+def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg=0.0, scale=None, root_motion=True, hands=0.35,
+          clav_drop=None, plant=True):
+    """Bake CMU motion onto human h. Source frames are 120 fps; step=5 gives 24 fps real time (smaller = slow-mo).
+    Clavicles are NOT copied from the CMU skeleton (its clavicles rise ~19 deg where ours rest at -9: copying them
+    hiked every shoulder ~9 cm into a shrug). They keep our rest angle and follow the upper arm instead (shoulder_follow)."""
+    if clav_drop is None:
+        clav_drop = CLAV_DROP
     rig = h.rig
     a, b = src_range or (0, len(M['frames']) - 1)
     # leg-length scale: source femur+tibia vs ours
@@ -174,6 +180,31 @@ def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg
         ref_world = Vector((0, 0, 1)) if name.endswith(('Foot', 'ToeBase')) else Vector((0, -1, 0))
         src_ref = np.array([0.0, 1.0, 0.0]) if name.endswith(('Foot', 'ToeBase')) else np.array([0.0, 0.0, 1.0])
         TW[name] = (Rl.inverted() @ ref_world, src_ref)
+    # Torso: the CMU subject stands straighter than our MakeHuman rest (thoracic curve, forward neck). Aiming our
+    # spine at the captured directions bent every character backwards (chest out, shoulders up and wide). The torso
+    # therefore takes the captured motion RELATIVE to the clip's mean posture, on top of our own rest curve.
+    bl = rig.data.bones
+    r_right = (bl['RightUpLeg'].head_local - bl['LeftUpLeg'].head_local).normalized()
+    ang_r = math.atan2(r_right.y, r_right.x)
+    rest_local = {n: Matrix.Rotation(-ang_r, 3, 'Z') @ (bl[n].tail_local - bl[n].head_local).normalized() for n in TORSO_REL}
+    rest_local['Hips'] = Matrix.Rotation(-ang_r, 3, 'Z') @ (bl['Hips'].matrix_local.to_3x3() @ Vector((0, 1, 0))).normalized()
+    mean = {n: Vector((0, 0, 0)) for n in rest_local}
+    u = float(a)
+    while u <= b:
+        _, Q0, Q1 = fk(M, int(u))
+        rs = _zup(Q1['rhipjoint']) - _zup(Q1['lhipjoint'])
+        Hs = Matrix.Rotation(-math.atan2(rs.y, rs.x), 3, 'Z')
+        for n in rest_local:
+            sn = 'lowerback' if n == 'Hips' else MAP[n]
+            mean[n] += Hs @ (_zup(Q1[sn]) - _zup(Q0[sn])).normalized()
+        u += max(step, 1.0)
+    mean = {n: v.normalized() for n, v in mean.items()}
+
+    def torso_dir(n, d_src, right_src):
+        ang_s = math.atan2(right_src.y, right_src.x)
+        q = mean[n].rotation_difference(Matrix.Rotation(-ang_s, 3, 'Z') @ d_src.normalized())
+        rw = Ryaw @ right_src
+        return Matrix.Rotation(math.atan2(rw.y, rw.x), 3, 'Z') @ (q.to_matrix() @ rest_local[n])
     prevq = {}
     rest_hips_z = rig.data.bones['Hips'].head_local.z
     f, src = start_frame, float(a)
@@ -201,21 +232,25 @@ def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg
         def frame(u, r):
             r = (r - u * r.dot(u)).normalized()
             return Matrix((r, u, r.cross(u))).transposed()
-        Rw = Ryaw @ frame(up, right_src) @ frame(r_up, r_right).inverted()
+        Rw = frame(torso_dir('Hips', up, right_src), Ryaw @ right_src) @ frame(r_up, r_right).inverted()
         m = (Rw @ rest).to_4x4()
         m.translation = Vector(hips.bone.head_local) + Vector((0, 0, 0))
         hips.matrix = m
         bpy.context.view_layer.update()
         for ob_name in ORDER[1:]:
             sname = MAP[ob_name]
+            if ob_name in ('LeftShoulder', 'RightShoulder'):
+                arm = 'lhumerus' if ob_name[0] == 'L' else 'rhumerus'
+                shoulder_follow(rig, ob_name, Ryaw @ (_zup(P1[arm]) - _zup(P0[arm])), clav_drop)
+                continue
             d = _zup(P1[sname]) - _zup(P0[sname])
             if d.length < 1e-6:
                 continue
-            _aim_fast(rig, ob_name, Ryaw @ d)
+            _aim_fast(rig, ob_name, torso_dir(ob_name, d, right_src) if ob_name in TORSO_REL else Ryaw @ d)
             # twist: turn the bone about its own axis so its front/up matches the captured segment's
             loc_ref, src_ref = TW[ob_name]
             want_ref = Ryaw @ _zup(W[sname] @ src_ref)
-            _twist(rig, ob_name, loc_ref, want_ref)
+            _twist(rig, ob_name, loc_ref, want_ref, TWIST_SCALE.get(ob_name, 1.0))
         _curl(rig, hands)                      # relaxed, natural hands (not splayed)
         rig.location = Vector((pos[0], pos[1], 0)) + Ryaw @ Vector((off.x, off.y, 0)) + Vector((0, 0, off.z))
         rig.keyframe_insert('location', frame=f)
@@ -229,9 +264,60 @@ def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg
             pb.keyframe_insert('location', frame=f)
         f += 1
         src += step
+    if plant:
+        _plant(rig, range(start_frame, f), lock_xy=root_motion)
     for m in hidden:
         m.show_viewport = True
     return f - 1
+
+
+def _contact_points(rig):
+    """Per foot: (bone, local point, rest height) for heel, ball and toe tip (rest pose, armature space)."""
+    bl = rig.data.bones
+    out = {}
+    for side in ('Left', 'Right'):
+        ft, toe = bl[side + 'Foot'], bl[side + 'ToeBase']
+        ank = Vector(ft.head_local)
+        heel = Vector((ank.x, ank.y + 0.035, 0.01))                 # rig faces -Y: the heel is behind the ankle
+        pts = [(side + 'Foot', heel), (side + 'ToeBase', Vector(toe.head_local)), (side + 'ToeBase', Vector(toe.tail_local))]
+        out[side] = [(b, bl[b].matrix_local.inverted() @ P, P.z) for b, P in pts]
+    return out
+
+
+def _plant(rig, frames, lock_xy=True):
+    """Foot contact after the bake. (1) Ground lock: the lowest heel/ball/toe point of the standing foot touches the
+    floor every frame (the raw retarget floated 3-9 cm and drifted up). (2) No skating: while the same point of the
+    same foot stays the support, the root is shifted so that point does not slide."""
+    sc = bpy.context.scene
+    CP = _contact_points(rig)
+    corr = Vector((0.0, 0.0, 0.0))
+    prev = None
+    keep = []
+    for fr in frames:
+        sc.frame_set(fr)
+        base = rig.location.copy()
+        rig.location = base + corr
+        bpy.context.view_layer.update()
+        mw = rig.matrix_world
+        best = None
+        for side, pts in CP.items():
+            for k, (b, L, h0) in enumerate(pts):
+                P = mw @ (rig.pose.bones[b].matrix @ L)
+                c = P.z - h0
+                if best is None or c < best[0]:
+                    best = (c, side, k, P)
+        c, side, k, P = best
+        if lock_xy and prev is not None and prev[0] == side and prev[1] == k:
+            d = Vector((P.x - prev[2].x, P.y - prev[2].y, 0.0))
+            corr -= d
+            P = P - d
+        prev = (side, k, P)
+        keep.append((fr, base, corr.copy(), c))
+    cs = [x[3] for x in keep]
+    sm = [sum(cs[max(0, i - 1):i + 2]) / len(cs[max(0, i - 1):i + 2]) for i in range(len(cs))]
+    for (fr, base, cr, _), c in zip(keep, sm):
+        rig.location = base + cr - Vector((0.0, 0.0, c))
+        rig.keyframe_insert('location', frame=fr)
 
 
 def _aim_fast(rig, bone, world_dir):
@@ -245,7 +331,10 @@ def _aim_fast(rig, bone, world_dir):
     bpy.context.view_layer.update()
 
 
-def _twist(rig, bone, loc_ref, want_world):
+TWIST_SCALE = {'LeftArm': 0.5, 'RightArm': 0.5}   # CMU upper-arm roll (up to 45 deg) wrings the deltoid: keep half
+
+
+def _twist(rig, bone, loc_ref, want_world, k=1.0):
     """Rotate a pose bone about its own axis so that its local reference axis points as close as possible to
     want_world (both projected on the plane perpendicular to the bone)."""
     pb = rig.pose.bones[bone]
@@ -258,8 +347,30 @@ def _twist(rig, bone, loc_ref, want_world):
         return
     cur.normalize()
     w.normalize()
-    ang = math.atan2(cur.cross(w).dot(axis), max(-1.0, min(1.0, cur.dot(w))))
+    ang = math.atan2(cur.cross(w).dot(axis), max(-1.0, min(1.0, cur.dot(w)))) * k
     m = pb.matrix.copy()
     head = m.to_translation()
     pb.matrix = Matrix.Translation(head) @ Matrix.Rotation(ang, 4, axis) @ Matrix.Translation(-head) @ m
     bpy.context.view_layer.update()
+
+
+CLAV_DROP = 18.0     # degrees the clavicle drops when the arm hangs straight down (vs the A-pose rest)
+
+
+def shoulder_follow(rig, clav, arm_dir_world, drop=CLAV_DROP):
+    """Set a clavicle from where its upper arm points (world dir): rest angle relative to the spine, dropped by `drop`
+    degrees as the arm comes down from the A-pose rest (-48 deg) to hanging (-85 deg), raised when the arm lifts.
+    Without it, lowering the arm from the A-pose rest piles the deltoid up into a boxy pad."""
+    pb = rig.pose.bones[clav]
+    pb.matrix_basis = Matrix.Identity(4)
+    bpy.context.view_layer.update()
+    a = Vector(arm_dir_world).normalized()
+    elev = math.degrees(math.asin(max(-1.0, min(1.0, a.z))))
+    t = max(-1.6, min(1.2, (-48.0 - elev) / 37.0))
+    mw = rig.matrix_world.to_3x3()
+    cur = (mw @ (pb.tail - pb.head)).normalized()
+    ax = cur.cross(Vector((0, 0, -1)))
+    if ax.length < 1e-4 or abs(t * drop) < 0.05:
+        return
+    want = Matrix.Rotation(math.radians(drop * t), 3, ax.normalized()) @ cur
+    _aim_fast(rig, clav, mw.inverted() @ want)

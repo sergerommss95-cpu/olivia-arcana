@@ -292,6 +292,49 @@ def _asset_mat(a, name, tint=None, sat=1.0, val=1.0, rough=0.75, sheen=0.1):
     return m
 
 
+
+SHOULDER_SMOOTH = 60          # weight-diffusion iterations at the shoulders (0 = MakeHuman weights as shipped)
+SHOULDER_SET = ('Spine1', 'LeftShoulder', 'LeftArm', 'RightShoulder', 'RightArm')
+
+
+def _smooth_shoulder_weights(weights, faces, nv, iters, alpha=0.6):
+    """The shipped cmu_mb weights hand the shoulder over from clavicle to upper arm within ~1 cm, so lowering the
+    arm from the A-pose rest folds the deltoid into a square shelf (the 'boxy shoulders'). Diffuse the weights of the
+    shoulder bones over the mesh so the bend is spread across the whole deltoid. Only these bones trade weight with
+    each other; each vertex keeps its total, so the rest of the body is untouched."""
+    import numpy as np
+    S = list(SHOULDER_SET)
+    Wm = np.zeros((nv, len(S)))
+    for j, b in enumerate(S):
+        for vi, w in weights.get(b, ()):
+            Wm[vi, j] = w
+    tot = Wm.sum(1)
+    reg = tot > 1e-6
+    e = set()
+    for f in faces:
+        for a, b in zip(f, f[1:] + f[:1]):
+            e.add((min(a, b), max(a, b)))
+    e = np.array(sorted(e))
+    deg = np.zeros(nv)
+    np.add.at(deg, e[:, 0], 1)
+    np.add.at(deg, e[:, 1], 1)
+    deg = np.maximum(deg, 1)
+    for _ in range(iters):
+        acc = np.zeros_like(Wm)
+        np.add.at(acc, e[:, 0], Wm[e[:, 1]])
+        np.add.at(acc, e[:, 1], Wm[e[:, 0]])
+        nb = acc / deg[:, None]
+        Wn = (1 - alpha) * Wm + alpha * nb
+        sm = Wn.sum(1)
+        Wn = np.where((sm > 1e-9)[:, None], Wn / np.maximum(sm, 1e-9)[:, None] * tot[:, None], 0.0)
+        Wm = np.where(reg[:, None], Wn, Wm)
+    out = {b: lst for b, lst in weights.items() if b not in S}
+    for j, b in enumerate(S):
+        idx = np.nonzero(Wm[:, j] > 0.004)[0]
+        out[b] = [[int(i), float(Wm[i, j])] for i in idx]
+    return out
+
+
 def wear_assets(name, rig, Vmh, Vbl_shift, weights, items):
     """Fit MakeHuman assets to the shaped body; returns (objects, deleted base-vertex set)."""
     objs, deleted = [], set()
@@ -458,6 +501,8 @@ def make_human(name, gender=1.0, age=35, muscle=0.5, weight=0.5, height=0.5, pro
 
     rig_def = json.load(open(os.path.join(VENDOR, 'rigs', 'rig.cmu_mb.json')))
     weights = json.load(open(os.path.join(VENDOR, 'rigs', 'weights.cmu_mb.json')))['weights']
+    if SHOULDER_SMOOTH:
+        weights = _smooth_shoulder_weights(weights, body_f, len(V), SHOULDER_SMOOTH)
 
     def joint(spec):
         if spec['strategy'] == 'CUBE':

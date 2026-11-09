@@ -12,6 +12,7 @@ every shot uses identical looks. Proposed, original faces: a dramatization, not 
 import bpy
 from mathutils import Vector
 import human as HU
+import mocap as MC
 
 DARK = dict(tint=(0.3, 0.31, 0.34), sat=0.4, val=0.65)
 GLOVES, BEANIE = HU.OUTFITS['crew_dark'][3], HU.OUTFITS['crew_dark'][4]
@@ -51,6 +52,9 @@ def reach(h, side, target, elbow_drop=0.12):
     S_ = 'Left' if side == 'L' else 'Right'
     sh = h.rig.matrix_world @ h.rig.pose.bones[f'{S_}Arm'].head
     t = Vector(target)
+    MC.shoulder_follow(h.rig, f'{S_}Shoulder', (sh + (t - sh) * 0.5 - Vector((0, 0, elbow_drop))) - sh)
+    bpy.context.view_layer.update()
+    sh = h.rig.matrix_world @ h.rig.pose.bones[f'{S_}Arm'].head
     HU.aim(h, f'{S_}Arm', (sh + (t - sh) * 0.5 - Vector((0, 0, elbow_drop))) - sh)
     el = h.rig.matrix_world @ h.rig.pose.bones[f'{S_}ForeArm'].head
     HU.aim(h, f'{S_}ForeArm', t - el)
@@ -60,6 +64,7 @@ def arms_down(h, side, out=0.15, fwd=0.05):
     R3 = h.rig.matrix_world.to_3x3()
     s = 1 if side == 'L' else -1
     S_ = 'Left' if side == 'L' else 'Right'
+    MC.shoulder_follow(h.rig, f'{S_}Shoulder', R3 @ Vector((s * out, -fwd, -1)))
     HU.aim(h, f'{S_}Arm', R3 @ Vector((s * out, -fwd, -1)))
     HU.aim(h, f'{S_}ForeArm', R3 @ Vector((s * out * 0.5, -fwd - 0.15, -1)))
 

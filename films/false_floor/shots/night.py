@@ -10,7 +10,7 @@ import door_ff as D
 import human as HU
 import cast as CA
 import mocap as MC
-from mathutils import Vector
+from mathutils import Vector, Matrix
 
 SHOT = arg('--shot', 'N3')
 N = {'N3': 76, 'N5': 100, 'C7': 70}[SHOT]
@@ -82,12 +82,13 @@ elif SHOT == 'N5':
     D.light_vault(S, 'warm')
     haze(0.02)
     door = S['door']
-    # the door: a beat, then 3 tons begin to move (0 -> 38 degrees), easing in
+    # the door: a beat, then 3 tons begin to move (0 -> 15 degrees in this shot), easing in. 15 degrees is as far as
+    # the King can haul it with his feet planted (38 made him glide 0.6 m across the floor with the handle).
     d0, d1 = 24, N
     door.rotation_euler.z = 0.0
     door.keyframe_insert('rotation_euler', index=2, frame=1)
     door.keyframe_insert('rotation_euler', index=2, frame=d0)
-    door.rotation_euler.z = -R(38.0)
+    door.rotation_euler.z = -R(15.0)
     door.keyframe_insert('rotation_euler', index=2, frame=d1)
     for fc in fcurves(door):
         for kp in fc.keyframe_points:
@@ -113,19 +114,32 @@ elif SHOT == 'N5':
     CA.arms_down(sp, 'L', 0.1)
     CA.arms_down(sp, 'R', 0.1)
     CA.head_turn(sp, 30, 0)
-    # King of Keys hauls the handle and steps back with it: arms keyed to the moving handle every 4 frames
+    # King of Keys hauls the handle: feet planted, arms follow the handle, and he leans back into it as it gives
+    # (the whole body tilts about his heels, so the shoes stay put). Keyed every 4 frames.
     hp_local = Vector(D.HANDLE) + Vector((0.0, -0.06, 0.0))
+    piv_h = Vector((D.HINGE_X, D.HINGE_Y, 0))
+
+    def handle_at():
+        ang = door.rotation_euler.z
+        rel = Vector((hp_local.x - piv_h.x, hp_local.y - piv_h.y, 0))
+        rr = Vector((rel.x * math.cos(ang) - rel.y * math.sin(ang), rel.x * math.sin(ang) + rel.y * math.cos(ang), 0))
+        return piv_h + rr + Vector((0, 0, hp_local.z))
+    bpy.context.scene.frame_set(1)
+    hp1 = handle_at()
+    KB = Vector((hp1.x + 0.12, hp1.y - 0.6, 0.0))
+    yaw = R(172)
+    facing = Matrix.Rotation(yaw, 3, 'Z') @ Vector((0, -1, 0))
+    axis = facing.cross(Vector((0, 0, 1))).normalized()
+    heel = KB - facing * 0.06
     for f in list(range(1, N + 1, 4)) + [N]:
         bpy.context.scene.frame_set(f)
         bpy.context.view_layer.update()
-        hp = door.matrix_world @ (door.matrix_world.inverted() @ hp_local) if False else None
-        # handle position follows the door's rotation about its hinge
-        ang = door.rotation_euler.z
-        piv = Vector((D.HINGE_X, D.HINGE_Y, 0))
-        rel = Vector((hp_local.x - piv.x, hp_local.y - piv.y, 0))
-        rr = Vector((rel.x * math.cos(ang) - rel.y * math.sin(ang), rel.x * math.sin(ang) + rel.y * math.cos(ang), 0))
-        hp = piv + rr + Vector((0, 0, hp_local.z))
-        HU.place(k, hp.x + 0.12, hp.y - 0.52, 172)
+        hp = handle_at()
+        t = min(1.0, abs(door.rotation_euler.z) / R(15.0))
+        lean = R(1.0 + 5.0 * (t ** 0.6)) if f >= d0 - 6 else R(1.0 * f / (d0 - 6))
+        k.rig.matrix_world = (Matrix.Translation(heel) @ Matrix.Rotation(lean, 4, axis) @ Matrix.Translation(-heel) @
+                              Matrix.Translation(KB) @ Matrix.Rotation(yaw, 4, 'Z'))
+        bpy.context.view_layer.update()
         for pb in k.rig.pose.bones:
             pb.rotation_euler = (0, 0, 0)
         CA.reach(k, 'R', hp, 0.05)
@@ -134,6 +148,7 @@ elif SHOT == 'N5':
         CA.grip(k, 'L', 0.75)
         CA.head_turn(k, 0, -4)
         k.rig.keyframe_insert('location', frame=f)
+        k.rig.keyframe_insert('rotation_euler', frame=f)
         for pb in k.rig.pose.bones:
             pb.keyframe_insert('rotation_euler', frame=f)
             pb.keyframe_insert('rotation_quaternion', frame=f)

@@ -1038,9 +1038,110 @@ def arg(name, default=None, cast=str):
     return default
 
 
+def motion_qc(shot):
+    """Movement QC without rendering (--qc): every armature, every frame. Flags foot skating (a planted foot point
+    that slides), pose pops (a bone turning far faster than it usually does), sudden root jumps, feet through the
+    floor and characters walking into each other. Writes out/qc/<shot>.json and prints QC lines."""
+    import json, statistics
+    from mathutils import Vector
+    sc = bpy.context.scene
+    rigs = [o for o in sc.objects if o.type == 'ARMATURE']
+    for o in sc.objects:                                  # pose only: skip mesh evaluation
+        if o.type == 'MESH':
+            for m in o.modifiers:
+                m.show_viewport = False
+    FEET = {'L': [('LeftFoot', 'head'), ('LeftToeBase', 'head'), ('LeftToeBase', 'tail')],
+            'R': [('RightFoot', 'head'), ('RightToeBase', 'head'), ('RightToeBase', 'tail')]}
+    data = {r.name: {'feet': {'L': [], 'R': []}, 'hips': [], 'root': [], 'q': {}} for r in rigs}
+    HEEL = {}
+    for r in rigs:
+        HEEL[r.name] = {}
+        for side, pts in FEET.items():
+            if pts[0][0] in r.data.bones:
+                bn = r.data.bones[pts[0][0]]
+                a = Vector(bn.head_local)
+                HEEL[r.name][side] = bn.matrix_local.inverted() @ Vector((a.x, a.y + 0.035, 0.01))
+    frames = list(range(sc.frame_start, sc.frame_end + 1))
+    for f in frames:
+        sc.frame_set(f)
+        for r in rigs:
+            d = data[r.name]
+            mw = r.matrix_world
+            pbs = r.pose.bones
+            for side, pts in FEET.items():
+                if all(b in pbs for b, _ in pts):
+                    heel = mw @ (pbs[pts[0][0]].matrix @ HEEL[r.name][side])        # heel bottom, not the ankle joint
+                    d['feet'][side].append([tuple(heel)] + [tuple(mw @ getattr(pbs[b], ht)) for b, ht in pts[1:]])
+            if 'Hips' in pbs:
+                d['hips'].append(tuple(mw @ pbs['Hips'].head))
+            d['root'].append(tuple(mw.translation))
+            for pb in pbs:
+                d['q'].setdefault(pb.name, []).append((mw @ pb.matrix).to_quaternion())
+    from mathutils import Vector
+    rep = {'shot': shot, 'frames': [frames[0], frames[-1]], 'rigs': {}}
+    for r in rigs:
+        d = data[r.name]
+        out = {'skate': [], 'pops': [], 'root_jumps': [], 'min_foot_z': None}
+        zs = [p[2] for side in d['feet'].values() for fr in side for p in fr]
+        if zs:
+            out['min_foot_z'] = round(min(zs), 3)
+        for side, seq in d['feet'].items():
+            if len(seq) < 3:
+                continue
+            for k in range(3):
+                z = [fr[k][2] for fr in seq]
+                g = min(z)
+                for i in range(1, len(seq)):
+                    if z[i] < g + 0.012 and z[i - 1] < g + 0.012:
+                        a, b = Vector(seq[i - 1][k]), Vector(seq[i][k])
+                        sl = (Vector((b.x - a.x, b.y - a.y, 0))).length
+                        moving = (Vector(d['root'][i]) - Vector(d['root'][i - 1])).length
+                        if sl > 0.012:
+                            out['skate'].append((frames[i], side, ('heel', 'ball', 'toe')[k], round(sl * 100, 1), round(moving * 100, 1)))
+        for bn, qs in d['q'].items():
+            angs = [math.degrees(qs[i - 1].rotation_difference(qs[i]).angle) for i in range(1, len(qs))]
+            angs = [min(a, 360 - a) for a in angs]
+            if len(angs) < 4:
+                continue
+            p90 = sorted(angs)[int(len(angs) * 0.9)]
+            for i, a in enumerate(angs):
+                if a > max(14.0, 3.0 * p90):
+                    out['pops'].append((frames[i + 1], bn, round(a, 1), round(p90, 1)))
+        steps = [(Vector(d['root'][i]) - Vector(d['root'][i - 1])).length for i in range(1, len(d['root']))]
+        if steps:
+            med = statistics.median(steps)
+            for i, st in enumerate(steps):
+                if st > max(0.06, 4 * med):
+                    out['root_jumps'].append((frames[i + 1], round(st * 100, 1)))
+        rep['rigs'][r.name] = out
+        n_sk = len(out['skate'])
+        worst = max([x[3] for x in out['skate']] or [0])
+        print(f"QC {shot} {r.name}: skate {n_sk} (worst {worst} cm/f) pops {len(out['pops'])} root_jumps {len(out['root_jumps'])} "
+              f"min_foot_z {out['min_foot_z']}", flush=True)
+        for x in out['pops'][:12]:
+            print(f'QC   pop f{x[0]} {x[1]} {x[2]} deg (p90 {x[3]})', flush=True)
+    close = []
+    names = [r.name for r in rigs if data[r.name]['hips']]
+    for i in range(len(names)):
+        for j in range(i + 1, len(names)):
+            A, B = data[names[i]]['hips'], data[names[j]]['hips']
+            for k in range(min(len(A), len(B))):
+                dd = math.hypot(A[k][0] - B[k][0], A[k][1] - B[k][1])
+                if dd < 0.5:
+                    close.append((frames[k], names[i], names[j], round(dd, 2)))
+    rep['too_close'] = close
+    if close:
+        print(f'QC {shot} too close: {len(close)} frames, e.g. {close[:3]}', flush=True)
+    os.makedirs(os.path.join(FILM, 'out', 'qc'), exist_ok=True)
+    json.dump(rep, open(os.path.join(FILM, 'out', 'qc', f'{shot}.json'), 'w'), indent=1)
+
+
 def finish(shot):
     import time
     sc = bpy.context.scene
+    if arg('--qc'):
+        motion_qc(shot)
+        return
     samples = arg('--samples', None, int)
     if samples:
         sc.cycles.samples = samples
