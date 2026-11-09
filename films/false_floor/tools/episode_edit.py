@@ -390,7 +390,7 @@ def main():
     with ProcessPoolExecutor(int(arg('--workers', 4))) as ex:
         for sid, n, mode in ex.map(render_segment, jobs):
             print(f'[edit] {sid} {n}f {mode}', flush=True)
-    json.dump({'total': total, 'timeline': [{k: e[k] for k in ('id', 't0', 'dur', 'kind', 'chapter')} for e in tl]},
+    json.dump({'total': total, 'timeline': [{k: e.get(k) for k in ('id', 't0', 'dur', 'kind', 'chapter', 'vo_at', 'vo_src')} for e in tl]},
               open(os.path.join(FF, 'out', 'timeline.json'), 'w'), indent=1)
     lst = os.path.join(work, 'list.txt')
     segs = [os.path.join(work, e['id'] + '.mp4') for e in tl]

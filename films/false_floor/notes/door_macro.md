@@ -46,6 +46,18 @@ position (x right, y down) of points on the gap-facing face and front face of ea
      opens toward the antechamber. In a 10 s macro this reads as "the door moves, the plates don't"; flag if it matters.
   4. S24 has no tape (removed before the aluminium plate goes on); S22 shows it.
 
+## Hand-off
+
+- All six shots passed QC and are listed in `notes/ready_A2_macro.txt` (S16, S18, S15, S17, S22, S24); the QC frames
+  (`tests/*_qc_f*.jpg`, sheet `tests/QC_door_macro.jpg`) were rendered from the final `lib/door_macro.py` /
+  `shots/door_macro.py`. Neither file has been touched since.
+- Lead QC notes on S18/S22 addressed: door brushed steel + seam + painted frame in frame, door-edge depth visible in
+  the seam (S18 is shot from front-right), heavy zinc blocks with bevels, hex cap screws at the corners, illegible
+  engraved maker's plates, armoured cable from the frame half; S22 close on the two inner top screws backed off 2–3 mm
+  (threads under the heads), one strip of matte, slightly translucent, creased paper tape on each half, neutral
+  daylight, focus racks to the tape.
+- Tape: S22 uses pale matte paper tape (lead's note), not the black gaffer of the light-sensor shots.
+
 ## Known issues / notes
 
 - Numbers: the dial's cream numerals and the rim-band numbers are physical engravings on the object (as approved in

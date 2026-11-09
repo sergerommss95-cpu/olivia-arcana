@@ -13,5 +13,5 @@ case "$1" in
     J=$($C run "cd /work && export TUMBLER_DEVICE=OPTIX && python3 false_floor/tools/render_shots.py $* --samples 40 --still-samples 96")
     waitjob $J ;;
   fetch)
-    $C fetch false_floor/out/clips /tmp/ffclips_$$ && mkdir -p false_floor/out/clips && cp -n /tmp/ffclips_$$/clips/* false_floor/out/clips/ && rm -rf /tmp/ffclips_$$ && ls false_floor/out/clips ;;
+    $C fetch false_floor/out/clips /tmp/ffclips_$$ && mkdir -p false_floor/out/clips && cp -u /tmp/ffclips_$$/clips/* false_floor/out/clips/ && rm -rf /tmp/ffclips_$$ && ls false_floor/out/clips ;;
 esac

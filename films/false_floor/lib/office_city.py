@@ -1812,7 +1812,7 @@ def build_street(M, coll=None, night=True, seed=11):
     for k in range(int((yend - yin) / 1.2)):
         rbox('GutterJoint', (0.43, 0.008, 0.002), (0.0, yin + k * 1.2, 0.0045), M['stone_dark'], bev=0)
     # building fronts: left (side -1) and right (+1)
-    specs_l = [(yin, 21.0, 8.9, 'pale', (2,), [(3.0, 4.75), (14.0, 4.75)]),
+    specs_l = [(yin, 21.0, 8.9, 'pale', (2,), [(7.6, 4.75), (14.0, 4.75)]),
                (21.0, 38.0, 14.6, 'glass', (1,), [(29.0, 4.75)]),
                (38.0, 52.0, 16.0, 'brick', (), [(44.0, 4.75)]),
                (52.0, 70.0, 23.0, 'grey', (0,), [(60.0, 4.75)]),
