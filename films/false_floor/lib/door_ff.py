@@ -1216,7 +1216,7 @@ def build_seismic(S, coll=None, x=-0.34, z=1.96):
     piv = S['door']
     bpy.context.view_layer.update()
     by = BODY_Y[1]
-    grey = M.get('sensor') or mat_worn_paint('SensorGrey', color=(0.30, 0.305, 0.30), rough=(0.38, 0.5), edge=0.5,
+    grey = M.get('sensor') or mat_worn_paint('SensorGrey', color=(0.20, 0.205, 0.20), rough=(0.38, 0.5), edge=0.5,
                                              scuff=0.15, low=0.0, bev_r=0.002, scale=8.0)
     M['sensor'] = grey
     parts = [xbox('SeisBase', x - 0.055, x + 0.055, by, by + 0.022, z - 0.04, z + 0.04, grey, bev=0.004, seg=3, coll=coll),

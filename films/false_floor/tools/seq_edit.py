@@ -18,16 +18,25 @@ VO = os.path.join(FF, 'out', 'vo', 'vo_george_v4_v01')
 SFX = os.path.join(os.path.dirname(FF), 'tumbler', 'audio', 'sfx')
 MUS = os.path.join(os.path.dirname(FF), 'tumbler', 'audio', 'music')
 
-# (shot, beat, first word of the shot's VO phrase) — the shot starts when that word starts (minus lead)
-CUTS = [('N1', 23, 'Saturday'), ('N2', 23, 'The#2'), ('N3', 24, 'Down'), ('S18', 24, 'a'), ('S24', 24, 'holding'),
-        ('N5', 24, 'The'), ('S16', 25, 'Then'), ('S17', 25, 'Then#2'), ('N8', 27, 'Then'), ('N9', 27, 'They#2'),
-        ('N10', 27, 'One')]
-# first frame used inside each clip (after the 6-frame handle trim): start on the action
-INOFF = {'N3': 24, 'S16': 168, 'N8': 14, 'N9': 0, 'S24': 16, 'S18': 40}
-BEATS = [23, 24, 25, 27]
-B25_END_WORD = 'key.'          # beat 25 is cut after "Then the key."
+# Sequences: (shot, beat, first word of the shot's VO phrase) — a shot starts when that word starts (minus a lead);
+# INOFF = first frame used inside each clip (after the 6-frame handle trim): start on the action.
+SEQS = {
+    'night': dict(
+        plan='SEQ_NIGHT.json', beats=[23, 24, 25, 27], end_word={25: 'key.'}, music=('ff_3', 12.0, -15), tail=2.6,
+        cuts=[('N1', 23, 'Saturday'), ('N2', 23, 'The#2'), ('N3', 24, 'Down'), ('S18', 24, 'a'), ('S24', 24, 'holding'),
+              ('N5', 24, 'The'), ('S16', 25, 'Then'), ('S17', 25, 'Then#2'), ('N8', 27, 'Then'), ('N9', 27, 'They#2'),
+              ('N10', 27, 'One')],
+        inoff={'N3': 24, 'S16': 168, 'N8': 14, 'N9': 0, 'S24': 16, 'S18': 40}),
+    'cold': dict(
+        plan='SEQ_COLD.json', beats=[0, 1, 2, 3], end_word={}, music=('ff_COLD', 0.0, -14), tail=3.0,
+        cuts=[('C1', 0, 'Monday'), ('C2', 0, 'Two'), ('C3', 0, 'a'), ('C4', 0, 'and'), ('S01', 1, 'Three'),
+              ('C5', 1, 'A'), ('S18', 1, 'A#2'), ('C6', 1, 'Heat'), ('C7', 1, 'And'), ('C8', 2, 'A'),
+              ('C9', 2, 'Diamonds'), ('C10', 2, 'And'), ('C11', 3, 'Police'), ('C12', 3, 'But'), ('C13', 3, 'two#2')],
+        inoff={'S01': 96, 'S18': 40}),
+}
+CFG = None
+CUTS, INOFF, BEATS = [], {}, []
 GAP = 0.32                     # silence between VO pieces
-TAIL = 2.6
 
 
 def arg(n, d=None):
@@ -35,10 +44,14 @@ def arg(n, d=None):
 
 
 def main():
+    global CFG, CUTS, INOFF, BEATS
+    CFG = SEQS[arg('--seq', 'night')]
+    CUTS, INOFF, BEATS = CFG['cuts'], CFG['inoff'], CFG['beats']
+    TAIL = CFG['tail']
     preview = '--preview' in sys.argv
     if preview:
         E.set_size(960, 540)
-    out = os.path.join(FF, arg('--out', 'out/NIGHT_v2_test.mp4'))
+    out = os.path.join(FF, arg('--out', f"out/FALSE_FLOOR_{arg('--seq', 'night').upper()}.mp4"))
     vo = E.load_wav(VO + '.wav')
     beats = {b['beat']: b for b in json.load(open(VO + '.json'))['beats']}
     words = [w for w in words_on_vo_clock(VO) if w[0] in BEATS]
@@ -48,8 +61,8 @@ def main():
     allw = words_all = [w for w in words_on_vo_clock(VO)]
     for b in BEATS:
         bw = [w for w in words if w[0] == b]
-        last = next(w for w in bw if w[1] == B25_END_WORD) if b == 25 else bw[-1]
-        s0 = bw[0][2] - 0.06
+        last = next(w for w in bw if w[1] == CFG['end_word'][b]) if b in CFG['end_word'] else bw[-1]
+        s0 = max(0.0, bw[0][2] - 0.06)
         nxt = [w for w in allw if w[2] > last[3] + 0.01]
         s1 = min(last[3] + 0.22, (nxt[0][2] - 0.03) if nxt else last[3] + 0.22)
         prv = [w for w in allw if w[3] < bw[0][2] - 0.01]
@@ -75,8 +88,9 @@ def main():
         starts.append(max(0.0, st - 0.12))
     starts[0] = 0.0
     shots = []
-    seq = {s['id']: s for s in json.load(open(os.path.join(FF, 'script', 'SEQ_NIGHT.json')))['shots']}
-    seq['S18'] = {'id': 'S18', 'kind': 'CLIP', 'shot': 'magnetic plates, field lines (A2 macro)'}
+    seq = {s['id']: s for s in json.load(open(os.path.join(FF, 'script', CFG['plan'])))['shots']}
+    seq.setdefault('S18', {'id': 'S18', 'kind': 'CLIP', 'shot': 'magnetic plates, field lines (A2 macro)'})
+    seq.setdefault('S01', {'id': 'S01', 'kind': 'CLIP', 'shot': 'the open door (A1 reveal)'})
     for i, (sid, b, w) in enumerate(CUTS):
         t0 = starts[i]
         t1 = starts[i + 1] if i + 1 < len(CUTS) else total
@@ -107,9 +121,10 @@ def main():
     vo_bus = np.zeros((nS, 2), np.float32)
     for s0, s1, at in pieces:
         seg = vo[int(s0 * SR):int(s1 * SR)].copy()
-        f = int(0.02 * SR)
-        seg[:f] *= np.linspace(0, 1, f)[:, None]
-        seg[-f:] *= np.linspace(1, 0, f)[:, None]
+        f = min(int(0.02 * SR), len(seg) // 2)
+        if f > 0:
+            seg[:f] *= np.linspace(0, 1, f)[:, None]
+            seg[-f:] *= np.linspace(1, 0, f)[:, None]
         i = int(at * SR)
         vo_bus[i:i + len(seg)] += seg[:max(0, nS - i)]
     fx = np.zeros((nS, 2), np.float32)
@@ -132,6 +147,60 @@ def main():
         fx[i:i + len(a)] += a[:max(0, nS - i)] * 10 ** (gain_db / 20)
 
     st = {e['id']: e['t0'] for e in shots}
+    end_vo = pieces[-1][2] + (pieces[-1][1] - pieces[-1][0])
+    if arg('--seq', 'night') == 'night':
+        sfx_night(put, st, total, end_vo)
+    else:
+        sfx_cold(put, st, total, end_vo, shots)
+    # music: the heist cue, smooth sidechain duck (attack 80 ms, release 700 ms, -4.5 dB), long ending
+    trk, moff, mgain = CFG['music']
+    bed = E.load_wav(os.path.join(MUS, trk + '.wav'))
+    off = int(moff * SR)
+    bed = bed[off:off + nS]
+    if len(bed) < nS:
+        bed = np.pad(bed, ((0, nS - len(bed)), (0, 0)))
+    lvl = np.abs(vo_bus).max(1)
+    env = np.zeros(nS, np.float32)
+    att, rel = np.exp(-1 / (0.08 * SR)), np.exp(-1 / (0.7 * SR))
+    e_ = 0.0
+    thr = np.percentile(lvl[lvl > 1e-4], 60) if np.any(lvl > 1e-4) else 1.0
+    for i in range(0, nS, 64):                       # envelope follower at 64-sample hops
+        x = min(1.0, lvl[i:i + 64].max() / (thr + 1e-9))
+        c = att if x > e_ else rel
+        e_ = c * e_ + (1 - c) * x
+        env[i:i + 64] = e_
+    duck = 1.0 - (1 - 10 ** (-4.5 / 20)) * env
+    fade = np.ones(nS, np.float32)
+    fade[:int(0.6 * SR)] = np.linspace(0, 1, int(0.6 * SR))
+    fl = int(2.2 * SR)
+    fade[-fl:] = np.linspace(1, 0, fl) ** 1.5
+    mix = vo_bus + fx + bed * (10 ** (mgain / 20)) * duck[:, None] * fade[:, None]
+    mix = np.tanh(mix * 1.1) / 1.1
+    wav = os.path.join(work, 'mix.wav')
+    p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(SR), '-ac', '2', '-i', '-', '-c:a', 'pcm_s24le', wav],
+                         stdin=subprocess.PIPE)
+    p.stdin.write(mix.astype(np.float32).tobytes())
+    p.stdin.close()
+    p.wait()
+    # broadcast loudness, two-pass LINEAR (constant gain: no riding / drop-outs)
+    m = subprocess.run(['ffmpeg', '-hide_banner', '-i', wav, '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'],
+                       capture_output=True, text=True).stderr
+    js = json.loads(m[m.rindex('{'):m.rindex('}') + 1])
+    ln = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:measured_LRA={js['input_lra']}"
+          f":measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pic, '-i', wav, '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
+                    '-af', ln + ',aresample=48000', '-c:a', 'aac', '-b:a', '256k', '-shortest', '-movflags', '+faststart', out],
+                   check=True)
+    print('[seq] wrote', out, flush=True)
+
+
+def _luma_stats(im):
+    a = np.asarray(im.resize((160, 90), Image.BILINEAR)).astype(np.float32) / 255.0
+    Y = a @ np.array([0.2126, 0.7152, 0.0722], np.float32)
+    return float(np.percentile(Y, 99.0)), Y
+
+
+def sfx_night(put, st, total, end_vo):
     # continuous beds, crossfaded
     put('el__city_dusk', 0.0, -21, dur=st['N2'] + 0.6, fin=0.3, fout=0.8)
     put('el__antechamber_fluoro', st['N2'] - 0.3, -24, dur=st['N8'] - st['N2'] + 0.9, fin=0.6, fout=0.8)
@@ -159,53 +228,52 @@ def main():
                 continue
             put('el__box_forced_2' if k % 2 else 'el__box_door_open', t_, -12 - min(8, k * 0.08))
             last_t = t_
-    end_vo = pieces[-1][2] + (pieces[-1][1] - pieces[-1][0])
     put('boom__big_cinematic_impact', end_vo - 0.05, -9)
-    # music: the heist cue, smooth sidechain duck (attack 80 ms, release 700 ms, -4.5 dB), long ending
-    bed = E.load_wav(os.path.join(MUS, 'ff_3.wav'))
-    off = int(12.0 * SR)
-    bed = bed[off:off + nS]
-    if len(bed) < nS:
-        bed = np.pad(bed, ((0, nS - len(bed)), (0, 0)))
-    lvl = np.abs(vo_bus).max(1)
-    env = np.zeros(nS, np.float32)
-    att, rel = np.exp(-1 / (0.08 * SR)), np.exp(-1 / (0.7 * SR))
-    e_ = 0.0
-    thr = np.percentile(lvl[lvl > 1e-4], 60) if np.any(lvl > 1e-4) else 1.0
-    for i in range(0, nS, 64):                       # envelope follower at 64-sample hops
-        x = min(1.0, lvl[i:i + 64].max() / (thr + 1e-9))
-        c = att if x > e_ else rel
-        e_ = c * e_ + (1 - c) * x
-        env[i:i + 64] = e_
-    duck = 1.0 - (1 - 10 ** (-4.5 / 20)) * env
-    fade = np.ones(nS, np.float32)
-    fade[:int(0.6 * SR)] = np.linspace(0, 1, int(0.6 * SR))
-    fl = int(2.2 * SR)
-    fade[-fl:] = np.linspace(1, 0, fl) ** 1.5
-    mix = vo_bus + fx + bed * (10 ** (-15 / 20)) * duck[:, None] * fade[:, None]
-    mix = np.tanh(mix * 1.1) / 1.1
-    wav = os.path.join(work, 'mix.wav')
-    p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(SR), '-ac', '2', '-i', '-', '-c:a', 'pcm_s24le', wav],
-                         stdin=subprocess.PIPE)
-    p.stdin.write(mix.astype(np.float32).tobytes())
-    p.stdin.close()
-    p.wait()
-    # broadcast loudness, two-pass LINEAR (constant gain: no riding / drop-outs)
-    m = subprocess.run(['ffmpeg', '-hide_banner', '-i', wav, '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'],
-                       capture_output=True, text=True).stderr
-    js = json.loads(m[m.rindex('{'):m.rindex('}') + 1])
-    ln = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:measured_LRA={js['input_lra']}"
-          f":measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pic, '-i', wav, '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
-                    '-af', ln + ',aresample=48000', '-c:a', 'aac', '-b:a', '256k', '-shortest', '-movflags', '+faststart', out],
-                   check=True)
-    print('[seq] wrote', out, flush=True)
 
 
-def _luma_stats(im):
-    a = np.asarray(im.resize((160, 90), Image.BILINEAR)).astype(np.float32) / 255.0
-    Y = a @ np.array([0.2126, 0.7152, 0.0722], np.float32)
-    return float(np.percentile(Y, 99.0)), Y
+def sfx_cold(put, st, total, end_vo, shots):
+    """Cold open: Monday morning street -> stairwell -> lights flicker on -> the reveal; sensor montage on hits;
+    vault tone; a low boom on 'the heist of the century'; the sound logo under the title."""
+    put('el__city_dusk', 0.0, -22, dur=st['C3'] + 0.5, fin=0.6, fout=0.8)
+    put('whoosh__deep_air', st['C2'] - 0.3, -15)
+    put('el__antechamber_fluoro', st['C3'] + 1.2, -24, dur=st['C8'] - st['C3'], fin=0.2, fout=0.8)
+    put('el__fluoro_flicker_on', st['C3'] + 1.0, -10)
+    put('boom__bass_hit_short', st['C4'] + 0.6, -10)
+    put('metal__slam_heavy_door_mixkit', st['S01'] - 0.05, -18)
+    for k in ('C5', 'S18', 'C6'):
+        put('mech__gear_lock_metallic', st[k] - 0.02, -16)
+    put('riser__suspense_swell', st['C7'] - 0.2, -20)
+    put('el__vault_room_tone', st['C8'] - 0.3, -21, dur=st['C12'] - st['C8'] + 0.6, fin=0.5, fout=0.9)
+    put('paper__rustle', st['C9'] + 0.2, -16)
+    put('paper__slide', st['C10'] + 1.0, -18)
+    put('boom__blockbuster_deep_drum', st['C11'] + 0.1, -11)
+    put('whoosh__deep_air', st['C12'] - 0.2, -14)
+    put('hit__trailer_logo_impact', st['C13'] + 0.5, -10)
+    put('ff__sound_logo', st['C13'] + 0.6, -12)
+
+
+_FONT = {}
+
+
+def date_card(i, lines):
+    """Lower-left editorial date card: cream Barlow Condensed, builds up with a short slide, holds."""
+    from PIL import ImageFont
+    W, H = E.W, E.H
+    k = H / 1080
+    if 'big' not in _FONT:
+        _FONT['big'] = ImageFont.truetype(os.path.join(FF, 'fonts', 'BarlowCondensed-SemiBold.ttf'), int(64 * k))
+        _FONT['small'] = ImageFont.truetype(os.path.join(FF, 'fonts', 'BarlowCondensed-Medium.ttf'), int(30 * k))
+    lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(lay)
+    for j, (txt, f) in enumerate(((lines[0], _FONT['big']), (lines[1], _FONT['small']))):
+        t = max(0.0, min(1.0, (i - 6 - j * 5) / 12))
+        a = int(255 * (t * t * (3 - 2 * t)))
+        y = int((H - (200 if j == 0 else 140) * k) + (1 - t) * 14 * k)
+        d.text((int(100 * k), y), txt, font=f, fill=(236, 232, 223, a))
+    if i > 8:
+        t = max(0.0, min(1.0, (i - 8) / 14))
+        d.rectangle([int(100 * k), int(H - 112 * k), int(100 * k + 90 * k * t), int(H - 108 * k)], fill=(228, 68, 46, 255))
+    return lay
 
 
 def render_seg(e, path, n, preview):
@@ -259,6 +327,17 @@ def render_seg(e, path, n, preview):
             cf = 7 + INOFF.get(e['id'], 0) + min(i, src.n_clip - 1)
             o = E.field_lines(e['id'], cf, i, min(1.0, (i + 1) / 10) if e['id'] == 'S18' else 1.0)
             if o:
+                im = Image.alpha_composite(im, o)
+        if e['id'] == 'C1':
+            o = date_card(i, ['MONDAY 17 FEBRUARY 2003', 'ANTWERP · DIAMOND DISTRICT'])
+            im = Image.alpha_composite(im, o)
+        if e['id'] == 'C8':
+            o = E.overlay('O_109', min(i, 251))
+            if o:
+                im = Image.alpha_composite(im, o)
+        if e['id'] == 'C13':
+            o = E.overlay('O_TITLE', min(max(0, i - 10), 71))
+            if o and i >= 10:
                 im = Image.alpha_composite(im, o)
         if counter:
             snaps, c0 = counter

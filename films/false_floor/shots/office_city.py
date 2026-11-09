@@ -223,8 +223,158 @@ def shot_n1(frames=80):
     shake(cam, amp=0.004, rot_amp=0.0018, scale=7.0, seed=3)
 
 
+# ============================================================================ COLD OPEN: C1 (guard, street) / C13 (tenant)
+
+def heading_yaw(MCm, M, a, b, want=(0.0, 1.0)):
+    """Yaw (deg) turning the subject's travel over source frames a..b onto the wanted XY direction (as in night.py)."""
+    _, P0a, _ = MCm.fk(M, a)
+    _, P0b, _ = MCm.fk(M, b)
+    d = MCm._zup(P0b['root']) - MCm._zup(P0a['root'])
+    return math.degrees(math.atan2(want[1], want[0]) - math.atan2(d.y, d.x))
+
+
+def ease_keys(o):
+    for fc in fcurves(o):
+        for kp in fc.keyframe_points:
+            kp.interpolation = 'SINE'
+            kp.easing = 'EASE_IN_OUT'
+
+
+def shot_c1(frames=90):
+    """Monday morning, cold grey-blue overcast daylight in the district street (S04/S23 set, damp, building lights
+    on). The GUARD (cast, navy blazer) enters from frame right on a diagonal (CMU 02_01 walk) and leads a low drone
+    up the street toward the entrance. Frames 1..90, cut 7..84."""
+    import cast as CA
+    import mocap as MC
+    setup_render(1, frames, res=RES_FINAL, samples=40, mb=True, shutter=0.5, look='Medium High Contrast', clamp=6.0,
+                 bounces=(2, 3, 4), exposure=0.9)
+    M = street_mats(night=False)
+    build_street(M, night=False)
+    world_sky((0.13, 0.17, 0.25), (0.24, 0.26, 0.29), strength=1.0, glow=((0.26, 0.26, 0.27), 0.2))
+    light('AREA', 'Overcast', (0.0, 18.0, 30.0), energy=9000.0, color=kelvin(7600), size=12.0, size_y=40.0,
+          shape='RECTANGLE')
+    if HAZE:
+        hz = mat_volume('MorningMist', density=0.0022, color=(0.8, 0.84, 0.9), anisotropy=0.3)
+        volume_box('Mist', (0.0, 40.0, 4.5), (2 * ST['hw'] - 0.1, 90.0, 9.0), hz)
+    g = CA.make('guard')
+    W = MC.load('02', '02_01')
+    yaw = heading_yaw(MC, W, 0, 342, want=(-0.45, 1.0))
+    MC.apply(g, W, start_frame=1, src_range=(0, 342), step=4.0, pos=(2.35, -1.25), yaw_deg=yaw)
+    cam = camera('CamC1', lens=24.0, fstop=4.0 if DOF else None, clip=(0.02, 400))
+    cam_path(cam, [(1, (-0.38, -4.3, 0.92), (0.5, 24.0, 2.3), 0.0),
+                   (frames, (0.22, -0.35, 1.08), (-0.1, 24.0, 2.1), 0.0)])
+    ease_keys(cam)
+    for fc in fcurves(cam):          # already moving at the first frame: ease out only
+        kp = fc.keyframe_points[0]
+        kp.interpolation = 'LINEAR'
+    shake(cam, amp=0.006, rot_amp=0.0022, scale=12.0, seed=5)
+    if DOF:
+        cam.data.dof.focus_object = g.rig
+        cam.data.dof.focus_distance = 3.0
+
+
+def bent_slat(name, src, L, xh, dz, width=0.07, nx=160, ny=7, w=0.025):
+    """Replace a linked slat by its own fine strip with a local dip at local x = xh (dz < 0 pulls it down)."""
+    bm = bmesh.new()
+    grid = []
+    for i in range(nx + 1):
+        x = -L / 2 + L * i / nx
+        d = dz * math.exp(-((x - xh) / width) ** 2)
+        row = []
+        for j in range(ny + 1):
+            yy = -w / 2 + w * j / ny
+            zz = 0.0014 * (1 - (2 * yy / w) ** 2) + d * (0.6 + 0.4 * (0.5 - yy / w))
+            row.append(bm.verts.new((x, yy, zz)))
+        grid.append(row)
+    for i in range(nx):
+        for j in range(ny):
+            bm.faces.new((grid[i][j], grid[i + 1][j], grid[i + 1][j + 1], grid[i][j + 1]))
+    me = bpy.data.meshes.new(name + '_bent')
+    bm.to_mesh(me)
+    bm.free()
+    for p_ in me.polygons:
+        p_.use_smooth = True
+    src.data = me
+    m = src.modifiers.new('Solid', 'SOLIDIFY')
+    m.thickness = 0.0005
+    m.offset = 0.0
+    return src
+
+
+def shot_c13(frames=80):
+    """The TENANT at his office window (style frame B, sf2_tenant.py): slow push in; afternoon sun through the blinds;
+    the fingers of his right hand part two slats; over the shot he turns his head a little toward the room.
+    Frames 1..80, cut 7..74."""
+    import cast as CA
+    import human as HU
+    setup_render(1, frames, res=RES_FINAL, samples=40, mb=True, shutter=0.5, look='Medium High Contrast', clamp=5.0,
+                 bounces=(3, 3, 4), exposure=-0.95)      # test f7/f74 at +0.15 measured mean 0.57/0.63 -> ~0.3
+    world_color((0.0, 0.0, 0.0), 0.0)
+    M = office_mats()
+    A = build_office(M, door_angle=72.0, blinds_tilt=38.0, lamp_on=False)
+    o = OFF
+    wx0, wx1, wz0, wz1 = o['win']
+    wxc, wzc = (wx0 + wx1) / 2, (wz0 + wz1) / 2
+    card = rbox('SkyCard', (14.0, 0.05, 9.0), (wxc, o['y1'] + 4.5, 2.0), mat_emission('SkyDay', (0.80, 0.88, 1.0), 1.6), bev=0)
+    no_shadow(card)
+    sun('Sun', (-0.22, -0.82, -0.5), 30.0, kelvin(4100), angle=0.25)
+    light('AREA', 'SkyFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=260.0, color=kelvin(8500),
+          size=wx1 - wx0, size_y=wz1 - wz0, shape='RECTANGLE')
+    light('AREA', 'RoomBounce', (1.4, 1.2, 2.5), energy=60.0, color=kelvin(4600), size=1.5)
+    if HAZE:
+        hz = mat_volume('OfficeHaze', density=0.02, color=(0.9, 0.9, 0.9), anisotropy=0.6, noise_scale=1.4, contrast=(0.3, 0.75))
+        volume_box('Haze', ((o['x0'] + o['x1']) / 2, o['y1'] / 2, o['H'] / 2),
+                   (o['x1'] - o['x0'] - 0.02, o['y1'] - 0.02, o['H'] - 0.02), hz)
+    A['chair'].location = (-0.98, 3.22, 0.0)        # clear of the tenant (no intersection)
+    t = CA.make('tenant')
+    HU.place(t, -0.15, 3.78, 192)
+    CA.reach(t, 'R', HAND_C13, 0.2)
+    CA.grip(t, 'R', 0.55)
+    R3 = t.rig.matrix_world.to_3x3()
+    HU.aim(t, 'LeftArm', R3 @ Vector((0.12, 0.02, -1)))
+    HU.aim(t, 'LeftForeArm', R3 @ Vector((0.05, -0.25, -1)))
+    CA.grip(t, 'L', 0.3)
+    # the two slats around the fingers: upper lifted, lower pulled down (a parted gap)
+    xc = (wx0 - 0.04 + wx1 + 0.04) / 2
+    L = (wx1 + 0.04) - (wx0 - 0.04)
+    bpy.context.view_layer.update()
+    tip = t.rig.matrix_world @ t.rig.pose.bones['RightHandFinger1'].tail
+    zs = sorted(A['slats'], key=lambda s_: abs(s_.location.z - tip.z))[:2]
+    zs.sort(key=lambda s_: s_.location.z)
+    bent_slat('SlatLow', zs[0], L, tip.x - xc, -0.022)
+    bent_slat('SlatHigh', zs[1], L, tip.x - xc, 0.007)
+    # head: from the window toward the room, keyed over the shot
+    for f, (nx, nz, hx, hz_) in ((1, (8, -6, 10, -10)), (26, (8, -6, 10, -10)), (66, (3, -14, 2, -26)), (frames, (3, -15, 2, -27))):
+        HU.rot(t, 'Neck1', x=nx, z=nz)
+        HU.rot(t, 'Head', x=hx, z=hz_)
+        for bn in ('Neck1', 'Head'):
+            pb = t.rig.pose.bones[bn]
+            pb.keyframe_insert('rotation_quaternion' if pb.rotation_mode == 'QUATERNION' else 'rotation_euler', frame=f)
+    for fc in fcurves(t.rig):
+        for kp in fc.keyframe_points:
+            kp.interpolation = 'SINE'
+            kp.easing = 'EASE_IN_OUT'
+    DX, DY, DZ = A['desk']
+    bag = rbox('ShoulderBag', (0.34, 0.12, 0.26), (DX + 0.28, DY - 0.05, DZ + 0.13),
+               mat_leather('BagLeather', color=(0.07, 0.04, 0.025)), bev=0.03)
+    bag.rotation_euler.z = math.radians(-14)
+    foc = empty('FocusC13', (-0.12, 3.7, 1.55))
+    cam = camera('CamC13', lens=32.0, fstop=2.4 if DOF else None, clip=(0.005, 400))
+    cam_path(cam, [(1, (1.55, 1.25, 1.42), (-0.25, 3.85, 1.48), 0.0), (frames, (1.18, 1.80, 1.45), (-0.17, 3.86, 1.52), 0.0)])
+    ease_keys(cam)
+    shake(cam, amp=0.002, rot_amp=0.0008, scale=20.0, seed=13)
+    if DOF:
+        cam.data.dof.focus_object = foc
+
+
+HAND_C13 = Vector((-0.02, 4.08, 1.58))
+
 reset()
-if SHOT == 'N1':
+if SHOT == 'C1':
+    shot_c1()
+elif SHOT == 'C13':
+    shot_c13()
+elif SHOT == 'N1':
     shot_n1()
 elif SHOT == 'S08':
     shot_office(dusk=False)

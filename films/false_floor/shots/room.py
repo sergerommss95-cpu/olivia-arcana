@@ -17,7 +17,8 @@ from vault_ff import *
 SHOT = arg('--shot', 'S02')
 INFO = {'S02': ('3D', 252), 'S21': ('3D', 252), 'S26': ('3D', 252), 'S27': ('3D', 252), 'S34': ('3D', 98),
         'S28': ('3DS', 1), 'S41': ('3DS', 1), 'S45a': ('3DS', 1), 'S45b': ('3DS', 1), 'S51': ('3DS', 1),
-        'N9': ('3D', 120), 'N10': ('3D', 170)}        # v2 'The Night' (script/SEQ_NIGHT.json)
+        'N9': ('3D', 120), 'N10': ('3D', 170),        # v2 'The Night' (script/SEQ_NIGHT.json)
+        'C6': ('3D', 50), 'C8': ('3D', 90), 'C9': ('3D', 60), 'C10': ('3D', 150)}   # v2 cold open (SEQ_COLD.json)
 KIND, N = INFO[SHOT]
 STILL_RES = (2560, 1440)
 
@@ -710,8 +711,171 @@ elif SHOT == 'N10':
     motes('Motes', 400, (-1.1, 0.0, 0.2), (1.1, 5.5, 2.6), r=(0.0007, 0.0018), seed=101, drift=(0.02, 0.03, 0.05),
           end=N)
 
+# ============================================================================= v2 COLD OPEN (Monday: AFTER, lights on)
+
+def monday_lights(key_pos=(-1.0, 0.6, 2.6), key_aim=(1.2, 3.0, 1.4), key_e=55.0):
+    """Monday morning, building lights on: tubes, a warm key down the aisle, room + floor bounce (no black voids)."""
+    fixtures(strength=2.6, energy=20.0, kelv=4400, tube_color=(1.0, 0.95, 0.88))
+    cream_key(pos=key_pos, aim=key_aim, energy=key_e)
+    light('AREA', 'RoomBounce', (0.0, 3.0, 2.85), energy=16.0, color=kelvin(4300), size=2.2, size_y=5.0,
+          shape='RECTANGLE', target=(0.0, 3.0, 0.0))
+    light('AREA', 'Bounce', (0.0, -0.4, 0.6), energy=6.0, color=kelvin(4800), size=2.0, target=(0.5, 2.5, 0.8))
+
+
+def heading_yaw(M_, a, b, want=(0.0, -1.0)):
+    """Yaw (deg) that turns the CMU subject's travel over source frames a..b onto the wanted XY direction."""
+    import mocap as MC
+    _, P0a, _ = MC.fk(M_, a)
+    _, P0b, _ = MC.fk(M_, b)
+    d = MC._zup(P0b['root']) - MC._zup(P0a['root'])
+    return math.degrees(math.atan2(want[1], want[0]) - math.atan2(d.y, d.x))
+
+
+def guard_walk(start_frame, n_frames, x, y, step=3.4):
+    """The guard (cast.py) walking -Y (into the vault) with the CMU walk 02_01, slow (step 3.4)."""
+    import cast as CA
+    import mocap as MC
+    g = CA.make('guard')
+    W = MC.load('02', '02_01')
+    a = 0
+    MC.apply(g, W, start_frame=start_frame, src_range=(a, a + int(step * n_frames) + 8), step=step, pos=(x, y),
+             yaw_deg=heading_yaw(W, a, a + 300))
+    return g
+
+
+def shift_root(h, dx=0.0, dy=0.0):
+    for fc in fcurves(h.rig):
+        if fc.data_path == 'location' and fc.array_index in (0, 1):
+            d = dx if fc.array_index == 0 else dy
+            for kp in fc.keyframe_points:
+                kp.co[1] += d
+                kp.handle_left[1] += d
+                kp.handle_right[1] += d
+
+
+def toe_y(h, f):
+    bpy.context.scene.frame_set(f)
+    pb = h.rig.pose.bones
+    return min((h.rig.matrix_world @ pb[b].tail).y for b in ('LeftToeBase', 'RightToeBase'))
+
+
+if SHOT == 'C6':
+    # Ceiling corner: the heat/motion detector, the wall camera (live), the taped light sensor. Quick push-up + pan.
+    build_room(M, door='open', ante_energy=40.0, ante_kelvin=4800)
+    walls('after')
+    pir, ls, cc = sensors(taped=True, led=True)
+    debris_after()
+    monday_lights(key_pos=(-0.9, 3.4, 2.4), key_aim=(1.0, 6.0, 2.6), key_e=45.0)
+    light('AREA', 'FloorBounce', (0.2, 5.0, 0.05), energy=60.0, color=kelvin(4400), size=1.6, target=(0.4, 5.6, 2.9))
+    pirc = Vector(pir['root'].location)
+    camc = cc['root'].matrix_world.translation.copy()
+    lsw = Vector(LIGHT_SENSOR)
+    foc = empty('FocusC6', tuple(pirc))
+    key(foc, 'location', [(1, tuple(pirc)), (20, tuple(camc)), (38, tuple(lsw)), (N, tuple(lsw))])
+    cam = lens_cam('CamC6', 32, 2.8, foc)
+    cam_path(cam, [(1, (0.42, 4.55, 1.55), tuple(pirc + Vector((0, 0, -0.05))), 0.03),
+                   (20, (0.3, 4.75, 1.85), tuple(camc + Vector((0, 0, 0.0))), 0.0),
+                   (38, (0.08, 4.5, 2.05), tuple(lsw + Vector((0.0, 0.0, 0.0))), -0.03),
+                   (N, (0.07, 4.52, 2.08), tuple(lsw + Vector((0.0, 0.01, 0.0))), -0.03)])
+    eased(cam, 'location')
+    eased(cam, 'rotation_euler')
+    shake(cam, 0.003, 0.002, scale=8, seed=6)
+    motes('Motes', 200, (-0.6, 4.0, 1.4), (1.2, 6.2, 2.85), r=(0.0006, 0.0014), seed=61, drift=(0.02, 0.02, 0.03), end=N)
+
+elif SHOT == 'C8':
+    # Monday: the guard walks slowly through the open vault door into the aisle of forced boxes; camera low behind
+    # him, rising to show the walls.
+    room = build_room(M, door='open', ante_energy=40.0, ante_kelvin=4800)
+    for ch in room['slab'].children:          # door swung fully back against the antechamber (clear of his lane)
+        ch.hide_render = True
+    box('DoorSlabOpen', (0.38, 1.0, 2.04), (0.73, 7.2, 1.02), bev=0.01, mat=M['slab'])
+    right, left = walls('after')
+    lane = [(0.0, yy, 0.42) for yy in (3.9, 4.4, 4.9, 5.4, 5.9, 6.4)]
+    for w in (right, left):
+        clear_loose(w, lane)
+    sensors(taped=True, led=True)
+    debris_after(avoid=[(LOOT_C[0], LOOT_C[1], 0.78)] + lane)
+    sorted_loot(M, LOOT_C)
+    monday_lights(key_pos=(-1.0, 1.0, 2.6), key_aim=(1.2, 4.0, 1.2))
+    g = guard_walk(1, N, 0.0, 7.3)
+    # camera follows behind him, low (head in frame, feet cropped), then rises to show the walls
+    keys = []
+    for f in (1, 20, 40, 60, 75, N):
+        sc.frame_set(f)
+        r = g.rig.matrix_world.translation.copy()
+        k = (f - 1) / (N - 1)
+        z = 0.62 + 1.15 * (k ** 1.6)
+        back = 1.95 + 0.15 * k
+        keys.append((f, (r.x + 0.16, r.y + back, z), (r.x + 0.25 * k, r.y - 2.4, 1.5 + 0.05 * k), 0.0))
+    sc.frame_set(1)
+    cam = lens_cam('CamC8', 24, 2.8, None)
+    cam.data.dof.focus_distance = 2.0
+    tgt = empty('AimC8', keys[0][2])
+    key(cam, 'location', [(f, p_) for f, p_, t_, r_ in keys])
+    key(tgt, 'location', [(f, t_) for f, p_, t_, r_ in keys])
+    track_to(cam, tgt)                    # (euler keys spun the camera through the wall at f80)
+    shake(cam, 0.004, 0.0, scale=9, seed=8)
+    shake(tgt, 0.01, 0.0, scale=9, seed=18)
+    light('AREA', 'AnteCeil', (0.1, 8.2, 2.65), energy=120.0, color=kelvin(4400), size=1.2, target=(0.0, 6.6, 1.1))
+    light('AREA', 'AnteBounce', (0.0, 7.4, 0.05), energy=25.0, color=kelvin(4600), size=1.2, target=(0.0, 6.9, 2.5))
+    motes('Motes', 350, (-1.1, 2.5, 0.2), (1.1, 7.0, 2.6), r=(0.0007, 0.0016), seed=81, drift=(0.02, 0.02, 0.04), end=N)
+
+elif SHOT == 'C9':
+    # Floor macro, low and fast: emptied diamond papers, cases, torn envelopes, a few gold flecks.
+    build_room(M, door='open', ante_energy=40.0, ante_kelvin=4800)
+    walls('after')
+    sensors(taped=True, led=False)
+    debris_after(avoid=[(LOOT_C[0], LOOT_C[1], 0.78)])
+    sorted_loot(M, LOOT_C)
+    rng = random.Random(9)
+    gold = M['gold']
+    bm = bmesh.new()
+    for i in range(70):
+        p = Vector((rng.uniform(-0.15, 0.85), rng.uniform(3.27, 3.45), 0.0))
+        rad = rng.uniform(0.001, 0.0024)
+        res = bmesh.ops.create_icosphere(bm, subdivisions=1, radius=rad)
+        for v in res['verts']:
+            v.co.z *= 0.6
+        bmesh.ops.translate(bm, verts=res['verts'], vec=p + Vector((0, 0, rad * 0.6)))
+    fl = from_bmesh('GoldFlecks', bm, None, smooth=False)
+    set_mat(fl, gold)
+    monday_lights(key_pos=(0.2, 1.8, 1.1), key_aim=(0.3, 3.4, 0.0), key_e=40.0)
+    light('AREA', 'Rake', (1.2, 3.9, 0.35), energy=10.0, color=kelvin(3800), size=0.4, target=(0.3, 3.35, 0.0))
+    foc = empty('FocusC9', (0.08, 3.3, 0.0))
+    key(foc, 'location', [(1, (0.05, 3.32, 0.0)), (N, (0.78, 3.3, 0.0))])
+    cam = lens_cam('CamC9', 45, 2.0, foc)
+    cam_path(cam, [(1, (-0.12, 3.7, 0.075), (0.1, 3.24, 0.0), 0.04), (N, (0.66, 3.68, 0.065), (0.86, 3.2, 0.0), 0.0)])
+    eased(cam, 'rotation_euler')
+    linear(cam, 'location')
+    shake(cam, 0.0015, 0.0015, scale=8, seed=9)
+
+elif SHOT == 'C10':
+    # Top-down crane down over the sorted piles; at the end the guard's shoes step in at the top of frame.
+    build_room(M, door='open', ante_energy=40.0, ante_kelvin=4800)
+    right, left = walls('after')
+    lane = [(-0.28, yy, 0.32) for yy in (3.75, 4.2, 4.7, 5.2, 5.7, 6.1)]
+    for w in (right, left):
+        clear_loose(w, lane)
+    sensors(taped=True, led=False)
+    debris_after(avoid=[(LOOT_C[0], LOOT_C[1], 0.78)] + lane)
+    sorted_loot(M, LOOT_C)
+    monday_lights(key_pos=(-1.1, 3.7, 1.25), key_aim=(0.15, 3.0, 0.0), key_e=55.0)
+    G0 = 56
+    g = guard_walk(G0, N - G0 + 1, -0.28, 6.4)
+    TOE_F, TOE_Y = 140, 3.43               # front toe crosses into the top of frame and lands here
+    shift_root(g, 0.0, TOE_Y - toe_y(g, TOE_F))
+    sc.frame_set(1)
+    cx, cy = LOOT_C
+    cam = lens_cam('CamC10', 35, 5.6, None)
+    cam.data.dof.focus_distance = 1.8
+    cam_path(cam, [(1, (cx + 0.02, cy + 0.02, 2.35), (cx + 0.02, cy + 0.0201, 0.0), 0.12),
+                   (N, (cx - 0.04, cy + 0.12, 1.62), (cx - 0.04, cy + 0.1201, 0.0), 0.0)])
+    eased(cam, 'location')
+    eased(cam, 'rotation_euler')
+    shake(cam, 0.0015, 0.001, scale=10, seed=10)
+
 # Per-shot exposure toward the lead's luma targets (pre-grade: ~0.2-0.3 mean night, 0.3-0.4 lit, p99 ~0.8).
 # S02 and S27 were released at 0.0 and stay there.
-EXPO = {'S02': 0.0, 'S27': 0.0, 'N9': 0.5, 'N10': 0.3}
+EXPO = {'S02': 0.0, 'S27': 0.0, 'N9': 0.5, 'N10': 0.3, 'C6': 0.6, 'C8': 0.4, 'C9': -0.6, 'C10': -1.3}
 sc.view_settings.exposure = EXPO.get(SHOT, 0.0) + arg('--ev', 0.0, float)
 finish(f'{SHOT}')

@@ -363,11 +363,9 @@ elif COLD:
 
     def door_pt(local):
         """World position of a point given in door coordinates (door shut), for the door standing OPEN."""
-        bpy.context.view_layer.update()
-        return door.matrix_world @ (door.matrix_parent_inverse @ V3(local)) if False else \
-            V3((D.HINGE_X, D.HINGE_Y, 0.0)) + V3((math.cos(-R(OPEN)) * (local[0] - D.HINGE_X) - math.sin(-R(OPEN)) * (local[1] - D.HINGE_Y),
-                                                   math.sin(-R(OPEN)) * (local[0] - D.HINGE_X) + math.cos(-R(OPEN)) * (local[1] - D.HINGE_Y),
-                                                   local[2]))
+        c, s_ = math.cos(-R(OPEN)), math.sin(-R(OPEN))
+        dx, dy = local[0] - D.HINGE_X, local[1] - D.HINGE_Y
+        return V3((D.HINGE_X + c * dx - s_ * dy, D.HINGE_Y + s_ * dx + c * dy, local[2]))
 
     if SHOT == 'C3':
         # FPV behind the guard: down the last of the flight as he walks off the stairs onto the landing and through the
@@ -375,7 +373,8 @@ elif COLD:
         # bars is lit only by the warm vault doorway.
         LA = D.light_ante(S, 'day', scale=1.5, k=4800)
         D.light_vault(S, 'warm', key_power=40.0, spill=60.0)
-        sc.view_settings.exposure = 1.25
+        sc.view_settings.exposure = 1.3
+        D.fixture(S['M'], 'FixLanding', (0.0, -4.45, 2.488), axis='X', on=True, power=75.0, k=5000, strength=10.0)   # stairwell light, already on (pre-flicker frames read 0.07 mean luma without it)
         slope = math.atan2(0.18, 0.28)
         fl = light('AREA', 'StairFill', (0.0, -7.6, 2.5 + 2.6 * 0.18 / 0.28 - 0.15), (-slope, 0, 0), energy=150.0,
                    color=kelvin(5000), size=1.3, size_y=2.6, shape='RECTANGLE')
@@ -386,7 +385,7 @@ elif COLD:
         D.key_fixture(fx['B'], [(1, 0.0), (36, 0.0), (37, 0.6), (39, 0.0), (43, 0.9), (45, 0.0), (48, 1.0), (50, 0.4),
                                 (52, 1.0)])
         g = CA.make('guard')
-        MC.apply(g, MC.load('02', '02_01'), start_frame=1, src_range=(0, 342), step=4, pos=(0.10, -4.92), yaw_deg=180)
+        MC.apply(g, MC.load('02', '02_01'), start_frame=1, src_range=(0, 342), step=4, pos=(0.10, -4.70), yaw_deg=180)
         cam = make_cam(22, 4.0, [(1, (0.1, -4.6, 1.2)), (N, (0.1, -2.4, 1.2))])
         cam_path(cam, [(1, (0.22, -7.15, 1.36 + 1.42), (0.08, -3.2, 0.95), R(-4)),
                        (A, (0.21, -7.0, 1.27 + 1.42), (0.08, -3.1, 0.95), R(-3)),
@@ -403,16 +402,16 @@ elif COLD:
         D.light_vault(S, 'warm', key_power=45.0, spill=70.0)
         sc.view_settings.exposure = 1.0
         g = CA.make('guard')
-        HU.place(g, 0.16, -1.78, 180)
+        HU.place(g, 0.34, -1.80, 180)
         CA.arms_down(g, 'L', 0.12, 0.04)
         CA.arms_down(g, 'R', 0.12, 0.04)
         CA.grip(g, 'L', 0.3)
         CA.grip(g, 'R', 0.3)
         CA.head_turn(g, -4, 7)
-        cam = make_cam(35, 2.8, [(1, (-0.15, 0.4, 1.0))])
-        cam_path(cam, [(1, (0.60, -2.62, 1.52), (-0.18, 0.7, 1.05), R(0)),
-                       (A, (0.59, -2.60, 1.52), (-0.18, 0.7, 1.05), R(0)),
-                       (N, (0.50, -2.26, 1.50), (-0.22, 0.8, 1.05), R(0.6))])
+        cam = make_cam(28, 2.8, [(1, (-0.45, -0.6, 1.1))])
+        cam_path(cam, [(1, (-0.20, -2.70, 1.55), (-0.42, 0.35, 1.02), R(0)),
+                       (A, (-0.20, -2.68, 1.55), (-0.42, 0.35, 1.02), R(0)),
+                       (N, (-0.14, -2.32, 1.52), (-0.40, 0.45, 1.02), R(-0.6))])
         smooth_keys(cam, 'SINE', 'EASE_IN_OUT')
         shake(cam, 0.0015, 0.0008, scale=30, seed=41)
         motes_box = ((-1.0, -1.6, 0.3), (1.2, 0.6, 2.3))
@@ -421,17 +420,17 @@ elif COLD:
         # Fast macro push onto the seismic sensor on the inner face of the open door.
         D.light_ante(S, 'monday', scale=1.1)
         D.light_vault(S, 'warm', key_power=45.0, spill=70.0)
-        sc.view_settings.exposure = 1.0
+        sc.view_settings.exposure = 0.35          # test frames read 0.47-0.73 mean luma at 1.0 with a 14 W key
         p = door_pt((-0.34, D.BODY_Y[1] + 0.036, 1.96))
         nrm = V3((math.cos(-R(OPEN)) * 0 - math.sin(-R(OPEN)) * 1, math.sin(-R(OPEN)) * 0 + math.cos(-R(OPEN)) * 1, 0))
         side = V3((-nrm.y, nrm.x, 0))
-        kl = light('AREA', 'SeisKey', p + nrm * 0.6 + V3((0, 0, 0.45)) + side * 0.25, energy=14.0, color=kelvin(4800),
+        kl = light('AREA', 'SeisKey', p + nrm * 0.6 + V3((0, 0, 0.45)) + side * 0.25, energy=3.0, color=kelvin(4800),
                    size=0.35, target=p)
         kl.visible_glossy = True
-        cam = make_cam(55, 2.2, [(1, tuple(p))])
-        cam_path(cam, [(1, tuple(p + nrm * 0.95 + side * 0.18 + V3((0, 0, 0.16)))), tuple(p), R(-2)),
-                       (A, tuple(p + nrm * 0.90 + side * 0.17 + V3((0, 0, 0.15)))), tuple(p), R(-2)),
-                       (N, tuple(p + nrm * 0.17 + side * 0.03 + V3((0, 0, 0.02)))), tuple(p + V3((0, 0, -0.004))), R(0))])
+        cam = make_cam(55, 4.0, [(1, tuple(p))])
+        cam_path(cam, [(1, tuple(p + nrm * 0.95 + side * 0.18 + V3((0, 0, 0.16))), tuple(p), R(-2)),
+                       (A, tuple(p + nrm * 0.90 + side * 0.17 + V3((0, 0, 0.15))), tuple(p), R(-2)),
+                       (N, tuple(p + nrm * 0.24 + side * 0.04 + V3((0, 0, 0.03))), tuple(p + V3((0, 0, -0.004))), R(0))])
         smooth_keys(cam, 'EXPO', 'EASE_OUT')
         shake(cam, 0.0008, 0.0006, scale=20, seed=51)
         motes_box = (tuple(p + V3((-0.4, -0.4, -0.3))), tuple(p + V3((0.4, 0.4, 0.3))))
@@ -441,9 +440,9 @@ elif COLD:
         # aisle between the forced box walls and the papers on the floor.
         D.light_ante(S, 'monday', scale=1.3)
         D.light_vault(S, 'warm', key_power=40.0, spill=0.0)
-        sc.view_settings.exposure = 0.8
+        sc.view_settings.exposure = 0.7
         g = CA.make('guard')
-        HU.place(g, 0.18, -0.52, 182)
+        HU.place(g, 0.18, -0.60, 182)
         CA.arms_down(g, 'L', 0.12, 0.04)
         CA.grip(g, 'L', 0.3)
         bpy.context.view_layer.update()
