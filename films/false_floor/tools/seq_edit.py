@@ -28,7 +28,7 @@ SEQS = {
               ('N10', 27, 'One')],
         inoff={'N3': 24, 'S16': 168, 'N8': 14, 'N9': 0, 'S24': 16, 'S18': 40}),
     'cold': dict(
-        plan='SEQ_COLD.json', beats=[0, 1, 2, 3], end_word={}, music=('ff_COLD', 0.0, -14), tail=3.0,
+        plan='SEQ_COLD.json', beats=[0, 1, 2, 3], end_word={}, music=('ff_COLD', 0.0, -9), tail=3.0,
         cuts=[('C1', 0, 'Monday'), ('C2', 0, 'Two'), ('C3', 0, 'a'), ('C4', 0, 'and'), ('S01', 1, 'Three'),
               ('C5', 1, 'A'), ('S18', 1, 'A#2'), ('C6', 1, 'Heat'), ('C7', 1, 'motion'), ('C8', 2, 'A'),
               ('C9', 2, 'Diamonds'), ('C10', 2, 'And'), ('C11', 3, 'Police'), ('C12', 3, 'But'), ('C13', 3, 'two#2')],
@@ -110,7 +110,8 @@ def main():
     for e in shots:
         p = os.path.join(work, e['id'] + '.mp4')
         n = int(round(e['dur'] * E.FPS))
-        render_seg(e, p, n, preview)
+        if not ('--reuse' in sys.argv and os.path.exists(p)):
+            render_seg(e, p, n, preview)
         segs.append(p)
         print(f"[seq] {e['id']} {n}f", flush=True)
     lst = os.path.join(work, 'list.txt')
@@ -236,16 +237,17 @@ def sfx_night(put, st, total, end_vo):
 def sfx_cold(put, st, total, end_vo, shots):
     """Cold open: Monday morning street -> stairwell -> lights flicker on -> the reveal; sensor montage on hits;
     vault tone; a low boom on 'the heist of the century'; the sound logo under the title."""
-    put('el__city_dusk', 0.0, -22, dur=st['C3'] + 0.5, fin=0.6, fout=0.8)
+    put('el__city_dusk', 0.0, -17, dur=st['C3'] + 0.5, fin=0.6, fout=0.8)
     put('whoosh__deep_air', st['C2'] - 0.3, -15)
-    put('el__antechamber_fluoro', st['C3'] + 1.2, -24, dur=st['C8'] - st['C3'], fin=0.2, fout=0.8)
+    put('el__antechamber_fluoro', st['C3'] + 1.2, -18, dur=st['C8'] - st['C3'], fin=0.2, fout=0.8)
+    put('elec__hum_low', st['C3'] + 1.2, -24, dur=st['C8'] - st['C3'], fin=0.3, fout=0.8)
     put('el__fluoro_flicker_on', st['C3'] + 1.0, -10)
     put('boom__bass_hit_short', st['C4'] + 0.6, -10)
     put('metal__slam_heavy_door_mixkit', st['S01'] - 0.05, -18)
     for k in ('C5', 'S18', 'C6'):
         put('mech__gear_lock_metallic', st[k] - 0.02, -16)
     put('riser__suspense_swell', st['C7'] - 0.2, -20)
-    put('el__vault_room_tone', st['C8'] - 0.3, -21, dur=st['C12'] - st['C8'] + 0.6, fin=0.5, fout=0.9)
+    put('el__vault_room_tone', st['C8'] - 0.3, -16, dur=st['C12'] - st['C8'] + 0.6, fin=0.5, fout=0.9)
     put('paper__rustle', st['C9'] + 0.2, -16)
     put('paper__slide', st['C10'] + 1.0, -18)
     put('boom__blockbuster_deep_drum', st['C11'] + 0.1, -11)
