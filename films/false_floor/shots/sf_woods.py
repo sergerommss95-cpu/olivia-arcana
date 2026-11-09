@@ -44,9 +44,9 @@ FOG.update(color=(0.43, 0.45, 0.47), strength=1.0, start=1.4, dist=6.5)
 # ------------------------------------------------------------------------------------------------ scene
 sc = reset()
 setup_render(1, CAM['frames'] if DOLLY else 1, res=RES_FINAL, samples=48, mb=False, look='Medium High Contrast',
-             bounces=(2, 2, 4), clamp=5.0, filter_glossy=0.6, adaptive=0.02)
+             bounces=(2, 2, 4), clamp=5.0, filter_glossy=0.6, adaptive=0.02, exposure=-0.35)
 sc.cycles.transparent_max_bounces = 8
-woods_world(strength=1.0)
+woods_world(strength=0.85)
 rng = random.Random(SEED)
 nrng = np.random.RandomState(SEED)
 
@@ -239,7 +239,7 @@ if DEBUG:
     light('SUN', 'DebugSun', (0, 0, 5), rot=(math.radians(35), 0, math.radians(20)), energy=4.0, size=5)
 else:
     # overcast: the dome does most of it; a big soft key from above-behind, a little cool fill from camera side
-    light('AREA', 'Key', (0.5, 3.2, 3.4), energy=420, color=kelvin(6800), size=5.0, size_y=3.0, shape='RECTANGLE',
+    light('AREA', 'Key', (0.5, 3.2, 3.4), energy=700, color=kelvin(6800), size=5.0, size_y=3.0, shape='RECTANGLE',
           target=(0.0, 0.8, 0.0))
     light('AREA', 'Fill', (-1.0, -1.6, 0.9), energy=18, color=kelvin(9500), size=2.0, target=(0.0, 0.7, 0.0))
     for m in list(bpy.data.materials):

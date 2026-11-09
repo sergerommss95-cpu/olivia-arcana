@@ -394,7 +394,9 @@ def fog_wrap(mat, fog=None):
     f = g.mul(g.sub(1.0, g.math('EXPONENT', g.mul(g.math('DIVIDE', d, dd), -1.0))), fog['max'])
     em = g.node('ShaderNodeEmission')
     em.inputs['Color'].default_value = (*fog['color'], 1)
-    em.inputs['Strength'].default_value = fog['strength']
+    lp = g.node('ShaderNodeLightPath')
+    # secondary rays (wet-leaf reflections at grazing angles) see a dimmer fog wall than the lens does
+    g.feed(em.inputs['Strength'], g.mul(fog['strength'], g.mixf(lp.outputs['Is Camera Ray'], fog.get('refl', 0.4), 1.0)))
     mx = g.node('ShaderNodeMixShader')
     g.feed(mx.inputs[0], f)
     g.L.new(src, mx.inputs[1])
@@ -470,12 +472,13 @@ def mat_leaf(name='Leaf'):
     col = g.mixc(g.mul(geo.outputs['Backfacing'], 0.45), col, g.mixc(0.5, col, (0.22, 0.17, 0.12)))
     # wetness: per-leaf + patches
     wn_f, _ = g.noise(co, 14.0, 3.0, 0.5)
-    wet = g.add(g.maprange(rnd2, 0.15, 0.85, 0.0, 0.8), g.maprange(wn_f, 0.45, 0.62, -0.25, 0.45), clamp=True)
+    wet = g.add(g.maprange(rnd2, 0.25, 0.95, 0.0, 0.7), g.maprange(wn_f, 0.5, 0.64, -0.35, 0.4), clamp=True)
     col = g.mixc(g.mul(wet, 0.42), col, g.mixc(1.0, col, (0.55, 0.52, 0.5), 'MULTIPLY'))
     g.feed(p.inputs['Base Color'], col)
-    g.feed(p.inputs['Roughness'], g.mixf(wet, 0.62, 0.38))
-    g.feed(p.inputs['Coat Weight'], g.mul(wet, 0.55))
-    _pset(p, Coat_Roughness=0.07, Specular_IOR_Level=0.45)
+    g.feed(p.inputs['Roughness'], g.mixf(wet, 0.72, 0.4))
+    g.feed(p.inputs['Coat Weight'], g.mul(g.maprange(wet, 0.35, 0.8), 0.5))
+    g.feed(p.inputs['Specular IOR Level'], g.mixf(wet, 0.22, 0.4))
+    _pset(p, Coat_Roughness=0.08)
     fine_f, _ = g.noise(co, 420.0, 3.0, 0.6)
     h = g.add(g.mul(veins, 0.6), g.mul(fine_f, 0.4))
     nrm = g.bump(h, 0.22, 0.0007)
@@ -582,7 +585,7 @@ def mat_binbag(name='BinBag'):
     co = g.tc().outputs['Object']
     tear = g.attr('tear').outputs['Factor']
     n1, _ = g.noise(co, 9.0, 4.0, 0.5)
-    rough = g.maprange(n1, 0.35, 0.65, 0.16, 0.36)
+    rough = g.maprange(n1, 0.35, 0.65, 0.22, 0.42)
     # crinkle creases: voronoi edges (sharp lines) at two scales
     dn, dc = g.noise(co, 20.0, 2.0, 0.5)
     cod = g.vmath('ADD', co, g.vmath('SCALE', g.vmath('SUBTRACT', dc, (0.5, 0.5, 0.5)), scale=0.02))
@@ -598,8 +601,8 @@ def mat_binbag(name='BinBag'):
     g.feed(p.inputs['Base Color'], col)
     g.feed(p.inputs['Roughness'], g.mixf(whit, rough, 0.55))
     wn, _ = g.noise(co, 6.0, 3.0, 0.5)
-    g.feed(p.inputs['Coat Weight'], g.maprange(wn, 0.4, 0.6, 0.0, 0.8))
-    _pset(p, Coat_Roughness=0.05, Specular_IOR_Level=0.55)
+    g.feed(p.inputs['Coat Weight'], g.maprange(wn, 0.45, 0.62, 0.0, 0.45))
+    _pset(p, Coat_Roughness=0.05, Specular_IOR_Level=0.45)
     g.feed(p.inputs['Normal'], g.bump(h, 0.35, 0.002))
     return m
 
