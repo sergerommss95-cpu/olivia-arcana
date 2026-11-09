@@ -59,7 +59,7 @@ Sources
 Credits
 - Narration: ElevenLabs ("George"), from the False Floor script
 - Sound design: ElevenLabs sound effects; Mixkit sound effects (Mixkit Sound Effects Free License)
-- Music: "Masking the Masters" (Eugenio Mininni) and "Sci-Fi Score" (Arulo), Mixkit (Mixkit Stock Music Free License)
+- Music: original score for False Floor, composed with ElevenLabs Music
 - 3D, graphics and edit: built procedurally in Blender + Python for False Floor
 
 #truecrime #heist #documentary

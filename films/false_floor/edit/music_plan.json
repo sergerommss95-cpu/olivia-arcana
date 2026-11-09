@@ -1,59 +1,87 @@
 {
- "note": "Music bed per chapter (Mixkit Stock Music Free License): placeholder choices for v1, to be approved by Collin.",
+ "note": "Original score: ElevenLabs Music cues composed per chapter (tools/el_music.py), level-matched to -18 LUFS. Stock Mixkit beds kept in music_plan_mixkit_v01.json.",
  "tracks": {
-  "masking_the_masters": {
-   "title": "Masking the Masters",
-   "author": "Eugenio Mininni",
-   "url": "https://assets.mixkit.co/music/552/552.mp3"
+  "ff_COLD": {
+   "title": "False Floor score \u2014 COLD",
+   "author": "ElevenLabs Music (generated for this episode)"
   },
-  "scifi_score": {
-   "title": "Sci-Fi Score",
-   "author": "Arulo",
-   "url": "https://assets.mixkit.co/music/464/464.mp3"
+  "ff_1": {
+   "title": "False Floor score \u2014 1",
+   "author": "ElevenLabs Music (generated for this episode)"
+  },
+  "ff_2": {
+   "title": "False Floor score \u2014 2",
+   "author": "ElevenLabs Music (generated for this episode)"
+  },
+  "ff_3": {
+   "title": "False Floor score \u2014 3",
+   "author": "ElevenLabs Music (generated for this episode)"
+  },
+  "ff_4": {
+   "title": "False Floor score \u2014 4",
+   "author": "ElevenLabs Music (generated for this episode)"
+  },
+  "ff_5": {
+   "title": "False Floor score \u2014 5",
+   "author": "ElevenLabs Music (generated for this episode)"
+  },
+  "ff_6": {
+   "title": "False Floor score \u2014 6",
+   "author": "ElevenLabs Music (generated for this episode)"
+  },
+  "ff_7": {
+   "title": "False Floor score \u2014 7",
+   "author": "ElevenLabs Music (generated for this episode)"
   }
  },
  "chapters": [
   {
-   "chapter": "1",
-   "track": "scifi_score",
+   "chapter": "COLD",
+   "track": "ff_COLD",
    "offset": 0.0,
-   "gain": -25
+   "gain": -17
+  },
+  {
+   "chapter": "1",
+   "track": "ff_1",
+   "offset": 0.0,
+   "gain": -19
   },
   {
    "chapter": "2",
-   "track": "scifi_score",
-   "offset": 20.0,
-   "gain": -25
+   "track": "ff_2",
+   "offset": 0.0,
+   "gain": -19
   },
   {
    "chapter": "3",
-   "track": "masking_the_masters",
+   "track": "ff_3",
    "offset": 0.0,
-   "gain": -22
+   "gain": -17
   },
   {
    "chapter": "4",
-   "track": "scifi_score",
-   "offset": 45.0,
-   "gain": -24
+   "track": "ff_4",
+   "offset": 0.0,
+   "gain": -18
   },
   {
    "chapter": "5",
-   "track": "masking_the_masters",
-   "offset": 90.0,
-   "gain": -24
+   "track": "ff_5",
+   "offset": 0.0,
+   "gain": -18
   },
   {
    "chapter": "6",
-   "track": "scifi_score",
-   "offset": 60.0,
-   "gain": -26
+   "track": "ff_6",
+   "offset": 0.0,
+   "gain": -20
   },
   {
    "chapter": "7",
-   "track": "masking_the_masters",
-   "offset": 150.0,
-   "gain": -22
+   "track": "ff_7",
+   "offset": 0.0,
+   "gain": -16
   }
  ],
  "drops": [

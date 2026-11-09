@@ -1,0 +1,76 @@
+{
+ "note": "Music bed per chapter (Mixkit Stock Music Free License): placeholder choices for v1, to be approved by Collin.",
+ "tracks": {
+  "masking_the_masters": {
+   "title": "Masking the Masters",
+   "author": "Eugenio Mininni",
+   "url": "https://assets.mixkit.co/music/552/552.mp3"
+  },
+  "scifi_score": {
+   "title": "Sci-Fi Score",
+   "author": "Arulo",
+   "url": "https://assets.mixkit.co/music/464/464.mp3"
+  }
+ },
+ "chapters": [
+  {
+   "chapter": "1",
+   "track": "scifi_score",
+   "offset": 0.0,
+   "gain": -25
+  },
+  {
+   "chapter": "2",
+   "track": "scifi_score",
+   "offset": 20.0,
+   "gain": -25
+  },
+  {
+   "chapter": "3",
+   "track": "masking_the_masters",
+   "offset": 0.0,
+   "gain": -22
+  },
+  {
+   "chapter": "4",
+   "track": "scifi_score",
+   "offset": 45.0,
+   "gain": -24
+  },
+  {
+   "chapter": "5",
+   "track": "masking_the_masters",
+   "offset": 90.0,
+   "gain": -24
+  },
+  {
+   "chapter": "6",
+   "track": "scifi_score",
+   "offset": 60.0,
+   "gain": -26
+  },
+  {
+   "chapter": "7",
+   "track": "masking_the_masters",
+   "offset": 150.0,
+   "gain": -22
+  }
+ ],
+ "drops": [
+  {
+   "shot": "S15",
+   "at": "vo_start",
+   "len": 1.4
+  },
+  {
+   "shot": "S26",
+   "at": "vo_end-3.2",
+   "len": 1.6
+  },
+  {
+   "shot": "S36",
+   "at": "vo_end-3.0",
+   "len": 1.6
+  }
+ ]
+}

@@ -145,11 +145,11 @@ elif SHOT == 'S21':
     # mist: two puffs of droplets rising from below-left across the lens, expanding and thinning out
     rng = random.Random(21)
     spray = M['spray']
-    for k, (f0, f1, dly) in enumerate(((96, 190, 0.0), (112, 200, 0.015))):
+    for k, (f0, f1, dly) in enumerate(((100, 200, 0.0), (116, 206, 0.015))):
         bm = bmesh.new()
-        for i in range(190 if k == 0 else 120):
+        for i in range(260 if k == 0 else 160):
             p = Vector((rng.gauss(0, 0.022), rng.gauss(0, 0.022), rng.gauss(0, 0.028)))
-            rad = rng.uniform(0.00015, 0.00055) * (1.0 if rng.random() < 0.9 else 1.5)
+            rad = rng.uniform(0.0002, 0.0007) * (1.0 if rng.random() < 0.9 else 1.4)
             res = bmesh.ops.create_icosphere(bm, subdivisions=1, radius=rad)
             bmesh.ops.translate(bm, verts=res['verts'], vec=p)
         puff = from_bmesh(f'Mist{k}', bm, None, smooth=True)
@@ -159,22 +159,23 @@ elif SHOT == 'S21':
         except Exception:
             pass
         start = lens_c + Vector((-0.17, -0.16, -0.36 - dly))
-        mid = lens_c + Vector((-0.02, -0.035, -0.03))
+        mid = lens_c + Vector((-0.005, -0.03, -0.012))
         end = lens_c + Vector((0.09, 0.03, 0.12))
         key(puff, 'location', [(f0, tuple(start)), ((f0 + f1) // 2, tuple(mid)), (f1, tuple(end))])
         key(puff, 'scale', [(f0 - 1, (0.0,) * 3), (f0, (0.45,) * 3), ((f0 + f1) // 2, (1.2,) * 3), (f1, (2.4,) * 3),
                             (f1 + 1, (0.0,) * 3)])
         key(puff, 'rotation_euler', [(f0, (0, 0, 0)), (f1, (0.6, 0.3, 1.1))])
     haze = prim('sphere', 'MistHaze', tuple(lens_c + Vector((-0.04, -0.06, -0.08))), seg=16, ring=8, r=0.07)
-    hm = mat_volume('MistVol', density=0.0, color=(0.9, 0.9, 0.88), anisotropy=0.6, noise_scale=40.0,
-                    contrast=(0.45, 0.75))
+    hm = mat_volume('MistVol', density=0.0, color=(0.9, 0.9, 0.88), anisotropy=0.3, noise_scale=30.0,
+                    contrast=(0.3, 0.7))
+    sc.cycles.volume_step_rate = 1.0      # the haze is tiny: fine steps are cheap here
     set_mat(haze, hm)
     try:
         haze.visible_shadow = False
     except Exception:
         pass
     dens = next(n for n in hm.node_tree.nodes if n.bl_idname == 'ShaderNodeMath')
-    key_socket(dens.inputs[1], [(1, 0.0), (104, 0.0), (134, 6.0), (168, 2.6), (205, 0.0)])
+    key_socket(dens.inputs[1], [(1, 0.0), (106, 0.0), (140, 9.0), (172, 4.0), (208, 0.0)])
     key(haze, 'location', [(104, tuple(lens_c + Vector((-0.06, -0.08, -0.12)))), (205, tuple(lens_c + Vector((0.05, 0.0, 0.08))))])
     key(haze, 'scale', [(104, (0.6,) * 3), (205, (1.6,) * 3)])
     # the coat it leaves: a faint glossy film + a few beads on the lens facets
@@ -220,9 +221,10 @@ elif SHOT == 'S26':
     fx = fixtures(on=(0, 0, 0))
     # spill bounce: the lit floor patch inside the doorway throws a little light back up (keeps the ceiling readable)
     ante_spill()
-    light('AREA', 'SpillBounce', (0.0, 5.3, 0.05), (0, 0, 0), energy=7.0, color=kelvin(5000), size=0.9, size_y=0.9,
-          shape='RECTANGLE', target=(-0.2, 4.6, 2.9))
-    light('AREA', 'CornerBounce', (0.5, 5.6, 0.05), energy=9.0, color=kelvin(5000), size=0.8, target=PIR_CORNER)
+    # bounce from the lit floor patch / boxes, placed off the foam's path so nothing gets a near-field hot spot
+    light('AREA', 'SpillBounce', (-0.5, 5.0, 0.01), (0, 0, 0), energy=6.0, color=kelvin(5000), size=1.0, size_y=1.2,
+          shape='RECTANGLE', target=(-0.25, 4.9, 2.9))
+    light('AREA', 'CornerBounce', (-1.0, 4.7, 2.0), energy=3.0, color=kelvin(5000), size=0.8, target=PIR_CORNER)
     foam = foam_sheet(M)
     pirw = Vector(pir['root'].location)
 
