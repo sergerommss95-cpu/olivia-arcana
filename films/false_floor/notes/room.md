@@ -70,3 +70,19 @@ S45 is delivered as two inserts (`--shot S45a`, `--shot S45b`); the shot table l
 - Test stills (pct 25, 8 spp): N9 mean luma 0.30–0.34, N10 0.34–0.39 (before the final tweak: tubes cooled 3900→4400 K,
   N10 exposure 0.5→0.3, N9 reframed to show his face). Those last changes were checked numerically (framing/occlusion,
   doors in view), not re-rendered: the 2-still budget per shot was used.
+
+## v2 COLD OPEN (SEQ_COLD.json) — C6, C8, C9, C10 (`shots/room.py --shot C6|C8|C9|C10`)
+Monday state everywhere: SF1 forced walls + floor papers + the sorted piles at (0.15, 3.0); building lights on
+(`monday_lights`: 4400 K tubes, warm key, room/floor bounce). Guard = `CA.make('guard')` + CMU walk 02_01 via
+`MC.apply` at step 3.4 (slow), heading solved with `heading_yaw`; walk lanes are cleared of floor debris/torn doors.
+- **C6** (50 f): push-up + pan, heat/motion PIR → wall camera (red LED live) → taped light sensor (lands f38, holds). Exp +0.6.
+  Test luma 0.27–0.29.
+- **C8** (90 f): the guard walks from the antechamber through the open vault door (slab swung fully back, clear of his
+  lane; his body stays ≥ 0.2 m off the jambs) into the aisle, stops short of the piles; camera follows ~2 m behind,
+  low (head in frame), rising to 1.8 m. Camera is location-keyed + track-to (Euler keys spun it into the wall at f80).
+  Antechamber ceiling light added after the test (he read as a silhouette): **not re-rendered — check its luma on the GPU frame.**
+- **C9** (60 f): floor macro dolly, 45 mm f/2 at 6–7 cm: torn-envelope heap, opened diamond papers, cases behind, gold
+  flecks. Test luma was 0.48 → exposure set to −0.6 (estimate, not re-rendered).
+- **C10** (150 f): top-down crane down (2.35 → 1.62 m) over the sorted piles; the guard walks in on a lane at x −0.28 and
+  his shoe enters the top of frame from ~f134 (toe lands y 3.43 at f140, clear of the cards/passports). Test luma 0.56–0.60
+  → exposure set to −1.3 (estimate, not re-rendered).
