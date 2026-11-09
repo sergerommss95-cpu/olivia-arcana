@@ -109,19 +109,59 @@ def fine_scratches(m, scale=14.0, distortion=5.0, weight=None):
     return m
 
 
+def mat_macro_steel(name, base=(0.5, 0.51, 0.53), rough=(0.14, 0.32), brush='X', scale=1.0, streak=0.6,
+                    scratch=0.6, grime=0.12, aniso=0.45):
+    """Machined, brushed steel at macro scale (same base colour/roughness as tumbler vault 'edge'): fine brushing
+    streaks along `brush`, soft smudges in the roughness, sparse straight hairline scratches at two angles."""
+    m = new_mat(name)
+    nb = NB(m)
+    p = principled(m)
+    p.inputs['Metallic'].default_value = 1.0
+    tc = nb.n('ShaderNodeTexCoord')
+    co = nb.n('ShaderNodeMapping', Scale=(scale, scale, scale))
+    nb.l(tc, 'Object', co, 'Vector')
+    st = {'X': (0.06, 0.06, 30.0), 'Z': (30.0, 0.06, 0.06), 'Y': (30.0, 0.06, 0.06)}[brush]
+    bm_ = nb.n('ShaderNodeMapping', Scale=st)
+    nb.l(co, 'Vector', bm_, 'Vector')
+    brn = nb.n('ShaderNodeTexNoise', Scale=420.0, Detail=3.0, Roughness=0.6)
+    nb.l(bm_, 'Vector', brn, 'Vector')
+    smu = nb.n('ShaderNodeTexNoise', Scale=45.0, Detail=6.0, Roughness=0.6)
+    nb.l(co, 'Vector', smu, 'Vector')
+    col = nb.n('ShaderNodeTexNoise', Scale=260.0, Detail=4.0, Roughness=0.6)
+    nb.l(co, 'Vector', col, 'Vector')
+    acc = None
+    for ang, sc_, seed in ((0.48, 34.0, 0.0), (-0.62, 27.0, 7.3), (1.31, 22.0, 3.1)):
+        mp = nb.n('ShaderNodeMapping', Rotation=(0.0, ang, 0.0) if brush == 'X' else (ang, 0.0, 0.0),
+                  Location=(seed, seed * 0.7, seed * 1.3))
+        nb.l(co, 'Vector', mp, 'Vector')
+        mp2 = nb.n('ShaderNodeMapping', Scale=(1.0, 1.0, 260.0) if brush == 'X' else (1.0, 260.0, 1.0))
+        nb.l(mp, 'Vector', mp2, 'Vector')
+        nz = nb.n('ShaderNodeTexNoise', Scale=sc_, Detail=1.0)
+        nb.l(mp2, 'Vector', nz, 'Vector')
+        ln = nb.ramp(nz, 'Fac', [(0.0, (0, 0, 0)), (0.705, (0, 0, 0)), (0.715, (1, 1, 1)), (0.725, (0, 0, 0))])
+        acc = ln if acc is None else nb.mix(acc, (1, 1, 1), ln, mode='LIGHTEN')
+    scr = nb.math('MULTIPLY', acc, None, vb=scratch)
+    rr = nb.ramp(smu, 'Fac', [(0.3, (rough[0],) * 3), (0.72, (rough[1],) * 3)])
+    rmix = nb.mix(rr, (rough[0] * 0.45,) * 3, scr)
+    nb.L.new(nb.out_of(rmix), p.inputs['Roughness'])
+    cr = nb.ramp(col, 'Fac', [(0.3, tuple(c * (1 - grime) for c in base)), (0.7, base)])
+    cmix = nb.mix(cr, tuple(min(1.0, c * 1.18) for c in base), scr)
+    nb.L.new(nb.out_of(cmix), p.inputs['Base Color'])
+    h = nb.math('ADD', nb.math('MULTIPLY', brn, None, vb=streak), scr)
+    bmp = nb.n('ShaderNodeBump', Strength=0.55, Distance=4e-6)
+    nb.l(h, 0, bmp, 'Height')
+    nb.l(bmp, 'Normal', p, 'Normal')
+    if aniso:
+        set_aniso(m, aniso, (1, 0, 0) if brush == 'X' else (0, 0, 1))
+    return m
+
+
 def macro_mats():
     M = {}
     # door steel: tumbler vault 'edge' (brushed machined steel) base + roughness, horizontal brushing at macro grain
-    M['door'] = mat_metal('MDoorSteel', base=(0.5, 0.51, 0.53), rough=(0.14, 0.32), scale=8.0, bump=1.0,
-                          brushed=(0.08, 0.08, 25.0), grime=0.14, scratches=0.25)
-    set_bump(M['door'], 0.6, 5e-6)
-    fine_scratches(M['door'], 16.0, 4.0)
-    set_aniso(M['door'], 0.45, (1, 0, 0))
+    M['door'] = mat_macro_steel('MDoorSteel', base=(0.5, 0.51, 0.53), rough=(0.14, 0.32), brush='X')
     # vertical-brushed variant (door edge faces / key boss plate)
-    M['door_v'] = mat_metal('MDoorSteelV', base=(0.48, 0.49, 0.51), rough=(0.16, 0.34), scale=8.0, bump=1.0,
-                            brushed=(25.0, 0.08, 0.08), grime=0.16, scratches=0.25)
-    set_bump(M['door_v'], 0.6, 5e-6)
-    fine_scratches(M['door_v'], 16.0, 4.0)
+    M['door_v'] = mat_macro_steel('MDoorSteelV', base=(0.48, 0.49, 0.51), rough=(0.16, 0.34), brush='Z')
     # frame: dark painted steel with worn edges (A1: dark painted frame)
     M['frame'] = mat_paint('MFramePaint', color=(0.024, 0.026, 0.028), rough=(0.32, 0.52), scale=25.0, wear=0.3,
                            edge_metal=(0.42, 0.42, 0.44))
@@ -144,10 +184,11 @@ def macro_mats():
                            grime=0.2)
     M['thread'] = mat_metal('MThread', base=(0.32, 0.32, 0.33), rough=(0.2, 0.34), scale=400.0, bump=0.0, grime=0.3)
     # aluminium: lighter, more diffuse, brushed along X
-    M['alu'] = mat_metal('MAluminium', base=(0.80, 0.81, 0.82), rough=(0.26, 0.4), scale=8.0, bump=1.0,
-                         brushed=(0.08, 0.08, 25.0), grime=0.15, scratches=0.25)
-    set_bump(M['alu'], 0.5, 4e-6)
-    set_aniso(M['alu'], 0.55, (1, 0, 0))
+    M['alu'] = mat_macro_steel('MAluminium', base=(0.80, 0.81, 0.82), rough=(0.26, 0.42), brush='X', scale=1.6,
+                               streak=0.9, scratch=0.4, grime=0.06, aniso=0.55)
+    M['hood'] = mat_concentric('MHoodSteel', base=(0.40, 0.41, 0.43), rough=(0.2, 0.36), rings=10000.0, bump=0.5,
+                               axis='Y')
+    set_bump(M['hood'], 0.5, 3e-6)
     M['tape'] = mat_gaff_macro()
     M['black'] = mat_principled('MBlack', color=(0.004, 0.004, 0.0045), rough=0.6)
     M['glass'] = mat_lens_glass()
@@ -418,7 +459,7 @@ def dial_with_lens(M, s=0.05, tilt=35.0, coll=None):
     C0 = P + u * d_obj
     bm = bmesh.new()
     bmesh.ops.create_cube(bm, size=1.0)
-    hx, y0, y1, z0, z1 = 0.0118, -0.0238, 0.0, 0.0395, 0.071
+    hx, y0, y1, z0, z1 = 0.0098, -0.0236, 0.0, 0.0405, 0.070
     for v in bm.verts:
         v.co.x = v.co.x * 2 * hx
         v.co.y = y0 + (v.co.y + 0.5) * (y1 - y0)
@@ -428,8 +469,8 @@ def dial_with_lens(M, s=0.05, tilt=35.0, coll=None):
     bmesh.ops.holes_fill(bm, edges=bm.edges[:], sides=0)
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
     hood = from_bmesh('LensHood', bm, coll, smooth=False)
-    bevel(hood, 0.0006, 3, angle=40)
-    set_mat(hood, M['dark'])
+    bevel(hood, 0.0011, 3, angle=40)
+    set_mat(hood, M['hood'])
     clr = prim('cyl', 'HoodClear', (0, -0.0081, 0), (math.radians(90), 0, 0), seg=192, r=s * 1.024, depth=0.0186,
                coll=coll)
     boolean_cut(hood, clr)

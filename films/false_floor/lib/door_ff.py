@@ -187,7 +187,7 @@ def _noise(nb, vec, scale, detail=6.0, rough=0.6, mapping=None):
 
 
 def mat_machined(name, base=(0.46, 0.47, 0.49), rough=(0.16, 0.30), axis='X', streak=320.0, aniso=0.5, smudge=0.5,
-                 scratch=0.35, bump=0.05, dark=0.72, coord='Object'):
+                 scratch=0.35, bump=0.02, dark=0.86, coord='Object'):
     """Machined/brushed steel: fine directional streaks (grooves run along `axis`), anisotropic highlights across the
     grooves, smudges/wipes, sparse bright scratches."""
     m = new_mat(name)
@@ -203,17 +203,20 @@ def mat_machined(name, base=(0.46, 0.47, 0.49), rough=(0.16, 0.30), axis='X', st
     nmac = _noise(nb, v, 2.2, 6.0, 0.62)
     nfin = _noise(nb, v, 16.0, 8.0, 0.6)
     r1 = _maprange(nb, nbr, 0.32, 0.68, rough[0], rough[1])
-    r2 = _maprange(nb, nmac, 0.45, 0.72, 0.0, 0.2 * smudge)
+    r2 = _maprange(nb, nmac, 0.5, 0.75, 0.0, 0.12 * smudge)
     rr = _m(nb, 'ADD', r1, r2)
-    wv = nb.n('ShaderNodeTexWave', {'wave_type': 'BANDS', 'bands_direction': 'DIAGONAL'}, Scale=2.3, Distortion=22.0,
-              Detail=6.0, Detail_Scale=2.5)
-    nb.L.new(v, wv.inputs['Vector'])
-    scr = _maprange(nb, wv.outputs['Fac'], 0.975, 1.0, 0.0, scratch)
-    wv2 = nb.n('ShaderNodeTexWave', {'wave_type': 'BANDS', 'bands_direction': 'X'}, Scale=1.7, Distortion=30.0,
-               Detail=4.0, Detail_Scale=3.0)
-    nb.L.new(v, wv2.inputs['Vector'])
-    scr2 = _maprange(nb, wv2.outputs['Fac'], 0.982, 1.0, 0.0, scratch * 0.7)
-    scr = _m(nb, 'MAXIMUM', scr, scr2)
+    # sparse fine scratches: thin, long streaks in a few directions (stretched noise, thresholded high)
+    scr = None
+    for k, (rz, ry) in enumerate(((0.35, 0.0), (1.9, 0.4), (-0.8, 1.2))):
+        mp = nb.n('ShaderNodeMapping', Rotation=(0.0, ry, rz), Scale=(900.0, 3.0, 3.0))
+        nb.L.new(v, mp.inputs['Vector'])
+        nz = nb.n('ShaderNodeTexNoise', Scale=1.0 + 0.37 * k, Detail=1.0, Roughness=0.5)
+        nb.L.new(mp.outputs['Vector'], nz.inputs['Vector'])
+        sk = _maprange(nb, nz.outputs['Fac'], 0.71, 0.76, 0.0, 1.0)
+        gate = _maprange(nb, _noise(nb, v, 3.0 + k, 2.0, 0.5), 0.55, 0.7, 0.0, 1.0)
+        sk = _m(nb, 'MULTIPLY', sk, gate)
+        scr = sk if scr is None else _m(nb, 'MAXIMUM', scr, sk)
+    scr = _m(nb, 'MULTIPLY', scr, None, vb=scratch)
     nb.L.new(_mixf(nb, scr, rr, rough[0] * 0.45), p.inputs['Roughness'])
     cr = nb.n('ShaderNodeValToRGB')
     cr.color_ramp.elements[0].position = 0.25
@@ -659,9 +662,9 @@ def build_door(M, coll=None, numerals=False, key=True):
     for i, z in enumerate(BOLT_Z):
         sl = empty(f'BoltSlide{i}', (0, 0, 0), coll=coll)
         parent(sl, piv, keep=True)
-        rod = xcyl(f'Bolt{i}', fx - 0.12, fx + 0.03, BOLT_Y, z, 0.032, M['chrome'], seg=40, bev=0.006)
+        rod = xcyl(f'Bolt{i}', fx - 0.12, fx + 0.045, BOLT_Y, z, 0.037, M['chrome'], seg=40, bev=0.007)
         parent(rod, sl, keep=True)
-        bush = prim('cyl', f'Bush{i}', (fx + 0.001, BOLT_Y, z), (0, math.radians(90), nrm), seg=40, r=0.045, depth=0.006,
+        bush = prim('cyl', f'Bush{i}', (fx + 0.001, BOLT_Y, z), (0, math.radians(90), nrm), seg=40, r=0.052, depth=0.008,
                     coll=coll)
         bevel(bush, 0.0015, 2)
         set_mat(bush, M['chrome'])

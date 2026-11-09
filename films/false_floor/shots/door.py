@@ -38,7 +38,7 @@ S = D.build_set(vault=need_vault, stair=True, grate=True, cctv=True, key=(SHOT =
 AJAR = 1.0                  # S00/S52 hairline (degrees)
 OPEN = 112.0                # wide open (S01/S32/start of S52)
 door, grate = S['door'], S['grate']
-D.set_bolts(S, extended=SHOT in ('S10', 'S14', 'S20', 'S25'))
+D.set_bolts(S, extended=SHOT in ('S10', 'S14', 'S20', 'S25', 'S01', 'S32'))   # thrown bolts read best on the open door
 D.set_door(S, {'S00': AJAR, 'S01': OPEN, 'S32': OPEN, 'S52': OPEN}.get(SHOT, 0.0))
 grate.rotation_euler.z = {'S01': R(84), 'S32': R(84)}.get(SHOT, 0.0)
 S['dial'].rotation_euler.z = R(-23.0)        # resting position of the wheel (an arbitrary number; no numerals shown)
@@ -102,9 +102,9 @@ elif SHOT == 'S01':
     # the door standing wide open with the forced vault beyond. Warm vault light pours out; the antechamber is cold, low.
     D.light_ante(S, 'day', scale=0.32, on=('B', 'S'))
     D.light_vault(S, 'warm')
-    cam = make_cam(32, 2.0, [(1, (-0.77, -1.36, 1.02)), (95, (-0.77, -1.36, 1.02)), (205, (-0.3, 0.35, 1.0))])
-    cam_path(cam, [(1, (-0.62, -2.28, 1.12), (-0.78, -1.35, 1.0), 0.0),
-                   (A, (-0.61, -2.30, 1.12), (-0.78, -1.35, 1.0), 0.0),
+    cam = make_cam(32, 2.0, [(1, (-0.74, -1.40, 0.9)), (95, (-0.74, -1.40, 0.9)), (205, (-0.3, 0.35, 1.0))])
+    cam_path(cam, [(1, (-0.57, -2.02, 0.66), (-0.80, -1.36, 1.16), 0.0),
+                   (A, (-0.57, -2.03, 0.66), (-0.80, -1.36, 1.16), 0.0),
                    (N, (0.95, -3.45, 1.32), (-0.18, 0.25, 0.98), 0.0)])
     for fc in fcurves(cam):
         for kp in fc.keyframe_points:
@@ -168,9 +168,18 @@ elif SHOT == 'S25':
     kr, kt = S['key_root'], S['key_turn']
     k0 = A + 88
     base = kr.location.copy()
-    out = (base.x, base.y - 0.34, base.z)
+    out = (base.x, base.y - 0.42, base.z)
     kr.location = out
     key(kr, 'location', [(1, out), (k0, out), (k0 + 26, base[:]), (N, base[:])])
+    for o in [kr] + list(kr.children_recursive):      # the key only exists once it starts to move in
+        o.hide_render = True
+        o.keyframe_insert('hide_render', frame=k0 - 1)
+        o.hide_render = False
+        o.keyframe_insert('hide_render', frame=k0)
+        for fc in fcurves(o):
+            if fc.data_path == 'hide_render':
+                for kp in fc.keyframe_points:
+                    kp.interpolation = 'CONSTANT'
     key(kt, 'rotation_euler', [(1, 0.0), (k0 + 32, 0.0), (k0 + 44, R(-92.0)), (k0 + 47, R(-90.0)), (N, R(-90.0))], index=1)
     hd = S['handle']
     t0 = k0 + 54

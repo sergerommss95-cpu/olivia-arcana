@@ -1,35 +1,41 @@
 [
  {
   "shot": "S00",
-  "key": "elec__hum_low",
+  "key": "el__vault_room_tone",
   "t": 0.0,
-  "gain": -27,
+  "gain": -24,
   "dur": 30
  },
  {
   "shot": "S00",
   "key": "whoosh__deep_air",
   "t": 1.0,
-  "gain": -22
+  "gain": -24
  },
  {
   "shot": "S01",
   "key": "metal__resonant_whoosh_hit",
   "t": 0.3,
-  "gain": -15
+  "gain": -18
  },
  {
   "shot": "S02",
-  "key": "paper__rustle",
-  "t": 1.5,
-  "gain": -24,
-  "dur": 6
+  "key": "el__paper_leaves",
+  "t": 2.0,
+  "gain": -24
+ },
+ {
+  "shot": "S02",
+  "key": "el__vault_room_tone",
+  "t": 0.0,
+  "gain": -26,
+  "dur": 17
  },
  {
   "shot": "S03",
-  "key": "servo__mech_movements",
+  "key": "el__slab_slide",
   "t": 1.4,
-  "gain": -20
+  "gain": -13
  },
  {
   "shot": "S03",
@@ -39,10 +45,17 @@
  },
  {
   "shot": "S04",
-  "key": "wind__deep_cinematic_hum",
+  "key": "el__city_dusk",
   "t": 0.0,
-  "gain": -28,
+  "gain": -20,
   "dur": 16
+ },
+ {
+  "shot": "S05",
+  "key": "el__office_room",
+  "t": 0.0,
+  "gain": -26,
+  "dur": 17
  },
  {
   "shot": "S05",
@@ -52,15 +65,15 @@
  },
  {
   "shot": "S06",
-  "key": "servo__mech_movements",
+  "key": "el__slab_slide",
   "t": 1.0,
-  "gain": -24
+  "gain": -22
  },
  {
   "shot": "S08",
-  "key": "wind__deep_cinematic_hum",
+  "key": "el__office_room",
   "t": 0.0,
-  "gain": -32,
+  "gain": -22,
   "dur": 15
  },
  {
@@ -79,25 +92,27 @@
   "shot": "S09",
   "key": "mech__tool_click",
   "t": 12.5,
-  "gain": -14
+  "gain": -16
  },
  {
   "shot": "S10",
-  "key": "mech__gear_lock_metallic",
+  "key": "el__grate_buzz",
   "t": 6.5,
-  "gain": -13
+  "gain": -12
  },
  {
   "shot": "S10",
-  "key": "servo__mech_movements",
-  "t": 7.2,
-  "gain": -19
+  "key": "el__antechamber_fluoro",
+  "t": 0.0,
+  "gain": -24,
+  "dur": 13
  },
  {
   "shot": "S11",
-  "key": "mech__tool_click",
-  "t": 2.0,
-  "gain": -22
+  "key": "el__office_room",
+  "t": 0.0,
+  "gain": -26,
+  "dur": 8
  },
  {
   "shot": "S12",
@@ -125,184 +140,205 @@
  },
  {
   "shot": "S14",
-  "key": "elec__hum_low",
+  "key": "el__antechamber_fluoro",
   "t": 0.0,
-  "gain": -25,
+  "gain": -22,
   "dur": 11
  },
  {
+  "shot": "S15",
+  "key": "el__drill_approach",
+  "t": 0.0,
+  "gain": -12,
+  "dur": 1.8
+ },
+ {
   "shot": "S16",
-  "key": "clock__watch_crown_spin",
+  "key": "el__dial_spin",
   "t": 1.0,
-  "gain": -15
- },
- {
-  "shot": "S16",
-  "key": "mech__tool_click",
-  "t": 6.0,
-  "gain": -18
- },
- {
-  "shot": "S17",
-  "key": "mech__gear_lock",
-  "t": 2.0,
   "gain": -12
  },
  {
+  "shot": "S16",
+  "key": "el__dial_click",
+  "t": 6.0,
+  "gain": -10
+ },
+ {
+  "shot": "S17",
+  "key": "el__key_turn",
+  "t": 1.5,
+  "gain": -10
+ },
+ {
   "shot": "S18",
-  "key": "elec__hum_low",
+  "key": "el__antechamber_fluoro",
   "t": 0.0,
   "gain": -24,
-  "dur": 15
+  "dur": 16
  },
  {
   "shot": "S19",
-  "key": "servo__mech_movements",
-  "t": 0.8,
-  "gain": -24
+  "key": "el__vault_room_tone",
+  "t": 0.0,
+  "gain": -28,
+  "dur": 22
  },
  {
   "shot": "S20",
-  "key": "wind__deep_cinematic_hum",
+  "key": "el__antechamber_fluoro",
   "t": 0.0,
-  "gain": -27,
+  "gain": -26,
   "dur": 14
  },
  {
   "shot": "S21",
-  "key": "servo__pneumatic_release",
-  "t": 7.0,
-  "gain": -18
- },
- {
-  "shot": "S21",
-  "key": "elec__hum_low",
+  "key": "el__vault_room_tone",
   "t": 0.0,
-  "gain": -26,
+  "gain": -24,
   "dur": 20
  },
  {
+  "shot": "S21",
+  "key": "el__hairspray",
+  "t": 7.0,
+  "gain": -14
+ },
+ {
   "shot": "S22",
-  "key": "paper__slide",
+  "key": "el__tape_strip",
   "t": 2.5,
-  "gain": -18
+  "gain": -14
  },
  {
   "shot": "S23",
-  "key": "wind__mountain_top",
+  "key": "el__city_dusk",
   "t": 0.0,
-  "gain": -26,
+  "gain": -24,
   "dur": 6
  },
  {
   "shot": "S24",
-  "key": "metal__clank_plate_drop",
+  "key": "el__plate_slide",
   "t": 2.2,
-  "gain": -17
+  "gain": -12
  },
  {
   "shot": "S24",
-  "key": "servo__mech_movements",
-  "t": 4.5,
-  "gain": -18
+  "key": "el__antechamber_fluoro",
+  "t": 0.0,
+  "gain": -26,
+  "dur": 10
  },
  {
   "shot": "S25",
-  "key": "clock__watch_crown_spin",
+  "key": "el__dial_spin",
   "t": 0.6,
   "gain": -12
  },
  {
   "shot": "S25",
-  "key": "mech__gear_lock_metallic",
-  "t": 4.2,
-  "gain": -9
- },
- {
-  "shot": "S25",
-  "key": "servo__hydraulic_door",
-  "t": 6.2,
+  "key": "el__key_turn",
+  "t": 3.2,
   "gain": -11
  },
  {
   "shot": "S25",
-  "key": "metal__slam_submarine",
-  "t": 7.4,
-  "gain": -13
+  "key": "el__vault_door_unlock",
+  "t": 4.4,
+  "gain": -8
+ },
+ {
+  "shot": "S25",
+  "key": "el__vault_door_swing",
+  "t": 6.2,
+  "gain": -9
  },
  {
   "shot": "S26",
-  "key": "paper__slide",
+  "key": "el__foam_slide",
   "t": 1.0,
-  "gain": -20
+  "gain": -14
  },
  {
   "shot": "S26",
-  "key": "elec__powerup_static",
+  "key": "el__tape_strip",
+  "t": 7.0,
+  "gain": -18
+ },
+ {
+  "shot": "S26",
+  "key": "el__fluoro_flicker_on",
   "t": 12.0,
-  "gain": -13
- },
- {
-  "shot": "S26",
-  "key": "elec__machine_activation",
-  "t": 12.3,
-  "gain": -16
+  "gain": -10
  },
  {
   "shot": "S27",
-  "key": "elec__hum_low",
+  "key": "el__antechamber_fluoro",
   "t": 0.0,
   "gain": -24,
   "dur": 13
  },
  {
   "shot": "S27",
-  "key": "mech__gear_shuffle",
-  "t": 1.6,
+  "key": "el__box_forced_1",
+  "t": 1.8,
   "gain": -12
  },
  {
   "shot": "S27",
-  "key": "mech__gear_lock_fast_tap",
-  "t": 2.6,
-  "gain": -14
+  "key": "el__box_door_open",
+  "t": 2.7,
+  "gain": -15
  },
  {
   "shot": "S27",
-  "key": "metal__clank_plate_drop",
-  "t": 3.8,
-  "gain": -16
- },
- {
-  "shot": "S27",
-  "key": "mech__gear_lock_fast_tap",
-  "t": 5.0,
-  "gain": -14
- },
- {
-  "shot": "S27",
-  "key": "metal__clank_plate_drop",
-  "t": 6.4,
-  "gain": -16
- },
- {
-  "shot": "S27",
-  "key": "mech__gear_shuffle",
-  "t": 7.6,
+  "key": "el__box_forced_2",
+  "t": 3.5,
   "gain": -13
  },
  {
   "shot": "S27",
-  "key": "mech__gear_lock_fast_tap",
-  "t": 9.0,
-  "gain": -14
+  "key": "el__box_door_open",
+  "t": 4.3,
+  "gain": -15
+ },
+ {
+  "shot": "S27",
+  "key": "el__box_forced_1",
+  "t": 5.1,
+  "gain": -13
+ },
+ {
+  "shot": "S27",
+  "key": "el__box_door_open",
+  "t": 5.8,
+  "gain": -15
+ },
+ {
+  "shot": "S27",
+  "key": "el__box_forced_2",
+  "t": 6.6,
+  "gain": -13
+ },
+ {
+  "shot": "S27",
+  "key": "el__box_door_open",
+  "t": 7.3,
+  "gain": -15
+ },
+ {
+  "shot": "S27",
+  "key": "el__box_forced_1",
+  "t": 8.1,
+  "gain": -12
  },
  {
   "shot": "S28",
-  "key": "paper__rustle",
-  "t": 0.5,
-  "gain": -24,
-  "dur": 8
+  "key": "el__vault_room_tone",
+  "t": 0.0,
+  "gain": -26,
+  "dur": 14
  },
  {
   "shot": "S30",
@@ -312,55 +348,68 @@
  },
  {
   "shot": "S31",
-  "key": "wind__dark_storm_gust",
+  "key": "el__woods_night",
   "t": 0.0,
-  "gain": -18
- },
- {
-  "shot": "S31",
-  "key": "paper__rustle",
-  "t": 2.0,
   "gain": -18,
-  "dur": 8
+  "dur": 18
  },
  {
   "shot": "S31",
-  "key": "paper__quick_movement",
-  "t": 4.0,
-  "gain": -14
+  "key": "el__bags_throw",
+  "t": 2.5,
+  "gain": -10
+ },
+ {
+  "shot": "S31",
+  "key": "el__paper_leaves",
+  "t": 5.0,
+  "gain": -16
  },
  {
   "shot": "S32",
-  "key": "elec__hum_low",
+  "key": "el__vault_room_tone",
   "t": 0.0,
-  "gain": -26,
+  "gain": -24,
   "dur": 7
  },
  {
   "shot": "S33",
-  "key": "wind__mountain_top",
+  "key": "el__woods_morning",
   "t": 0.0,
-  "gain": -24,
-  "dur": 12
+  "gain": -20,
+  "dur": 11
  },
  {
   "shot": "S34",
-  "key": "mech__tool_click",
+  "key": "el__torch_click",
   "t": 0.3,
-  "gain": -16
+  "gain": -12
  },
  {
   "shot": "S35",
-  "key": "wind__mountain_top",
+  "key": "el__woods_morning",
   "t": 0.0,
-  "gain": -26,
-  "dur": 8
+  "gain": -22,
+  "dur": 7
+ },
+ {
+  "shot": "S35",
+  "key": "el__paper_leaves",
+  "t": 1.0,
+  "gain": -22
  },
  {
   "shot": "S36",
-  "key": "paper__pages_moving",
+  "key": "el__woods_morning",
+  "t": 0.0,
+  "gain": -26,
+  "dur": 13
+ },
+ {
+  "shot": "S36",
+  "key": "el__paper_leaves",
   "t": 1.0,
-  "gain": -24
+  "gain": -22
  },
  {
   "shot": "S37",
@@ -381,23 +430,23 @@
   "gain": -18
  },
  {
-  "shot": "S43",
-  "key": "servo__mech_movements",
-  "t": 0.5,
-  "gain": -20
+  "shot": "S41",
+  "key": "el__vault_room_tone",
+  "t": 0.0,
+  "gain": -26,
+  "dur": 11
  },
  {
-  "shot": "S46",
-  "key": "wind__deep_cinematic_hum",
-  "t": 0.0,
-  "gain": -32,
-  "dur": 10
+  "shot": "S43",
+  "key": "el__slab_slide",
+  "t": 0.5,
+  "gain": -22
  },
  {
   "shot": "S47",
-  "key": "servo__mech_movements",
+  "key": "el__slab_slide",
   "t": 1.0,
-  "gain": -18
+  "gain": -14
  },
  {
   "shot": "S47",
@@ -419,22 +468,22 @@
  },
  {
   "shot": "S51",
-  "key": "elec__hum_low",
+  "key": "el__vault_room_tone",
   "t": 0.0,
-  "gain": -27,
+  "gain": -24,
   "dur": 10
  },
  {
   "shot": "S52",
-  "key": "servo__hydraulic_door",
+  "key": "el__vault_door_swing",
   "t": 1.0,
-  "gain": -12
+  "gain": -10
  },
  {
   "shot": "S52",
-  "key": "metal__slam_heavy_door_mixkit",
+  "key": "el__vault_door_shut",
   "t": 6.5,
-  "gain": -10
+  "gain": -8
  },
  {
   "shot": "S52",

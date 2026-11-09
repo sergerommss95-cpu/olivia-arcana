@@ -1240,8 +1240,8 @@ def bag_mats():
                             sheen=0.25, slub=0.35, var=0.22)
     M['strap_web'] = mat_weave('Webbing', (0.07, 0.06, 0.032), period=0.0007, axes=('X', 'Y'), rough=0.85, bump=0.6,
                                sheen=0.25, var=0.2)
-    M['leather'] = mat_leather('BagLeather', color=(0.10, 0.042, 0.016), rough=(0.32, 0.55), grain=1.3, worn=0.5, bump=0.3)
-    M['thread'] = mat_principled('Thread', color=(0.48, 0.40, 0.27), rough=0.6, spec=0.35)
+    M['leather'] = mat_leather('BagLeather', color=(0.055, 0.024, 0.010), rough=(0.3, 0.55), grain=1.3, worn=0.6, bump=0.35)
+    M['thread'] = mat_principled('Thread', color=(0.30, 0.24, 0.15), rough=0.55, spec=0.35)
     p = principled(M['thread'])
     p.inputs['Sheen Weight'].default_value = 0.4
     M['brass'] = mat_brass('BuckleBrass', base=(0.62, 0.44, 0.2), dark=(0.28, 0.17, 0.06), rough=(0.25, 0.45), scale=60.0,
@@ -1291,7 +1291,7 @@ def _resample(path, step):
     return out
 
 
-def stitch_row(name, pts, normal, M, coll=None, length=0.0032, gap=0.0013, lift=0.0, seed=0, skip=()):
+def stitch_row(name, pts, normal, M, coll=None, length=0.0034, gap=0.0009, lift=0.0, seed=0, skip=()):
     """Stitches along a polyline lying on a surface with outward `normal` (constant). Linked copies of one capsule."""
     rng = random.Random(seed)
     proto_name = 'StitchProto'
@@ -1300,7 +1300,7 @@ def stitch_row(name, pts, normal, M, coll=None, length=0.0032, gap=0.0013, lift=
         bm = bmesh.new()
         bmesh.ops.create_uvsphere(bm, u_segments=12, v_segments=6, radius=0.5)
         for v in bm.verts:
-            v.co = Vector((v.co.x * 1.0, v.co.y * 0.26, v.co.z * 0.2))
+            v.co = Vector((v.co.x * 1.0, v.co.y * 0.2, v.co.z * 0.16))
         proto = from_bmesh(proto_name, bm, coll, smooth=True)
         set_mat(proto, M['thread'])
         proto.location = (0, 0, -50)
@@ -1318,7 +1318,7 @@ def stitch_row(name, pts, normal, M, coll=None, length=0.0032, gap=0.0013, lift=
         Bv = Nn.cross(T)
         mat3 = Matrix((T, Bv, Nn)).transposed()
         c = linked_copy(proto, f'{name}{k}', coll=coll)
-        c.matrix_world = Matrix.Translation(P + T * (length + gap) * 0.5 + Nn * (lift + 0.0001)) @ mat3.to_4x4() @ \
+        c.matrix_world = Matrix.Translation(P + T * (length + gap) * 0.5 + Nn * (lift - 0.00005)) @ mat3.to_4x4() @ \
             Matrix.Diagonal((length * rng.uniform(0.92, 1.05), 0.0042, 0.0042, 1.0))
         out.append(c)
     return out
@@ -1425,7 +1425,7 @@ def build_bag(M, coll=None):
     strap = ob('FrontStrap', bm, [M['leather']], coll, smooth=50)
     strap_y = lambda z: min(pts, key=lambda p: abs(p.z - z)).y
     # buckle on the lower body
-    bz = 0.06
+    bz = 0.066
     bm = bmesh.new()
     pth = [Vector((sx + a, strap_y(bz) - 0.0035, bz + b)) for a, b in rrect(0.03, 0.026, 0.004, 3)]
     sweep(bm, pth, [(0.0013 * math.cos(2 * math.pi * k / 8), 0.0013 * math.sin(2 * math.pi * k / 8)) for k in range(8)],
@@ -1434,7 +1434,7 @@ def build_bag(M, coll=None):
     sweep(bm, pth, [(0.0009 * math.cos(2 * math.pi * k / 8), 0.0009 * math.sin(2 * math.pi * k / 8)) for k in range(8)], up=(1, 0, 0))
     ob('Buckle', bm, [M['brass']], coll, smooth=40)
     # stitched box with an X on the strap where it meets the flap
-    bx0, bx1, bz0, bz1 = sx - sw / 2 + 0.0035, sx + sw / 2 - 0.0035, 0.188, 0.226
+    bx0, bx1, bz0, bz1 = sx - sw / 2 + 0.0035, sx + sw / 2 - 0.0035, 0.110, 0.146
 
     def onstrap(x, z):
         return Vector((x, strap_y(z) - st_ / 2 - 0.0001, z))
@@ -1450,19 +1450,20 @@ def build_bag(M, coll=None):
     lens_p = onstrap(sx, lens_z)
     for k, (a, b) in enumerate(((onstrap(bx0, bz0), onstrap(bx1, bz1)), (onstrap(bx0, bz1), onstrap(bx1, bz0)))):
         line = [a + (b - a) * t / 20 for t in range(21)]
-        line = [p for p in line if (p - lens_p).length > 0.0042]
+        line = [p for p in line if (p - lens_p).length > 0.0036]
         mid = len(line) // 2
         stitch_row(f'XStitch{k}a', line[:mid], (0, -1, 0), M, coll, length=0.0026, gap=0.0011, seed=3 + k)
         stitch_row(f'XStitch{k}b', line[mid:], (0, -1, 0), M, coll, length=0.0026, gap=0.0011, seed=5 + k)
     for side in (-1, 1):
-        edge = [onstrap(sx + side * (sw / 2 - 0.0022), z) for z in [bot_z + (0.186 - bot_z) * t / 30 for t in range(31)]]
-        edge = [p for p in edge if not (bz - 0.016 < p.z < bz + 0.016)]
+        edge = [onstrap(sx + side * (sw / 2 - 0.0022), z) for z in [bot_z + (top_z - 0.01 - bot_z) * t / 50 for t in range(51)]]
+        edge = [p for p in edge if not (bz - 0.016 < p.z < bz + 0.016) and not (bz0 - 0.002 < p.z < bz1 + 0.002)
+                and not (fz0 - 0.006 < p.z < fz0 + 0.004)]
         stitch_row(f'StrapEdge{side}', edge, (0, -1, 0), M, coll, length=0.003, gap=0.0012, seed=7 + side)
     # the pinhole lens: dark bezel ring flush in the leather + a domed black glass bead
     nrm = Vector((0, -1, 0))
-    bez = cyl('LensBezel', tuple(lens_p + nrm * 0.0003), 0.0026, 0.0012, M['bezel'], rot=(math.pi / 2, 0, 0), seg=40, bev=0.0003)
+    bez = cyl('LensBezel', tuple(lens_p + nrm * 0.0001), 0.0022, 0.001, M['bezel'], rot=(math.pi / 2, 0, 0), seg=40, bev=0.0003)
     shade(bez, True, 40)
-    dome = prim('sphere', 'LensDome', tuple(lens_p + nrm * 0.0006), seg=40, ring=20, r=0.0017)
+    dome = prim('sphere', 'LensDome', tuple(lens_p + nrm * 0.0002), seg=40, ring=20, r=0.0014)
     dome.scale = (1.0, 0.55, 1.0)
     set_mat(dome, M['lens_glass'])
     A['lens'] = lens_p + nrm * 0.0012

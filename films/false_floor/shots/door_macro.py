@@ -49,7 +49,7 @@ def s15():
     door_fragment(M, x0=-0.25, x1=0.0, z0=-0.12, z1=0.12)
     rbox('DoorEdgeVoid', -0.01, 0.01, 0.006, 0.25, -0.13, 0.13, mat=M['black'])
     frame_fragment(M, x0=0.004, x1=0.22, z0=-0.12, z1=0.12)
-    tip_x, tip_z, gap = -0.017, 0.003, 0.0016
+    tip_x, tip_z, gap = -0.034, 0.003, 0.0016
     T = Vector((tip_x, -gap, tip_z))
     flen = 0.085
     adv = empty('BitAdvance', (tip_x, 0, tip_z))
@@ -81,7 +81,7 @@ def s15():
               target=tuple(T + Vector((0.012, 0.0, -0.01))))
     # sheen: a cool strip far right, placed so its mirror image in the steel sits behind the point -> the bit and its
     # reflection read in silhouette against the brushed sheen
-    light('AREA', 'Sheen', tuple(T + Vector((0.135, -0.042, -0.006))), energy=0.35, color=kelvin(5600), size=0.004,
+    light('AREA', 'Sheen', tuple(T + Vector((0.135, -0.042, -0.006))), energy=0.10, color=kelvin(5200), size=0.004,
           size_y=0.06, shape='RECTANGLE', target=tuple(T + Vector((0.028, 0.0, 0.0))))
     light('AREA', 'Rim', tuple(T + Vector((0.025, -0.02, 0.11))), energy=0.10, color=COOL, size=0.03,
           target=tuple(T + Vector((0.0, -0.02, 0.0))))
@@ -112,7 +112,7 @@ def s16():
     end2 = top + u * 0.049 + side * 0.8
     cam_path(cam, [(1, (-0.064, -0.118, 0.004), (-0.013, -0.017, 0.027), 0.02),
                    (70, (-0.058, -0.112, 0.016), (-0.010, -0.017, 0.032), 0.015),
-                   (150, (-0.026, -0.086, 0.074), (-0.001, -0.018, 0.052), 0.0),
+                   (150, (-0.036, -0.100, 0.064), (-0.002, -0.020, 0.046), 0.0),
                    (204, tuple(end1), tuple(top - u * 0.004), 0.0),
                    (N, tuple(end2), tuple(top - u * 0.004), 0.0)])
     key(foc, 'location', [(1, (-0.0146, -0.0164, 0.0254)), (95, (-0.0130, -0.0164, 0.0290)),
@@ -123,6 +123,14 @@ def s16():
     light('AREA', 'Key', (-0.13, -0.075, 0.11), energy=0.55, color=CREAM, size=0.008, target=(0.0, -0.016, 0.028))
     rd = light('SPOT', 'Reading', tuple(top + (u * 0.22) + Vector((-0.07, 0.0, 0.0))), energy=0.35, color=kelvin(4300),
                spot=9.0, blend=0.8, radius=0.004, target=tuple(D['num']))
+    # light that leaks into the hood and falls on the number under the lens (invisible to camera and reflections)
+    il = light('POINT', 'LensInner', tuple(D['lens_c'] - u * 0.0035 + Vector((0.0, 0.0012, 0.0))), energy=0.0035,
+               color=kelvin(4300), radius=0.0012)
+    try:
+        il.visible_glossy = False
+        il.visible_transmission = False
+    except Exception:
+        pass
     light('AREA', 'Fill', (0.15, -0.12, -0.05), energy=0.05, color=COOL, size=0.12, target=(0.0, -0.01, 0.0))
     light('AREA', 'Rim', (0.07, -0.012, 0.14), energy=0.16, color=COOL, size=0.03, target=(0.0, -0.012, 0.06))
     macro_motes('Motes', (-0.01, -0.05, 0.045), (0.07, 0.07, 0.06), count=160, seed=11, start=1, end=N,

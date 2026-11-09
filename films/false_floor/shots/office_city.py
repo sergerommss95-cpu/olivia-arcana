@@ -125,8 +125,8 @@ def shot_bag():
         light('AREA', 'Rim', (0.55, 0.35, 0.45), energy=6.0, color=kelvin(3100), size=0.35, target=(0.0, 0.0, 0.15))
         light('AREA', 'Glint', (-0.35, -0.6, 0.42), energy=2.5, color=kelvin(6800), size=0.12, target=tuple(L))
     foc = empty('FocusB', tuple(L))
-    loc = L + Vector((-0.075, -0.215, 0.068))
-    cam_at('CamBag', tuple(loc), tuple(L + Vector((0.01, 0.0, -0.004))), 100.0, 4.5, foc, roll=0.0)
+    loc = L + Vector((-0.115, -0.30, 0.085))
+    cam_at('CamBag', tuple(loc), tuple(L + Vector((0.016, 0.0, -0.006))), 100.0, 5.0, foc, roll=-1.5)
 
 
 # ============================================================================ the district (S04 dusk / S23 night)

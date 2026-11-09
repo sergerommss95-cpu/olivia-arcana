@@ -1,0 +1,202 @@
+{
+ "vault_door_unlock": {
+  "file": "el__vault_door_unlock.wav",
+  "duration_s": 4,
+  "prompt": "Heavy steel bank vault door bolts retracting: deep mechanical clunk, metal sliding, a heavy latch releasing, close. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:06"
+ },
+ "dial_click": {
+  "file": "el__dial_click.wav",
+  "duration_s": 1.5,
+  "prompt": "A single precise click of a safe combination dial landing on a number, close macro. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:06"
+ },
+ "vault_room_tone": {
+  "file": "el__vault_room_tone.wav",
+  "duration_s": 20,
+  "prompt": "Quiet underground bank vault room tone, very soft ventilation and distant building resonance in a dry concrete room, no beeps. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:06"
+ },
+ "antechamber_fluoro": {
+  "file": "el__antechamber_fluoro.wav",
+  "duration_s": 15,
+  "prompt": "Fluorescent tube lights buzzing softly in an empty concrete basement corridor, low steady electrical hum. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:06"
+ },
+ "fluoro_flicker_on": {
+  "file": "el__fluoro_flicker_on.wav",
+  "duration_s": 4,
+  "prompt": "Old fluorescent tube lights flickering on in a concrete room: starter clicks, a few ticks, then a steady hum. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:06"
+ },
+ "vault_door_swing": {
+  "file": "el__vault_door_swing.wav",
+  "duration_s": 6,
+  "prompt": "A three-ton steel vault door swinging open slowly on heavy hinges, low metallic groan, in a concrete room. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "vault_door_shut": {
+  "file": "el__vault_door_shut.wav",
+  "duration_s": 4,
+  "prompt": "A massive steel vault door closing and sealing with a deep heavy thud and a latch, short natural decay, no boom. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "dial_spin": {
+  "file": "el__dial_spin.wav",
+  "duration_s": 3,
+  "prompt": "A combination safe dial spinning quickly with fine mechanical ticking clicks, then stopping, close-up. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "key_turn": {
+  "file": "el__key_turn.wav",
+  "duration_s": 3,
+  "prompt": "A long heavy key turning slowly in a large steel lock, internal tumblers grinding and clicking, close. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "plate_slide": {
+  "file": "el__plate_slide.wav",
+  "duration_s": 3,
+  "prompt": "A thin aluminium plate sliding over steel with a faint scrape, then settling, close. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "tape_strip": {
+  "file": "el__tape_strip.wav",
+  "duration_s": 2,
+  "prompt": "A strip of adhesive tape pulled off a roll and pressed onto metal, close, quiet room. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "hairspray": {
+  "file": "el__hairspray.wav",
+  "duration_s": 1.5,
+  "prompt": "One short burst of an aerosol spray can, quiet room. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "foam_slide": {
+  "file": "el__foam_slide.wav",
+  "duration_s": 3,
+  "prompt": "A large sheet of polystyrene foam sliding, light squeak and rub, quiet room. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "box_forced_1": {
+  "file": "el__box_forced_1.wav",
+  "duration_s": 2.5,
+  "prompt": "A metal safe deposit box door forced with a hand-cranked tool: ratchet clicks, metal bending, a sharp snap. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "box_forced_2": {
+  "file": "el__box_forced_2.wav",
+  "duration_s": 2,
+  "prompt": "A steel locker door pried open: strained metal creak, then the sharp pop of a lock giving way. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "box_door_open": {
+  "file": "el__box_door_open.wav",
+  "duration_s": 1.5,
+  "prompt": "A small metal deposit box door swinging open and knocking against its neighbour, metallic clatter. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "grate_buzz": {
+  "file": "el__grate_buzz.wav",
+  "duration_s": 2.5,
+  "prompt": "An electric door lock buzzing, then a steel grate gate unlocking and swinging open in a concrete stairwell. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "woods_night": {
+  "file": "el__woods_night.wav",
+  "duration_s": 20,
+  "prompt": "Cold winter woods at night, light wind through bare trees, faint distant motorway traffic hiss, no animals. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "woods_morning": {
+  "file": "el__woods_morning.wav",
+  "duration_s": 20,
+  "prompt": "Grey winter morning in a forest, soft wind, a few distant crows, damp quiet. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "bags_throw": {
+  "file": "el__bags_throw.wav",
+  "duration_s": 4,
+  "prompt": "Heavy black plastic garbage bags thrown onto wet leaves, plastic tearing, paper and small objects spilling. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "paper_leaves": {
+  "file": "el__paper_leaves.wav",
+  "duration_s": 4,
+  "prompt": "Damp paper and wet leaves rustling gently on a forest floor, close. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "torch_click": {
+  "file": "el__torch_click.wav",
+  "duration_s": 1,
+  "prompt": "A flashlight switch clicking on, close. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "city_dusk": {
+  "file": "el__city_dusk.wav",
+  "duration_s": 15,
+  "prompt": "Quiet city street at dusk, distant traffic, soft wind between stone buildings, no footsteps. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "office_room": {
+  "file": "el__office_room.wav",
+  "duration_s": 15,
+  "prompt": "Quiet small office in the afternoon, faint clock ticking, distant street through a window. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ },
+ "drill_approach": {
+  "file": "el__drill_approach.wav",
+  "duration_s": 3,
+  "prompt": "A metal drill bit spinning up close to a steel surface, then cutting out abruptly to silence. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
+ }
+}
