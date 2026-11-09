@@ -536,7 +536,7 @@ elif SHOT == 'N9':
     HU.place(m, 0.42, crank_w.y + 0.12, 90)
     HU.stand(m)
     CA.grip(m, 'R', 0.95)          # fist round the crank handle
-    CA.grip(m, 'L', 0.6)           # bracing hand
+    CA.grip(m, 'L', 0.35)          # relaxed hand
     bpy.context.view_layer.update()
     pbs = m.rig.pose.bones
     arm_len = (pbs['RightArm'].length + pbs['RightForeArm'].length + 0.5 * pbs['RightHand'].length) * m.rig.scale[0]
@@ -570,9 +570,7 @@ elif SHOT == 'N9':
         gp = grip(a)
         shw = m.rig.matrix_world @ pbs['RightArm'].head
         ik(m, 'R', gp - (gp - shw).normalized() * 0.075, pole=(-0.3, -0.6, -1.0))    # palm wraps the grip
-        lb = crank_w + Vector((0.07, 0.25, 0.0))                                      # bracing on the clamp
-        shl = m.rig.matrix_world @ pbs['LeftArm'].head
-        ik(m, 'L', lb - (lb - shl).normalized() * 0.07, pole=(-0.3, 0.6, -1.0))
+        CA.arms_down(m, 'L', 0.14, 0.08)                                             # left arm hangs relaxed
         CA.head_turn(m, yaw=-8 + 4 * math.sin(a), pitch=-10)
         for b in ('RightArm', 'RightForeArm', 'LeftArm', 'LeftForeArm', 'Neck1', 'Head'):
             e = pbs[b].rotation_euler.copy()
