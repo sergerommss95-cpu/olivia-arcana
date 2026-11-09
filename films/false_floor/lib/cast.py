@@ -209,3 +209,29 @@ def hold(h, side, center, axis, pole=(0.0, 0.0, -1.0), radius=0.0125, amount=0.9
     pb.matrix = Matrix.Translation(head) @ Rhand.to_4x4()
     bpy.context.view_layer.update()
     grip(h, side, amount)
+
+
+def place_hand(h, side, palm, fingers, palm_normal, pole=(0.0, 0.0, -1.0), amount=0.6):
+    """Put a hand exactly: palm centre at `palm` (world), fingers pointing along `fingers`, palm facing
+    `palm_normal` (the direction the palm pushes into). Arm by IK, hand turned to match, fingers curled `amount`."""
+    from mathutils import Matrix
+    S_ = 'Left' if side == 'L' else 'Right'
+    rig = h.rig
+    bl = rig.data.bones
+    C = bl[f'{S_}Hand'].matrix_local.to_3x3().inverted() @ bl[f'{S_}HandFinger1'].matrix_local.to_3x3()
+    fdir_rest = bl[f'{S_}HandFinger1'].matrix_local.to_3x3().col[1]
+    knuck = sum((Vector(bl[p1].head_local) for p1, _, _ in HU.finger_bones(S_) if p1 in bl), Vector()) / 4.0
+    d_k = (knuck - Vector(bl[f'{S_}Hand'].head_local)).dot(fdir_rest)
+    Pn = Vector(palm_normal).normalized()
+    Fd = Vector(fingers) - Pn * Vector(fingers).dot(Pn)
+    Fd.normalize()
+    Lat = Fd.cross(Pn).normalized()
+    wrist = Vector(palm) - Fd * (0.55 * d_k) - Pn * 0.012
+    ik_arm(h, side, wrist, pole)
+    mw = rig.matrix_world
+    R3 = mw.to_3x3().normalized()
+    Rhand = R3.inverted() @ Matrix((Lat, Fd, Pn)).transposed() @ C.inverted()
+    pb = rig.pose.bones[f'{S_}Hand']
+    pb.matrix = Matrix.Translation(pb.matrix.to_translation()) @ Rhand.to_4x4()
+    bpy.context.view_layer.update()
+    grip(h, side, amount)

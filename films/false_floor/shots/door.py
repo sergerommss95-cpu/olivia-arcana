@@ -449,16 +449,32 @@ elif COLD:
         rw = g.rig.matrix_world
         head = rw @ g.rig.pose.bones['Head'].head
         rdir = ((rw @ g.rig.pose.bones['RightArm'].head) - (rw @ g.rig.pose.bones['LeftArm'].head)).normalized()
-        ear = head + rdir * 0.085 + V3((0, 0, 0.07))
-        CA.reach(g, 'R', ear + rdir * 0.03 - V3((0, 0, 0.06)), elbow_drop=0.42)
-        CA.grip(g, 'R', 0.9)
+        # phone to the ear, placed from the eyes: ear ~8.5 cm behind and 7.5 cm beside them; the palm cups the phone
+        # against the ear, fingers up and back along the head, elbow down and out
+        fwd = (rw.to_3x3() @ V3((0, -1, 0))).normalized()
+        dg = bpy.context.evaluated_depsgraph_get()
+        ev = g.eyes.evaluated_get(dg)
+        me_ = ev.to_mesh()
+        eyes = sum(((g.eyes.matrix_world @ v.co) for v in me_.vertices), V3()) / len(me_.vertices)
+        ev.to_mesh_clear()
+        ear = eyes - fwd * 0.085 + rdir * 0.075 - V3((0, 0, 0.015))
+        palm = ear + rdir * 0.035 + fwd * 0.025 - V3((0, 0, 0.01))
+        sh = rw @ g.rig.pose.bones['RightArm'].head
+        MC.shoulder_follow(g.rig, 'RightShoulder', palm - sh)
+        CA.place_hand(g, 'R', palm, V3((0, 0, 1)) * 0.85 - fwd * 0.5, -rdir,
+                      pole=tuple(rdir * 0.35 + V3((0, 0, -1)) + fwd * 0.55), amount=0.55)
         CA.head_turn(g, 6, 4)
         bpy.context.view_layer.update()
         pb = g.rig.pose.bones['RightHand']
         hp = g.rig.matrix_world @ pb.tail
-        ph = box('Phone', (0.012, 0.05, 0.11), tuple(hp + (ear - hp) * 0.45), bev=0.004,
+        # the phone lies against the ear, its length running from the ear toward the mouth, its back in the palm
+        ax_l = (fwd * 0.8 - V3((0, 0, 0.6))).normalized()
+        ax_t = rdir.normalized()
+        ax_w = ax_l.cross(ax_t).normalized()
+        ph = box('Phone', (0.012, 0.05, 0.11), tuple(ear + ax_t * 0.017 + ax_l * 0.035), bev=0.004,
                  mat=mat_principled('PhoneBlack', color=(0.02, 0.02, 0.022), rough=0.35, spec=0.5))
-        ph.rotation_euler = (ear - hp).to_track_quat('Z', 'Y').to_euler()
+        from mathutils import Matrix as _M
+        ph.rotation_euler = _M((ax_t, ax_w, ax_l)).transposed().to_euler()
         co = ph.constraints.new('CHILD_OF')
         co.target = g.rig
         co.subtarget = 'RightHand'
