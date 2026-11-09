@@ -376,6 +376,9 @@ def _split_fingers(arm, weights, V):
 
 SHOULDER_SMOOTH = 30          # weight-diffusion iterations at the shoulders (0 = MakeHuman weights as shipped)
 SHOULDER_SET = ('LeftShoulder', 'LeftArm', 'RightShoulder', 'RightArm')   # Spine1 left out: it ballooned the back
+CLOTH_SMOOTH = int(os.environ.get('FF_CLOTH_SMOOTH', 8))   # Laplacian drape iterations on fitted clothes
+CLOTH_LAMBDA = float(os.environ.get('FF_CLOTH_LAMBDA', 0.6))
+CLOTH_VP = bool(int(os.environ.get('FF_CLOTH_VP', 0)))
 PRESERVE_VOLUME = False       # dual-quaternion skinning puffed shoulders into a hump on any forward reach
 
 
@@ -451,6 +454,15 @@ def wear_assets(name, rig, Vmh, Vbl_shift, weights, items):
             for k, w in dct.items():
                 if w > 0.01:
                     g.add([k], min(1.0, w), 'REPLACE')
+        if CLOTH_SMOOTH and rel.startswith('clothes/') and not any(k in rel for k in ('shoes', 'fedora', 'hat')):
+            # fabric does not show the spine, shoulder blades and buttocks underneath: smooth the fitted garment at rest
+            # (volume-preserving), so it drapes over the body instead of shrink-wrapping its muscle relief
+            ls = ob.modifiers.new('Drape', 'LAPLACIANSMOOTH')
+            ls.iterations = CLOTH_SMOOTH
+            ls.lambda_factor = CLOTH_LAMBDA
+            ls.lambda_border = 0.0
+            ls.use_volume_preserve = CLOTH_VP
+            ls.use_normalized = True
         if not ('hair' in rel or 'eyebrow' in rel):
             push = ob.modifiers.new('Push', 'DISPLACE')      # garments sit a few mm off the body: no poke-through
             push.strength = 0.004 if 'shoes' not in rel else 0.002
