@@ -1,0 +1,538 @@
+{
+ "source": "EPISODE_02_SCRIPT_v2.md",
+ "voice": "en_US-ryan-high.onnx",
+ "length_scale": "1.33",
+ "duration": 666.959,
+ "beats": [
+  {
+   "beat": 0,
+   "chapter": "COLD OPEN (0:00\u20130:50)",
+   "tc_script": "0:00",
+   "tag": "3D",
+   "shot": "Black. A hairline of warm light under a steel door. The door is already open; we just can't see it yet.",
+   "text": "Monday, the 17th of February, 2003. Two floors beneath the diamond district of Antwerp, a guard walks into the vault and finds the impossible.",
+   "start": 0.0,
+   "end": 11.401
+  },
+  {
+   "beat": 1,
+   "chapter": "COLD OPEN (0:00\u20130:50)",
+   "tc_script": "0:09",
+   "tag": "3D",
+   "shot": "Reveal: the 3-ton door standing wide open. Counter builds in cream: `109 / 189`.",
+   "text": "Three tons of steel, standing wide open. A seismic sensor. A magnetic seal. Heat, light and motion detectors. And not one alarm had made a sound.",
+   "start": 11.851,
+   "end": 23.412
+  },
+  {
+   "beat": 2,
+   "chapter": "COLD OPEN (0:00\u20130:50)",
+   "tc_script": "0:20",
+   "tag": "3D",
+   "shot": "Descent along the wall of forced boxes to the floor: torn envelopes, an empty pouch, a passport, a jewel.",
+   "text": "A hundred and nine deposit boxes, forced open. Diamonds, gold, cash, gone. And the strangest part: the thieves had sorted through it all right here, on the floor, and left jewels and passports lying where they fell.",
+   "start": 23.862,
+   "end": 39.941
+  },
+  {
+   "beat": 3,
+   "chapter": "COLD OPEN (0:00\u20130:50)",
+   "tc_script": "0:34",
+   "tag": "MG over 3D",
+   "shot": "The building section; planes separate to reveal Level \u22122. `FALSE FLOOR \u00b7 CASE 02` settles bottom-left over the moving picture (no stop, sound logo tucked under the VO).",
+   "text": "Police would call it the heist of the century. But this break-in didn't start that weekend. It started two years earlier two floors upstairs.",
+   "start": 40.391,
+   "end": 49.577
+  },
+  {
+   "beat": 4,
+   "chapter": "1 \u00b7 THE FORTRESS (0:50\u20131:45)",
+   "tc_script": "0:50",
+   "tag": "PH",
+   "shot": "Hoveniersstraat 2009 (public domain, dated, no people), graded.",
+   "text": "If you wanted to steal a fortune in diamonds, this is the hardest place on earth to try. A few short streets beside Antwerp's central station. Steel bollards. Cameras on every fa\u00e7ade. A police post on the corner.",
+   "start": 50.777,
+   "end": 66.007
+  },
+  {
+   "beat": 5,
+   "chapter": "1 \u00b7 THE FORTRESS (0:50\u20131:45)",
+   "tc_script": "1:03",
+   "tag": "3D-S",
+   "shot": "Dealer's table: folded diamond paper, loupe, tweezers, north light.",
+   "text": "Inside these buildings, stones worth millions move in folded paper envelopes, and deals close on a handshake and one word, mazal. Because here, the real security system isn't only steel. It's who you're allowed to stand next to.",
+   "start": 66.457,
+   "end": 82.739
+  },
+  {
+   "beat": 6,
+   "chapter": "1 \u00b7 THE FORTRESS (0:50\u20131:45)",
+   "tc_script": "1:18",
+   "tag": "MG (S3 god-view)",
+   "shot": "The vertical stack: street (bollards, police post) \u2192 ground floor (guards) \u2192 offices \u2192 Level \u22122 (the vault).",
+   "text": "At the centre sits the Antwerp Diamond Centre. Offices above. Two floors below, the vault where dealers lock everything they won't leave on a desk over a weekend. And it has one rule: you can't rent a box in the basement unless you're a tenant upstairs.",
+   "start": 83.189,
+   "end": 99.465
+  },
+  {
+   "beat": 7,
+   "chapter": "1 \u00b7 THE FORTRESS (0:50\u20131:45)",
+   "tc_script": "1:38",
+   "tag": "",
+   "shot": "Micro-hook:",
+   "text": "Which means that to break into this vault, you don't start with a drill. You start with a lease.",
+   "start": 99.915,
+   "end": 105.574
+  },
+  {
+   "beat": 8,
+   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "tc_script": "1:45",
+   "tag": "3D-S",
+   "shot": "The rented office: blinds, brass nameplate, scale, empty chair.",
+   "text": "More than two years before the heist, an Italian businessman takes an office in the Diamond Centre. Brass nameplate. A desk. A scale. Small, forgettable deals. His name is Leonardo Notarbartolo.",
+   "start": 106.774,
+   "end": 120.749
+  },
+  {
+   "beat": 9,
+   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "tc_script": "2:02",
+   "tag": "MG",
+   "shot": "Calendar strip, ~two years of days ticking past to one orange tick: 15 FEB 2003.",
+   "text": "He pays his rent on time. He chats in the corridors. Month after month, he becomes the most ordinary face in the building. And the lease buys him the only thing he actually came for his own box, in the vault.",
+   "start": 121.199,
+   "end": 134.977
+  },
+  {
+   "beat": 10,
+   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "tc_script": "2:20",
+   "tag": "3D",
+   "shot": "POV down the stairwell to Level \u22122; a steel grate unlocks remotely.",
+   "text": "Every visit gets him minutes downstairs, legitimately. And while other tenants look at their diamonds, he's looking at everything else. The sensors. The door. How long the guard takes to buzz him in.",
+   "start": 135.427,
+   "end": 147.778
+  },
+  {
+   "beat": 11,
+   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "tc_script": "2:38",
+   "tag": "3D-S",
+   "shot": "Macro: a shoulder bag on a chair; a tiny lens in the stitching.",
+   "text": "According to the investigation, he even filmed the building, through a camera hidden inside a bag.",
+   "start": 148.228,
+   "end": 154.913
+  },
+  {
+   "beat": 12,
+   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "tc_script": "2:50",
+   "tag": "MG",
+   "shot": "Four name cards, no faces, one at a time: THE GENIUS \u00b7 THE MONSTER \u00b7 THE KING OF KEYS \u00b7 SPEEDY.",
+   "text": "He doesn't do it alone. Police connect him to a loose network of Italian thieves called the School of Turin, men later described only by nicknames. The Genius: alarms. The Monster: locks, wiring, driving. The King of Keys: an old forger whose real name would never be known. And Speedy, a long-time friend. Anxious. Paranoid. Keep him in mind.",
+   "start": 155.363,
+   "end": 181.173
+  },
+  {
+   "beat": 13,
+   "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
+   "tc_script": "3:10",
+   "tag": "",
+   "shot": "Micro-hook:",
+   "text": "Because a plan is only as calm as its most nervous man.",
+   "start": 181.623,
+   "end": 185.118
+  },
+  {
+   "beat": 14,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "3:15",
+   "tag": "3D",
+   "shot": "The door head-on. Cream layer counter `01` begins in the corner and climbs with each layer.",
+   "text": "Here's what stood between the crew and those boxes. Start with the door. Three tons of steel, rated to survive twelve hours of nonstop drilling.",
+   "start": 186.318,
+   "end": 196.324
+  },
+  {
+   "beat": 15,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "3:26",
+   "tag": "3D",
+   "shot": "A drill bit approaches the door edge\u2026 freeze. **[DROP]** 1 s of silence.",
+   "text": "Not that you'd get twelve seconds. Inside the steel is a seismic sensor that trips at the first vibration.",
+   "start": 196.774,
+   "end": 204.113
+  },
+  {
+   "beat": 16,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "3:38",
+   "tag": "3D",
+   "shot": "Macro: the combination wheel 0\u201399; push into the small lens on top where a single digit sits.",
+   "text": "Then the combination: a wheel numbered zero to ninety-nine, four numbers in order, and the digits can only be read through a small lens on top, so nobody behind you can see them.",
+   "start": 204.563,
+   "end": 216.498
+  },
+  {
+   "beat": 17,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "3:52",
+   "tag": "3D",
+   "shot": "The long two-part key turning deep in the lock.",
+   "text": "Then a key, nearly a foot long, built to be almost impossible to copy. You need the numbers and the key.",
+   "start": 216.948,
+   "end": 223.937
+  },
+  {
+   "beat": 18,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "4:03",
+   "tag": "3D",
+   "shot": "Two magnetic plates across the seam; fine cream field lines holding.",
+   "text": "Across the seam, two magnetic plates form a field. Open the door while it's armed and the field breaks, and an alarm goes straight to an outside security firm. To switch it off: another code, on a keypad by the door.",
+   "start": 224.387,
+   "end": 239.549
+  },
+  {
+   "beat": 19,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "4:18",
+   "tag": "MG (top-down plan of S2)",
+   "shot": "Orthographic view of the vault room: soft cones for the infrared/heat sensor, the motion sensor, the light sensor, the camera; 189 boxes around the walls.",
+   "text": "Inside the room: heat and motion detectors, a light sensor, radar, a camera feeding the guard station. And on the walls, 189 boxes, each with its own key and a three-letter combination. Seventeen thousand, five hundred and seventy-six possibilities. Per box.",
+   "start": 239.999,
+   "end": 261.731
+  },
+  {
+   "beat": 20,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "4:40",
+   "tag": "3D-S",
+   "shot": "Slow push on the closed door; light shifts to night.",
+   "text": "At night, nobody patrols the inside. Why would they? The vault is a machine built to make guards unnecessary. Except the machine has one weakness. During the day, it lets the tenants in.",
+   "start": 262.181,
+   "end": 275.791
+  },
+  {
+   "beat": 21,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "4:55",
+   "tag": "3D",
+   "shot": "The sweat beat. Daytime. The camera on the wall, its little red light. A tenant's box on a shelf. Cut to the heat sensor in the corner. A fine mist drifts across its lens. Back to the camera.",
+   "text": "So the first layer falls in daylight. On an ordinary visit to his box, with the camera live, the feed running to the guard station upstairs, the heat-and-motion sensor gets a quick coat of hair spray. One glance at the monitor at the wrong moment, and two years of work are over. Nobody glances.",
+   "start": 276.241,
+   "end": 295.866
+  },
+  {
+   "beat": 22,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "5:20",
+   "tag": "3D",
+   "shot": "The magnetic plates: screw heads, a strip of tape holding them in place.",
+   "text": "That same week, the screws holding the magnetic plates are loosened, and held in place with tape. The alarm is still armed. It just doesn't know it's already been opened up.",
+   "start": 296.316,
+   "end": 306.555
+  },
+  {
+   "beat": 23,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "5:35",
+   "tag": "MG",
+   "shot": "`SATURDAY \u00b7 15 FEBRUARY 2003` builds over the empty night district (S6).",
+   "text": "Saturday night. The district is closed for the weekend. The dealers' stones are downstairs.",
+   "start": 307.005,
+   "end": 312.565
+  },
+  {
+   "beat": 24,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "5:45",
+   "tag": "3D",
+   "shot": "An aluminium plate slides over the two magnetic plates; the field lines never break as the door edge moves.",
+   "text": "Down at the door, a custom aluminium plate goes over the magnets, holding the two halves together. The door moves. The field never breaks.",
+   "start": 313.015,
+   "end": 322.718
+  },
+  {
+   "beat": 25,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "6:00",
+   "tag": "3D",
+   "shot": "The dial turns to four numbers; the key goes in; the door swings.",
+   "text": "Then the dial. Then the key. And this is where the story splits. How they had the combination and a working key, he would later say, came from a hidden camera above the door. Investigators have never confirmed how.",
+   "start": 323.168,
+   "end": 336.481
+  },
+  {
+   "beat": 26,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "6:18",
+   "tag": "3D + MG",
+   "shot": "A polystyrene sheet moves through the room (no person visible); on the top-down plan, its shadow carves a safe corridor through the heat cone.",
+   "text": "Inside, a sheet of polystyrene, carried like a shield, hides their body heat from the infrared sensor. A strip of tape covers the light sensor on the ceiling. And then they switch the lights on.",
+   "start": 336.931,
+   "end": 350.98
+  },
+  {
+   "beat": 27,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "6:38",
+   "tag": "3D",
+   "shot": "Fluorescent tubes flicker on with a mechanical hum. A hand-cranked tool on a box door; doors snap open in a wave. Corner counter `001 / 189` \u2026 `054 / 189` \u2026 `109 / 189`, each tick on a clack.",
+   "text": "Then the boxes. They don't try seventeen thousand combinations. They force them, with a custom hand-cranked device. One box. Then ten. Then fifty. A hundred and nine.",
+   "start": 351.43,
+   "end": 363.755
+  },
+  {
+   "beat": 28,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "7:00",
+   "tag": "3D-S",
+   "shot": "The floor: sorted loot, envelopes, empty containers, a passport.",
+   "text": "They sort the haul right there on the floor, diamonds, gold, cash, securities, and leave the rest where it falls. Ten layers, beaten by hair spray, tape, an aluminium plate and a sheet of foam.",
+   "start": 364.205,
+   "end": 377.765
+  },
+  {
+   "beat": 29,
+   "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
+   "tc_script": "7:18",
+   "tag": "",
+   "shot": "Re-hook (3D: the open door, empty room):",
+   "text": "The hardest part was over. All that was left was the easiest job of the weekend: get rid of the rubbish.",
+   "start": 378.215,
+   "end": 385.538
+  },
+  {
+   "beat": 30,
+   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "tc_script": "7:30",
+   "tag": "MG",
+   "shot": "Schematic map: Antwerp \u2192 E19 \u2192 Brussels, labelled *not a reconstructed escape route*.",
+   "text": "According to Notarbartolo, the plan was simple: burn everything from the job and the safe house. Tape. Tools. Packaging. Food.",
+   "start": 386.738,
+   "end": 396.326
+  },
+  {
+   "beat": 31,
+   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "tc_script": "7:42",
+   "tag": "3D",
+   "shot": "Night woods off the E19: fog between trunks, wet leaves; torn bags hit the ground.",
+   "text": "Instead, somewhere off the E nineteen between Antwerp and Brussels, two of the crew pull over. And Speedy, the nervous one, panics. No fire. The bags go into the trees, torn open, the contents scattered across the leaves.",
+   "start": 396.776,
+   "end": 414.201
+  },
+  {
+   "beat": 32,
+   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "tc_script": "8:02",
+   "tag": "3D",
+   "shot": "The vault, Monday light, the open door (callback to the cold open).",
+   "text": "In Antwerp, the vault is found on Monday. To the detectives, the crew are ghosts.",
+   "start": 414.651,
+   "end": 420.292
+  },
+  {
+   "beat": 33,
+   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "tc_script": "8:10",
+   "tag": "3D-S",
+   "shot": "The same woods in grey morning light. A walking stick leaning against a tree. A path.",
+   "text": "But the woods belong to a retiree named August Van Camp. And August Van Camp has a hobby: he walks his land looking for people who dump rubbish on it.",
+   "start": 420.742,
+   "end": 430.736
+  },
+  {
+   "beat": 34,
+   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "tc_script": "8:25",
+   "tag": "3D",
+   "shot": "Torch beam across the vault floor.",
+   "text": "In the vault, investigators count the damage.",
+   "start": 431.186,
+   "end": 434.158
+  },
+  {
+   "beat": 35,
+   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "tc_script": "8:32",
+   "tag": "3D-S",
+   "shot": "The torn bags in daylight.",
+   "text": "In the woods, Van Camp finds the strangest litter of his life, and calls the police.",
+   "start": 434.608,
+   "end": 440.495
+  },
+  {
+   "beat": 36,
+   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "tc_script": "8:42",
+   "tag": "3D-S",
+   "shot": "Macro dolly across the wet leaves: a receipt, a torn envelope, loose stones, papers\u2026 **[DROP]**",
+   "text": "Receipts. Envelopes. Loose stones. Paperwork that points straight back to an office in the Diamond Centre. And half a salami sandwich.",
+   "start": 440.945,
+   "end": 452.914
+  },
+  {
+   "beat": 37,
+   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "tc_script": "9:05",
+   "tag": "MG",
+   "shot": "`DNA` builds in cream, then `MATCH` in orange. Never a percentage.",
+   "text": "Investigators take DNA from that sandwich, and it goes into the case file. Ten layers of security beaten in one night and the thing they couldn't wipe clean was lunch.",
+   "start": 453.364,
+   "end": 464.398
+  },
+  {
+   "beat": 38,
+   "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
+   "tc_script": "9:25",
+   "tag": "",
+   "shot": "Micro-hook (3D-S: the office upstairs, dusk, empty chair):",
+   "text": "And the paperwork in those bags pointed to one tenant. Who still had an office to go back to.",
+   "start": 464.848,
+   "end": 470.617
+  },
+  {
+   "beat": 39,
+   "chapter": "5 \u00b7 THE TENANT RETURNS (9:45\u201311:00)",
+   "tc_script": "9:45",
+   "tag": "MG",
+   "shot": "`FRIDAY \u00b7 21 FEBRUARY 2003`; detective name cards AGIM DE BRUYCKER \u00b7 PATRICK PEYS.",
+   "text": "If you're an honest businessman, you show up for work. So five days after the heist, Leonardo Notarbartolo walks back into the Diamond Centre. Detectives Agim De Bruycker and Patrick Peys of the diamond squad are waiting.",
+   "start": 471.817,
+   "end": 486.764
+  },
+  {
+   "beat": 40,
+   "chapter": "5 \u00b7 THE TENANT RETURNS (9:45\u201311:00)",
+   "tc_script": "10:05",
+   "tag": "MG",
+   "shot": "Court timeline: 2005 \u00b7 10 YEARS; three cards \u00b7 5 YEARS; THE KING OF KEYS card stays blank.",
+   "text": "In 2005, an appeals court in Antwerp sentences him to ten years for organising the heist. Three more men, the ones police believe are Speedy, the Monster and the Genius, get five years each.",
+   "start": 487.214,
+   "end": 502.26
+  },
+  {
+   "beat": 41,
+   "chapter": "5 \u00b7 THE TENANT RETURNS (9:45\u201311:00)",
+   "tc_script": "10:25",
+   "tag": "3D-S",
+   "shot": "The sealed vault, cold light.",
+   "text": "But the King of Keys is never identified. Police believe more people took part than were ever charged. And the diamonds, almost all of them, are never found.",
+   "start": 502.71,
+   "end": 513.007
+  },
+  {
+   "beat": 42,
+   "chapter": "5 \u00b7 THE TENANT RETURNS (9:45\u201311:00)",
+   "tc_script": "10:45",
+   "tag": "",
+   "shot": "Re-hook:",
+   "text": "Case closed. Until, six years later, the man convicted of it decides to tell his side.",
+   "start": 513.457,
+   "end": 520.389
+  },
+  {
+   "beat": 43,
+   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "tc_script": "11:00",
+   "tag": "MG",
+   "shot": "Split frame: left cream panel HIS STORY, right charcoal panel THE EVIDENCE.",
+   "text": "In 2009, Notarbartolo talks to the journalist Joshua Davis for Wired. And his version doesn't just rewrite the heist. It points at the people who were robbed.",
+   "start": 521.589,
+   "end": 532.13
+  },
+  {
+   "beat": 44,
+   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "tc_script": "11:15",
+   "tag": "MG (left)",
+   "shot": "Claims typeset one by one, each prefixed *HE SAYS*.",
+   "text": "He says he wasn't the mastermind at all. He says a diamond dealer hired the crew to stage a robbery for the insurance money. He says they rehearsed in a replica vault so they could work in the dark. And his biggest claim: when they opened the bags, most were nearly empty, the stones quietly moved out before the weekend. Twenty million, he says. Not a hundred.",
+   "start": 532.58,
+   "end": 557.307
+  },
+  {
+   "beat": 45,
+   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "tc_script": "11:55",
+   "tag": "MG (right) + 3D inserts",
+   "shot": "The taped light sensor; the loot sorted on the lit vault floor.",
+   "text": "It's a story good enough to inspire books and television. There's one problem. The crime scene. The thieves didn't work in the dark, there was tape over the light sensor, and the lights were on. And the bags weren't empty, the loot was sorted right there on the vault floor, with jewels and passports left behind.",
+   "start": 557.757,
+   "end": 576.47
+  },
+  {
+   "beat": 46,
+   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "tc_script": "12:25",
+   "tag": "MG",
+   "shot": "Quote card, full frame, cream on charcoal.",
+   "text": "As the lead detective, Agim De Bruycker, put it: \"Not one detail of Leo's story can be confirmed by the facts in the investigation.\"",
+   "start": 576.92,
+   "end": 586.09
+  },
+  {
+   "beat": 47,
+   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "tc_script": "12:40",
+   "tag": "MG",
+   "shot": "The two panels slide apart (the false-floor reveal) onto an empty orange space.",
+   "text": "So why tell it? If he's telling the truth, the real crime happened inside the building, and he's the fall guy. If he isn't then a story where the vault was mostly empty is a very convenient story for the one man who knows where the rest went.",
+   "start": 586.54,
+   "end": 602.589
+  },
+  {
+   "beat": 48,
+   "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
+   "tc_script": "13:05",
+   "tag": "",
+   "shot": "Micro-hook:",
+   "text": "And a year after that interview, he got pulled over.",
+   "start": 603.039,
+   "end": 605.976
+  },
+  {
+   "beat": 49,
+   "chapter": "7 \u00b7 WHERE ARE THE DIAMONDS? (13:15\u201314:45)",
+   "tc_script": "13:15",
+   "tag": "MG",
+   "shot": "Timeline: 2009 PAROLED \u00b7 2010 MILAN \u00b7 2011 WARRANT \u00b7 2013 PARIS \u00b7 2017.",
+   "text": "Paroled in 2009, the year his story runs. In 2010, police in Milan find about a kilogram of diamonds hidden between the seats of his car. He says they're cheap industrial stones he bought legally. Belgian police say they're of the highest quality.",
+   "start": 607.176,
+   "end": 625.635
+  },
+  {
+   "beat": 50,
+   "chapter": "7 \u00b7 WHERE ARE THE DIAMONDS? (13:15\u201314:45)",
+   "tc_script": "13:38",
+   "tag": "MG",
+   "shot": "A line Turin \u2192 Paris CDG.",
+   "text": "He never compensates his victims. He breaks his parole. And in 2013, on a layover in Paris, a European warrant catches up with him. He serves out his sentence.",
+   "start": 626.085,
+   "end": 638.366
+  },
+  {
+   "beat": 51,
+   "chapter": "7 \u00b7 WHERE ARE THE DIAMONDS? (13:15\u201314:45)",
+   "tc_script": "13:58",
+   "tag": "3D-S",
+   "shot": "Return to the forced wall; slow pull back into darkness.",
+   "text": "More than twenty years later, the vault has been repaired, the boxes replaced. And most of what left it that weekend has never been seen again.",
+   "start": 638.816,
+   "end": 647.628
+  },
+  {
+   "beat": 52,
+   "chapter": "7 \u00b7 WHERE ARE THE DIAMONDS? (13:15\u201314:45)",
+   "tc_script": "14:15",
+   "tag": "3D",
+   "shot": "The door swings shut to a hairline of warm light (mirror of the first frame).",
+   "text": "Ten layers of steel and sensors, beaten by hair spray, tape and a sheet of foam. The heist of the century, undone by a man walking his land looking for litter and half a salami sandwich. So what do you think: was the tenant upstairs the mastermind, or the fall guy?",
+   "start": 648.078,
+   "end": 666.959
+  }
+ ]
+}
