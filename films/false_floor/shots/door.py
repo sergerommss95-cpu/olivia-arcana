@@ -129,7 +129,7 @@ elif SHOT == 'S10':
     D.light_ante(S, 'day')
     cam = make_cam(24, 4.0, [(1, (0.0, -3.8, 1.1))])
     cam_path(cam, [(1, (0.10, -8.95, 4.12), (0.0, -3.6, 1.05), 0.0),
-                   (N, (0.04, -7.30, 3.07), (0.0, -3.4, 0.95), 0.0)])
+                   (N, (0.04, -7.30, 3.07), (0.0, -2.2, 1.05), 0.0)])
     for fc in fcurves(cam):
         for kp in fc.keyframe_points:
             kp.interpolation = 'SINE'
@@ -159,8 +159,8 @@ elif SHOT == 'S20':
     # Night (end state of the light shift): battens dark; the only light falls down the stairwell through the grate and
     # lays its bars across the floor and the door. 2560x1440 still, composed with safe room for the edit's push.
     D.light_ante(S, 'night')
-    cam = make_cam(30, 4.0, [(1, (0.1, -0.15, 1.0))])
-    cam_path(cam, [(1, (0.32, -3.15, 0.98), (0.12, 0.0, 1.06), 0.0)])
+    cam = make_cam(24, 4.0, [(1, (0.1, -0.15, 1.0))])
+    cam_path(cam, [(1, (0.30, -3.55, 1.04), (0.10, 0.0, 1.08), 0.0)])
     motes_box = ((-1.0, -2.8, 0.1), (1.3, -0.3, 2.3))
 
 elif SHOT == 'S25':

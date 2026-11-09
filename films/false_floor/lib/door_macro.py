@@ -318,7 +318,7 @@ def macro_mats():
     M['galv'] = mat_metal('MGalv', base=(0.38, 0.385, 0.39), rough=(0.38, 0.55), scale=200.0, bump=0.0, grime=0.3,
                           scratches=0.0)
     M['cable'] = mat_principled('MCable', color=(0.03, 0.03, 0.032), rough=0.55)
-    M['alu'] = mat_macro_steel('MAluminium', base=(0.72, 0.73, 0.74), rough=(0.30, 0.37), brush='X', scale=5.0,
+    M['alu'] = mat_macro_steel('MAluminium', base=(0.62, 0.63, 0.64), rough=(0.33, 0.36), brush='X', scale=5.0,
                                streak=0.9, scratch=0.35, grime=0.04, aniso=0.5)
     M['tape'] = mat_masking()
     M['zinc'] = mat_zinc('MZincBlock')

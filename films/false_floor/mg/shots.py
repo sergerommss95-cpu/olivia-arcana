@@ -250,7 +250,8 @@ class S09(Shot):
         self.hit_lbl = tag('15 FEBRUARY 2003', xe + 24, ye - 10, self.t_hit + 20, 'cream', px=32)
         ty = H - 190
         self.title = title('AN ORDINARY TENANT', M, ty, self.t_hit + 30, px=130)
-        self.sub = sub('HIS LEASE CAME WITH HIS OWN BOX IN THE VAULT', M, ty + 72, cue(self.sid, 'the only thing', 30))
+        self.sub = sub('HIS LEASE CAME WITH HIS OWN BOX IN THE VAULT', M, ty + 72,
+                       max(cue(self.sid, 'the only thing', 30), self.title.start + 26))
 
     def edge(self, f):
         p = ramp(f, self.t0, self.t1 - self.t0)

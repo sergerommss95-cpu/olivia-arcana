@@ -1046,6 +1046,12 @@ def finish(shot):
         sc.cycles.samples = samples
     pct = arg('--pct', 100, int)
     sc.render.resolution_percentage = pct
+    border = arg('--border', None)   # x0,x1,y0,y1 in frame fractions (y from the TOP), for close material checks
+    if border:
+        x0, x1, y0, y1 = [float(v) for v in str(border).split(',')]
+        sc.render.use_border, sc.render.use_crop_to_border = True, True
+        sc.render.border_min_x, sc.render.border_max_x = x0, x1
+        sc.render.border_min_y, sc.render.border_max_y = 1 - y1, 1 - y0
     if arg('--nomb'):
         sc.render.use_motion_blur = False
     if arg('--save'):

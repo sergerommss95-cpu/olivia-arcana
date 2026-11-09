@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Render False Floor shots (runs on a GPU pod or locally) and pack each into a compact clip.
 
-python3 films/false_floor/tools/render_shots.py S00 S01 ... [--samples 40] [--still-samples 96] [--keep-png]
+python3 films/false_floor/tools/render_shots.py S00 S01 ... [--samples 40] [--still-samples 96] [--keep-png] [--force]
 For each shot from script/SHOTS_v2.json:
   3D  -> frames 1..render_frames via the shot's script (--anim), then encoded to out/clips/<ID>.mkv
          (x264 4:4:4 10-bit CRF 8: visually lossless, ~30-60 MB per 10 s) and the PNGs deleted.
@@ -39,7 +39,7 @@ def main():
         if s['kind'] == '3D':
             n = s['render_frames']
             out_mkv = os.path.join(clips, f'{sid}.mkv')
-            if os.path.exists(out_mkv):
+            if os.path.exists(out_mkv) and '--force' not in sys.argv:
                 continue
             cmd = ['python3', RB, script, '--', '--shot', sid, '--anim', '--from', '1', '--to', str(n), '--samples', samples]
             r = subprocess.run(cmd, capture_output=True, text=True)
@@ -55,7 +55,7 @@ def main():
             msg = f'{sid} 3D {n}f {"OK" if ok else "FAILED"} {time.time() - t0:.0f}s'
         elif s['kind'] == '3DS':
             out_png = os.path.join(clips, f'{sid}.png')
-            if os.path.exists(out_png):
+            if os.path.exists(out_png) and '--force' not in sys.argv:
                 continue
             cmd = ['python3', RB, script, '--', '--shot', sid, '--anim', '--from', '1', '--to', '1', '--samples', still_samples,
                    '--overwrite']

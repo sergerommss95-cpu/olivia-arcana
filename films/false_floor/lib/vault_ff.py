@@ -257,6 +257,7 @@ def _two_sided(name, front, back, rough=0.7, sss=0.08):
     p.inputs['Roughness'].default_value = rough
     p.inputs['Specular IOR Level'].default_value = 0.3
     p.inputs['Subsurface Weight'].default_value = sss
+    p.inputs['Subsurface Radius'].default_value = (1.0, 1.0, 1.0)
     bmp = nb.n('ShaderNodeBump', Strength=0.05, Distance=0.002)
     nb.l(nz, 'Fac', bmp, 'Height')
     nb.l(bmp, 'Normal', p, 'Normal')
@@ -289,6 +290,7 @@ def mat_foam(name='EPSFoam'):
     nb = NB(m)
     p = principled(m)
     p.inputs['Subsurface Weight'].default_value = 0.45
+    p.inputs['Subsurface Radius'].default_value = (1.0, 1.0, 0.95)     # neutral (the default radius glows red)
     p.inputs['Subsurface Scale'].default_value = 0.008
     co = _coord(nb, 1.0)
     vor = nb.n('ShaderNodeTexVoronoi', Scale=210.0)
@@ -323,6 +325,8 @@ def mat_tape(name='GaffTape'):
 
 def mats_room(M):
     """Adds the room-set materials to M (from mats())."""
+    for k in ('Paper', 'Kraft', 'EnvWhite'):      # neutral scattering (default radius pushes red through backlit paper)
+        principled(bpy.data.materials[k]).inputs['Subsurface Radius'].default_value = (1.0, 0.9, 0.75)
     M['fixture'] = mat_paint('FixtureWhite', color=(0.5, 0.5, 0.48), rough=(0.3, 0.45), scale=4.0, wear=0.12,
                              edge_metal=(0.5, 0.5, 0.5))
     M['socket'] = mat_principled('TubeSocket', color=(0.32, 0.32, 0.3), rough=0.45, spec=0.4)
@@ -335,6 +339,7 @@ def mats_room(M):
     M['fresnel'] = mat_principled('FresnelLens', color=(0.66, 0.66, 0.62), rough=0.38, spec=0.5)
     pf = principled(M['fresnel'])
     pf.inputs['Subsurface Weight'].default_value = 0.5
+    pf.inputs['Subsurface Radius'].default_value = (1.0, 1.0, 1.0)
     pf.inputs['Subsurface Scale'].default_value = 0.002
     pf.inputs['Coat Roughness'].default_value = 0.08     # Coat Weight keyed by S21 (hair-spray film)
     M['fresnel_coat'] = pf.inputs['Coat Weight']
@@ -362,8 +367,8 @@ def mats_room(M):
     M['dpaper'] = _two_sided('DiamondPaper', (0.42, 0.55, 0.72), (0.8, 0.79, 0.76))
     M['pages'] = mat_principled('Pages', color=(0.74, 0.71, 0.62), rough=0.8, spec=0.25)
     M['stone'] = mat_principled('PaleStone', color=(0.9, 0.9, 0.87), rough=0.12, transmission=0.85, ior=1.9)
-    M['slab'] = mat_metal('VaultSlab', base=(0.42, 0.43, 0.44), rough=(0.14, 0.3), scale=2.0, bump=0.004,
-                          brushed=(1.0, 1.0, 40.0))
+    M['slab'] = mat_metal('VaultSlab', base=(0.36, 0.365, 0.37), rough=(0.2, 0.3), scale=6.0, bump=0.003,
+                          brushed=(1.0, 1.0, 40.0), grime=0.12, scratches=0.15)
     M['wallconc'] = mat_concrete('EndConcrete', base=(0.07, 0.072, 0.075), wet=0.0, scale=1.5, contrast=0.4)
     M['ceil'] = mat_concrete('CeilConc', base=(0.085, 0.087, 0.09), wet=0.0, scale=1.8, contrast=0.35)
     for k, sv in (('ceil', 0.04), ('wallconc', 0.1), ('floor', 0.07)):   # less 'hammered' than the stock bump
@@ -470,6 +475,11 @@ def build_room(M, door='open', ante_energy=30.0, ante_kelvin=5400, coll=None, ba
                          depth=0.006, coll=coll)
                 set_mat(s, M['slab'])
                 parent(s, slab_pv, keep=False)
+    jamb = M['frame']          # steel lining around the vault doorway
+    for nm, sz, lc in (('JambL', (0.07, 0.03, 2.1), (-0.535, END_Y - 0.012, 1.05)),
+                       ('JambR', (0.07, 0.03, 2.1), (0.535, END_Y - 0.012, 1.05)),
+                       ('JambT', (1.14, 0.03, 0.07), (0.0, END_Y - 0.012, 2.085))):
+        box(nm, sz, lc, coll=coll, bev=0.004, mat=jamb)
     box('Antechamber', (3.0, 0.1, 3.0), (0, 9.5, 1.5), coll=coll,
         mat=mat_principled('AnteWall', color=(0.1, 0.105, 0.11), rough=0.8))
     ante = light('AREA', 'AnteLight', (0.0, 8.3, 2.2), (math.radians(55), 0, 0), energy=ante_energy,
@@ -845,10 +855,10 @@ def pouch_empty(M, name, loc, rz=0.0, mat=None, coll=None, seed=0, length=0.12, 
 
     def thick(u):
         if u < 0.66:
-            return 0.017 + 0.006 * math.sin(u * 9 + ph[0]) * math.sin(u * 3.1)
+            return 0.024 + 0.007 * math.sin(u * 9 + ph[0]) * math.sin(u * 3.1)
         if u < 0.8:
-            return 0.017 + 0.003 * (u - 0.66) / 0.14
-        return 0.02 + 0.012 * ((u - 0.8) / 0.2) ** 0.6
+            return 0.024 - 0.005 * (u - 0.66) / 0.14
+        return 0.019 + 0.012 * ((u - 0.8) / 0.2) ** 0.6
 
     bm = bmesh.new()
     rings = []
@@ -859,7 +869,8 @@ def pouch_empty(M, name, loc, rz=0.0, mat=None, coll=None, seed=0, length=0.12, 
         ring_ = []
         for iv in range(nv):
             v = 2 * math.pi * iv / nv
-            ruff = 1 + (0.3 * math.sin(7 * v + ph[1]) * min(1.0, (u - 0.8) / 0.08) if u > 0.8 else 0.0)
+            ruff = 1 + ((0.13 * math.sin(9 * v + ph[1]) + 0.07 * math.sin(5 * v + ph[2])) * min(1.0, (u - 0.8) / 0.08)
+                        if u > 0.8 else 0.0)
             w2 = w * (1 + 0.07 * math.sin(u * 11 + ph[0] + v) * (1 if u < 0.75 else 0.3))
             yv = w2 * math.cos(v) * ruff
             sv = math.sin(v)

@@ -187,8 +187,8 @@ def _noise(nb, vec, scale, detail=6.0, rough=0.6, mapping=None):
     return n.outputs['Fac']
 
 
-def mat_machined(name, base=(0.46, 0.47, 0.49), rough=(0.16, 0.30), axis='X', streak=320.0, aniso=0.5, smudge=0.5,
-                 scratch=0.35, bump=0.02, dark=0.86, coord='Object'):
+def mat_machined(name, base=(0.46, 0.47, 0.49), rough=(0.16, 0.30), axis='X', streak=650.0, aniso=0.5, smudge=0.5,
+                 scratch=0.35, bump=0.012, dark=0.86, coord='Object'):
     """Machined/brushed steel: fine directional streaks (grooves run along `axis`), anisotropic highlights across the
     grooves, smudges/wipes, sparse bright scratches."""
     m = new_mat(name)
@@ -203,7 +203,8 @@ def mat_machined(name, base=(0.46, 0.47, 0.49), rough=(0.16, 0.30), axis='X', st
     nbr = _noise(nb, v, 1.0, 3.0, 0.55, mapping=st)
     nmac = _noise(nb, v, 2.2, 6.0, 0.62)
     nfin = _noise(nb, v, 16.0, 8.0, 0.6)
-    r1 = _maprange(nb, nbr, 0.32, 0.68, rough[0], rough[1])
+    r1 = _maprange(nb, nbr, 0.3, 0.7, rough[0], rough[0] + 0.7 * (rough[1] - rough[0]))
+    r1 = _m(nb, 'ADD', r1, _maprange(nb, nfin, 0.3, 0.7, 0.0, 0.3 * (rough[1] - rough[0])))
     r2 = _maprange(nb, nmac, 0.5, 0.75, 0.0, 0.12 * smudge)
     rr = _m(nb, 'ADD', r1, r2)
     # sparse fine scratches: thin, long streaks in a few directions (stretched noise, thresholded high)
@@ -236,10 +237,25 @@ def mat_machined(name, base=(0.46, 0.47, 0.49), rough=(0.16, 0.30), axis='X', st
     nb.L.new(nbr, bmp.inputs['Height'])
     nb.L.new(bmp.outputs['Normal'], p.inputs['Normal'])
     if aniso:
+        # brushing tangent in object space; on faces whose normal is (nearly) parallel to it, fall back to a second axis
+        # so the anisotropy never degenerates into a swirl
         p.inputs['Anisotropic'].default_value = aniso
+        ax = {'X': (1, 0, 0), 'Y': (0, 1, 0), 'Z': (0, 0, 1)}
+        fb = {'X': 'Z', 'Y': 'Z', 'Z': 'X'}[axis]
         vt = nb.n('ShaderNodeVectorTransform', {'vector_type': 'VECTOR', 'convert_from': 'OBJECT', 'convert_to': 'WORLD'})
-        vt.inputs['Vector'].default_value = {'X': (1, 0, 0), 'Y': (0, 1, 0), 'Z': (0, 0, 1)}[axis]
-        nb.L.new(vt.outputs['Vector'], p.inputs['Tangent'])
+        vt.inputs['Vector'].default_value = ax[axis]
+        vf = nb.n('ShaderNodeVectorTransform', {'vector_type': 'VECTOR', 'convert_from': 'OBJECT', 'convert_to': 'WORLD'})
+        vf.inputs['Vector'].default_value = ax[fb]
+        geo = nb.n('ShaderNodeNewGeometry')
+        dp = nb.n('ShaderNodeVectorMath', {'operation': 'DOT_PRODUCT'})
+        nb.L.new(geo.outputs['Normal'], dp.inputs[0])
+        nb.L.new(vt.outputs['Vector'], dp.inputs[1])
+        par = _maprange(nb, _m(nb, 'ABSOLUTE', dp.outputs['Value']), 0.8, 0.95)
+        mv = nb.n('ShaderNodeMix', {'data_type': 'VECTOR'})
+        nb.L.new(par, mv.inputs[0])
+        nb.L.new(vt.outputs['Vector'], mv.inputs[4])
+        nb.L.new(vf.outputs['Vector'], mv.inputs[5])
+        nb.L.new(mv.outputs[1], p.inputs['Tangent'])
     return m
 
 
@@ -251,7 +267,7 @@ def mat_worn_paint(name, color, rough=(0.38, 0.58), edge=0.8, scuff=0.55, low=0.
     p = principled(m)
     v = _tc(nb, 'Object')
     geo = nb.n('ShaderNodeNewGeometry')
-    bv = nb.n('ShaderNodeBevel', {'samples': 6}, Radius=bev_r)
+    bv = nb.n('ShaderNodeBevel', {'samples': 4}, Radius=bev_r)
     dp = nb.n('ShaderNodeVectorMath', {'operation': 'DOT_PRODUCT'})
     nb.L.new(bv.outputs['Normal'], dp.inputs[0])
     nb.L.new(geo.outputs['Normal'], dp.inputs[1])

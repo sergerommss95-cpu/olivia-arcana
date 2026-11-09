@@ -758,29 +758,29 @@ def mat_crust(name='Crust'):
     n0, _ = g.noise(co, 18.0, 4.0, 0.55, dist=0.5)
     n1, _ = g.noise(co, 70.0, 8.0, 0.62, dist=0.3)
     nmix = g.add(g.mul(n0, 0.55), g.mul(n1, 0.45))
-    col = g.ramp(nmix, [(0.3, (0.055, 0.026, 0.010)), (0.45, (0.15, 0.072, 0.026)), (0.58, (0.25, 0.13, 0.05)),
-                        (0.72, (0.38, 0.235, 0.11))])
+    col = g.ramp(nmix, [(0.3, (0.10, 0.038, 0.010)), (0.45, (0.26, 0.105, 0.025)), (0.58, (0.42, 0.20, 0.055)),
+                        (0.72, (0.56, 0.33, 0.11))])
     # tops bake darker
-    col = g.mixc(g.mul(g.maprange(nz, 0.2, 0.9), 0.45), col, g.mixc(1.0, col, (0.5, 0.42, 0.36), 'MULTIPLY'))
+    col = g.mixc(g.mul(g.maprange(nz, 0.2, 0.9), 0.5), col, g.mixc(1.0, col, (0.55, 0.40, 0.30), 'MULTIPLY'))
     # opened score: paler, rougher crumb-crust
-    col = g.mixc(score, col, (0.46, 0.34, 0.19))
+    col = g.mixc(score, col, (0.52, 0.34, 0.13))
     # flour specks
     fl, _ = g.noise(co, 900.0, 2.0, 0.5)
-    col = g.mixc(g.mul(g.maprange(fl, 0.66, 0.72), 0.6), col, (0.62, 0.55, 0.45))
+    col = g.mixc(g.mul(g.maprange(fl, 0.70, 0.74), 0.35), col, (0.62, 0.55, 0.45))
     # damp darker patches from the leaves
     dn, _ = g.noise(co, 30.0, 3.0, 0.5)
     damp = g.maprange(dn, 0.55, 0.65, 0.0, 0.5)
     col = g.mixc(damp, col, g.mixc(1.0, col, (0.6, 0.55, 0.5), 'MULTIPLY'))
     g.feed(p.inputs['Base Color'], col)
     g.feed(p.inputs['Roughness'], g.mixf(score, g.mixf(damp, 0.5, 0.35), 0.75))
-    _pset(p, Coat_Weight=0.18, Coat_Roughness=0.25, Specular_IOR_Level=0.45)
+    _pset(p, Coat_Weight=0.06, Coat_Roughness=0.35, Specular_IOR_Level=0.4)
     cod = g.vmath('ADD', co, g.vmath('SCALE', g.noise(co, 40.0, 2.0, 0.5)[1], scale=0.004))
     cr = g.voronoi(cod, 90.0, 'DISTANCE_TO_EDGE')
     crack = g.maprange(cr.outputs['Distance'], 0.0, 0.03, 0.0, 1.0)
     bv = g.voronoi(co, 420.0, 'F1')
     blis = g.mul(g.maprange(bv.outputs['Distance'], 0.0, 0.45, 1.0, 0.0), g.gt(g.sep(bv.outputs['Color'])[0], 0.55))
     bl, _ = g.noise(co, 260.0, 5.0, 0.6)
-    g.feed(p.inputs['Normal'], g.bump(g.add(g.add(g.mul(crack, 0.12), g.mul(blis, 0.5)), g.mul(bl, 0.6)), 0.4, 0.0006))
+    g.feed(p.inputs['Normal'], g.bump(g.add(g.add(g.mul(crack, 0.25), g.mul(blis, 0.5)), g.mul(bl, 0.6)), 0.55, 0.0012))
     return m
 
 
@@ -799,18 +799,20 @@ def mat_crumb(name='Crumb', crust=(0.27, 0.115, 0.032)):
     v1 = g.voronoi(cod, 95.0, 'F1')
     r1 = g.sep(v1.outputs['Color'])[0]
     lo1 = g.add(0.10, g.mul(r1, 0.22))
-    h1 = g.mul(g.maprange(v1.outputs['Distance'], lo1, g.add(lo1, 0.045), 1.0, 0.0), g.gt(r1, 0.55))
+    h1 = g.mul(g.maprange(v1.outputs['Distance'], lo1, g.add(lo1, 0.06), 1.0, 0.0), g.gt(r1, 0.78))
     v15 = g.voronoi(cod, 230.0, 'F1')
     r15 = g.sep(v15.outputs['Color'])[0]
     lo15 = g.add(0.10, g.mul(r15, 0.18))
-    h15 = g.mul(g.maprange(v15.outputs['Distance'], lo15, g.add(lo15, 0.05), 1.0, 0.0), g.gt(r15, 0.3))
+    h15 = g.mul(g.maprange(v15.outputs['Distance'], lo15, g.add(lo15, 0.06), 1.0, 0.0), g.gt(r15, 0.45))
     v2 = g.voronoi(cod, 700.0, 'F1')
     r2 = g.sep(v2.outputs['Color'])[0]
-    h2 = g.mul(g.maprange(v2.outputs['Distance'], 0.14, 0.22, 1.0, 0.0), g.gt(r2, 0.2))
-    holes = g.math('MAXIMUM', g.math('MAXIMUM', h1, g.mul(h15, 0.9)), g.mul(h2, 0.7))
+    h2 = g.mul(g.maprange(v2.outputs['Distance'], 0.12, 0.24, 1.0, 0.0), g.gt(r2, 0.12))
+    v3 = g.voronoi(cod, 1600.0, 'F1')
+    h3 = g.mul(g.maprange(v3.outputs['Distance'], 0.10, 0.22, 1.0, 0.0), g.gt(g.sep(v3.outputs['Color'])[0], 0.25))
+    holes = g.math('MAXIMUM', g.math('MAXIMUM', h1, g.mul(h15, 0.95)), g.math('MAXIMUM', g.mul(h2, 0.8), g.mul(h3, 0.55)))
     cn, _ = g.noise(co, 90.0, 4.0, 0.5)
-    crumb = g.ramp(cn, [(0.3, (0.50, 0.42, 0.28)), (0.7, (0.60, 0.51, 0.35))])
-    col = g.mixc(g.mul(holes, 0.88), crumb, (0.085, 0.062, 0.036))
+    crumb = g.ramp(cn, [(0.3, (0.60, 0.50, 0.32)), (0.7, (0.70, 0.60, 0.40))])
+    col = g.mixc(g.mul(holes, 0.8), crumb, g.mixc(1.0, crumb, (0.42, 0.33, 0.22), 'MULTIPLY'))
     # crust ring (thin dark-gold band) fading to crumb within ~3.5 mm
     ring = g.maprange(cd, 0.0012, 0.0038, 1.0, 0.0, interp='SMOOTHSTEP')
     ring_col = g.ramp(g.maprange(cd, 0.0, 0.0035), [(0.0, crust), (0.45, (0.42, 0.24, 0.08)), (1.0, (0.62, 0.5, 0.32))])
@@ -819,7 +821,7 @@ def mat_crumb(name='Crumb', crust=(0.27, 0.115, 0.032)):
     _pset(p, Roughness=0.62, Subsurface_Weight=0.25, Subsurface_Scale=0.003, Specular_IOR_Level=0.4)
     p.inputs['Subsurface Radius'].default_value = (1.0, 0.75, 0.5)
     fn, _ = g.noise(co, 900.0, 3.0, 0.6)
-    g.feed(p.inputs['Normal'], g.bump(g.add(g.mul(holes, -1.0), g.mul(fn, 0.25)), 0.6, 0.0012))
+    g.feed(p.inputs['Normal'], g.bump(g.add(g.mul(holes, -1.0), g.mul(fn, 0.35)), 0.8, 0.0022))
     return m
 
 
@@ -833,14 +835,14 @@ def mat_salami(name='Salami'):
     cod = g.vmath('ADD', co, g.vmath('SCALE', g.vmath('SUBTRACT', dc, (0.5, 0.5, 0.5)), scale=0.0022))
     mn, _ = g.noise(co, 220.0, 4.0, 0.6)
     meat = g.ramp(mn, [(0.3, (0.075, 0.008, 0.010)), (0.55, (0.13, 0.014, 0.017)), (0.8, (0.19, 0.024, 0.026))])
-    vf = g.voronoi(cod, 300.0, 'F1')
+    vf = g.voronoi(cod, 520.0, 'F1')
     fr = g.sep(vf.outputs['Color'])[0]
-    fat = g.mul(g.maprange(vf.outputs['Distance'], g.add(0.2, g.mul(fr, 0.12)), g.add(0.3, g.mul(fr, 0.14)), 1.0, 0.0),
-                g.gt(fr, 0.32))
+    fat = g.mul(g.maprange(vf.outputs['Distance'], g.add(0.12, g.mul(fr, 0.1)), g.add(0.2, g.mul(fr, 0.12)), 1.0, 0.0),
+                g.gt(fr, 0.22))
     vf2 = g.voronoi(cod, 1300.0, 'F1')
     fat2 = g.mul(g.maprange(vf2.outputs['Distance'], 0.12, 0.25, 1.0, 0.0), g.gt(g.sep(vf2.outputs['Color'])[0], 0.6))
     fat = g.math('MAXIMUM', fat, g.mul(fat2, 0.85))
-    col = g.mixc(fat, meat, (0.72, 0.56, 0.48))
+    col = g.mixc(g.mul(fat, 0.9), meat, (0.62, 0.46, 0.38))
     vp = g.voronoi(co, 260.0, 'F1')
     pep = g.mul(g.maprange(vp.outputs['Distance'], 0.08, 0.16, 1.0, 0.0), g.gt(g.sep(vp.outputs['Color'])[0], 0.93))
     col = g.mixc(pep, col, (0.02, 0.015, 0.012))
@@ -848,7 +850,7 @@ def mat_salami(name='Salami'):
     col = g.mixc(casing, col, (0.11, 0.05, 0.035))
     g.feed(p.inputs['Base Color'], col)
     g.feed(p.inputs['Roughness'], g.mixf(fat, 0.3, 0.42))
-    _pset(p, Coat_Weight=0.3, Coat_Roughness=0.15, Subsurface_Weight=0.3, Subsurface_Scale=0.002,
+    _pset(p, Coat_Weight=0.12, Coat_Roughness=0.3, Subsurface_Weight=0.12, Subsurface_Scale=0.0015,
           Specular_IOR_Level=0.5)
     p.inputs['Subsurface Radius'].default_value = (1.0, 0.25, 0.2)
     g.feed(p.inputs['Normal'], g.bump(g.add(g.mul(fat, 0.5), g.mul(mn, 0.4)), 0.25, 0.0004))

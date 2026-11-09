@@ -123,7 +123,7 @@ if SHOT == 'S41':
     for sx in (-1, 1):       # cold grazing wash along the far half of each wall (fixture spill on the boxes)
         light('AREA', f'ColdGraze{sx}', (sx * 0.5, 4.3, 2.85), energy=9.0, color=kelvin(6400), size=0.12, size_y=3.4,
               shape='RECTANGLE', target=(sx * 1.25, 4.3, 1.0))
-    light('AREA', 'DoorCold', (0.0, 4.9, 2.6), energy=7.0, color=kelvin(6200), size=0.6, target=(0.0, 6.3, 1.0))
+    light('AREA', 'DoorCold', (0.0, 4.9, 2.6), energy=4.0, color=kelvin(6200), size=0.6, target=(0.0, 6.3, 1.0))
     foc = empty('FocusS41', (0.0, 3.4, 1.2))
     cam = lens_cam('CamS41', 24, 5.6, foc)
     cam.location = (0.0, -0.42, 1.42)
@@ -147,9 +147,9 @@ elif SHOT == 'S21':
     spray = M['spray']
     for k, (f0, f1, dly) in enumerate(((96, 190, 0.0), (112, 200, 0.015))):
         bm = bmesh.new()
-        for i in range(320 if k == 0 else 200):
-            p = Vector((rng.gauss(0, 0.02), rng.gauss(0, 0.02), rng.gauss(0, 0.025)))
-            rad = rng.uniform(0.0002, 0.0008) * (1.0 if rng.random() < 0.85 else 1.6)
+        for i in range(190 if k == 0 else 120):
+            p = Vector((rng.gauss(0, 0.022), rng.gauss(0, 0.022), rng.gauss(0, 0.028)))
+            rad = rng.uniform(0.00015, 0.00055) * (1.0 if rng.random() < 0.9 else 1.5)
             res = bmesh.ops.create_icosphere(bm, subdivisions=1, radius=rad)
             bmesh.ops.translate(bm, verts=res['verts'], vec=p)
         puff = from_bmesh(f'Mist{k}', bm, None, smooth=True)
@@ -174,7 +174,7 @@ elif SHOT == 'S21':
     except Exception:
         pass
     dens = next(n for n in hm.node_tree.nodes if n.bl_idname == 'ShaderNodeMath')
-    key_socket(dens.inputs[1], [(1, 0.0), (104, 0.0), (134, 3.2), (168, 1.4), (205, 0.0)])
+    key_socket(dens.inputs[1], [(1, 0.0), (104, 0.0), (134, 6.0), (168, 2.6), (205, 0.0)])
     key(haze, 'location', [(104, tuple(lens_c + Vector((-0.06, -0.08, -0.12)))), (205, tuple(lens_c + Vector((0.05, 0.0, 0.08))))])
     key(haze, 'scale', [(104, (0.6,) * 3), (205, (1.6,) * 3)])
     # the coat it leaves: a faint glossy film + a few beads on the lens facets
@@ -222,7 +222,7 @@ elif SHOT == 'S26':
     ante_spill()
     light('AREA', 'SpillBounce', (0.0, 5.3, 0.05), (0, 0, 0), energy=7.0, color=kelvin(5000), size=0.9, size_y=0.9,
           shape='RECTANGLE', target=(-0.2, 4.6, 2.9))
-    light('AREA', 'CornerBounce', (0.6, 5.4, 0.05), energy=2.5, color=kelvin(5000), size=0.5, target=PIR_CORNER)
+    light('AREA', 'CornerBounce', (0.5, 5.6, 0.05), energy=9.0, color=kelvin(5000), size=0.8, target=PIR_CORNER)
     foam = foam_sheet(M)
     pirw = Vector(pir['root'].location)
 
@@ -404,7 +404,7 @@ elif SHOT == 'S34':
         except Exception:
             pass
     dust = volume_box('BeamDust', (0.0, 2.6, 0.9), (2.4, 3.6, 1.8),
-                      mat_volume('Dust', density=0.07, color=(0.85, 0.84, 0.82), anisotropy=0.55, noise_scale=3.0,
+                      mat_volume('Dust', density=0.13, color=(0.85, 0.84, 0.82), anisotropy=-0.1, noise_scale=3.0,
                                  contrast=(0.35, 0.8)))
     sc.cycles.volume_step_rate = 6.0
     foc = empty('FocusS34', (-0.2, 2.6, 0.0))
@@ -424,10 +424,10 @@ elif SHOT == 'S28':
     debris_after(avoid=[(C[0], C[1], 0.78)])
     sorted_loot(M, C)
     fx = fixtures()
-    cream_key(pos=(-1.05, 1.2, 2.5), aim=(0.6, 3.2, 0.2), energy=34.0)
+    cream_key(pos=(-0.35, 4.5, 1.9), aim=(0.15, 2.9, 0.0), energy=30.0, size=0.3)   # side-back: paper edges catch it
     light('AREA', 'Bounce', (0.0, -0.4, 0.6), energy=2.5, color=kelvin(5200), size=2.0, target=(0.5, 2.5, 0.8))
     foc = empty('FocusS28', (C[0] - 0.42, C[1] + 0.06, 0.01))
-    cam = lens_cam('CamS28', 32, 4.0, foc)
+    cam = lens_cam('CamS28', 32, 2.8, foc)
     cam.location = (-0.88, 2.84, 0.3)
     look_at(cam, (0.62, 3.12, 0.04))
 
@@ -456,7 +456,7 @@ elif SHOT == 'S45b':
     debris_after(avoid=[(C[0], C[1], 0.78)])
     sorted_loot(M, C)
     fx = fixtures()
-    cream_key(pos=(-1.05, 2.0, 2.6), aim=(0.3, 3.1, 0.0), energy=30.0)
+    cream_key(pos=(-1.1, 3.7, 1.15), aim=(0.15, 3.0, 0.0), energy=30.0, size=0.3)     # raking: every pile casts
     light('AREA', 'Bounce', (0.0, -0.4, 0.6), energy=2.5, color=kelvin(5200), size=2.0, target=(0.5, 2.5, 0.8))
     foc = empty('FocusS45b', (C[0], C[1], 0.0))
     cam = lens_cam('CamS45b', 35, 5.6, foc)

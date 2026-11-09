@@ -217,7 +217,7 @@ def render_segment(args):
     e, path, preview = args
     n = int(round(e['dur'] * FPS))
     src = Source(e)
-    rng = np.random.default_rng(int(e['id'][1:]) * 7 + 1)
+    rng = np.random.default_rng((int(e['id'][1:]) if e['id'][1:].isdigit() else 99) * 7 + 1)
     is3d = e['kind'] in ('3D', '3DS') or (e['kind'] == 'HOLD' and src.mode != 'mg')
     label = overlay('O_LABEL') or label_fallback()
     ow, oh = W, H
@@ -272,6 +272,8 @@ def mix(tl, total, vo_path, out_wav, music=None, music_gain=-22.0, music_offset=
     fx_bus = np.zeros((n, 2), np.float32)
     vo = load_wav(vo_path + '.wav')
     for e in tl:
+        if not e.get('vo_src'):
+            continue
         a, b = int(e['vo_src'][0] * SR), int(e['vo_src'][1] * SR)
         seg = vo[a:b]
         at = int(e['vo_at'] * SR)
@@ -352,6 +354,15 @@ def mix(tl, total, vo_path, out_wav, music=None, music_gain=-22.0, music_offset=
     p.stdin.write(out[:int(total * SR)].astype(np.float32).tobytes())
     p.stdin.close()
     p.wait()
+    # broadcast loudness: two-pass EBU R128 to YouTube's -14 LUFS, -1.5 dBTP
+    m = subprocess.run(['ffmpeg', '-hide_banner', '-i', out_wav, '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'],
+                       capture_output=True, text=True).stderr
+    js = json.loads(m[m.rindex('{'):m.rindex('}') + 1])
+    ln = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:measured_LRA={js['input_lra']}"
+          f":measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
+    tmp = out_wav + '.ln.wav'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', out_wav, '-af', ln, '-ar', str(SR), '-c:a', 'pcm_s24le', tmp], check=True)
+    os.replace(tmp, out_wav)
 
 
 def main():
@@ -365,11 +376,17 @@ def main():
     tl, total = build_timeline(shots, vo)
     tl[0]['fade_in'] = 18
     tl[-1]['fade_out'] = 30
+    end_src = [os.path.join(FF, 'out', 'clips', 'END.mkv'), os.path.join(FF, 'out', 'renders', 'END')]
+    if not arg('--no-end') and any(os.path.exists(p) for p in end_src):
+        # 15 s end card (lockup, next-case line, end-screen tile zones); music runs on under it
+        tl.append({'id': 'END', 'kind': 'MG', 'src_kind': 'MG', 'shot': 'end card', 't0': total, 'dur': 15.0, 'vo_at': None,
+                   'vo_src': None, 'chapter': tl[-1]['chapter'], 'fade_in': 12, 'fade_out': 18})
+        total += 15.0
     only = arg('--only')
     work = os.path.join(FF, 'out', 'edit_segments')
     os.makedirs(work, exist_ok=True)
     jobs = [(e, os.path.join(work, f"{e['id']}.mp4"), preview) for e in tl if not only or e['id'] in only.split(',')]
-    print(f'[edit] timeline {total / 60:.0f}:{total % 60:04.1f}, {len(tl)} shots, rendering {len(jobs)} segments', flush=True)
+    print(f'[edit] timeline {int(total // 60)}:{total % 60:04.1f}, {len(tl)} shots, rendering {len(jobs)} segments', flush=True)
     with ProcessPoolExecutor(int(arg('--workers', 4))) as ex:
         for sid, n, mode in ex.map(render_segment, jobs):
             print(f'[edit] {sid} {n}f {mode}', flush=True)
@@ -388,7 +405,7 @@ def main():
         music_gain=float(arg('--music-gain', -22)), music_offset=float(arg('--music-offset', 0)))
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pic, '-i', wav, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac',
                     '-b:a', '256k', '-shortest', '-movflags', '+faststart', out], check=True)
-    print(f'[edit] wrote {out}  {total / 60:.0f}:{total % 60:04.1f}', flush=True)
+    print(f'[edit] wrote {out}  {int(total // 60)}:{total % 60:04.1f}', flush=True)
 
 
 if __name__ == '__main__':

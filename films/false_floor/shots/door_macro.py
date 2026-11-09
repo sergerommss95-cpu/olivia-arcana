@@ -160,7 +160,7 @@ def s17():
     light('AREA', 'Fill', (0.12, -0.30, -0.08), energy=0.10, color=COOL, size=0.15, target=(0.0, -0.15, 0.0))
     light('AREA', 'Rim', (-0.05, -0.20, 0.16), energy=0.25, color=COOL, size=0.04, target=(0.0, -0.16, 0.0))
     # sheen in the panel's mirror path so the brushed door steel around the boss reads as metal
-    light('AREA', 'PanelSheen', (-0.17, -0.12, -0.04), energy=0.25, color=kelvin(4800), size=0.06, size_y=0.2,
+    light('AREA', 'PanelSheen', (-0.17, -0.12, -0.04), energy=0.03, color=kelvin(4800), size=0.06, size_y=0.2,
           shape='RECTANGLE', target=(-0.05, 0.0, 0.0))
     macro_motes('Motes', (0.01, -0.15, 0.02), (0.12, 0.24, 0.09), count=240, seed=13, start=1, end=N,
                 drift=(0.002, 0.001, 0.003), r=(0.00003, 0.00008))
@@ -187,12 +187,14 @@ for _z in (0.02, 0.045, 0.07):
     ANCH[f'frame_front_z{int(_z * 1000)}'] = (G + 0.004, -T_ - FRAME_PROUD, _z)
 
 
-def night_plate_lights():
+def night_plate_lights(sheen=True):
     # hard cream key grazing down from upper left (screw heads, block bevels); cool top rim; very low cool fill.
     light('AREA', 'Key', (-0.15, -0.075, 0.27), energy=1.3, color=CREAM, size=0.01, target=(0.0, -0.012, 0.04))
     light('AREA', 'Rim', (0.06, -0.03, 0.27), energy=0.35, color=COOL, size=0.04, target=(0.0, -0.012, 0.05))
     light('AREA', 'Fill', (0.14, -0.25, -0.10), energy=0.10, color=(0.75, 0.83, 1.0), size=0.18, target=(0.0, -0.01, 0.0))
-    light('AREA', 'Kick', (0.22, -0.07, 0.06), energy=0.18, color=CREAM, size=0.008, target=(0.04, -0.015, 0.04))
+    light('AREA', 'Kick', (0.22, -0.07, 0.06), energy=0.10, color=CREAM, size=0.008, target=(0.04, -0.015, 0.04))
+    if not sheen:
+        return
     # soft sheen placed in the door face's mirror path: the brushed door steel left of the plates reads as metal
     light('AREA', 'DoorSheen', (-0.21, -0.33, -0.09), energy=0.22, color=kelvin(4800), size=0.05, size_y=0.22,
           shape='RECTANGLE', target=(-0.06, 0.0, 0.05))
@@ -267,7 +269,7 @@ def s24():
                    (N, from_dir(tgt + Vector((-0.02, 0.0, 0.0)), (-0.55, -0.76, 0.35), 0.36),
                     tuple(tgt + Vector((-0.02, 0.02, 0.0))), 0.0)])
     shake(cam, 0.00015, 0.0004, scale=20, seed=6)
-    night_plate_lights()
+    night_plate_lights(sheen=False)
     macro_motes('Motes', (0.0, -0.07, 0.04), (0.16, 0.12, 0.10), count=170, seed=15, start=1, end=N,
                 r=(0.00003, 0.00007))
     debug_light(cam)

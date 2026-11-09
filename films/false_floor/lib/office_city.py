@@ -337,7 +337,7 @@ def mat_engraved_brass(name='PlateBrass', w=0.20, h=0.06):
     Plate local coords: X across (-w/2..w/2), Z up (-h/2..h/2)."""
     if _m(name):
         return _m(name)
-    m = mat_brass(name, base=(0.80, 0.56, 0.26), dark=(0.42, 0.26, 0.09), rough=(0.18, 0.34), scale=8.0, worn=0.3)
+    m = mat_brass(name, base=(0.80, 0.56, 0.26), dark=(0.42, 0.26, 0.09), rough=(0.42, 0.58), scale=8.0, worn=0.3)
     s = SB(m)
     p = principled(m)
     co = s.coords()
@@ -1812,7 +1812,7 @@ def build_street(M, coll=None, night=True, seed=11):
     for k in range(int((yend - yin) / 1.2)):
         rbox('GutterJoint', (0.43, 0.008, 0.002), (0.0, yin + k * 1.2, 0.0045), M['stone_dark'], bev=0)
     # building fronts: left (side -1) and right (+1)
-    specs_l = [(yin, 21.0, 10.2, 'pale', (2,), [(3.0, 4.75), (14.0, 4.75)]),
+    specs_l = [(yin, 21.0, 8.9, 'pale', (2,), [(3.0, 4.75), (14.0, 4.75)]),
                (21.0, 38.0, 14.6, 'glass', (1,), [(29.0, 4.75)]),
                (38.0, 52.0, 16.0, 'brick', (), [(44.0, 4.75)]),
                (52.0, 70.0, 23.0, 'grey', (0,), [(60.0, 4.75)]),
@@ -1835,7 +1835,7 @@ def build_street(M, coll=None, night=True, seed=11):
     corner_cams = []
     corner_fac = []
     for side in (-1, 1):
-        r = build_facade(f'Corner{side}', M, 1, 0.0, 22.0, 10.2 if side < 0 else 27.0, 'pale' if side < 0 else 'grey',
+        r = build_facade(f'Corner{side}', M, 1, 0.0, 22.0, 8.9 if side < 0 else 27.0, 'pale' if side < 0 else 'grey',
                          seed + 90 + side, coll, hw=0.0, entrances=(1,), cams=[(3.2, 4.75), (13.5, 4.75)])
         o = r['obj']
         o.rotation_euler.z = math.pi / 2

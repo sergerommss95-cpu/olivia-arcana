@@ -45,7 +45,7 @@ def debug_light(target, loc, energy=600.0, size=4.0):
 
 def shot_office(dusk=False):
     setup_render(1, 1, res=STILL, samples=64, mb=False, look='Medium High Contrast', clamp=5.0,
-                 bounces=(3, 3, 4), exposure=-0.9 if not dusk else 0.0)
+                 bounces=(3, 3, 4), exposure=-1.1 if not dusk else 0.0)
     world_color((0.0, 0.0, 0.0), 0.0)
     M = office_mats()
     A = build_office(M, door_angle=72.0, blinds_tilt=50.0 if not dusk else 56.0, lamp_on=dusk, lamp_energy=30.0)
@@ -67,10 +67,10 @@ def shot_office(dusk=False):
     if DEBUG:
         debug_light((-0.4, 2.5, 0.9), (-0.4, 1.8, 2.4), energy=600, size=1.5)
     elif not dusk:
-        sun('Sun', (-0.16, -0.84, -0.52), 16.0, kelvin(4300), angle=0.6)
+        sun('Sun', (-0.16, -0.84, -0.52), 24.0, kelvin(4300), angle=0.25)
         light('AREA', 'SkyFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=120.0,
               color=kelvin(9000), size=wx1 - wx0, size_y=wz1 - wz0, shape='RECTANGLE')
-        light('AREA', 'CorridorTroffer', (-1.4, -1.3, o['cor_h'] - 0.02), energy=40.0, color=kelvin(4100),
+        light('AREA', 'CorridorTroffer', (-1.0, -1.1, o['cor_h'] - 0.02), energy=30.0, color=kelvin(4100),
               size=0.3, size_y=1.2, shape='RECTANGLE')
     else:
         light('AREA', 'DuskFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=90.0,
@@ -78,7 +78,7 @@ def shot_office(dusk=False):
         light('AREA', 'CorridorNight', (-1.6, -1.7, o['cor_h'] - 0.02), energy=13.0, color=kelvin(4300),
               size=0.25, size_y=0.6, shape='RECTANGLE')
     if HAZE:
-        hz = mat_volume('OfficeHaze', density=0.05 if not dusk else 0.012, color=(0.9, 0.9, 0.9), anisotropy=0.6,
+        hz = mat_volume('OfficeHaze', density=0.022 if not dusk else 0.012, color=(0.9, 0.9, 0.9), anisotropy=0.6,
                         noise_scale=1.4, contrast=(0.3, 0.75))
         volume_box('Haze', ((o['x0'] + o['x1']) / 2, o['y1'] / 2, o['H'] / 2), (o['x1'] - o['x0'] - 0.02, o['y1'] - 0.02,
                    o['H'] - 0.02), hz)
@@ -153,7 +153,7 @@ def shot_street(night=True):
         cam_at('CamNight', (-3.3, -2.6, 1.3), (1.0, 26.0, 3.6), 30.0, 4.0, foc, roll=0.0)
     else:
         foc = empty('FocusD', (0.5, 9.0, 1.5))
-        cam_at('CamDusk', (-3.2, -19.0, 1.95), (2.0, 14.0, 7.0), 36.0, 5.6, foc, roll=0.0)
+        cam_at('CamDusk', (-3.4, -26.0, 2.2), (2.0, 14.0, 5.0), 32.0, 5.6, foc, roll=0.0)
 
 
 reset()
