@@ -1,0 +1,44 @@
+{
+ "shots": [
+  {
+   "id": "1A",
+   "in": 7,
+   "out": 54,
+   "grade": "act1",
+   "tin": {
+    "type": "cut"
+   },
+   "fade_in": 8
+  },
+  {
+   "id": "1B",
+   "in": 7,
+   "out": 42,
+   "grade": "act1",
+   "tin": {
+    "type": "cut"
+   }
+  },
+  {
+   "id": "1C",
+   "in": 7,
+   "out": 42,
+   "grade": "act1",
+   "tin": {
+    "type": "cut"
+   },
+   "whip_out": 3
+  },
+  {
+   "id": "2A",
+   "in": 7,
+   "out": 25,
+   "grade": "act2",
+   "tin": {
+    "type": "whip",
+    "n": 3
+   },
+   "fade_out": 10
+  }
+ ]
+}

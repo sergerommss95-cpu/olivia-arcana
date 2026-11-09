@@ -103,8 +103,8 @@ def smoothstep(e0, e1, x):
 
 GRADES = {
     # shadows tint, highlights tint, saturation, contrast, exposure (stops), halation strength, bloom
-    'act1': dict(sh=(-0.012, 0.004, 0.016), hi=(0.03, 0.008, -0.03), sat=1.05, con=1.08, exp=0.0, hal=0.22, bloom=0.10),
-    'act2': dict(sh=(-0.010, 0.006, 0.020), hi=(0.02, 0.01, -0.015), sat=0.98, con=1.08, exp=0.0, hal=0.18, bloom=0.10),
+    'act1': dict(sh=(-0.016, 0.006, 0.024), hi=(0.04, 0.012, -0.035), sat=1.06, con=1.12, exp=0.0, hal=0.22, bloom=0.10),
+    'act2': dict(sh=(-0.014, 0.008, 0.026), hi=(0.03, 0.012, -0.02), sat=1.0, con=1.1, exp=0.0, hal=0.18, bloom=0.10),
     'act3': dict(sh=(-0.008, 0.004, 0.014), hi=(0.03, 0.006, -0.035), sat=1.05, con=1.1, exp=-0.05, hal=0.25, bloom=0.12),
     'act4': dict(sh=(-0.012, 0.006, 0.022), hi=(0.03, 0.005, -0.02), sat=1.08, con=1.1, exp=0.0, hal=0.28, bloom=0.14),
     'act5': dict(sh=(-0.006, 0.003, 0.010), hi=(0.02, 0.008, -0.02), sat=1.0, con=1.06, exp=0.0, hal=0.18, bloom=0.08),

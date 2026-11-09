@@ -28,7 +28,7 @@ def db(x):
 
 def main():
     cues = json.load(open(os.path.join(FILM, 'edit', 'cues.json')))
-    edl = json.load(open(os.path.join(FILM, 'edit', 'edl.json')))['shots']
+    edl = json.load(open(os.path.join(FILM, arg('--edl', 'edit/edl.json'))))['shots']
     starts, t = {}, 0
     for s in edl:
         starts[s['id']] = t
@@ -53,12 +53,16 @@ def main():
     env[end - fo:end] = np.linspace(1, 0, fo) ** 1.5
     env[end:] = 0
     for d in mu.get('dips', []):   # e.g. duck under a big SFX: {"shot":..,"f":..,"len_s":..,"db":-6}
+        if d['shot'] not in starts:
+            continue
         a = int((starts[d['shot']] + d['f']) / FPS * SR)
         L = int(d['len_s'] * SR)
         env[a:a + L] *= db(d['db'])
     bus_m *= env[:, None]
     cache = {}
     for c in cues['cues']:
+        if c['shot'] not in starts:
+            continue
         if c['key'] not in cache:
             cache[c['key']] = load(os.path.join(FILM, 'audio', 'sfx', c['key'] + '.wav'))
         x = cache[c['key']]
