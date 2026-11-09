@@ -463,7 +463,9 @@ def mat_leaf(name='Leaf'):
     lat = g.math('FRACT', g.sub(g.mul(u, veinf), g.mul(vn, 0.85)))
     latl = g.maprange(g.math('ABSOLUTE', g.sub(lat, 0.5)), 0.43, 0.5)
     latl = g.mul(latl, g.maprange(vn, 0.95, 0.6))
-    veins = g.math('MAXIMUM', mid, g.mul(latl, 0.7))
+    lat2 = g.math('FRACT', g.sub(g.mul(u, g.mul(veinf, 3.0)), g.mul(vn, 1.4)))
+    latl2 = g.mul(g.maprange(g.math('ABSOLUTE', g.sub(lat2, 0.5)), 0.45, 0.5), g.maprange(vn, 0.9, 0.3))
+    veins = g.math('MAXIMUM', g.math('MAXIMUM', mid, g.mul(latl, 0.7)), g.mul(latl2, 0.3))
     col = g.mixc(g.mul(veins, 0.3), col, g.mixc(1.0, col, (1.7, 1.45, 1.25), 'MULTIPLY'))
     # margins darker and drier
     edge = g.maprange(vn, 0.72, 1.0)
@@ -485,7 +487,7 @@ def mat_leaf(name='Leaf'):
     _pset(p, Coat_Roughness=0.06)
     fine_f, _ = g.noise(co, 420.0, 3.0, 0.6)
     h = g.add(g.mul(veins, 0.6), g.mul(fine_f, 0.4))
-    nrm = g.bump(h, 0.22, 0.0007)
+    nrm = g.bump(h, 0.35, 0.0007)
     g.feed(p.inputs['Normal'], nrm)
     # thin-leaf translucency
     tr = g.node('ShaderNodeBsdfTranslucent')
@@ -535,9 +537,10 @@ def mat_soil(name='Soil', far_from=2.2, far_to=3.6):
     g.feed(p.inputs['Base Color'], col)
     wn, _ = g.noise(co, 3.0, 3.0, 0.5)
     wet = g.maprange(wn, 0.45, 0.62, 0.0, 1.0)
-    g.feed(p.inputs['Roughness'], g.mixf(pathm, g.mixf(far, g.mixf(wet, 0.82, 0.45), 0.75), g.mixf(wet, 0.55, 0.22)))
-    g.feed(p.inputs['Coat Weight'], g.add(g.mul(g.mul(wet, 0.2), g.sub(1.0, far)), g.mul(pathm, g.mul(wet, 0.5))))
-    g.feed(p.inputs['Specular IOR Level'], g.mixf(wet, 0.15, 0.35))
+    pw = g.mul(pathm, g.maprange(wn, 0.55, 0.62))
+    g.feed(p.inputs['Roughness'], g.mixf(pathm, g.mixf(far, g.mixf(wet, 0.85, 0.62), 0.8), g.mixf(pw, 0.75, 0.4)))
+    g.feed(p.inputs['Coat Weight'], g.add(g.mul(g.mul(wet, 0.08), g.sub(1.0, far)), g.mul(pw, 0.2)))
+    g.feed(p.inputs['Specular IOR Level'], g.mixf(wet, 0.15, 0.28))
     _pset(p, Coat_Roughness=0.1)
     hb, _ = g.noise(co, 120.0, 6.0, 0.6)
     cl = g.voronoi(co, 60.0, 'F1')
@@ -752,8 +755,11 @@ def mat_crust(name='Crust'):
     score = g.attr('score').outputs['Factor']
     geo = g.node('ShaderNodeNewGeometry')
     _, _, nz = g.sep(geo.outputs['Normal'])
-    n1, _ = g.noise(co, 55.0, 8.0, 0.62, dist=0.2)
-    col = g.ramp(n1, [(0.25, (0.075, 0.036, 0.014)), (0.5, (0.20, 0.10, 0.038)), (0.75, (0.36, 0.215, 0.095))])
+    n0, _ = g.noise(co, 18.0, 4.0, 0.55, dist=0.5)
+    n1, _ = g.noise(co, 70.0, 8.0, 0.62, dist=0.3)
+    nmix = g.add(g.mul(n0, 0.55), g.mul(n1, 0.45))
+    col = g.ramp(nmix, [(0.3, (0.055, 0.026, 0.010)), (0.45, (0.15, 0.072, 0.026)), (0.58, (0.25, 0.13, 0.05)),
+                        (0.72, (0.38, 0.235, 0.11))])
     # tops bake darker
     col = g.mixc(g.mul(g.maprange(nz, 0.2, 0.9), 0.45), col, g.mixc(1.0, col, (0.5, 0.42, 0.36), 'MULTIPLY'))
     # opened score: paler, rougher crumb-crust
@@ -768,10 +774,13 @@ def mat_crust(name='Crust'):
     g.feed(p.inputs['Base Color'], col)
     g.feed(p.inputs['Roughness'], g.mixf(score, g.mixf(damp, 0.5, 0.35), 0.75))
     _pset(p, Coat_Weight=0.18, Coat_Roughness=0.25, Specular_IOR_Level=0.45)
-    cr = g.voronoi(co, 140.0, 'DISTANCE_TO_EDGE')
-    crack = g.maprange(cr.outputs['Distance'], 0.0, 0.05, 0.0, 1.0)
+    cod = g.vmath('ADD', co, g.vmath('SCALE', g.noise(co, 40.0, 2.0, 0.5)[1], scale=0.004))
+    cr = g.voronoi(cod, 90.0, 'DISTANCE_TO_EDGE')
+    crack = g.maprange(cr.outputs['Distance'], 0.0, 0.03, 0.0, 1.0)
+    bv = g.voronoi(co, 420.0, 'F1')
+    blis = g.mul(g.maprange(bv.outputs['Distance'], 0.0, 0.45, 1.0, 0.0), g.gt(g.sep(bv.outputs['Color'])[0], 0.55))
     bl, _ = g.noise(co, 260.0, 5.0, 0.6)
-    g.feed(p.inputs['Normal'], g.bump(g.add(g.mul(crack, 0.5), g.mul(bl, 0.6)), 0.4, 0.0006))
+    g.feed(p.inputs['Normal'], g.bump(g.add(g.add(g.mul(crack, 0.12), g.mul(blis, 0.5)), g.mul(bl, 0.6)), 0.4, 0.0006))
     return m
 
 
@@ -782,19 +791,26 @@ def mat_crumb(name='Crumb', crust=(0.27, 0.115, 0.032)):
     p = g.principled()
     co = g.tc().outputs['Object']
     cd = g.attr('crustd').outputs['Factor']
-    dn, dc = g.noise(co, 180.0, 2.0, 0.5)
-    cod = g.vmath('ADD', co, g.vmath('SCALE', g.vmath('SUBTRACT', dc, (0.5, 0.5, 0.5)), scale=0.003))
-    v1 = g.voronoi(cod, 150.0, 'F1')
+    dn, dc = g.noise(co, 120.0, 3.0, 0.6)
+    _, dc2 = g.noise(co, 420.0, 2.0, 0.5)
+    cod = g.vmath('ADD', co, g.vmath('SCALE', g.vmath('SUBTRACT', dc, (0.5, 0.5, 0.5)), scale=0.006))
+    cod = g.vmath('ADD', cod, g.vmath('SCALE', g.vmath('SUBTRACT', dc2, (0.5, 0.5, 0.5)), scale=0.0015))
+    cod = g.vmath('MULTIPLY', cod, (1.0, 1.0, 0.7))
+    v1 = g.voronoi(cod, 95.0, 'F1')
     r1 = g.sep(v1.outputs['Color'])[0]
-    h1 = g.mul(g.maprange(v1.outputs['Distance'], g.add(0.12, g.mul(r1, 0.22)), g.add(0.2, g.mul(r1, 0.3)), 1.0, 0.0),
-               g.gt(r1, 0.3))
-    v2 = g.voronoi(cod, 750.0, 'F1')
+    lo1 = g.add(0.10, g.mul(r1, 0.22))
+    h1 = g.mul(g.maprange(v1.outputs['Distance'], lo1, g.add(lo1, 0.045), 1.0, 0.0), g.gt(r1, 0.55))
+    v15 = g.voronoi(cod, 230.0, 'F1')
+    r15 = g.sep(v15.outputs['Color'])[0]
+    lo15 = g.add(0.10, g.mul(r15, 0.18))
+    h15 = g.mul(g.maprange(v15.outputs['Distance'], lo15, g.add(lo15, 0.05), 1.0, 0.0), g.gt(r15, 0.3))
+    v2 = g.voronoi(cod, 700.0, 'F1')
     r2 = g.sep(v2.outputs['Color'])[0]
-    h2 = g.mul(g.maprange(v2.outputs['Distance'], 0.1, 0.32, 1.0, 0.0), g.gt(r2, 0.25))
-    holes = g.math('MAXIMUM', h1, g.mul(h2, 0.8))
+    h2 = g.mul(g.maprange(v2.outputs['Distance'], 0.14, 0.22, 1.0, 0.0), g.gt(r2, 0.2))
+    holes = g.math('MAXIMUM', g.math('MAXIMUM', h1, g.mul(h15, 0.9)), g.mul(h2, 0.7))
     cn, _ = g.noise(co, 90.0, 4.0, 0.5)
-    crumb = g.ramp(cn, [(0.3, (0.48, 0.41, 0.29)), (0.7, (0.58, 0.50, 0.36))])
-    col = g.mixc(g.mul(holes, 0.75), crumb, (0.16, 0.12, 0.07))
+    crumb = g.ramp(cn, [(0.3, (0.50, 0.42, 0.28)), (0.7, (0.60, 0.51, 0.35))])
+    col = g.mixc(g.mul(holes, 0.88), crumb, (0.085, 0.062, 0.036))
     # crust ring (thin dark-gold band) fading to crumb within ~3.5 mm
     ring = g.maprange(cd, 0.0012, 0.0038, 1.0, 0.0, interp='SMOOTHSTEP')
     ring_col = g.ramp(g.maprange(cd, 0.0, 0.0035), [(0.0, crust), (0.45, (0.42, 0.24, 0.08)), (1.0, (0.62, 0.5, 0.32))])
@@ -814,17 +830,17 @@ def mat_salami(name='Salami'):
     co = g.tc().outputs['Object']
     rr = g.attr('rr').outputs['Factor']
     dn, dc = g.noise(co, 300.0, 2.0, 0.5)
-    cod = g.vmath('ADD', co, g.vmath('SCALE', g.vmath('SUBTRACT', dc, (0.5, 0.5, 0.5)), scale=0.0012))
+    cod = g.vmath('ADD', co, g.vmath('SCALE', g.vmath('SUBTRACT', dc, (0.5, 0.5, 0.5)), scale=0.0022))
     mn, _ = g.noise(co, 220.0, 4.0, 0.6)
     meat = g.ramp(mn, [(0.3, (0.075, 0.008, 0.010)), (0.55, (0.13, 0.014, 0.017)), (0.8, (0.19, 0.024, 0.026))])
-    vf = g.voronoi(cod, 420.0, 'F1')
+    vf = g.voronoi(cod, 300.0, 'F1')
     fr = g.sep(vf.outputs['Color'])[0]
-    fat = g.mul(g.maprange(vf.outputs['Distance'], g.add(0.16, g.mul(fr, 0.1)), g.add(0.26, g.mul(fr, 0.12)), 1.0, 0.0),
-                g.gt(fr, 0.42))
+    fat = g.mul(g.maprange(vf.outputs['Distance'], g.add(0.2, g.mul(fr, 0.12)), g.add(0.3, g.mul(fr, 0.14)), 1.0, 0.0),
+                g.gt(fr, 0.32))
     vf2 = g.voronoi(cod, 1300.0, 'F1')
     fat2 = g.mul(g.maprange(vf2.outputs['Distance'], 0.12, 0.25, 1.0, 0.0), g.gt(g.sep(vf2.outputs['Color'])[0], 0.6))
     fat = g.math('MAXIMUM', fat, g.mul(fat2, 0.85))
-    col = g.mixc(fat, meat, (0.62, 0.46, 0.40))
+    col = g.mixc(fat, meat, (0.72, 0.56, 0.48))
     vp = g.voronoi(co, 260.0, 'F1')
     pep = g.mul(g.maprange(vp.outputs['Distance'], 0.08, 0.16, 1.0, 0.0), g.gt(g.sep(vp.outputs['Color'])[0], 0.93))
     col = g.mixc(pep, col, (0.02, 0.015, 0.012))
@@ -994,9 +1010,10 @@ def build_ground(P, hf, mat_near, mat_far=None, coll=None, res=0.012, attr_fn=No
     hf.h[:] = ground_height(hf.X, hf.Y, P).astype(np.float32)
     # far ground: coarse fan out to 60 m (slightly below near mesh in the overlap)
     fx = np.arange(-45, 45 + 1e-6, far_res)
-    fy = np.concatenate([np.arange(y1 - 0.3, max(y1 + 6, 12), far_res * 0.5), np.linspace(max(y1 + 6, 12) + 0.5, 70, 40)])
+    fy = np.concatenate([np.arange(y0 - 6.0, max(y1 + 6, 12), far_res * 0.5), np.linspace(max(y1 + 6, 12) + 0.5, 70, 40)])
     FX, FY = np.meshgrid(fx, fy)
-    FZ = ground_height(FX, FY, P) - 0.006
+    inside = (FX > x0 - 0.05) & (FX < x1 + 0.05) & (FY > y0 - 0.05) & (FY < y1 + 0.15)
+    FZ = ground_height(FX, FY, P) - np.where(inside, 0.03, 0.006)
     VF = np.stack([FX.ravel(), FY.ravel(), FZ.ravel()], -1)
     of = mesh_from_np('GroundFar', VF, _grid_faces(len(fy), len(fx)), coll, smooth=True,
                       attrs=attr_fn(FX.ravel(), FY.ravel()) if attr_fn else None)
@@ -1012,72 +1029,79 @@ class LeafProto:
 
 
 def make_leaf_proto(name, kind, rng, mat, style='flat'):
+    """Oak (lobed, auriculate base) or beech (oval, wavy vein-tipped teeth) leaf as a finely sampled ribbon mesh:
+    ~100 rows so outlines are smooth curves, not polygon cards. style: flat (cupped wet leaf), curled (dry), broken
+    (torn along a jagged curve). Random edge bites on some leaves. UV = (u along midrib, v across); attr veinf."""
     if kind == 'oak':
-        L = rng.uniform(0.075, 0.115); W = L * rng.uniform(0.26, 0.32); nu = 48
-        lobes = rng.choice([4.5, 5.0, 5.5]); phL = rng.uniform(0, 1); phR = phL + rng.uniform(0.3, 0.7)
-        depth = rng.uniform(0.4, 0.62); Lp = rng.uniform(0.004, 0.009)
+        L = rng.uniform(0.06, 0.12); W = L * rng.uniform(0.26, 0.33); nu = 100
+        lobes = rng.choice([4.5, 5.0, 5.5, 6.0]); phL = rng.uniform(0, 1); phR = phL + rng.uniform(0.3, 0.7)
+        depth = rng.uniform(0.35, 0.6); Lp = rng.uniform(0.004, 0.009)
         veinf = lobes
     else:
-        L = rng.uniform(0.055, 0.085); W = L * rng.uniform(0.29, 0.35); nu = 30
+        L = rng.uniform(0.045, 0.09); W = L * rng.uniform(0.30, 0.36); nu = 80
         Lp = rng.uniform(0.006, 0.012)
         veinf = rng.uniform(7.5, 9.0)
-    nv = 9
-    up = np.linspace(-Lp / L, -0.004, 3)
-    ub = np.linspace(0.0, 0.993, nu)
-    us = np.concatenate([up, ub])
-    rows = []
-    for u in us:
+        tph = rng.uniform(0, 1)
+    nv = 11
+    bites = []
+    for _ in range(rng.choice([0, 0, 1, 1, 2])):
+        bites.append((rng.uniform(0.25, 0.85), rng.choice([-1, 1]), rng.uniform(0.04, 0.09), rng.uniform(0.35, 0.8),
+                      rng.uniform(0, 10)))
+
+    def width(u, side):
         if u < 0:
-            wl = wr = 0.0009
-        elif kind == 'oak':
+            return 0.0009
+        if kind == 'oak':
             env = W * math.sin(math.pi * min(u, 1) ** 1.25) ** 0.6
             ear = W * 0.22 * math.exp(-((u - 0.05) / 0.03) ** 2)
-            lob = lambda ph: 0.5 + 0.5 * math.cos(2 * math.pi * (lobes * u + ph))
-            wl = env * (1 - depth * (1 - lob(phL)) ** 3) + ear + 0.0009
-            wr = env * (1 - depth * (1 - lob(phR)) ** 3) + ear + 0.0009
+            ph = phR if side > 0 else phL
+            lob = 0.5 + 0.5 * math.cos(2 * math.pi * (lobes * u + ph))
+            w = env * (1 - depth * (1 - lob) ** 3) + ear
         else:
-            env = W * math.sin(math.pi * u ** 0.85) ** 0.95
-            wl = env * (1 + 0.035 * math.sin(2 * math.pi * 8 * u)) + 0.0009
-            wr = env * (1 + 0.035 * math.sin(2 * math.pi * 8 * u + 0.6)) + 0.0009
-        rows.append((u, wl, wr))
-    # shape deformation parameters
-    if style == 'flat':
-        fold, curl, roll, crum, tip = rng.uniform(0.04, 0.2), rng.uniform(0.15, 0.55), rng.uniform(0.25, 0.6), \
+            env = W * math.sin(math.pi * min(u, 1) ** 0.85) ** 0.95
+            tooth = 0.5 + 0.5 * math.cos(2 * math.pi * (veinf * u + tph + (0.5 if side > 0 else 0)))
+            w = env * (1 + 0.045 * tooth ** 3 - 0.02)
+        for (ub, sd, rb, dp, ph) in bites:
+            if sd == side:
+                jag = 0.85 + 0.15 * math.sin(u * 140 + ph)
+                w *= 1 - dp * jag * math.exp(-((u - ub) / rb) ** 2)
+        return w + 0.0009
+    tear = style == 'broken'
+    if tear:
+        cu, ct, cph = rng.uniform(0.5, 0.85), rng.uniform(-0.22, 0.22), rng.uniform(0, 10)
+        ucut = lambda sv: cu + ct * sv + 0.045 * math.sin(sv * 7 + cph) + 0.02 * math.sin(sv * 19 + 2 * cph)
+    if style == 'curled':
+        fold, curl, roll, crum, tip = rng.uniform(0.2, 0.5), rng.uniform(0.3, 0.8), rng.uniform(0.6, 1.1), \
+            rng.uniform(0.5, 1.0), rng.uniform(0.1, 0.5)
+    else:   # wet, cupped
+        fold, curl, roll, crum, tip = rng.uniform(0.05, 0.25), rng.uniform(0.2, 0.65), rng.uniform(0.3, 0.75), \
             rng.uniform(0.3, 0.8), rng.uniform(0.0, 0.3)
-    else:  # dry curled
-        fold, curl, roll, crum, tip = rng.uniform(0.18, 0.45), rng.uniform(0.15, 0.5), rng.uniform(0.2, 0.6), \
-            rng.uniform(0.4, 0.9), rng.uniform(0.1, 0.45)
     twist = rng.uniform(-0.35, 0.35)
     seed = rng.uniform(0, 100)
+    up = np.linspace(-Lp / L, -0.004, 3)
+    ub = 0.995 * (np.linspace(0.0, 1.0, nu) ** 1.0)
+    us = np.concatenate([up, ub])
     V, UV = [], []
-    for (u, wl, wr) in rows:
+    for u0 in us:
         for j in range(nv):
-            s = -1 + 2 * j / (nv - 1)
-            y = s * (wr if s > 0 else wl)
+            sv = -1 + 2 * j / (nv - 1)
+            u = min(u0, ucut(sv)) if (tear and u0 > 0) else u0
+            side = 1 if sv > 0 else -1
+            y = sv * width(u, side)
             x = u * L
             z = fold * abs(y) + curl * ((x / L - 0.45) ** 2) * L * 0.6 + tip * max(u - 0.6, 0) ** 2 * L * 0.5 \
                 + roll * (abs(y) / W) ** 2.5 * W * 0.6
             z += crum * L * 0.035 * mnoise.noise(Vector((x * 40 + seed, y * 40, seed * 0.3)))
+            z += crum * L * 0.01 * mnoise.noise(Vector((x * 140 + seed, y * 140, seed * 0.7)))
             if u < 0:
                 z += 0.0015 * (-u * L / Lp)
             a = twist * (u - 0.5)
             y2, z2 = y * math.cos(a) - z * math.sin(a), y * math.sin(a) + z * math.cos(a)
             V.append((x - L * 0.45, y2, z2))
-            UV.append((max(u, 0.0), (s + 1) / 2))
+            UV.append((max(u, 0.0), (sv + 1) / 2))
     V = np.array(V)
     V[:, 2] -= V[:, 2].min()
-    F = _grid_faces(len(rows), nv)
-    if style == 'broken':
-        cu = rng.uniform(0.45, 0.8)
-        side = rng.choice([-1, 1])
-        Fk = []
-        for f in F:
-            uu = sum(UV[k][0] for k in f) / 4
-            vv = sum(UV[k][1] for k in f) / 4 * 2 - 1
-            cut = cu + 0.12 * math.sin(vv * 9 + seed) + 0.25 * side * vv
-            if uu < cut:
-                Fk.append(f)
-        F = Fk
+    F = _grid_faces(len(us), nv)
     me = bpy.data.meshes.new(name)
     me.from_pydata([tuple(v) for v in V.tolist()], [], F)
     uvl = me.uv_layers.new(name='UVMap')
@@ -1094,7 +1118,7 @@ def make_leaf_proto(name, kind, rng, mat, style='flat'):
     return lp
 
 
-def make_leaf_protos(mat, seed=5, n_oak=10, n_beech=9):
+def make_leaf_protos(mat, seed=5, n_oak=12, n_beech=10):
     rng = random.Random(seed)
     protos = []
     styles = ['flat', 'flat', 'broken', 'flat', 'curled', 'flat', 'broken', 'flat', 'flat', 'curled']
@@ -1151,7 +1175,7 @@ def place_leaf(hf, proto, x, y, rng, coll, scale=1.0, yaw=None, flip=None, avoid
     return o
 
 
-def scatter_leaves(hf, protos, n, rng, coll, dens, avoid=False, scale=(0.85, 1.15), name='Leaf', max_tries=None,
+def scatter_leaves(hf, protos, n, rng, coll, dens, avoid=False, scale=(0.72, 1.22), name='Leaf', max_tries=None,
                    flat_zone=None):
     """dens(x, y) -> acceptance probability (vectorised ok). Returns placed objects."""
     out = []
@@ -1307,7 +1331,7 @@ def crumpled_wad(name, loc, r, mat, coll=None, seed=0):
 
 # ============================================================================ bin bag
 
-def _bag_bmesh(size, mouth, seed, res, tear=True):
+def _bag_bmesh(size, mouth, seed, res, tear=True, opening=0.42):
     """Lumpy half-full bin bag in local coords (neck at +x, z up, bottom ~ -size z). tear=False: closed bag."""
     rng = random.Random(seed)
     bm = bmesh.new()
@@ -1337,7 +1361,7 @@ def _bag_bmesh(size, mouth, seed, res, tear=True):
         z = z * k + 0.25 * sz * t
         x += 0.32 * sx * t * t
         md = p.dot(dm)
-        thr = 0.42 + 0.10 * mnoise.noise(q * 4.0) + 0.05 * mnoise.noise(q * 13.0) + 0.03 * mnoise.noise(q * 37.0)
+        thr = opening + 0.10 * mnoise.noise(q * 4.0) + 0.05 * mnoise.noise(q * 13.0) + 0.03 * mnoise.noise(q * 37.0)
         if tear:
             near = _sstep(thr - 0.4, thr, md)                              # torn film slumps onto the ground
             z = z * (1 - 0.55 * near) - 0.35 * sz * near
@@ -1368,12 +1392,12 @@ def build_bag_flight(name, size, mat, coll=None, seed=11, res=(120, 60)):
 
 
 def build_binbag(hf, center, yaw, mat, coll=None, size=(0.28, 0.20, 0.11), mouth=(-0.55, -0.8, 0.15), seed=11,
-                 res=(176, 88), pivot=False, name='BinBag'):
+                 res=(176, 88), pivot=False, name='BinBag', opening=0.42):
     """Lumpy, half-emptied black bin bag lying on its side: gathered neck at local +x with radial pleats running
     into the body, contents bulging the film, sagging film between them, torn open on the `mouth` side with the
     ragged edge slumped onto the leaves. 'tear' attribute = proximity to the torn edge (stretch whitening).
     pivot=True puts the object origin at the bag centre (for settle animation) instead of the world origin."""
-    bm = _bag_bmesh(size, mouth, seed, res, tear=True)
+    bm = _bag_bmesh(size, mouth, seed, res, tear=True, opening=opening)
     me = bpy.data.meshes.new(name)
     bm.to_mesh(me)
     bm.free()
@@ -1639,13 +1663,15 @@ def _bread_piece(name, top, P, rng, coll, mats, bite=None):
 
 
 def _salami_slice(name, cx, cy, cz, r, t, tilt, P, coll, mat, seed=0, droop_side=-1):
-    nr, na = 10, 56
+    nr, na = 10, 96
     V, rr, F = [], [], []
     rng = random.Random(seed)
     wob = [rng.uniform(-0.04, 0.04) for _ in range(6)]
 
     def rad(a):
-        return r * (1 + wob[0] * math.sin(a + wob[1] * 30) + wob[2] * math.sin(2 * a + wob[3] * 30))
+        rag = 0.03 * mnoise.noise(Vector((math.cos(a) * 3 + seed, math.sin(a) * 3, 0.5))) \
+            + 0.012 * math.sin(a * 23 + seed) + 0.008 * math.sin(a * 41 + 2 * seed)
+        return r * (1 + wob[0] * math.sin(a + wob[1] * 30) + wob[2] * math.sin(2 * a + wob[3] * 30) + rag)
     for side, dz in ((0, t / 2), (1, -t / 2)):
         V.append((0.0, 0.0, dz)); rr.append(0.0)
         for i in range(1, nr + 1):
@@ -1718,7 +1744,7 @@ def build_sandwich(root_loc, yaw, mats, coll=None, seed=21, tilt=(0.0, 0.0)):
     P['a_cut'] = max(abs(y) for y, z in outline if abs(z - P['zc']) < 0.002)
     slices = []
     xs = [P['L'] - 0.014, P['L'] - 0.036, P['L'] - 0.058, P['L'] - 0.080, P['L'] - 0.100]
-    ys = [-0.010, -0.004, -0.011, -0.006, -0.009]
+    ys = [-0.014, -0.007, -0.015, -0.009, -0.012]
     for k, (x, y) in enumerate(zip(xs, ys)):
         r = rng.uniform(0.0215, 0.0235)
         cz = P['zc'] + 0.0011 + (0.0018 if k % 2 else 0.0)
@@ -1790,11 +1816,11 @@ def build_trunk(name, base, radius, height, mat, coll=None, seed=0, lean=(0.0, 0
     lobes = rng.randint(4, 6)
     ph = rng.uniform(0, 6.28)
     for z in zs:
-        flare = 1 + 0.55 * math.exp(-z / 0.32)
+        flare = 1 + 0.32 * math.exp(-z / 0.22)
         for k in range(seg):
             a = 2 * math.pi * k / seg
             r = radius * (1 - 0.12 * z / height) * flare
-            r *= 1 + 0.18 * math.exp(-z / 0.45) * max(0, math.cos(lobes * a + ph)) ** 2
+            r *= 1 + 0.22 * math.exp(-z / 0.35) * max(0, math.cos(lobes * a + ph)) ** 2
             r *= 1 + 0.03 * mnoise.noise(Vector((math.cos(a) * 2 + seed, math.sin(a) * 2, z * 1.5)))
             V.append((base[0] + lean[0] * z + r * math.cos(a), base[1] + lean[1] * z + r * math.sin(a), base[2] + z - 0.05))
     F = _grid_faces(rings, seg, closed=True)
@@ -2141,7 +2167,7 @@ def build_tableau(cfg):
 # ============================================================================ wider sets (S31 / S33 / S35)
 
 def forest_floor(GROUND, hf, rigs, M, coll_leaf, coll_bg, rng, n, seed, fade=(4.0, 7.0), extra_dens=None,
-                 flat_zone=None, scale=(0.85, 1.15), ground_res=0.02, attr_fn=None, floor=0.25):
+                 flat_zone=None, scale=(0.72, 1.22), ground_res=0.02, attr_fn=None, floor=0.25):
     """Ground mesh + leaf litter pass over the cameras' view, density fading with distance from the lens."""
     build_ground(GROUND, hf, M['soil'], coll=coll_bg, res=ground_res, attr_fn=attr_fn, far_res=0.5)
     protos = make_leaf_protos(M['leaf'], seed=seed + 4)
@@ -2175,7 +2201,7 @@ def trunk_field(GROUND, M, coll, rng, n, ymin, ymax, xk=0.65, xpad=1.5, min_d=1.
             continue
         if any((x - t[0]) ** 2 + (y - t[1]) ** 2 < min_d ** 2 for t in pts):
             continue
-        pts.append((x, y, rng.uniform(*r)))
+        pts.append((x, y, r[0] + (r[1] - r[0]) * rng.random() ** 1.8))
     objs = []
     for i, (x, y, rr) in enumerate(pts):
         z0 = float(ground_height(np.array([x]), np.array([y]), GROUND)[0])

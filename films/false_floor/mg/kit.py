@@ -463,7 +463,7 @@ def rect_cover(x0, y0, x1, y1):
 class Cam:
     """Very slow push (<=3 %): background pushes a little more than the layout (gentle parallax)."""
 
-    def __init__(self, n, push=0.018, bg_push=0.028, center=(W * 0.5, H * 0.5)):
+    def __init__(self, n, push=0.008, bg_push=0.028, center=(W * 0.5, H * 0.5)):
         self.n, self.push, self.bg_push, self.center = n, push, bg_push, center
 
     def t(self, f):

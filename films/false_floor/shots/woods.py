@@ -61,7 +61,7 @@ if SHOT == 'S35':
     G = lambda u, v: tuple(rig.ground(u, v, 0.008))[:2]
     GROUND = dict(seed=5, rise_start=5.0, rise_slope=0.05, near=(-3.0, 3.0, 0.6, 7.2), puddles=[])
     hf = HField(*GROUND['near'], cell=0.008)
-    protos, dens, L1 = forest_floor(GROUND, hf, [rig], M, C_LEAF, C_BG, rng, 6200, SEED, fade=(3.6, 6.5))
+    protos, dens, L1 = forest_floor(GROUND, hf, [rig], M, C_LEAF, C_BG, rng, 9000, SEED, fade=(3.8, 7.0), floor=0.3)
     print(f'[info] S35 litter {len(L1)}', flush=True)
     twigs = []
     for i, (u, v, yaw, L, r) in enumerate([(-0.8, -0.7, 0.4, 0.6, 0.006), (0.55, -0.55, 2.4, 0.45, 0.004),
@@ -74,27 +74,26 @@ if SHOT == 'S35':
     bags = []
     spill = []
     cam_xy = (loc.x, loc.y)
-    for name, (u, v), size, seed, turn, items in [
-            ('BagA', (-0.06, -0.14), (0.34, 0.25, 0.13), 11, 35,
+    for name, (u, v), size, seed, turn, opening, items in [
+            ('BagA', (-0.10, -0.05), (0.34, 0.25, 0.13), 11, 55, 0.52,
              ['envelope', 'receipt', 'envelope', 'document', 'packet', 'packet', 'wad', 'wad', 'receipt', 'wad',
               'stone', 'stone', 'stone', 'stone', 'envelope']),
-            ('BagB', (0.40, 0.20), (0.30, 0.22, 0.12), 23, -40, ['document', 'envelope', 'wad', 'receipt', 'packet']),
-            ('BagC', (-0.48, 0.16), (0.36, 0.27, 0.05), 31, 10, ['wad', 'envelope', 'receipt'])]:
+            ('BagB', (0.40, 0.24), (0.30, 0.22, 0.12), 23, -50, 0.48, ['document', 'envelope', 'wad', 'receipt', 'packet']),
+            ('BagC', (-0.50, 0.22), (0.36, 0.27, 0.05), 31, 10, 0.3, ['wad', 'envelope', 'receipt'])]:
         bx, by = G(u, v)
         mouth_local = (-0.55, -0.8, 0.15)
         to_cam = math.atan2(cam_xy[1] - by, cam_xy[0] - bx) + math.radians(turn)
         yaw = to_cam - math.atan2(mouth_local[1], mouth_local[0])
-        b = build_binbag(hf, (bx, by), yaw, M['bag'], C_PROP, size=size, mouth=mouth_local, seed=seed, name=name)
+        b = build_binbag(hf, (bx, by), yaw, M['bag'], C_PROP, size=size, mouth=mouth_local, seed=seed, name=name,
+                         opening=opening)
         knot(name + 'Knot', Vector(b['neck']), 0.024, M['bag'], C_PROP, seed=seed)
         hf.stamp_object(b, block=True)
         hf.make_smooth()
         bags.append(b)
         mx, my = bx + math.cos(to_cam) * size[1] * 1.1, by + math.sin(to_cam) * size[1] * 1.1
         spill += spill_items(hf, (mx, my), (math.cos(to_cam), math.sin(to_cam)), items, M, C_PROP, rng,
-                             reach=(0.08, 0.75 if name == 'BagA' else 0.45), spread=0.9)
+                             reach=(0.08, 0.6 if name == 'BagA' else 0.4), spread=1.3)
     L2 = scatter_leaves(hf, protos, 1600, rng, C_LEAF, dens, avoid=True, name='Leaf2')
-    for b in bags:
-        bx, by = b.location.x or 0, 0
     for o in spill[:12]:
         if o.get('kind') in ('envelope', 'receipt', 'document') and rng.random() < 0.6:
             me = o.data
@@ -102,12 +101,8 @@ if SHOT == 'S35':
             place_leaf(hf, protos[rng.randrange(len(protos))], v.x, v.y, rng, C_LEAF, scale=0.9, flip=False,
                        max_tilt=20, quant=0.66, name='LeafSheet')
     droplets_on(bags[0], 300, 0.0012, 0.0035, M['drop'], C_PROP, seed=8, normal_min=0.35, name='BagDrops')
-    pts, _ = trunk_field(GROUND, M, C_BG, random.Random(SEED + 99), 38, 4.8, 34.0, xk=0.7, xpad=2.0,
-                         fixed=[(-1.75, 3.7, 0.27), (2.3, 5.4, 0.22)])
-    lx, ly = G(0.25, 0.62)
-    lz = float(ground_height(np.array([lx]), np.array([ly]), GROUND)[0])
-    tube_mesh('Log', [(lx - 1.8 + 3.6 * k / 24, ly + 0.4 * math.sin(k / 24 * 2.0), lz + 0.08) for k in range(25)],
-              [0.13 - 0.04 * k / 24 for k in range(25)], 20, C_BG, M['bark'], noise_amp=0.08, seed=3)
+    pts, _ = trunk_field(GROUND, M, C_BG, random.Random(SEED + 99), 30, 5.0, 34.0, xk=0.7, xpad=2.0, min_d=2.3,
+                         r=(0.08, 0.32), fixed=[(-1.75, 3.9, 0.24), (2.4, 5.6, 0.2)])
     daylight(DEBUG, key=((1.5, 9.0, 7.5), (0.0, 2.5, 0.0)), key_e=1100, key_size=(12.0, 8.0),
              fill=((-1.6, -2.2, 1.6), (0.0, 2.0, 0.0)), fill_e=40)
     cam = camera('CamS35', lens=35.0, fstop=None if (DEBUG or arg('--nodof')) else 4.0, ratio=1.0, blades=9,
@@ -121,10 +116,10 @@ if SHOT == 'S35':
 elif SHOT == 'S33':
     # the same woods, grey morning: a worn path into the fog; a walking stick leaning on a beech by the path
     FOG.update(color=(0.43, 0.45, 0.47), strength=1.0, start=4.0, dist=9.0, refl=0.3)
-    M['soil'] = mat_soil('SoilS33', far_from=9.0, far_to=13.0)
+    M['soil'] = mat_soil('SoilS33', far_from=-10.0, far_to=-9.0)        # litter mosaic everywhere, mud on the path
     M['stick'] = mat_stick()
     M['rubber'] = mat_rubber('Ferrule', color=(0.012, 0.012, 0.013), rough=0.6)
-    loc, tgt = aim((0.0, 0.0, 1.12), 7.0, 0.0)
+    loc, tgt = aim((-0.15, 0.6, 0.95), 6.5, 2.0)
     rig = CamRig(loc, tgt, lens=40.0)
 
     def xc(y):
@@ -138,17 +133,18 @@ elif SHOT == 'S33':
     GROUND = dict(seed=8, rise_start=9.0, rise_slope=0.04, near=(-5.0, 5.0, 2.2, 16.0), puddles=[],
                   trough=lambda X, Y: 0.035 * path_w(X, Y))
     hf = HField(*GROUND['near'], cell=0.012)
-    protos, dens, L1 = forest_floor(GROUND, hf, [rig], M, C_LEAF, C_BG, rng, 7000, SEED, fade=(6.0, 12.0),
-                                    extra_dens=lambda x, y: 1.0 - 0.88 * path_w(x, y), ground_res=0.03,
-                                    attr_fn=lambda X, Y: {'path': path_w(X, Y)}, scale=(0.9, 1.2), floor=0.3)
+    protos, dens, L1 = forest_floor(GROUND, hf, [rig], M, C_LEAF, C_BG, rng, 9500, SEED, fade=(5.0, 10.0),
+                                    extra_dens=lambda x, y: 1.0 - 0.72 * path_w(x, y), ground_res=0.03,
+                                    attr_fn=lambda X, Y: {'path': path_w(X, Y)}, scale=(0.8, 1.25), floor=0.35)
     print(f'[info] S33 litter {len(L1)}', flush=True)
     # the beech with the stick: right of the path, ~4.3 m out
-    ty = 4.3
-    tx = float(xc(ty)) + 0.95
-    tr = 0.33
-    pts, _ = trunk_field(GROUND, M, C_BG, random.Random(SEED + 77), 64, 3.0, 42.0, xk=0.75, xpad=2.5, min_d=1.7,
-                         keep_out=lambda x, y: abs(x - float(xc(y))) < 0.9 or (y < 8 and abs(x - float(xc(y))) < 1.3),
-                         fixed=[(tx, ty, tr), (-2.4, 3.4, 0.24), (2.9, 6.6, 0.28)])
+    ty = 4.7
+    tx = float(xc(ty)) + 0.9
+    tr = 0.26
+    pts, _ = trunk_field(GROUND, M, C_BG, random.Random(SEED + 77), 60, 3.5, 42.0, xk=0.75, xpad=2.5, min_d=2.0,
+                         r=(0.09, 0.38),
+                         keep_out=lambda x, y: abs(x - float(xc(y))) < 1.0 or (y < 9 and abs(x - float(xc(y))) < 1.6),
+                         fixed=[(tx, ty, tr), (-2.6, 3.6, 0.2), (3.1, 7.4, 0.3)])
     tz = float(ground_height(np.array([tx]), np.array([ty]), GROUND)[0])
     to_cam = Vector((loc.x - tx, loc.y - ty, 0)).normalized()
     side = Vector((-to_cam.y, to_cam.x, 0))
@@ -156,7 +152,8 @@ elif SHOT == 'S33':
     contact.z = tz + 1.06
     foot = contact + (to_cam * 0.82 - side * 0.55).normalized() * 0.36
     foot.z = float(hf.sample_s(np.array([foot.x]), np.array([foot.y]))[0]) + 0.005
-    stick_root, stick = walking_stick('WalkingStick', tuple(foot), tuple(contact), M['stick'], M['rubber'], C_PROP)
+    stick_root, stick = walking_stick('WalkingStick', tuple(foot), tuple(contact), M['stick'], M['rubber'], C_PROP,
+                                      r=0.0145)
     stick_root.rotation_euler.rotate_axis('Z', math.radians(150))
     # fallen branches along the path edges
     for i, (y, off, yaw, L, r) in enumerate([(3.4, -0.75, 0.3, 0.9, 0.012), (5.2, 0.7, 2.7, 1.2, 0.016),
@@ -170,6 +167,176 @@ elif SHOT == 'S33':
     cam.location = loc
     cam.rotation_euler = look_rot(loc, tgt, 0.0)
     foc = empty('FocusS33', tuple(contact), C_PROP)
+    if cam.data.dof.use_dof:
+        cam.data.dof.focus_object = foc
+
+if SHOT == 'S31':
+    N = 252                                   # render frames incl. 6-frame handles (cut 7..246)
+    sc = reset()
+    setup_render(1, N, res=RES_FINAL, samples=40, mb=True, shutter=0.5, look='Medium High Contrast', bounces=(2, 2, 3),
+                 clamp=4.0, filter_glossy=0.6, adaptive=0.03, exposure=1.2, vol_bounces=0, vol_step=2.0)
+    sc.cycles.transparent_max_bounces = 8
+    rng = random.Random(SEED)
+    C_LEAF, C_PROP, C_BG = collection('Leaves'), collection('Props'), collection('Background')
+    M = make_materials()
+    M['soil'] = mat_soil('SoilS31', far_from=5.5, far_to=8.0)
+    FOG.update(color=(0.0035, 0.004, 0.0055), strength=1.0, start=2.5, dist=7.0, refl=1.0)
+
+    def aim(loc, pitch, yaw=0.0):
+        p_, y_ = math.radians(pitch), math.radians(yaw)
+        loc = Vector(loc)
+        return loc, loc + Vector((math.sin(y_) * math.cos(p_), math.cos(y_) * math.cos(p_), -math.sin(p_)))
+    loc0, tgt0 = aim((0.07, 0.0, 0.44), 4.0, -1.0)
+    loc1, tgt1 = aim((-0.02, 0.40, 0.41), 4.5, 0.5)
+    rigs = [CamRig(loc0, tgt0, lens=32.0), CamRig(loc1, tgt1, lens=32.0)]
+    rig = rigs[0]
+    G = lambda u, v: tuple(rig.ground(u, v, 0.008))[:2]
+    GROUND = dict(seed=11, rise_start=6.0, rise_slope=0.05, near=(-3.2, 3.2, 0.5, 7.6), puddles=[])
+    hf = HField(*GROUND['near'], cell=0.008)
+    protos, dens, L1 = forest_floor(GROUND, hf, rigs, M, C_LEAF, C_BG, rng, 7000, SEED, fade=(4.0, 7.0), floor=0.3)
+    print(f'[info] S31 litter {len(L1)}', flush=True)
+    for i, (u, v, yaw, L, r) in enumerate([(-0.75, -0.6, 0.5, 0.6, 0.006), (0.6, -0.45, 2.3, 0.5, 0.005),
+                                            (0.2, 0.05, 0.1, 0.9, 0.008)]):
+        x, y = G(u, v)
+        build_twig(f'Twig{i}', hf, (x, y), yaw, L, r, M['twig'], C_PROP, seed=70 + i, branches=3)
+    # two throws from the motorway side (left, behind): (land u,v, launch offset, flight frames, impact frame)
+    throws = [dict(name='Bag1', uv=(-0.30, -0.30), size=(0.33, 0.24, 0.13), seed=11, f_hit=70, flight=15,
+                   launch=(-3.0, 2.6, 1.7), spin=(5.0, -2.5, 3.0), turn=40, opening=0.5,
+                   items=['envelope', 'receipt', 'document', 'wad', 'wad', 'envelope', 'packet', 'receipt', 'wad',
+                          'stone', 'stone']),
+              dict(name='Bag2', uv=(0.30, -0.44), size=(0.30, 0.22, 0.12), seed=23, f_hit=128, flight=17,
+                   launch=(-3.6, 3.2, 2.0), spin=(-4.0, 3.5, -2.0), turn=-20, opening=0.46,
+                   items=['document', 'envelope', 'wad', 'receipt', 'packet', 'envelope', 'wad'])]
+    cam_xy = (loc0.x, loc0.y)
+    for T_ in throws:
+        lx, ly = G(*T_['uv'])
+        mouth_local = (-0.55, -0.8, 0.15)
+        to_cam = math.atan2(cam_xy[1] - ly, cam_xy[0] - lx) + math.radians(T_['turn'])
+        yaw = to_cam - math.atan2(mouth_local[1], mouth_local[0])
+        torn = build_binbag(hf, (lx, ly), yaw, M['bag'], C_PROP, size=T_['size'], mouth=mouth_local, seed=T_['seed'],
+                            name=T_['name'] + 'Torn', pivot=True, opening=T_['opening'], res=(140, 70))
+        kn = knot(T_['name'] + 'Knot', Vector(torn['neck']), 0.024, M['bag'], C_PROP, seed=T_['seed'])
+        parent(kn, torn)
+        hf.stamp_object(torn, block=True)
+        hf.make_smooth()
+        T_['torn'], T_['land'], T_['yaw'], T_['dir'] = torn, Vector(torn.location), yaw, to_cam
+        mx, my = lx + math.cos(to_cam) * T_['size'][1] * 1.1, ly + math.sin(to_cam) * T_['size'][1] * 1.1
+        T_['spill'] = spill_items(hf, (mx, my), (math.cos(to_cam), math.sin(to_cam)), T_['items'], M, C_PROP, rng,
+                                  reach=(0.08, 0.55), spread=1.2)
+    L2 = scatter_leaves(hf, protos, 1500, rng, C_LEAF, dens, avoid=True, name='Leaf2')
+    pts, _ = trunk_field(GROUND, M, C_BG, random.Random(SEED + 55), 34, 4.0, 34.0, xk=0.7, xpad=2.0, min_d=2.2,
+                         r=(0.08, 0.32), keep_out=lambda x, y: abs(x + 0.2) < 1.5 and y < 5.5,
+                         fixed=[(-1.05, 1.6, 0.19), (1.35, 2.4, 0.23), (0.6, 6.4, 0.27), (-1.6, 5.2, 0.22)])
+
+    # ---- animation: closed bag flies a ballistic arc, tumbling; at impact it swaps to the torn, settled bag
+    g = 9.81
+    for T_ in throws:
+        fh, fl = T_['f_hit'], T_['flight']
+        land = T_['land'].copy()
+        start = land + Vector(T_['launch'])
+        tf = fl / 24.0
+        v0 = (land - start - 0.5 * Vector((0, 0, -g)) * tf * tf) / tf
+        fb = build_bag_flight(T_['name'] + 'Fly', T_['size'], M['bag'], C_PROP, seed=T_['seed'])
+        fk = knot(T_['name'] + 'FlyKnot', Vector((T_['size'][0] * 1.35, 0, T_['size'][2] * 0.25)), 0.024, M['bag'],
+                  C_PROP, seed=T_['seed'])
+        parent(fk, fb)
+        w = Vector(T_['spin'])
+        for f in range(fh - fl - 2, fh + 1):
+            t = (f - (fh - fl)) / 24.0
+            p_ = start + v0 * t + 0.5 * Vector((0, 0, -g)) * t * t
+            fb.location = p_
+            dt = (f - fh) / 24.0
+            fb.rotation_euler = (w.x * dt, w.y * dt, T_['yaw'] + w.z * dt)
+            fb.keyframe_insert('location', frame=f)
+            fb.keyframe_insert('rotation_euler', frame=f)
+        linear(fb)
+        for f, hid in ((1, True), (fh - fl - 3, False), (fh, True)):
+            fb.hide_render = hid
+            fb.keyframe_insert('hide_render', frame=f)
+            fb.hide_viewport = hid
+            fb.keyframe_insert('hide_viewport', frame=f)
+        tb = T_['torn']
+        for f, hid in ((1, True), (fh, False)):
+            for o in [tb] + list(tb.children):
+                o.hide_render = hid
+                o.keyframe_insert('hide_render', frame=f)
+        d = Vector((math.cos(T_['dir']), math.sin(T_['dir']), 0))
+        key(tb, 'scale', [(fh, (1.10, 1.10, 0.62)), (fh + 3, (0.97, 0.97, 1.07)), (fh + 6, (1.01, 1.01, 0.98)),
+                          (fh + 9, (1.0, 1.0, 1.0))])
+        key(tb, 'location', [(fh, tuple(land - d * 0.06 + Vector((0, 0, 0.01)))), (fh + 5, tuple(land - d * 0.01)),
+                             (fh + 9, tuple(land))])
+        # contents burst out of the mouth and land at their rest pose
+        mouth = land + d * T_['size'][1] * 0.9 + Vector((0, 0, 0.05))
+        for i, o in enumerate(T_['spill']):
+            if o.get('kind') in ('envelope', 'receipt', 'document', 'packet'):
+                recentre(o)
+            rest_loc, rest_rot = o.location.copy(), o.rotation_euler.copy()
+            delay = rng.uniform(0, 3)
+            dur = rng.uniform(7, 14) if o.get('kind') in ('wad', 'stone') else rng.uniform(10, 22)
+            if i == 0 and o.get('kind') != 'stone':
+                dur = 34                                   # one sheet floats down late
+            f0 = fh + delay
+            f1 = f0 + dur
+            hop = rng.uniform(0.12, 0.35) if o.get('kind') != 'stone' else 0.08
+            r0 = Euler((rng.uniform(-1.4, 1.4), rng.uniform(-1.4, 1.4), rest_rot.z + rng.uniform(-2, 2)))
+            mid = (mouth + rest_loc) * 0.5 + Vector((0, 0, hop))
+            o.location, o.rotation_euler = mouth, r0
+            o.keyframe_insert('location', frame=f0); o.keyframe_insert('rotation_euler', frame=f0)
+            o.location = mid
+            o.rotation_euler = Euler((r0.x * 0.4, r0.y * 0.4, (r0.z + rest_rot.z) / 2))
+            o.keyframe_insert('location', frame=(f0 + f1) / 2); o.keyframe_insert('rotation_euler', frame=(f0 + f1) / 2)
+            o.location, o.rotation_euler = rest_loc + Vector((0, 0, 0.004)), rest_rot
+            o.keyframe_insert('location', frame=f1); o.keyframe_insert('rotation_euler', frame=f1)
+            o.location = rest_loc
+            o.keyframe_insert('location', frame=f1 + 3)
+            for f, hid in ((1, True), (int(f0), False)):
+                o.hide_render = hid
+                o.keyframe_insert('hide_render', frame=f)
+        # a few leaves kicked up by the impact
+        near = [l for l in L1 if (Vector((l.matrix_world.translation.x, l.matrix_world.translation.y, 0))
+                                  - Vector((land.x, land.y, 0))).length < 0.45][:7]
+        for l in near:
+            m0 = l.matrix_world.copy()
+            l.matrix_world = m0
+            l.keyframe_insert('location', frame=fh)
+            l.keyframe_insert('rotation_euler', frame=fh)
+            l.location = l.location + Vector((rng.uniform(-0.1, 0.1), rng.uniform(-0.1, 0.1), rng.uniform(0.06, 0.16)))
+            l.rotation_euler = Euler((l.rotation_euler.x + rng.uniform(-1.2, 1.2), l.rotation_euler.y + rng.uniform(-1.2, 1.2),
+                                      l.rotation_euler.z + rng.uniform(-1, 1)))
+            l.keyframe_insert('location', frame=fh + 5)
+            l.keyframe_insert('rotation_euler', frame=fh + 5)
+            l.matrix_world = m0
+            l.keyframe_insert('location', frame=fh + rng.randint(13, 20))
+            l.keyframe_insert('rotation_euler', frame=fh + 20)
+
+    # ---- light: cold moonless sky, distant sodium glow from the motorway through thin fog
+    woods_world(sky_zenith=(0.010, 0.013, 0.020), sky_horizon=(0.0025, 0.003, 0.004), strength=1.0)
+    SODIUM = (1.0, 0.40, 0.075)
+    if DEBUG:
+        light('SUN', 'DebugSun', (0, 0, 5), rot=(math.radians(35), 0, math.radians(20)), energy=4.0, size=5)
+    else:
+        light('AREA', 'Sky', (0.5, 3.0, 9.0), energy=90, color=kelvin(11000), size=14.0, target=(0, 3.0, 0))
+        light('AREA', 'Sodium', (-15.0, 27.0, 3.2), energy=800, color=SODIUM, size=12.0, size_y=2.5,
+              shape='RECTANGLE', target=(0.0, 3.0, 0.4))
+        light('AREA', 'Sodium2', (-5.0, 37.0, 4.0), energy=450, color=SODIUM, size=8.0, size_y=2.0,
+              shape='RECTANGLE', target=(0.0, 3.0, 0.4))
+        for m in list(bpy.data.materials):
+            if m.name not in ('Water', 'Drop'):
+                fog_wrap(m)
+        fogm = mat_volume('NightFog', density=0.016, color=(0.8, 0.82, 0.85), anisotropy=0.6, noise_scale=0.35,
+                          contrast=(0.3, 0.75))
+        vb = volume_box('FogBank', (-2.0, 17.5, 1.3), (26.0, 25.0, 2.6), fogm, C_BG)
+        key(vb, 'location', [(1, (-2.0, 17.5, 1.3)), (N, (-1.1, 17.8, 1.3))], interp='LINEAR')
+    cam = camera('CamS31', lens=32.0, fstop=None if (DEBUG or arg('--nodof')) else 2.8, ratio=1.0, blades=9,
+                 clip=(0.02, 300))
+    cam_path(cam, [(1, tuple(loc0), tuple(tgt0), 0.0), (N, tuple(loc1), tuple(tgt1), 0.0)])
+    for fc in fcurves(cam):
+        for kp in fc.keyframe_points:
+            kp.interpolation = 'SINE'
+            kp.easing = 'EASE_IN_OUT'
+    shake(cam, 0.0015, 0.0008, scale=30, seed=5)
+    lc = throws[0]['land']
+    foc = empty('FocusS31', (lc.x + 0.15, lc.y - 0.1, 0.08), C_PROP)
     if cam.data.dof.use_dof:
         cam.data.dof.focus_object = foc
 
