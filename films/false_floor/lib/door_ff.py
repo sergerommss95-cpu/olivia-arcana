@@ -538,7 +538,7 @@ def tie_holes(M, x_range, z_range, y, step=(0.6, 0.6), skip=None, coll=None, nor
 
 # ----------------------------------------------------------------------------- the door
 
-def build_door(M, coll=None, numerals=False, key=True):
+def build_door(M, coll=None, numerals=False, key=True, a2=False):
     piv = empty('DoorPivot', (HINGE_X, HINGE_Y, 0.0), coll=coll)
     bpy.context.view_layer.update()
 
@@ -583,32 +583,52 @@ def build_door(M, coll=None, numerals=False, key=True):
         for z in (0.06, 2.08):
             place(sp, f'DScrew{k}', (x, PLATE_Y[0], z), par=piv)
             k += 1
-    # combination wheel (lock.py dial) scaled into the panel + its fixed bezel
+    # combination wheel (lock.py dial) scaled into the panel + its fixed bezel, with the reading lens on top.
+    # a2=True: A2's dial_with_lens() (lib/door_macro.py: top-reading hood, plano-convex lens, number band) for exact
+    # continuity with the macro shots; its parts are built about the origin on a y = 0 face, so they are carried to the
+    # dial position by one placement empty that rides on the door.
     from lock import build_dial, mat_engine_turned
-    droot = empty('DialRoot', tuple(DIAL), coll=coll)
-    droot.rotation_euler = (math.radians(90), 0, 0)
-    droot.scale = (DIAL_S,) * 3
-    dparts = build_dial(droot, coll=coll)
-    for o in list(droot.children_recursive):
-        if o.name.startswith('Plate') or (not numerals and o.name.startswith('Num')):
-            bpy.data.objects.remove(o)
-    parent(droot, piv, keep=True)
-    # reading lens on top of the dial: small hood over the 12 o'clock rim with a round lens tilted toward the eye
-    lz = DIAL.z + 1.32 * DIAL_S
-    hood = P(xbox('LensHood', DIAL.x - 0.019, DIAL.x + 0.019, PANEL_FRONT - 0.05, PANEL_FRONT, lz - 0.012, lz + 0.022,
-                  M['border'], bev=0.005, seg=3))
-    lens_par = empty('LensTilt', (DIAL.x, PANEL_FRONT - 0.05, lz + 0.006), coll=coll)
-    lens_par.rotation_euler = (math.radians(-28), 0, 0)
-    ring = ycyl('LensRing', 0, -0.006, 0.002, 0, 0.0125, M['chrome'], seg=32, bev=0.0015)
-    ring.location = (0, -0.002, 0)
-    parent(ring, lens_par, keep=False)
-    gl = prim('sphere', 'Lens', (0, -0.006, 0), seg=32, ring=16, r=0.0098, coll=coll)
-    gl.scale = (1, 0.45, 1)
-    set_mat(gl, M['glass'])
-    parent(gl, lens_par, keep=False)
-    dk = ycyl('LensBack', 0, -0.003, 0.0, 0, 0.0096, M['hole'], seg=24)
-    parent(dk, lens_par, keep=False)
-    parent(lens_par, piv, keep=True)
+    a2_ok = False
+    if a2:
+        try:
+            import door_macro as A2
+            before = set(bpy.data.objects)
+            dl = A2.dial_with_lens(M, s=DIAL_S, coll=coll)
+            place_e = empty('A2DialPlace', tuple(DIAL), coll=coll)
+            for o in [o for o in bpy.data.objects if o not in before and o is not place_e]:
+                if o.parent is None:
+                    o.parent = place_e
+            parent(place_e, piv, keep=True)
+            dparts = {'dial': dl['dial']}
+            droot = dl['root']
+            a2_ok = True
+        except Exception as e:
+            print('[info] door_macro.dial_with_lens unavailable, using the door_ff dial:', e, flush=True)
+    if not a2_ok:
+        droot = empty('DialRoot', tuple(DIAL), coll=coll)
+        droot.rotation_euler = (math.radians(90), 0, 0)
+        droot.scale = (DIAL_S,) * 3
+        dparts = build_dial(droot, coll=coll)
+        for o in list(droot.children_recursive):
+            if o.name.startswith('Plate') or (not numerals and o.name.startswith('Num')):
+                bpy.data.objects.remove(o)
+        parent(droot, piv, keep=True)
+        # reading lens on top of the dial: small hood over the 12 o'clock rim with a round lens tilted toward the eye
+        lz = DIAL.z + 1.32 * DIAL_S
+        hood = P(xbox('LensHood', DIAL.x - 0.019, DIAL.x + 0.019, PANEL_FRONT - 0.05, PANEL_FRONT, lz - 0.012, lz + 0.022,
+                      M['border'], bev=0.005, seg=3))
+        lens_par = empty('LensTilt', (DIAL.x, PANEL_FRONT - 0.05, lz + 0.006), coll=coll)
+        lens_par.rotation_euler = (math.radians(-28), 0, 0)
+        ring = ycyl('LensRing', 0, -0.006, 0.002, 0, 0.0125, M['chrome'], seg=32, bev=0.0015)
+        ring.location = (0, -0.002, 0)
+        parent(ring, lens_par, keep=False)
+        gl = prim('sphere', 'Lens', (0, -0.006, 0), seg=32, ring=16, r=0.0098, coll=coll)
+        gl.scale = (1, 0.45, 1)
+        set_mat(gl, M['glass'])
+        parent(gl, lens_par, keep=False)
+        dk = ycyl('LensBack', 0, -0.003, 0.0, 0, 0.0096, M['hole'], seg=24)
+        parent(dk, lens_par, keep=False)
+        parent(lens_par, piv, keep=True)
     # keyhole: turned boss + keyway (round + slot)
     P(ycyl('KeyBoss', KEYHOLE.x, PANEL_FRONT - 0.014, PANEL_FRONT + 0.001, KEYHOLE.z, 0.036, M['chrome'], seg=48, bev=0.004,
            bseg=3))
@@ -659,7 +679,8 @@ def build_door(M, coll=None, numerals=False, key=True):
     out['handle'] = hd
     # magnetic plate, door half (frame half is built with the frame)
     mz0, mz1 = MAG_Z
-    mag = P(xbox('MagDoor', 0.512, 0.574, PLATE_Y[0] - 0.013, PLATE_Y[0], mz0, mz1, M['magface'], bev=0.0025, seg=2))
+    mag = P(xbox('MagDoor', 0.512, 0.574, PLATE_Y[0] - 0.013, PLATE_Y[0], mz0, mz1, M.get('magplate', M['magface']),
+                 bev=0.0025, seg=2))
     ss = screw_proto(M, r=0.0048, h=0.003)
     for (x, z) in ((0.522, mz0 + 0.012), (0.564, mz0 + 0.012), (0.522, mz1 - 0.012), (0.564, mz1 - 0.012)):
         place(ss, 'MagScrewD', (x, PLATE_Y[0] - 0.013, z), par=piv)
@@ -772,7 +793,8 @@ def build_frame(M, coll=None):
         place(hb, 'Anchor', (x, FRAME_Y, 2.235), coll=coll)
     # magnetic plate, frame half + its armoured cable to a junction box and up into the ceiling
     mz0, mz1 = MAG_Z
-    o['mag_frame'] = xbox('MagFrame', 0.594, 0.656, FRAME_Y - 0.013, FRAME_Y, mz0, mz1, M['magface'], bev=0.0025, coll=coll)
+    o['mag_frame'] = xbox('MagFrame', 0.594, 0.656, FRAME_Y - 0.013, FRAME_Y, mz0, mz1, M.get('magplate', M['magface']),
+                          bev=0.0025, coll=coll)
     ss = screw_proto(M, r=0.0048, h=0.003)
     for (x, z) in ((0.604, mz0 + 0.012), (0.646, mz0 + 0.012), (0.604, mz1 - 0.012), (0.646, mz1 - 0.012)):
         place(ss, 'MagScrewF', (x, FRAME_Y - 0.013, z), coll=coll)
@@ -1129,10 +1151,19 @@ def build_vault(coll=None, cols=18, rows=13, seed_r=7, seed_l=19, debris=True):
 
 # ----------------------------------------------------------------------------- whole set
 
-def build_set(coll=None, vault=True, stair=True, grate=True, cctv=True, key=True, numerals=False, debris=True):
+def build_set(coll=None, vault=True, stair=True, grate=True, cctv=True, key=True, numerals=False, debris=True, a2=False):
+    """a2=True: continuity with A2's macro shots (lib/door_macro.py): zinc contact blocks (mat_zinc) for the two
+    magnetic plates and A2's dial_with_lens() for the wheel + reading lens. Falls back to door_ff's own parts if the
+    import fails. Default False (S00/S01 were approved and rendered without it)."""
     M = mats()
     S = {'M': M}
-    S.update(build_door(M, coll, numerals=numerals, key=key))
+    if a2:
+        try:
+            import door_macro as A2
+            M['magplate'] = A2.mat_zinc('ZincBlock')
+        except Exception as e:
+            print('[info] door_macro.mat_zinc unavailable, keeping MagFace paint:', e, flush=True)
+    S.update(build_door(M, coll, numerals=numerals, key=key, a2=a2))
     S.update(build_frame(M, coll))
     S.update(build_room(M, coll, stair=stair))
     S['stair_built'] = stair

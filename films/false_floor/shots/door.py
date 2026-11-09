@@ -32,7 +32,9 @@ setup_render(1, N, res=(2560, 1440) if STILL else RES_FINAL, samples=96 if STILL
 world_color((0.0012, 0.0013, 0.0016))
 
 need_vault = SHOT in ('S00', 'S01', 'S25', 'S32', 'S52') and not arg('--novault')
-S = D.build_set(vault=need_vault, stair=True, grate=True, cctv=True, key=(SHOT == 'S25'))
+# S00/S01 keep the door_ff dial + painted contact plates they were approved/rendered with; every later shot matches A2's
+# macros (zinc contact blocks, top-reading lens hood) per the lead.
+S = D.build_set(vault=need_vault, stair=True, grate=True, cctv=True, key=(SHOT == 'S25'), a2=SHOT not in ('S00', 'S01'))
 
 # ---- door / grate states -----------------------------------------------------------------------------------------
 AJAR = 2.0                  # S00/S52 hairline (degrees)

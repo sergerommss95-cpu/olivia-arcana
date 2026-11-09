@@ -150,7 +150,7 @@
   "key": "el__drill_approach",
   "t": 0.0,
   "gain": -12,
-  "dur": 1.8
+  "dur": 1.875
  },
  {
   "shot": "S16",
@@ -161,13 +161,13 @@
  {
   "shot": "S16",
   "key": "el__dial_click",
-  "t": 6.0,
+  "t": 8.55,
   "gain": -10
  },
  {
   "shot": "S17",
   "key": "el__key_turn",
-  "t": 1.5,
+  "t": 0.9,
   "gain": -10
  },
  {
@@ -220,7 +220,7 @@
  {
   "shot": "S24",
   "key": "el__plate_slide",
-  "t": 2.2,
+  "t": 0.4,
   "gain": -12
  },
  {
@@ -490,5 +490,19 @@
   "key": "ff__sound_logo",
   "t": 9.5,
   "gain": -10
+ },
+ {
+  "shot": "S17",
+  "key": "el__key_turn",
+  "t": 6.2,
+  "gain": -13,
+  "note": "second turn 90->180 + settle (A2 frames 156-168)"
+ },
+ {
+  "shot": "S24",
+  "key": "el__dial_click",
+  "t": 2.7,
+  "gain": -16,
+  "note": "aluminium plate seats (cut f66)"
  }
 ]

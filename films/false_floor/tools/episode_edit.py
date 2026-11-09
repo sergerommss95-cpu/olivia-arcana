@@ -139,6 +139,7 @@ class Source:
     def frame_iter(self, n):
         if self.mode == 'clip':
             fr = self.clip_frames(n)
+            self.n_clip = len(fr)
             last = Image.fromarray(fr[-1])
             for i in range(n):
                 if i < len(fr):
@@ -213,6 +214,56 @@ def label_fallback():
     return lay
 
 
+FIELD_CACHE = {}
+
+
+def field_lines(sid, cut_f, i, fade):
+    """Magnetic field (S18/S24): fine cream lines bridging the two plates across the seam, drawn in post from A2's
+    per-frame anchors (tests/<sid>_anchors.json), with a slow travelling shimmer. fade: 0..1 overall opacity."""
+    if sid not in FIELD_CACHE:
+        p = os.path.join(FF, 'tests', f'{sid}_anchors.json')
+        FIELD_CACHE[sid] = json.load(open(p))['frames'] if os.path.exists(p) else None
+    fr = FIELD_CACHE[sid]
+    if not fr or fade <= 0:
+        return None
+    keys = sorted(int(k) for k in fr)
+    a = fr[str(min(max(cut_f, keys[0]), keys[-1]))]
+    S = 2
+    lay = Image.new('L', (W * S, H * S), 0)
+    d = ImageDraw.Draw(lay)
+    P = lambda k: np.array(a[k], np.float32) * np.array([W * S, H * S], np.float32)
+    lv = ['z20', 'z45', 'z70']
+    t = i / FPS
+    for hi in range(11):
+        u = -0.1 + 1.2 * hi / 10                       # across the plate height, a little past the anchors
+        seg, w_ = (0, u / 0.5) if u < 0.5 else (1, (u - 0.5) / 0.5)
+        get = lambda name: P(f'{name}_{lv[seg]}') * (1 - w_) + P(f'{name}_{lv[seg + 1]}') * w_
+        dc, fc, df, ff_ = get('door_contact'), get('frame_contact'), get('door_front'), get('frame_front')
+        for k, fa in enumerate((0.25, 1.0, 2.2, 3.8)):
+            p0 = dc + (df - dc) * fa
+            p1 = fc + (ff_ - fc) * fa
+            v = p1 - p0
+            L = float(np.hypot(*v)) + 1e-6
+            nrm = np.array([v[1], -v[0]]) / L
+            if nrm[1] > 0:
+                nrm = -nrm
+            ctrl = (p0 + p1) / 2 + nrm * L * (0.12 + 0.10 * fa)
+            ts = np.linspace(0, 1, 40)[:, None]
+            pts = (1 - ts) ** 2 * p0 + 2 * (1 - ts) * ts * ctrl + ts ** 2 * p1
+            base = int(255 * fade * (0.46 - 0.08 * k) * (0.85 + 0.15 * math.sin(t * 2.1 + hi * 0.7 + k)))
+            d.line([tuple(q) for q in pts], fill=base, width=2 * S // 2 + 1)
+            # travelling brighter dash (the field "holding")
+            ph = (t * 0.35 + hi * 0.137 + k * 0.31) % 1.0
+            j0 = int(ph * 34)
+            d.line([tuple(q) for q in pts[j0:j0 + 6]], fill=int(255 * fade * 0.75), width=2 * S // 2 + 1)
+    lay = lay.resize((W, H), Image.LANCZOS)
+    glow = lay.filter(ImageFilter.GaussianBlur(3)).point(lambda q: int(q * 0.6))
+    alpha = Image.fromarray(np.maximum(np.asarray(lay), np.asarray(glow)))
+    out = Image.new('RGBA', (W, H), (236, 232, 223, 0))
+    out.putalpha(alpha)
+    return out
+
+
 def render_segment(args):
     e, path, preview = args
     n = int(round(e['dur'] * FPS))
@@ -231,6 +282,14 @@ def render_segment(args):
         if is3d:
             im = Image.alpha_composite(im, label)
         sid = e['id']
+        if sid in ('S18', 'S24') and src.mode == 'clip':
+            nc = getattr(src, 'n_clip', n)
+            fade = min(1.0, max(0.0, (i - 10) / 14)) if sid == 'S18' else min(1.0, (i + 1) / 8)
+            if i >= nc:
+                fade *= max(0.0, 1 - (i - nc) / 10)
+            o = field_lines(sid, 7 + min(i, nc - 1), i, fade)
+            if o:
+                im = Image.alpha_composite(im, o)
         if sid == 'S01':
             o = overlay('O_109', i)
             if o:
