@@ -1,0 +1,6 @@
+out/
+tests/
+assets_private/
+*.mp4
+*.wav
+__pycache__/
