@@ -36,6 +36,17 @@ def setup_render(start=1, end=48, res=RES, samples=40, mb=True, shutter=0.5, ada
     sc.render.engine = 'CYCLES'
     cy = sc.cycles
     cy.device = 'CPU'
+    dev = os.environ.get('TUMBLER_DEVICE', 'CPU').upper()     # CPU | OPTIX | CUDA (rented GPU pods)
+    if dev in ('OPTIX', 'CUDA'):
+        prefs = bpy.context.preferences.addons['cycles'].preferences
+        prefs.compute_device_type = dev
+        prefs.get_devices()
+        used = [d.name for d in prefs.devices if d.type == dev]
+        for d in prefs.devices:
+            d.use = d.type == dev
+        if used:
+            cy.device = 'GPU'
+        print(f'[info] Cycles device {dev}: {used or "none found, falling back to CPU"}', flush=True)
     cy.samples = samples
     cy.use_adaptive_sampling = True
     cy.adaptive_threshold = float(os.environ.get('TUMBLER_ADAPTIVE', adaptive))
