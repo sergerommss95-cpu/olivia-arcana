@@ -715,9 +715,14 @@ def aim(h, bone, direction, twist=0.0):
 
 
 def rot(h, bone, x=0.0, y=0.0, z=0.0):
-    """Local bone rotation in degrees (fine adjustments, fingers, head nods)."""
+    """Local bone rotation in degrees (fine adjustments, fingers, head nods). Works in Euler or quaternion mode."""
+    from mathutils import Euler
     pb = h.rig.pose.bones[bone]
-    pb.rotation_euler = (math.radians(x), math.radians(y), math.radians(z))
+    e = Euler((math.radians(x), math.radians(y), math.radians(z)), 'XYZ')
+    if pb.rotation_mode == 'QUATERNION':
+        pb.rotation_quaternion = e.to_quaternion()
+    else:
+        pb.rotation_euler = e
     bpy.context.view_layer.update()
 
 

@@ -535,6 +535,8 @@ elif SHOT == 'N9':
     m = CA.make('monster')
     HU.place(m, 0.42, crank_w.y + 0.12, 90)
     HU.stand(m)
+    CA.grip(m, 'R', 0.95)          # fist round the crank handle
+    CA.grip(m, 'L', 0.6)           # bracing hand
     bpy.context.view_layer.update()
     pbs = m.rig.pose.bones
     arm_len = (pbs['RightArm'].length + pbs['RightForeArm'].length + 0.5 * pbs['RightHand'].length) * m.rig.scale[0]

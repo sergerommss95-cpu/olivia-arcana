@@ -134,7 +134,17 @@ def _zup(v):
     return Vector((v[0], -v[2], v[1]))
 
 
-def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg=0.0, scale=None, root_motion=True):
+def _curl(rig, amount):
+    from mathutils import Euler
+    for side in ('Left', 'Right'):
+        for bn, deg in ((f'{side}FingerBase', 38), (f'{side}HandFinger1', 75)):
+            rig.pose.bones[bn].rotation_quaternion = Euler((math.radians(deg * amount), 0, 0), 'XYZ').to_quaternion()
+        t = 'LThumb' if side == 'Left' else 'RThumb'
+        rig.pose.bones[t].rotation_quaternion = Euler((math.radians(20 * amount), 0,
+                                                       math.radians((-1 if side == 'Left' else 1) * 25 * amount)), 'XYZ').to_quaternion()
+
+
+def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg=0.0, scale=None, root_motion=True, hands=0.35):
     """Bake CMU motion onto human h. Source frames are 120 fps; step=5 gives 24 fps real time (smaller = slow-mo)."""
     rig = h.rig
     a, b = src_range or (0, len(M['frames']) - 1)
@@ -206,6 +216,7 @@ def apply(h, M, start_frame=1, src_range=None, step=1.0, pos=(0.0, 0.0), yaw_deg
             loc_ref, src_ref = TW[ob_name]
             want_ref = Ryaw @ _zup(W[sname] @ src_ref)
             _twist(rig, ob_name, loc_ref, want_ref)
+        _curl(rig, hands)                      # relaxed, natural hands (not splayed)
         rig.location = Vector((pos[0], pos[1], 0)) + Ryaw @ Vector((off.x, off.y, 0)) + Vector((0, 0, off.z))
         rig.keyframe_insert('location', frame=f)
         for pb in rig.pose.bones:

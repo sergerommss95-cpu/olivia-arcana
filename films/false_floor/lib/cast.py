@@ -100,3 +100,14 @@ def torch(h, side, aim_at, power=900.0, parent_to_hand=True):
             bpy.context.view_layer.update()
             co.inverse_matrix = (h.rig.matrix_world @ pb.matrix).inverted()
     return L
+
+
+def grip(h, side, amount=1.0, sign=1.0):
+    """Close the hand: amount 1 = fist round a handle, ~0.3 = relaxed hang (walking). The CMU rig has one finger
+    chain (FingerBase -> HandFinger1) driving all four fingers, plus the thumb."""
+    S_ = 'Left' if side == 'L' else 'Right'
+    T_ = 'LThumb' if side == 'L' else 'RThumb'
+    s = sign
+    HU.rot(h, f'{S_}FingerBase', x=s * 38 * amount)
+    HU.rot(h, f'{S_}HandFinger1', x=s * 75 * amount)
+    HU.rot(h, T_, x=s * 20 * amount, z=(-1 if side == 'L' else 1) * 25 * amount)

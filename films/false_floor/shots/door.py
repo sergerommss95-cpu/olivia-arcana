@@ -319,6 +319,9 @@ elif SHOT in ('N2', 'N8'):
                 kp.interpolation = 'BEZIER'
                 kp.handle_left_type = kp.handle_right_type = 'AUTO_CLAMPED'
         kg, mo, sp = CA.make('king'), CA.make('monster'), CA.make('speedy')
+        for _h in (kg, mo, sp):
+            CA.grip(_h, 'L', 0.4)
+            CA.grip(_h, 'R', 0.4)
         for h, (x, y, yaw) in ((kg, (0.62, -1.28, 186)), (mo, (0.05, -1.72, 176)), (sp, (0.40, -2.35, 172))):
             HU.place(h, x, y, yaw)
             CA.arms_down(h, 'L', 0.12, 0.05)
