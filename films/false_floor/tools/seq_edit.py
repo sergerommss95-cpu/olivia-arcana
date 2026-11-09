@@ -19,11 +19,11 @@ SFX = os.path.join(os.path.dirname(FF), 'tumbler', 'audio', 'sfx')
 MUS = os.path.join(os.path.dirname(FF), 'tumbler', 'audio', 'music')
 
 # (shot, beat, first word of the shot's VO phrase) — the shot starts when that word starts (minus lead)
-CUTS = [('N1', 23, 'Saturday'), ('N2', 23, 'The#2'), ('N3', 24, 'Down'), ('S24', 24, 'a'), ('S18', 24, 'holding'),
+CUTS = [('N1', 23, 'Saturday'), ('N2', 23, 'The#2'), ('N3', 24, 'Down'), ('S18', 24, 'a'), ('S24', 24, 'holding'),
         ('N5', 24, 'The'), ('S16', 25, 'Then'), ('S17', 25, 'Then#2'), ('N8', 27, 'Then'), ('N9', 27, 'They#2'),
         ('N10', 27, 'One')]
 # first frame used inside each clip (after the 6-frame handle trim): start on the action
-INOFF = {'N3': 24, 'S16': 168, 'N8': 14, 'N9': 0, 'S24': 0, 'S18': 70}
+INOFF = {'N3': 24, 'S16': 168, 'N8': 14, 'N9': 0, 'S24': 16, 'S18': 40}
 BEATS = [23, 24, 25, 27]
 B25_END_WORD = 'key.'          # beat 25 is cut after "Then the key."
 GAP = 0.32                     # silence between VO pieces
@@ -218,8 +218,11 @@ def render_seg(e, path, n, preview):
     if src.mode == 'clip':
         fr = src.clip_frames(n)[INOFF.get(e['id'], 0):]
         src.n_clip = len(fr)
-        idx = [min(i, len(fr) - 1) for i in range(n)]
-        frames = [Image.fromarray(fr[j]) for j in idx]
+        frames = [Image.fromarray(fr[i]) for i in range(min(n, len(fr)))]
+        if n > len(fr):                      # past the clip's end: a slow push on the last frame (never a dead freeze)
+            last = Image.fromarray(fr[-1])
+            extra = n - len(fr)
+            frames += [E.kb(last, (j + 1) / extra * 0.3, 7) for j in range(extra)]
         # per-frame exposure from smoothed stats
         his, means = [], []
         for im in frames:
@@ -232,7 +235,7 @@ def render_seg(e, path, n, preview):
         his_s, means_s = pad(his), pad(means)
         expos = []
         for hi, m in zip(his_s, means_s):
-            gain = float(np.clip(0.82 / max(hi, 1e-3), 1.0, 2.6))
+            gain = float(np.clip(0.82 / max(hi, 1e-3), 0.8, 2.6))     # also tames washed-out frames
             mm = min(1.0, m * gain)
             gamma = float(np.clip(np.log(0.26) / np.log(max(mm, 1e-3)), 0.62, 1.0)) if mm < 0.26 else 1.0
             expos.append((gain, gamma))
@@ -254,7 +257,7 @@ def render_seg(e, path, n, preview):
         im = Image.alpha_composite(im, label)
         if e['id'] in ('S24', 'S18') and src.mode == 'clip':
             cf = 7 + INOFF.get(e['id'], 0) + min(i, src.n_clip - 1)
-            o = E.field_lines(e['id'], cf, i, min(1.0, (i + 1) / 8) if e['id'] == 'S24' else 1.0)
+            o = E.field_lines(e['id'], cf, i, min(1.0, (i + 1) / 10) if e['id'] == 'S18' else 1.0)
             if o:
                 im = Image.alpha_composite(im, o)
         if counter:
