@@ -161,8 +161,9 @@ def mesh_obj(name, verts, faces, coll=None, smooth=True):
 def shade(o, smooth=True, angle=32.0):
     me = o.data
     if smooth:
-        try:
-            me.shade_smooth_by_angle(angle=math.radians(angle))  # Blender 4.1+
+        try:   # Blender 4.1+/5.x mesh API: smooth everything, then re-mark edges sharper than `angle`
+            me.shade_smooth()
+            me.set_sharp_from_angle(angle=math.radians(angle))
         except Exception:
             for p in me.polygons:
                 p.use_smooth = True

@@ -219,7 +219,7 @@ elif SHOT == '5A2':
 
 # ============================================================================= 5B
 elif SHOT == '5B':
-    sc.cycles.samples = 24
+    sc.cycles.samples = 16          # 24 samples measured 26.7 s/frame full res (over budget); 16 is untested
     WORD_W = 2.7                     # word width (m); camera frame is ~4.6 m wide at the letters
     steel = mat_letter_steel('LetterSteel')
     txt = title_text('TUMBLER', 'Title', size=1.0, extrude=0.07, bevel=0.016, offset=0.012, spacing=1.18)
