@@ -77,11 +77,11 @@ def s15():
                 kp.handle_left_type = kp.handle_right_type = 'AUTO_CLAMPED'
     shake(cam, 0.00012, 0.0006, scale=18, seed=5)
     # light: hard cream key grazing the door face from upper left; cool top rim; faint cool fill
-    k = light('AREA', 'Key', tuple(T + Vector((-0.11, -0.016, 0.085))), energy=0.22, color=CREAM, size=0.006,
+    k = light('AREA', 'Key', tuple(T + Vector((-0.11, -0.016, 0.085))), energy=0.18, color=CREAM, size=0.006,
               target=tuple(T + Vector((0.012, 0.0, -0.01))))
     # sheen: a cool strip far right, placed so its mirror image in the steel sits behind the point -> the bit and its
     # reflection read in silhouette against the brushed sheen
-    light('AREA', 'Sheen', tuple(T + Vector((0.135, -0.042, -0.006))), energy=0.10, color=kelvin(5200), size=0.004,
+    light('AREA', 'Sheen', tuple(T + Vector((0.135, -0.042, -0.006))), energy=0.03, color=kelvin(5200), size=0.004,
           size_y=0.06, shape='RECTANGLE', target=tuple(T + Vector((0.028, 0.0, 0.0))))
     light('AREA', 'Rim', tuple(T + Vector((0.025, -0.02, 0.11))), energy=0.10, color=COOL, size=0.03,
           target=tuple(T + Vector((0.0, -0.02, 0.0))))
@@ -104,15 +104,16 @@ def s16():
                                  (206, Tv(35.92)), (212, Tv(36.0)), (N, Tv(36.0))], index=2)
     motion_steps(dial, 3)
     u, top, img = D['axis'], D['lens_top'], D['image']
-    cam = camera('CamS16', lens=90, fstop=5.6, ratio=1.6)
+    cam = camera('CamS16', lens=90, fstop=8.0, ratio=1.6)
+    key_data(cam.data.dof, cam, 'aperture_fstop', [(1, 8.0), (150, 8.0), (204, 16.0), (N, 16.0)])
     foc = empty('FocusS16', (-0.0146, -0.0164, 0.0254))
     cam.data.dof.focus_object = foc
     side = Vector((0.0032, 0.0, 0.0))
-    end1 = top + u * 0.056 + side
-    end2 = top + u * 0.049 + side * 0.8
+    end1 = top + u * 0.066 + side
+    end2 = top + u * 0.058 + side * 0.8
     cam_path(cam, [(1, (-0.064, -0.118, 0.004), (-0.013, -0.017, 0.027), 0.02),
                    (70, (-0.058, -0.112, 0.016), (-0.010, -0.017, 0.032), 0.015),
-                   (150, (-0.036, -0.100, 0.064), (-0.002, -0.020, 0.046), 0.0),
+                   (150, (-0.030, -0.105, 0.074), (-0.001, -0.018, 0.054), 0.0),
                    (204, tuple(end1), tuple(top - u * 0.004), 0.0),
                    (N, tuple(end2), tuple(top - u * 0.004), 0.0)])
     key(foc, 'location', [(1, (-0.0146, -0.0164, 0.0254)), (95, (-0.0130, -0.0164, 0.0290)),
@@ -131,7 +132,7 @@ def s16():
         il.visible_transmission = False
     except Exception:
         pass
-    light('AREA', 'Fill', (0.15, -0.12, -0.05), energy=0.05, color=COOL, size=0.12, target=(0.0, -0.01, 0.0))
+    light('AREA', 'Fill', (0.16, -0.10, 0.05), energy=0.015, color=COOL, size=0.10, target=(0.0, -0.01, 0.02))
     light('AREA', 'Rim', (0.07, -0.012, 0.14), energy=0.16, color=COOL, size=0.03, target=(0.0, -0.012, 0.06))
     macro_motes('Motes', (-0.01, -0.05, 0.045), (0.07, 0.07, 0.06), count=160, seed=11, start=1, end=N,
                 drift=(0.0012, 0.0004, 0.0018))

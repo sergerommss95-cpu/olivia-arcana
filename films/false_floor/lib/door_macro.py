@@ -455,7 +455,7 @@ def dial_with_lens(M, s=0.05, tilt=35.0, coll=None):
     tl = math.radians(tilt)
     u = Vector((0.0, -math.sin(tl), math.cos(tl)))
     P = Vector((0.0, -s * 0.208, s * 1.0077))           # centre of the number at 12 o'clock
-    d_obj = 0.0105                                      # number -> lens flat face (magnifier, ~2.2x)
+    d_obj = 0.0085                                      # number -> lens flat face (magnifier, ~1.8x)
     C0 = P + u * d_obj
     bm = bmesh.new()
     bmesh.ops.create_cube(bm, size=1.0)
@@ -502,7 +502,7 @@ def dial_with_lens(M, s=0.05, tilt=35.0, coll=None):
                    r=0.0007, depth=0.0002, coll=coll)
         set_mat(hx_, M['black'])
     return {'root': root, 'dial': dial, 'lens_c': C0, 'lens_top': C0 + u * lens_h, 'axis': u, 'num': P,
-            'image': C0 - u * 0.023, 'hood': hood}
+            'image': C0 - u * 0.0154, 'hood': hood}
 
 
 def door_plate(M, x0=-0.2, x1=0.2, z0=-0.18, z1=0.2, depth=0.06, mat=None, name='DoorFace', coll=None):
