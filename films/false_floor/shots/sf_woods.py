@@ -16,6 +16,7 @@ import sys, os, math, random, time
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lib'))
 from ff import *
 from woods import *
+from woods import _fbm
 
 SHOT = 'SF2_woods'
 DEBUG = bool(arg('--debuglight'))
@@ -39,14 +40,14 @@ LAYOUT = dict(
             (0.56, -0.30, 0.0044), (-0.62, -0.78, 0.0056)],
 )
 LEAVES = dict(n1=2400, n2=900, on_bag=7)
-FOG.update(color=(0.43, 0.45, 0.47), strength=1.0, start=1.4, dist=6.5)
+FOG.update(color=(0.43, 0.45, 0.47), strength=1.0, start=2.0, dist=6.0, refl=0.3)
 
 # ------------------------------------------------------------------------------------------------ scene
 sc = reset()
 setup_render(1, CAM['frames'] if DOLLY else 1, res=RES_FINAL, samples=48, mb=False, look='Medium High Contrast',
              bounces=(2, 2, 4), clamp=5.0, filter_glossy=0.6, adaptive=0.02, exposure=-0.35)
 sc.cycles.transparent_max_bounces = 8
-woods_world(strength=0.85)
+woods_world(strength=2.2)
 rng = random.Random(SEED)
 nrng = np.random.RandomState(SEED)
 
@@ -95,7 +96,8 @@ def dens(x, y):
     base = np.clip(1.0 - (y - 1.7) / 2.2, 0.35, 1.0)
     r = np.sqrt(((x - px) / (pu[2] * 0.9)) ** 2 + ((y - py) / (pu[3] * 0.9)) ** 2)
     pud = np.clip(r, 0.12, 1.0)
-    return iv * base * pud
+    gap = np.clip((_fbm(x, y, 3.2, 91, 3) + 0.30) * 2.2, 0.12, 1.0)
+    return iv * base * pud * gap
 
 
 _sxy = G(*LAYOUT['sandwich'])
@@ -197,7 +199,39 @@ for i in range(LEAVES['on_bag']):
     o = place_leaf(hf, protos[rng.randrange(len(protos))], bx + d * math.cos(a), by + d * math.sin(a), rng, C_LEAF,
                    scale=rng.uniform(0.8, 1.0), max_tilt=40, quant=0.7, name='LeafBag')
     bag_leaves.append(o)
-print(f'[info] litter pass 2: {len(L2)} + {len(bag_leaves)} on bag  t={time.time() - T0:.1f}s', flush=True)
+bpy.context.view_layer.update()
+touch = []
+smw = s_root.matrix_world
+for (lx, ly, sc_, mt, q) in [(0.012, -0.042, 0.85, 34, 0.8), (0.052, -0.050, 0.95, 30, 0.75),
+                             (0.035, 0.002, 0.55, 30, 0.85), (0.10, 0.048, 0.9, 30, 0.75)]:
+    w = smw @ Vector((lx, ly, 0.0))
+    touch.append(place_leaf(hf, protos[rng.randrange(len(protos))], w.x, w.y, rng, C_LEAF, scale=sc_, flip=False,
+                            max_tilt=mt, quant=q, name='LeafTouch'))
+
+
+def leaves_on_sheet(obj, n, near_edge=0.03):
+    me = obj.data
+    ed = np.zeros(len(me.vertices), np.float32)
+    me.attributes['edge'].data.foreach_get('value', ed)
+    co = np.zeros(len(me.vertices) * 3)
+    me.vertices.foreach_get('co', co)
+    co = co.reshape(-1, 3)
+    used = set(v for f in me.polygons for v in f.vertices)
+    flat = co[:, 2] - hf.sample_s(co[:, 0], co[:, 1]) < 0.008
+    idx = [i for i in range(len(co)) if ed[i] < near_edge and flat[i] and i in used]
+    out = []
+    for _ in range(n):
+        if not idx:
+            break
+        i = idx[rng.randrange(len(idx))]
+        out.append(place_leaf(hf, protos[rng.randrange(len(protos))], co[i, 0], co[i, 1], rng, C_LEAF,
+                              scale=rng.uniform(0.75, 1.0), flip=False, max_tilt=20, quant=0.66, name='LeafSheet'))
+    return out
+
+
+touch += leaves_on_sheet(env, 2) + leaves_on_sheet(rec, 1) + leaves_on_sheet(doc, 2)
+print(f'[info] litter pass 2: {len(L2)} + {len(bag_leaves)} on bag + {len(touch)} touching props  '
+      f't={time.time() - T0:.1f}s', flush=True)
 
 # shallow water in the puddle hollow (leaves below the level read as submerged)
 pz = float(ground_height(np.array([px]), np.array([py]), GROUND)[0]) + pu[4] * 0.62
@@ -239,7 +273,7 @@ if DEBUG:
     light('SUN', 'DebugSun', (0, 0, 5), rot=(math.radians(35), 0, math.radians(20)), energy=4.0, size=5)
 else:
     # overcast: the dome does most of it; a big soft key from above-behind, a little cool fill from camera side
-    light('AREA', 'Key', (0.5, 3.2, 3.4), energy=700, color=kelvin(6800), size=5.0, size_y=3.0, shape='RECTANGLE',
+    light('AREA', 'Key', (0.4, 4.6, 5.2), energy=520, color=kelvin(6800), size=10.0, size_y=6.0, shape='RECTANGLE',
           target=(0.0, 0.8, 0.0))
     light('AREA', 'Fill', (-1.0, -1.6, 0.9), energy=18, color=kelvin(9500), size=2.0, target=(0.0, 0.7, 0.0))
     for m in list(bpy.data.materials):

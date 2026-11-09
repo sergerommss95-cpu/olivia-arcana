@@ -448,37 +448,41 @@ def mat_leaf(name='Leaf'):
     rnd3 = g.math('FRACT', g.mul(rnd, 71.3))
     co = g.vmath('ADD', tc.outputs['Object'], g.vmath('SCALE', oi.outputs['Location'], scale=7.0))
     # per-leaf base colour: decayed umber .. brown .. tan oak .. muted copper beech
-    base = g.ramp(rnd, [(0.0, (0.022, 0.015, 0.010)), (0.25, (0.055, 0.032, 0.017)), (0.52, (0.10, 0.055, 0.026)),
-                        (0.76, (0.165, 0.092, 0.042)), (0.9, (0.22, 0.13, 0.062)), (1.0, (0.15, 0.065, 0.026))])
+    base = g.ramp(rnd, [(0.0, (0.010, 0.0075, 0.006)), (0.08, (0.014, 0.009, 0.006)), (0.24, (0.040, 0.018, 0.007)),
+                        (0.48, (0.080, 0.032, 0.010)), (0.72, (0.150, 0.055, 0.014)), (0.9, (0.200, 0.085, 0.022)),
+                        (1.0, (0.175, 0.062, 0.016))])
     mott_f, _ = g.noise(co, 38.0, 6.0, 0.6)
     mott = g.ramp(mott_f, [(0.3, 0.62), (0.55, 1.0), (0.75, 1.12)])
     col = g.mixc(1.0, base, mott, 'MULTIPLY')
     # decay blotches (dark, irregular) on some leaves
     bl_f, _ = g.noise(co, 22.0, 4.0, 0.55, dist=0.4)
     blot = g.mul(g.maprange(bl_f, 0.58, 0.68), g.maprange(rnd3, 0.3, 0.9))
-    col = g.mixc(blot, col, (0.025, 0.016, 0.010))
+    col = g.mixc(blot, col, (0.016, 0.009, 0.005))
     # veins: midrib + oblique laterals
     mid = g.maprange(vn, 0.0, 0.07, 1.0, 0.0)
     lat = g.math('FRACT', g.sub(g.mul(u, veinf), g.mul(vn, 0.85)))
     latl = g.maprange(g.math('ABSOLUTE', g.sub(lat, 0.5)), 0.43, 0.5)
     latl = g.mul(latl, g.maprange(vn, 0.95, 0.6))
     veins = g.math('MAXIMUM', mid, g.mul(latl, 0.7))
-    col = g.mixc(g.mul(veins, 0.35), col, g.mixc(1.0, col, (1.9, 1.7, 1.5), 'MULTIPLY'))
+    col = g.mixc(g.mul(veins, 0.3), col, g.mixc(1.0, col, (1.7, 1.45, 1.25), 'MULTIPLY'))
     # margins darker and drier
     edge = g.maprange(vn, 0.72, 1.0)
-    col = g.mixc(g.mul(edge, 0.35), col, (0.02, 0.013, 0.008))
+    col = g.mixc(g.mul(edge, 0.35), col, (0.014, 0.008, 0.005))
     # undersides paler/greyer
     geo = g.node('ShaderNodeNewGeometry')
-    col = g.mixc(g.mul(geo.outputs['Backfacing'], 0.45), col, g.mixc(0.5, col, (0.22, 0.17, 0.12)))
+    col = g.mixc(g.mul(geo.outputs['Backfacing'], 0.3), col, g.mixc(0.5, col, (0.16, 0.10, 0.06)))
     # wetness: per-leaf + patches
-    wn_f, _ = g.noise(co, 14.0, 3.0, 0.5)
-    wet = g.add(g.maprange(rnd2, 0.25, 0.95, 0.0, 0.7), g.maprange(wn_f, 0.5, 0.64, -0.35, 0.4), clamp=True)
-    col = g.mixc(g.mul(wet, 0.42), col, g.mixc(1.0, col, (0.55, 0.52, 0.5), 'MULTIPLY'))
+    wn_f, _ = g.noise(co, 16.0, 4.0, 0.55, dist=0.25)
+    wpatch = g.maprange(wn_f, 0.52, 0.6)                        # glossy wet patches (film of water)
+    damp = g.maprange(rnd2, 0.1, 0.9, 0.25, 0.9)                 # per-leaf soak (darkening)
+    wet = g.math('MAXIMUM', g.mul(wpatch, g.maprange(rnd2, 0.0, 0.5, 0.45, 1.0)), g.mul(damp, 0.35))
+    col = g.mixc(g.mul(damp, 0.55), col, g.mixc(1.0, col, (0.62, 0.5, 0.42), 'MULTIPLY'))
+    col = g.mixc(g.mul(wpatch, 0.35), col, g.mixc(1.0, col, (0.7, 0.58, 0.5), 'MULTIPLY'))
     g.feed(p.inputs['Base Color'], col)
-    g.feed(p.inputs['Roughness'], g.mixf(wet, 0.72, 0.4))
-    g.feed(p.inputs['Coat Weight'], g.mul(g.maprange(wet, 0.35, 0.8), 0.5))
-    g.feed(p.inputs['Specular IOR Level'], g.mixf(wet, 0.22, 0.4))
-    _pset(p, Coat_Roughness=0.08)
+    g.feed(p.inputs['Roughness'], g.mixf(wpatch, 0.74, 0.1))
+    g.feed(p.inputs['Coat Weight'], g.mul(wpatch, 0.65))
+    g.feed(p.inputs['Specular IOR Level'], g.mixf(wpatch, 0.2, 0.5))
+    _pset(p, Coat_Roughness=0.04)
     fine_f, _ = g.noise(co, 420.0, 3.0, 0.6)
     h = g.add(g.mul(veins, 0.6), g.mul(fine_f, 0.4))
     nrm = g.bump(h, 0.22, 0.0007)
@@ -503,7 +507,10 @@ def mat_soil(name='Soil', far_from=2.2, far_to=3.6):
     co = tc.outputs['Object']
     _, y, _ = g.sep(co)
     n1, _ = g.noise(co, 9.0, 8.0, 0.6)
-    soil = g.ramp(n1, [(0.3, (0.018, 0.012, 0.008)), (0.6, (0.035, 0.024, 0.015)), (0.8, (0.05, 0.035, 0.022))])
+    soil = g.ramp(n1, [(0.3, (0.008, 0.0055, 0.004)), (0.6, (0.016, 0.010, 0.0065)), (0.8, (0.026, 0.017, 0.010))])
+    bits = g.voronoi(co, 220.0, 'F1')
+    bit = g.mul(g.maprange(bits.outputs['Distance'], 0.1, 0.35, 1.0, 0.0), g.gt(g.sep(bits.outputs['Color'])[0], 0.6))
+    soil = g.mixc(g.mul(bit, 0.8), soil, (0.05, 0.022, 0.008))
     # leaf mosaic: distorted voronoi cells ~ leaf size, coloured from the leaf palette
     dn, dc = g.noise(co, 8.0, 2.0, 0.5)
     co2 = g.vmath('ADD', co, g.vmath('SCALE', g.vmath('SUBTRACT', dc, (0.5, 0.5, 0.5)), scale=0.05))
@@ -520,7 +527,7 @@ def mat_soil(name='Soil', far_from=2.2, far_to=3.6):
     g.feed(p.inputs['Base Color'], col)
     wn, _ = g.noise(co, 3.0, 3.0, 0.5)
     wet = g.maprange(wn, 0.4, 0.6, 0.2, 0.8)
-    g.feed(p.inputs['Roughness'], g.mixf(far, g.mixf(wet, 0.75, 0.4), 0.7))
+    g.feed(p.inputs['Roughness'], g.mixf(far, g.mixf(wet, 0.7, 0.18), 0.7))
     g.feed(p.inputs['Coat Weight'], g.mul(g.mul(wet, 0.4), g.sub(1.0, far)))
     _pset(p, Coat_Roughness=0.1)
     hb, _ = g.noise(co, 120.0, 6.0, 0.6)
@@ -1021,8 +1028,8 @@ def make_leaf_proto(name, kind, rng, mat, style='flat'):
         rows.append((u, wl, wr))
     # shape deformation parameters
     if style == 'flat':
-        fold, curl, roll, crum, tip = rng.uniform(0.0, 0.16), rng.uniform(-0.12, 0.22), rng.uniform(-0.1, 0.18), \
-            rng.uniform(0.25, 0.7), rng.uniform(-0.1, 0.22)
+        fold, curl, roll, crum, tip = rng.uniform(0.04, 0.2), rng.uniform(0.15, 0.55), rng.uniform(0.25, 0.6), \
+            rng.uniform(0.3, 0.8), rng.uniform(0.0, 0.3)
     else:  # dry curled
         fold, curl, roll, crum, tip = rng.uniform(0.18, 0.45), rng.uniform(0.15, 0.5), rng.uniform(0.2, 0.6), \
             rng.uniform(0.4, 0.9), rng.uniform(0.1, 0.45)

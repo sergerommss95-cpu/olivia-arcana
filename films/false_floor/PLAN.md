@@ -92,3 +92,19 @@ animated shots go to the GPU once you approve the look.
 2. When we reach step 4: a RunPod (or Vast.ai) account with a little credit. I'll ask for the API key through the
    secure form so I never see it.
 3. VO recorded with George once the script is locked.
+
+## 7. Look lock and quality bar
+
+- **9 Nov 2026: SF1 (forced box wall, `stills/SF1_vault_v01.jpg`) approved by Collin** as the look reference for every
+  3D shot. SF3 (section) and SF2 (woods) pending his notes.
+- Collin's rule: **everything must be cinematic and well made.** In practice, every shot must have:
+  - a clear focal subject and depth layers (soft foreground, sharp subject, background falling into darkness or haze);
+  - motivated light only (practicals, fluorescent tubes, a doorway, daylight), mostly in shadow, small bright highlights,
+    lips and edges catching light instead of flat fills;
+  - real-world scale, bevelled edges, material variation (paint wear, grime, roughness breakup), no toy or cardboard look;
+  - a motivated camera (slow push, drift, rack focus, or a decisive move on a beat), shallow depth of field on close-ups,
+    motion blur on movement;
+  - the brand grade (charcoal black point, cream highlights, muted natural colour, grain), type that builds and settles,
+    the reconstruction label;
+  - a QC still reviewed by the lead before any animation renders; anything that reads as stock, HUD, sticker, or
+    "AI slop" goes back.
