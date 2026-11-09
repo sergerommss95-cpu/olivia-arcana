@@ -338,7 +338,11 @@ def shot_c13(frames=80):
     xc = (wx0 - 0.04 + wx1 + 0.04) / 2
     L = (wx1 + 0.04) - (wx0 - 0.04)
     bpy.context.view_layer.update()
-    tip = t.rig.matrix_world @ t.rig.pose.bones['RightHandFinger1'].tail
+    pbt = t.rig.pose.bones
+    if 'RightF0_3' in pbt:      # per-finger chains: the slats part round the index + middle fingertips
+        tip = t.rig.matrix_world @ ((pbt['RightF0_3'].tail + pbt['RightF1_3'].tail) * 0.5)
+    else:
+        tip = t.rig.matrix_world @ pbt['RightHandFinger1'].tail
     zs = sorted(A['slats'], key=lambda s_: abs(s_.location.z - tip.z))[:2]
     zs.sort(key=lambda s_: s_.location.z)
     bent_slat('SlatLow', zs[0], L, tip.x - xc, -0.022)
