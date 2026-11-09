@@ -30,7 +30,7 @@ Render
 - Build time ~25–45 s per shot (leaf scatter + paper draping in Python). Scene sizes: S31 ~8.5k leaf instances
   + volume; S35 ~10.6k; S33 ~9.5k; S36 ~5.8k.
 - CPU timings here (4 cores): SF2 full res 1920x1080 at 48 spp = 355 s (over the 90 s target); S31 test frames
-  at 30 % / 16 spp ≈ RENDER_S31 s each (volume fog dominates). Expect a 4090 to do S31 at 1080p/40 spp within the
+  at 30 % / 16 spp ≈ 50 s each (+40 s build); S35 at 25 % ≈ 70 s, S36 ≈ 50 s, S33 ≈ 43 s. Expect a 4090 to do S31 at 1080p/40 spp within the
   ~8 s/frame budget; if not, drop `vol_step` to 4 or the fog density/box size first.
 
 Known issues / honest limits

@@ -1163,7 +1163,8 @@ def build_open_parcel(name, loc, rot_z, M, coll=None, c=0.090, e=0.040, a=0.046,
     o = ob(name, bm, [M['liner'], M['paper_white']], coll, smooth=None)
     for p_ in o.data.polygons:
         p_.use_smooth = True
-    solidify(o, 0.00035, -1.0, mat_off=1, rim_off=1)
+    sm = solidify(o, 0.00035, -1.0, mat_off=1, rim_off=1)
+    sm.use_even_offset = False
     o.location = loc
     o.rotation_euler.z = rot_z
     return o
@@ -1231,12 +1232,12 @@ def build_table(M, coll=None, seed=5):
     items = []
     for k, (u, v, s_) in enumerate(spots):
         p = R @ Vector((u, v, 0))
-        items.append(('rough', f'Stone{k}', p.x, p.y, s_, 40 + k))
+        items.append(('rough', f'Stone{k}', p.x, p.y, s_ * 1.25, 40 + k))
     for k, (u, v, r_) in enumerate(((0.0085, 0.0025, 0.0019), (-0.010, 0.011, 0.0015))):
         p = R @ Vector((u, v, 0))
         items.append(('pol', f'Polished{k}', p.x, p.y, r_, 60 + k))
     for k, (x, y, s_) in enumerate(((0.088, 0.012, 0.0022), (0.099, 0.026, 0.0016), (0.079, -0.006, 0.0014))):
-        items.append(('rough', f'Spill{k}', x, y, s_, 80 + k))
+        items.append(('rough', f'Spill{k}', x, y, s_ * 1.25, 80 + k))
     heights = [surf(x, y, s_ * 0.9) for _, _, x, y, s_, _ in items]
     for (kind, nm, x, y, s_, sd), zs in zip(items, heights):
         if kind == 'rough':

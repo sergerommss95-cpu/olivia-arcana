@@ -141,7 +141,8 @@ class Source:
                     yield kb(last, (i - len(fr)) / max(1, n - len(fr)) * 0.35, 1)
         elif self.mode == 'mg':
             for i in range(n):
-                yield Image.open(self.mg[min(i, len(self.mg) - 1)]).convert('RGB')
+                im = Image.open(self.mg[min(i, len(self.mg) - 1)]).convert('RGB')
+                yield im if im.size == (W, H) else im.resize((W, H), Image.BILINEAR)
         else:
             seed = int(self.sid[1:]) if self.sid[1:].isdigit() else 0
             for i in range(n):
@@ -163,8 +164,18 @@ def grade(im, rng):
     return Image.fromarray((np.clip(x, 0, 1) * 255 + 0.5).astype(np.uint8))
 
 
-yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
-VIG = 1 - 0.3 * np.clip(((xx / W - 0.5) * 2) ** 2 * 0.7 + ((yy / H - 0.5) * 2) ** 2 * 0.55 - 0.12, 0, 1)
+def make_vig():
+    yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+    return 1 - 0.3 * np.clip(((xx / W - 0.5) * 2) ** 2 * 0.7 + ((yy / H - 0.5) * 2) ** 2 * 0.55 - 0.12, 0, 1)
+
+
+VIG = make_vig()
+
+
+def set_size(w, h):
+    global W, H, VIG
+    W, H = w, h
+    VIG = make_vig()
 
 
 def overlay(name, idx=None):
@@ -174,22 +185,25 @@ def overlay(name, idx=None):
     fs = sorted(glob.glob(os.path.join(d, '*.png')))
     if not fs:
         return None
-    if idx is None:
-        return Image.open(fs[0]).convert('RGBA')
-    return Image.open(fs[min(idx, len(fs) - 1)]).convert('RGBA')
+    f = fs[0] if idx is None else fs[min(idx, len(fs) - 1)]
+    im = Image.open(f).convert('RGBA')
+    return im if im.size == (W, H) else im.resize((W, H), Image.BILINEAR)
 
 
 def find_value_png(name, prefix, value):
     p = os.path.join(FF, 'out', 'renders', name, f'{prefix}{value}.png')
-    return Image.open(p).convert('RGBA') if os.path.exists(p) else None
+    if not os.path.exists(p):
+        return None
+    im = Image.open(p).convert('RGBA')
+    return im if im.size == (W, H) else im.resize((W, H), Image.BILINEAR)
 
 
 def label_fallback():
     lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(lay)
-    f = FONT('Medium', 22)
-    d.text((100, H - 52), 'ILLUSTRATIVE RECONSTRUCTION', font=f, fill=(183, 186, 184, 255), anchor='ls')
-    d.text((W - 100, H - 52), 'FALSE FLOOR · CASE No. 02', font=f, fill=(183, 186, 184, 255), anchor='rs')
+    f = FONT('Medium', max(11, int(22 * W / 1920)))
+    d.text((100 * W // 1920, H - 52 * H // 1080), 'ILLUSTRATIVE RECONSTRUCTION', font=f, fill=(183, 186, 184, 255), anchor='ls')
+    d.text((W - 100 * W // 1920, H - 52 * H // 1080), 'FALSE FLOOR · CASE No. 02', font=f, fill=(183, 186, 184, 255), anchor='rs')
     return lay
 
 
@@ -200,7 +214,7 @@ def render_segment(args):
     rng = np.random.default_rng(int(e['id'][1:]) * 7 + 1)
     is3d = e['kind'] in ('3D', '3DS') or (e['kind'] == 'HOLD' and src.mode != 'mg')
     label = overlay('O_LABEL') or label_fallback()
-    ow, oh = (W, H) if not preview else (960, 540)
+    ow, oh = W, H
     enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{ow}x{oh}', '-r', str(FPS),
                             '-i', '-', '-c:v', 'libx264', '-preset', 'medium', '-crf', '16' if not preview else '23',
                             '-pix_fmt', 'yuv420p', path], stdin=subprocess.PIPE)
@@ -229,12 +243,10 @@ def render_segment(args):
             if o:
                 im = Image.alpha_composite(im, o)
         if e.get('fade_in') and i < e['fade_in']:
-            im = Image.blend(Image.new('RGBA', (W, H), (17, 23, 25, 255)), im, (i + 1) / e['fade_in'])
+            im = Image.blend(Image.new('RGBA', im.size, (17, 23, 25, 255)), im, (i + 1) / e['fade_in'])
         if e.get('fade_out') and i >= n - e['fade_out']:
-            im = Image.blend(Image.new('RGBA', (W, H), (17, 23, 25, 255)), im, max(0, (n - i - 1) / e['fade_out']))
+            im = Image.blend(Image.new('RGBA', im.size, (17, 23, 25, 255)), im, max(0, (n - i - 1) / e['fade_out']))
         im = im.convert('RGB')
-        if preview:
-            im = im.resize((ow, oh), Image.BILINEAR)
         enc.stdin.write(im.tobytes())
     enc.stdin.close()
     enc.wait()
@@ -340,6 +352,8 @@ def main():
     vo_path = os.path.join(FF, arg('--vo', 'out/vo/vo_george_v4_v01'))
     out = os.path.join(FF, arg('--out', 'out/FALSE_FLOOR_E02_v01.mp4'))
     preview = bool(arg('--preview'))
+    if preview:
+        set_size(960, 540)
     shots = json.load(open(os.path.join(FF, 'script', 'SHOTS_v2.json')))['shots']
     vo = json.load(open(vo_path + '.json'))
     tl, total = build_timeline(shots, vo)
