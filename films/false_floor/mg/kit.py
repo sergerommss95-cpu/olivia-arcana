@@ -83,16 +83,41 @@ def shot_info(sid):
     return _SHOTS[sid]
 
 
+_ALIGN = None
+ALIGN_GLOB = os.path.join(FF, 'out', 'vo', 'vo_george_v4_v01_chapters', '*.json')
+
+
+def _chapters():
+    """ElevenLabs character alignment of the locked George v4 VO, one entry per chapter take."""
+    global _ALIGN
+    if _ALIGN is None:
+        import glob
+        _ALIGN = []
+        for p in sorted(glob.glob(ALIGN_GLOB)):
+            try:
+                a = json.load(open(p))['alignment']
+                _ALIGN.append((''.join(a['characters']), a['character_start_times_seconds']))
+            except Exception:
+                pass
+    return _ALIGN
+
+
 def cue(sid, phrase, lead=0):
-    """Frame (0-based) where `phrase` is spoken in the temp VO, estimated by character position within the beat.
-    Frame 0 of an MG shot = vo_start. `lead` pulls the cue earlier (type should land just before the word)."""
+    """Frame (0-based) in the shot where `phrase` starts in the George v4 VO: character-level alignment of the beat,
+    plus the shot's vo_offset_in_shot. Falls back to character position inside the beat if no alignment matches.
+    `lead` pulls the cue earlier (type should land just before the word)."""
     s = shot_info(sid)
     vo = s['vo']
     i = vo.find(phrase)
     if i < 0:
         raise KeyError(f'{sid}: "{phrase}" not in VO')
+    off = float(s.get('vo_offset_in_shot', 0.0))
+    for text, ts in _chapters():
+        b = text.find(vo[:30])
+        if b >= 0 and text[b:b + len(vo)] == vo:
+            return int(round((off + ts[b + i] - ts[b]) * FPS)) - lead
     dur = s['vo_end'] - s['vo_start']
-    return int(round(i / len(vo) * dur * FPS)) - lead
+    return int(round((off + i / len(vo) * dur) * FPS)) - lead
 
 
 # ----------------------------------------------------------------------------- fonts / glyphs (3x)

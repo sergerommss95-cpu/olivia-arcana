@@ -366,7 +366,7 @@ def mats_room(M):
                           brushed=(1.0, 1.0, 40.0))
     M['wallconc'] = mat_concrete('EndConcrete', base=(0.07, 0.072, 0.075), wet=0.0, scale=1.5, contrast=0.4)
     M['ceil'] = mat_concrete('CeilConc', base=(0.085, 0.087, 0.09), wet=0.0, scale=1.8, contrast=0.35)
-    for k, sv in (('ceil', 0.04), ('wallconc', 0.1)):       # less 'hammered' than the stock voronoi bump
+    for k, sv in (('ceil', 0.04), ('wallconc', 0.1), ('floor', 0.07)):   # less 'hammered' than the stock bump
         for n in M[k].node_tree.nodes:
             if n.bl_idname == 'ShaderNodeBump':
                 n.inputs['Strength'].default_value = sv

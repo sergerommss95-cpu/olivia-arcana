@@ -1491,8 +1491,8 @@ def build_bag(M, coll=None):
     nrm = Vector((0, -1, 0))
     bez = cyl('LensBezel', tuple(lens_p + nrm * 0.0001), 0.0022, 0.001, M['bezel'], rot=(math.pi / 2, 0, 0), seg=40, bev=0.0003)
     shade(bez, True, 40)
-    dome = prim('sphere', 'LensDome', tuple(lens_p + nrm * 0.0002), seg=40, ring=20, r=0.0014)
-    dome.scale = (1.0, 0.55, 1.0)
+    dome = prim('sphere', 'LensDome', tuple(lens_p + nrm * 0.0003), seg=48, ring=24, r=0.0015)
+    dome.scale = (1.0, 0.7, 1.0)
     set_mat(dome, M['lens_glass'])
     A['lens'] = lens_p + nrm * 0.0012
     # second strap (right), plain, softer in the background
@@ -1532,7 +1532,7 @@ def street_mats(night=True):
     M['alu_dark'] = mat_paint('AluDark', color=(0.025, 0.026, 0.028), rough=(0.3, 0.45), scale=2.0, wear=0.1)
     M['shutter'] = mat_corrugated('Shutter', base=(0.17, 0.175, 0.18))
     M['shutter2'] = mat_corrugated('ShutterLight', base=(0.28, 0.285, 0.29), pitch=0.09)
-    dark = 0.86 if night else 0.55
+    dark = 0.86 if night else 0.42
     M['win'] = mat_office_glass('OfficeWin', dark_frac=dark, strength=1.4 if night else 2.0, cool_frac=0.65)
     M['win_shop'] = mat_office_glass('ShopWin', dark_frac=0.9, strength=0.8, cool_frac=0.8)
     M['lobby'] = mat_office_glass('LobbyWin', dark_frac=0.0, strength=1.1, cool_frac=1.0)
@@ -1802,7 +1802,12 @@ def build_street(M, coll=None, night=True, seed=11):
     hw, yin, yend = ST['hw'], ST['y_in'], ST['y_end']
     A = dict(lamps=[], cams=[])
     # ground: plaza + street paved in setts, centre gutter of flat stones
-    rbox('Ground', (80.0, 140.0, 0.02), (0.0, 40.0, -0.01), M['setts'], bev=0)
+    rbox('Ground', (80.0, 112.6, 0.02), (0.0, 53.8, -0.01), M['setts'], bev=0)
+    # the road in front of the district (wet asphalt) and a granite kerb line
+    from city import mat_wet_asphalt
+    rbox('Road', (80.0, 27.6, 0.02), (0.0, -16.3, -0.13), mat_wet_asphalt('RoadAsphalt', wet=0.6), bev=0)
+    rbox('Kerb', (80.0, 0.3, 0.14), (0.0, -2.6, -0.06), mat_stone('KerbStone', base=(0.12, 0.12, 0.12), rough=(0.3, 0.55),
+                                                                 speck=0.5, scale=3.0), bev=0.01)
     rbox('Gutter', (0.42, yend - yin + 4, 0.012), (0.0, (yin + yend) / 2, -0.002), M['gutter'], bev=0.002)
     for k in range(int((yend - yin) / 1.2)):
         rbox('GutterJoint', (0.43, 0.008, 0.002), (0.0, yin + k * 1.2, 0.0045), M['stone_dark'], bev=0)

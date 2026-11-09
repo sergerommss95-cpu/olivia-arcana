@@ -581,7 +581,7 @@ class S30(Shot):
 # ============================================================================= S37 · DNA -> MATCH
 
 class S37(Shot):
-    """DNA builds in cream; a hairline reaches across; MATCH builds in orange. Never a percentage."""
+    """DNA builds in cream; an orange hairline reaches across; LINKED builds in orange. Never a percentage, never 'match'."""
     sid = 'S37'
     seed = 37
     label_left = 'FROM THE WOODS OFF THE E19 · c. 17 FEBRUARY 2003'
@@ -591,16 +591,16 @@ class S37(Shot):
         c = lambda p, l=8: cue(self.sid, p, l)
         px, y = 250, 640
         wd = text_width('DNA', 'Bold', px, 4)
-        wm = text_width('MATCH', 'Bold', px, 4)
+        wm = text_width('LINKED', 'Bold', px, 4)
         gap = 230
         x0 = (W - (wd + gap + wm)) / 2
         self.x0, self.y = x0, y
         self.dna = Text('DNA', 'Bold', px, x0, y, 'cream', 4, 'l', 'letter', max(10, c('take DNA', 4)), 14, 4)
         self.t_link = c('goes into the case', 24)
         self.l0, self.l1 = x0 + wd + 40, x0 + wd + gap - 40
-        self.match = Text('MATCH', 'Bold', px, x0 + wd + gap, y, 'orange', 4, 'l', 'letter', self.t_link + 22, 14, 3)
+        self.match = Text('LINKED', 'Bold', px, x0 + wd + gap, y, 'orange', 4, 'l', 'letter', self.t_link + 22, 14, 3)
         self.k = kicker('HALF A SALAMI SANDWICH', x0, y - 262, 6)
-        self.s = sub('INTO THE CASE FILE', x0 + wd + gap, y + 86, self.t_link + 46)
+        self.s = sub('TO THE CASE FILE', x0 + wd + gap, y + 86, self.t_link + 46)
 
     def layout(self, L, f):
         self.k.draw(L, f)
@@ -829,7 +829,7 @@ class S44(Shot):
         y = 404
         maxw = self.PW1 - M - 70
         for i, (txt, ph) in enumerate(self.CLAIMS):
-            st = max(14, c(ph, 6)) if i else 16
+            st = max(14, c(ph, 10)) if i else 16
             k = Text('HE SAYS', 'SemiBold', 20, M, y, 'ink', 5, 'l', 'letter', st, 10, 1)
             p = Para(txt, 'Bold', 44, M, y + 46, maxw, 1.08, 'ink', 0.5, st + 8, 12, 2)
             self.blocks.append((st, k, p))
@@ -910,7 +910,7 @@ class S47(Shot):
                    Text('FOR THE ONE MAN WHO KNOWS WHERE THE REST WENT', 'SemiBold', 24, self.PW + M, 820, 'concrete', 3,
                         'l', 'word', c('the one man', 10), 12, 3)]
         self.t_open = c('the one man', -14)
-        self.t_open = min(self.t_open, self.n - 64)
+        self.t_open = min(self.t_open, self.n - 84)     # reveal (54 f) completes with >= 30 f of empty orange
 
     def d(self, f):
         return (self.PW + 60) * ease_in_out(ramp(f, self.t_open, 54))
@@ -968,7 +968,7 @@ class S49(Shot):
         super().__init__(shot_info(self.sid)['render_frames'])
         c = lambda p, l=8: cue(self.sid, p, l)
         self.k = kicker('AFTER THE SENTENCE · 2009–2017', M, 170, 6)
-        st = {2009: 30, 2010: c('In 2010', 10), 2011: self.n - 70, 2013: self.n - 58, 2017: self.n - 46}
+        st = {2009: 30, 2010: c('In 2010', 10), 2011: self.n - 112, 2013: self.n - 100, 2017: self.n - 88}
         self.st = st
         self.ev = []
         for yr, lbl in self.EVENTS:
@@ -1029,43 +1029,58 @@ class S49(Shot):
 # ============================================================================= S50 · Turin -> Paris CDG
 
 class S50(Shot):
+    """Schematic: a flight line arrives from the west (FROM THE UNITED STATES) to Paris CDG, the orange arrest mark,
+    then a faint dashed continuation toward Turin that stops: never reached. No tiles."""
     sid = 'S50'
     seed = 50
-    label_left = 'SCHEMATIC · NOT A RECONSTRUCTED ROUTE'
-    PAR, TUR = (1130, 250), (1600, 790)
+    label_left = 'SCHEMATIC · NOT TO SCALE'
+    PAR, TUR = (1160, 470), (1580, 880)
 
     def __init__(self):
         super().__init__(shot_info(self.sid)['render_frames'])
         c = lambda p, l=8: cue(self.sid, p, l)
-        self.items = [(Text('NEVER COMPENSATED HIS VICTIMS', 'SemiBold', 30, M, 200, 'concrete', 4, 'l', 'letter', 8, 12, 1)),
-                      (Text('BROKE HIS PAROLE', 'SemiBold', 30, M, 254, 'concrete', 4, 'l', 'letter', c('He breaks', 10), 12, 1)),
-                      (Text('2011 · EUROPEAN ARREST WARRANT', 'SemiBold', 30, M, 308, 'concrete', 4, 'l', 'letter',
-                            c('He breaks', -16), 12, 1))]
-        self.t_line = c('And in 2013', 20)
-        self.t = title('PARIS · 2013', M, H - 190, c('a European', 30), px=150)
-        self.s = sub('ARRESTED ON A LAYOVER · SENTENCE SERVED BY 2017', M, H - 118, c('He serves', 30))
+        self.items = [Text('NEVER COMPENSATED HIS VICTIMS', 'SemiBold', 30, M, 200, 'concrete', 4, 'l', 'letter', 8, 12, 1),
+                      Text('BROKE HIS PAROLE', 'SemiBold', 30, M, 254, 'concrete', 4, 'l', 'letter', c('He breaks', 10), 12, 1),
+                      Text('2011 · EUROPEAN ARREST WARRANT', 'SemiBold', 30, M, 308, 'concrete', 4, 'l', 'letter',
+                           c('He breaks', -16), 12, 1)]
+        self.t_line = min(c('And in 2013', 30), self.n - 200)
+        self.t_arrest = self.t_line + 64
+        self.t_dash = self.t_arrest + 26
+        self.t = title('PARIS · 2013', M, H - 190, min(c('a European', 24), self.n - 120), px=150)
+        self.s = sub('ARRESTED ON A LAYOVER · SENTENCE SERVED BY 2017', M, H - 118, min(c('He serves', 24), self.n - 90))
         p, t = self.PAR, self.TUR
-        mx, my = (p[0] + t[0]) / 2 + 70, (p[1] + t[1]) / 2 + 40
-        self.route = [(lerp(lerp(t[0], mx, u), lerp(mx, p[0], u), u), lerp(lerp(t[1], my, u), lerp(my, p[1], u), u))
-                      for u in np.linspace(0, 1, 40)]
-        self.lt = tag('TURIN', t[0] - 24, t[1] + 10, self.t_line - 20, 'cream', 'r', px=30)
-        self.lp = tag('PARIS · CHARLES DE GAULLE', p[0] + 26, p[1] + 10, self.t_line + 60, 'cream', px=30)
+        x0, y0 = -60, 610
+        mx, my = (x0 + p[0]) / 2, min(y0, p[1]) - 70
+        self.route = [(lerp(lerp(x0, mx, u), lerp(mx, p[0], u), u), lerp(lerp(y0, my, u), lerp(my, p[1], u), u))
+                      for u in np.linspace(0, 1, 48)]
+        self.dash = [p, (lerp(p[0], t[0], 0.52), lerp(p[1], t[1], 0.52))]
+        self.lus = tag('FROM THE UNITED STATES', M, 628, self.t_line + 6, 'concrete', px=24)
+        self.lp = tag('PARIS · CHARLES DE GAULLE', p[0] + 30, p[1] - 14, self.t_line + 50, 'cream', px=30)
+        self.la = tag('ARRESTED · 2013', p[0] + 30, p[1] + 26, self.t_arrest + 6, 'orange', px=24)
+        self.lt = tag('TURIN', t[0] + 26, t[1] + 10, self.t_dash + 6, 'concrete', px=26)
 
     def layout(self, L, f):
         for t in self.items:
             t.draw(L, f)
         p, t = self.PAR, self.TUR
-        g = ease_out(ramp(f, self.t_line - 24, 12))
-        L.ring(t[0], t[1], 9, 1.6, 'cream', g)
-        L.dot(t[0], t[1], 3.5, 'cream', g)
-        self.lt.draw(L, f)
-        lp = ramp(f, self.t_line, 60)
-        L.polyline(self.route, 2.6, 'orange', 1.0, ease_in_out(lp))
-        if lp >= 1:
-            g2 = ease_out(ramp(f, self.t_line + 60, 12))
-            L.ring(p[0], p[1], 9, 1.6, 'cream', g2)
-            L.dot(p[0], p[1], 3.5, 'cream', g2)
+        self.lus.draw(L, f)
+        lp = ramp(f, self.t_line, 64)
+        L.polyline(self.route, 2.0, 'cream', 0.85, ease_in_out(lp))
+        g = ease_out(ramp(f, self.t_line + 44, 14))
+        L.dot(p[0], p[1], 3.5, 'cream', g)
         self.lp.draw(L, f)
+        ap = ramp(f, self.t_arrest, 16)
+        if ap > 0:
+            e = ease_out(ap)
+            L.ring(p[0], p[1], 9 + 5 * (1 - e), 2.0, 'orange', e)
+            L.square(p[0], p[1], 3.5, 'orange', e)
+        self.la.draw(L, f)
+        dp = ramp(f, self.t_dash, 40)
+        if dp > 0:
+            L.dashed(self.dash, 1.4, 'concrete', 0.55, 7, 7, ease_in_out(dp))
+            gt = ease_out(ramp(f, self.t_dash, 20))
+            L.ring(t[0], t[1], 8, 1.4, 'concrete', 0.5 * gt)
+        self.lt.draw(L, f, a=0.6)
         self.t.draw(L, f)
         self.s.draw(L, f)
 

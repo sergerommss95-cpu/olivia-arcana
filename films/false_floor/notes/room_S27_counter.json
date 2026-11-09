@@ -1,0 +1,666 @@
+{
+ "shot": "S27",
+ "cut": [
+  7,
+  246
+ ],
+ "rule": "snap_frame(n) = WS + (246 - WS) * (n - 1) / 108; with WS = 30: 30 + 2 (n - 1)",
+ "wave_start": 30,
+ "counter": "show n from frame snap_frame(n): the door is closed on the frame before, mid-swing (blurred) on snap_frame, settled by snap_frame + 7",
+ "doors": [
+  {
+   "n": 1,
+   "col": 3,
+   "row": 6,
+   "snap_frame": 30.0
+  },
+  {
+   "n": 2,
+   "col": 3,
+   "row": 10,
+   "snap_frame": 32.0
+  },
+  {
+   "n": 3,
+   "col": 3,
+   "row": 7,
+   "snap_frame": 34.0
+  },
+  {
+   "n": 4,
+   "col": 4,
+   "row": 12,
+   "snap_frame": 36.0
+  },
+  {
+   "n": 5,
+   "col": 3,
+   "row": 8,
+   "snap_frame": 38.0
+  },
+  {
+   "n": 6,
+   "col": 4,
+   "row": 8,
+   "snap_frame": 40.0
+  },
+  {
+   "n": 7,
+   "col": 3,
+   "row": 9,
+   "snap_frame": 42.0
+  },
+  {
+   "n": 8,
+   "col": 4,
+   "row": 2,
+   "snap_frame": 44.0
+  },
+  {
+   "n": 9,
+   "col": 5,
+   "row": 7,
+   "snap_frame": 46.0
+  },
+  {
+   "n": 10,
+   "col": 3,
+   "row": 2,
+   "snap_frame": 48.0
+  },
+  {
+   "n": 11,
+   "col": 5,
+   "row": 12,
+   "snap_frame": 50.0
+  },
+  {
+   "n": 12,
+   "col": 5,
+   "row": 3,
+   "snap_frame": 52.0
+  },
+  {
+   "n": 13,
+   "col": 5,
+   "row": 6,
+   "snap_frame": 54.0
+  },
+  {
+   "n": 14,
+   "col": 4,
+   "row": 5,
+   "snap_frame": 56.0
+  },
+  {
+   "n": 15,
+   "col": 4,
+   "row": 10,
+   "snap_frame": 58.0
+  },
+  {
+   "n": 16,
+   "col": 6,
+   "row": 11,
+   "snap_frame": 60.0
+  },
+  {
+   "n": 17,
+   "col": 7,
+   "row": 11,
+   "snap_frame": 62.0
+  },
+  {
+   "n": 18,
+   "col": 8,
+   "row": 11,
+   "snap_frame": 64.0
+  },
+  {
+   "n": 19,
+   "col": 8,
+   "row": 6,
+   "snap_frame": 66.0
+  },
+  {
+   "n": 20,
+   "col": 7,
+   "row": 4,
+   "snap_frame": 68.0
+  },
+  {
+   "n": 21,
+   "col": 7,
+   "row": 6,
+   "snap_frame": 70.0
+  },
+  {
+   "n": 22,
+   "col": 6,
+   "row": 6,
+   "snap_frame": 72.0
+  },
+  {
+   "n": 23,
+   "col": 6,
+   "row": 0,
+   "snap_frame": 74.0
+  },
+  {
+   "n": 24,
+   "col": 7,
+   "row": 8,
+   "snap_frame": 76.0
+  },
+  {
+   "n": 25,
+   "col": 7,
+   "row": 0,
+   "snap_frame": 78.0
+  },
+  {
+   "n": 26,
+   "col": 7,
+   "row": 7,
+   "snap_frame": 80.0
+  },
+  {
+   "n": 27,
+   "col": 9,
+   "row": 3,
+   "snap_frame": 82.0
+  },
+  {
+   "n": 28,
+   "col": 7,
+   "row": 3,
+   "snap_frame": 84.0
+  },
+  {
+   "n": 29,
+   "col": 8,
+   "row": 4,
+   "snap_frame": 86.0
+  },
+  {
+   "n": 30,
+   "col": 7,
+   "row": 1,
+   "snap_frame": 88.0
+  },
+  {
+   "n": 31,
+   "col": 7,
+   "row": 10,
+   "snap_frame": 90.0
+  },
+  {
+   "n": 32,
+   "col": 8,
+   "row": 2,
+   "snap_frame": 92.0
+  },
+  {
+   "n": 33,
+   "col": 8,
+   "row": 3,
+   "snap_frame": 94.0
+  },
+  {
+   "n": 34,
+   "col": 8,
+   "row": 7,
+   "snap_frame": 96.0
+  },
+  {
+   "n": 35,
+   "col": 8,
+   "row": 8,
+   "snap_frame": 98.0
+  },
+  {
+   "n": 36,
+   "col": 9,
+   "row": 7,
+   "snap_frame": 100.0
+  },
+  {
+   "n": 37,
+   "col": 10,
+   "row": 2,
+   "snap_frame": 102.0
+  },
+  {
+   "n": 38,
+   "col": 9,
+   "row": 10,
+   "snap_frame": 104.0
+  },
+  {
+   "n": 39,
+   "col": 10,
+   "row": 3,
+   "snap_frame": 106.0
+  },
+  {
+   "n": 40,
+   "col": 9,
+   "row": 2,
+   "snap_frame": 108.0
+  },
+  {
+   "n": 41,
+   "col": 10,
+   "row": 11,
+   "snap_frame": 110.0
+  },
+  {
+   "n": 42,
+   "col": 9,
+   "row": 8,
+   "snap_frame": 112.0
+  },
+  {
+   "n": 43,
+   "col": 9,
+   "row": 5,
+   "snap_frame": 114.0
+  },
+  {
+   "n": 44,
+   "col": 11,
+   "row": 6,
+   "snap_frame": 116.0
+  },
+  {
+   "n": 45,
+   "col": 10,
+   "row": 5,
+   "snap_frame": 118.0
+  },
+  {
+   "n": 46,
+   "col": 10,
+   "row": 10,
+   "snap_frame": 120.0
+  },
+  {
+   "n": 47,
+   "col": 12,
+   "row": 0,
+   "snap_frame": 122.0
+  },
+  {
+   "n": 48,
+   "col": 11,
+   "row": 10,
+   "snap_frame": 124.0
+  },
+  {
+   "n": 49,
+   "col": 11,
+   "row": 7,
+   "snap_frame": 126.0
+  },
+  {
+   "n": 50,
+   "col": 10,
+   "row": 1,
+   "snap_frame": 128.0
+  },
+  {
+   "n": 51,
+   "col": 12,
+   "row": 7,
+   "snap_frame": 130.0
+  },
+  {
+   "n": 52,
+   "col": 13,
+   "row": 6,
+   "snap_frame": 132.0
+  },
+  {
+   "n": 53,
+   "col": 12,
+   "row": 10,
+   "snap_frame": 134.0
+  },
+  {
+   "n": 54,
+   "col": 12,
+   "row": 5,
+   "snap_frame": 136.0
+  },
+  {
+   "n": 55,
+   "col": 12,
+   "row": 11,
+   "snap_frame": 138.0
+  },
+  {
+   "n": 56,
+   "col": 12,
+   "row": 8,
+   "snap_frame": 140.0
+  },
+  {
+   "n": 57,
+   "col": 13,
+   "row": 0,
+   "snap_frame": 142.0
+  },
+  {
+   "n": 58,
+   "col": 12,
+   "row": 3,
+   "snap_frame": 144.0
+  },
+  {
+   "n": 59,
+   "col": 13,
+   "row": 7,
+   "snap_frame": 146.0
+  },
+  {
+   "n": 60,
+   "col": 12,
+   "row": 2,
+   "snap_frame": 148.0
+  },
+  {
+   "n": 61,
+   "col": 14,
+   "row": 2,
+   "snap_frame": 150.0
+  },
+  {
+   "n": 62,
+   "col": 15,
+   "row": 9,
+   "snap_frame": 152.0
+  },
+  {
+   "n": 63,
+   "col": 13,
+   "row": 5,
+   "snap_frame": 154.0
+  },
+  {
+   "n": 64,
+   "col": 13,
+   "row": 3,
+   "snap_frame": 156.0
+  },
+  {
+   "n": 65,
+   "col": 15,
+   "row": 6,
+   "snap_frame": 158.0
+  },
+  {
+   "n": 66,
+   "col": 15,
+   "row": 11,
+   "snap_frame": 160.0
+  },
+  {
+   "n": 67,
+   "col": 14,
+   "row": 11,
+   "snap_frame": 162.0
+  },
+  {
+   "n": 68,
+   "col": 14,
+   "row": 12,
+   "snap_frame": 164.0
+  },
+  {
+   "n": 69,
+   "col": 15,
+   "row": 5,
+   "snap_frame": 166.0
+  },
+  {
+   "n": 70,
+   "col": 14,
+   "row": 9,
+   "snap_frame": 168.0
+  },
+  {
+   "n": 71,
+   "col": 14,
+   "row": 1,
+   "snap_frame": 170.0
+  },
+  {
+   "n": 72,
+   "col": 16,
+   "row": 9,
+   "snap_frame": 172.0
+  },
+  {
+   "n": 73,
+   "col": 15,
+   "row": 1,
+   "snap_frame": 174.0
+  },
+  {
+   "n": 74,
+   "col": 15,
+   "row": 2,
+   "snap_frame": 176.0
+  },
+  {
+   "n": 75,
+   "col": 15,
+   "row": 8,
+   "snap_frame": 178.0
+  },
+  {
+   "n": 76,
+   "col": 16,
+   "row": 6,
+   "snap_frame": 180.0
+  },
+  {
+   "n": 77,
+   "col": 17,
+   "row": 11,
+   "snap_frame": 182.0
+  },
+  {
+   "n": 78,
+   "col": 17,
+   "row": 1,
+   "snap_frame": 184.0
+  },
+  {
+   "n": 79,
+   "col": 16,
+   "row": 7,
+   "snap_frame": 186.0
+  },
+  {
+   "n": 80,
+   "col": 18,
+   "row": 5,
+   "snap_frame": 188.0
+  },
+  {
+   "n": 81,
+   "col": 18,
+   "row": 6,
+   "snap_frame": 190.0
+  },
+  {
+   "n": 82,
+   "col": 17,
+   "row": 3,
+   "snap_frame": 192.0
+  },
+  {
+   "n": 83,
+   "col": 17,
+   "row": 12,
+   "snap_frame": 194.0
+  },
+  {
+   "n": 84,
+   "col": 18,
+   "row": 9,
+   "snap_frame": 196.0
+  },
+  {
+   "n": 85,
+   "col": 18,
+   "row": 8,
+   "snap_frame": 198.0
+  },
+  {
+   "n": 86,
+   "col": 19,
+   "row": 9,
+   "snap_frame": 200.0
+  },
+  {
+   "n": 87,
+   "col": 18,
+   "row": 7,
+   "snap_frame": 202.0
+  },
+  {
+   "n": 88,
+   "col": 19,
+   "row": 3,
+   "snap_frame": 204.0
+  },
+  {
+   "n": 89,
+   "col": 19,
+   "row": 6,
+   "snap_frame": 206.0
+  },
+  {
+   "n": 90,
+   "col": 18,
+   "row": 3,
+   "snap_frame": 208.0
+  },
+  {
+   "n": 91,
+   "col": 19,
+   "row": 7,
+   "snap_frame": 210.0
+  },
+  {
+   "n": 92,
+   "col": 20,
+   "row": 7,
+   "snap_frame": 212.0
+  },
+  {
+   "n": 93,
+   "col": 20,
+   "row": 0,
+   "snap_frame": 214.0
+  },
+  {
+   "n": 94,
+   "col": 18,
+   "row": 12,
+   "snap_frame": 216.0
+  },
+  {
+   "n": 95,
+   "col": 18,
+   "row": 0,
+   "snap_frame": 218.0
+  },
+  {
+   "n": 96,
+   "col": 18,
+   "row": 4,
+   "snap_frame": 220.0
+  },
+  {
+   "n": 97,
+   "col": 21,
+   "row": 5,
+   "snap_frame": 222.0
+  },
+  {
+   "n": 98,
+   "col": 21,
+   "row": 10,
+   "snap_frame": 224.0
+  },
+  {
+   "n": 99,
+   "col": 19,
+   "row": 11,
+   "snap_frame": 226.0
+  },
+  {
+   "n": 100,
+   "col": 21,
+   "row": 12,
+   "snap_frame": 228.0
+  },
+  {
+   "n": 101,
+   "col": 19,
+   "row": 1,
+   "snap_frame": 230.0
+  },
+  {
+   "n": 102,
+   "col": 20,
+   "row": 3,
+   "snap_frame": 232.0
+  },
+  {
+   "n": 103,
+   "col": 21,
+   "row": 7,
+   "snap_frame": 234.0
+  },
+  {
+   "n": 104,
+   "col": 21,
+   "row": 8,
+   "snap_frame": 236.0
+  },
+  {
+   "n": 105,
+   "col": 21,
+   "row": 2,
+   "snap_frame": 238.0
+  },
+  {
+   "n": 106,
+   "col": 20,
+   "row": 1,
+   "snap_frame": 240.0
+  },
+  {
+   "n": 107,
+   "col": 21,
+   "row": 6,
+   "snap_frame": 242.0
+  },
+  {
+   "n": 108,
+   "col": 21,
+   "row": 0,
+   "snap_frame": 244.0
+  },
+  {
+   "n": 109,
+   "col": 21,
+   "row": 4,
+   "snap_frame": 246.0
+  }
+ ]
+}

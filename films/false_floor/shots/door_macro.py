@@ -77,15 +77,15 @@ def s15():
                 kp.handle_left_type = kp.handle_right_type = 'AUTO_CLAMPED'
     shake(cam, 0.00012, 0.0006, scale=18, seed=5)
     # light: hard cream key grazing the door face from upper left; cool top rim; faint cool fill
-    k = light('AREA', 'Key', tuple(T + Vector((-0.11, -0.016, 0.085))), energy=0.18, color=CREAM, size=0.006,
-              target=tuple(T + Vector((0.012, 0.0, -0.01))))
+    k = light('SPOT', 'Key', tuple(T + Vector((-0.11, -0.016, 0.085))), energy=0.30, color=CREAM, spot=22.0, blend=0.75,
+              radius=0.003, target=tuple(T + Vector((0.004, 0.0, -0.004))))
     # sheen: a cool strip far right, placed so its mirror image in the steel sits behind the point -> the bit and its
     # reflection read in silhouette against the brushed sheen
     light('AREA', 'Sheen', tuple(T + Vector((0.135, -0.042, -0.006))), energy=0.03, color=kelvin(5200), size=0.004,
           size_y=0.06, shape='RECTANGLE', target=tuple(T + Vector((0.028, 0.0, 0.0))))
     light('AREA', 'Rim', tuple(T + Vector((0.025, -0.02, 0.11))), energy=0.10, color=COOL, size=0.03,
           target=tuple(T + Vector((0.0, -0.02, 0.0))))
-    light('AREA', 'Fill', tuple(T + Vector((0.05, -0.16, -0.05))), energy=0.02, color=COOL, size=0.1, target=tuple(T))
+    light('AREA', 'Fill', tuple(T + Vector((0.05, -0.16, -0.05))), energy=0.012, color=COOL, size=0.1, target=tuple(T))
     light('AREA', 'Edge', tuple(T + Vector((0.06, -0.03, 0.04))), energy=0.05, color=CREAM, size=0.004,
           target=(0.0, 0.0, tip_z))
     macro_motes('Motes', T + Vector((-0.015, -0.02, 0.004)), (0.05, 0.05, 0.035), count=150, seed=7, start=1, end=F,
@@ -159,6 +159,9 @@ def s17():
     light('AREA', 'Graze', (0.17, -0.02, 0.09), energy=0.5, color=kelvin(4600), size=0.01, target=(0.0, 0.0, 0.0))
     light('AREA', 'Fill', (0.12, -0.30, -0.08), energy=0.10, color=COOL, size=0.15, target=(0.0, -0.15, 0.0))
     light('AREA', 'Rim', (-0.05, -0.20, 0.16), energy=0.25, color=COOL, size=0.04, target=(0.0, -0.16, 0.0))
+    # sheen in the panel's mirror path so the brushed door steel around the boss reads as metal
+    light('AREA', 'PanelSheen', (-0.17, -0.12, -0.04), energy=0.25, color=kelvin(4800), size=0.06, size_y=0.2,
+          shape='RECTANGLE', target=(-0.05, 0.0, 0.0))
     macro_motes('Motes', (0.01, -0.15, 0.02), (0.12, 0.24, 0.09), count=240, seed=13, start=1, end=N,
                 drift=(0.002, 0.001, 0.003), r=(0.00003, 0.00008))
     debug_light(cam)

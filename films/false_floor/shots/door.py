@@ -11,7 +11,7 @@ Shots (ids/frames from script/SHOTS_v2.json; 3D frames include 6-frame handles e
   S52 3D 252  the door swings shut to a hairline of warm light; camera ends exactly on S00's first frame
 
 python3 films/tumbler/tools/rb.py films/false_floor/shots/door.py -- --shot S14 --stills 7,126,246 --pct 30 --samples 12
-Flags: --debuglight (flat layout light), --nohaze, --novault (fast layout).
+Flags: --debuglight (flat layout light), --haze (thin local haze in S00/S01/S52), --novault (fast layout).
 """
 import sys, os, math
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lib'))
@@ -63,7 +63,7 @@ def ease_keys(o, path, pairs, interp='BEZIER'):
 
 
 motes_box = None
-haze_on = not arg('--nohaze')
+haze_on = bool(arg('--haze'))      # optional thin haze in front of the door (off by default: cost > benefit at this density)
 
 # ---- shots -------------------------------------------------------------------------------------------------------
 if SHOT in ('S00', 'S52'):
@@ -160,13 +160,13 @@ elif SHOT == 'S20':
     # lays its bars across the floor and the door. 2560x1440 still, composed with safe room for the edit's push.
     D.light_ante(S, 'night')
     cam = make_cam(30, 4.0, [(1, (0.1, -0.15, 1.0))])
-    cam_path(cam, [(1, (0.55, -3.05, 0.92), (0.02, 0.0, 1.1), 0.0)])
+    cam_path(cam, [(1, (0.32, -3.15, 0.98), (0.12, 0.0, 1.06), 0.0)])
     motes_box = ((-1.0, -2.8, 0.1), (1.3, -0.3, 2.3))
 
 elif SHOT == 'S25':
     # The opening, told by the objects: wheel (four numbers, alternating direction), key slides in and turns, the
     # handle drops, the bolts draw back, the door swings out of the dark. Night state + one batten on.
-    D.light_ante(S, 'night', on=('A',), scale=0.55, night=200.0)
+    D.light_ante(S, 'night', on=('A',), scale=1.0)
     D.light_vault(S, 'off')
     dial = S['dial']
     seq = [(A, -23.0), (A + 6, -23.0), (A + 26, -23.0 - 400.0), (A + 30, -423.0), (A + 46, -423.0 + 290.0),
@@ -221,12 +221,12 @@ elif SHOT == 'S25':
     motes_box = ((-0.6, -2.0, 0.4), (1.3, -0.15, 2.0))
 
 elif SHOT == 'S32':
-    # Monday: the battens on, the vault lit, the door still standing open. Seen from the CCTV corner (the housing soft in
-    # the foreground): the camera that watched all weekend and saw nothing.
+    # Monday: the battens on, the vault lit, the door still standing open. Seen from high in the corner beside the CCTV
+    # camera (its vantage: it watched all weekend and saw nothing).
     D.light_ante(S, 'monday')
     D.light_vault(S, 'warm', key_power=32.0)
     cam = make_cam(24, 3.2, [(1, (-0.35, -0.5, 1.0))])
-    cam_path(cam, [(1, (1.50, -3.10, 2.20), (-0.35, 0.45, 0.82), 0.0), (N, (1.34, -2.98, 2.17), (-0.38, 0.5, 0.84), 0.0)])
+    cam_path(cam, [(1, (1.50, -3.56, 2.38), (-0.30, 0.45, 0.80), 0.0), (N, (1.40, -3.47, 2.36), (-0.36, 0.5, 0.82), 0.0)])
     linear(cam)
     shake(cam, 0.0012, 0.0006, scale=40, seed=32)
     motes_box = ((-1.5, -3.0, 0.1), (1.5, -0.2, 2.4))

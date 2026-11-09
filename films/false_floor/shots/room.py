@@ -76,6 +76,12 @@ def sensors(taped, led=True):
     return pir, ls, cam_
 
 
+def ante_spill(energy=70.0, kelv=5200, target=(0.2, 4.0, 0.0)):
+    """The antechamber's light falling through the open vault doorway into the dark room (casts the doorway on the
+    floor; the only key at night)."""
+    return light('AREA', 'AnteSpill', (0.0, 7.3, 1.85), energy=energy, color=kelvin(kelv), size=0.9, target=target)
+
+
 def lens_cam(name, lens, fstop, focus_obj=None):
     c = camera(name, lens=lens, fstop=fstop)
     if focus_obj is not None:
@@ -109,6 +115,9 @@ if SHOT == 'S41':
         if o.name in ('Floor',):
             set_mat(o, mat_concrete('PolishedFloor', base=(0.16, 0.165, 0.17), wet=0.0, scale=1.0, contrast=0.35))
     pf = bpy.data.materials['PolishedFloor']
+    for n in pf.node_tree.nodes:
+        if n.bl_idname == 'ShaderNodeBump':
+            n.inputs['Strength'].default_value = 0.05
     principled(pf).inputs['Coat Weight'].default_value = 0.35
     principled(pf).inputs['Coat Roughness'].default_value = 0.12
     for sx in (-1, 1):       # cold grazing wash along the far half of each wall (fixture spill on the boxes)
@@ -128,7 +137,8 @@ elif SHOT == 'S21':
     walls('before')
     pir, ls, cc = sensors(taped=False)
     fx = fixtures(strength=3.0, energy=22.0, kelv=6000, tube_color=(0.83, 0.89, 1.0))
-    light('AREA', 'DayFill', (0.2, 4.6, 1.2), energy=6.0, color=kelvin(6500), size=1.2, target=(1.0, 6.1, 2.6))
+    light('AREA', 'DayFill', (0.2, 4.6, 1.2), energy=16.0, color=kelvin(6500), size=1.2, target=(1.0, 6.1, 2.6))
+    light('AREA', 'EndWash', (0.45, 5.3, 2.82), energy=12.0, color=kelvin(6000), size=0.6, target=(0.9, 6.2, 2.3))
     lens_c = pir['lens_center']
     led_c = cc['led_world']
     cam_front = cc['root'].matrix_world @ Vector((0, 0.135, 0.0))
@@ -137,9 +147,9 @@ elif SHOT == 'S21':
     spray = M['spray']
     for k, (f0, f1, dly) in enumerate(((96, 190, 0.0), (112, 200, 0.015))):
         bm = bmesh.new()
-        for i in range(140 if k == 0 else 90):
-            p = Vector((rng.gauss(0, 0.018), rng.gauss(0, 0.018), rng.gauss(0, 0.022)))
-            rad = rng.uniform(0.00012, 0.00038)
+        for i in range(320 if k == 0 else 200):
+            p = Vector((rng.gauss(0, 0.02), rng.gauss(0, 0.02), rng.gauss(0, 0.025)))
+            rad = rng.uniform(0.0002, 0.0008) * (1.0 if rng.random() < 0.85 else 1.6)
             res = bmesh.ops.create_icosphere(bm, subdivisions=1, radius=rad)
             bmesh.ops.translate(bm, verts=res['verts'], vec=p)
         puff = from_bmesh(f'Mist{k}', bm, None, smooth=True)
@@ -164,7 +174,7 @@ elif SHOT == 'S21':
     except Exception:
         pass
     dens = next(n for n in hm.node_tree.nodes if n.bl_idname == 'ShaderNodeMath')
-    key_socket(dens.inputs[1], [(1, 0.0), (104, 0.0), (132, 0.9), (168, 0.35), (205, 0.0)])
+    key_socket(dens.inputs[1], [(1, 0.0), (104, 0.0), (134, 3.2), (168, 1.4), (205, 0.0)])
     key(haze, 'location', [(104, tuple(lens_c + Vector((-0.06, -0.08, -0.12)))), (205, tuple(lens_c + Vector((0.05, 0.0, 0.08))))])
     key(haze, 'scale', [(104, (0.6,) * 3), (205, (1.6,) * 3)])
     # the coat it leaves: a faint glossy film + a few beads on the lens facets
@@ -174,7 +184,7 @@ elif SHOT == 'S21':
         u = rng.uniform(-0.024, 0.024)
         zz = rng.uniform(-0.045, 0.012)
         yy = 0.0012 + 0.0085 * math.cos(math.pi * u / 0.054) + 0.0016
-        b = prim('sphere', 'Bead', tuple(lm @ Vector((u, yy, zz))), seg=10, ring=6, r=rng.uniform(0.0002, 0.0005))
+        b = prim('sphere', 'Bead', tuple(lm @ Vector((u, yy, zz))), seg=10, ring=6, r=rng.uniform(0.0003, 0.0008))
         set_mat(b, spray)
         t0 = rng.randint(136, 168)
         key(b, 'scale', [(1, (0.0, 0.0, 0.0)), (t0, (0.0, 0.0, 0.0)), (t0 + 4, (1.0, 1.0, 0.55))])
@@ -209,8 +219,10 @@ elif SHOT == 'S26':
     pir, ls, cc = sensors(taped=True, led=False)
     fx = fixtures(on=(0, 0, 0))
     # spill bounce: the lit floor patch inside the doorway throws a little light back up (keeps the ceiling readable)
-    light('AREA', 'SpillBounce', (0.0, 5.6, 0.05), (0, 0, 0), energy=1.6, color=kelvin(5200), size=0.9, size_y=0.6,
+    ante_spill()
+    light('AREA', 'SpillBounce', (0.0, 5.3, 0.05), (0, 0, 0), energy=7.0, color=kelvin(5000), size=0.9, size_y=0.9,
           shape='RECTANGLE', target=(-0.2, 4.6, 2.9))
+    light('AREA', 'CornerBounce', (0.6, 5.4, 0.05), energy=2.5, color=kelvin(5000), size=0.5, target=PIR_CORNER)
     foam = foam_sheet(M)
     pirw = Vector(pir['root'].location)
 
@@ -258,6 +270,7 @@ elif SHOT == 'S27':
     right, left = walls('before')
     sensors(taped=True, led=False)
     fx = fixtures(on=(0, 0, 0))
+    ante_spill()
     key_l = cream_key(pos=(-1.05, -0.35, 2.6), aim=(1.2, 2.6, 1.3), energy=0.0)
     bounce = light('AREA', 'Bounce', (0.0, -0.4, 0.6), energy=0.0, color=kelvin(5200), size=2.0, target=(0.5, 2.5, 0.8))
     pats = [[(1, 0.0), (5, 0.04), (9, 1.0), (10, 0.35), (11, 0.0), (15, 1.0), (17, 0.0), (19, 0.9), (20, 1.0),
@@ -300,18 +313,20 @@ elif SHOT == 'S27':
         roll = rng.random()
         ang = math.radians(rng.choice([rng.uniform(10, 35), rng.uniform(75, 120), rng.uniform(120, 168),
                                        rng.uniform(120, 168)]))
-        key(pv, 'rotation_euler', [(1, 0.0), (f0, 0.0), (f0 + 2, ang * 0.9), (f0 + 3, ang * 1.05), (f0 + 5, ang * 0.97),
-                                   (f0 + 8, ang)], index=2)
+        # the snap straddles f0: closed at f0-1, mid-swing (motion-blurred) on f0, home by f0+7
+        key(pv, 'rotation_euler', [(1, 0.0), (f0 - 1, 0.0), (f0 + 1, ang * 0.9), (f0 + 2, ang * 1.05), (f0 + 4, ang * 0.97),
+                                   (f0 + 7, ang)], index=2)
         if roll < 0.22:      # sprung / bent on its hinge
             d = doors[c, r]
             d.rotation_euler = (rng.uniform(-0.12, 0.12), 0, rng.uniform(-0.15, 0.15))
-            d.keyframe_insert('rotation_euler', frame=f0 + 1)
-            d.rotation_euler = (0, 0, 0)
             d.keyframe_insert('rotation_euler', frame=f0)
+            d.rotation_euler = (0, 0, 0)
+            d.keyframe_insert('rotation_euler', frame=f0 - 1)
     if arg('--counter_json'):
-        rows = [{'n': k + 1, 'col': c, 'row': r, 'snap_start_frame': round(OPEN_F[k], 2)} for k, (c, r) in enumerate(order)]
-        out = {'shot': 'S27', 'cut': [7, N - 6], 'rule': 'door n starts its snap at frame WS + (246 - WS) * (n - 1) / 108',
-               'wave_start': WS, 'counter': 'show n from frame snap_start_frame(n) + 1 (first frame the door has moved)',
+        rows = [{'n': k + 1, 'col': c, 'row': r, 'snap_frame': round(OPEN_F[k], 2)} for k, (c, r) in enumerate(order)]
+        out = {'shot': 'S27', 'cut': [7, N - 6], 'rule': 'snap_frame(n) = WS + (246 - WS) * (n - 1) / 108; with WS = 30: 30 + 2 (n - 1)',
+               'wave_start': WS, 'counter': 'show n from frame snap_frame(n): the door is closed on the frame before, '
+                                             'mid-swing (blurred) on snap_frame, settled by snap_frame + 7',
                'doors': rows}
         with open(os.path.join(FF, 'notes', 'room_S27_counter.json'), 'w') as fh:
             json.dump(out, fh, indent=1)
@@ -356,8 +371,8 @@ elif SHOT == 'S02':
     cam = lens_cam('CamS02', 28, 2.2, foc)
     cam_path(cam, [(1, (0.7, -0.2, 2.55), (1.15, 3.3, 1.95), 0.03),
                    (125, (0.62, 0.95, 1.45), (1.05, 3.1, 0.85), 0.015),
-                   (232, (0.56, 2.2, 0.31), (0.8, 2.6, 0.0), 0.0),
-                   (N, (0.555, 2.215, 0.3), (0.795, 2.6, 0.0), 0.0)])
+                   (232, (0.52, 2.16, 0.34), (0.77, 2.6, 0.0), 0.0),
+                   (N, (0.515, 2.175, 0.335), (0.765, 2.6, 0.0), 0.0)])
     eased(cam, 'location')
     eased(cam, 'rotation_euler')
     shake(cam, 0.002, 0.001, scale=12, seed=2)
@@ -378,8 +393,9 @@ elif SHOT == 'S34':
     tpos = empty('TorchPos', (-1.0, 0.85, 1.42))
     key(tpos, 'location', [(1, (-1.02, 0.8, 1.42)), (N, (-0.9, 1.05, 1.38))])
     shake(tpos, 0.004, 0.0, scale=7, seed=34)
-    core = light('SPOT', 'TorchCore', (0, 0, 0), energy=55.0, color=kelvin(3700), spot=17.0, blend=0.45, radius=0.012)
-    spill = light('SPOT', 'TorchSpill', (0, 0, 0), energy=26.0, color=kelvin(3600), spot=48.0, blend=1.0, radius=0.02)
+    core = light('SPOT', 'TorchCore', (0, 0, 0), energy=150.0, color=kelvin(3700), spot=17.0, blend=0.4, radius=0.012)
+    spill = light('SPOT', 'TorchSpill', (0, 0, 0), energy=55.0, color=kelvin(3600), spot=50.0, blend=1.0, radius=0.02)
+    ante_spill(energy=22.0, kelv=5600)
     for L in (core, spill):
         L.parent = tpos
         track_to(L, aim)
@@ -388,7 +404,7 @@ elif SHOT == 'S34':
         except Exception:
             pass
     dust = volume_box('BeamDust', (0.0, 2.6, 0.9), (2.4, 3.6, 1.8),
-                      mat_volume('Dust', density=0.018, color=(0.85, 0.84, 0.82), anisotropy=0.55, noise_scale=3.0,
+                      mat_volume('Dust', density=0.07, color=(0.85, 0.84, 0.82), anisotropy=0.55, noise_scale=3.0,
                                  contrast=(0.35, 0.8)))
     sc.cycles.volume_step_rate = 6.0
     foc = empty('FocusS34', (-0.2, 2.6, 0.0))

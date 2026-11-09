@@ -27,10 +27,11 @@ python3 films/tumbler/tools/rb.py films/false_floor/shots/room.py -- --shot S27 
 S45 is delivered as two inserts (`--shot S45a`, `--shot S45b`); the shot table lists one S45.
 
 ## S27 counter sync (001 → 109 / 189)
-- Door *n* (n = 1..109) starts its snap at frame **F(n) = 30 + 2·(n − 1)** → 30, 32, … 246 (last cut frame). Door 1 is the
-  crank-tool door (it gives at f30 after the tubes have struck); doors 2–109 are the wave.
-- Counter value at frame f = number of doors with F(n) < f, i.e. **n = floor((f − 31) / 2) + 1** for f ≥ 31 (show `000`/nothing
-  before f31). Linear, one tick every 2 frames (12/s), on the clack of each door.
+- Door *n* (n = 1..109) snaps on frame **F(n) = 30 + 2·(n − 1)** → 30, 32, … 246 (= last cut frame): closed on F(n) − 1,
+  mid-swing (motion-blurred) on F(n), settled by F(n) + 7. Door 1 is the crank-tool door (it gives at f30, after the tubes
+  have struck at f27); doors 2–109 are the wave down the wall, near → far.
+- Counter at frame f: **n = floor((f − 30) / 2) + 1** for 30 ≤ f ≤ 246 → `001` at f30, `054` at f136, `109` at f246.
+  Show nothing (or `000`) for f7–29 (the flicker + crank beat). Linear, one tick every 2 frames (12/s); put each clack on F(n).
 - Want the openings spread over the *whole* cut instead (counter from f7)? Render with `--wave_start 7`
   (F(n) = 7 + (239/108)·(n − 1)); the tool door then gives during the flicker, which reads worse.
 - Per-door table (column/row on the right wall, exact frames): `notes/room_S27_counter.json`.

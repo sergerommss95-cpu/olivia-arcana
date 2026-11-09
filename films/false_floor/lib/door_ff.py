@@ -54,7 +54,7 @@ KEYPAD = Vector((1.10, 0.0, 1.40))
 ROOM_X, ROOM_BACK, CEIL = 1.95, -3.80, 2.50
 STAIR_HW, STAIR_RISE, STAIR_RUN, STAIR_N, STAIR_Y0 = 0.75, 0.18, 0.28, 16, -5.0
 GATE_HW = 0.62
-NIGHT_LAMP = (0.69, -7.7, 3.05)      # bulkhead on the right stair wall
+NIGHT_LAMP = (-0.69, -7.7, 2.85)     # bulkhead on the left stair wall (its light lands on the door's free side)
 VAULT_CEIL = 2.95
 
 
@@ -679,8 +679,8 @@ def build_door(M, coll=None, numerals=False, key=True):
         tops.append(sl)
     out['bolts'], out['top_bolts'] = bolts, tops
     # back face (vault side, seen when the door stands open): engine-turned boltwork cover, bolt bar, lock cases
-    eng = M.get('engine') or mat_engine_turned('BackCover', base=(0.44, 0.445, 0.455), rough=(0.14, 0.3), cell=0.045,
-                                                rings=360.0, bump=0.035)
+    eng = M.get('engine') or mat_machined('BackCover', base=(0.45, 0.455, 0.465), rough=(0.2, 0.34), axis='Z', aniso=0.3,
+                                           smudge=0.8, scratch=0.5)
     M['engine'] = eng
     by = BODY_Y[1]
     P(xbox('BackCover', -0.43, 0.33, by - 0.002, by + 0.014, 0.22, 1.86, eng, bev=0.004))
@@ -990,7 +990,7 @@ def light_ante(S, state='day', scale=1.0, on=None, night=None, coll=None):
     and door), 'dark' (near black: only a faint trickle down the stairs). `on` overrides which battens are lit (subset
     of 'A', 'B', 'S'), `night` the stairwell source power (W), `scale` the batten power."""
     presets = {'day': (('A', 'B', 'S'), 30.0, 6200, 0.0), 'monday': (('A', 'B', 'S'), 38.0, 5200, 0.0),
-               'night': ((), 30.0, 6200, 90.0), 'dark': ((), 30.0, 6200, 14.0)}
+               'night': ((), 30.0, 6200, 520.0), 'dark': ((), 30.0, 6200, 12.0)}
     lit, pw, kk, nl = presets[state]
     if on is not None:
         lit = on
@@ -1015,16 +1015,17 @@ def light_ante(S, state='day', scale=1.0, on=None, night=None, coll=None):
         gl = mat_emission('BulkGlassOn', color=kelvin(4300), strength=18.0) if nl > 0 else M['tube_off']
         set_mat(cage, gl)
         no_shadow(cage)
-        xbox('BulkBase', bp[0] + 0.03, bp[0] + 0.06, bp[1] - 0.09, bp[1] + 0.09, bp[2] - 0.07, bp[2] + 0.07, M['housing'],
-             bev=0.008, coll=coll)
+        sgn = 1 if bp[0] > 0 else -1
+        xbox('BulkBase', bp[0] + sgn * 0.03, bp[0] + sgn * 0.06, bp[1] - 0.09, bp[1] + 0.09, bp[2] - 0.07, bp[2] + 0.07,
+             M['housing'], bev=0.008, coll=coll)
         for dz in (-0.03, 0.0, 0.03):
             r = prim('torus', 'BulkCage', R=0.055, r=0.003, seg=24, seg2=6, coll=coll)
-            r.location = (bp[0] - 0.005, bp[1], bp[2] + dz)
+            r.location = (bp[0] - sgn * 0.005, bp[1], bp[2] + dz)
             r.rotation_euler = (0, math.radians(90), 0)
             r.scale = (0.7, 1.0, 1.0)
             set_mat(r, M['dark'])
         if nl > 0:
-            out['night'] = light('POINT', 'StairNight', (bp[0] - 0.05, bp[1], bp[2]), energy=nl, color=kelvin(4300),
+            out['night'] = light('POINT', 'StairNight', (bp[0] - sgn * 0.05, bp[1], bp[2]), energy=nl, color=kelvin(4300),
                                  radius=0.03, coll=coll)
     return out
 
@@ -1062,7 +1063,7 @@ def light_vault(S, state='warm', coll=None, leak=False, key_power=55.0, spill=70
     return out
 
 
-def leak_lights(coll=None, under=10.0, side=6.0, glow=6.0, k=3200):
+def leak_lights(coll=None, under=10.0, side=13.0, glow=6.0, k=3200):
     """Warm light escaping through the seams of the ajar door (motivated by the lit vault behind it):
     - a thin strip source in the bottom gap and one in the free-edge slit, aimed out at the antechamber: they lay a warm
       fan across the threshold and a blade of light on the floor, and catch the chamfers either side of the slit;
