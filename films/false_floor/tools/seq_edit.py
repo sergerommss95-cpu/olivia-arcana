@@ -23,7 +23,7 @@ CUTS = [('N1', 23, 'Saturday'), ('N2', 23, 'The#2'), ('N3', 24, 'Down'), ('S24',
         ('N5', 24, 'The'), ('S16', 25, 'Then'), ('S17', 25, 'Then#2'), ('N8', 27, 'Then'), ('N9', 27, 'They#2'),
         ('N10', 27, 'One')]
 # first frame used inside each clip (after the 6-frame handle trim): start on the action
-INOFF = {'N3': 24, 'S16': 168, 'N8': 6, 'N9': 0, 'S24': 0, 'S18': 70}
+INOFF = {'N3': 24, 'S16': 168, 'N8': 14, 'N9': 0, 'S24': 0, 'S18': 70}
 BEATS = [23, 24, 25, 27]
 B25_END_WORD = 'key.'          # beat 25 is cut after "Then the key."
 GAP = 0.32                     # silence between VO pieces
