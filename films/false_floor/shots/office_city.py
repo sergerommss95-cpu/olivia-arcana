@@ -45,7 +45,7 @@ def debug_light(target, loc, energy=600.0, size=4.0):
 
 def shot_office(dusk=False):
     setup_render(1, 1, res=STILL, samples=64, mb=False, look='Medium High Contrast', clamp=5.0,
-                 bounces=(3, 3, 4), exposure=-0.2 if not dusk else 0.0)
+                 bounces=(3, 3, 4), exposure=-0.9 if not dusk else 0.0)
     world_color((0.0, 0.0, 0.0), 0.0)
     M = office_mats()
     A = build_office(M, door_angle=72.0, blinds_tilt=50.0 if not dusk else 56.0, lamp_on=dusk, lamp_energy=16.0)
@@ -54,7 +54,7 @@ def shot_office(dusk=False):
     wxc, wzc = (wx0 + wx1) / 2, (wz0 + wz1) / 2
     # outside the window: sky card (no shadow) and, at dusk, an office block across the street
     if not dusk:
-        sky = mat_emission('SkyDay', (0.80, 0.88, 1.0), 3.2)
+        sky = mat_emission('SkyDay', (0.80, 0.88, 1.0), 1.5)
     else:
         sky = mat_emission('SkyDusk', (0.10, 0.20, 0.55), 0.9)
     card = rbox('SkyCard', (14.0, 0.05, 9.0), (wxc, o['y1'] + 4.5, 2.0), sky, bev=0)
@@ -67,13 +67,13 @@ def shot_office(dusk=False):
     if DEBUG:
         debug_light((-0.4, 2.5, 0.9), (-0.4, 1.8, 2.4), energy=600, size=1.5)
     elif not dusk:
-        sun('Sun', (0.22, -0.86, -0.47), 4.2, kelvin(4700), angle=0.6)
-        light('AREA', 'SkyFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(90), 0, 0), energy=260.0,
+        sun('Sun', (0.22, -0.86, -0.47), 16.0, kelvin(4600), angle=0.6)
+        light('AREA', 'SkyFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=120.0,
               color=kelvin(9000), size=wx1 - wx0, size_y=wz1 - wz0, shape='RECTANGLE')
         light('AREA', 'CorridorTroffer', (-1.4, -1.3, o['cor_h'] - 0.02), energy=40.0, color=kelvin(4100),
               size=0.3, size_y=1.2, shape='RECTANGLE')
     else:
-        light('AREA', 'DuskFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(90), 0, 0), energy=150.0,
+        light('AREA', 'DuskFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=90.0,
               color=(0.35, 0.55, 1.0), size=wx1 - wx0, size_y=wz1 - wz0, shape='RECTANGLE')
         light('AREA', 'CorridorFar', (-3.9, -1.3, 1.6), (0, math.radians(90), 0), energy=10.0, color=kelvin(4300),
               size=0.6, size_y=1.2, shape='RECTANGLE')

@@ -96,19 +96,6 @@ def mat_gaff_macro(name='GaffTapeMacro'):
     return m
 
 
-def fine_scratches(m, scale=14.0, distortion=5.0, weight=None):
-    """mat_metal's wave scratches are sized for metre-scale doors; at macro they read as cracks. Tighten them."""
-    for n in m.node_tree.nodes:
-        if n.bl_idname == 'ShaderNodeTexWave':
-            n.inputs['Scale'].default_value = scale
-            n.inputs['Distortion'].default_value = distortion
-    if weight is not None:
-        for n in m.node_tree.nodes:
-            if n.bl_idname == 'ShaderNodeMath' and n.operation == 'MULTIPLY' and abs(n.inputs[1].default_value - 0.4) < 1e-6:
-                n.inputs[1].default_value = weight
-    return m
-
-
 def mat_macro_steel(name, base=(0.5, 0.51, 0.53), rough=(0.14, 0.32), brush='X', scale=1.0, streak=0.6,
                     scratch=0.6, grime=0.12, aniso=0.45):
     """Machined, brushed steel at macro scale (same base colour/roughness as tumbler vault 'edge'): fine brushing
@@ -131,10 +118,9 @@ def mat_macro_steel(name, base=(0.5, 0.51, 0.53), rough=(0.14, 0.32), brush='X',
     nb.l(co, 'Vector', col, 'Vector')
     acc = None
     for ang, sc_, seed in ((0.48, 34.0, 0.0), (-0.62, 27.0, 7.3), (1.31, 22.0, 3.1)):
-        mp = nb.n('ShaderNodeMapping', Rotation=(0.0, ang, 0.0) if brush == 'X' else (ang, 0.0, 0.0),
-                  Location=(seed, seed * 0.7, seed * 1.3))
+        mp = nb.n('ShaderNodeMapping', Rotation=(0.0, ang, 0.0), Location=(seed, seed * 0.7, seed * 1.3))
         nb.l(co, 'Vector', mp, 'Vector')
-        mp2 = nb.n('ShaderNodeMapping', Scale=(1.0, 1.0, 260.0) if brush == 'X' else (1.0, 260.0, 1.0))
+        mp2 = nb.n('ShaderNodeMapping', Scale=(1.0, 1.0, 260.0))
         nb.l(mp, 'Vector', mp2, 'Vector')
         nz = nb.n('ShaderNodeTexNoise', Scale=sc_, Detail=1.0)
         nb.l(mp2, 'Vector', nz, 'Vector')
@@ -172,53 +158,63 @@ def no_aniso(m):
     return m
 
 
+def _a1_paint(name, color, rough, scale, **kw):
+    """A1's worn-paint shader (door_ff.mat_worn_paint) at macro grain; plain mat_paint if door_ff is unavailable."""
+    try:
+        from door_ff import mat_worn_paint
+        return mat_worn_paint(name, color, rough=rough, scale=scale, **kw)
+    except Exception as e:
+        print('[info] door_ff.mat_worn_paint unavailable, using mat_paint:', e, flush=True)
+        m = mat_paint(name, color=color, rough=rough, scale=scale, wear=0.25, edge_metal=(0.42, 0.42, 0.43))
+        set_bump(m, 0.3, 1.5e-5)
+        return m
+
+
 def macro_mats():
+    """Colours/roughness follow A1's door set (door_ff.mats): panel, border, frame paint, MagFace paint, dark steel,
+    chrome; grain resized for macro."""
     M = {}
-    # door steel: tumbler vault 'edge' (brushed machined steel) base + roughness, horizontal brushing at macro grain
-    M['door'] = mat_macro_steel('MDoorSteel', base=(0.5, 0.51, 0.53), rough=(0.14, 0.32), brush='X')
-    # vertical-brushed variant (door edge faces / key boss plate)
-    M['door_v'] = mat_macro_steel('MDoorSteelV', base=(0.48, 0.49, 0.51), rough=(0.16, 0.34), brush='Z')
-    # frame: dark painted steel with worn edges (A1: dark painted frame)
-    M['frame'] = mat_paint('MFramePaint', color=(0.011, 0.012, 0.013), rough=(0.38, 0.5), scale=25.0, wear=0.3,
-                           edge_metal=(0.42, 0.42, 0.44))
-    set_bump(M['frame'], 0.3, 1.5e-5)
-    M['dark'] = mat_metal('MDarkSteel', base=(0.08, 0.085, 0.09), rough=(0.28, 0.5), scale=30.0, bump=1.0, grime=0.3)
+    M['door'] = mat_macro_steel('MDoorPanel', base=(0.52, 0.525, 0.535), rough=(0.18, 0.33), brush='X')   # raised panel
+    M['border'] = mat_macro_steel('MDoorBorder', base=(0.48, 0.485, 0.495), rough=(0.19, 0.34), brush='Z')  # plate border
+    M['frame'] = _a1_paint('MFramePaint', (0.075, 0.08, 0.08), (0.34, 0.52), 12.0, edge=0.9, scuff=0.6, low=0.0,
+                           steel=(0.40, 0.40, 0.41), sheen=0.15, bev_r=0.0015)
+    M['magface'] = _a1_paint('MMagFace', (0.19, 0.19, 0.185), (0.45, 0.6), 30.0, edge=0.5, scuff=0.2, low=0.0,
+                             bev_r=0.0015)
+    M['dark'] = mat_metal('MDarkSteel', base=(0.10, 0.10, 0.105), rough=(0.3, 0.46), scale=30.0, bump=1.0, grime=0.3,
+                          scratches=0.0)
     set_bump(M['dark'], 0.4, 3e-5)
-    # lathe-turned parts (local Z = turning axis): tumbler vault 'satin'
     M['satin'] = mat_concentric('MSatinTurned', base=(0.5, 0.51, 0.53), rough=(0.18, 0.3), rings=14000.0, bump=0.5,
                                 axis='Z')
     set_bump(M['satin'], 0.5, 2.5e-6)
-    M['chrome'] = mat_metal('MChrome', base=(0.78, 0.79, 0.8), rough=(0.05, 0.14), scale=60.0, bump=0.0, grime=0.15,
-                            scratches=0.15)
-    # magnetic contact blocks: fly-cut machined steel (arcs from a far-off cutter centre), a touch darker than the door
-    M['block'] = mat_concentric('MBlockFlycut', base=(0.42, 0.43, 0.44), rough=(0.16, 0.3), rings=26000.0, bump=0.5,
-                                center=(0.11, 0.0, 0.16), axis='Y')
-    set_bump(M['block'], 0.7, 3e-6)
-    no_aniso(M['block'])
-    M['magnet'] = mat_metal('MMagnetFace', base=(0.16, 0.16, 0.165), rough=(0.32, 0.45), scale=200.0, bump=0.0,
-                            grime=0.2)
-    M['screw'] = mat_metal('MScrewOxide', base=(0.045, 0.045, 0.05), rough=(0.26, 0.42), scale=400.0, bump=0.0,
-                           grime=0.2)
-    M['thread'] = mat_metal('MThread', base=(0.32, 0.32, 0.33), rough=(0.2, 0.34), scale=400.0, bump=0.0, grime=0.3)
-    # aluminium: lighter, more diffuse, brushed along X
+    M['chrome'] = mat_turned('MChrome', base=(0.80, 0.80, 0.81), rough=(0.05, 0.12), grime=0.1)
+    M['chrome_face'] = mat_concentric('MChromeFace', base=(0.78, 0.785, 0.79), rough=(0.06, 0.14), rings=16000.0,
+                                      bump=0.5, axis='Z')
+    set_bump(M['chrome_face'], 0.4, 2e-6)
+    M['screw'] = mat_metal('MScrewDark', base=(0.10, 0.10, 0.105), rough=(0.28, 0.42), scale=400.0, bump=0.0,
+                           grime=0.25, scratches=0.0)
+    M['thread'] = mat_metal('MThread', base=(0.34, 0.34, 0.35), rough=(0.2, 0.34), scale=400.0, bump=0.0, grime=0.3,
+                            scratches=0.0)
+    M['galv'] = mat_metal('MGalv', base=(0.38, 0.385, 0.39), rough=(0.38, 0.55), scale=200.0, bump=0.0, grime=0.3,
+                          scratches=0.0)
+    M['cable'] = mat_principled('MCable', color=(0.03, 0.03, 0.032), rough=0.55)
     M['alu'] = mat_macro_steel('MAluminium', base=(0.80, 0.81, 0.82), rough=(0.26, 0.42), brush='X', scale=1.6,
                                streak=0.9, scratch=0.4, grime=0.06, aniso=0.55)
-    M['hood'] = mat_concentric('MHoodSteel', base=(0.40, 0.41, 0.43), rough=(0.2, 0.36), rings=10000.0, bump=0.5,
-                               axis='Y')
-    set_bump(M['hood'], 0.5, 3e-6)
     M['tape'] = mat_gaff_macro()
     M['black'] = mat_principled('MBlack', color=(0.004, 0.004, 0.0045), rough=0.6)
     M['glass'] = mat_lens_glass()
     # drill bit: ground HSS lands and point, darker oxide flutes, satin shank
     M['land'] = mat_metal('MBitLand', base=(0.6, 0.6, 0.62), rough=(0.1, 0.2), scale=300.0, bump=0.0, grime=0.15,
-                          scratches=0.1)
-    M['flute'] = mat_metal('MBitFlute', base=(0.075, 0.07, 0.068), rough=(0.24, 0.38), scale=300.0, bump=0.0, grime=0.3)
-    M['point'] = mat_metal('MBitPoint', base=(0.66, 0.66, 0.68), rough=(0.08, 0.16), scale=300.0, bump=0.0, grime=0.1)
-    M['shank'] = mat_metal('MBitShank', base=(0.42, 0.42, 0.43), rough=(0.18, 0.3), scale=300.0, bump=0.0, grime=0.25)
-    # key: part two (shaft + bit) bright nickel steel, part one (bow) blued steel, knurled coupling
-    M['nickel'] = mat_turned('MKeyNickel', base=(0.6, 0.59, 0.56), rough=(0.1, 0.2))
-    M['blued'] = mat_turned('MKeyBlued', base=(0.10, 0.108, 0.12), rough=(0.14, 0.26))
-    M['knurl'] = mat_metal('MKnurl', base=(0.55, 0.55, 0.57), rough=(0.14, 0.28), scale=200.0, bump=0.0, grime=0.35)
+                          scratches=0.0)
+    M['flute'] = mat_metal('MBitFlute', base=(0.075, 0.07, 0.068), rough=(0.24, 0.38), scale=300.0, bump=0.0, grime=0.3,
+                           scratches=0.0)
+    M['point'] = mat_metal('MBitPoint', base=(0.66, 0.66, 0.68), rough=(0.08, 0.16), scale=300.0, bump=0.0, grime=0.1,
+                           scratches=0.0)
+    M['shank'] = mat_metal('MBitShank', base=(0.42, 0.42, 0.43), rough=(0.18, 0.3), scale=300.0, bump=0.0, grime=0.25,
+                           scratches=0.0)
+    # key (A1: chrome shank and T-bow, dark steel coupling collar)
+    M['key'] = mat_turned('MKeyChrome', base=(0.78, 0.785, 0.79), rough=(0.06, 0.14))
+    M['knurl'] = mat_metal('MKnurl', base=(0.10, 0.10, 0.105), rough=(0.22, 0.36), scale=200.0, bump=0.0, grime=0.3,
+                           scratches=0.0)
     return M
 
 
@@ -283,13 +279,26 @@ def macro_motes(name, center, size, count=120, seed=1, start=1, end=250, drift=(
 
 # ----------------------------------------------------------------------------- door / frame fragments
 
-def door_fragment(M, x0=-0.30, x1=0.0, z0=-0.2, z1=0.2, depth=0.2, bev=0.0016, mat=None, name='DoorSlab', coll=None):
-    """A piece of the 3-ton door: front face y = 0, body to +Y."""
-    return rbox(name, x0, x1, 0.0, depth, z0, z1, bev=bev, seg=3, mat=mat or M['door'], coll=coll)
+# A1's door (door_ff): front plate border (brushed vertically) ends at the free edge; the frame (worn dark paint) starts
+# 6 mm further and stands 2 mm proud; the raised machined panel starts 83 mm in from the edge and is 20 mm proud.
+SEAM = 0.003          # half width of the door/frame seam
+FRAME_PROUD = 0.002
+PANEL_IN, PANEL_PROUD = 0.083, 0.020
 
 
-def frame_fragment(M, x0=0.004, x1=0.3, z0=-0.2, z1=0.2, depth=0.2, bev=0.0016, name='FrameJamb', coll=None):
-    return rbox(name, x0, x1, 0.0, depth, z0, z1, bev=bev, seg=3, mat=M['frame'], coll=coll)
+def door_fragment(M, x0=-0.30, x1=-SEAM, z0=-0.2, z1=0.2, depth=0.1, bev=0.0016, mat=None, name='DoorPlate', coll=None,
+                  panel=True):
+    """A piece of the door's front plate (border) at the free edge: front face y = 0, body to +Y; optional raised panel."""
+    o = rbox(name, x0, x1, 0.0, depth, z0, z1, bev=bev, seg=3, mat=mat or M['border'], coll=coll)
+    out = [o]
+    if panel and x0 < -PANEL_IN:
+        out.append(rbox(name + 'Panel', x0, -PANEL_IN, -PANEL_PROUD, 0.001, z0, z1, bev=0.006, seg=1, mat=M['door'],
+                        coll=coll))
+    return out
+
+
+def frame_fragment(M, x0=SEAM, x1=0.3, z0=-0.2, z1=0.2, depth=0.1, bev=0.0016, name='Frame', coll=None):
+    return rbox(name, x0, x1, -FRAME_PROUD, depth, z0, z1, bev=bev, seg=3, mat=M['frame'], coll=coll)
 
 
 # ----------------------------------------------------------------------------- S15: twist drill bit
@@ -450,11 +459,12 @@ def _numeral_band(dial, s, fill_m, band_m, coll=None, r_band=1.0065, z0=0.168, h
     return band
 
 
-def dial_with_lens(M, s=0.05, tilt=35.0, coll=None):
-    """The 0-99 wheel (tumbler lock.build_dial, black satin + cream numerals) on the door face, centre at the origin,
-    with a top-reading hood: the numbers sit on a rim band and can only be read through a small lens on top.
-    Returns dict(dial=empty to rotate about local Z (T(v) = 2*pi*v/100 puts v under the lens), lens_top, lens_axis,
-    image=point of the magnified number (focus here), cavity light position)."""
+def dial_with_lens(M, s=0.062, tilt=40.0, coll=None):
+    """The 0-99 wheel (tumbler lock.build_dial, black satin + cream numerals; A1's scale 0.062 m) on the door panel,
+    centre at the origin, with a top-reading hood: the numbers sit on a rim band at the back of the wheel and can only
+    be read through the small lens on top (axis tilted `tilt` deg from vertical toward the operator).
+    Returns dict(dial=empty to rotate about local Z (T(v) = 2*pi*v/100 puts v under the lens), lens_c (centre of the
+    lens's flat face), lens_top, axis, num (number under the lens), image (virtual image: focus here))."""
     root = empty('DialRoot', (0, 0, 0), coll=coll)
     root.rotation_euler = (math.radians(90), 0, 0)     # local +Z -> world -Y (toward the viewer), local +Y -> up
     root.scale = (s, s, s)
@@ -470,11 +480,11 @@ def dial_with_lens(M, s=0.05, tilt=35.0, coll=None):
     tl = math.radians(tilt)
     u = Vector((0.0, -math.sin(tl), math.cos(tl)))
     P = Vector((0.0, -s * 0.208, s * 1.0077))           # centre of the number at 12 o'clock
-    d_obj = 0.0085                                      # number -> lens flat face (magnifier, ~1.8x)
+    a, Rc, d_obj = 0.008, 0.011, 0.0128                 # plano-convex magnifier: f ~ 22 mm, ~2.4x
     C0 = P + u * d_obj
     bm = bmesh.new()
     bmesh.ops.create_cube(bm, size=1.0)
-    hx, y0, y1, z0, z1 = 0.0098, -0.0236, 0.0, 0.0405, 0.070
+    hx, y0, y1, z0, z1 = 0.016, -0.034, 0.0, 0.050, 0.094
     for v in bm.verts:
         v.co.x = v.co.x * 2 * hx
         v.co.y = y0 + (v.co.y + 0.5) * (y1 - y0)
@@ -484,40 +494,40 @@ def dial_with_lens(M, s=0.05, tilt=35.0, coll=None):
     bmesh.ops.holes_fill(bm, edges=bm.edges[:], sides=0)
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
     hood = from_bmesh('LensHood', bm, coll, smooth=False)
-    bevel(hood, 0.0011, 3, angle=40)
-    set_mat(hood, M['hood'])
-    clr = prim('cyl', 'HoodClear', (0, -0.0081, 0), (math.radians(90), 0, 0), seg=192, r=s * 1.024, depth=0.0186,
-               coll=coll)
+    bevel(hood, 0.0016, 3, angle=40)
+    set_mat(hood, M['border'])
+    clr = prim('cyl', 'HoodClear', (0, -s * 0.174 + 0.0007, 0), (math.radians(90), 0, 0), seg=192, r=s * 1.024,
+               depth=s * 0.348 + 0.0014, coll=coll)
     boolean_cut(hood, clr)
-    bore = cyl_axis('HoodBore', C0 + u * 0.002, P - u * 0.004, 0.0049, seg=64, coll=coll)
+    bore = cyl_axis('HoodBore', C0 + u * 0.002, P - u * 0.006, a - 0.0002, seg=64, coll=coll)
     boolean_cut(hood, bore)
-    a, Rc = 0.0052, 0.0095
     lens, lens_h = _plano_convex('ReadingLens', a, Rc, coll=coll)
     lens.location = C0
     lens.rotation_euler = u.to_track_quat('Z', 'Y').to_euler()
     set_mat(lens, M['glass'])
-    ring = _annulus_along('LensBezel', C0 - u * 0.0004, u, a - 0.00005, a + 0.0017, 0.0024, coll=coll,
-                          mat=M['chrome'], bev=0.00035)
+    _annulus_along('LensBezel', C0 - u * 0.0005, u, a - 0.00005, a + 0.0026, 0.0034, coll=coll, mat=M['chrome'],
+                   bev=0.0005)
     # index notch on the bezel (cream wedge on the far side, pointing at the number)
     w = Vector((0.0, math.cos(tl), math.sin(tl)))      # in-plane direction toward the door
     nb_ = bmesh.new()
-    tipv = C0 + u * 0.00205 + w * (a + 0.0002)
-    vs = [nb_.verts.new(tipv), nb_.verts.new(tipv + w * 0.0012 + Vector((0.0007, 0, 0))),
-          nb_.verts.new(tipv + w * 0.0012 - Vector((0.0007, 0, 0)))]
+    tipv = C0 + u * 0.00292 + w * (a + 0.0003)
+    vs = [nb_.verts.new(tipv), nb_.verts.new(tipv + w * 0.0017 + Vector((0.0009, 0, 0))),
+          nb_.verts.new(tipv + w * 0.0017 - Vector((0.0009, 0, 0)))]
     nb_.faces.new(vs)
     notch = from_bmesh('LensIndex', nb_, coll, smooth=False)
     set_mat(notch, fill)
     # hood side screws (small socket heads)
     for sx in (-1, 1):
-        sc_ = prim('cyl', 'HoodScrew', (sx * (hx + 0.0002), -0.006, 0.062), (0, math.radians(90), 0), seg=32,
-                   r=0.0016, depth=0.0008, coll=coll)
-        bevel(sc_, 0.0002, 2)
-        set_mat(sc_, M['chrome'])
-        hx_ = prim('cyl', 'HoodScrewHex', (sx * (hx + 0.00062), -0.006, 0.062), (0, math.radians(90), 0), seg=6,
-                   r=0.0007, depth=0.0002, coll=coll)
-        set_mat(hx_, M['black'])
+        for yy, zz in ((-0.008, 0.083), (-0.008, 0.060)):
+            sc_ = prim('cyl', 'HoodScrew', (sx * (hx + 0.0002), yy, zz), (0, math.radians(90), 0), seg=32, r=0.0019,
+                       depth=0.0009, coll=coll)
+            bevel(sc_, 0.00025, 2)
+            set_mat(sc_, M['chrome'])
+            hx_ = prim('cyl', 'HoodScrewHex', (sx * (hx + 0.00067), yy, zz), (0, math.radians(90), 0), seg=6, r=0.0008,
+                       depth=0.0002, coll=coll)
+            set_mat(hx_, M['black'])
     return {'root': root, 'dial': dial, 'lens_c': C0, 'lens_top': C0 + u * lens_h, 'axis': u, 'num': P,
-            'image': C0 - u * 0.0154, 'hood': hood}
+            'image': C0 - u * 0.03, 'hood': hood}
 
 
 def door_plate(M, x0=-0.2, x1=0.2, z0=-0.18, z1=0.2, depth=0.06, mat=None, name='DoorFace', coll=None):
@@ -525,100 +535,83 @@ def door_plate(M, x0=-0.2, x1=0.2, z0=-0.18, z1=0.2, depth=0.06, mat=None, name=
 
 
 # ----------------------------------------------------------------------------- S17: long two-part key + lock boss
-
-def _superellipse(a, b, n=96, p=4.0, cx=0.0, cy=0.0):
-    pts = []
-    for i in range(n):
-        t = 2 * math.pi * i / n
-        c, s_ = math.cos(t), math.sin(t)
-        pts.append((cx + a * math.copysign(abs(c) ** (2 / p), c), cy + b * math.copysign(abs(s_) ** (2 / p), s_)))
-    return pts
-
-
-def long_key(M, coll=None, depth_in=0.05):
-    """Long two-part key along -Y out of the lock face at the origin (~29 cm outside + `depth_in` inside).
-    Part two: nickel shaft + stepped 3D bit (inside the lock); part one: blued bow + stem; knurled coupling between.
-    Returns the pivot empty (rotate .rotation_euler.y to turn)."""
-    pv = empty('KeyPivot', (0, 0, 0), coll=coll)
-    parts = []
-    shaft = cyl_axis('KeyShaft', (0, depth_in, 0), (0, -0.205, 0), 0.0045, seg=64, coll=coll, mat=M['nickel'],
-                     bev=0.0003)
-    parts.append(shaft)
-    # flats along the shaft (a long milled flat reads the rotation)
-    flat = rbox('KeyFlat', -0.0046, 0.0046, -0.200, -0.03, 0.0041, 0.0047, mat=M['nickel'], coll=coll)
-    boolean_cut(shaft, flat)
-    # coupling: two knurled collars with a hairline seam (the key comes apart here)
-    for nm, ya, yb in (('CollarB', -0.2052, -0.2172), ('CollarA', -0.2177, -0.2295)):
-        kout = gear_outline(72, 0.0068, 0.0071, pts_per_tooth=4, tooth_frac=0.45)
-        c = extrude_profile(nm, kout, abs(yb - ya), coll=coll, smooth=False)
-        c.rotation_euler = (math.radians(90), 0, 0)
-        c.location = (0, ya, 0)
-        bevel(c, 0.0005, 2, angle=40)
-        set_mat(c, M['knurl'])
-        parts.append(c)
-    seam = cyl_axis('CollarSeam', (0, -0.2171, 0), (0, -0.2178, 0), 0.0062, seg=64, coll=coll, mat=M['black'])
-    parts.append(seam)
-    stem = cyl_axis('KeyStem', (0, -0.229, 0), (0, -0.247, 0), 0.0045, seg=64, coll=coll, mat=M['blued'], bev=0.0003)
-    neck = prim('cyl', 'KeyNeck', (0, -0.2505, 0), (math.radians(90), 0, 0), seg=64, r=0.0045, r2=0.0075, depth=0.007,
-                coll=coll)
-    set_mat(neck, M['blued'])
-    parts += [stem, neck]
-    # bow: flat superellipse plate with an oval opening, in the vertical (Y-Z) plane, 6 mm thick
-    outer = _superellipse(0.021, 0.026, n=128, p=3.2)
-    inner = _superellipse(0.0125, 0.0165, n=128, p=2.6, cx=-0.002)
-    bow = extrude_profile('KeyBow', outer, 0.006, holes=[inner], coll=coll, smooth=True)
-    # local X -> -Y (outward along the key), local Y -> +Z, local Z -> -X (thickness)
-    rot = Matrix(((0.0, 0.0, -1.0), (-1.0, 0.0, 0.0), (0.0, 1.0, 0.0)))
-    bow.matrix_world = Matrix.Translation((0.003, -0.2745, 0.0)) @ rot.to_4x4()
-    bevel(bow, 0.0009, 3, angle=40)
-    set_mat(bow, M['blued'])
-    parts.append(bow)
-    # bit (inside the lock): stepped blade with cuts on three faces
-    bit = rbox('KeyBit', -0.0018, 0.0018, 0.012, 0.038, -0.0165, -0.003, bev=0.0002, mat=M['nickel'], coll=coll)
-    parts.append(bit)
-    for i, (y, depth) in enumerate(((0.015, 0.004), (0.019, 0.009), (0.023, 0.002), (0.027, 0.007), (0.031, 0.005),
-                                    (0.035, 0.008))):
-        ct = rbox(f'BitCut{i}', -0.003, 0.003, y - 0.0012, y + 0.0012, -0.0166, -0.0166 + depth, coll=coll)
-        boolean_cut(bit, ct)
-    for o in parts:
-        parent(o, pv, keep=True)
-    return pv
-
+# Matches A1 (door_ff.build_door): chrome boss r 36 mm + steel ring r 24 mm, round keyway r 8.5 mm with a slot below;
+# key: chrome shank r 6.8 mm, dark coupling collar (the joint of the two parts) + chrome collar, T-bar bow with balls.
+# Origin = keyhole centre on the panel face (y = 0); the boss front is at y = -0.020.
 
 def lock_boss(M, door, coll=None):
-    """Large turned lock boss on the door face at the origin with a deep keyhole bore (key axis = Y)."""
-    hole = cyl_axis('KeyholeCut', (0, 0.08, 0), (0, -0.05, 0), 0.0074, seg=96, coll=coll)
-    base = cyl_axis('BossBase', (0, 0.002, 0), (0, -0.013, 0), 0.040, seg=192, coll=coll, mat=M['satin'], bev=0.0012)
-    top = cyl_axis('BossRing', (0, -0.012, 0), (0, -0.024, 0), 0.0235, seg=192, coll=coll, mat=M['satin'], bev=0.001)
-    lip = cyl_axis('BossLip', (0, -0.0235, 0), (0, -0.0262, 0), 0.0118, seg=128, coll=coll, mat=M['chrome'],
-                   bev=0.0007)
-    for o in (base, top, lip, door):
-        boolean_cut(o, hole)
-    sleeve = _annulus_along('KeyholeSleeve', (0, 0.07, 0), (0, -1, 0), 0.0074, 0.0092, 0.096, coll=coll,
-                            mat=M['dark'])
-    cap = cyl_axis('KeyholeEnd', (0, 0.07, 0), (0, 0.072, 0), 0.0093, seg=48, coll=coll, mat=M['black'])
-    # four countersunk socket screws in the base
-    for i in range(4):
-        a = math.radians(45 + 90 * i)
-        p = Vector((math.cos(a) * 0.0318, -0.0131, math.sin(a) * 0.0318))
-        sc_ = cyl_axis(f'BossScrew{i}', p + Vector((0, 0.0006, 0)), p - Vector((0, 0.0004, 0)), 0.0034, seg=48,
-                       coll=coll, mat=M['chrome'], bev=0.0003)
-        hx_ = cyl_axis(f'BossScrewHex{i}', p - Vector((0, 0.0003, 0)), p - Vector((0, 0.00045, 0)), 0.0014, seg=6,
-                       coll=coll, mat=M['black'])
-    return base
+    cut = cyl_axis('KeywayCut', (0, 0.06, 0), (0, -0.04, 0), 0.0085, seg=96, coll=coll)
+    slot = rbox('KeySlotCut', -0.0029, 0.0029, -0.04, 0.06, -0.028, 0.0, coll=coll)
+    boss = cyl_axis('KeyBoss', (0, 0.001, 0), (0, -0.014, 0), 0.036, seg=192, coll=coll, mat=M['chrome_face'], bev=0.0035)
+    ring = cyl_axis('KeyBoss2', (0, -0.012, 0), (0, -0.020, 0), 0.024, seg=192, coll=coll, mat=M['border'], bev=0.0025)
+    for o in (boss, ring, door):
+        boolean_cut(o, cut)
+        o.modifiers.new('cut2', 'BOOLEAN').object = slot
+    try:
+        for o in (boss, ring, door):
+            o.modifiers['cut2'].solver = 'EXACT'
+    except Exception:
+        pass
+    slot.hide_render = True
+    # dark inner sleeve (the keyway goes deep into the door) + slot liner
+    _annulus_along('KeywaySleeve', (0, 0.10, 0), (0, -1, 0), 0.0085, 0.0105, 0.118, coll=coll, mat=M['dark'])
+    rbox('SlotLinerL', -0.0035, -0.0029, -0.018, 0.10, -0.028, -0.006, mat=M['dark'], coll=coll)
+    rbox('SlotLinerR', 0.0029, 0.0035, -0.018, 0.10, -0.028, -0.006, mat=M['dark'], coll=coll)
+    rbox('SlotFloor', -0.0035, 0.0035, -0.018, 0.10, -0.0286, -0.028, mat=M['dark'], coll=coll)
+    cyl_axis('KeywayEnd', (0, 0.10, 0), (0, 0.102, 0), 0.0106, seg=48, coll=coll, mat=M['black'])
+    return boss
+
+
+def long_key(M, coll=None):
+    """Returns the turn empty (rotate .rotation_euler.y). Key axis = Y; boss front at y = -0.020."""
+    kt = empty('KeyTurn', (0, 0, 0), coll=coll)
+    y0 = -0.020
+    parts = []
+    parts.append(cyl_axis('KShank', (0, y0 + 0.28, 0), (0, y0 - 0.106, 0), 0.0068, seg=64, coll=coll, mat=M['key'],
+                          bev=0.0004))
+    bit = rbox('KBit', -0.0022, 0.0022, y0 + 0.20, y0 + 0.27, -0.026, -0.004, bev=0.0003, mat=M['key'], coll=coll)
+    for i, (yy, dd) in enumerate(((0.205, 0.006), (0.215, 0.012), (0.225, 0.004), (0.235, 0.010), (0.245, 0.007),
+                                  (0.258, 0.013))):
+        boolean_cut(bit, rbox(f'KBitCut{i}', -0.003, 0.003, y0 + yy - 0.0025, y0 + yy + 0.0025, -0.027, -0.027 + dd,
+                              coll=coll))
+    parts.append(bit)
+    # coupling: dark knurled collar (part one) screwed onto a chrome collar (part two) -> hairline joint
+    kout = gear_outline(84, 0.0101, 0.0105, pts_per_tooth=4, tooth_frac=0.45)
+    col = extrude_profile('KCollar', kout, 0.022, coll=coll, smooth=False)
+    col.rotation_euler = (math.radians(90), 0, 0)
+    col.location = (0, y0 - 0.106, 0)
+    bevel(col, 0.0008, 2, angle=40)
+    set_mat(col, M['knurl'])
+    parts.append(col)
+    parts.append(cyl_axis('KJoint', (0, y0 - 0.1278, 0), (0, y0 - 0.1284, 0), 0.0079, seg=64, coll=coll, mat=M['black']))
+    parts.append(cyl_axis('KCollar2', (0, y0 - 0.1284, 0), (0, y0 - 0.140, 0), 0.0085, seg=64, coll=coll, mat=M['key'],
+                          bev=0.0012))
+    bar = cyl_axis('KBow', (-0.055, y0 - 0.152, 0), (0.055, y0 - 0.152, 0), 0.0085, seg=64, coll=coll, mat=M['key'],
+                   bev=0.0025)
+    parts.append(bar)
+    parts.append(cyl_axis('KBowNeck', (0, y0 - 0.139, 0), (0, y0 - 0.150, 0), 0.0072, seg=64, coll=coll, mat=M['key']))
+    for sx in (-1, 1):
+        b = prim('sphere', 'KBowEnd', (sx * 0.056, y0 - 0.152, 0), seg=48, ring=24, r=0.0115, coll=coll)
+        set_mat(b, M['key'])
+        parts.append(b)
+    for o in parts:
+        parent(o, kt, keep=True)
+    return kt
 
 
 # ----------------------------------------------------------------------------- S18/S22/S24: magnetic contact plates
+# Matches A1 (door_ff): MagDoor x 0.512..0.574 on the door plate, MagFrame x 0.594..0.656 on the frame (2 mm proud),
+# z 1.50..1.70, 13 mm thick, grey worn paint, four cap screws r 4.8 mm at the corners; armoured cable up from the
+# frame half. Here: seam centre x = 0, plates centred on z = 0.
+PL = dict(gap=0.010, w=0.062, h=0.200, t=0.013, sdx=(0.010, 0.052), sdz=0.088)
 
-PL = dict(gap=0.0025, fl_w=0.030, fl_h=0.080, fl_t=0.004, b_w=0.024, b_h=0.045, b_t=0.018, screw_z=0.031)
 
-
-def screw_proto(M, coll=None, shank=0.018):
-    """Socket-head cap screw M5 along local +Z (head top at z = 0.005), threads down to z = -shank."""
-    kout = gear_outline(60, 0.0041, 0.00425, pts_per_tooth=4, tooth_frac=0.5)
-    head = extrude_profile('ScrewHead', kout, 0.005, coll=coll, smooth=False)
-    bevel(head, 0.00045, 3, angle=40)
-    hexc = prim('cyl', 'ScrewHexCut', (0, 0, 0.005), seg=6, r=0.0023, depth=0.0052, coll=coll)
+def screw_proto(M, coll=None, r=0.0048, hh=0.0032, shank=0.023):
+    """Cap screw along local +Z: head (r, height hh) from z = 0 to hh with a hex socket; M5 thread down to -shank."""
+    head = prim('cyl', 'ScrewHead', (0, 0, hh / 2), seg=48, r=r, depth=hh, coll=coll)
+    bevel(head, 0.0006, 3, angle=40)
+    apply_mods(head)
+    hexc = prim('cyl', 'ScrewHexCut', (0, 0, hh), seg=6, r=r * 0.42, depth=hh * 1.2, coll=coll)
     boolean_cut(head, hexc)
     apply_mods(head)
     bpy.data.objects.remove(hexc)
@@ -628,41 +621,56 @@ def screw_proto(M, coll=None, shank=0.018):
     set_mat(core, M['thread'])
     parts.append(core)
     pitch = 0.0008
-    n = int(shank / pitch)
-    for i in range(n):
+    for i in range(int(shank / pitch)):
         t = prim('torus', 'ScrewThread', (0, 0, -pitch * (i + 0.5)), R=0.0021, r=0.00042, seg=32, seg2=8, coll=coll)
         set_mat(t, M['thread'])
         parts.append(t)
     proto = join(parts, 'ScrewProto')
+    proto.location = (0, 0, -5)
+    proto.hide_render = True
     return proto
 
 
-def mag_plate(M, side, proto, name, loosen=(0.0, 0.0), coll=None):
-    """Magnetic contact plate. side -1: door half (x < 0), +1: frame half. Screws on the flange, raised by `loosen`
-    (top, bottom) metres. Returns the root empty (parts parented; root at the world origin)."""
+def mag_plate(M, side, proto, name, loosen=(0.0, 0.0, 0.0, 0.0), coll=None, cable=False):
+    """side -1: door half (on the door plate, face y = 0), +1: frame half (frame face y = -FRAME_PROUD).
+    loosen: how far each screw head stands off the block (top-inner, top-outer, bottom-inner, bottom-outer), metres.
+    Returns dict(root, block, screws)."""
     root = empty(name, (0, 0, 0), coll=coll)
-    g, fw, fh, ft, bw, bh, bt = PL['gap'], PL['fl_w'], PL['fl_h'], PL['fl_t'], PL['b_w'], PL['b_h'], PL['b_t']
-    xa, xb = sorted((side * g, side * (g + fw)))
-    fl = rbox(name + '_flange', xa, xb, -ft, 0.0, -fh / 2, fh / 2, bev=0.0007, seg=2, mat=M['block'], coll=coll)
-    bxa, bxb = sorted((side * g, side * (g + bw)))
-    body = rbox(name + '_body', bxa, bxb, -ft - bt, -ft + 0.0002, -bh / 2, bh / 2, bev=0.0012, seg=3, mat=M['block'],
-                coll=coll)
-    mx = side * (g - 0.00015)
-    mag = rbox(name + '_magnet', min(mx, side * g + side * 0.0004), max(mx, side * g + side * 0.0004),
-               -ft - bt + 0.003, -ft - 0.003, -bh / 2 + 0.006, bh / 2 - 0.006, bev=0.0002, mat=M['magnet'], coll=coll)
-    parts = [fl, body, mag]
-    screws = []
-    sxc = side * (g + fw / 2)
-    for k, zz in enumerate((PL['screw_z'], -PL['screw_z'])):
-        sc_ = linked_copy(proto, f'{name}_screw{k}', coll=coll)
-        sc_.hide_render = False
-        sc_.rotation_euler = (math.radians(90), 0, math.radians(random.Random(k * 7 + side).uniform(0, 60)))
-        sc_.location = (sxc, -ft - loosen[k], zz)
-        screws.append(sc_)
-        parts.append(sc_)
+    g, w, h, t = PL['gap'], PL['w'], PL['h'], PL['t']
+    yb = 0.0 if side < 0 else -FRAME_PROUD
+    xa, xb = sorted((side * g, side * (g + w)))
+    blk = rbox(name + '_block', xa, xb, yb - t, yb + 0.0003, -h / 2, h / 2, bev=0.0025, seg=3, mat=M['magface'],
+               coll=coll)
+    parts, screws = [blk], []
+    rng = random.Random(11 + side)
+    k = 0
+    for zz in (PL['sdz'], -PL['sdz']):
+        for dx in PL['sdx']:
+            sc_ = linked_copy(proto, f'{name}_screw{k}', coll=coll)
+            sc_.hide_render = False
+            sc_.rotation_euler = (math.radians(90), 0, 0)
+            sc_.rotation_euler.rotate_axis('Z', rng.uniform(0, 1.0))
+            sc_.location = (side * (g + dx), yb - t - loosen[k], zz)
+            screws.append(sc_)
+            parts.append(sc_)
+            k += 1
+    if cable:      # armoured cable from the top of the frame half up to the junction box
+        x = side * (g + 0.046)
+        y = yb - 0.008
+        gl = cyl_axis(name + '_gland', (x, y, h / 2 - 0.001), (x, y, h / 2 + 0.008), 0.0068, seg=6, coll=coll,
+                      mat=M['galv'], bev=0.0006)
+        parts.append(gl)
+        c = cyl_axis(name + '_cable', (x, y, h / 2 + 0.006), (x, y, h / 2 + 0.42), 0.0040, seg=24, coll=coll,
+                     mat=M['galv'])
+        parts.append(c)
+        for i in range(160):
+            rr = prim('torus', 'CableRib', (x, y, h / 2 + 0.009 + i * 0.0026), R=0.0040, r=0.0008, seg=24, seg2=6,
+                      coll=coll)
+            set_mat(rr, M['galv'])
+            parts.append(rr)
     for o in parts:
         parent(o, root, keep=True)
-    return {'root': root, 'screws': screws, 'body': body, 'flange': fl}
+    return {'root': root, 'block': blk, 'screws': screws}
 
 
 def _polyline_dense(pts, step=0.0004):
@@ -725,32 +733,38 @@ def tape_strip(M, pts2d, z0, z1, name='Tape', coll=None, seed=3, lift=0.00006, w
     return o
 
 
-def alu_sleeve(M, coll=None, name='AluPlate'):
-    """Custom aluminium plate: a thin front plate with folded top/bottom lips that slides over both contact blocks
-    (open at the sides). Root at the world origin when in place."""
+def alu_plate(M, proto=None, coll=None, name='AluPlate'):
+    """Custom aluminium plate over both magnetic plates: 2 mm sheet with a 2 mm shim under its door half (the door
+    block sits 2 mm deeper than the frame block), four countersunk screws. Root at the world origin when in place."""
     root = empty(name, (0, 0, 0), coll=coll)
-    ft, bt, bh = PL['fl_t'], PL['b_t'], PL['b_h']
-    yf = -ft - bt - 0.0006
-    t = 0.002
-    zt = bh / 2 + 0.0009
-    front = rbox(name + '_front', -0.0315, 0.0315, yf - t, yf, -zt - t, zt + t, bev=0.0004, seg=2, mat=M['alu'],
-                 coll=coll)
-    lips = [rbox(name + f'_lip{s}', -0.0315, 0.0315, yf - t, -ft - 0.0009, (zt if s > 0 else -zt - t),
-                 (zt + t if s > 0 else -zt), bev=0.0004, seg=2, mat=M['alu'], coll=coll) for s in (1, -1)]
-    for o in [front] + lips:
+    t, hw, hh = 0.002, 0.079, 0.056
+    yf = -FRAME_PROUD - PL['t']                     # frame block front
+    parts = [rbox(name + '_sheet', -hw, hw, yf - t, yf, -hh, hh, bev=0.0005, seg=2, mat=M['alu'], coll=coll),
+             rbox(name + '_shim', -PL['gap'] - PL['w'] + 0.003, -PL['gap'] - 0.0005, yf, -PL['t'], -hh + 0.004,
+                  hh - 0.004, bev=0.0003, mat=M['alu'], coll=coll)]
+    for sx in (-1, 1):
+        for sz in (-1, 1):
+            p = Vector((sx * (PL['gap'] + PL['w'] / 2), yf - t - 0.00005, sz * 0.036))
+            hd = cyl_axis(name + '_csk', p + Vector((0, 0.0004, 0)), p - Vector((0, 0.0001, 0)), 0.0033, seg=32,
+                          coll=coll, mat=M['screw'])
+            hx_ = cyl_axis(name + '_hex', p - Vector((0, 0.00005, 0)), p - Vector((0, 0.00015, 0)), 0.0013, seg=6,
+                           coll=coll, mat=M['black'])
+            parts += [hd, hx_]
+    for o in parts:
         parent(o, root, keep=True)
     return root
 
 
 def seam_set(M, coll=None, h=0.5, hinge=False):
-    """Door fragment (x < 0) and frame fragment (x > 0) with a 4 mm seam at x = 0, faces flush at y = 0.
-    Returns dict(door=slab, hinge=empty or None, frame=jamb)."""
+    """Door plate fragment (x < -SEAM) and frame fragment (x > SEAM) as on A1's door; dark void behind the seam.
+    Returns dict(door=[objects], hinge=empty or None, frame=obj)."""
     hv = None
-    door = door_fragment(M, x0=-0.36, x1=-0.002, z0=-h / 2, z1=h / 2, coll=coll)
+    door = door_fragment(M, x0=-0.30, z0=-h / 2, z1=h / 2, coll=coll)
     if hinge:
-        hv = empty('DoorHinge', (-1.0, 0.2, 0.0), coll=coll)
-        parent(door, hv, keep=True)
-    frame = frame_fragment(M, x0=0.002, x1=0.36, z0=-h / 2, z1=h / 2, coll=coll)
+        hv = empty('DoorHinge', (-1.0, 0.1, 0.0), coll=coll)
+        for o in door:
+            parent(o, hv, keep=True)
+    frame = frame_fragment(M, z0=-h / 2, z1=h / 2, coll=coll)
     return {'door': door, 'hinge': hv, 'frame': frame}
 
 
