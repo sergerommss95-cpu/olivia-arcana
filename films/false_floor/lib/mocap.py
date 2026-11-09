@@ -383,11 +383,12 @@ def shoulder_follow(rig, clav, arm_dir_world, drop=CLAV_DROP, protract=None):
     if ah.length > 1e-4 and protract:
         phi = math.degrees(math.atan2(a.dot(fwd), max(1e-4, a.dot(lat))))
         th = protract * max(0.0, phi) * ah.length
-        th = min(th, 35.0)
+        th = min(th, CLAV_PROTRACT_MAX)
         sgn = 1.0 if up.cross(cur).dot(fwd) > 0 else -1.0
         want = Matrix.Rotation(math.radians(sgn * th), 3, up) @ want
     if (want - cur).length > 1e-5:
         _aim_fast(rig, clav, mw.inverted() @ want)
 
 
-CLAV_PROTRACT = 0.5
+CLAV_PROTRACT = float(os.environ.get('FF_PROTRACT', 0.5))
+CLAV_PROTRACT_MAX = float(os.environ.get('FF_PROTRACT_MAX', 35.0))

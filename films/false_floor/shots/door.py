@@ -458,7 +458,7 @@ elif COLD:
         eyes = sum(((g.eyes.matrix_world @ v.co) for v in me_.vertices), V3()) / len(me_.vertices)
         ev.to_mesh_clear()
         ear = eyes - fwd * 0.085 + rdir * 0.075 - V3((0, 0, 0.015))
-        palm = ear + rdir * 0.035 + fwd * 0.025 - V3((0, 0, 0.01))
+        palm = ear + rdir * 0.035 + fwd * 0.02 - V3((0, 0, 0.035))
         sh = rw @ g.rig.pose.bones['RightArm'].head
         MC.shoulder_follow(g.rig, 'RightShoulder', palm - sh)
         CA.place_hand(g, 'R', palm, V3((0, 0, 1)) * 0.85 - fwd * 0.5, -rdir,

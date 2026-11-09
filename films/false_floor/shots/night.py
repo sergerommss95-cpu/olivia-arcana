@@ -153,8 +153,9 @@ elif SHOT == 'N5':
             pb.keyframe_insert('rotation_euler', frame=f)
             pb.keyframe_insert('rotation_quaternion', frame=f)
     bpy.context.scene.frame_set(1)
-    cam = camera('CamN5', lens=32, fstop=2.4)
-    cam_path(cam, [(1, (1.5, -2.6, 1.42), (0.15, -0.25, 1.15), 0.0), (N, (1.0, -1.85, 1.3), (0.25, -0.15, 1.1), 0.0)])
+    FF_CX, FF_CY = 1.58, -1.42            # end 3/4 on the King: his grip on the handle and the gap reading together
+    cam = camera("CamN5", lens=32, fstop=2.4)
+    cam_path(cam, [(1, (1.5, -2.6, 1.42), (0.15, -0.25, 1.15), 0.0), (N, (FF_CX, FF_CY, 1.47), (0.2, -0.42, 1.2), 0.0)])
     ease(cam)
     shake(cam, 0.004, 0.002, scale=20, seed=9)
     cam.data.dof.focus_distance = 1.75
