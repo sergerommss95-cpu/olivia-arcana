@@ -25,16 +25,19 @@ def arg(name, default):
 
 
 def main():
-    ids = [x for x in sys.argv[1:] if x.startswith('S') and x[1:].isdigit()]
+    ids = [x for x in sys.argv[1:] if x[:1] in ('S', 'N') and x[1:].isdigit()]
     samples = arg('--samples', '40')
     still_samples = arg('--still-samples', '96')
     shots = {s['id']: s for s in json.load(open(os.path.join(FF, 'script', 'SHOTS_v2.json')))['shots']}
+    for s_ in json.load(open(os.path.join(FF, 'script', 'SEQ_NIGHT.json')))['shots']:
+        if s_['kind'] == '3D':
+            shots[s_['id']] = s_
     clips = os.path.join(FF, 'out', 'clips')
     os.makedirs(clips, exist_ok=True)
     log = open(os.path.join(clips, 'render.log'), 'a')
     for sid in ids:
         s = shots[sid]
-        script = os.path.join(FF, SCRIPT[s['owner']])
+        script = os.path.join(FF, s['script'] if 'script' in s else SCRIPT[s['owner']])
         t0 = time.time()
         if s['kind'] == '3D':
             n = s['render_frames']

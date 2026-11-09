@@ -19,7 +19,8 @@ from ff import *
 import door_ff as D
 
 SHOT = arg('--shot', 'S14')
-FRAMES = {'S00': 252, 'S01': 252, 'S10': 252, 'S14': 252, 'S20': 1, 'S25': 252, 'S32': 162, 'S52': 252}
+FRAMES = {'S00': 252, 'S01': 252, 'S10': 252, 'S14': 252, 'S20': 1, 'S25': 252, 'S32': 162, 'S52': 252,
+          'N2': 90, 'N8': 75}       # N*: v2 test sequence 'The Night' (script/SEQ_NIGHT.json)
 N = FRAMES[SHOT]
 H = 6                       # handles
 A, B = H + 1, N - H         # first / last frame used by the cut
@@ -31,18 +32,19 @@ setup_render(1, N, res=(2560, 1440) if STILL else RES_FINAL, samples=96 if STILL
              clamp=4.0, vol_step=6.0, shutter=0.5)
 world_color((0.0012, 0.0013, 0.0016))
 
-need_vault = SHOT in ('S00', 'S01', 'S25', 'S32', 'S52') and not arg('--novault')
+need_vault = SHOT in ('S00', 'S01', 'S25', 'S32', 'S52', 'N8') and not arg('--novault')
 # S00/S01 keep the door_ff dial + painted contact plates they were approved/rendered with; every later shot matches A2's
 # macros (zinc contact blocks, top-reading lens hood) per the lead.
-S = D.build_set(vault=need_vault, stair=True, grate=True, cctv=True, key=(SHOT == 'S25'), a2=SHOT not in ('S00', 'S01'))
+S = D.build_set(vault=need_vault, stair=True, grate=True, cctv=True, key=(SHOT == 'S25'), a2=SHOT not in ('S00', 'S01'),
+                forced=(0.0, 0.0) if SHOT == 'N8' else (0.6, 0.62), debris=SHOT != 'N8')   # N8: before the boxes
 
 # ---- door / grate states -----------------------------------------------------------------------------------------
 AJAR = 2.0                  # S00/S52 hairline (degrees)
 OPEN = 112.0                # wide open (S01/S32/start of S52)
 door, grate = S['door'], S['grate']
-D.set_bolts(S, extended=SHOT in ('S10', 'S14', 'S20', 'S25', 'S01', 'S32'))   # thrown bolts read best on the open door
+D.set_bolts(S, extended=SHOT in ('S10', 'S14', 'S20', 'S25', 'S01', 'S32', 'N2'))   # thrown bolts read best on the open door
 D.set_door(S, {'S00': AJAR, 'S01': OPEN, 'S32': OPEN, 'S52': OPEN}.get(SHOT, 0.0))
-grate.rotation_euler.z = {'S01': R(84), 'S32': R(84)}.get(SHOT, 0.0)
+grate.rotation_euler.z = {'S01': R(84), 'S32': R(84), 'N2': R(78), 'N8': R(78)}.get(SHOT, 0.0)
 S['dial'].rotation_euler.z = R(-23.0)        # resting position of the wheel (an arbitrary number; no numerals shown)
 
 # ---- camera helpers ----------------------------------------------------------------------------------------------
@@ -232,6 +234,109 @@ elif SHOT == 'S32':
     linear(cam)
     shake(cam, 0.0012, 0.0006, scale=40, seed=32)
     motes_box = ((-1.5, -3.0, 0.1), (1.5, -0.2, 2.4))
+
+elif SHOT in ('N2', 'N8'):
+    # v2 'The Night' (script/SEQ_NIGHT.json): stylized cast from lib/cast.py, lights ON (investigators: sensor taped).
+    import cast as CA
+    import human as HU
+    import mocap as MC
+    from mathutils import Vector as V3
+
+    def haze_box(name, loc, size, dens):
+        hz = box(name, size, loc)
+        mh = bpy.data.materials.new(name + 'M')
+        mh.use_nodes = True
+        nt = mh.node_tree
+        nt.nodes.remove(nt.nodes['Principled BSDF'])
+        vol = nt.nodes.new('ShaderNodeVolumePrincipled')
+        vol.inputs['Density'].default_value = dens
+        vol.inputs['Anisotropy'].default_value = 0.6
+        nt.links.new(vol.outputs[0], nt.nodes['Material Output'].inputs['Volume'])
+        hz.data.materials.append(mh)
+        no_shadow = getattr(D, 'no_shadow')
+        no_shadow(hz)
+        return hz
+
+    if SHOT == 'N2':
+        # FPV dive: rush down the flight just above the treads, bank through the S of the descent, flatten out at the
+        # landing and drive in behind Monster and Speedy as they walk through the open grate toward the door.
+        D.light_ante(S, 'day', scale=1.6, k=4800)
+        sc.view_settings.exposure = 1.3
+        # soft bounce off the stair soffit (the stairwell read too dark at 0.09 mean luma in the test)
+        slope = math.atan2(0.18, 0.28)
+        for yy, e in ((-7.6, 140.0), (-10.4, 70.0)):
+            zz = 2.5 + max(0.0, (-5.0 - yy)) * 0.18 / 0.28 - 0.15
+            fl = light('AREA', f'StairFill{yy}', (0.0, yy, min(zz, 5.2)), (-slope if yy > -9.5 else 0.0, 0, 0), energy=e,
+                       color=kelvin(5000), size=1.3, size_y=2.4, shape='RECTANGLE')
+            fl.visible_glossy = False
+        mo, sp = CA.make('monster'), CA.make('speedy')
+        M2 = MC.load('02', '02_01')
+        MC.apply(mo, M2, start_frame=26, src_range=(0, 342), step=5, pos=(-0.02, -4.25), yaw_deg=180)
+        MC.apply(sp, M2, start_frame=30, src_range=(0, 342), step=5, pos=(0.28, -4.95), yaw_deg=180)
+        bpy.context.scene.frame_set(26)
+        CA.torch(mo, 'R', (0.0, -0.4, 0.4), power=700.0)
+        bpy.context.scene.frame_set(30)
+        CA.torch(sp, 'L', (0.4, -1.0, 0.3), power=500.0)
+        bpy.context.scene.frame_set(1)
+        haze_box('HazeN2', (0.0, -2.6, 1.25), (3.8, 2.4, 2.5), 0.012)
+        cam = make_cam(20, 4.0, [(1, (0.0, -7.0, 1.6)), (55, (0.0, -4.4, 1.0)), (N, (0.0, -2.6, 1.1))])
+        def nose(y):
+            return max(0.0, (STY0 - y) / 0.28 * 0.18)
+        STY0 = -5.0
+        pts = [(1, (0.28, -11.2, 2.88 + 0.95), (0.0, -6.0, 0.9), R(0)),
+               (A, (0.26, -10.7, 2.88 + 0.90), (0.0, -5.8, 0.8), R(-2)),
+               (28, (-0.18, -8.6, nose(-8.6) + 0.72), (0.05, -4.6, 0.7), R(-9)),
+               (48, (0.16, -6.6, nose(-6.6) + 0.70), (0.0, -3.4, 0.85), R(7)),
+               (64, (0.05, -5.15, 0.95), (0.0, -2.2, 1.05), R(-3)),
+               (N, (0.02, -4.35, 1.18), (0.0, -1.0, 1.12), R(0))]
+        cam_path(cam, pts)
+        for fc in fcurves(cam):
+            for kp in fc.keyframe_points:
+                kp.interpolation = 'BEZIER'
+                kp.handle_left_type = kp.handle_right_type = 'AUTO_CLAMPED'
+        shake(cam, 0.006, 0.004, scale=7, seed=22)
+        motes_box = ((-0.7, -9.0, 0.3), (0.7, -3.9, 3.8))
+    else:
+        # REVERSE from inside the (untouched) vault: the door swings out, the crew stand silhouetted in the lit
+        # doorway, torch beams flaring through haze into the lens; the camera dollies back fast between the box walls.
+        # antechamber lit from BEHIND the crew (far batten + stair) so they read as silhouettes in the doorway
+        D.light_ante(S, 'day', scale=2.4, k=4800, on=('B', 'S'))
+        LV = D.light_vault(S, 'warm', key_power=30.0, spill=0.0, tube_power=26.0)
+        sc.view_settings.exposure = 0.95
+        sc.view_settings.keyframe_insert('exposure', frame=1)
+        sc.view_settings.exposure = 0.72                     # more lit box wall enters frame as we pull back
+        sc.view_settings.keyframe_insert('exposure', frame=N)
+        for side in ('vault_left', 'vault_right'):          # untouched vault: no torn-off doors before the break-in
+            for d_, c_, r_, st_ in S[side]['doors']:
+                if st_ == 'torn':
+                    d_.hide_render = False
+            for lo in S[side]['loose']:
+                lo.hide_render = True
+        D.set_bolts(S, extended=False)
+        key(door, 'rotation_euler', [(1, 0.0), (A + 2, R(-0.3)), (32, R(-56.0)), (N, R(-78.0))], index=2)
+        for fc in fcurves(door):
+            for kp in fc.keyframe_points:
+                kp.interpolation = 'BEZIER'
+                kp.handle_left_type = kp.handle_right_type = 'AUTO_CLAMPED'
+        kg, mo, sp = CA.make('king'), CA.make('monster'), CA.make('speedy')
+        for h, (x, y, yaw) in ((kg, (0.62, -1.28, 186)), (mo, (0.05, -1.72, 176)), (sp, (0.40, -2.35, 172))):
+            HU.place(h, x, y, yaw)
+            CA.arms_down(h, 'L', 0.12, 0.05)
+            CA.arms_down(h, 'R', 0.12, 0.05)
+        CA.head_turn(kg, 0, 6)
+        CA.torch(mo, 'R', (0.25, 2.2, 1.35), power=1100.0)
+        CA.torch(sp, 'L', (-0.2, 2.6, 1.0), power=800.0)
+        haze_box('HazeN8', (0.1, -1.1, 1.3), (3.4, 3.4, 2.5), 0.007)       # antechamber side only: beams flare, vault stays clear
+        cam = make_cam(24, 2.8, [(1, (0.1, -0.2, 1.3)), (40, (0.4, -1.3, 1.4)), (N, (0.4, -1.4, 1.35))])
+        cam_path(cam, [(1, (-0.05, 1.55, 1.42), (0.12, -1.5, 1.3), R(0)),
+                       (A, (-0.05, 1.62, 1.42), (0.12, -1.5, 1.3), R(0)),
+                       (N, (0.0, 4.6, 1.55), (0.25, -1.4, 1.2), R(1.5))])
+        for fc in fcurves(cam):
+            for kp in fc.keyframe_points:
+                kp.interpolation = 'SINE'
+                kp.easing = 'EASE_OUT'
+        shake(cam, 0.003, 0.0015, scale=12, seed=8)
+        motes_box = ((-1.1, 0.8, 0.2), (1.1, 4.5, 2.6))
 
 if motes_box:
     motes('Motes', 260, motes_box[0], motes_box[1], r=(0.0005, 0.0013), seed=7, drift=(0.02, 0.03, 0.05), start=1, end=N)

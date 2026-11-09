@@ -16,7 +16,8 @@ from vault_ff import *
 
 SHOT = arg('--shot', 'S02')
 INFO = {'S02': ('3D', 252), 'S21': ('3D', 252), 'S26': ('3D', 252), 'S27': ('3D', 252), 'S34': ('3D', 98),
-        'S28': ('3DS', 1), 'S41': ('3DS', 1), 'S45a': ('3DS', 1), 'S45b': ('3DS', 1), 'S51': ('3DS', 1)}
+        'S28': ('3DS', 1), 'S41': ('3DS', 1), 'S45a': ('3DS', 1), 'S45b': ('3DS', 1), 'S51': ('3DS', 1),
+        'N9': ('3D', 120), 'N10': ('3D', 170)}        # v2 'The Night' (script/SEQ_NIGHT.json)
 KIND, N = INFO[SHOT]
 STILL_RES = (2560, 1440)
 
@@ -491,8 +492,226 @@ elif SHOT == 'S51':
     cam.location = (-0.78, 5.75, 1.18)
     look_at(cam, (0.95, 1.4, 1.05))
 
+# ============================================================================= v2 'THE NIGHT' (lights on, cast)
+
+elif SHOT == 'N9':
+    # The Monster forces the first box with the hand-cranked puller: crank turns, the door buckles and pops.
+    import human as HU
+    import cast as CA
+    build_room(M, door='open', ante_energy=40.0, ante_kelvin=4800)
+    right, left = walls('before')
+    sensors(taped=True, led=False)
+    fx = fixtures(strength=2.6, energy=20.0, kelv=4400, tube_color=(1.0, 0.95, 0.88))
+    TC, TR = 9, 5
+    tool = crank_tool(M, TC, TR)
+    door = {(c, r): d for d, c, r, st in right['doors']}[TC, TR]
+    pv = door.parent
+    bpy.context.view_layer.update()
+    crank_w = tool['crank'].matrix_world.translation.copy()
+
+    def grip(a):        # world position of the crank grip for crank angle a (rotation about +X)
+        return crank_w + Vector((-0.05, -0.12 * math.sin(a), 0.12 * math.cos(a)))
+
+    def ik(h, side, wrist, pole=(0.0, 0.0, -1.0)):
+        """Two-bone IK over HU.aim: shoulder->elbow->wrist lands exactly on `wrist` (elbow toward `pole`)."""
+        S_ = 'Left' if side == 'L' else 'Right'
+        bpy.context.view_layer.update()
+        pa, pf = h.rig.pose.bones[f'{S_}Arm'], h.rig.pose.bones[f'{S_}ForeArm']
+        L1, L2 = pa.length, pf.length
+        sh = h.rig.matrix_world @ pa.head
+        t = Vector(wrist)
+        d = max(abs(L1 - L2) + 1e-3, min((t - sh).length, L1 + L2 - 1e-3))
+        u = (t - sh).normalized()
+        pv_ = Vector(pole)
+        v = (pv_ - pv_.dot(u) * u).normalized()
+        ca = (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d)
+        sa = math.sqrt(max(0.0, 1 - ca * ca))
+        elbow = sh + L1 * (ca * u + sa * v)
+        HU.aim(h, f'{S_}Arm', elbow - sh)
+        bpy.context.view_layer.update()
+        el = h.rig.matrix_world @ pf.head
+        HU.aim(h, f'{S_}ForeArm', sh + u * d - el)
+
+    m = CA.make('monster')
+    HU.place(m, 0.42, crank_w.y + 0.12, 90)
+    HU.stand(m)
+    bpy.context.view_layer.update()
+    pbs = m.rig.pose.bones
+    arm_len = (pbs['RightArm'].length + pbs['RightForeArm'].length + 0.5 * pbs['RightHand'].length) * m.rig.scale[0]
+    for _ in range(3):      # stand him so the crank circle sits inside a comfortable reach
+        sh = m.rig.matrix_world @ pbs['RightArm'].head
+        d = (crank_w - sh).length
+        m.rig.location.x += d - 0.86 * arm_len
+        bpy.context.view_layer.update()
+    base = m.rig.location.copy()
+    POP = 84
+    # crank angle: ~2.3 turns, slowing under load; a quick free quarter turn when the lock gives
+    def ang(f):
+        if f <= POP:
+            t = (f - 1) / (POP - 1)
+            return -2 * math.pi * 2.3 * (1 - (1 - t) ** 1.6)
+        t = min(1.0, (f - POP) / 6.0)
+        return -2 * math.pi * (2.3 + 0.28 * (1 - (1 - t) ** 2))
+    prev_e = {}
+    for f in range(1, N + 1, 2):
+        a = ang(f)
+        lean = 0.018 * math.sin(a + 0.6)                     # body works with the crank
+        jolt = 0.045 * math.exp(-(f - POP) / 5.0) if f >= POP else 0.0
+        m.rig.location = (base.x + lean - jolt, base.y, base.z)
+        m.rig.rotation_euler = (0, 0, math.radians(90 + 2.5 * math.sin(a)))
+        m.rig.keyframe_insert('location', frame=f)
+        m.rig.keyframe_insert('rotation_euler', frame=f)
+        bpy.context.view_layer.update()
+        tool['crank'].rotation_euler.x = a
+        tool['crank'].keyframe_insert('rotation_euler', index=0, frame=f)
+        bpy.context.view_layer.update()
+        gp = grip(a)
+        shw = m.rig.matrix_world @ pbs['RightArm'].head
+        ik(m, 'R', gp - (gp - shw).normalized() * 0.075, pole=(-0.3, -0.6, -1.0))    # palm wraps the grip
+        lb = crank_w + Vector((0.07, 0.25, 0.0))                                      # bracing on the clamp
+        shl = m.rig.matrix_world @ pbs['LeftArm'].head
+        ik(m, 'L', lb - (lb - shl).normalized() * 0.07, pole=(-0.3, 0.6, -1.0))
+        CA.head_turn(m, yaw=-8 + 4 * math.sin(a), pitch=-10)
+        for b in ('RightArm', 'RightForeArm', 'LeftArm', 'LeftForeArm', 'Neck1', 'Head'):
+            e = pbs[b].rotation_euler.copy()
+            if b in prev_e:
+                e.make_compatible(prev_e[b])        # no euler flips between keys
+            pbs[b].rotation_euler = e
+            prev_e[b] = e.copy()
+            pbs[b].keyframe_insert('rotation_euler', frame=f)
+    # the door bulges under the draw, then buckles and pops; the clamp kicks
+    key(pv, 'rotation_euler', [(1, 0.0), (10, 0.0), (POP - 1, math.radians(3.0)), (POP + 1, math.radians(15.0)),
+                               (POP + 3, math.radians(12.0)), (POP + 6, math.radians(13.0))], index=2)
+    key(door, 'rotation_euler', [(POP - 1, (0, 0, 0)), (POP + 1, (0.09, 0.0, -0.07)), (POP + 5, (0.07, 0.0, -0.05))])
+    key(tool['screw'], 'location', [(1, 0.0), (10, 0.0), (POP - 1, -0.012), (POP + 1, -0.04), (POP + 4, -0.036)], index=0)
+    key(tool['root'], 'rotation_euler', [(POP - 1, (0, 0, 0)), (POP + 1, (0.015, -0.012, 0.03)),
+                                         (POP + 6, (0.004, -0.003, 0.008))])
+    # a puff of grit from the lock as it gives
+    lockw = door_lock_point(TC, TR)
+    grit = motes('Grit', 70, tuple(lockw + Vector((-0.03, -0.04, -0.04))), tuple(lockw + Vector((0.0, 0.04, 0.04))),
+                 r=(0.0006, 0.0018), seed=9, start=POP, end=POP + 18, drift=(-0.16, 0.0, -0.06),
+                 mat=mat_principled('GritMat', color=(0.35, 0.33, 0.3), rough=0.7))
+    for f_, hid in ((1, True), (POP, False), (POP + 22, True)):
+        grit.hide_render = hid
+        grit.keyframe_insert('hide_render', frame=f_)
+    # warm practical light: tubes + a warm key over his shoulder that rims face, hands and the tool
+    cream_key(pos=(-0.7, 3.6, 2.5), aim=(0.9, 2.5, 1.3), energy=70.0, size=0.35)
+    light('AREA', 'FaceFill', (0.3, 1.6, 1.8), energy=16.0, color=kelvin(4000), size=0.8, target=(0.7, 2.6, 1.7))
+    light('AREA', 'Bounce', (0.0, -0.4, 0.6), energy=6.0, color=kelvin(4800), size=2.0, target=(0.5, 2.5, 0.8))
+    light('AREA', 'RoomBounce', (0.0, 3.0, 2.85), energy=14.0, color=kelvin(4200), size=2.2, size_y=5.0,
+          shape='RECTANGLE', target=(0.0, 3.0, 0.0))
+    # handheld push-in from his right, ending tight on hands, crank and the popped door
+    foc = empty('FocusN9', tuple(grip(0)))
+    key(foc, 'location', [(1, tuple(crank_w + Vector((-0.1, 0, 0.05)))), (POP, tuple(crank_w + Vector((-0.02, 0, 0)))),
+                          (N, tuple(lockw + Vector((-0.04, 0, 0))))])
+    cam = lens_cam('CamN9', 28, 2.4, foc)      # from his right-front: face + cranking hand, pushing in to the clamp
+    cam_path(cam, [(1, (0.66, 0.85, 1.72), (0.82, 2.6, 1.62), 0.02),
+                   (POP, (0.8, 1.52, 1.56), (0.92, 2.56, 1.4), 0.0),
+                   (N, (0.86, 1.78, 1.47), (1.06, 2.5, 1.3), -0.01)])
+    eased(cam, 'location')
+    eased(cam, 'rotation_euler')
+    shake(cam, 0.007, 0.0045, scale=6, seed=9)
+    shake(cam, 0.0, 0.006, scale=2.5, seed=19, start=POP - 1, end=POP + 10)      # flinch on the pop
+    motes('Motes', 260, (-0.4, 1.4, 0.6), (1.2, 3.6, 2.4), r=(0.0007, 0.0016), seed=91, drift=(0.02, 0.03, 0.05), end=N)
+
+elif SHOT == 'N10':
+    # One box. Then ten. Then fifty. A hundred and nine. The camera rushes down the aisle as the doors burst open,
+    # slow at first then a cascade, papers spilling; it whips to the right wall and lands on the open boxes.
+    build_room(M, door='open', ante_energy=40.0, ante_kelvin=4800)
+    right, left = walls('before')
+    sensors(taped=True, led=False)
+    fx = fixtures(strength=2.6, energy=20.0, kelv=4400, tube_color=(1.0, 0.95, 0.88))
+    cream_key(pos=(-1.0, 0.6, 2.6), aim=(1.2, 3.0, 1.4), energy=55.0, name='KeyR')
+    cream_key(pos=(1.0, 1.4, 2.6), aim=(-1.2, 3.6, 1.4), energy=30.0, name='KeyL')
+    light('AREA', 'RoomBounce', (0.0, 3.0, 2.85), energy=16.0, color=kelvin(4200), size=2.2, size_y=5.0,
+          shape='RECTANGLE', target=(0.0, 3.0, 0.0))
+    light('AREA', 'Bounce', (0.0, -0.4, 0.6), energy=6.0, color=kelvin(4800), size=2.0, target=(0.5, 2.5, 0.8))
+    rng = random.Random(1010)
+    bpy.context.view_layer.update()
+    pool = [(d, c, r, 1) for d, c, r, st in right['doors'] if 1 <= r <= 12] + \
+           [(d, c, r, -1) for d, c, r, st in left['doors'] if 1 <= r <= 12]
+    ymid = {id(e): e[0].matrix_world.translation.y + e[3] * 0.144 for e in pool}
+    F0, F1 = 10, 150
+    T = [F0 + (F1 - F0) * (k / 108.0) ** 0.42 for k in range(109)]      # accelerating: 1 ... 10 ... 50 ... 109
+    CAM_Y = [(1, -0.45), (60, 0.55), (118, 2.9), (146, 3.85), (170, 3.95)]
+
+    def cam_y(f):
+        for (fa, ya), (fb, yb) in zip(CAM_Y, CAM_Y[1:]):
+            if f <= fb:
+                return ya + (yb - ya) * (f - fa) / (fb - fa)
+        return CAM_Y[-1][1]
+    used, order = set(), []
+    for k in range(109):
+        if k < 50:      # one ... ten ... fifty: always ahead of the rushing camera, inside the lens
+            ty = cam_y(T[k]) + rng.uniform(2.0, 3.6)
+            side = 1 if rng.random() < 0.6 else -1
+            rows_ok = range(3, 12)
+            cands = [e for e in pool if e[3] == side and e[2] in rows_ok and id(e) not in used]
+        else:           # the cascade lands on the right wall the camera ends on (+ the far left wall)
+            if rng.random() < 0.72:
+                ty = rng.uniform(1.5, 4.7)
+                cands = [e for e in pool if e[3] == 1 and id(e) not in used]
+            else:
+                ty = rng.uniform(4.4, 6.0)
+                cands = [e for e in pool if e[3] == -1 and id(e) not in used]
+        e = min(cands, key=lambda e: abs(ymid[id(e)] - ty) + rng.uniform(0, 0.25))
+        used.add(id(e))
+        order.append(e)
+    paper_mats = [M['white_env'], M['kraft'], M['paper']]
+    spilled = 0
+    for k, (d, c, r, side) in enumerate(order):
+        pv = d.parent
+        f0 = T[k]
+        ang = math.radians(rng.choice([rng.uniform(70, 120), rng.uniform(110, 165), rng.uniform(110, 165),
+                                       rng.uniform(15, 40)]))
+        key(pv, 'rotation_euler', [(1, 0.0), (f0 - 1, 0.0), (f0 + 1, ang * 0.9), (f0 + 2, ang * 1.06), (f0 + 4, ang * 0.97),
+                                   (f0 + 7, ang)], index=2)
+        if rng.random() < 0.2:
+            d.rotation_euler = (0, 0, 0)
+            d.keyframe_insert('rotation_euler', frame=f0 - 1)
+            d.rotation_euler = (rng.uniform(-0.12, 0.12), 0, rng.uniform(-0.15, 0.15))
+            d.keyframe_insert('rotation_euler', frame=f0)
+        # contents spill out of some of them
+        if k >= 1 and rng.random() < 0.3 and spilled < 34:
+            spilled += 1
+            bpy.context.view_layer.update()
+            mw = d.matrix_world.translation
+            mouth = Vector((side * (WALL_X - 0.05), mw.y + side * 0.144, mw.z + 0.094))
+            sh = paper_sheet(f'Spill{k}', rng.choice([(0.22, 0.11), (0.16, 0.23), (0.21, 0.297)]), rng.choice(paper_mats),
+                             bend=rng.uniform(-0.5, 0.5))
+            land = Vector((side * rng.uniform(0.35, 0.95), mouth.y + rng.uniform(-0.35, 0.35), 0.003))
+            apex = mouth.lerp(land, 0.35) + Vector((0, 0, 0.08))
+            key(sh, 'location', [(f0, tuple(mouth)), (f0 + 4, tuple(apex)), (f0 + 15, tuple(land))])
+            key(sh, 'rotation_euler', [(f0, (rng.uniform(-1, 1), 1.4, 0)),
+                                       (f0 + 15, (rng.uniform(-0.05, 0.05), rng.uniform(-0.05, 0.05), rng.uniform(0, 6)))])
+            key(sh, 'scale', [(f0 - 1, (0.0,) * 3), (f0, (1.0,) * 3)])
+            for fc in fcurves(sh):
+                if fc.data_path == 'scale':
+                    for kp in fc.keyframe_points:
+                        kp.interpolation = 'CONSTANT'
+    if arg('--counter_json'):
+        rows = [{'n': k + 1, 'wall': 'R' if e[3] > 0 else 'L', 'col': e[1], 'row': e[2], 'snap_frame': round(T[k], 2)}
+                for k, e in enumerate(order)]
+        with open(os.path.join(FF, 'notes', 'room_N10_counter.json'), 'w') as fh:
+            json.dump({'shot': 'N10', 'cut': [7, N - 6], 'rule': 'snap_frame(n) = 10 + 140 * ((n - 1) / 108) ** 0.42',
+                       'doors': rows}, fh, indent=1)
+    # camera: rush down the aisle (accelerating), whip right, land on the wall of open boxes
+    foc = empty('FocusN10', (0.9, 2.0, 1.3))
+    key(foc, 'location', [(1, (1.1, 1.7, 1.4)), (100, (0.9, 3.6, 1.3)), (140, (1.2, 3.1, 1.3)), (N, (1.25, 2.9, 1.3))])
+    cam = lens_cam('CamN10', 24, 2.8, foc)
+    cam_path(cam, [(1, (-0.15, -0.45, 1.45), (0.25, 3.0, 1.35), 0.0),
+                   (60, (-0.12, 0.55, 1.42), (0.3, 4.0, 1.3), -0.02),
+                   (118, (-0.05, 2.9, 1.38), (0.35, 6.0, 1.25), 0.03),
+                   (146, (-0.45, 3.85, 1.4), (1.25, 3.1, 1.3), 0.0),
+                   (N, (-0.55, 3.95, 1.42), (1.25, 2.85, 1.3), 0.0)])
+    eased(cam, 'location')
+    eased(cam, 'rotation_euler')
+    shake(cam, 0.005, 0.003, scale=7, seed=10)
+    motes('Motes', 400, (-1.1, 0.0, 0.2), (1.1, 5.5, 2.6), r=(0.0007, 0.0018), seed=101, drift=(0.02, 0.03, 0.05),
+          end=N)
+
 # Per-shot exposure toward the lead's luma targets (pre-grade: ~0.2-0.3 mean night, 0.3-0.4 lit, p99 ~0.8).
 # S02 and S27 were released at 0.0 and stay there.
-EXPO = {'S02': 0.0, 'S27': 0.0}
+EXPO = {'S02': 0.0, 'S27': 0.0, 'N9': 0.5, 'N10': 0.3}
 sc.view_settings.exposure = EXPO.get(SHOT, 0.0) + arg('--ev', 0.0, float)
 finish(f'{SHOT}')

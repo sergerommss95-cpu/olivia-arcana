@@ -56,3 +56,17 @@ S45 is delivered as two inserts (`--shot S45a`, `--shot S45b`); the shot table l
 ## Known issues / notes for the lead
 - Box count: the room holds 2 × 286 cells (the approved SF1 wall). The 189 figure is not countable on screen in any of
   these shots, but don't present a wide as "all 189".
+
+## v2 "The Night" (SEQ_NIGHT.json) — N9, N10 (`shots/room.py --shot N9|N10`)
+- **N9** (120 f, cut 7–114): the Monster (`cast.make('monster')`) cranks the puller clamped on right-wall box c9/r5. Arms
+  are keyed every 2 frames with a two-bone IK built on `HU.aim` (hand lands on the crank grip all the way round; `CA.reach`
+  alone overshoots because it doesn't solve length). The crank turns ~2.3 times, slowing; the door bulges, then **buckles and
+  pops at f84** (door kicks to 15°, twists, clamp jolts, grit puff, camera flinch). Handheld push-in from his right-front,
+  28 mm f/2.4: face + hands at the start, tight on hands/clamp/door by the end. Lights on, 4400 K tubes + warm key, exposure +0.5.
+- **N10** (170 f, cut 7–164): 109 doors burst open on an accelerating schedule `snap(n) = 10 + 140·((n−1)/108)^0.42`
+  (door 1 f10, 10th ≈ f61, 50th ≈ f112, 109th f150), early doors placed ahead of the rushing camera so each lands in frame;
+  the cascade fills the right wall; ~34 boxes spill a paper/envelope. Camera rushes down the aisle (24 mm), whips right at
+  f118–146 and lands on the wall of open boxes. Per-door frames for a count overlay: `notes/room_N10_counter.json`. Exposure +0.3.
+- Test stills (pct 25, 8 spp): N9 mean luma 0.30–0.34, N10 0.34–0.39 (before the final tweak: tubes cooled 3900→4400 K,
+  N10 exposure 0.5→0.3, N9 reframed to show his face). Those last changes were checked numerically (framing/occlusion,
+  doors in view), not re-rendered: the 2-still budget per shot was used.

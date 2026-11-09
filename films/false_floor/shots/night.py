@@ -1,0 +1,141 @@
+"""v2 'The Night' sequence, lead shots (illustrative reconstruction, door set by A1, cast by lib/cast.py).
+  N3  76f  low tracking shot behind the four crew walking up to the vault door (CMU walk), torch beam swinging
+  N5 100f  over the Monster's shoulder: King of Keys hauls the handle, the door starts to swing, warm vault light spills
+python3 films/tumbler/tools/rb.py films/false_floor/shots/night.py -- --shot N3 --stills 7,40,70 --pct 25 --samples 8
+"""
+import sys, os, math
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'lib'))
+from ff import *
+import door_ff as D
+import human as HU
+import cast as CA
+import mocap as MC
+from mathutils import Vector
+
+SHOT = arg('--shot', 'N3')
+N = {'N3': 76, 'N5': 100}[SHOT]
+R = math.radians
+reset()
+setup_render(1, N, res=RES_FINAL, samples=40, look='Medium High Contrast', clamp=6.0, vol_step=4.0, shutter=0.5)
+world_color((0.0015, 0.0016, 0.002))
+
+
+def heading_yaw(M, a, b, want=(0.0, 1.0)):
+    """Yaw (deg) that turns the subject's travel direction over source frames a..b onto the wanted XY direction."""
+    _, P0a, _ = MC.fk(M, a)
+    _, P0b, _ = MC.fk(M, b)
+    d = MC._zup(P0b['root']) - MC._zup(P0a['root'])
+    src = math.atan2(d.y, d.x)
+    return math.degrees(math.atan2(want[1], want[0]) - src)
+
+
+def haze(density=0.018):
+    hz = box('haze', (3.8, 4.8, 2.5), (0.0, -2.4, 1.25))
+    mh = bpy.data.materials.new('Haze')
+    mh.use_nodes = True
+    nt = mh.node_tree
+    nt.nodes.remove(nt.nodes['Principled BSDF'])
+    vol = nt.nodes.new('ShaderNodeVolumePrincipled')
+    vol.inputs['Density'].default_value = density
+    vol.inputs['Anisotropy'].default_value = 0.55
+    nt.links.new(vol.outputs[0], nt.nodes['Material Output'].inputs['Volume'])
+    hz.data.materials.append(mh)
+
+
+def ease(o, path='location'):
+    for fc in fcurves(o):
+        if fc.data_path.startswith(path):
+            for kp in fc.keyframe_points:
+                kp.interpolation = 'SINE'
+                kp.easing = 'EASE_IN_OUT'
+
+
+if SHOT == 'N3':
+    S = D.build_set(vault=False, stair=True, grate=True, cctv=True, key=False, a2=True)
+    D.set_door(S, 0.0)
+    S['grate'].rotation_euler.z = R(84)
+    D.light_ante(S, 'day', scale=1.35)
+    light('AREA', 'StairSpill', (0.0, -4.6, 2.3), energy=260, size=1.6, color=kelvin(4800), target=(0.0, -2.0, 1.0))
+    haze(0.014)
+    W = MC.load('02', '02_01')
+    nfr = len(W['frames'])
+    crew = [('king', -0.32, -3.3, 0), ('genius', 0.38, -3.4, 60), ('monster', -0.45, -3.85, 130), ('speedy', 0.45, -3.75, 200)]
+    hs = {}
+    for who, x, y, off in crew:
+        h = CA.make(who)
+        a = off % max(1, nfr - 400)
+        yaw = heading_yaw(W, a, a + 300)
+        MC.apply(h, W, start_frame=1, src_range=(a, a + int(3.4 * N) + 8), step=3.4, pos=(x, y), yaw_deg=yaw)
+        hs[who] = h
+    bpy.context.scene.frame_set(1)
+    CA.torch(hs['monster'], 'R', (0.0, -0.2, 1.3), power=700.0)
+    cam = camera('CamN3', lens=20, fstop=2.8)
+    cam_path(cam, [(1, (0.05, -4.75, 0.78), (0.0, -0.4, 1.05), 0.0), (N, (0.0, -2.95, 0.8), (0.05, 0.0, 1.2), 0.0)])
+    ease(cam)
+    shake(cam, 0.006, 0.003, scale=14, seed=21)
+    cam.data.dof.focus_distance = 2.6
+
+elif SHOT == 'N5':
+    S = D.build_set(vault=True, stair=True, grate=True, cctv=True, key=False, a2=True)
+    D.light_ante(S, 'day', scale=1.2)
+    D.light_vault(S, 'warm')
+    haze(0.02)
+    door = S['door']
+    # the door: a beat, then 3 tons begin to move (0 -> 38 degrees), easing in
+    d0, d1 = 24, N
+    door.rotation_euler.z = 0.0
+    door.keyframe_insert('rotation_euler', index=2, frame=1)
+    door.keyframe_insert('rotation_euler', index=2, frame=d0)
+    door.rotation_euler.z = -R(38.0)
+    door.keyframe_insert('rotation_euler', index=2, frame=d1)
+    for fc in fcurves(door):
+        for kp in fc.keyframe_points:
+            kp.interpolation = 'SINE'
+            kp.easing = 'EASE_IN'
+    k = CA.make('king')
+    g = CA.make('genius')
+    m = CA.make('monster')
+    sp = CA.make('speedy')
+    HU.place(g, 1.2, -0.75, 135)
+    CA.arms_down(g, 'L', 0.1)
+    CA.arms_down(g, 'R', 0.1)
+    CA.head_turn(g, -20, 0)
+    HU.place(m, -0.55, -1.55, 185)
+    CA.arms_down(m, 'L', 0.12)
+    CA.reach(m, 'R', (-0.2, -0.6, 1.45), 0.05)
+    CA.torch(m, 'R', (0.2, -0.15, 1.2), power=600.0)
+    HU.place(sp, -1.25, -2.4, 160)
+    CA.arms_down(sp, 'L', 0.1)
+    CA.arms_down(sp, 'R', 0.1)
+    CA.head_turn(sp, 30, 0)
+    # King of Keys hauls the handle and steps back with it: arms keyed to the moving handle every 4 frames
+    hp_local = Vector(D.HANDLE) + Vector((0.0, -0.06, 0.0))
+    for f in list(range(1, N + 1, 4)) + [N]:
+        bpy.context.scene.frame_set(f)
+        bpy.context.view_layer.update()
+        hp = door.matrix_world @ (door.matrix_world.inverted() @ hp_local) if False else None
+        # handle position follows the door's rotation about its hinge
+        ang = door.rotation_euler.z
+        piv = Vector((D.HINGE_X, D.HINGE_Y, 0))
+        rel = Vector((hp_local.x - piv.x, hp_local.y - piv.y, 0))
+        rr = Vector((rel.x * math.cos(ang) - rel.y * math.sin(ang), rel.x * math.sin(ang) + rel.y * math.cos(ang), 0))
+        hp = piv + rr + Vector((0, 0, hp_local.z))
+        HU.place(k, hp.x + 0.12, hp.y - 0.52, 172)
+        for pb in k.rig.pose.bones:
+            pb.rotation_euler = (0, 0, 0)
+        CA.reach(k, 'R', hp, 0.05)
+        CA.reach(k, 'L', hp + Vector((-0.06, 0, 0.03)), 0.12)
+        CA.head_turn(k, 0, -4)
+        k.rig.keyframe_insert('location', frame=f)
+        for pb in k.rig.pose.bones:
+            pb.keyframe_insert('rotation_euler', frame=f)
+            pb.keyframe_insert('rotation_quaternion', frame=f)
+    bpy.context.scene.frame_set(1)
+    cam = camera('CamN5', lens=32, fstop=2.4)
+    cam_path(cam, [(1, (1.5, -2.6, 1.42), (0.15, -0.25, 1.15), 0.0), (N, (1.0, -1.85, 1.3), (0.25, -0.15, 1.1), 0.0)])
+    ease(cam)
+    shake(cam, 0.004, 0.002, scale=20, seed=9)
+    cam.data.dof.focus_distance = 1.75
+
+bpy.context.scene.camera = cam
+finish(SHOT)

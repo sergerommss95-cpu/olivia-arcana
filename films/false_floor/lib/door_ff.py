@@ -1156,11 +1156,11 @@ def leak_lights(coll=None, under=10.0, side=13.0, glow=6.0, k=3200):
 
 # ----------------------------------------------------------------------------- vault room (SF1 look) behind the door
 
-def build_vault(coll=None, cols=18, rows=13, seed_r=7, seed_l=19, debris=True):
+def build_vault(coll=None, cols=18, rows=13, seed_r=7, seed_l=19, debris=True, forced=(0.6, 0.62)):
     VM = VF.mats()
     y0 = WALL_T + 0.02
-    right = VF.build_wall(VM, y0=y0, cols=cols, rows=rows, seed=seed_r, forced=0.6, side=1, coll=coll)
-    left = VF.build_wall(VM, y0=y0, cols=cols, rows=rows, seed=seed_l, forced=0.62, side=-1, coll=coll)
+    right = VF.build_wall(VM, y0=y0, cols=cols, rows=rows, seed=seed_r, forced=forced[0], side=1, coll=coll)
+    left = VF.build_wall(VM, y0=y0, cols=cols, rows=rows, seed=seed_l, forced=forced[1], side=-1, coll=coll)
     yend = y0 + cols * VF.CW
     box('VFloor', (3.6, yend - WALL_T + 0.4, 0.1), (0, (WALL_T + yend) / 2, -0.05), coll=coll, mat=VM['floor'])
     vc = mat_principled('VaultCeil', color=(0.035, 0.035, 0.037), rough=0.65)
@@ -1178,7 +1178,8 @@ def build_vault(coll=None, cols=18, rows=13, seed_r=7, seed_l=19, debris=True):
 
 # ----------------------------------------------------------------------------- whole set
 
-def build_set(coll=None, vault=True, stair=True, grate=True, cctv=True, key=True, numerals=False, debris=True, a2=False):
+def build_set(coll=None, vault=True, stair=True, grate=True, cctv=True, key=True, numerals=False, debris=True, a2=False,
+              forced=(0.6, 0.62)):
     """a2=True: continuity with A2's macro shots (lib/door_macro.py): zinc contact blocks (mat_zinc) for the two
     magnetic plates and A2's dial_with_lens() for the wheel + reading lens. Falls back to door_ff's own parts if the
     import fails. Default False (S00/S01 were approved and rendered without it)."""
@@ -1200,7 +1201,7 @@ def build_set(coll=None, vault=True, stair=True, grate=True, cctv=True, key=True
     if cctv:
         S['cctv'] = build_cctv(M, coll)
     if vault:
-        S.update(build_vault(coll, debris=debris))
+        S.update(build_vault(coll, debris=debris, forced=forced))
     S['points'] = {'door_center': Vector((0.0, PANEL_FRONT, 1.08)), 'dial': DIAL.copy(), 'keyhole': KEYHOLE.copy(),
                    'hinge': Vector((HINGE_X, HINGE_Y, 1.05)), 'mag': Vector((0.584, FRAME_Y, sum(MAG_Z) / 2)),
                    'keypad': KEYPAD.copy(), 'gate': Vector((0.0, ROOM_BACK, 1.1))}

@@ -157,8 +157,76 @@ def shot_street(night=True):
         cam_at('CamDusk', (-3.4, -26.0, 2.2), (2.0, 14.0, 5.0), 32.0, 5.6, foc, roll=0.0)
 
 
+# ============================================================================ N1 (The Night): fast drone push
+
+def shot_n1(frames=80):
+    """FAST low drone push up the empty wet night street (S23 set): ~0.6 m over the setts, threading the bollard row
+    close to the lens (~f27), then rising and yawing onto the lit lobby entrance on the right (y~23). Frames 1..80,
+    cut 7..74. Speed ~9 m/s, easing to ~3.5 m/s over the last 30 frames. Motion blur on."""
+    from city import spline
+    setup_render(1, frames, res=RES_FINAL, samples=40, mb=True, shutter=0.5, look='Medium High Contrast', clamp=6.0,
+                 bounces=(2, 3, 4), exposure=2.7)
+    M = street_mats(night=True)
+    build_street(M, night=True)
+    world_sky((0.009, 0.013, 0.026), (0.03, 0.023, 0.017), strength=1.0, glow=((0.045, 0.024, 0.008), 0.5))
+    if HAZE:
+        hz = mat_volume('StreetMist', density=0.0013, color=(0.85, 0.85, 0.85), anisotropy=0.6)
+        volume_box('Mist', (0.0, 40.0, 4.5), (2 * ST['hw'] - 0.1, 70.0, 9.0), hz)
+    ctrl = [(-0.85, -3.0, 0.58), (-0.86, 3.0, 0.60), (-0.80, 8.5, 0.63), (-0.25, 12.5, 0.82), (0.95, 15.3, 1.30),
+            (1.80, 17.0, 1.92)]
+    P = spline(ctrl, 30)
+    cum = [0.0]
+    for i in range(1, len(P)):
+        cum.append(cum[-1] + (P[i] - P[i - 1]).length)
+    total = cum[-1]
+
+    def at(sv):
+        sv = max(0.0, min(total, sv))
+        for i in range(1, len(cum)):
+            if cum[i] >= sv:
+                t = (sv - cum[i - 1]) / max(1e-9, cum[i] - cum[i - 1])
+                return P[i - 1].lerp(P[i], t)
+        return P[-1].copy()
+
+    vel = [9.5 if f < 50 else 9.5 - 6.0 * ease((f - 50) / 30.0, 'out') for f in range(1, frames + 1)]
+    dist = [0.0]
+    for f in range(1, frames):
+        dist.append(dist[-1] + 0.5 * (vel[f - 1] + vel[f]) / 24.0)
+    k = total / dist[-1]
+    cd = bpy.data.cameras.new('CamN1')
+    cd.lens = 24.0
+    cd.sensor_width = 36.0
+    cd.clip_start, cd.clip_end = 0.02, 400.0
+    if DOF:
+        cd.dof.use_dof = True
+        cd.dof.aperture_fstop = 4.0
+        cd.dof.focus_distance = 6.0
+    cam = bpy.data.objects.new('CamN1', cd)
+    link(cam)
+    bpy.context.scene.camera = cam
+    far = Vector((-0.4, 45.0, 1.6))
+    door = Vector((4.4, 23.0, 1.75))
+    prev = None
+    for f in range(1, frames + 1):
+        loc = at(dist[f - 1] * k)
+        w = ease((f - 44) / 36.0) if f > 44 else 0.0
+        tgt = far.lerp(door, w)
+        e = look_rot(loc, tgt, math.radians(2.5 * w))
+        if prev is not None:
+            e.make_compatible(prev)
+        prev = e.copy()
+        cam.location = loc
+        cam.rotation_euler = e
+        cam.keyframe_insert('location', frame=f)
+        cam.keyframe_insert('rotation_euler', frame=f)
+    linear(cam)
+    shake(cam, amp=0.004, rot_amp=0.0018, scale=7.0, seed=3)
+
+
 reset()
-if SHOT == 'S08':
+if SHOT == 'N1':
+    shot_n1()
+elif SHOT == 'S08':
     shot_office(dusk=False)
 elif SHOT == 'S38':
     shot_office(dusk=True)
