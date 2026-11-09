@@ -244,15 +244,17 @@ class SB:
     def mr(self, x, a, b, c=0.0, d=1.0, interp='LINEAR', clamp=True):
         n = self.nb.n('ShaderNodeMapRange', {'interpolation_type': interp, 'clamp': clamp})
         self.put(x, n.inputs[0])
-        n.inputs[1].default_value = a
-        n.inputs[2].default_value = b
-        n.inputs[3].default_value = c
-        n.inputs[4].default_value = d
+        for i, v in zip((1, 2, 3, 4), (a, b, c, d)):
+            self.put(v, n.inputs[i])
         return n.outputs[0]
 
+    def _add(self, a, k):
+        return a + k if isinstance(a, (int, float)) else self.m('ADD', a, k)
+
     def band(self, x, a, b, soft):
-        """1 inside [a, b] with soft edges."""
-        return self.m('MULTIPLY', self.mr(x, a - soft, a + soft), self.mr(x, b + soft, b - soft))
+        """1 inside [a, b] with soft edges (a, b may be sockets)."""
+        return self.m('MULTIPLY', self.mr(x, self._add(a, -soft), self._add(a, soft)),
+                      self.mr(x, self._add(b, soft), self._add(b, -soft)))
 
     def mix(self, fac, a, b, dtype='RGBA', blend='MIX'):
         n = self.nb.n('ShaderNodeMix', {'data_type': dtype, 'blend_type': blend})
@@ -391,7 +393,7 @@ def lens_strength_socket(m):
     return n.inputs[1]
 
 
-def mat_wet_asphalt(name='WetAsphalt', base=(0.020, 0.020, 0.022), wet=0.5, puddle_scale=0.16):
+def mat_wet_asphalt(name='WetAsphalt', base=(0.032, 0.031, 0.033), wet=0.5, puddle_scale=0.16):
     """Aggregate asphalt under a thin water film (coat); puddles are mirror-flat."""
     if _get(name):
         return _get(name)
@@ -507,9 +509,10 @@ def mat_window_glass(name='WinGlass', tint=(0.80, 0.85, 0.82), refl=0.12):
     return m
 
 
-def mat_room(name='Room', strength=2.2, warm=kelvin(3100), cool=(0.62, 0.86, 1.0), dark_frac=0.18, cool_frac=0.33):
+def mat_room(name='Room', strength=2.2, dark_frac=0.16, cool_frac=0.30, warmth=1.0):
     """Office interior seen through a window: per-window data in UV 'WinData' (u, v random).
-    Ceiling-light gradient, venetian blinds on some, desk/partition silhouettes, a few dark rooms."""
+    Ceiling-panel gradient, venetian blinds on some, desk/partition silhouettes, a few dark rooms,
+    a spread of warm (2700-3800 K) and cool/greenish fluorescent tints."""
     if _get(name):
         return _get(name)
     m = new_mat(name)
@@ -526,26 +529,34 @@ def mat_room(name='Room', strength=2.2, warm=kelvin(3100), cool=(0.62, 0.86, 1.0
     r1, r2, _ = s.sep(wdn.outputs[0])
     wn = s.tex('ShaderNodeTexWhiteNoise', s.comb(r1, r2, 0.37), {'noise_dimensions': '3D'})
     r3, r4, r5 = s.sep(wn.outputs['Color'])
+    wn2 = s.tex('ShaderNodeTexWhiteNoise', s.comb(r2, r1, 0.71), {'noise_dimensions': '3D'})
+    r6, r7, r8 = s.sep(wn2.outputs['Color'])
     lit = s.m('GREATER_THAN', r1, dark_frac)
+    warm = s.mix(r6, kelvin(2400), kelvin(3900))
+    cool = s.mix(s.m('GREATER_THAN', r7, 0.5), (0.62, 0.86, 1.0), (0.72, 1.0, 0.80))
     col = s.mix(s.m('GREATER_THAN', r2, 1.0 - cool_frac), warm, cool)
-    inten = s.mr(r3, 0.0, 1.0, 0.35, 1.0)
-    # ceiling light gradient (brighter toward the top), soft vertical falloff at the sides
-    grad = s.mr(V, 0.15, 0.95, 0.45, 1.0)
-    side = s.mr(s.m('ABSOLUTE', s.m('SUBTRACT', U, s.mr(r4, 0, 1, 0.35, 0.65))), 0.2, 0.62, 1.0, 0.7)
-    # blinds: venetian slats lowered from the top to a random depth on ~45% of windows
+    inten = s.mr(s.m('POWER', r3, 1.6), 0.0, 1.0, 0.12, 1.0)
+    # ceiling panels: strong top gradient + a brighter band right under the ceiling
+    grad = s.mr(V, 0.12, 0.92, 0.22, 1.0, 'SMOOTHSTEP')
+    panel = s.mr(V, 0.86, 0.93, 1.0, 1.5)
+    side = s.mr(s.m('ABSOLUTE', s.m('SUBTRACT', U, s.mr(r4, 0, 1, 0.3, 0.7))), 0.15, 0.65, 1.0, 0.55)
+    # venetian blinds lowered from the top on ~45% of windows (backlit slats)
     has_bl = s.m('GREATER_THAN', r4, 0.55)
-    cover = s.mr(r5, 0.0, 1.0, 0.25, 0.95)
-    bl_zone = s.m('GREATER_THAN', V, s.m('SUBTRACT', 1.0, cover))
-    slats = s.mr(s.m('ABSOLUTE', s.m('SINE', s.m('MULTIPLY', V, 95.0))), 0.0, 1.0, 0.35, 0.95)
+    cover = s.mr(r5, 0.0, 1.0, 0.25, 0.9)
+    bl_zone = s.m('GREATER_THAN', V, s.m('SUBTRACT', 0.95, cover))
+    slats = s.mr(s.m('ABSOLUTE', s.m('SINE', s.m('MULTIPLY', V, 110.0))), 0.0, 1.0, 0.12, 0.9)
     bl = s.m('MULTIPLY', has_bl, bl_zone)
-    blinds = s.mix(bl, 1.0, s.m('MULTIPLY', slats, 0.75), 'FLOAT')
-    # silhouettes: desk/partition band near the bottom, an occasional column or plant at a random x
-    desk = s.m('LESS_THAN', V, s.mr(r3, 0, 1, 0.10, 0.28))
-    deskd = s.mix(desk, 1.0, 0.25, 'FLOAT')
-    colx = s.mr(s.m('ABSOLUTE', s.m('SUBTRACT', U, r5)), 0.03, 0.05, 0.15, 1.0)
-    colm = s.mix(s.m('GREATER_THAN', r2, 0.7), 1.0, colx, 'FLOAT')
-    k = s.mul(lit, inten, grad, side, blinds, deskd, colm, strength)
-    k = s.m('ADD', k, s.m('MULTIPLY', s.m('SUBTRACT', 1.0, lit), 0.015 * strength))
+    blinds = s.mix(bl, 1.0, s.m('MULTIPLY', slats, 0.85), 'FLOAT')
+    # silhouettes: desk/partition band, monitor blocks, a column or a plant at random x
+    desk = s.m('LESS_THAN', V, s.mr(r3, 0, 1, 0.16, 0.30))
+    deskd = s.mix(desk, 1.0, 0.18, 'FLOAT')
+    mon = s.mul(s.band(U, s.mr(r8, 0, 1, 0.15, 0.7), s.mr(r8, 0, 1, 0.22, 0.78), 0.004),
+                s.band(V, 0.27, 0.37, 0.004), s.m('GREATER_THAN', r7, 0.35))
+    deskd = s.m('MULTIPLY', deskd, s.m('SUBTRACT', 1.0, s.m('MULTIPLY', mon, 0.75)))
+    colx = s.mr(s.m('ABSOLUTE', s.m('SUBTRACT', U, r5)), 0.035, 0.05, 0.12, 1.0)
+    colm = s.mix(s.m('GREATER_THAN', r2, 0.72), 1.0, colx, 'FLOAT')
+    k = s.mul(lit, inten, grad, panel, side, blinds, deskd, colm, strength)
+    k = s.m('ADD', k, s.m('MULTIPLY', s.m('SUBTRACT', 1.0, lit), s.mul(grad, 0.02 * strength)))
     em = s.node('ShaderNodeEmission')
     s.put(col, em.inputs['Color'])
     s.put(k, em.inputs['Strength'])
@@ -1359,10 +1370,10 @@ def streetlight_mesh(coll, h=8.6, arm=2.0):
     bm_box(bm, hc + Vector((0, 0, -0.03)), (0.40, 0.70, 0.03), 2)
     o = obj_bm('LampTemplate', bm, [pole, head, lens], coll, smooth=45)
     o.location = (0, 0, -500)          # template parked out of sight; lamps are linked copies
-    return o, Vector((0, -arm - 0.32, h - 0.06))
+    return o, Vector((0, -arm - 0.32, h - 0.16))   # light sits just below the lens
 
 
-def streetlights(coll, xs, side, y=ROAD_HW + 0.55, energy=900.0, color=SODIUM, h=8.6, arm=2.0, spot=125,
+def streetlights(coll, xs, side, y=ROAD_HW + 0.55, energy=1300.0, color=SODIUM, h=8.6, arm=2.0, spot=125,
                  tmpl=None, mesh_only=False):
     """Lamps along X on one side (side=+1 at +y, arm reaching toward the road)."""
     if tmpl is None:
@@ -1452,7 +1463,7 @@ def build_bank_tower(coll, xc=0.0, yf=FACADE_Y, bays=7, floors=14, bay=4.4, fh=3
     concrete = mat_concrete('GarageConcrete', base=(0.11, 0.11, 0.105), wet=0.3, scale=0.6)
     side_f = mat_facade('TowerSide', seed=9.0, bay=bay / 2, floor=fh, ww=0.8, wh=0.6, sill=0.36, lit=0.5,
                         wall=(0.03, 0.029, 0.031), wall_rough=0.3, ground=podium, shop=False)
-    lobby = mat_room('Lobby', strength=0.9, dark_frac=-1.0, cool_frac=0.0)
+    lobby = mat_room('Lobby', strength=1.8, dark_frac=-1.0, cool_frac=0.0)
     mats = [granite, bronze, frame, glass, room, cavity, sill, concrete, side_f, lobby]
     G, BR, FR, GL, RM, CV, SL, CO, SF, LB = range(10)
     W = bays * bay
@@ -1550,10 +1561,13 @@ def build_bank_tower(coll, xc=0.0, yf=FACADE_Y, bays=7, floors=14, bay=4.4, fh=3
     hz = mat_hazard()
     for xx in (g0 + 0.15, g1 - 0.15):
         box('GarageGuard', (0.3, 0.3, 1.1), (xx, yf - 0.15, 0.55), coll=coll, bev=0.02, mat=hz)
-    tube = mat_strip('GarageTube', color=(0.75, 0.9, 1.0), strength=6.0)
+    tube = mat_strip('GarageTube', color=(0.75, 0.9, 1.0), strength=14.0)
+    no_emit_sampling(tube)
     tubes = []
     for yy, zz in ((yf + 4.0, gh - 0.05), (yf + 11.0, gh - 0.05), (yf + 18.0, gh - 0.05)):
         tubes.append(box('GarageTube', (1.4, 0.08, 0.05), ((g0 + g1) / 2, yy, zz), coll=coll, mat=tube))
+        light('AREA', 'GarageTubeL', ((g0 + g1) / 2, yy, zz - 0.06), energy=70, color=kelvin(4600), size=1.4,
+              size_y=0.12, shape='RECTANGLE', coll=coll)
     brass = mat_brass('BrassLetters')
     t = text_mesh('TUMBLER TRUST', 'BankSign', size=0.62, extrude=0.03, coll=coll, spacing=1.15)
     t.rotation_euler = (math.pi / 2, 0, 0)
@@ -1648,6 +1662,21 @@ def build_tunnel(coll, x0, length=220.0, hw=6.2, h=5.4, every=3.2, lamp_strength
 
 class _Note:
     pass
+
+
+def paper_bend(o, name='Bend'):
+    """SimpleDeform BEND that curls a flat note along its length (local X, out of plane).
+    Blender measures BEND along the third axis, so a flat note bent about Y does nothing (and on a
+    text-carrying note only the text moves): bend about Z in the space of a child empty rotated 90 deg about X."""
+    org = empty(o.name + '_bendspace', size=0.02)
+    parent(org, o, keep=False)
+    org.location = (0, 0, 0)
+    org.rotation_euler = (math.pi / 2, 0, 0)
+    b = o.modifiers.new(name, 'SIMPLE_DEFORM')
+    b.deform_method = 'BEND'
+    b.deform_axis = 'Z'
+    b.origin = org
+    return b
 
 
 def note_wake(car, name, f0, f1, kf0, kf1, coll=None, n_window=40, release=(1, 30), ground=(), seed=3,
@@ -1786,9 +1815,7 @@ def note_wake(car, name, f0, f1, kf0, kf1, coll=None, n_window=40, release=(1, 3
     objs = []
     for nt in notes:
         o = nt.o
-        b = o.modifiers.new('Bend', 'SIMPLE_DEFORM')
-        b.deform_method = 'BEND'
-        b.deform_axis = 'Y'
+        b = paper_bend(o)
         tw = o.modifiers.new('Twist', 'SIMPLE_DEFORM')
         tw.deform_method = 'TWIST'
         tw.deform_axis = 'X'

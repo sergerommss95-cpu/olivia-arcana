@@ -19,10 +19,11 @@ def _len2(nb, x, y):
 
 
 def mat_perlage(name='Perlage', base=(0.5, 0.51, 0.53), rough=(0.2, 0.3), cell=0.2, bump=0.3, coord='Object',
-                metal=1.0, dark=0.75, bump_dist=0.002, aniso=0.85, swirl=0.0):
-    """Engine-turned steel: staggered rows of overlapping turned circles. Each circle carries circular grain,
-    rendered as anisotropic reflection with a tangent running round the circle (the bowtie glint of real
-    perlage) plus a slight step at each circle's edge. cell = circle pitch in coordinate units.
+                metal=1.0, dark=0.75, bump_dist=0.002, aniso=0.85, radius=0.72):
+    """Engine-turned steel (perlage), cut the way the tool does it: circles of `radius` (in cells) on a square
+    grid of pitch `cell`, overlapping in raster order (each later circle cuts over its neighbours -> fish scales).
+    Each circle carries circular grain, rendered as anisotropic reflection with the tangent running round the
+    circle (the bowtie glint of real perlage), plus a slight dish so the overlap edges catch light.
     The tangent is built in object space: use on objects without rotation (plates, door faces)."""
     m = new_mat(name)
     nb = NB(m)
@@ -32,6 +33,10 @@ def mat_perlage(name='Perlage', base=(0.5, 0.51, 0.53), rough=(0.2, 0.3), cell=0
     tc = nb.n('ShaderNodeTexCoord')
     sep = nb.n('ShaderNodeSeparateXYZ')
     nb.l(tc, coord, sep, 0)
+    gx = nb.math('MULTIPLY', sep.outputs['X'], None, vb=1.0 / cell)
+    gy = nb.math('MULTIPLY', sep.outputs['Y'], None, vb=1.0 / cell)
+    fx = nb.math('FRACT', gx)          # position inside the cell, 0..1
+    fy = nb.math('FRACT', gy)
 
     def mixf(fac, a, b):
         mx = nb.n('ShaderNodeMix', {'data_type': 'FLOAT'})
@@ -40,31 +45,22 @@ def mat_perlage(name='Perlage', base=(0.5, 0.51, 0.53), rough=(0.2, 0.3), cell=0
         nb.L.new(b.outputs[0], mx.inputs[3])
         return mx
     hx = hy = hr = None
-    # later layers are cut over earlier ones where they cover (overlap order, like the real tool marks)
-    for ox, oy in ((0.0, 0.0), (0.5, 0.0), (0.25, 0.5), (0.75, 0.5)):
-        gx = nb.math('MULTIPLY_ADD', sep.outputs['X'], None, vb=1.0 / cell)
-        gx.inputs[2].default_value = ox
-        gy = nb.math('MULTIPLY_ADD', sep.outputs['Y'], None, vb=1.0 / cell)
-        gy.inputs[2].default_value = oy
-        fx = nb.math('SUBTRACT', nb.math('FRACT', gx), None, vb=0.5)
-        fy = nb.math('SUBTRACT', nb.math('FRACT', gy), None, vb=0.5)
-        ln = _len2(nb, fx, fy)
-        inside = nb.math('LESS_THAN', ln, None, vb=0.5)
-        if hx is None:
-            hx, hy, hr = fx, fy, ln
-        else:
-            hx, hy, hr = mixf(inside, hx, fx), mixf(inside, hy, fy), mixf(inside, hr, ln)
+    for dj in (-1, 0, 1):              # raster order: lower rows first, left to right; later circles win
+        for di in (-1, 0, 1):
+            rx = nb.math('SUBTRACT', fx, None, vb=0.5 + di)
+            ry = nb.math('SUBTRACT', fy, None, vb=0.5 + dj)
+            ln = nb.math('DIVIDE', _len2(nb, rx, ry), None, vb=radius)   # 0 centre .. 1 rim
+            inside = nb.math('LESS_THAN', ln, None, vb=1.0)
+            if hx is None:
+                hx, hy, hr = rx, ry, ln
+            else:
+                hx, hy, hr = mixf(inside, hx, rx), mixf(inside, hy, ry), mixf(inside, hr, ln)
     tg = nb.n('ShaderNodeCombineXYZ')
     neg = nb.math('MULTIPLY', hy, None, vb=-1.0)
     nb.L.new(neg.outputs[0], tg.inputs['X'])
     nb.L.new(hx.outputs[0], tg.inputs['Y'])
     nb.L.new(tg.outputs[0], p.inputs['Tangent'])
-    # height: shallow dish per circle (edge step) + optional visible swirl grooves
-    h = nb.math('MULTIPLY', hr, hr)
-    if swirl:
-        sw = nb.math('SINE', nb.math('MULTIPLY', hr, None, vb=swirl * 2 * math.pi))
-        h = nb.math('MULTIPLY_ADD', sw, None, vb=0.08)
-        nb.L.new(nb.math('MULTIPLY', hr, hr).outputs[0], h.inputs[2])
+    h = nb.math('MULTIPLY', hr, hr)    # shallow dish: the overlap edges step
     bm = nb.n('ShaderNodeBump', Strength=bump, Distance=bump_dist)
     nb.L.new(h.outputs[0], bm.inputs['Height'])
     nb.l(bm, 'Normal', p, 'Normal')
@@ -77,9 +73,11 @@ def mat_perlage(name='Perlage', base=(0.5, 0.51, 0.53), rough=(0.2, 0.3), cell=0
     return m
 
 
-def mat_letter_steel(name='LetterSteel', base=(0.58, 0.59, 0.61), face_rough=0.24, bevel_rough=0.11, aniso=0.75,
+def mat_letter_steel(name='LetterSteel', base=(0.58, 0.60, 0.63), face_rough=0.18, bevel_rough=0.11, aniso=0.75,
                      brush_scale=(1.5, 140.0, 140.0), bump=0.25):
-    """Machined steel letters: horizontally brushed faces, polished chamfers (object-space normal z > 0.97 = face)."""
+    """Machined steel letters: horizontally brushed faces, polished chamfers (object-space normal z > 0.97 = face).
+    Grooves run along local X, so reflections smear along local Y: anisotropy tangent = local Y. A vertical strip
+    light then reads as a crisp vertical band that travels across the word."""
     m = new_mat(name)
     nb = NB(m)
     p = principled(m)
@@ -103,9 +101,9 @@ def mat_letter_steel(name='LetterSteel', base=(0.58, 0.59, 0.61), face_rough=0.2
     nb.L.new(an.outputs[0], p.inputs['Anisotropic'])
     cr = nb.ramp(blot, 'Fac', [(0.3, tuple(c * 0.86 for c in base)), (0.7, base)])
     nb.l(cr, 'Color', p, 'Base Color')
-    # tangent along the object's X axis (world-space vector of local X)
+    # tangent along the object's Y axis (world-space vector of local Y)
     tg = nb.n('ShaderNodeVectorTransform', {'vector_type': 'VECTOR', 'convert_from': 'OBJECT', 'convert_to': 'WORLD'})
-    tg.inputs[0].default_value = (1.0, 0.0, 0.0)
+    tg.inputs[0].default_value = (0.0, 1.0, 0.0)
     nb.L.new(tg.outputs[0], p.inputs['Tangent'])
     bmp = nb.n('ShaderNodeBump', Strength=bump, Distance=0.0005)
     nb.l(br, 'Fac', bmp, 'Height')
@@ -138,3 +136,12 @@ def title_text(body, name='Title', size=1.0, extrude=0.08, bevel=0.012, offset=0
     link(ob, coll)
     shade(ob, True, 30.0)
     return ob
+
+
+def link_light(light_obj, objs, name=None):
+    """Cycles light linking: the light illuminates only `objs` (a flag, like on set)."""
+    coll = bpy.data.collections.new(name or (light_obj.name + '_recv'))
+    for o in objs:
+        coll.objects.link(o)
+    light_obj.light_linking.receiver_collection = coll
+    return coll

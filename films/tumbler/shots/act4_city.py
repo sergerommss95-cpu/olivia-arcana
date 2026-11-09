@@ -23,7 +23,7 @@ NONOTES = bool(arg('--nonotes'))
 sc = reset()
 setup_render(1, LEN, samples=32, look='Medium High Contrast', exposure=0.0, bounces=(2, 4, 4), clamp=6.0,
              adaptive=0.04, filter_glossy=1.0)
-world_gradient(zenith=(0.0012, 0.0016, 0.0028), horizon=(0.006, 0.0042, 0.0032), strength=1.0)
+world_gradient(zenith=(0.0012, 0.0016, 0.0028), horizon=(0.006, 0.0042, 0.0032), strength=2.5)
 
 
 def key_cam_frames(cam, frames):
@@ -51,7 +51,7 @@ def lerp3(a, b, t):
     return Vector(a).lerp(Vector(b), t)
 
 
-def street_lamps(xs_pos, xs_neg, energy=900.0):
+def street_lamps(xs_pos, xs_neg, energy=1300.0):
     tm = streetlight_mesh(None)
     a = streetlights(None, xs_pos, 1, energy=energy, tmpl=tm)
     b = streetlights(None, xs_neg, -1, energy=energy, tmpl=tm)
@@ -73,7 +73,7 @@ def skyline(x0, x1, y0, y1, seed=21, n=14, hmin=30, hmax=90):
 def shot_4A():
     yf = FACADE_Y
     build_street(None, -140, 280, seed=1, driveways=[(-10.2, -2.8, 1)], plaza=[(-14.5, 14.5, -1)], crossing=24.0)
-    bank = build_bank_tower(None, xc=0.0, room_strength=2.4)
+    bank = build_bank_tower(None, xc=0.0, room_strength=2.0)
     fm = facade_mats()
     build_buildings(None, -150, -16.6, +1, seed=11, mats=fm)
     build_buildings(None, 16.6, 280, +1, seed=12, mats=fm)
@@ -82,8 +82,11 @@ def shot_4A():
     street_lamps([-44, -28, -14, 12, 28, 44, 60, 76, 92, 108, 124, 140], [-36, -20, 8, 24, 40, 56, 72, 88, 104, 120])
     # architectural uplights grazing the tower piers (warm), dim
     for i, x in enumerate(bank['piers']):
-        light('SPOT', f'Uplight{i}', (x, yf - 0.45, 6.25), energy=650, color=kelvin(2900), spot=11, blend=0.6,
-              radius=0.05, target=(x, yf - 0.1, 40.0))
+        light('SPOT', f'Uplight{i}', (x, yf - 2.6, 6.3), energy=3500, color=kelvin(2900), spot=12, blend=0.8,
+              radius=0.05, target=(x, yf, 30.0))
+    # sodium spill from the street bouncing up the facade (soft, dim), skyglow on the upper floors
+    light('AREA', 'StreetBounce', (0.0, 2.0, 0.6), energy=1400, color=(1.0, 0.45, 0.16), size=40, size_y=3,
+          shape='RECTANGLE', target=(0.0, yf, 24.0))
     # the car: idles deep in the ramp, punches out at beat 3 (f31), drifts left onto the street
     car = build_car('Getaway', open_window=True, head_energy=200)
     path = Path([(-6.5, 38, -3.0), (-6.5, 28, -3.0), (-6.5, 19, -1.5), (-6.5, 11, 0.0), (-6.3, 7.6, 0.0),
@@ -97,13 +100,13 @@ def shot_4A():
     # police: off-screen to the left (west end of the street), closing in; washing facades + wet road
     pol = []
     for k, (col, y, ph) in enumerate((('red', -3.0, 0), ('blue', -1.4, 0), ('red', 1.5, 3), ('blue', 3.0, 3))):
-        x0, x1 = -58 + k, -40 + k
-        pol.append(dict(color=col, kind='SPOT', spot=95, blend=1.0, radius=0.15, energy=60000, phase=ph,
+        x0, x1 = -44 + k, -30 + k
+        pol.append(dict(color=col, kind='SPOT', spot=95, blend=1.0, radius=0.15, energy=70000, phase=ph,
                         target=(-4.0, yf, 5.0), path=[(1, (x0, y, 1.4)), (LEN, (x1, y, 1.4))]))
-    pol.append(dict(color='blue', kind='SPOT', spot=60, blend=1.0, energy=50000, phase=6, target=(0.0, yf, 16.0),
-                    path=[(1, (-50, -6, 1.6)), (LEN, (-36, -6, 1.6))]))
-    pol.append(dict(color='red', kind='SPOT', spot=60, blend=1.0, energy=50000, phase=0, target=(0.0, yf, 16.0),
-                    path=[(1, (-52, -5, 1.6)), (LEN, (-38, -5, 1.6))]))
+    pol.append(dict(color='blue', kind='SPOT', spot=60, blend=1.0, energy=140000, phase=6, target=(0.0, yf, 16.0),
+                    path=[(1, (-40, -6, 1.6)), (LEN, (-30, -6, 1.6))]))
+    pol.append(dict(color='red', kind='SPOT', spot=60, blend=1.0, energy=140000, phase=0, target=(0.0, yf, 16.0),
+                    path=[(1, (-42, -5, 1.6)), (LEN, (-32, -5, 1.6))]))
     police_strobe(None, pol, 1, LEN, seed=2)
     if not NONOTES:
         note_wake(car, 'Note4A', B + 26, LEN + 1, 1, LEN, n_window=10, release=(B + 28, LEN), seed=7, out_speed=(1.5, 3.0))
@@ -150,8 +153,8 @@ def shot_4B():
         rng = random.Random(9)
         ground = [(rng.uniform(-7, 9), rng.uniform(-3.6, -0.4)) for _ in range(16)]
         ground += [(rng.uniform(-1.2, 1.8), rng.uniform(-3.9, -2.9)) for _ in range(4)]
-        note_wake(car, 'Note4B', -30, LEN + 1, 0, LEN + 1, n_window=46, release=(-26, LEN), ground=ground, seed=11,
-                  lift=5.0, turb=1.8)
+        note_wake(car, 'Note4B', -30, LEN + 1, 0, LEN + 1, n_window=60, release=(-16, LEN), ground=ground, seed=11,
+                  lift=3.2, turb=1.8, wake_w=1.8)
     # police far behind the car, coming the same way (lights on the street + facades)
     pol = []
     for k, (col, ph) in enumerate((('red', 0), ('blue', 0), ('red', 4), ('blue', 4))):
@@ -188,7 +191,7 @@ def shot_4C():
     build_buildings(None, -140, 260, +1, seed=31, mats=fm, wmin=8, wmax=18)
     build_buildings(None, -140, 260, -1, seed=32, mats=fm, wmin=8, wmax=18)
     xs = [x for x in range(-110, 260, 12)]
-    street_lamps(xs, [x + 6 for x in xs], energy=950)
+    street_lamps(xs, [x + 6 for x in xs], energy=1300)
     car = build_car('Getaway', open_window=True, head_energy=220)
     yl = -1.85
     path = Path([(-200, yl, 0), (-60, yl + 0.1, 0), (0, yl, 0), (20, yl - 0.18, 0), (40, yl + 0.12, 0),
@@ -234,13 +237,13 @@ def shot_4D():
     build_buildings(None, XT + 4, XT + 120, +1, seed=43, front=8.0, hmin=25, hmax=60, mats=fm)
     build_buildings(None, XT + 4, XT + 120, -1, seed=44, front=8.0, hmin=25, hmax=60, mats=fm)
     xs = [x for x in range(-130, int(XT) - 4, 16)]
-    street_lamps(xs, [x + 8 for x in xs], energy=900)
+    street_lamps(xs, [x + 8 for x in xs], energy=1300)
     tun = build_tunnel(None, XT, length=260.0, lamp_strength=7.0)
     car = build_car('Getaway', open_window=True, head_energy=220)
     yl = -1.75
     path = Path([(-150, yl, 0), (-40, yl + 0.15, 0), (XT, yl, 0), (XT + 60, yl - 0.1, 0), (XT + 300, yl, 0)])
     s_portal = path.project((XT, yl, 0))
-    drive(car, path, [(-40, 23.0), (LEN + 4, 24.0)], (B + 3, s_portal), -40, LEN + 4, kfrom=0, kto=LEN + 1, seed=9)
+    drive(car, path, [(-40, 23.0), (LEN + 4, 24.0)], (B + 6, s_portal), -40, LEN + 4, kfrom=0, kto=LEN + 1, seed=9)
     lights_level(car, head=[(1, 5.0)], tail=[(1, 3.5)])
     st = car['state']
     # camera: chase behind, slightly right, closing a touch, low
@@ -266,7 +269,7 @@ def shot_4D():
         L.rotation_euler = Vector((1, 0, -0.02)).to_track_quat('-Z', 'Y').to_euler()
     if not NONOTES:
         note_wake(car, 'Note4D', -10, LEN + 1, 0, LEN + 1, n_window=14, release=(-8, B + 16), seed=17)
-    hero_note(cam, car, cms, f_rel=B + 13, f_land=B + 31)
+    hero_note(cam, car, cms, f_rel=B + 14, f_land=B + 31)
     return cam, car
 
 
@@ -290,8 +293,7 @@ def hero_note(cam, car, cms, f_rel, f_land):
     rng = random.Random(41)
     axis = Vector((rng.uniform(-1, 1), rng.uniform(-1, 1), rng.uniform(-1, 1))).normalized()
     axis2 = Vector((0.3, 1.0, 0.2)).normalized()
-    b = paper.modifiers.new('Bend', 'SIMPLE_DEFORM')
-    b.deform_method, b.deform_axis = 'BEND', 'Y'
+    b = paper_bend(paper)
     tw = paper.modifiers.new('Twist', 'SIMPLE_DEFORM')
     tw.deform_method, tw.deform_axis = 'TWIST', 'X'
     prev = None
