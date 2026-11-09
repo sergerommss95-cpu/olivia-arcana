@@ -77,7 +77,13 @@ if SHOT in ('S00', 'S52'):
     if SHOT == 'S00':
         cam_path(cam, [(1, P0, T0, 0.0), (A, P0, T0, 0.0), (N, P1, T1, 0.0)])
     else:
-        cam_path(cam, [(1, P1, T1, 0.0), (B - 40, P0, T0, 0.0), (N, P0, T0, 0.0)])
+        # start on the free side so the closing wedge of light stays in view, settle into S00's frame as it shuts
+        cam_path(cam, [(1, (1.08, -2.22, 0.47), (0.12, 0.25, 0.78), 0.0), (A, (1.07, -2.24, 0.47), (0.12, 0.25, 0.78), 0.0),
+                       (128, (0.78, -2.62, 0.43), (0.24, 0.08, 0.6), 0.0), (212, P0, T0, 0.0), (N, P0, T0, 0.0)])
+        for fc in fcurves(cam):
+            for kp in fc.keyframe_points:
+                kp.interpolation = 'BEZIER'
+                kp.handle_left_type = kp.handle_right_type = 'AUTO_CLAMPED'
         # the door: a beat of stillness, then 3 tons swing shut, decelerating into the hairline
         d0, d1 = 18, 196
         door.rotation_euler.z = -R(OPEN)
@@ -97,15 +103,15 @@ if SHOT in ('S00', 'S52'):
             key_data(lt.data, lt, 'energy', [(1, 0.0), (d1 - 14, 0.0), (d1 - 2, e)])
         g = lk['strength']
         key_socket(g, [(1, 0.0), (d1 - 14, 0.0), (d1 - 2, g.default_value)])
-        sp = LV['spill']
-        key_data(sp.data, sp, 'energy', [(1, 70.0), (d0 + 40, 70.0), (d1 - 8, 0.0)])
+        sp = LV['spill']          # what escapes the doorway follows the opening
+        key_data(sp.data, sp, 'energy', [(1, 70.0), (d0 + 40, 66.0), (150, 26.0), (180, 8.0), (d1, 0.0)])
     shake(cam, 0.0015, 0.0008, scale=40, seed=3)
     motes_box = ((-0.9, -2.0, 0.05), (1.2, -0.15, 1.6))
 
 elif SHOT == 'S01':
     # Reveal: start tight on the free edge of the open door (chrome bolts, 0.4 m of steel), pull back and around to show
     # the door standing wide open with the forced vault beyond. Warm vault light pours out; the antechamber is cold, low.
-    D.light_ante(S, 'day', scale=0.45, on=('B', 'S'))
+    D.light_ante(S, 'day', scale=0.38, on=('A', 'B', 'S'))
     D.light_vault(S, 'warm')
     cam = make_cam(32, 2.0, [(1, (-0.74, -1.40, 0.9)), (95, (-0.74, -1.40, 0.9)), (205, (-0.3, 0.35, 1.0))])
     cam_path(cam, [(1, (-0.57, -2.02, 0.66), (-0.80, -1.36, 1.16), 0.0),

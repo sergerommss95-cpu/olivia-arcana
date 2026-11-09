@@ -103,11 +103,18 @@ if SHOT == 'S41':
     build_room(M, door='closed', ante_energy=0.0)
     walls('before')
     sensors(taped=False)
-    fx = fixtures(strength=3.0, energy=22.0, kelv=6200, tube_color=(0.82, 0.88, 1.0))
-    light('AREA', 'ColdBounce', (0.0, -0.4, 0.5), energy=3.0, color=kelvin(6500), size=2.0, target=(0.0, 3.0, 1.0))
-    for sx in (-1, 1):       # cold grazing wash along each wall from the ceiling edge (fixture spill on the boxes)
-        light('AREA', f'ColdGraze{sx}', (sx * 0.55, 3.2, 2.85), energy=26.0, color=kelvin(6400), size=0.12, size_y=5.0,
-              shape='RECTANGLE', target=(sx * 1.25, 3.2, 1.0))
+    # after hours: the near tube is off, the far two burn cold; the room falls off toward the camera
+    fx = fixtures(strength=3.0, energy=22.0, kelv=6200, tube_color=(0.82, 0.88, 1.0), on=(0, 1, 1))
+    for o in bpy.data.objects:      # a sealed, cleaned floor: polished concrete that carries the tube reflections
+        if o.name in ('Floor',):
+            set_mat(o, mat_concrete('PolishedFloor', base=(0.16, 0.165, 0.17), wet=0.0, scale=1.0, contrast=0.35))
+    pf = bpy.data.materials['PolishedFloor']
+    principled(pf).inputs['Coat Weight'].default_value = 0.35
+    principled(pf).inputs['Coat Roughness'].default_value = 0.12
+    for sx in (-1, 1):       # cold grazing wash along the far half of each wall (fixture spill on the boxes)
+        light('AREA', f'ColdGraze{sx}', (sx * 0.5, 4.3, 2.85), energy=9.0, color=kelvin(6400), size=0.12, size_y=3.4,
+              shape='RECTANGLE', target=(sx * 1.25, 4.3, 1.0))
+    light('AREA', 'DoorCold', (0.0, 4.9, 2.6), energy=7.0, color=kelvin(6200), size=0.6, target=(0.0, 6.3, 1.0))
     foc = empty('FocusS41', (0.0, 3.4, 1.2))
     cam = lens_cam('CamS41', 24, 5.6, foc)
     cam.location = (0.0, -0.42, 1.42)
@@ -315,8 +322,8 @@ elif SHOT == 'S27':
     key(foc, 'location', [(1, tuple(lock + Vector((-0.08, 0, 0)))), (int(f_pop) + 8, tuple(lock + Vector((-0.08, 0, 0)))),
                           (150, (1.2, 2.6, 1.3)), (LAST, (1.2, 4.6, 1.3))])
     cam = lens_cam('CamS27', 30, 2.8, foc)
-    cam_path(cam, [(1, (0.3, -0.4, 1.3), (1.2, 2.25, 1.36), 0.0),
-                   (int(f_pop) + 6, (0.28, -0.42, 1.31), (1.2, 2.35, 1.36), 0.0),
+    cam_path(cam, [(1, (0.3, -0.4, 1.3), (1.2, 1.7, 1.38), 0.0),
+                   (int(f_pop) + 6, (0.28, -0.42, 1.31), (1.2, 1.85, 1.38), 0.0),
                    (N, (0.06, -0.52, 1.4), (1.15, 3.7, 1.3), 0.0)])
     eased(cam, 'location')
     eased(cam, 'rotation_euler')
@@ -417,12 +424,12 @@ elif SHOT == 'S45a':
     fx = fixtures()
     cream_key()
     light('AREA', 'Bounce', (0.0, -0.4, 0.6), energy=2.5, color=kelvin(5200), size=2.0, target=(0.5, 2.5, 0.8))
-    light('AREA', 'FloorBounce', (-0.2, 4.4, 0.05), energy=5.0, color=kelvin(4400), size=1.2, target=(-0.2, 4.7, 2.9))
+    light('AREA', 'FloorBounce', (-0.2, 4.4, 0.05), energy=22.0, color=kelvin(4400), size=1.4, target=(-0.2, 4.8, 2.9))
     lsw = Vector(LIGHT_SENSOR)
-    foc = empty('FocusS45a', tuple(lsw + Vector((0, 0, -0.015))))
-    cam = lens_cam('CamS45a', 32, 2.8, foc)
-    cam.location = (0.3, 4.05, 1.95)
-    look_at(cam, (-0.14, 4.82, 2.86))
+    foc = empty('FocusS45a', tuple(lsw + Vector((0, 0, -0.016))))
+    cam = lens_cam('CamS45a', 40, 2.8, foc)
+    cam.location = (0.05, 4.48, 2.42)
+    look_at(cam, (-0.17, 4.9, 2.87))
 
 elif SHOT == 'S45b':
     # Counter-evidence: the sorted loot on the lit floor, seen from above like a scene photograph.
@@ -447,7 +454,7 @@ elif SHOT == 'S51':
     sensors(taped=True, led=False)
     debris_after()
     fx = fixtures(on=(0, 0, 1))
-    cream_key(pos=(-1.0, 5.2, 2.6), aim=(1.25, 3.4, 1.3), energy=46.0, size=0.3)
+    cream_key(pos=(-0.55, 5.3, 2.7), aim=(1.25, 3.4, 1.3), energy=46.0, size=0.3)
     foc = empty('FocusS51', (1.2, 3.6, 1.2))
     cam = lens_cam('CamS51', 24, 4.0, foc)
     cam.location = (-0.78, 5.75, 1.18)

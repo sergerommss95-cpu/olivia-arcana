@@ -48,7 +48,7 @@ def shot_office(dusk=False):
                  bounces=(3, 3, 4), exposure=-0.9 if not dusk else 0.0)
     world_color((0.0, 0.0, 0.0), 0.0)
     M = office_mats()
-    A = build_office(M, door_angle=72.0, blinds_tilt=50.0 if not dusk else 56.0, lamp_on=dusk, lamp_energy=16.0)
+    A = build_office(M, door_angle=72.0, blinds_tilt=50.0 if not dusk else 56.0, lamp_on=dusk, lamp_energy=30.0)
     o = OFF
     wx0, wx1, wz0, wz1 = o['win']
     wxc, wzc = (wx0 + wx1) / 2, (wz0 + wz1) / 2
@@ -75,8 +75,8 @@ def shot_office(dusk=False):
     else:
         light('AREA', 'DuskFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=90.0,
               color=(0.35, 0.55, 1.0), size=wx1 - wx0, size_y=wz1 - wz0, shape='RECTANGLE')
-        light('AREA', 'CorridorFar', (-3.9, -1.3, 1.6), (0, math.radians(90), 0), energy=10.0, color=kelvin(4300),
-              size=0.6, size_y=1.2, shape='RECTANGLE')
+        light('AREA', 'CorridorNight', (-1.6, -1.7, o['cor_h'] - 0.02), energy=7.0, color=kelvin(4300),
+              size=0.25, size_y=0.6, shape='RECTANGLE')
     if HAZE:
         hz = mat_volume('OfficeHaze', density=0.012 if not dusk else 0.008, color=(0.9, 0.9, 0.9), anisotropy=0.55,
                         noise_scale=1.4, contrast=(0.3, 0.75))
@@ -120,20 +120,22 @@ def shot_bag():
     if DEBUG:
         debug_light(tuple(L), (0.0, -0.6, 0.6), energy=80, size=1.5)
     else:
-        light('AREA', 'Window', (-0.95, -0.55, 0.55), energy=45.0, color=kelvin(6400), size=1.1, size_y=1.3,
+        light('AREA', 'Window', (-0.95, 0.02, 0.42), energy=30.0, color=kelvin(6400), size=0.9, size_y=1.2,
               shape='RECTANGLE', target=tuple(L))
-        light('AREA', 'Rim', (0.55, 0.35, 0.45), energy=6.0, color=kelvin(3100), size=0.35, target=(0.0, 0.0, 0.15))
-        light('AREA', 'Glint', (-0.35, -0.6, 0.42), energy=2.5, color=kelvin(6800), size=0.12, target=tuple(L))
+        light('AREA', 'Fill', (-0.2, -0.9, 0.3), energy=1.6, color=kelvin(6000), size=0.8, target=tuple(L))
+        light('AREA', 'Rim', (0.55, 0.35, 0.45), energy=5.0, color=kelvin(3000), size=0.35, target=(0.0, 0.0, 0.15))
+        light('AREA', 'Glint', tuple(L + Vector((-0.42, -0.5, 0.32))), energy=0.9, color=kelvin(6800), size=0.05,
+              target=tuple(L))
     foc = empty('FocusB', tuple(L))
-    loc = L + Vector((-0.115, -0.30, 0.085))
-    cam_at('CamBag', tuple(loc), tuple(L + Vector((0.016, 0.0, -0.006))), 100.0, 5.0, foc, roll=-1.5)
+    loc = L + Vector((-0.17, -0.29, 0.055))
+    cam_at('CamBag', tuple(loc), tuple(L + Vector((-0.012, 0.0, -0.01))), 85.0, 2.8, foc, roll=-1.0)
 
 
 # ============================================================================ the district (S04 dusk / S23 night)
 
 def shot_street(night=True):
     setup_render(1, 1, res=STILL, samples=64, mb=False, look='Medium High Contrast', clamp=6.0, bounces=(2, 3, 4),
-                 exposure=0.0)
+                 exposure=1.3 if night else 0.6)
     M = street_mats(night=night)
     A = build_street(M, night=night)
     if night:
@@ -144,14 +146,14 @@ def shot_street(night=True):
         sun('DebugSun', (0.3, 0.5, -0.8), 2.0, (1, 1, 1), angle=5)
         world_color((0.3, 0.3, 0.3), 1.0)
     if HAZE:
-        hz = mat_volume('StreetMist', density=0.0035 if night else 0.002, color=(0.85, 0.85, 0.85), anisotropy=0.6)
+        hz = mat_volume('StreetMist', density=0.0018 if night else 0.0012, color=(0.85, 0.85, 0.85), anisotropy=0.6)
         volume_box('Mist', (0.0, 45.0, 6.0), (2 * ST['hw'] - 0.1, 100.0, 12.0), hz)
     if night:
         foc = empty('FocusN', (0.5, 12.0, 1.0))
         cam_at('CamNight', (-3.3, -2.6, 1.3), (1.0, 26.0, 3.6), 30.0, 4.0, foc, roll=0.0)
     else:
         foc = empty('FocusD', (0.5, 9.0, 1.5))
-        cam_at('CamDusk', (-3.0, -21.0, 1.9), (2.3, 14.0, 6.4), 38.0, 5.6, foc, roll=0.0)
+        cam_at('CamDusk', (-3.4, -25.0, 2.1), (2.1, 14.0, 7.4), 38.0, 5.6, foc, roll=0.0)
 
 
 reset()

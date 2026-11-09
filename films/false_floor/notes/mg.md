@@ -11,6 +11,7 @@ All MG is code: numpy + Pillow, no Blender. 1920x1080 RGB PNG, 24 fps, exactly `
 | `mg/shots.py` | The 14 MG shots (one class per shot) |
 | `mg/overlays.py` | O_109, O_LAYER, O_COUNT, O_TITLE, O_LABEL, END |
 | `mg/render.py` | Runner (multiprocessing, 3 workers by default) |
+| `mg/qc.py` | Rebuilds `tests/QC_mg.jpg` from the rendered frames |
 
 ```
 python3 mg/render.py S06 S09            # full sequences -> out/renders/<ID>/
@@ -88,3 +89,11 @@ O_TITLE / END. No glows, brackets, scanlines, hex, HUD frames or flat orange pan
    tenant link ~2 s before the cut; S40 5 YEARS cards ~2–4 s).
 8. Disk: ~1.85 MB per RGB frame (grain is incompressible); all MG ≈ 11 GB under `out/renders/`.
 9. QC sheet: `tests/QC_mg.jpg` (3 frames per shot: ~20 %, ~60 %, last; overlays shown over black).
+10. **Re-timing to George**: everything (frame counts and every cue) is read from `script/SHOTS_v2.json` (`render_frames`,
+    `vo`, `vo_start`, `vo_end`). Rendered against the current table (temp-VO timing). `edit/vo_george_v4_v01_timing.json`
+    has shorter beats for S19 (≈473 f), S40 (≈323), S44 (≈559), S46 (≈215), S47 (≈374), S49 (≈427). Every shot ends on a
+    settled hold, so tails can be trimmed, but S47's panel reveal ends at f386 and S44's last claim lands at f~523: if the
+    table is regenerated from George's timing, just run `python3 mg/render.py all` (≈30 min on 3 cores) and all cues and
+    lengths follow automatically.
+11. Fixed during the pass: a cached screen layer could freeze a half-faded corner label in one worker (S44); S44 was
+    re-rendered in full and S43/S47 frames 1–12, so labels are constant from frame 1 everywhere.

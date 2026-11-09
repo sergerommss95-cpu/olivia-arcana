@@ -179,7 +179,7 @@ def mat_zinc(name='ZincBlock', base=(0.43, 0.44, 0.45), rough=(0.36, 0.52)):
     nb.l(tc, 'Object', mot, 'Vector')
     fin = nb.n('ShaderNodeTexNoise', Scale=1400.0, Detail=3.0)
     nb.l(tc, 'Object', fin, 'Vector')
-    cr = nb.ramp(mot, 'Fac', [(0.3, tuple(c * 0.78 for c in base)), (0.72, base)])
+    cr = nb.ramp(mot, 'Fac', [(0.25, tuple(c * 0.9 for c in base)), (0.75, base)])
     sp = nb.ramp(vor, 'Color', [(0.0, (0.94, 0.94, 0.94)), (1.0, (1.06, 1.06, 1.06))])
     col = nb.n('ShaderNodeMix', {'data_type': 'RGBA', 'blend_type': 'MULTIPLY'})
     col.inputs[0].default_value = 1.0
@@ -258,10 +258,10 @@ def mat_masking(name='MaskingTape', color=(0.56, 0.53, 0.46)):
     crepe = nb.n('ShaderNodeTexWave', {'wave_type': 'BANDS', 'bands_direction': 'X'}, Scale=780.0, Distortion=4.0,
                  Detail=3.0, **{'Detail Scale': 2.0})
     nb.l(uv, 'UV', crepe, 'Vector')
-    crease = nb.n('ShaderNodeTexWave', {'wave_type': 'BANDS', 'bands_direction': 'X'}, Scale=38.0, Distortion=9.0,
-                  Detail=2.0)
+    crease = nb.n('ShaderNodeTexWave', {'wave_type': 'BANDS', 'bands_direction': 'X'}, Scale=23.0, Distortion=14.0,
+                  Detail=4.0, **{'Detail Roughness': 0.7})
     nb.l(uv, 'UV', crease, 'Vector')
-    cz = nb.n('ShaderNodeMapRange', **{'From Min': 0.86, 'From Max': 0.98})
+    cz = nb.n('ShaderNodeMapRange', **{'From Min': 0.93, 'From Max': 0.995})
     nb.l(crease, 'Fac', cz, 'Value')
     tc = nb.n('ShaderNodeTexCoord')
     fib = nb.n('ShaderNodeTexNoise', Scale=2600.0, Detail=5.0)
@@ -269,11 +269,11 @@ def mat_masking(name='MaskingTape', color=(0.56, 0.53, 0.46)):
     dirt = nb.n('ShaderNodeTexNoise', Scale=150.0, Detail=4.0)
     nb.l(tc, 'Object', dirt, 'Vector')
     cr = nb.ramp(dirt, 'Fac', [(0.3, tuple(c * 0.86 for c in color)), (0.7, color)])
-    cmix = nb.mix(cr, tuple(c * 0.8 for c in color), cz)
+    cmix = nb.mix(cr, tuple(c * 0.93 for c in color), cz)
     nb.L.new(nb.out_of(cmix), p.inputs['Base Color'])
     h = nb.math('ADD', nb.math('ADD', nb.math('MULTIPLY', crepe, None, vb=0.5), nb.math('MULTIPLY', fib, None, vb=0.3)),
-                nb.math('MULTIPLY', cz, None, vb=1.4))
-    bmp = nb.n('ShaderNodeBump', Strength=0.45, Distance=2.2e-5)
+                nb.math('MULTIPLY', cz, None, vb=0.8))
+    bmp = nb.n('ShaderNodeBump', Strength=0.4, Distance=2.0e-5)
     nb.l(h, 0, bmp, 'Height')
     nb.l(bmp, 'Normal', p, 'Normal')
     return m
@@ -318,8 +318,8 @@ def macro_mats():
     M['galv'] = mat_metal('MGalv', base=(0.38, 0.385, 0.39), rough=(0.38, 0.55), scale=200.0, bump=0.0, grime=0.3,
                           scratches=0.0)
     M['cable'] = mat_principled('MCable', color=(0.03, 0.03, 0.032), rough=0.55)
-    M['alu'] = mat_macro_steel('MAluminium', base=(0.80, 0.81, 0.82), rough=(0.26, 0.42), brush='X', scale=1.6,
-                               streak=0.9, scratch=0.4, grime=0.06, aniso=0.55)
+    M['alu'] = mat_macro_steel('MAluminium', base=(0.72, 0.73, 0.74), rough=(0.30, 0.37), brush='X', scale=5.0,
+                               streak=0.9, scratch=0.35, grime=0.04, aniso=0.5)
     M['tape'] = mat_masking()
     M['zinc'] = mat_zinc('MZincBlock')
     M['nameplate'] = mat_nameplate('MMakerPlate')

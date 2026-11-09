@@ -55,6 +55,9 @@ def build_timeline(shots, vo):
         dur = lead + seg + hold
         tl.append({**s, 't0': t, 'dur': dur, 'vo_at': t + lead, 'vo_src': (b['start'], b['end']), 'chapter': b['chapter']})
         t += dur
+    kinds = {e['id']: e['kind'] for e in tl}
+    for e in tl:
+        e['src_kind'] = e['kind']
     # HOLD beats: picture continues from the previous non-HOLD shot
     for k, e in enumerate(tl):
         if e['kind'] == 'HOLD':
@@ -62,6 +65,7 @@ def build_timeline(shots, vo):
             while j >= 0 and tl[j]['kind'] == 'HOLD':
                 j -= 1
             e['pic_from'] = tl[j]['id'] if j >= 0 else None
+            e['src_kind'] = kinds.get(e['pic_from'], 'HOLD')
     return tl, t
 
 
@@ -128,7 +132,9 @@ class Source:
         raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', self.clip, '-vf', f'scale={W}:{H}:flags=lanczos', '-pix_fmt', 'rgb24',
                               '-f', 'rawvideo', '-'], capture_output=True).stdout
         a = np.frombuffer(raw, np.uint8).reshape(-1, H, W, 3)
-        return a[6:max(7, len(a) - 6)]
+        if self.e.get('src_kind') == '3D':          # 3D renders carry 6-frame handles at both ends
+            return a[6:max(7, len(a) - 6)]
+        return a
 
     def frame_iter(self, n):
         if self.mode == 'clip':

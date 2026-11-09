@@ -168,7 +168,7 @@ def s17():
 # ============================================================================= S18 / S22 / S24: magnetic plates
 def plates(loosen_door=(0.0,) * 4, loosen_frame=(0.0,) * 4, hinge=False):
     S = seam_set(M, hinge=hinge)
-    rbox('SeamVoid', -0.012, 0.012, 0.008, 0.3, -0.3, 0.3, mat=M['black'])
+    rbox('SeamVoid', -0.012, 0.012, 0.04, 0.3, -0.3, 0.3, mat=M['black'])
     proto = screw_proto(M)
     D = mag_plate(M, -1, proto, 'MagDoor', loosen=loosen_door)
     Fm = mag_plate(M, 1, proto, 'MagFrame', loosen=loosen_frame, cable=True)
@@ -190,16 +190,19 @@ def night_plate_lights():
     light('AREA', 'Rim', (0.06, -0.03, 0.27), energy=0.35, color=COOL, size=0.04, target=(0.0, -0.012, 0.05))
     light('AREA', 'Fill', (0.14, -0.25, -0.10), energy=0.10, color=(0.75, 0.83, 1.0), size=0.18, target=(0.0, -0.01, 0.0))
     light('AREA', 'Kick', (0.22, -0.07, 0.06), energy=0.18, color=CREAM, size=0.008, target=(0.04, -0.015, 0.04))
+    # soft sheen placed in the door face's mirror path: the brushed door steel left of the plates reads as metal
+    light('AREA', 'DoorSheen', (-0.21, -0.33, -0.09), energy=0.22, color=kelvin(4800), size=0.05, size_y=0.22,
+          shape='RECTANGLE', target=(-0.06, 0.0, 0.05))
 
 
 def s18():
     plates()
-    tgt = Vector((0.0, -0.010, 0.045))
-    cam = camera('CamS18', lens=60, fstop=8.0, ratio=1.6)
-    foc = empty('FocusS18', (0.0, -0.013, 0.045))
+    tgt = Vector((0.0, -0.010, 0.050))
+    cam = camera('CamS18', lens=60, fstop=9.0, ratio=1.6)
+    foc = empty('FocusS18', (0.0, -0.012, 0.050))
     cam.data.dof.focus_object = foc
-    cam_path(cam, [(1, from_dir(tgt, (-0.30, -0.88, 0.38), 0.25), tuple(tgt), 0.0),
-                   (N, from_dir(tgt, (-0.25, -0.89, 0.38), 0.20), tuple(tgt), 0.0)])
+    cam_path(cam, [(1, from_dir(tgt, (0.24, -0.89, 0.38), 0.36), tuple(tgt), 0.0),
+                   (N, from_dir(tgt, (0.20, -0.90, 0.38), 0.27), tuple(tgt + Vector((0.0, 0.0, -0.004))), 0.0)])
     shake(cam, 0.00015, 0.0004, scale=20, seed=4)
     night_plate_lights()
     macro_motes('Motes', (0.0, -0.07, 0.05), (0.14, 0.12, 0.10), count=170, seed=5, start=1, end=N,
@@ -209,31 +212,36 @@ def s18():
 
 
 def s22():
-    S, D, Fm = plates(loosen_door=(0.0034, 0.0029, 0.0031, 0.0026), loosen_frame=(0.0022, 0.0027, 0.0024, 0.0020))
-    tz0, tz1 = 0.052, 0.071
-    pts = [(-0.112, 0.0), (-0.0748, 0.0), (-0.0720, -0.0026), (-0.0720, -0.0105), (-0.0713, -0.0123), (-0.0695, -0.0130),
-           (-0.0125, -0.0130), (-0.0107, -0.0123), (-0.0100, -0.0105), (-0.0100, -0.0026), (-0.0074, 0.0),
-           (-0.0047, 0.0)]
-    tape_strip(M, pts, tz0, tz1, name='TapeStrip', seed=5)
-    scr = Vector((-0.020, -0.0178, 0.088))          # raised top-inner screw head of the door half
-    tp = Vector((-0.036, -0.0133, 0.0615))         # tape across the block front
-    cam = camera('CamS22', lens=70, fstop=7.0, ratio=1.6)
-    foc = empty('FocusS22', tuple(scr))
+    S, D, Fm = plates(loosen_door=(0.0034, 0.0029, 0.0031, 0.0026), loosen_frame=(0.0027, 0.0023, 0.0024, 0.0020))
+    # door half: from the door plate, over the block, down its gap face onto the plate again
+    pd = [(-0.112, 0.0), (-0.0748, 0.0), (-0.0720, -0.0026), (-0.0720, -0.0105), (-0.0713, -0.0123), (-0.0695, -0.0130),
+          (-0.0125, -0.0130), (-0.0107, -0.0123), (-0.0100, -0.0105), (-0.0100, -0.0026), (-0.0074, 0.0), (-0.0042, 0.0)]
+    tape_strip(M, pd, 0.0535, 0.0725, name='TapeDoor', seed=5)
+    # frame half (frame face 2 mm proud), slightly lower and not quite square to the first
+    yf = -FRAME_PROUD
+    pf = [(0.0043, yf), (0.0074, yf), (0.0100, yf - 0.0026), (0.0100, yf - 0.0105), (0.0107, yf - 0.0123),
+          (0.0125, yf - 0.0130), (0.0695, yf - 0.0130), (0.0713, yf - 0.0123), (0.0720, yf - 0.0105),
+          (0.0720, yf - 0.0026), (0.0748, yf), (0.109, yf)]
+    tape_strip(M, pf, 0.0490, 0.0680, name='TapeFrame', seed=9)
+    scr = Vector((0.0, -0.0175, 0.088))            # between the two raised inner top screws
+    tp = Vector((-0.020, -0.0133, 0.063))          # door-half tape on the block front
+    cam = camera('CamS22', lens=70, fstop=6.0, ratio=1.6)
+    foc = empty('FocusS22', (-0.020, -0.0178, 0.088))
     cam.data.dof.focus_object = foc
-    cam_path(cam, [(1, from_dir(scr, (-0.62, -0.62, 0.48), 0.10), tuple(scr + Vector((0.0, 0.0, -0.003))), 0.0),
-                   (110, from_dir(scr + Vector((-0.004, 0.0, -0.012)), (-0.55, -0.70, 0.45), 0.11),
-                    tuple(scr + Vector((-0.004, 0.0, -0.012))), 0.0),
-                   (N, from_dir(tp + Vector((0.0, 0.0, 0.010)), (-0.45, -0.80, 0.40), 0.125),
-                    tuple(tp + Vector((0.0, 0.0, 0.010))), 0.0)])
-    key(foc, 'location', [(1, tuple(scr)), (75, tuple(scr)), (175, tuple(tp)), (N, tuple(tp))])
+    cam_path(cam, [(1, from_dir(scr, (0.12, -0.58, 0.80), 0.165), tuple(scr + Vector((0.0, 0.0, -0.004))), 0.0),
+                   (N, from_dir(tp + Vector((0.012, 0.0, 0.008)), (0.07, -0.70, 0.71), 0.15),
+                    tuple(tp + Vector((0.012, 0.0, 0.008))), 0.0)])
+    key(foc, 'location', [(1, (-0.020, -0.0178, 0.088)), (80, (-0.020, -0.0178, 0.088)), (180, tuple(tp)),
+                          (N, tuple(tp))])
     shake(cam, 0.00015, 0.0004, scale=20, seed=8)
-    # daylight-ish: the room's neutral overhead fluorescents (broad, soft, from above) + a soft neutral side; no hard key
-    light('AREA', 'Overhead', (-0.04, -0.22, 0.48), energy=2.4, color=kelvin(5200), size=0.25, size_y=0.06,
-          shape='RECTANGLE', target=(-0.02, -0.01, 0.06))
-    light('AREA', 'Side', (-0.30, -0.10, 0.18), energy=0.5, color=kelvin(5000), size=0.12, target=(-0.02, -0.01, 0.06))
-    light('AREA', 'Fill', (0.25, -0.30, 0.0), energy=0.18, color=kelvin(6000), size=0.3, target=(0.0, -0.01, 0.05))
+    # daylight-ish: neutral overhead fluorescents (broad) + a crisp neutral grazing key from upper left (screw slots,
+    # bevels, tape creases), soft fill; brighter, cleaner than the night shots
+    light('AREA', 'Overhead', (-0.02, -0.24, 0.50), energy=1.6, color=kelvin(5200), size=0.25, size_y=0.06,
+          shape='RECTANGLE', target=(0.0, -0.01, 0.06))
+    light('AREA', 'Graze', (-0.20, -0.06, 0.24), energy=1.1, color=kelvin(5000), size=0.012, target=(0.0, -0.014, 0.07))
+    light('AREA', 'Fill', (0.25, -0.30, 0.0), energy=0.15, color=kelvin(6000), size=0.3, target=(0.0, -0.01, 0.05))
     bpy.context.scene.world.node_tree.nodes['Background'].inputs['Color'].default_value = (0.004, 0.0042, 0.0045, 1)
-    macro_motes('Motes', (-0.03, -0.06, 0.07), (0.10, 0.10, 0.08), count=110, seed=9, start=1, end=N,
+    macro_motes('Motes', (0.0, -0.06, 0.075), (0.10, 0.10, 0.07), count=110, seed=9, start=1, end=N,
                 r=(0.00003, 0.00007))
     debug_light(cam)
     return cam
@@ -247,14 +255,14 @@ def s24():
     motion_steps(al, 2)
     hv = S['hinge']
     key(hv, 'rotation_euler', [(1, 0.0), (122, 0.0), (228, 0.16), (N, 0.163)], index=2)
-    tgt = Vector((-0.004, -0.012, 0.022))
-    cam = camera('CamS24', lens=60, fstop=7.0, ratio=1.6)
-    foc = empty('FocusS24', (0.0, -0.016, 0.022))
+    tgt = Vector((-0.012, -0.010, 0.012))
+    cam = camera('CamS24', lens=40, fstop=5.6, ratio=1.6)
+    foc = empty('FocusS24', (0.0, -0.017, 0.012))
     cam.data.dof.focus_object = foc
-    cam_path(cam, [(1, from_dir(tgt, (-0.40, -0.85, 0.34), 0.245), tuple(tgt), 0.0),
-                   (115, from_dir(tgt, (-0.40, -0.85, 0.34), 0.22), tuple(tgt), 0.0),
-                   (N, from_dir(tgt + Vector((-0.006, 0.0, 0.0)), (-0.52, -0.78, 0.34), 0.26),
-                    tuple(tgt + Vector((-0.006, 0.0, 0.0))), 0.0)])
+    cam_path(cam, [(1, from_dir(tgt, (-0.40, -0.84, 0.36), 0.34), tuple(tgt), 0.0),
+                   (115, from_dir(tgt, (-0.40, -0.84, 0.36), 0.31), tuple(tgt), 0.0),
+                   (N, from_dir(tgt + Vector((-0.02, 0.0, 0.0)), (-0.55, -0.76, 0.35), 0.36),
+                    tuple(tgt + Vector((-0.02, 0.02, 0.0))), 0.0)])
     shake(cam, 0.00015, 0.0004, scale=20, seed=6)
     night_plate_lights()
     macro_motes('Motes', (0.0, -0.07, 0.04), (0.16, 0.12, 0.10), count=170, seed=15, start=1, end=N,

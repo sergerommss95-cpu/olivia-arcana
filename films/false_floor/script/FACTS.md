@@ -42,7 +42,7 @@ copyrighted 2003 news/police photos or press portraits; no Mafia or insurance-fr
 | 29 | Lead detectives Agim De Bruycker and Patrick Peys (Diamond squad) | E | CJR; Wikipedia |
 | 30 | Sentenced to 10 years (Antwerp court of appeal, 2005); Tavano, D'Onorio, Finotto 5 years each | E | Wikipedia |
 | 31 | Paroled 2009; in 2010 stopped in Milan with about a kilogram of diamonds in his car (he said industrial; police said top quality) | E/V | CJR; Salon |
-| 32 | Parole breach (never compensated victims) → European arrest warrant 2011 → arrested at Paris CDG 2013; served until 2017 | E | Wikipedia |
+| 32 | Parole breach (never compensated victims) → European arrest warrant 2011 → arrested at Paris CDG 2013 during a layover from the US to Turin; served until 2017 | E | Wikipedia |
 | 33 | 2009 WIRED interview: says a diamond dealer hired them for insurance fraud; says they took ~€18m and bags were largely empty | A | Wikipedia; CJR |
 | 34 | De Bruycker: "Not one detail of Leo's story can be confirmed by the facts in the investigation." | E (quote) | CJR |
 | 35 | Investigators: lights blazing, tape on light sensor, loot sorted inside the vault, contradicting the "darkness/replica vault" and "empty bags" story | E | CJR |

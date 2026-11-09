@@ -1264,12 +1264,12 @@ def build_table(M, coll=None, seed=5):
 
 def bag_mats():
     M = {}
-    M['canvas'] = mat_weave('Canvas', (0.105, 0.088, 0.045), period=0.0009, axes=('X', 'Z'), rough=0.82, bump=0.55,
-                            sheen=0.25, slub=0.35, var=0.22)
+    M['canvas'] = mat_weave('Canvas', (0.085, 0.075, 0.04), period=0.0009, axes=('X', 'Z'), rough=0.84, bump=0.6,
+                            sheen=0.3, slub=0.45, var=0.35)
     M['strap_web'] = mat_weave('Webbing', (0.07, 0.06, 0.032), period=0.0007, axes=('X', 'Y'), rough=0.85, bump=0.6,
                                sheen=0.25, var=0.2)
-    M['leather'] = mat_leather('BagLeather', color=(0.055, 0.024, 0.010), rough=(0.3, 0.55), grain=1.3, worn=0.6, bump=0.35)
-    M['thread'] = mat_principled('Thread', color=(0.30, 0.24, 0.15), rough=0.55, spec=0.35)
+    M['leather'] = mat_leather('BagLeather', color=(0.034, 0.015, 0.0065), rough=(0.3, 0.6), grain=1.3, worn=0.8, bump=0.4)
+    M['thread'] = mat_principled('Thread', color=(0.20, 0.155, 0.095), rough=0.6, spec=0.3)
     p = principled(M['thread'])
     p.inputs['Sheen Weight'].default_value = 0.4
     M['brass'] = mat_brass('BuckleBrass', base=(0.62, 0.44, 0.2), dark=(0.28, 0.17, 0.06), rough=(0.25, 0.45), scale=60.0,
@@ -1807,8 +1807,8 @@ def build_street(M, coll=None, night=True, seed=11):
     for k in range(int((yend - yin) / 1.2)):
         rbox('GutterJoint', (0.43, 0.008, 0.002), (0.0, yin + k * 1.2, 0.0045), M['stone_dark'], bev=0)
     # building fronts: left (side -1) and right (+1)
-    specs_l = [(yin, 21.0, 12.6, 'pale', (2,), [(3.0, 4.75), (14.0, 4.75)]),
-               (21.0, 38.0, 19.4, 'glass', (1,), [(29.0, 4.75)]),
+    specs_l = [(yin, 21.0, 10.2, 'pale', (2,), [(3.0, 4.75), (14.0, 4.75)]),
+               (21.0, 38.0, 14.6, 'glass', (1,), [(29.0, 4.75)]),
                (38.0, 52.0, 16.0, 'brick', (), [(44.0, 4.75)]),
                (52.0, 70.0, 23.0, 'grey', (0,), [(60.0, 4.75)]),
                (70.0, yend, 22.0, 'pale', (), [])]
@@ -1830,7 +1830,7 @@ def build_street(M, coll=None, night=True, seed=11):
     corner_cams = []
     corner_fac = []
     for side in (-1, 1):
-        r = build_facade(f'Corner{side}', M, 1, 0.0, 22.0, 12.6 if side < 0 else 27.0, 'pale' if side < 0 else 'grey',
+        r = build_facade(f'Corner{side}', M, 1, 0.0, 22.0, 10.2 if side < 0 else 27.0, 'pale' if side < 0 else 'grey',
                          seed + 90 + side, coll, hw=0.0, entrances=(1,), cams=[(3.2, 4.75), (13.5, 4.75)])
         o = r['obj']
         o.rotation_euler.z = math.pi / 2
@@ -1888,7 +1888,7 @@ def build_street(M, coll=None, night=True, seed=11):
             wp = mw @ p
             g = rbox('SecFixture', (0.3, 0.3, 0.06), tuple(wp + Vector((0, 0, 0.0))), M['security'], bev=0.01)
             no_shadow(g)
-            A['sec'].append(light('SPOT', 'SecLight', tuple(wp + Vector((0, 0, -0.08))), energy=90.0 if night else 60.0,
+            A['sec'].append(light('SPOT', 'SecLight', tuple(wp + Vector((0, 0, -0.08))), energy=160.0 if night else 80.0,
                                   color=kelvin(5600), spot=120, blend=0.8, radius=0.1))
     A['fac'] = fac
     return A

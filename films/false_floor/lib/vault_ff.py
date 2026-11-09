@@ -348,7 +348,7 @@ def mats_room(M):
     M['led'] = mat_emission('StatusLED', (1.0, 0.025, 0.012), 60.0)
     M['cable'] = mat_rubber('Cable', color=(0.015, 0.015, 0.016), rough=0.5)
     M['foam'] = mat_foam()
-    M['tool'] = mat_metal('ToolSteel', base=(0.2, 0.205, 0.21), rough=(0.3, 0.55), scale=6.0, bump=0.006, grime=0.55,
+    M['tool'] = mat_metal('ToolSteel', base=(0.34, 0.345, 0.35), rough=(0.24, 0.5), scale=6.0, bump=0.006, grime=0.5,
                           scratches=0.6)
     M['toolbright'] = mat_metal('ToolBright', base=(0.5, 0.5, 0.51), rough=(0.16, 0.32), scale=20.0, bump=0.003,
                                 grime=0.35)
@@ -365,7 +365,7 @@ def mats_room(M):
     M['slab'] = mat_metal('VaultSlab', base=(0.42, 0.43, 0.44), rough=(0.14, 0.3), scale=2.0, bump=0.004,
                           brushed=(1.0, 1.0, 40.0))
     M['wallconc'] = mat_concrete('EndConcrete', base=(0.07, 0.072, 0.075), wet=0.0, scale=1.5, contrast=0.4)
-    M['ceil'] = mat_concrete('CeilConc', base=(0.045, 0.046, 0.048), wet=0.0, scale=1.8, contrast=0.35)
+    M['ceil'] = mat_concrete('CeilConc', base=(0.085, 0.087, 0.09), wet=0.0, scale=1.8, contrast=0.35)
     for k, sv in (('ceil', 0.04), ('wallconc', 0.1)):       # less 'hammered' than the stock voronoi bump
         for n in M[k].node_tree.nodes:
             if n.bl_idname == 'ShaderNodeBump':
@@ -815,7 +815,7 @@ def torn_envelope(M, name, loc, rz=0.0, mat=None, coll=None, seed=0, size=(0.22,
         bd = s.modifiers.new('bend', 'SIMPLE_DEFORM')
         bd.deform_method = 'BEND'
         bd.deform_axis = 'Y'
-        bd.angle = rng.uniform(0.6, 1.2)
+        bd.angle = rng.uniform(0.12, 0.3)
         set_mat(s, mat)
         a = rz + rng.uniform(-0.6, 0.6)
         s.location = (loc[0] + 0.05 * math.cos(rz + 1.4), loc[1] + 0.09 * math.sin(rz + 1.4), loc[2] + 0.004)
@@ -866,7 +866,8 @@ def pouch_empty(M, name, loc, rz=0.0, mat=None, coll=None, seed=0, length=0.12, 
             flat = 0.35 if u < 0.78 else 0.7
             zv = t / 2 * (sv if sv > 0 else flat * sv) * ruff          # slumped: flat underside, soft top
             if sv > 0 and u < 0.75:                                     # crushed-fabric folds on top
-                zv += sv * (0.0028 * math.sin(x * 140 + yv * 60 + ph[2]) + 0.0018 * math.sin(yv * 190 - x * 70 + ph[1]))
+                zv += sv * (0.0045 * math.sin(x * 120 + yv * 60 + ph[2]) + 0.0028 * math.sin(yv * 170 - x * 70 + ph[1])
+                            + 0.004 * math.sin(x * 45 - yv * 35 + ph[0]))
             ring_.append(bm.verts.new((x, yv, zv + flat * t / 2 + 0.0006)))
         rings.append(ring_)
     for iu in range(nu):

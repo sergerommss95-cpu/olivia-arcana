@@ -107,14 +107,15 @@
    "chapter": "1 \u00b7 THE FORTRESS (0:50\u20131:45)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 83.189,
-   "vo_end": 99.465,
-   "seconds": 16.88,
+   "vo_start": 80.315,
+   "vo_end": 96.795,
+   "seconds": 17.73,
    "frames": 429,
    "tag": "MG (S3 god-view)",
    "shot": "The vertical stack: street (bollards, police post) \u2192 ground floor (guards) \u2192 offices \u2192 Level \u22122 (the vault).",
    "vo": "At the centre sits the Antwerp Diamond Centre. Offices above. Two floors below, the vault where dealers lock everything they won't leave on a desk over a weekend. And it has one rule: you can't rent a box in the basement unless you're a tenant upstairs.",
-   "render_frames": 405
+   "render_frames": 426,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S07",
@@ -153,14 +154,15 @@
    "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 121.199,
-   "vo_end": 134.977,
-   "seconds": 14.38,
+   "vo_start": 118.35,
+   "vo_end": 132.32,
+   "seconds": 15.22,
    "frames": 369,
    "tag": "MG",
    "shot": "Calendar strip, ~two years of days ticking past to one orange tick: 15 FEB 2003.",
-   "vo": "He pays his rent on time. He chats in the corridors. Month after month, he becomes the most ordinary face in the building. And the lease buys him the only thing he actually came for his own box, in the vault.",
-   "render_frames": 345
+   "vo": "He pays his rent on time. He chats in the corridors. Month after month, he becomes the most ordinary face in the building. And the lease buys him the only thing he actually came for \u2014 his own box, in the vault.",
+   "render_frames": 365,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S10",
@@ -200,14 +202,15 @@
    "chapter": "2 \u00b7 THE TENANT (1:45\u20133:15)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 155.363,
-   "vo_end": 181.173,
-   "seconds": 26.41,
+   "vo_start": 151.95,
+   "vo_end": 178.32,
+   "seconds": 27.62,
    "frames": 658,
    "tag": "MG",
    "shot": "Four name cards, no faces, one at a time: THE GENIUS \u00b7 THE MONSTER \u00b7 THE KING OF KEYS \u00b7 SPEEDY.",
    "vo": "He doesn't do it alone. Police connect him to a loose network of Italian thieves called the School of Turin, men later described only by nicknames. The Genius: alarms. The Monster: locks, wiring, driving. The King of Keys: an old forger whose real name would never be known. And Speedy, a long-time friend. Anxious. Paranoid. Keep him in mind.",
-   "render_frames": 634
+   "render_frames": 663,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S13",
@@ -303,14 +306,15 @@
    "chapter": "3 \u00b7 LOCK AND KEY (3:15\u20137:30)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 239.999,
-   "vo_end": 261.731,
-   "seconds": 22.33,
+   "vo_start": 234.235,
+   "vo_end": 253.8,
+   "seconds": 20.81,
    "frames": 560,
    "tag": "MG (top-down plan of S2)",
    "shot": "Orthographic view of the vault room: soft cones for the infrared/heat sensor, the motion sensor, the light sensor, the camera; 189 boxes around the walls.",
    "vo": "Inside the room: heat and motion detectors, a light sensor, radar, a camera feeding the guard station. And on the walls, 189 boxes, each with its own key and a three-letter combination. Seventeen thousand, five hundred and seventy-six possibilities. Per box.",
-   "render_frames": 536
+   "render_frames": 500,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S20",
@@ -475,14 +479,15 @@
    "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 386.738,
-   "vo_end": 396.326,
-   "seconds": 10.19,
+   "vo_start": 379.31,
+   "vo_end": 389.07,
+   "seconds": 11.01,
    "frames": 269,
    "tag": "MG",
    "shot": "Schematic map: Antwerp \u2192 E19 \u2192 Brussels, labelled *not a reconstructed escape route*.",
    "vo": "According to Notarbartolo, the plan was simple: burn everything from the job and the safe house. Tape. Tools. Packaging. Food.",
-   "render_frames": 245
+   "render_frames": 264,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S31",
@@ -588,14 +593,15 @@
    "chapter": "4 \u00b7 TWO PLACES (7:30\u20139:45)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 453.364,
-   "vo_end": 464.398,
-   "seconds": 11.63,
+   "vo_start": 441.54,
+   "vo_end": 452.23,
+   "seconds": 11.94,
    "frames": 303,
    "tag": "MG",
    "shot": "`DNA` builds in cream, then `MATCH` in orange. Never a percentage.",
-   "vo": "Investigators take DNA from that sandwich, and it goes into the case file. Ten layers of security beaten in one night and the thing they couldn't wipe clean was lunch.",
-   "render_frames": 279
+   "vo": "Investigators take DNA from that sandwich, and it goes into the case file. Ten layers of security beaten in one night \u2014 and the thing they couldn't wipe clean was lunch.",
+   "render_frames": 287,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S38",
@@ -620,28 +626,30 @@
    "chapter": "5 \u00b7 THE TENANT RETURNS (9:45\u201311:00)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 471.817,
-   "vo_end": 486.764,
-   "seconds": 15.55,
+   "vo_start": 459.15,
+   "vo_end": 474.15,
+   "seconds": 16.25,
    "frames": 397,
    "tag": "MG",
    "shot": "`FRIDAY \u00b7 21 FEBRUARY 2003`; detective name cards AGIM DE BRUYCKER \u00b7 PATRICK PEYS.",
    "vo": "If you're an honest businessman, you show up for work. So five days after the heist, Leonardo Notarbartolo walks back into the Diamond Centre. Detectives Agim De Bruycker and Patrick Peys of the diamond squad are waiting.",
-   "render_frames": 373
+   "render_frames": 390,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S40",
    "chapter": "5 \u00b7 THE TENANT RETURNS (9:45\u201311:00)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 487.214,
-   "vo_end": 502.26,
-   "seconds": 15.65,
+   "vo_start": 474.3,
+   "vo_end": 487.63,
+   "seconds": 14.58,
    "frames": 400,
    "tag": "MG",
    "shot": "Court timeline: 2005 \u00b7 10 YEARS; three cards \u00b7 5 YEARS; THE KING OF KEYS card stays blank.",
    "vo": "In 2005, an appeals court in Antwerp sentences him to ten years for organising the heist. Three more men, the ones police believe are Speedy, the Monster and the Genius, get five years each.",
-   "render_frames": 376
+   "render_frames": 350,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S41",
@@ -680,28 +688,30 @@
    "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 521.589,
-   "vo_end": 532.13,
-   "seconds": 11.14,
+   "vo_start": 506.43,
+   "vo_end": 517.705,
+   "seconds": 12.53,
    "frames": 291,
    "tag": "MG",
    "shot": "Split frame: left cream panel HIS STORY, right charcoal panel THE EVIDENCE.",
    "vo": "In 2009, Notarbartolo talks to the journalist Joshua Davis for Wired. And his version doesn't just rewrite the heist. It points at the people who were robbed.",
-   "render_frames": 267
+   "render_frames": 301,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S44",
    "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 532.58,
-   "vo_end": 557.307,
-   "seconds": 25.33,
+   "vo_start": 517.705,
+   "vo_end": 541.012,
+   "seconds": 24.56,
    "frames": 632,
    "tag": "MG (left)",
    "shot": "Claims typeset one by one, each prefixed *HE SAYS*.",
-   "vo": "He says he wasn't the mastermind at all. He says a diamond dealer hired the crew to stage a robbery for the insurance money. He says they rehearsed in a replica vault so they could work in the dark. And his biggest claim: when they opened the bags, most were nearly empty, the stones quietly moved out before the weekend. Twenty million, he says. Not a hundred.",
-   "render_frames": 608
+   "vo": "He says he wasn't the mastermind at all. He says a diamond dealer hired the crew to stage a robbery for the insurance money. He says they rehearsed in a replica vault so they could work in the dark. And his biggest claim: when they opened the bags, most were nearly empty, the stones quietly moved out before the weekend. Twenty million, he says. Not a hundred. \u2026",
+   "render_frames": 589,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S45",
@@ -726,28 +736,30 @@
    "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 576.92,
-   "vo_end": 586.09,
-   "seconds": 9.77,
+   "vo_start": 560.62,
+   "vo_end": 569.03,
+   "seconds": 9.66,
    "frames": 258,
    "tag": "MG",
    "shot": "Quote card, full frame, cream on charcoal.",
    "vo": "As the lead detective, Agim De Bruycker, put it: \"Not one detail of Leo's story can be confirmed by the facts in the investigation.\"",
-   "render_frames": 234
+   "render_frames": 232,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S47",
    "chapter": "6 \u00b7 TWO STORIES (11:00\u201313:15)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 586.54,
-   "vo_end": 602.589,
-   "seconds": 16.65,
+   "vo_start": 569.58,
+   "vo_end": 585.145,
+   "seconds": 16.81,
    "frames": 424,
    "tag": "MG",
    "shot": "The two panels slide apart (the false-floor reveal) onto an empty orange space.",
-   "vo": "So why tell it? If he's telling the truth, the real crime happened inside the building, and he's the fall guy. If he isn't then a story where the vault was mostly empty is a very convenient story for the one man who knows where the rest went.",
-   "render_frames": 400
+   "vo": "So why tell it? If he's telling the truth, the real crime happened inside the building, and he's the fall guy. If he isn't \u2014 then a story where the vault was mostly empty is a very convenient story for the one man who knows where the rest went.",
+   "render_frames": 404,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S48",
@@ -768,28 +780,30 @@
    "chapter": "7 \u00b7 WHERE ARE THE DIAMONDS? (13:15\u201314:45)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 607.176,
-   "vo_end": 625.635,
-   "seconds": 19.06,
+   "vo_start": 589.39,
+   "vo_end": 607.03,
+   "seconds": 18.89,
    "frames": 481,
    "tag": "MG",
    "shot": "Timeline: 2009 PAROLED \u00b7 2010 MILAN \u00b7 2011 WARRANT \u00b7 2013 PARIS \u00b7 2017.",
    "vo": "Paroled in 2009, the year his story runs. In 2010, police in Milan find about a kilogram of diamonds hidden between the seats of his car. He says they're cheap industrial stones he bought legally. Belgian police say they're of the highest quality.",
-   "render_frames": 457
+   "render_frames": 453,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S50",
    "chapter": "7 \u00b7 WHERE ARE THE DIAMONDS? (13:15\u201314:45)",
    "kind": "MG",
    "owner": "D_mg",
-   "vo_start": 626.085,
-   "vo_end": 638.366,
-   "seconds": 12.88,
+   "vo_start": 607.18,
+   "vo_end": 619.23,
+   "seconds": 13.3,
    "frames": 333,
    "tag": "MG",
    "shot": "A line Turin \u2192 Paris CDG.",
    "vo": "He never compensates his victims. He breaks his parole. And in 2013, on a layover in Paris, a European warrant catches up with him. He serves out his sentence.",
-   "render_frames": 309
+   "render_frames": 319,
+   "vo_offset_in_shot": 0.25
   },
   {
    "id": "S51",
@@ -824,5 +838,6 @@
    "render_seconds": 10.0,
    "render_frames": 252
   }
- ]
+ ],
+ "vo_timing": "edit/vo_george_v4_v01_timing.json (MG shots re-timed to George v4; 3D shots keep their build lengths, the edit holds/extends)"
 }
