@@ -1,0 +1,399 @@
+{
+ "project": "TUMBLER - sound library",
+ "note": "Files are not committed (Mixkit license forbids redistributing them as standalone files). Run python3 tools/fetch_audio.py.",
+ "licenses": {
+  "Mixkit Sound Effects Free License": {
+   "url": "https://mixkit.co/license/#sfxFree",
+   "summary": "free for commercial and personal projects incl. film/video; no attribution required; may not be redistributed as standalone sound files"
+  },
+  "Mixkit Stock Music Free License": {
+   "url": "https://mixkit.co/license/#musicFree",
+   "summary": "free use as soundtrack in videos/films incl. commercial; no attribution required (credit appreciated); not for standalone music distribution"
+  }
+ },
+ "sfx": [
+  {
+   "key": "clock__watch_crown_spin",
+   "use": "1A dial whip spin",
+   "title": "Watch clock knob spin",
+   "url": "https://assets.mixkit.co/active_storage/sfx/1064/1064.wav",
+   "page": "https://mixkit.co/free-sound-effects/watch/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.097
+  },
+  {
+   "key": "mech__gear_lock_metallic",
+   "use": "1A dial hard stop / 5A click to zero",
+   "title": "Gear metallic lock sound",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2858/2858.wav",
+   "page": "https://mixkit.co/free-sound-effects/gear/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0112
+  },
+  {
+   "key": "clock__tick_single_closemic",
+   "use": "1A tick, 5A ticks",
+   "title": "Clock ticker single",
+   "url": "https://assets.mixkit.co/active_storage/sfx/1061/1061.wav",
+   "page": "https://mixkit.co/free-sound-effects/clock/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.097
+  },
+  {
+   "key": "mech__gear_lock_fast_tap",
+   "use": "1B gates align (x3)",
+   "title": "Gear fast lock tap",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2857/2857.wav",
+   "page": "https://mixkit.co/free-sound-effects/gear/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0
+  },
+  {
+   "key": "mech__gear_lock",
+   "use": "1C fence drops",
+   "title": "Gear lock sound",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2856/2856.wav",
+   "page": "https://mixkit.co/free-sound-effects/gear/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.035
+  },
+  {
+   "key": "metal__slam_factory_hard_hit",
+   "use": "1C bolt slam",
+   "title": "Factory metal hard hit",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2980/2980.wav",
+   "page": "https://mixkit.co/free-sound-effects/metal/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0
+  },
+  {
+   "key": "whoosh__fast_swoosh",
+   "use": "1C->2A whip",
+   "title": "Fast transitions swoosh",
+   "url": "https://assets.mixkit.co/active_storage/sfx/3115/3115.wav",
+   "page": "https://mixkit.co/free-sound-effects/transition/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.042
+  },
+  {
+   "key": "whoosh__cinematic_fast",
+   "use": "2A arrival",
+   "title": "Cinematic whoosh fast transition",
+   "url": "https://assets.mixkit.co/active_storage/sfx/1492/1492.wav",
+   "page": "https://mixkit.co/free-sound-effects/whoosh/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0
+  },
+  {
+   "key": "elec__hum_low",
+   "use": "antechamber room tone",
+   "title": "Low electricity humming",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2132/2132.wav",
+   "page": "https://mixkit.co/free-sound-effects/electricity/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0051
+  },
+  {
+   "key": "servo__mech_movements",
+   "use": "2A hand wheel spins",
+   "title": "Mechanical technology movements",
+   "url": "https://assets.mixkit.co/active_storage/sfx/3117/3117.wav",
+   "page": "https://mixkit.co/free-sound-effects/mechanical/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0207
+  },
+  {
+   "key": "servo__pneumatic_release",
+   "use": "2B bolt release (x4)",
+   "title": "Mechanical gas release alert",
+   "url": "https://assets.mixkit.co/active_storage/sfx/849/849.wav",
+   "page": "https://mixkit.co/free-sound-effects/mechanical/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.2052
+  },
+  {
+   "key": "metal__hammer_hit",
+   "use": "2B bolt clunk (x4)",
+   "title": "Metal hammer hit",
+   "url": "https://assets.mixkit.co/active_storage/sfx/833/833.wav",
+   "page": "https://mixkit.co/free-sound-effects/metal/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0966
+  },
+  {
+   "key": "metal__slam_submarine",
+   "use": "2C door unseal boom",
+   "title": "Submarine metal impact",
+   "url": "https://assets.mixkit.co/active_storage/sfx/783/783.wav",
+   "page": "https://mixkit.co/free-sound-effects/metal/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0155
+  },
+  {
+   "key": "riser__suspense_swell",
+   "use": "2C riser",
+   "title": "Cinematic suspense swell",
+   "url": "https://assets.mixkit.co/active_storage/sfx/786/786.wav",
+   "page": "https://mixkit.co/free-sound-effects/cinematic/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0974
+  },
+  {
+   "key": "boom__big_cinematic_impact",
+   "use": "2C light floods",
+   "title": "Big cinematic impact",
+   "url": "https://assets.mixkit.co/active_storage/sfx/788/788.mp3",
+   "page": "https://mixkit.co/free-sound-effects/impact/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.525
+  },
+  {
+   "key": "elec__powerup_static",
+   "use": "3A laser hum",
+   "title": "Electricity static power up",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2600/2600.wav",
+   "page": "https://mixkit.co/free-sound-effects/electricity/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.037
+  },
+  {
+   "key": "whoosh__speeding",
+   "use": "3A FPV",
+   "title": "Speeding swoosh",
+   "url": "https://assets.mixkit.co/active_storage/sfx/1484/1484.wav",
+   "page": "https://mixkit.co/free-sound-effects/swoosh/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.1025
+  },
+  {
+   "key": "mech__gear_shuffle",
+   "use": "3B doors flip",
+   "title": "Shuffling gear mech item",
+   "url": "https://assets.mixkit.co/active_storage/sfx/3152/3152.wav",
+   "page": "https://mixkit.co/free-sound-effects/gear/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0805
+  },
+  {
+   "key": "metal__clank_plate_drop",
+   "use": "3B doors",
+   "title": "Thin metal plate drop",
+   "url": "https://assets.mixkit.co/active_storage/sfx/3158/3158.wav",
+   "page": "https://mixkit.co/free-sound-effects/metal/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.1627
+  },
+  {
+   "key": "metal__resonant_whoosh_hit",
+   "use": "3C gold shimmer",
+   "title": "Whoosh resonating metallic hit",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2609/2609.wav",
+   "page": "https://mixkit.co/free-sound-effects/metal/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0
+  },
+  {
+   "key": "whoosh__tunnel_reverb_long",
+   "use": "T3 transition",
+   "title": "Cinematic tunnel reverb woosh",
+   "url": "https://assets.mixkit.co/active_storage/sfx/1486/1486.wav",
+   "page": "https://mixkit.co/free-sound-effects/whoosh/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.1663
+  },
+  {
+   "key": "boom__sub_knock",
+   "use": "T3 hit",
+   "title": "Knocking sub bass",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2300/2300.wav",
+   "page": "https://mixkit.co/free-sound-effects/bass/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.2543
+  },
+  {
+   "key": "paper__rustle",
+   "use": "notes swirl",
+   "title": "Papers being moved or wrinkling",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2379/2379.wav",
+   "page": "https://mixkit.co/free-sound-effects/paper/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0693
+  },
+  {
+   "key": "paper__quick_movement",
+   "use": "4D note hits lens",
+   "title": "Paper quick movement",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2380/2380.wav",
+   "page": "https://mixkit.co/free-sound-effects/paper/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0978
+  },
+  {
+   "key": "paper__slide",
+   "use": "5A paper",
+   "title": "Paper slide",
+   "url": "https://assets.mixkit.co/active_storage/sfx/1530/1530.wav",
+   "page": "https://mixkit.co/free-sound-effects/paper/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0024
+  },
+  {
+   "key": "hit__trailer_logo_impact",
+   "use": "5B title hit",
+   "title": "Movie logo intro impact",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2900/2900.wav",
+   "page": "https://mixkit.co/free-sound-effects/impact/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0
+  },
+  {
+   "key": "boom__blockbuster_deep_drum",
+   "use": "5B low drum",
+   "title": "Blockbuster trailer bass drum",
+   "url": "https://assets.mixkit.co/active_storage/sfx/553/553.wav",
+   "page": "https://mixkit.co/free-sound-effects/trailer/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.2977
+  },
+  {
+   "key": "whoosh__deep_air",
+   "use": "general whoosh",
+   "title": "Deep air woosh",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2604/2604.wav",
+   "page": "https://mixkit.co/free-sound-effects/wind/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0193
+  },
+  {
+   "key": "riser__trailer_short",
+   "use": "pre-title riser",
+   "title": "Cinematic trailer riser",
+   "url": "https://assets.mixkit.co/active_storage/sfx/790/790.wav",
+   "page": "https://mixkit.co/free-sound-effects/riser/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0908
+  },
+  {
+   "key": "mech__tool_click",
+   "use": "1B micro clicks",
+   "title": "Mechanical tool click",
+   "url": "https://assets.mixkit.co/active_storage/sfx/1131/1131.wav",
+   "page": "https://mixkit.co/free-sound-effects/mechanical/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.097
+  },
+  {
+   "key": "servo__hydraulic_door",
+   "use": "2C door hydraulics",
+   "title": "Hydraulic bus door",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2709/2709.wav",
+   "page": "https://mixkit.co/free-sound-effects/hydraulic/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.097
+  },
+  {
+   "key": "servo__robot_mechanism",
+   "use": "2C door mechanism",
+   "title": "Futuristic robotic mechanism",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2530/2530.wav",
+   "page": "https://mixkit.co/free-sound-effects/robot/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0329
+  },
+  {
+   "key": "car__engine_start",
+   "use": "4A engine fires",
+   "title": "Car engine start",
+   "url": "https://assets.mixkit.co/active_storage/sfx/1566/1566.wav",
+   "page": "https://mixkit.co/free-sound-effects/car/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.1407
+  },
+  {
+   "key": "car__passby_fast_mixkit",
+   "use": "4A/4B/4C car pass-bys",
+   "title": "Fast car drive by",
+   "url": "https://assets.mixkit.co/active_storage/sfx/1538/1538.wav",
+   "page": "https://mixkit.co/free-sound-effects/car/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.1607
+  },
+  {
+   "key": "whoosh__stutter",
+   "use": "4D tunnel",
+   "title": "Cinematic whoosh stutter",
+   "url": "https://assets.mixkit.co/active_storage/sfx/787/787.wav",
+   "page": "https://mixkit.co/free-sound-effects/whoosh/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.3885
+  },
+  {
+   "key": "whoosh__fast_air_zoom",
+   "use": "4D note flies at lens",
+   "title": "Fast air zoom",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2625/2625.wav",
+   "page": "https://mixkit.co/free-sound-effects/wind/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0473
+  },
+  {
+   "key": "boom__bass_hit_short",
+   "use": "beat hits",
+   "title": "Short bass hit",
+   "url": "https://assets.mixkit.co/active_storage/sfx/2299/2299.wav",
+   "page": "https://mixkit.co/free-sound-effects/bass/",
+   "license": "Mixkit Sound Effects Free License",
+   "author": "Mixkit (Envato)",
+   "trim": 0.0564
+  }
+ ],
+ "music": [
+  {
+   "key": "epical_drums_02",
+   "use": "score (track 48.34 s -> film 0; the drop at 57.84 s lands on the vault door opening)",
+   "title": "Epical Drums 02",
+   "author": "Grigoriy Nuzhny",
+   "url": "https://assets.mixkit.co/music/677/677.mp3",
+   "page": "https://mixkit.co/free-stock-music/",
+   "license": "Mixkit Stock Music Free License",
+   "bpm": 120.0,
+   "beat_grid": "0.340 + k*0.5 s"
+  }
+ ]
+}

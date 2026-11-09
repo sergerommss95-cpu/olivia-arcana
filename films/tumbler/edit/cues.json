@@ -1,0 +1,362 @@
+{
+ "music": {
+  "key": "epical_drums_02",
+  "offset_s": 48.34,
+  "gain_db": -3.0,
+  "fade_in_s": 0.4,
+  "fade_out_s": 2.5,
+  "note": "track 48.34 s = film 0: beats land on every 12th frame; the 1-bar suck-out covers 2B (bolt clunks in near-silence) and the drop (57.84 s) lands 1 s into 2C as the door swings open"
+ },
+ "cues": [
+  {
+   "key": "clock__tick_single_closemic",
+   "shot": "1A",
+   "f": 4,
+   "gain_db": -10
+  },
+  {
+   "key": "clock__tick_single_closemic",
+   "shot": "1A",
+   "f": 10,
+   "gain_db": -12
+  },
+  {
+   "key": "clock__watch_crown_spin",
+   "shot": "1A",
+   "f": 13,
+   "gain_db": -4
+  },
+  {
+   "key": "mech__gear_lock_metallic",
+   "shot": "1A",
+   "f": 23,
+   "gain_db": -2
+  },
+  {
+   "key": "clock__tick_single_closemic",
+   "shot": "1A",
+   "f": 38,
+   "gain_db": -6
+  },
+  {
+   "key": "mech__gear_lock_fast_tap",
+   "shot": "1B",
+   "f": 0,
+   "gain_db": -3,
+   "pan": -0.2
+  },
+  {
+   "key": "mech__gear_lock_fast_tap",
+   "shot": "1B",
+   "f": 12,
+   "gain_db": -3,
+   "rate": 0.95
+  },
+  {
+   "key": "mech__gear_lock_fast_tap",
+   "shot": "1B",
+   "f": 24,
+   "gain_db": -2,
+   "pan": 0.2,
+   "rate": 0.9
+  },
+  {
+   "key": "mech__tool_click",
+   "shot": "1B",
+   "f": 6,
+   "gain_db": -14,
+   "dur_s": 0.4
+  },
+  {
+   "key": "mech__tool_click",
+   "shot": "1B",
+   "f": 18,
+   "gain_db": -14,
+   "dur_s": 0.4
+  },
+  {
+   "key": "mech__gear_lock",
+   "shot": "1C",
+   "f": 5,
+   "gain_db": -2
+  },
+  {
+   "key": "metal__slam_factory_hard_hit",
+   "shot": "1C",
+   "f": 15,
+   "gain_db": -1
+  },
+  {
+   "key": "whoosh__fast_swoosh",
+   "shot": "1C",
+   "f": 30,
+   "gain_db": -3,
+   "pan": 0.3
+  },
+  {
+   "key": "whoosh__cinematic_fast",
+   "shot": "2A",
+   "f": 0,
+   "gain_db": -6,
+   "dt": -0.15
+  },
+  {
+   "key": "elec__hum_low",
+   "shot": "2A",
+   "f": 0,
+   "gain_db": -20,
+   "dur_s": 4.0,
+   "fade_s": 1.0
+  },
+  {
+   "key": "servo__mech_movements",
+   "shot": "2A",
+   "f": 14,
+   "gain_db": -6
+  },
+  {
+   "key": "riser__trailer_short",
+   "shot": "2B",
+   "f": 0,
+   "gain_db": -12
+  },
+  {
+   "key": "servo__pneumatic_release",
+   "shot": "2B",
+   "f": 0,
+   "gain_db": -4,
+   "pan": -0.3
+  },
+  {
+   "key": "metal__hammer_hit",
+   "shot": "2B",
+   "f": 1,
+   "gain_db": -3,
+   "rate": 0.8
+  },
+  {
+   "key": "servo__pneumatic_release",
+   "shot": "2B",
+   "f": 12,
+   "gain_db": -4,
+   "pan": 0.1,
+   "rate": 0.95
+  },
+  {
+   "key": "metal__hammer_hit",
+   "shot": "2B",
+   "f": 13,
+   "gain_db": -2,
+   "rate": 0.75
+  },
+  {
+   "key": "servo__pneumatic_release",
+   "shot": "2B",
+   "f": 24,
+   "gain_db": -3,
+   "pan": 0.3,
+   "rate": 0.9
+  },
+  {
+   "key": "metal__hammer_hit",
+   "shot": "2B",
+   "f": 25,
+   "gain_db": -1,
+   "rate": 0.7
+  },
+  {
+   "key": "servo__hydraulic_door",
+   "shot": "2C",
+   "f": 0,
+   "gain_db": -6,
+   "rate": 0.8
+  },
+  {
+   "key": "metal__slam_submarine",
+   "shot": "2C",
+   "f": 2,
+   "gain_db": -4
+  },
+  {
+   "key": "servo__robot_mechanism",
+   "shot": "2C",
+   "f": 6,
+   "gain_db": -12
+  },
+  {
+   "key": "boom__big_cinematic_impact",
+   "shot": "2C",
+   "f": 24,
+   "gain_db": -3
+  },
+  {
+   "key": "whoosh__speeding",
+   "shot": "3A",
+   "f": 0,
+   "gain_db": -6
+  },
+  {
+   "key": "elec__powerup_static",
+   "shot": "3A",
+   "f": 2,
+   "gain_db": -14
+  },
+  {
+   "key": "mech__gear_shuffle",
+   "shot": "3B",
+   "f": 2,
+   "gain_db": -8
+  },
+  {
+   "key": "mech__gear_shuffle",
+   "shot": "3B",
+   "f": 8,
+   "gain_db": -9,
+   "rate": 0.92
+  },
+  {
+   "key": "mech__gear_shuffle",
+   "shot": "3B",
+   "f": 14,
+   "gain_db": -10,
+   "rate": 0.85
+  },
+  {
+   "key": "metal__clank_plate_drop",
+   "shot": "3B",
+   "f": 4,
+   "gain_db": -12
+  },
+  {
+   "key": "metal__clank_plate_drop",
+   "shot": "3B",
+   "f": 16,
+   "gain_db": -14,
+   "rate": 0.9
+  },
+  {
+   "key": "metal__resonant_whoosh_hit",
+   "shot": "3C",
+   "f": 0,
+   "gain_db": -10
+  },
+  {
+   "key": "whoosh__tunnel_reverb_long",
+   "shot": "3D",
+   "f": 8,
+   "gain_db": -6
+  },
+  {
+   "key": "boom__sub_knock",
+   "shot": "4A",
+   "f": 0,
+   "gain_db": -3
+  },
+  {
+   "key": "car__engine_start",
+   "shot": "4A",
+   "f": 16,
+   "gain_db": -4
+  },
+  {
+   "key": "car__passby_fast_mixkit",
+   "shot": "4A",
+   "f": 30,
+   "gain_db": -4,
+   "pan": 0.4
+  },
+  {
+   "key": "paper__rustle",
+   "shot": "4A",
+   "f": 36,
+   "gain_db": -12
+  },
+  {
+   "key": "car__passby_fast_mixkit",
+   "shot": "4B",
+   "f": 0,
+   "gain_db": 0,
+   "dt": -0.35
+  },
+  {
+   "key": "whoosh__fast_air",
+   "shot": "4B",
+   "f": 6,
+   "gain_db": -8
+  },
+  {
+   "key": "paper__rustle",
+   "shot": "4B",
+   "f": 8,
+   "gain_db": -8
+  },
+  {
+   "key": "car__passby_fast_mixkit",
+   "shot": "4C",
+   "f": 6,
+   "gain_db": -6,
+   "rate": 0.9,
+   "pan": -0.3
+  },
+  {
+   "key": "paper__quick_movement",
+   "shot": "4C",
+   "f": 20,
+   "gain_db": -10
+  },
+  {
+   "key": "whoosh__stutter",
+   "shot": "4D",
+   "f": 0,
+   "gain_db": -8
+  },
+  {
+   "key": "whoosh__fast_air_zoom",
+   "shot": "4D",
+   "f": 26,
+   "gain_db": -4
+  },
+  {
+   "key": "paper__quick_movement",
+   "shot": "4D",
+   "f": 33,
+   "gain_db": -2
+  },
+  {
+   "key": "paper__slide",
+   "shot": "5A",
+   "f": 2,
+   "gain_db": -8
+  },
+  {
+   "key": "clock__tick_single_closemic",
+   "shot": "5A",
+   "f": 24,
+   "gain_db": -8
+  },
+  {
+   "key": "clock__tick_single_closemic",
+   "shot": "5A",
+   "f": 36,
+   "gain_db": -8
+  },
+  {
+   "key": "mech__gear_lock_metallic",
+   "shot": "5A",
+   "f": 44,
+   "gain_db": -4
+  },
+  {
+   "key": "hit__trailer_logo_impact",
+   "shot": "5B",
+   "f": 0,
+   "gain_db": -2
+  },
+  {
+   "key": "boom__blockbuster_deep_drum",
+   "shot": "5B",
+   "f": 0,
+   "gain_db": -7
+  }
+ ]
+}

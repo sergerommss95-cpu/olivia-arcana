@@ -1,0 +1,165 @@
+{
+ "fps": 24,
+ "bpm": 120,
+ "frames_per_beat": 12,
+ "handles": 6,
+ "render_res": [
+  1280,
+  536
+ ],
+ "final_res": [
+  1920,
+  1080
+ ],
+ "active_band": [
+  1920,
+  804
+ ],
+ "shots": [
+  {
+   "id": "1A",
+   "script": "shots/act1_lock.py",
+   "cut_frames": 48,
+   "render_frames": 60,
+   "cut_in": 7,
+   "cut_out": 54,
+   "desc": "Dial macro: light sweep, whip spin, hard stop on 40"
+  },
+  {
+   "id": "1B",
+   "script": "shots/act1_lock.py",
+   "cut_frames": 36,
+   "render_frames": 48,
+   "cut_in": 7,
+   "cut_out": 42,
+   "desc": "Wheel pack: gates align one per beat under the fence"
+  },
+  {
+   "id": "1C",
+   "script": "shots/act1_lock.py",
+   "cut_frames": 36,
+   "render_frames": 48,
+   "cut_in": 7,
+   "cut_out": 42,
+   "desc": "Fence drops, bolt slams, whip-pan out (T1)"
+  },
+  {
+   "id": "2A",
+   "script": "shots/act2_door.py",
+   "cut_frames": 48,
+   "render_frames": 60,
+   "cut_in": 7,
+   "cut_out": 54,
+   "desc": "Whip-in onto the vault door hub, pull back to reveal the door, hand wheel spins"
+  },
+  {
+   "id": "2B",
+   "script": "shots/act2_door.py",
+   "cut_frames": 36,
+   "render_frames": 48,
+   "cut_in": 7,
+   "cut_out": 42,
+   "desc": "Radial locking bolts retract in 4 groups on 4 beats"
+  },
+  {
+   "id": "2C",
+   "script": "shots/act2_door.py",
+   "cut_frames": 48,
+   "render_frames": 60,
+   "cut_in": 7,
+   "cut_out": 54,
+   "desc": "Door swings open, warm light + haze pour out, camera pushes through"
+  },
+  {
+   "id": "3A",
+   "script": "shots/act3_vault.py",
+   "cut_frames": 48,
+   "render_frames": 60,
+   "cut_in": 7,
+   "cut_out": 54,
+   "desc": "FPV down the deposit-box aisle threading red laser beams toward the gold"
+  },
+  {
+   "id": "3B",
+   "script": "shots/act3_vault.py",
+   "cut_frames": 36,
+   "render_frames": 48,
+   "cut_in": 7,
+   "cut_out": 42,
+   "desc": "Deposit-box doors fly open in a wave"
+  },
+  {
+   "id": "3C",
+   "script": "shots/act3_vault.py",
+   "cut_frames": 36,
+   "render_frames": 48,
+   "cut_in": 7,
+   "cut_out": 42,
+   "desc": "Macro across stamped gold bars, light sweep"
+  },
+  {
+   "id": "3D",
+   "script": "shots/act3_vault.py",
+   "cut_frames": 24,
+   "render_frames": 36,
+   "cut_in": 7,
+   "cut_out": 30,
+   "desc": "Head-on pull back on the deposit-box grid (T3)"
+  },
+  {
+   "id": "4A",
+   "script": "shots/act4_city.py",
+   "cut_frames": 48,
+   "render_frames": 60,
+   "cut_in": 7,
+   "cut_out": 54,
+   "desc": "Tower window grid (T3) -> drop down the facade to the wet street, car bursts out"
+  },
+  {
+   "id": "4B",
+   "script": "shots/act4_city.py",
+   "cut_frames": 24,
+   "render_frames": 36,
+   "cut_in": 7,
+   "cut_out": 30,
+   "desc": "Low on asphalt: car passes inches from lens, banknotes swirl"
+  },
+  {
+   "id": "4C",
+   "script": "shots/act4_city.py",
+   "cut_frames": 36,
+   "render_frames": 48,
+   "cut_in": 7,
+   "cut_out": 42,
+   "desc": "Tracking alongside: police light reflections slide over black paint"
+  },
+  {
+   "id": "4D",
+   "script": "shots/act4_city.py",
+   "cut_frames": 36,
+   "render_frames": 48,
+   "cut_in": 7,
+   "cut_out": 42,
+   "desc": "Rear chase into tunnel; a banknote flies at lens and fills frame (T4)"
+  },
+  {
+   "id": "5A",
+   "script": "shots/act5_title.py",
+   "cut_frames": 48,
+   "render_frames": 60,
+   "cut_in": 7,
+   "cut_out": 54,
+   "desc": "Banknote guilloche rosette turns -> dissolves into the dial, clicks to 0"
+  },
+  {
+   "id": "5B",
+   "script": "shots/act5_title.py",
+   "cut_frames": 60,
+   "render_frames": 72,
+   "cut_in": 7,
+   "cut_out": 66,
+   "desc": "Title TUMBLER machined in steel, wheels turning behind, light sweep, to black"
+  }
+ ],
+ "total_cut_frames": 648
+}

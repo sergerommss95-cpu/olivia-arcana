@@ -1,0 +1,154 @@
+{
+ "shots": [
+  {
+   "id": "1A",
+   "in": 7,
+   "out": 54,
+   "grade": "act1",
+   "tin": {
+    "type": "cut"
+   },
+   "fade_in": 8
+  },
+  {
+   "id": "1B",
+   "in": 7,
+   "out": 42,
+   "grade": "act1",
+   "tin": {
+    "type": "cut"
+   }
+  },
+  {
+   "id": "1C",
+   "in": 7,
+   "out": 42,
+   "grade": "act1",
+   "tin": {
+    "type": "cut"
+   },
+   "whip_out": 3
+  },
+  {
+   "id": "2A",
+   "in": 7,
+   "out": 54,
+   "grade": "act2",
+   "tin": {
+    "type": "whip",
+    "n": 3
+   }
+  },
+  {
+   "id": "2B",
+   "in": 7,
+   "out": 42,
+   "grade": "act2",
+   "tin": {
+    "type": "cut"
+   }
+  },
+  {
+   "id": "2C",
+   "in": 7,
+   "out": 54,
+   "grade": "act2",
+   "tin": {
+    "type": "cut"
+   }
+  },
+  {
+   "id": "3A",
+   "in": 7,
+   "out": 54,
+   "grade": "act3",
+   "tin": {
+    "type": "cut"
+   }
+  },
+  {
+   "id": "3B",
+   "in": 7,
+   "out": 42,
+   "grade": "act3",
+   "tin": {
+    "type": "cut"
+   }
+  },
+  {
+   "id": "3C",
+   "in": 7,
+   "out": 42,
+   "grade": "act3",
+   "tin": {
+    "type": "cut"
+   }
+  },
+  {
+   "id": "3D",
+   "in": 7,
+   "out": 30,
+   "grade": "act3",
+   "tin": {
+    "type": "cut"
+   }
+  },
+  {
+   "id": "4A",
+   "in": 7,
+   "out": 54,
+   "grade": "act4",
+   "tin": {
+    "type": "luma",
+    "n": 10
+   }
+  },
+  {
+   "id": "4B",
+   "in": 7,
+   "out": 30,
+   "grade": "act4",
+   "tin": {
+    "type": "cut"
+   }
+  },
+  {
+   "id": "4C",
+   "in": 7,
+   "out": 42,
+   "grade": "act4",
+   "tin": {
+    "type": "cut"
+   }
+  },
+  {
+   "id": "4D",
+   "in": 7,
+   "out": 42,
+   "grade": "act4",
+   "tin": {
+    "type": "cut"
+   }
+  },
+  {
+   "id": "5A",
+   "in": 7,
+   "out": 54,
+   "grade": "act5",
+   "tin": {
+    "type": "dissolve",
+    "n": 4
+   }
+  },
+  {
+   "id": "5B",
+   "in": 7,
+   "out": 66,
+   "grade": "act5",
+   "tin": {
+    "type": "cut"
+   },
+   "fade_out": 18
+  }
+ ]
+}

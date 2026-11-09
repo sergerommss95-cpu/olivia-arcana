@@ -1,0 +1,10 @@
+out/
+tests/
+renders/
+blend/
+audio/raw/
+audio/sfx/
+audio/music/
+*.mp4
+*.mov
+__pycache__/
