@@ -154,6 +154,7 @@ def shot_street(night=True):
         cam_at('CamDusk', (6.8, -13.0, 5.6), (-0.6, 20.0, 5.2), 36.0, 5.6, foc, roll=0.0)
 
 
+reset()
 if SHOT == 'S08':
     shot_office(dusk=False)
 elif SHOT == 'S38':

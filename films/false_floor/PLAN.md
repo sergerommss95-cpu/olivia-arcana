@@ -96,7 +96,7 @@ animated shots go to the GPU once you approve the look.
 ## 7. Look lock and quality bar
 
 - **9 Nov 2026: SF1 (forced box wall, `stills/SF1_vault_v01.jpg`) approved by Collin** as the look reference for every
-  3D shot. SF3 (section) and SF2 (woods) pending his notes.
+  3D shot. **SF3 (building section) approved** ("good") as the reference for the section/motion-graphic look. SF2 (woods) pending his notes.
 - Collin's rule: **everything must be cinematic and well made.** In practice, every shot must have:
   - a clear focal subject and depth layers (soft foreground, sharp subject, background falling into darkness or haze);
   - motivated light only (practicals, fluorescent tubes, a doorway, daylight), mostly in shadow, small bright highlights,
