@@ -41,14 +41,14 @@ def build_timeline(shots, vo):
     for i, s in enumerate(shots):
         b = beats[s['id']]
         seg = b['end'] - b['start']
-        hold = 0.9
+        hold = 1.0
         if s['kind'] in ('3D', '3DS'):
-            hold += 0.4
+            hold += 0.7
         if 'DROP' in s['shot'] or 'freeze' in s['shot'].lower():
             hold += 0.8
         nxt = shots[i + 1] if i + 1 < len(shots) else None
         if nxt and beats[nxt['id']]['chapter'] != b['chapter']:
-            hold += 1.6                                   # chapter breath
+            hold += 2.6                                   # chapter breath
         if not nxt:
             hold += 2.5
         lead = 0.25 if i else 0.8
@@ -337,7 +337,7 @@ def mix(tl, total, vo_path, out_wav, music=None, music_gain=-22.0, music_offset=
 
 
 def main():
-    vo_path = os.path.join(FF, arg('--vo', 'out/vo/vo_temp_v01'))
+    vo_path = os.path.join(FF, arg('--vo', 'out/vo/vo_george_v01'))
     out = os.path.join(FF, arg('--out', 'out/FALSE_FLOOR_E02_v01.mp4'))
     preview = bool(arg('--preview'))
     shots = json.load(open(os.path.join(FF, 'script', 'SHOTS_v2.json')))['shots']

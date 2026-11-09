@@ -198,5 +198,13 @@
   "source": "ElevenLabs sound generation",
   "account": "Collin's ElevenLabs (Creator)",
   "generated": "2026-11-09 14:07"
+ },
+ "slab_slide": {
+  "file": "el__slab_slide.wav",
+  "duration_s": 3,
+  "prompt": "A heavy concrete slab sliding slowly with low grinding friction, then settling with a soft thud. Realistic documentary foley, isolated, dry, no music, no voices.",
+  "source": "ElevenLabs sound generation",
+  "account": "Collin's ElevenLabs (Creator)",
+  "generated": "2026-11-09 14:07"
  }
 }

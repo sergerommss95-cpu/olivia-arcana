@@ -544,12 +544,12 @@ def build_tweezers(name, loc, rot_z, M, coll=None, L=0.162, spread=0.0075):
             if t > 0.92:
                 gap = 0.0004
             path.append(Vector((x, side * (gap + 0.0012), 0.0008)))
-        width = lambda t: 0.0042 * (1 - t) + 0.0011 * t if t < 0.85 else 0.0011 * (1 - (t - 0.85) / 0.15 * 0.55)
+        width = lambda t: 0.0058 * (1 - t) + 0.0017 * t if t < 0.85 else 0.0017 * (1 - (t - 0.85) / 0.15 * 0.6)
         rings = []
         for i, P in enumerate(path):
             t = i / n
             w = width(t)
-            th = 0.0011 if t > 0.1 else 0.0016
+            th = 0.0013 if t > 0.1 else 0.0018
             T = (path[min(i + 1, n)] - path[max(i - 1, 0)]).normalized()
             N = Vector((-T.y, T.x, 0))
             sec = [(-w / 2, -th / 2), (w / 2, -th / 2), (w / 2, th / 2), (-w / 2, th / 2)]
@@ -652,7 +652,7 @@ def brilliant(name, loc, r, mat, coll=None, rot=(0, 0, 0)):
 
 # ============================================================================ S08 / S38: the office
 
-OFF = dict(x0=-1.9, x1=2.5, y1=4.1, H=2.65, door=(-0.45, 0.45, 2.05), win=(-0.55, 2.15, 0.88, 2.36),
+OFF = dict(x0=-1.9, x1=2.5, y1=4.1, H=2.65, door=(-0.45, 0.45, 2.05), win=(-1.5, 1.1, 0.88, 2.36),
            cor=(-4.2, 4.2, -2.6), cor_h=2.6, t=0.12)
 
 
@@ -1046,7 +1046,7 @@ def build_office(M, coll=None, door_angle=78.0, blinds_tilt=48.0, lamp_on=False,
              bev=0.002)
     A['slats'] = build_blinds(M, coll, wx0 - 0.04, wx1 + 0.04, wz0 + 0.0, wz1 + 0.05, y1 - 0.03, tilt=blinds_tilt)
     # desk (front faces the door / camera, -Y)
-    DX, DY, DZ = 0.95, 2.85, 0.74
+    DX, DY, DZ = -0.38, 2.85, 0.74
     W, D = 1.55, 0.78
     rbox('DeskTop', (W, D, 0.028), (DX, DY, DZ - 0.014), M['desk_top'], bev=0.003)
     rbox('DeskEdgeF', (W + 0.002, 0.004, 0.03), (DX, DY - D / 2 - 0.001, DZ - 0.014), M['desk_edge'], bev=0.0015)
@@ -1065,7 +1065,7 @@ def build_office(M, coll=None, door_angle=78.0, blinds_tilt=48.0, lamp_on=False,
     rbox('Blotter', (0.56, 0.4, 0.004), (DX - 0.12, DY - 0.08, top + 0.002), M['blotter'], bev=0.0015)
     build_balance(M, coll, (DX - 0.56, DY + 0.08, top), math.radians(18))
     build_phone(M, coll, (DX + 0.48, DY - 0.08, top), math.radians(-24))
-    lamp, LL = build_desk_lamp(M, coll, (DX + 0.6, DY + 0.27, top), math.radians(35), on=lamp_on, energy=lamp_energy)
+    lamp, LL = build_desk_lamp(M, coll, (DX + 0.6, DY + 0.27, top), math.radians(-32), on=lamp_on, energy=lamp_energy)
     A['lamp_light'] = LL
     for k in range(5):
         rbox(f'Paper{k}', (0.21, 0.297, 0.0004), (DX + 0.17 + k * 0.002, DY + 0.16 - k * 0.003, top + 0.0003 + k * 0.0005),
@@ -1075,12 +1075,12 @@ def build_office(M, coll=None, door_angle=78.0, blinds_tilt=48.0, lamp_on=False,
         build_closed_parcel(f'DeskParcel{k}', (DX - 0.21 + 0.004 * k, DY - 0.15 - 0.002 * k, top + 0.004 + 0.0034 * k),
                             math.radians(12 + 7 * k), M, coll, seed=k + 3)
     build_pen('DeskPen', (DX - 0.02, DY - 0.17, top + 0.004), math.radians(70), M, coll)
-    A['chair'] = build_task_chair(M, coll, (DX - 0.06, DY + 0.66, 0.0), math.radians(160 + 24))
+    A['chair'] = build_task_chair(M, coll, (DX - 0.12, DY + 0.68, 0.0), math.radians(200))
     # grey filing cabinet against the right wall
-    rbox('Cabinet', (0.47, 0.62, 0.72), (x1 - 0.26, 3.55, 0.36), M['metal_grey'], bev=0.005)
+    rbox('Cabinet', (0.47, 0.62, 0.72), (x0 + 0.26, 1.9, 0.36), M['metal_grey'], bev=0.005)
     for k in range(2):
-        rbox('CabDrawer', (0.008, 0.56, 0.32), (x1 - 0.497, 3.55, 0.18 + k * 0.36), M['metal_grey'], bev=0.003)
-        rbox('CabHandle', (0.02, 0.12, 0.02), (x1 - 0.51, 3.55, 0.3 + k * 0.36), M['alu'], bev=0.004)
+        rbox('CabDrawer', (0.008, 0.56, 0.32), (x0 + 0.497, 1.9, 0.18 + k * 0.36), M['metal_grey'], bev=0.003)
+        rbox('CabHandle', (0.02, 0.12, 0.02), (x0 + 0.51, 1.9, 0.3 + k * 0.36), M['alu'], bev=0.004)
     # coat stand by the left wall (silhouette depth)
     cyl('CoatPole', (x0 + 0.35, 3.6, 0.88), 0.016, 1.76, M['lamp_paint'], seg=16)
     cyl('CoatBase', (x0 + 0.35, 3.6, 0.015), 0.2, 0.03, M['lamp_paint'], seg=32, bev=0.004)
@@ -1092,8 +1092,8 @@ def build_office(M, coll=None, door_angle=78.0, blinds_tilt=48.0, lamp_on=False,
         hk = ob('CoatHook', bm, [M['lamp_paint']], coll, smooth=40)
         hk.location = (x0 + 0.35, 3.6, 0)
     # ceiling troffer (off)
-    rbox('Troffer', (0.6, 1.2, 0.02), (DX - 0.2, 2.2, H - 0.008), M['alu'], bev=0.002)
-    rbox('TrofferLens', (0.56, 1.16, 0.004), (DX - 0.2, 2.2, H - 0.019), mat_principled('Diffuser', color=(0.6, 0.6, 0.6), rough=0.3,
+    rbox('Troffer', (0.6, 1.2, 0.02), (DX, 2.2, H - 0.008), M['alu'], bev=0.002)
+    rbox('TrofferLens', (0.56, 1.16, 0.004), (DX, 2.2, H - 0.019), mat_principled('Diffuser', color=(0.6, 0.6, 0.6), rough=0.3,
                                                                                          transmission=0.5), bev=0)
     return A
 
@@ -1105,8 +1105,8 @@ def table_mats():
     M['desk_dark'] = mat_wood('DealerDesk', light=(0.16, 0.085, 0.04), dark=(0.05, 0.025, 0.012), along='X', scale=2.5,
                               rough=(0.3, 0.5), coat=0.45, coat_rough=0.1, lines=520.0)
     M['pad'] = mat_leather('DeskPad', color=(0.012, 0.012, 0.013), rough=(0.4, 0.62), grain=1.2, worn=0.2, bump=0.15)
-    M['liner'] = mat_paper('Liner', color=(0.36, 0.52, 0.74), rough=0.7, sss=0.08, fiber=0.05, scale=1.6)
-    M['paper_white'] = mat_paper('DiamondPaperW', color=(0.80, 0.80, 0.78), rough=0.45)
+    M['liner'] = mat_paper('Liner', color=(0.33, 0.48, 0.70), rough=0.7, sss=0.0, fiber=0.05, scale=1.6)
+    M['paper_white'] = mat_paper('DiamondPaperW', color=(0.80, 0.80, 0.78), rough=0.45, sss=0.0)
     M['stone'] = mat_rough_diamond('RoughDiamond')
     M['polished'] = mat_principled('Polished', color=(1.0, 1.0, 1.0), rough=0.01, transmission=1.0, ior=2.42)
     M['steel_brushed'] = mat_metal('BrushedSteel', base=(0.66, 0.66, 0.67), rough=(0.16, 0.26), scale=30.0, bump=0.001,
@@ -1116,8 +1116,8 @@ def table_mats():
     return M
 
 
-def build_open_parcel(name, loc, rot_z, M, coll=None, c=0.090, e=0.040, a=0.046, side_open=(14.0, 22.0),
-                      end_open=(38.0, 30.0), res=0.0014, seed=2):
+def build_open_parcel(name, loc, rot_z, M, coll=None, c=0.090, e=0.040, a=0.046, side_open=(7.0, 12.0),
+                      end_open=(17.0, 11.0), res=0.0014, seed=2):
     """Diamond paper opened: the centre panel flat (blue liner up), side flaps and end flaps lifted at different
     angles with crease memory and light crumple. Top surface = liner (slot 0), underside = white paper (slot 1)."""
     L, W = c + 2 * e, 3 * a
@@ -1135,14 +1135,14 @@ def build_open_parcel(name, loc, rot_z, M, coll=None, c=0.090, e=0.040, a=0.046,
             if abs(v) > a / 2:
                 sg = 1 if v > 0 else -1
                 d = abs(v) - a / 2
-                ang = math.radians(side_open[0 if sg > 0 else 1]) * (1 + 0.6 * min(1.0, d / a))
+                ang = math.radians(side_open[0 if sg > 0 else 1]) * (1 + 0.5 * min(1.0, d / a)) - 0.12 * max(0.0, d / a - 0.6)
                 y = sg * (a / 2 + d * math.cos(ang))
                 z = d * math.sin(ang)
             # end flaps: rotate the (x, z) about u = +-c/2
             if abs(u) > c / 2:
                 sg = 1 if u > 0 else -1
                 d = abs(u) - c / 2
-                ang = math.radians(end_open[0 if sg > 0 else 1]) * (1 + 0.4 * min(1.0, d / e))
+                ang = math.radians(end_open[0 if sg > 0 else 1]) * (1 + 0.3 * min(1.0, d / e))
                 x = sg * (c / 2 + d * math.cos(ang) - z * math.sin(ang))
                 z = d * math.sin(ang) + z * math.cos(ang)
             # centre panel sags slightly into a shallow valley; crumple

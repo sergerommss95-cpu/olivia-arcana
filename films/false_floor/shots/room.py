@@ -36,10 +36,16 @@ def walls(state):
     if state == 'after':      # the SF1 walls exactly (same seeds / forced ratios)
         r = build_wall(M, y0=WALL_Y0, cols=22, rows=13, seed=7, forced=0.6, side=1)
         l = build_wall(M, y0=WALL_Y0, cols=22, rows=13, seed=19, forced=0.5, side=-1)
+        for w in (r, l):      # torn-off doors kept clear of the sorted loot and the S02 hero props
+            clear_loose(w, [(LOOT_C[0], LOOT_C[1], 0.8), (HERO_C[0], HERO_C[1], 0.36)])
     else:
         r = build_wall(M, y0=WALL_Y0, cols=22, rows=13, seed=7, side=1, closed=True)
         l = build_wall(M, y0=WALL_Y0, cols=22, rows=13, seed=19, side=-1, closed=True)
     return r, l
+
+
+LOOT_C = (0.15, 3.0)
+HERO_C = (0.8, 2.62)
 
 
 def debris_after(avoid=None):
@@ -392,15 +398,15 @@ elif SHOT == 'S28':
     walls('after')
     sensors(taped=True, led=False)
     C = (0.15, 3.0)
-    debris_after(avoid=[(C[0], C[1], 0.72)])
+    debris_after(avoid=[(C[0], C[1], 0.78)])
     sorted_loot(M, C)
     fx = fixtures()
     cream_key(pos=(-1.05, 1.2, 2.5), aim=(0.6, 3.2, 0.2), energy=34.0)
     light('AREA', 'Bounce', (0.0, -0.4, 0.6), energy=2.5, color=kelvin(5200), size=2.0, target=(0.5, 2.5, 0.8))
-    foc = empty('FocusS28', (-0.05, 3.08, 0.0))
-    cam = lens_cam('CamS28', 32, 3.2, foc)
-    cam.location = (-0.72, 1.82, 0.36)
-    look_at(cam, (0.42, 3.55, 0.06))
+    foc = empty('FocusS28', (C[0] - 0.42, C[1] + 0.06, 0.01))
+    cam = lens_cam('CamS28', 32, 4.0, foc)
+    cam.location = (-0.88, 2.84, 0.3)
+    look_at(cam, (0.62, 3.12, 0.04))
 
 elif SHOT == 'S45a':
     # Counter-evidence: the light sensor on the ceiling under black tape, the room lights burning right beside it.
@@ -414,9 +420,9 @@ elif SHOT == 'S45a':
     light('AREA', 'FloorBounce', (-0.2, 4.4, 0.05), energy=5.0, color=kelvin(4400), size=1.2, target=(-0.2, 4.7, 2.9))
     lsw = Vector(LIGHT_SENSOR)
     foc = empty('FocusS45a', tuple(lsw + Vector((0, 0, -0.015))))
-    cam = lens_cam('CamS45a', 30, 2.4, foc)
-    cam.location = (0.34, 3.55, 1.62)
-    look_at(cam, (-0.16, 4.72, 2.86))
+    cam = lens_cam('CamS45a', 32, 2.8, foc)
+    cam.location = (0.3, 4.05, 1.95)
+    look_at(cam, (-0.14, 4.82, 2.86))
 
 elif SHOT == 'S45b':
     # Counter-evidence: the sorted loot on the lit floor, seen from above like a scene photograph.
@@ -424,7 +430,7 @@ elif SHOT == 'S45b':
     walls('after')
     sensors(taped=True, led=False)
     C = (0.15, 3.0)
-    debris_after(avoid=[(C[0], C[1], 0.72)])
+    debris_after(avoid=[(C[0], C[1], 0.78)])
     sorted_loot(M, C)
     fx = fixtures()
     cream_key(pos=(-1.05, 2.0, 2.6), aim=(0.3, 3.1, 0.0), energy=30.0)

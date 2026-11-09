@@ -366,6 +366,10 @@ def mats_room(M):
                           brushed=(1.0, 1.0, 40.0))
     M['wallconc'] = mat_concrete('EndConcrete', base=(0.07, 0.072, 0.075), wet=0.0, scale=1.5, contrast=0.4)
     M['ceil'] = mat_concrete('CeilConc', base=(0.045, 0.046, 0.048), wet=0.0, scale=1.8, contrast=0.35)
+    for k, sv in (('ceil', 0.04), ('wallconc', 0.1)):       # less 'hammered' than the stock voronoi bump
+        for n in M[k].node_tree.nodes:
+            if n.bl_idname == 'ShaderNodeBump':
+                n.inputs['Strength'].default_value = sv
     M['spray'] = mat_principled('SprayDrop', color=(0.95, 0.95, 0.93), rough=0.05, transmission=0.9, ior=1.36)
     return M
 
@@ -838,10 +842,10 @@ def pouch_empty(M, name, loc, rz=0.0, mat=None, coll=None, seed=0, length=0.12, 
 
     def thick(u):
         if u < 0.66:
-            return 0.008 + 0.003 * math.sin(u * 9 + ph[0])
+            return 0.013 + 0.005 * math.sin(u * 9 + ph[0]) * math.sin(u * 3.1)
         if u < 0.82:
-            return 0.008 + 0.008 * (u - 0.66) / 0.16
-        return 0.016 - 0.004 * (u - 0.82) / 0.18
+            return 0.013 + 0.005 * (u - 0.66) / 0.16
+        return 0.018 - 0.004 * (u - 0.82) / 0.18
 
     bm = bmesh.new()
     rings = []
@@ -853,17 +857,20 @@ def pouch_empty(M, name, loc, rz=0.0, mat=None, coll=None, seed=0, length=0.12, 
         for iv in range(nv):
             v = 2 * math.pi * iv / nv
             ruff = 1 + (0.18 * math.sin(7 * v + ph[1]) if u > 0.82 else 0.0)
-            yv = w * math.cos(v) * ruff
-            zv = t / 2 * math.sin(v) * ruff
-            zv += 0.0015 * math.sin(x * 90 + ph[2]) * math.cos(yv * 70) * (1 if u < 0.7 else 0.4)
-            ring_.append(bm.verts.new((x, yv, zv + t / 2)))
+            w2 = w * (1 + 0.07 * math.sin(u * 11 + ph[0] + v) * (1 if u < 0.75 else 0.3))
+            yv = w2 * math.cos(v) * ruff
+            sv = math.sin(v)
+            zv = t / 2 * (sv if sv > 0 else 0.35 * sv) * ruff          # slumped: flat underside, soft top
+            if sv > 0 and u < 0.75:                                     # crushed-fabric folds on top
+                zv += sv * (0.0028 * math.sin(x * 140 + yv * 60 + ph[2]) + 0.0018 * math.sin(yv * 190 - x * 70 + ph[1]))
+            ring_.append(bm.verts.new((x, yv, zv + 0.35 * t / 2 + 0.0006)))
         rings.append(ring_)
     for iu in range(nu):
         a, b = rings[iu], rings[iu + 1]
         for iv in range(nv):
             j = (iv + 1) % nv
             bm.faces.new((a[iv], a[j], b[j], b[iv]))
-    c0 = bm.verts.new((-length / 2, 0, thick(0) / 2))
+    c0 = bm.verts.new((-length / 2, 0, 0.35 * thick(0) / 2 + 0.0006))
     for iv in range(nv):
         bm.faces.new((rings[0][(iv + 1) % nv], rings[0][iv], c0))
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
@@ -877,7 +884,7 @@ def pouch_empty(M, name, loc, rz=0.0, mat=None, coll=None, seed=0, length=0.12, 
     bpy.context.view_layer.update()
     mw = o.matrix_world
     xn = -length / 2 + 0.79 * length
-    loop = [mw @ Vector((xn, 0.0115 * math.cos(a), 0.0105 + 0.0085 * math.sin(a))) for a in
+    loop = [mw @ Vector((xn, 0.0108 * math.cos(a), 0.0068 + 0.0072 * math.sin(a))) for a in
             [2 * math.pi * k / 12 for k in range(13)]]
     cmat = M.get('cord_mat') or mat_principled('PouchCord', color=(0.5, 0.42, 0.25), rough=0.6, spec=0.3)
     M['cord_mat'] = cmat
@@ -1031,47 +1038,59 @@ def card(M, name, loc, rz=0.0, k=0, coll=None, z_tilt=0.0):
 
 
 def sorted_loot(M, center, seed=5, coll=None):
-    """What the crew left where they sorted the haul: piles by kind (torn envelopes, opened diamond papers, emptied
-    cases and trays, passports and cards, emptied pouches, a couple of rings). center: (x, y)."""
+    """What the crew left where they sorted the haul, grouped by kind with floor between the groups: a heap of torn
+    envelopes, a stack of opened diamond papers, a row of emptied cases, emptied trays, passports stacked + one open,
+    cards in a row, emptied pouches, two rings left behind. center: (x, y). Footprint ~1.2 x 1.0 m."""
     rng = random.Random(seed)
     cx, cy = center
     made = []
     # envelope heap
-    for i in range(16):
+    for i in range(18):
         a = rng.uniform(0, 2 * math.pi)
-        r = abs(rng.gauss(0, 0.07))
-        made += torn_envelope(M, f'SEnv{i}', (cx + 0.02 + r * math.cos(a), cy + 0.05 + r * math.sin(a), 0.0015 * i),
-                              rng.uniform(-0.6, 0.6) + (math.pi if i % 3 == 0 else 0),
+        r = abs(rng.gauss(0, 0.06))
+        made += torn_envelope(M, f'SEnv{i}', (cx + r * math.cos(a), cy + 0.26 + r * math.sin(a), 0.0016 * i),
+                              rng.uniform(-0.5, 0.5) + (math.pi if i % 3 == 0 else 0),
                               mat=M['white_env'] if rng.random() < 0.6 else M['kraft'], coll=coll, seed=100 + i,
-                              strip=(i % 4 == 0))
-    # opened diamond papers in a loose row
-    for i in range(9):
-        made.append(diamond_paper(M, f'SDp{i}', (cx + 0.28 + 0.06 * i + rng.uniform(-0.03, 0.03),
-                                                 cy + 0.3 + rng.uniform(-0.06, 0.06), 0.0005 * i),
-                                  rng.uniform(-0.4, 0.4) + 0.3, open_a=rng.uniform(0.3, 0.9), coll=coll, seed=200 + i))
-    # passports stacked askew + one open, cards fanned beside
+                              strip=(i % 5 == 0))
+    # opened diamond papers, a loose stack
+    for i in range(8):
+        made.append(diamond_paper(M, f'SDp{i}', (cx + 0.44 + rng.uniform(-0.05, 0.05), cy + 0.3 + rng.uniform(-0.04, 0.04),
+                                                 0.0025 * i), rng.uniform(-0.35, 0.35) + 0.2,
+                                  open_a=rng.uniform(0.15, 0.55), coll=coll, seed=200 + i))
+    # passports: a squared-up stack + one open beside it; cards in a row
     for i in range(4):
-        made.append(passport(M, f'SPass{i}', (cx - 0.38 + rng.uniform(-0.01, 0.01), cy + 0.12 + rng.uniform(-0.012, 0.012),
-                                              0.0057 * i), 0.4 + rng.uniform(-0.25, 0.25), coll=coll,
+        made.append(passport(M, f'SPass{i}', (cx - 0.42 + rng.uniform(-0.006, 0.006), cy + 0.06 + rng.uniform(-0.006, 0.006),
+                                              0.0057 * i), 0.08 + rng.uniform(-0.12, 0.12), coll=coll,
                              cover=M['passport'] if i != 2 else M['card'][0]))
-    made.append(passport(M, 'SPassOpen', (cx - 0.25, cy - 0.04, 0.0), 1.2, open_deg=24, coll=coll))
+    made.append(passport(M, 'SPassOpen', (cx - 0.4, cy - 0.13, 0.0), -0.05, open_deg=28, coll=coll))
     for i in range(7):
-        made.append(card(M, f'SCard{i}', (cx - 0.52 + 0.012 * i, cy - 0.06 + 0.006 * i, 0.0009 * i),
-                         0.2 + 0.11 * i, k=i, coll=coll))
-    # emptied containers
-    made.append(jewel_box(M, 'SJBox0', (cx + 0.36, cy - 0.12, 0), 0.5, coll=coll, mat=M['leather'][0]))
-    made.append(jewel_box(M, 'SJBox1', (cx + 0.45, cy - 0.02, 0), -0.4, lid_deg=120, coll=coll, mat=M['leather'][1]))
-    made.append(jewel_box(M, 'SJBox2', (cx + 0.5, cy - 0.26, 0), 2.6, kind='necklace', lid_deg=95, coll=coll,
-                          mat=M['leather'][2]))
-    made.append(deposit_tray(M, 'STray0', (cx + 0.12, cy - 0.38, 0), (0, 0, 0.15), coll=coll))
-    made.append(deposit_tray(M, 'STray1', (cx + 0.18, cy - 0.40, 0.056), (0, 0, -0.08), coll=coll))
-    made.append(deposit_tray(M, 'STray2', (cx - 0.12, cy - 0.5, 0.075), (math.radians(90), 0, 0.5), coll=coll))
+        made.append(card(M, f'SCard{i}', (cx - 0.62 + 0.024 * i, cy + 0.3, 0.0009 * i), 0.05 + rng.uniform(-0.05, 0.05),
+                         k=i, coll=coll))
+    # emptied cases in a row
+    kinds = [('ring', 0, 105), ('ring', 1, 118), ('ring', 2, 98), ('necklace', 0, 100)]
+    for i, (kd, mi, lid) in enumerate(kinds):
+        made.append(jewel_box(M, f'SJBox{i}', (cx + 0.12 + 0.11 * i + (0.06 if kd == 'necklace' else 0), cy - 0.16, 0),
+                              rng.uniform(-0.1, 0.1) + (math.pi / 2 if kd == 'necklace' else 0), kind=kd, lid_deg=lid,
+                              coll=coll, mat=M['leather'][mi]))
+    # emptied trays: two stacked crosswise, one turned over
+    made.append(deposit_tray(M, 'STray0', (cx + 0.02, cy - 0.47, 0), (0, 0, 0.06), coll=coll))
+    made.append(deposit_tray(M, 'STray1', (cx + 0.05, cy - 0.45, 0.056), (0, 0, -0.12), coll=coll))
+    made.append(deposit_tray(M, 'STray2', (cx + 0.42, cy - 0.5, 0.0565), (math.pi, 0, 0.4), coll=coll))
     # emptied pouches
     for i in range(3):
-        made.append(pouch_empty(M, f'SPouch{i}', (cx - 0.24 + 0.09 * i, cy - 0.27 + 0.03 * i, 0.0),
+        made.append(pouch_empty(M, f'SPouch{i}', (cx - 0.3 + 0.07 * i, cy - 0.38 + 0.04 * i, 0.004 * i),
                                 rng.uniform(0, 6.28), mat=M['velvet_b'] if i != 1 else M['velvet_r'], coll=coll,
                                 seed=300 + i))
-    # left behind: two rings
-    made.append(ring_jewel(M, 'SRing0', (cx - 0.2, cy + 0.27, 0.0031), 0.7, coll=coll))
-    made.append(ring_jewel(M, 'SRing1', (cx - 0.33, cy + 0.3, 0.0031), 2.4, coll=coll))
+    # left behind: two rings beside the passports
+    made.append(ring_jewel(M, 'SRing0', (cx - 0.22, cy + 0.15, 0.0031), 0.7, coll=coll))
+    made.append(ring_jewel(M, 'SRing1', (cx - 0.27, cy + 0.2, 0.0031), 2.4, coll=coll))
     return made
+
+
+def clear_loose(wall, zones):
+    """Move torn-off doors (build_wall 'loose') out of keep-out discs [(x, y, r)] (toward their wall)."""
+    for ld in wall['loose']:
+        for ax, ay, ar in zones:
+            x, y = ld.location.x, ld.location.y
+            if (x - ax) ** 2 + (y - ay) ** 2 < ar * ar:
+                ld.location.x = math.copysign(WALL_X - 0.22, x)
