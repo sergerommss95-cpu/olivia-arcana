@@ -313,5 +313,35 @@
     "downloaded_width": 3840,
     "downloaded_height": 2881,
     "description": "Beech roots and a carpet of brown autumn leaves in the Sonian Forest (Zoniënwoud/Forêt de Soignes); E_WOODS (ground where the bags were thrown)."
+  },
+  "E_WOODS_2.jpg": {
+    "slot": "E_WOODS",
+    "title": "File:Brusel, Zoniënwoud, březnové odpoledne v lese.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Brusel,_Zoni%C3%ABnwoud,_b%C5%99eznov%C3%A9_odpoledne_v_lese.jpg",
+    "author": "I would appreciate being notified if you use my work outside Wikimedia.\nMore of my work can be found in my personal gallery.",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 4770,
+    "height": 3178,
+    "downloaded_width": 3840,
+    "downloaded_height": 2558,
+    "description": "Bare beech wood in the Zoniënwoud in early March, big trunk, leaf litter, winter light; E_WOODS (February-like)."
+  },
+  "E_WOODS_3.jpg": {
+    "slot": "E_WOODS",
+    "title": "File:Forêt de Soignes - Jachtdreef horizontale.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:For%C3%AAt_de_Soignes_-_Jachtdreef_horizontale.jpg",
+    "author": "Edison McCullen",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 6016,
+    "height": 4016,
+    "downloaded_width": 3840,
+    "downloaded_height": 2563,
+    "description": "Straight forest lane (Jachtdreef) through tall beeches in autumn colour, Sonian Forest; E_WOODS alt."
   }
 }

@@ -46,7 +46,7 @@ CH = {
                       ('P_S11_LENS', 25, 'came'), ('S51', 25, 'Investigators'),
                       ('S26', 26, 'Inside'), ('A_FOAM', 26, 'hides'), ('S26@125', 26, 'A'), ('S27', 26, 'And'),
                       ('N8', 27, 'Then'), ('N9', 27, 'They#2'), ('N10', 27, 'One'),
-                      ('S28', 28, 'They'), ('C9', 28, 'diamonds'), ('C10', 28, 'securities'), ('M_LAYERS_B', 28, 'Ten'),
+                      ('S45b', 28, 'They'), ('C9', 28, 'diamonds'), ('C10', 28, 'securities'), ('M_LAYERS_B', 28, 'Ten'),
                       ('C8', 29, 'The'), ('S02@60', 29, 'All'), ('C10@100', 29, 'get')],
                 inoff={'S18': 40, 'S24': 16, 'N3': 24, 'S10': 1, 'S26': 1, 'S27': 1, 'S22': 1, 'S16': 1, 'S25': 1},
                 dim={'S26': 0.62}),
