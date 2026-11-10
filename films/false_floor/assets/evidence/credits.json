@@ -253,5 +253,20 @@
     "downloaded_width": 3840,
     "downloaded_height": 2880,
     "description": "Milan Cathedral (Duomo) facade floodlit at night, only tiny distant figures at the base; E_MILAN establishing shot."
+  },
+  "E_CDG_1.jpg": {
+    "slot": "E_CDG",
+    "title": "File:Aeroport Charles de Gaulle (CDG) Terminal 2E, Roissy, France (52186047596).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Aeroport_Charles_de_Gaulle_(CDG)_Terminal_2E,_Roissy,_France_(52186047596).jpg",
+    "author": "Charles from Port Chester, New York",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 6000,
+    "height": 4000,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Paris-CDG Terminal 2E roof and airside at night seen from above, aircraft and lights, no people; E_CDG."
   }
 }
