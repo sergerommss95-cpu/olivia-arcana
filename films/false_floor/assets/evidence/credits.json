@@ -118,5 +118,20 @@
     "downloaded_width": 3840,
     "downloaded_height": 2560,
     "description": "A polished round brilliant held in steel tweezers over a dark surface (fingertips only, no face); E_DIAMONDS / trading-tools shot."
+  },
+  "E_DIAMONDS_2.jpg": {
+    "slot": "E_DIAMONDS",
+    "title": "File:Diamond (48723573768).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Diamond_(48723573768).jpg",
+    "author": "Auckland Museum  Collections from Auckland, Aotearoa New Zealand",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 8688,
+    "height": 5792,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Several rough diamond crystals (octahedral, clear to brown and pink) on black, Auckland Museum geology collection; E_DIAMONDS rough stones."
   }
 }
