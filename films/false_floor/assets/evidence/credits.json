@@ -298,5 +298,20 @@
     "downloaded_width": 3840,
     "downloaded_height": 2211,
     "description": "Apron at Paris-CDG seen from Terminal 2E gates K: parked airliners and ground vehicles in daylight, no people visible; E_CDG alt."
+  },
+  "E_WOODS_1.jpg": {
+    "slot": "E_WOODS",
+    "title": "File:Forêt de Soignes ---.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:For%C3%AAt_de_Soignes_---.jpg",
+    "author": "Horst J. Meuter",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 3859,
+    "height": 2895,
+    "downloaded_width": 3840,
+    "downloaded_height": 2881,
+    "description": "Beech roots and a carpet of brown autumn leaves in the Sonian Forest (Zoniënwoud/Forêt de Soignes); E_WOODS (ground where the bags were thrown)."
   }
 }
