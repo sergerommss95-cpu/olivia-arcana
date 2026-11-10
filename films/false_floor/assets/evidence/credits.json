@@ -163,5 +163,35 @@
     "downloaded_width": 3840,
     "downloaded_height": 2160,
     "description": "The new Antwerp Justitiepaleis (law courts, Bolivarplaats, opened 2006) with its sail-shaped roofs, street view, overcast, no people; E_COURT."
+  },
+  "E_COURT_2.jpg": {
+    "slot": "E_COURT",
+    "title": "File:Antwerp Courts of Justice, Belguim September 8, 2012.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Antwerp_Courts_of_Justice,_Belguim_September_8,_2012.jpg",
+    "author": "Rick Ligthelm",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 5616,
+    "height": 3744,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Close view of the steel sail roofs of the new Antwerp Justitiepaleis against blue sky, no people; E_COURT detail/alt."
+  },
+  "E_COURT_3.jpg": {
+    "slot": "E_COURT",
+    "title": "File:Gerechtshof Britselei (hoek met de Anselmostraat).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Gerechtshof_Britselei_(hoek_met_de_Anselmostraat).jpg",
+    "author": "IDD5000",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 3491,
+    "height": 2618,
+    "downloaded_width": 1920,
+    "downloaded_height": 1440,
+    "description": "The old Antwerp courthouse (Gerechtshof) on the Britselei, corner with Anselmostraat, full exterior; E_COURT period-accurate alt (trial era, before the 2006 move)."
   }
 }
