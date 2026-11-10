@@ -32,41 +32,41 @@ def ts(t):
 def main():
     os.chdir(FF)
     out = arg('--out', 'out/FALSE_FLOOR_E02_v3.mp4')
+    crf = arg('--crf', '18')
     parts = [p for p in PARTS if os.path.exists(p)]
     missing = [p for p in PARTS if not os.path.exists(p)]
     if missing:
         print('[asm] missing:', missing, flush=True)
     end = os.path.join(FF, 'out', 'edit_segments', 'END.mp4')
-    work = os.path.join(FF, 'out', 'asm')
-    os.makedirs(work, exist_ok=True)
-    # normalise every part to the same stream layout (1080p24 yuv420p h264 + 48k stereo aac)
-    norm, offs, t = [], [], 0.0
-    for p in parts + ([end] if os.path.exists(end) else []):
-        q = os.path.join(work, os.path.basename(p))
+    if os.path.exists(end):
+        parts.append(end)
+    # one decode of every part through the concat filter (no intermediate copies on disk): 1080p24 yuv420p + 48k stereo
+    offs, t, inputs, vf, af = [], 0.0, [], [], []
+    for i, p in enumerate(parts):
+        d = dur(p)
         has_audio = 'audio' in subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type', '-of',
                                                'csv=p=0', p], capture_output=True, text=True).stdout
-        cmd = ['ffmpeg', '-v', 'error', '-y', '-i', p]
-        if not has_audio:
-            cmd += ['-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo', '-shortest']
-        cmd += ['-map', '0:v', '-map', '0:a' if has_audio else '1:a', '-vf', 'scale=1920:1080,fps=24,format=yuv420p',
-                '-c:v', 'libx264', '-preset', 'medium', '-crf', '16', '-c:a', 'aac', '-b:a', '256k', '-ar', '48000',
-                '-ac', '2', q]
-        subprocess.run(cmd, check=True)
-        norm.append(q)
+        inputs += ['-i', p]
+        vf.append(f'[{i}:v]scale=1920:1080:flags=lanczos,fps=24,format=yuv420p,setsar=1[v{i}]')
+        af.append(f'[{i}:a]aresample=48000,aformat=channel_layouts=stereo[a{i}]' if has_audio else
+                  f'aevalsrc=0:d={d:.3f}:s=48000:c=stereo[a{i}]')
         offs.append((p, t))
-        t += dur(q)
-        print(f'[asm] {os.path.basename(p)} at {offs[-1][1]:.2f}s', flush=True)
-    lst = os.path.join(work, 'list.txt')
-    open(lst, 'w').write(''.join(f"file '{q}'\n" for q in norm))
-    raw = os.path.join(work, 'concat.mp4')
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', raw], check=True)
-    m = subprocess.run(['ffmpeg', '-hide_banner', '-i', raw, '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json',
-                        '-f', 'null', '-'], capture_output=True, text=True).stderr
+        print(f'[asm] {os.path.basename(p)} at {t:.2f}s ({d:.2f}s)', flush=True)
+        t += d
+    n = len(parts)
+    acat = ''.join(f'[a{i}]' for i in range(n)) + f'concat=n={n}:v=0:a=1[aout]'
+    m = subprocess.run(['ffmpeg', '-hide_banner', *inputs, '-filter_complex', ';'.join(af + [acat]), '-map', '[aout]',
+                        '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'],
+                       capture_output=True, text=True).stderr
     js = json.loads(m[m.rindex('{'):m.rindex('}') + 1])
     ln = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:"
-          f"measured_LRA={js['input_lra']}:measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true" + ',alimiter=limit=0.83:attack=1:release=60:level=false')
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', raw, '-c:v', 'copy', '-af', ln + ',aresample=48000', '-c:a', 'aac',
-                    '-b:a', '256k', '-movflags', '+faststart', out], check=True)
+          f"measured_LRA={js['input_lra']}:measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true,"
+          f"alimiter=limit=0.83:attack=1:release=60:level=false,aresample=48000")
+    cat = ''.join(f'[v{i}][a{i}]' for i in range(n)) + f'concat=n={n}:v=1:a=1[vc][ac]'
+    fc = ';'.join(vf + af + [cat, f'[ac]{ln}[aout]'])
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', *inputs, '-filter_complex', fc, '-map', '[vc]', '-map', '[aout]',
+                    '-c:v', 'libx264', '-preset', 'medium', '-crf', crf, '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k',
+                    '-movflags', '+faststart', out], check=True)
     # subtitles: every word of George's VO, placed through each part's piece map
     words = words_on_vo_clock(VO)
     cues = []
