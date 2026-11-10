@@ -105,7 +105,7 @@ def main():
         kind = seq[sid]['kind']
         e = {'id': sid, 'kind': '3D' if kind == '3D' else '3D', 'src_kind': '3D', 'shot': seq[sid]['shot'], 't0': t0, 'dur': t1 - t0,
              'chapter': '3', 'vo_src': None}
-        if sid == 'S17':
+        if sid.split('@')[0] == 'S17':
             e['src_kind'] = 'CLIP_RAW'          # rendered without handles (frames 60-130)
         if '@' in sid:                          # 'C4@40': the same clip again, from another in-point
             base, off = sid.split('@')
@@ -150,10 +150,19 @@ def main():
     work = os.path.join(FF, 'out', 'seq_segments', name)
     os.makedirs(work, exist_ok=True)
     segs = []
+    seen_ids = {}
+
+    def nframes(f):
+        r = subprocess.run(['ffprobe', '-v', 'error', '-count_packets', '-select_streams', 'v:0', '-show_entries',
+                            'stream=nb_read_packets', '-of', 'csv=p=0', f], capture_output=True, text=True).stdout.strip()
+        return int(r) if r.isdigit() else -1
+
     for e in shots:
-        p = os.path.join(work, e['id'] + '.mp4')
+        seen_ids[e['id']] = seen_ids.get(e['id'], 0) + 1      # the same cut id twice must not share one segment file
+        tagn = e['id'] if seen_ids[e['id']] == 1 else f"{e['id']}~{seen_ids[e['id']]}"
+        p = os.path.join(work, tagn + '.mp4')
         n = int(round(e['dur'] * E.FPS))
-        if not ('--reuse' in sys.argv and os.path.exists(p)):
+        if not ('--reuse' in sys.argv and os.path.exists(p) and nframes(p) == n):
             render_seg(e, p, n, preview)
         segs.append(p)
         print(f"[seq] {e['id']} {n}f", flush=True)
@@ -301,6 +310,39 @@ def sfx_chapter(put, shots, total, cfg):
         if prev is not None and k != prev:
             put('whoosh__deep_air', e['t0'] - 0.25, -21)
         prev = k
+    # a quiet floor under the whole chapter, so a breakdown in the score never leaves digital silence between words
+    fl, fg = cfg.get('floor', ('el__vault_room_tone', -30))
+    put(fl, 0.0, fg, dur=total, fin=0.8, fout=1.6)
+    # spot effects at events inside the source clips (clip seconds after the handles), only when the event is on screen
+    for e in shots:
+        base = e.get('clip', e['id'])
+        ev = SPOTS.get(base)
+        if not ev:
+            continue
+        off = INOFF.get(e['id'], 0) / E.FPS
+        if e.get('ep_kind') == 'GFX':
+            off -= 0.5                                   # GFX in-points include the 12-frame lead handle
+        for name, t_ev, gain in ev:
+            ts = t_ev - off
+            if 0.0 <= ts < e['dur'] - 0.15:
+                put(name, e['t0'] + ts, gain, fout=0.4)
+
+
+SPOTS = {
+    'S27': [('el__fluoro_flicker_on', 0.0, -13), ('el__box_forced_1', 1.0, -13), ('el__box_door_open', 2.4, -16),
+            ('el__box_forced_2', 3.8, -15), ('el__box_door_open', 5.6, -17)],
+    'S21': [('el__hairspray', 3.7, -12)], 'A_SPRAY': [('el__hairspray', 0.3, -12)],
+    'S26': [('el__foam_slide', 1.4, -15)], 'A_FOAM': [('el__foam_slide', 0.2, -15)],
+    'S22': [('el__tape_strip', 1.0, -16)], 'S24': [('el__plate_slide', 0.6, -12)],
+    'S16': [('el__dial_spin', 0.2, -14)],
+    'S25': [('el__dial_click', 0.3, -14), ('el__key_turn', 2.6, -12), ('el__vault_door_unlock', 4.4, -10),
+            ('el__vault_door_swing', 6.0, -11)],
+    'S17': [('el__key_turn', 0.3, -11)], 'S10': [('el__grate_buzz', 7.9, -12)], 'S34': [('el__torch_click', 0.1, -14)],
+    'A_THROW': [('el__bags_throw', 0.5, -10)], 'A_TEAR': [('el__paper_leaves', 0.2, -14)],
+    'S52': [('el__vault_door_shut', 3.7, -10)],
+    'N5': [('el__vault_door_unlock', 0.2, -10), ('el__vault_door_swing', 1.0, -11)],
+    'N9': [('el__box_forced_1', 1.0, -13)], 'N10': [('el__box_forced_2', 0.5, -13), ('el__box_door_open', 2.0, -15)],
+}
 
 
 def chapter_card(i, lines):
