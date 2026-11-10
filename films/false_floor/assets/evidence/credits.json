@@ -28,5 +28,20 @@
     "downloaded_width": 3840,
     "downloaded_height": 2560,
     "description": "Antwerpen-Centraal internal facade at night, clock and arms above the arch, no people; E_CENTRAAL alt (dark, fits the grade)."
+  },
+  "E_CENTRAAL_3.jpg": {
+    "slot": "E_CENTRAAL",
+    "title": "File:Bahnhof Antwerpen.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Bahnhof_Antwerpen.jpg",
+    "author": "Ahrtaler2",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "attribution_required": false,
+    "share_alike": false,
+    "width": 4096,
+    "height": 3072,
+    "downloaded_width": 3840,
+    "downloaded_height": 2880,
+    "description": "Antwerpen-Centraal domed exterior facade on Koningin Astridplein at night, floodlit; a few tiny distant figures only; E_CENTRAAL exterior."
   }
 }

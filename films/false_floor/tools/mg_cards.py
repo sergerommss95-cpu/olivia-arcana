@@ -363,6 +363,8 @@ def render(cid, seconds, draw_fn, cam=None, bg=None, bg_depth=0.45, stills=None,
            finish_kw=None, tag_text=None, tag_t0=0.15):
     """draw_fn(fg, sec, u) draws the type plane (2x RGBA, transparent). mid_fn(sec, u) -> optional 2x RGBA plane
     between backdrop and type. Writes out/clips/<cid>.mkv, or PNG stills (seconds list) to the scratch dir."""
+    if cid in CLIPS:                       # the clip registry is the source of truth for the length
+        seconds = CLIPS[cid][1]
     cam = cam or Cam()
     bg = bg if bg is not None else backdrop()
     n = int(round(seconds * FPS))
@@ -490,7 +492,7 @@ def clip(cid, seconds, beat, note):
 
 # ---------------------------------------------------------------------------- Ch1-2
 
-@clip('M_MAZAL', 2.5, 'S05', 'the word "mazal" set large, amber underline draws, label "the word that closes a deal" (VO S05)')
+@clip('M_MAZAL', 2.6, 'S05', 'the word "mazal" set large, amber underline draws, label "the word that closes a deal" (VO S05)')
 def m_mazal(stills=None):
     word, size = 'mazal', 520
     f = G.font(size, 'SemiBold', True)
@@ -509,11 +511,11 @@ def m_mazal(stills=None):
         hline(im, x0 + 8, x0 + w - 8, base + 92, color=AMBER, width=7, p=pu, glow=10)
         build_label(im, 'the word that closes a deal', (CX, base + 250), sec, 1.05, size=44, anchor='ms', tracking=0.16)
 
-    render('M_MAZAL', 2.5, fg, cam=Cam(z=(1.0, 1.075), pan=((0.0, 0.012), (0.0, -0.004))),
+    render('M_MAZAL', 2.6, fg, cam=Cam(z=(1.0, 1.075), pan=((0.0, 0.012), (0.0, -0.004))),
            bg=backdrop(grid=False, glow=(0.5, 0.5), warm=0.3), stills=stills)
 
 
-@clip('M_RULE', 4.0, 'S06', '"NO OFFICE UPSTAIRS / NO BOX DOWNSTAIRS" with a building section (office floor -> vault, Level -2), amber link (VO S06)')
+@clip('M_RULE', 6.7, 'S06', '"ONE RULE" 0.9 / "NO BOX DOWNSTAIRS" 1.7 (vault, Level -2) / "UNLESS YOU\'RE A TENANT UPSTAIRS" 3.7 (office), amber link vault->office; building section (VO S06)')
 def m_rule(stills=None):
     # building section icon (2x coords), whole composition centred in frame
     bx0, bx1 = 640, 1340
@@ -524,14 +526,13 @@ def m_rule(stills=None):
     office = (bx0 + 70, yg - 3 * fl + 30, bx1 - 70, yg - 2 * fl - 18)
     vault = (bx0 + 70, yg + fl + 28, bx1 - 70, ybot - 26)
     tx = 1600
-    y_up = (office[1] + office[3]) / 2
-    y_dn = (vault[1] + vault[3]) / 2
     shaft_x = (bx0 + bx1) / 2
+    T_RULE, T_BOX, T_TEN = 0.9, 1.7, 3.7
 
     def fg(im, sec, u):
         # ground line + earth hatch
-        hline(im, bx0 - 220, bx1 + 150, yg, color=DIM, width=4, p=p_io(sec, 0.0, 0.5), alpha=0.9)
-        ph = p_in(sec, 0.25, 0.6)
+        hline(im, bx0 - 220, bx1 + 150, yg, color=DIM, width=4, p=p_io(sec, -0.45, 0.5), alpha=0.9)
+        ph = p_in(sec, -0.2, 0.6)
         if ph > 0:
             def hatch(d, X, S):
                 for k in range(-12, 30):
@@ -540,18 +541,16 @@ def m_rule(stills=None):
                 d.rectangle([X(bx0 - 4, yg + 4), X(bx1 + 4, ybot + 4)], fill=(0, 0, 0, 0))
                 d.rectangle([X(bx0 - 400, ybot + 40), X(bx1 + 400, ybot + 400)], fill=(0, 0, 0, 0))
             draw(im, (bx0 - 220, yg, bx1 + 150, ybot + 40), hatch, alpha=0.32 * ph)
-        # walls rise and sink from the ground line
-        pw = p_io(sec, 0.1, 0.6)
+        pw = p_io(sec, -0.35, 0.6)
         for x in (bx0, bx1):
             vline(im, x, yg, ytop, color=DIM, width=4, p=pw)
             vline(im, x, yg, ybot, color=DIM, width=4, p=pw)
-        hline(im, bx0, bx1, ytop, color=DIM, width=4, p=p_io(sec, 0.55, 0.3))
-        hline(im, bx0, bx1, ybot, color=DIM, width=4, p=p_io(sec, 0.55, 0.3))
+        hline(im, bx0, bx1, ytop, color=DIM, width=4, p=p_io(sec, 0.1, 0.3))
+        hline(im, bx0, bx1, ybot, color=DIM, width=4, p=p_io(sec, 0.1, 0.3))
         for k in range(1, 4):
-            hline(im, bx0, bx1, yg - k * fl, color=FAINT, width=3, p=p_io(sec, 0.35 + 0.07 * k, 0.35))
-        hline(im, bx0, bx1, yg + fl, color=FAINT, width=3, p=p_io(sec, 0.45, 0.35))
-        # windows on the other floors
-        pwin = p_in(sec, 0.6, 0.5)
+            hline(im, bx0, bx1, yg - k * fl, color=FAINT, width=3, p=p_io(sec, -0.1 + 0.07 * k, 0.35))
+        hline(im, bx0, bx1, yg + fl, color=FAINT, width=3, p=p_io(sec, 0.0, 0.35))
+        pwin = p_in(sec, 0.2, 0.5)
         for k in range(4):
             if k == 2:
                 continue
@@ -559,43 +558,41 @@ def m_rule(stills=None):
             for j in (0, 1, 3, 4):
                 xx = bx0 + 75 + j * 118
                 rect(im, (xx, yy, xx + 74, yy + 62), outline=FAINT, width=2, alpha=0.8 * pwin)
-        label(im, 'ground', (bx0 - 220, yg - 22), size=28, alpha=0.8 * p_in(sec, 0.5), tracking=0.14)
-        label(im, 'level −1', (bx0 - 220, yg + fl / 2), size=28, alpha=0.8 * p_in(sec, 0.6), tracking=0.14, anchor='lm')
-        label(im, 'level −2', (bx0 - 220, yg + 1.5 * fl), size=28, alpha=0.8 * p_in(sec, 0.7), tracking=0.14, anchor='lm')
+        label(im, 'ground', (bx0 - 220, yg - 22), size=28, alpha=0.8 * p_in(sec, 0.1), tracking=0.14)
+        label(im, 'level −1', (bx0 - 220, yg + fl / 2), size=28, alpha=0.8 * p_in(sec, 0.2), tracking=0.14, anchor='lm')
+        label(im, 'level −2', (bx0 - 220, yg + 1.5 * fl), size=28, alpha=0.8 * p_in(sec, 0.3), tracking=0.14, anchor='lm')
 
-        build_label(im, 'the rule', (tx, y_up - 150), sec, 0.3, size=34, tracking=0.2)
-        # 1) the office
-        po = p_in(sec, 0.55, 0.45)
-        if po > 0:
-            rect(im, office, fill=AMBER, alpha=0.10 * po)
-            rect(im, office, outline=AMBER, width=4, alpha=po, glow=8 * po)
-            label(im, 'office', (office[0] + 22, office[1] + 50), size=28, color=AMBER, alpha=po, tracking=0.16)
-        build_text(im, 'NO OFFICE UPSTAIRS', (tx, y_up), sec, 0.5, size=136, anchor='lm', color=INK)
-        # 2) the link down to the vault
-        pl = p_io(sec, 1.25, 0.8)
-        dashed(im, (shaft_x, office[3]), (shaft_x, vault[1]), color=AMBER, width=5, dash=20, gap=16, p=pl,
-               phase=-sec * 30, glow=6)
-        if pl > 0:
-            circle(im, (shaft_x, office[3]), 9, fill=AMBER, alpha=min(1, pl * 4))
-        hline(im, bx1 + 30, tx - 40, y_up, color=AMBER, width=3, p=p_io(sec, 0.85, 0.4), alpha=0.7)
-        hline(im, bx1 + 30, tx - 40, y_dn, color=AMBER, width=3, p=p_io(sec, 2.05, 0.4), alpha=0.7)
-        # 3) the vault
-        pv = p_in(sec, 1.95, 0.45)
+        build_label(im, 'one rule', (tx, CY - 250), sec, T_RULE - 0.2, size=40, tracking=0.24, color=INK)
+        hline(im, tx, tx + 160, CY - 210, color=AMBER, width=5, p=p_io(sec, T_RULE - 0.1, 0.4), glow=4)
+        # 1) no box downstairs: the vault
+        pv = p_in(sec, T_BOX - 0.25, 0.45)
         if pv > 0:
-            circle(im, (shaft_x, vault[1]), 9, fill=AMBER, alpha=pv)
             rect(im, vault, fill=AMBER, alpha=0.10 * pv)
             rect(im, vault, outline=AMBER, width=4, alpha=pv, glow=8 * pv)
-            # the boxes
             gy0 = vault[1] + (vault[3] - vault[1]) / 2 - 38
             for r_ in range(2):
                 for c_ in range(7):
-                    q = p_in(sec, 2.1 + 0.03 * (c_ + r_ * 7), 0.3)
+                    q = p_in(sec, T_BOX - 0.1 + 0.03 * (c_ + r_ * 7), 0.3)
                     xx, yy = vault[2] - 30 - (7 - c_) * 40, gy0 + r_ * 40
                     rect(im, (xx, yy, xx + 32, yy + 32), outline=AMBER, width=2, alpha=0.75 * q)
             label(im, 'vault', (vault[0] + 22, vault[1] + 50), size=28, color=AMBER, alpha=pv, tracking=0.16)
-        build_text(im, 'NO BOX DOWNSTAIRS', (tx, y_dn), sec, 2.1, size=136, anchor='lm', color=INK)
+        build_text(im, 'NO BOX DOWNSTAIRS', (tx, CY - 40), sec, T_BOX - 0.2, size=136, color=INK)
+        # 2) unless you're a tenant upstairs: the office, linked up from the vault
+        pl = p_io(sec, T_TEN - 0.55, 0.75)
+        dashed(im, (shaft_x, vault[1]), (shaft_x, office[3]), color=AMBER, width=5, dash=20, gap=16, p=pl,
+               phase=sec * 30, glow=6)
+        if pl > 0:
+            circle(im, (shaft_x, vault[1]), 9, fill=AMBER, alpha=min(1, pl * 4))
+        po = p_in(sec, T_TEN - 0.2, 0.45)
+        if po > 0:
+            circle(im, (shaft_x, office[3]), 9, fill=AMBER, alpha=po)
+            rect(im, office, fill=AMBER, alpha=0.10 * po)
+            rect(im, office, outline=AMBER, width=4, alpha=po, glow=8 * po)
+            label(im, 'office', (office[0] + 22, office[1] + 50), size=28, color=AMBER, alpha=po, tracking=0.16)
+        rich(im, [('UNLESS YOU’RE A ', INK), ('TENANT UPSTAIRS', AMBER)], (tx, CY + 150), size=88, anchor='ls',
+             sec=sec, t0=T_TEN - 0.25, stagger=0.12)
 
-    render('M_RULE', 4.0, fg, cam=Cam(z=(1.02, 1.085), pan=((-0.012, 0.01), (0.008, -0.004))),
+    render('M_RULE', 6.7, fg, cam=Cam(z=(1.02, 1.09), pan=((-0.012, 0.01), (0.008, -0.004))),
            bg=backdrop(grid=True, glow=(0.45, 0.5)), stills=stills)
 
 
@@ -614,11 +611,11 @@ def m_name_tenant(stills=None):
         return fade(plane, a)
 
     def fg(im, sec, u):
-        build_label(im, 'the tenant', (tx, ty - 300), sec, 0.15, size=34, tracking=0.2)
-        build_text(im, 'LEONARDO', (tx, ty - 130), sec, 0.3, size=150, color=INK)
-        build_text(im, 'NOTARBARTOLO', (tx, ty + 40), sec, 0.42, size=150, color=INK)
-        hline(im, tx, tx + 220, ty + 130, color=AMBER, width=6, p=p_io(sec, 0.75, 0.5), glow=6)
-        build_text(im, 'tenant · Antwerp Diamond Centre · from 2000', (tx, ty + 240), sec, 0.95, size=48,
+        build_label(im, 'the tenant', (tx, ty - 300), sec, 0.2, size=34, tracking=0.2)
+        build_text(im, 'LEONARDO', (tx, ty - 130), sec, 0.55, size=150, color=INK)
+        build_text(im, 'NOTARBARTOLO', (tx, ty + 40), sec, 0.64, size=150, color=INK)
+        hline(im, tx, tx + 220, ty + 130, color=AMBER, width=6, p=p_io(sec, 1.0, 0.5), glow=6)
+        build_text(im, 'tenant · Antwerp Diamond Centre · from 2000', (tx, ty + 240), sec, 1.25, size=48,
                    weight='Regular', display=False, color=INK, alpha=0.82)
 
     render('M_NAME_TENANT', 3.5, fg, cam=Cam(z=(1.0, 1.08), pan=((0.012, 0.0), (0.0, -0.01))),
@@ -626,14 +623,14 @@ def m_name_tenant(stills=None):
            tag_text='DRAMATIZATION')
 
 
-@clip('M_MONTHS', 3.5, 'S09', 'lease calendar 2000-2002: 36 month cells tick "PAID" in amber, accelerating; year counter rolls (VO S09 "He pays his rent on time")')
+@clip('M_MONTHS', 4.2, 'S09', 'lease calendar 2000-2002: 36 month cells tick "PAID" in amber, accelerating; year counter rolls (VO S09 "He pays his rent on time")')
 def m_months(stills=None):
     MON = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
     cw, chh, gap, rgap, lab = 196, 150, 20, 36, 250
     gw = lab + 12 * cw + 11 * gap
     gx0 = (W2 - gw) / 2 + lab
     gy0 = CY - (3 * chh + 2 * rgap) / 2 + 120
-    T0, T1 = 0.45, 2.85
+    T0, T1 = 0.45, 3.35
 
     def tick_time(k):
         return T0 + (T1 - T0) * (k / 35) ** 1.35
@@ -676,17 +673,18 @@ def m_months(stills=None):
                     label(im, 'paid', (x + 22, y + chh - 30), size=30, color=AMBER, alpha=pt, tracking=0.12,
                           weight='SemiBold')
 
-    render('M_MONTHS', 3.5, fg, cam=Cam(z=(1.0, 1.07), pan=((-0.02, -0.008), (0.018, 0.01))),
+    render('M_MONTHS', 4.2, fg, cam=Cam(z=(1.0, 1.07), pan=((-0.02, -0.008), (0.018, 0.01))),
            bg=backdrop(grid=True, glow=(0.5, 0.45)), stills=stills)
 
 
 # ---------------------------------------------------------------------------- crew dossier cards (M_CREW, M_GHOSTS)
 
-CREW = [('genius', 'THE GENIUS', [('alarms', INK)]),
-        ('monster', 'THE MONSTER', [('locks, wiring, driving', INK)]),
-        ('king', 'THE KING OF KEYS', [('an old forger', INK), ('never identified', RED)]),
-        ('speedy', 'SPEEDY', [('the nervous one', INK)])]
-CARD_W, CARD_PH, CARD_TH, CARD_GAP = 640, 800, 300, 64
+# role lines: each line is a list of (text, colour, landing time in seconds); words land on the narration
+CREW = [('genius', 'THE GENIUS', [[('ALARMS', INK, 1.1)]]),
+        ('monster', 'THE MONSTER', [[('LOCKS', INK, 3.3), ('WIRING', INK, 3.95), ('DRIVING', INK, 4.6)]]),
+        ('king', 'THE KING OF KEYS', [[('AN OLD FORGER', INK, 6.7)], [('REAL NAME: ', DIM, 7.5), ('UNKNOWN', RED, 7.5)]]),
+        ('speedy', 'SPEEDY', [[('THE NERVOUS ONE', INK, 0.0)]])]
+CARD_W, CARD_PH, CARD_TH, CARD_GAP = 640, 800, 340, 64
 CARD_X0 = (W2 - (4 * CARD_W + 3 * CARD_GAP)) / 2
 CARD_Y0 = CY - (CARD_PH + CARD_TH) / 2 + 90
 
@@ -727,6 +725,45 @@ def stamp(im, s, c, p, color=INK, rot=-8.0, alpha=0.9):
     composite(im, fade(t, alpha * min(1.0, p * 1.6)), c[0] - t.width / 2, c[1] - t.height / 2)
 
 
+def face_tile(who, w, h, inner=0.0, ghost=0.0, bright=1.0):
+    """card portrait (w x h, 2x px): head and shoulders with its own slow push (inner 0..1); ghost 0..1 fades it to a
+    flat grey silhouette; bright < 1 steps it back."""
+    src = portrait(who, True)
+    sw, sh = src.size
+    z = 1.0 + 0.06 * inner
+    ch_ = sh * 0.80 / z
+    cw_ = ch_ * w / h
+    cx_, cy_ = sw * 0.47, sh * 0.06 + sh * 0.40
+    dy_ = (sh * 0.40 - ch_ / 2) * 0.2
+    face = src.resize((w, h), Image.LANCZOS, box=(cx_ - cw_ / 2, cy_ - ch_ / 2 - dy_, cx_ + cw_ / 2, cy_ + ch_ / 2 - dy_))
+    base = portrait_ground(w, h)
+    base.alpha_composite(face)
+    if ghost > 0:
+        sil = portrait_ground(w, h, warm=1.0 - ghost)
+        s_ = Image.new('RGBA', face.size, (52, 55, 60, 255))
+        s_.putalpha(face.getchannel('A'))
+        sil.alpha_composite(s_)
+        base = Image.blend(grade_grey(base, ghost), sil, min(1.0, ghost)) if ghost < 1.0 else sil
+    if bright < 1.0:
+        base = Image.blend(Image.new('RGBA', base.size, (20, 20, 23, 255)), base, bright)
+    return base
+
+
+def role_lines(im, lines, x, y, sec, alpha=1.0, size=34, lh=56):
+    """tracked caps role words that land one by one on their times (sec >= 90: everything on)."""
+    for li, words in enumerate(lines):
+        xx = x
+        for j, (w_, col, t_) in enumerate(words):
+            q = 1.0 if sec >= 90 else p_in(sec, t_ - 0.2, 0.35)
+            if j > 0 and not words[j - 1][0].endswith(' '):
+                label(im, '·', (xx + 10, y + li * lh), size=size, color=DIM, alpha=alpha * q, tracking=0.0)
+                xx += 36
+            if q > 0:
+                label(im, w_, (xx, y + li * lh), size=size, color=col, alpha=alpha * q, tracking=0.08, dy=(1 - q) * 10,
+                      blur=(1 - q) * 3)
+            xx += tsize(w_.upper(), size, 'Medium', False, 0.08)[0] + (6 if w_.endswith(' ') else 0)
+
+
 def crew_card(im, k, sec, appear, bright=1.0, ghost=0.0, stamp_p=0.0, inner=0.0, x=None):
     who, nick, roles = CREW[k]
     x = card_x(k, 4) if x is None else x
@@ -735,39 +772,12 @@ def crew_card(im, k, sec, appear, bright=1.0, ghost=0.0, stamp_p=0.0, inner=0.0,
     if a <= 0:
         return
     rect(im, (x, y, x + CARD_W, y + CARD_PH + CARD_TH), fill=BG2, alpha=0.96 * a, radius=6)
-    # portrait with its own slow push
-    src = portrait(who, True)
-    sw, sh = src.size
-    z = 1.0 + 0.06 * inner
-    ch_ = sh * 0.80 / z
-    cw_ = ch_ * CARD_W / CARD_PH
-    cx_, cy_ = sw * 0.47, sh * 0.06 + sh * 0.40
-    box = (cx_ - cw_ / 2, cy_ - ch_ / 2 - (sh * 0.40 - ch_ / 2) * 0.2, cx_ + cw_ / 2, cy_ + ch_ / 2 - (sh * 0.40 - ch_ / 2) * 0.2)
-    face = src.resize((CARD_W, CARD_PH), Image.LANCZOS, box=box)
-    base = portrait_ground(CARD_W, CARD_PH)
-    base.alpha_composite(face)
-    if ghost > 0:
-        sil = portrait_ground(CARD_W, CARD_PH, warm=1.0 - ghost)
-        s_ = Image.new('RGBA', face.size, (52, 55, 60, 255))
-        s_.putalpha(face.getchannel('A'))
-        sil.alpha_composite(s_)
-        base = Image.blend(grade_grey(base, ghost), sil, min(1.0, ghost)) if ghost < 1.0 else sil
-    if bright < 1.0:
-        base = Image.blend(Image.new('RGBA', base.size, (20, 20, 23, 255)), base, bright)
-    composite(im, fade(base, a), x, y)
+    composite(im, fade(face_tile(who, CARD_W, CARD_PH, inner, ghost, bright), a), x, y)
     rect(im, (x, y, x + CARD_W, y + CARD_PH + CARD_TH), outline=FAINT, width=2, alpha=a, radius=6)
     ta = a * (0.55 + 0.45 * bright)
     label(im, f'no. {k + 1}', (x + 38, y + CARD_PH + 70), size=26, color=DIM, alpha=ta, tracking=0.18)
     text(im, nick, (x + 38, y + CARD_PH + 158), size=60, color=INK, alpha=ta)
-    yy = y + CARD_PH + 228
-    xx = x + 38
-    for j, (r, col) in enumerate(roles):
-        text(im, r, (xx, yy), size=38, weight='Regular', display=False, color=col,
-             alpha=ta * (0.85 if col == INK else 1.0))
-        xx += tsize(r, 38, 'Regular', False)[0] + 16
-        if j < len(roles) - 1:
-            text(im, '·', (xx, yy), size=38, weight='Regular', display=False, color=DIM, alpha=ta)
-            xx += tsize('·', 38, 'Regular', False)[0] + 16
+    role_lines(im, roles, x + 38, y + CARD_PH + 236, sec, alpha=ta)
     if stamp_p > 0:
         stamp(im, 'UNKNOWN', (x + CARD_W / 2, y + CARD_PH * 0.52), stamp_p, color=INK, rot=-9 + 3 * k % 5, alpha=0.88)
 
@@ -797,25 +807,24 @@ def crew_header(im, sec, t0=0.1, title='THE SCHOOL OF TURIN', sub='a loose netwo
     build_label(im, sub, (x, CARD_Y0 - 92), sec, t0 + 0.15, size=30, tracking=0.08, weight='Regular')
 
 
-@clip('M_CREW', 9.0, 'S12', 'four dossier cards with cast portraits slide in on the nicknames: THE GENIUS alarms / THE MONSTER locks, wiring, driving / THE KING OF KEYS an old forger, never identified / SPEEDY the nervous one; DRAMATIZATION tag')
+@clip('M_CREW', 10.9, 'S12', 'dossier cards with cast portraits land on the nicknames: THE GENIUS 0.2 (ALARMS 1.1) / THE MONSTER 2.4 (LOCKS · WIRING · DRIVING 3.3-4.6) / THE KING OF KEYS 5.9 (AN OLD FORGER, REAL NAME: UNKNOWN 7.5); no Speedy card (cut at 10.4); DRAMATIZATION tag')
 def m_crew(stills=None):
-    T = [0.35, 2.4, 4.45, 6.6]
+    T = [0.2, 2.4, 5.9]                 # landing times of the three cards
 
     def fg(im, sec, u):
         # the group stays centred: older cards glide left as each new one arrives
-        n_eff = 1 + sum(p_io(sec, T[k] - 0.1, 0.7) for k in range(1, 4))
-        crew_header(im, sec, x=card_x(0, n_eff))
-        latest = max([k for k in range(4) if sec >= T[k]] or [0])
-        for k in range(4):
-            a = p_in(sec, T[k], 0.55)
-            # focus: the newest card is lit, the others step back
+        n_eff = 1 + sum(p_io(sec, T[k] - 0.5, 0.7) for k in range(1, 3))
+        crew_header(im, sec, t0=-0.4, x=card_x(0, n_eff))
+        latest = max([k for k in range(3) if sec >= T[k] - 0.3] or [0])
+        for k in range(3):
+            a = p_in(sec, T[k] - 0.45, 0.55)
             b = 1.0
             if k < latest:
-                b = 1.0 - 0.5 * p_io(sec, T[latest], 0.6)
-            crew_card(im, k, sec, a, bright=b, inner=G.seg(sec, T[k], 9.5), x=card_x(k, n_eff))
+                b = 1.0 - 0.5 * p_io(sec, T[latest] - 0.3, 0.6)
+            crew_card(im, k, sec, a, bright=b, inner=G.seg(sec, T[k] - 0.45, 11.0), x=card_x(k, n_eff))
 
-    render('M_CREW', 9.0, fg, cam=Cam(z=(1.0, 1.06), pan=((-0.006, 0.006), (0.006, -0.004)), lin=0.5),
-           bg=backdrop(grid=True, glow=(0.5, 0.5)), stills=stills, tag_text='DRAMATIZATION')
+    render('M_CREW', 10.9, fg, cam=Cam(z=(1.0, 1.06), pan=((-0.006, 0.006), (0.006, -0.004)), lin=0.5),
+           bg=backdrop(grid=True, glow=(0.5, 0.5)), stills=stills, tag_text='DRAMATIZATION', tag_t0=-0.4)
 
 
 # ---------------------------------------------------------------------------- rich text + tabular numbers
@@ -895,7 +904,7 @@ def layer_plate(im, i, appear, hl=0.0, beaten=0.0):
     draw(im, (cx - L_A - 4, y - L_B - 4, cx + L_A + 4, y + L_B + L_T + 4), fn, alpha=a, glow=10 * hl, glow_alpha=0.5)
 
 
-def layer_row(im, i, sec, t0, hl=0.0, strike=0.0, beaten=0.0):
+def layer_row(im, i, sec, t0, hl=0.0, strike=0.0, beaten=0.0, show_det=True):
     p = p_in(sec, t0, 0.4)
     if p <= 0:
         return
@@ -907,7 +916,7 @@ def layer_row(im, i, sec, t0, hl=0.0, strike=0.0, beaten=0.0):
     label(im, f'{i + 1:02d}', (L_TX, y), size=30, color=mix(DIM, AMBER, hl), alpha=a, tracking=0.1)
     text(im, name, (L_TX + 90, y), size=58, color=mix(INK, AMBER, hl), alpha=a, dy=(1 - p) * 12, blur=(1 - p) * 4)
     nw = tsize(name, 58)[0]
-    if det:
+    if det and show_det:
         text(im, det, (L_TX + 90 + nw + 34, y), size=40, weight='Regular', display=False, color=mix(DIM, INK, 0.25),
              alpha=a * 0.95)
     if strike > 0:
@@ -915,52 +924,66 @@ def layer_row(im, i, sec, t0, hl=0.0, strike=0.0, beaten=0.0):
         hline(im, L_TX + 80, L_TX + 100 + tw, y - 18, color=INK, width=4, p=strike, alpha=0.9)
 
 
-@clip('M_LAYERS_A', 4.0, 'S14', '"TEN LAYERS": exploded stack of the ten security layers (S14-S19 order), counter "1 / 10" lights the steel door')
+@clip('M_LAYERS_A', 6.0, 'S14', '"TEN LAYERS" stack; the steel door lit, counter 1 / 10; "3 TONS" lands at 0, "12 HOURS" (of nonstop drilling) at 2.8 (VO S14)')
 def m_layers_a(stills=None):
+    cx = 2560
+
     def fg(im, sec, u):
-        build_label(im, 'the vault', (L_TX, L_Y0 - 300), sec, 0.05, size=34, tracking=0.2)
-        build_text(im, 'TEN LAYERS', (L_TX, L_Y0 - 170), sec, 0.12, size=120)
-        hl = p_in(sec, 1.75, 0.4)
+        build_label(im, 'the vault', (L_TX, L_Y0 - 300), sec, -0.5, size=34, tracking=0.2)
+        build_text(im, 'TEN LAYERS', (L_TX, L_Y0 - 170), sec, -0.45, size=120)
         for i in reversed(range(10)):
-            layer_plate(im, i, p_in(sec, 0.3 + 0.1 * i, 0.45), hl=hl if i == 0 else 0.0)
+            t_ = -0.45 if i == 0 else 0.3 + 0.12 * (i - 1)
+            layer_plate(im, i, p_in(sec, t_, 0.45), hl=1.0 if i == 0 else 0.0)
         for i in range(10):
-            layer_row(im, i, sec, 0.36 + 0.1 * i, hl=hl if i == 0 else 0.0)
-        pc = p_in(sec, 1.85, 0.4)
+            t_ = -0.4 if i == 0 else 0.36 + 0.12 * (i - 1)
+            layer_row(im, i, sec, t_, hl=1.0 if i == 0 else 0.0, show_det=False)
+        pc = p_in(sec, 0.1, 0.4)
         if pc > 0:
             x1 = L_TX + 1700
             tabnum(im, '1', (x1 - tsize(' / 10', 120)[0], L_Y0 - 170 + (1 - pc) * 20), size=120, color=AMBER, alpha=pc,
                    anchor='r', glow=8)
             text(im, ' / 10', (x1, L_Y0 - 170 + (1 - pc) * 20), size=120, color=DIM, alpha=pc, anchor='rs')
+        # the door, in two numbers
+        p1 = build_text(im, '3 TONS', (cx, L_Y0 + 300), sec, -0.3, size=190, color=AMBER)
+        build_label(im, 'of steel', (cx + 6, L_Y0 + 380), sec, -0.1, size=34, tracking=0.2)
+        build_text(im, '12 HOURS', (cx, L_Y0 + 700), sec, 2.6, size=190, color=AMBER)
+        build_label(im, 'of nonstop drilling', (cx + 6, L_Y0 + 780), sec, 2.8, size=34, tracking=0.2)
+        hline(im, cx, cx + 700, L_Y0 + 470, color=FAINT, width=2, p=p_io(sec, 2.4, 0.5))
 
-    render('M_LAYERS_A', 4.0, fg, cam=Cam(z=(1.0, 1.07), pan=((0.006, 0.01), (-0.012, -0.012))),
+    render('M_LAYERS_A', 6.0, fg, cam=Cam(z=(1.0, 1.07), pan=((0.006, 0.01), (-0.008, -0.01))),
            bg=backdrop(grid=True, glow=(0.32, 0.4)), stills=stills)
 
 
-@clip('M_LAYERS_B', 4.0, 'S28', 'the same ten-layer stack, each layer struck through in turn, counter to 10 / 10; "beaten by hair spray, tape, an aluminium plate and a sheet of foam" (VO S28)')
+@clip('M_LAYERS_B', 6.7, 'S28', 'the ten-layer stack struck through fast (0.1-1.2), counter to 10 / 10; "beaten by" then hair spray 1.6, tape 2.5, an aluminium plate 3.2, a sheet of foam 4.9 (VO S28)')
 def m_layers_b(stills=None):
-    TS = [0.3 + 0.19 * i for i in range(10)]
+    TS = [0.1 + 0.09 * i for i in range(10)]
+    PARTS = [('beaten by ', INK, 1.0), ('hair spray', AMBER, 1.6), (', ', INK, 2.5), ('tape', AMBER, 2.5), (', ', INK, 3.2),
+             ('an aluminium plate', AMBER, 3.2), (' and ', INK, 4.9), ('a sheet of foam', AMBER, 4.9)]
 
     def fg(im, sec, u):
         label(im, 'the vault', (L_TX, L_Y0 - 300), size=34, tracking=0.2)
         text(im, 'TEN LAYERS', (L_TX, L_Y0 - 170), size=120)
         n = sum(1 for t_ in TS if sec >= t_ + 0.1)
         for i in reversed(range(10)):
-            b = p_in(sec, TS[i] + 0.05, 0.35)
-            layer_plate(im, i, 1.0, hl=(1 - b) if i == 0 else 0.0, beaten=b)
+            layer_plate(im, i, 1.0, beaten=p_in(sec, TS[i] + 0.05, 0.3))
         for i in range(10):
-            b = p_in(sec, TS[i] + 0.05, 0.35)
-            layer_row(im, i, sec, -9, hl=(1 - b) if i == 0 else 0.0, strike=p_io(sec, TS[i], 0.22), beaten=b)
+            layer_row(im, i, sec, -9, strike=p_io(sec, TS[i], 0.18), beaten=p_in(sec, TS[i] + 0.05, 0.3))
         x1 = L_TX + 1700
-        tabnum(im, str(max(1, n)), (x1 - tsize(' / 10', 120)[0], L_Y0 - 170), size=120, color=AMBER, anchor='r', glow=8)
-        text(im, ' / 10', (x1, L_Y0 - 170), size=120, color=DIM, anchor='rs')
-        build_label(im, 'beaten', (x1, L_Y0 - 300), sec, 0.3, size=34, tracking=0.2, anchor='rs', color=AMBER)
-        # the punchline
+        if sec > TS[0]:
+            tabnum(im, str(max(1, n)), (x1 - tsize(' / 10', 120)[0], L_Y0 - 170), size=120, color=AMBER, anchor='r',
+                   glow=8)
+            text(im, ' / 10', (x1, L_Y0 - 170), size=120, color=DIM, anchor='rs')
+        build_label(im, 'beaten', (x1, L_Y0 - 300), sec, 0.0, size=34, tracking=0.2, anchor='rs', color=AMBER)
+        # the punchline, each item landing on its word
         yb = L_Y0 + 9 * L_STEP + 300
-        rich(im, [('beaten by ', INK), ('hair spray', AMBER), (', ', INK), ('tape', AMBER), (', ', INK),
-                  ('an aluminium plate', AMBER), (' and ', INK), ('a sheet of foam', AMBER)],
-             (CX, yb), size=72, anchor='ms', sec=sec, t0=2.35, stagger=0.09, dur=0.45)
+        size = 72
+        total = sum(tsize(t_, size)[0] for t_, _, _ in PARTS)
+        x = CX - total / 2
+        for t_, col, tl in PARTS:
+            build_text(im, t_, (x, yb), sec, tl - 0.25, size=size, color=col)
+            x += tsize(t_, size)[0]
 
-    render('M_LAYERS_B', 4.0, fg, cam=Cam(z=(1.03, 1.0), pan=((-0.006, -0.006), (0.0, 0.01))),
+    render('M_LAYERS_B', 6.7, fg, cam=Cam(z=(1.03, 1.0), pan=((-0.006, -0.006), (0.0, 0.01))),
            bg=backdrop(grid=True, glow=(0.32, 0.4)), stills=stills)
 
 
@@ -1644,38 +1667,64 @@ def m_wired(stills=None):
 
 PANEL_L = (200, 330, 1870, 1880)
 PANEL_R = (1970, 330, 3640, 1880)
-HIS = [('An insurance job', 'a diamond dealer hired the crew to stage it'),
-       ('A replica vault', 'rehearsing so they could work in the dark'),
-       ('Bags nearly empty', 'the stones moved out before the weekend'),
-       ('“20 million, not 100”', 'his figure for the haul')]
-EVI = [('Lights on', 'they did not work in the dark'),
-       ('Tape over the light sensor', 'black tape on the ceiling sensor'),
-       ('Loot sorted on the vault floor', 'the bags were not empty'),
-       ('Jewels and passports left behind', 'found by the guard on Monday')]
+HIS = ['he wasn’t the mastermind',
+       'a diamond dealer hired the crew to stage a robbery for the insurance',
+       'they rehearsed in a replica vault, to work in the dark',
+       'the bags were nearly empty: “20 million, not 100”']
 
 
-def story_panel(im, box, title, sub, rows, sec, t_rows, alpha=1.0, active=True, strikes=None, hot_row=None, p_head=1.0):
+def wrap(s_, size, maxw, weight='SemiBold', display=True):
+    lines, cur = [], ''
+    for w_ in s_.split(' '):
+        t_ = (cur + ' ' + w_).strip()
+        if not cur or tsize(t_, size, weight, display)[0] <= maxw:
+            cur = t_
+        else:
+            lines.append(cur)
+            cur = w_
+    if cur:
+        lines.append(cur)
+    return lines
+
+
+def panel_frame(im, box, title, sub, alpha=1.0, active=True, p_head=1.0, accent=1.0):
     x0, y0, x1, y1 = box
-    rect(im, box, fill=(24, 24, 28), alpha=0.9 * alpha * p_head, radius=10)
-    rect(im, box, outline=(64, 68, 76) if not active else (92, 96, 104), width=2, alpha=alpha * p_head, radius=10)
+    rect(im, box, fill=(24, 24, 28), alpha=0.9 * alpha, radius=10)
+    rect(im, box, outline=(92, 96, 104) if active else (64, 68, 76), width=2, alpha=alpha, radius=10)
     if active:
-        hline(im, x0, x0 + 260, y0, color=AMBER, width=6, p=p_head, glow=5)
+        hline(im, x0, x0 + 260, y0, color=AMBER, width=6, p=accent, glow=5)
+    if title:
+        text(im, title, (x0 + 110, y0 + 170), size=100, color=INK, alpha=alpha * p_head, dy=(1 - p_head) * 20,
+             blur=(1 - p_head) * 5)
+    if sub:
+        label(im, sub, (x0 + 110, y0 + 235), size=30, alpha=alpha * p_head, tracking=0.14)
+
+
+def his_rows(im, sec, t_rows, alpha=1.0, strikes=None):
+    """the four 'he says' claims in the left panel; rows without a time stay as placeholder rules."""
+    x0, y0, x1, y1 = PANEL_L
     tx = x0 + 110
-    text(im, title, (tx, y0 + 200), size=104, color=INK, alpha=alpha * p_head, dy=(1 - p_head) * 20)
-    label(im, sub, (tx, y0 + 270), size=30, alpha=alpha * p_head, tracking=0.14)
-    for j, (head, note) in enumerate(rows):
-        p = p_in(sec, t_rows[j], 0.42) if t_rows is not None else 0.0
-        y = y0 + 470 + j * 300
+    for j, s_ in enumerate(HIS):
+        ys = y0 + 330 + j * 290
+        t_ = t_rows[j] if t_rows else None
+        p = p_in(sec, t_, 0.45) if t_ is not None else 0.0
         if p <= 0:
-            hline(im, tx, x1 - 110, y - 40, color=(50, 53, 60), width=2, alpha=alpha * p_head * 0.7)
+            hline(im, tx, x1 - 110, ys + 100, color=(50, 53, 60), width=2, alpha=alpha * 0.8)
             continue
-        col = AMBER if hot_row == j else INK
-        label(im, f'{j + 1:02d}', (tx, y - 4), size=30, color=DIM, alpha=alpha * p, tracking=0.1)
-        text(im, head, (tx + 90, y), size=78, color=col, alpha=alpha * p, dy=(1 - p) * 16, blur=(1 - p) * 5)
-        text(im, note, (tx + 92, y + 70), size=40, weight='Regular', display=False, color=DIM, alpha=alpha * p)
+        label(im, 'he says', (tx, ys + 30), size=28, color=AMBER if alpha > 0.7 else DIM, alpha=alpha * p, tracking=0.2)
+        lines = wrap(s_, 60, x1 - x0 - 230)
+        for li, ln in enumerate(lines):
+            text(im, ln, (tx, ys + 108 + li * 74), size=60, color=INK, alpha=alpha * p, dy=(1 - p) * 14, blur=(1 - p) * 5)
         if strikes and strikes.get(j, 0) > 0:
-            w_ = tsize(head, 78)[0]
-            hline(im, tx + 80, tx + 104 + w_, y - 26, color=INK, width=5, p=strikes[j], alpha=0.85)
+            for li, ln in enumerate(lines):
+                hline(im, tx - 10, tx + 10 + tsize(ln, 60)[0], ys + 108 + li * 74 - 20, color=INK, width=5,
+                      p=strikes[j], alpha=0.85)
+
+
+def evi_rows_placeholder(im, alpha=1.0):
+    x0, y0, x1, y1 = PANEL_R
+    for j in range(4):
+        hline(im, x0 + 110, x1 - 110, y0 + 330 + j * 290 + 100, color=(50, 53, 60), width=2, alpha=alpha * 0.8)
 
 
 @clip('M_HISSTORY', 5.0, 'S44', 'split frame, left panel "HIS STORY" (according to Notarbartolo, 2009): insurance job / replica vault, dark / bags nearly empty / "20 million, not 100"; right panel waits (VO S44)')

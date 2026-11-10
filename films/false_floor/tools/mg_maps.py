@@ -1623,9 +1623,9 @@ def m_map_milan(stills=None):
     fr = Frame()
     Aw, Bw = P(*A), P(*B)
     route = arc_path(Aw, Bw, bow=0.18, side=1)
-    zp = ZoomPath([(-0.6, 1.22e6, P(5.0, 50.35)), (0.0, 1.26e6, P(5.05, 50.25)), (0.9, 1.36e6, P(5.25, 49.95)),
+    zp = ZoomPath([(-0.6, 1.22e6, P(5.0, 50.35)), (0.0, 1.25e6, P(5.05, 50.25)), (1.25, 1.33e6, P(5.3, 49.9)),
                    (4.4, 8.6e5, P(8.55, 45.95)), (5.6, 8.2e5, P(8.6, 45.9))])
-    T_ARC = (1.05, 3.6)
+    T_ARC = (1.15, 3.6)
     with make_clip('M_MAP_MILAN', secs, stills) as clip:
         for i, t in clip.frames():
             ts = i / FPS
@@ -1648,9 +1648,9 @@ def m_map_milan(stills=None):
             def labels(im):
                 ka = build_in(ts, -0.2, 10)
                 tlabel(im, 'ANTWERP', (ax + 36, ay), size=36, color=G.INK, alpha=ka, anchor='lm', tracking=0.14)
-                kp = build_in(ts, 0.08, 10) * (1 - G.ease(sg(ts, 2.4, 3.0)))
-                tlabel(im, 'Paroled · 2009', (ax + 36, ay + 96), size=72, color=G.INK, alpha=kp, anchor='ls', weight='SemiBold',
-                       display=True, tracking=0.02, upper=False, rise=12 * (1 - build_in(ts, 0.08, 10)))
+                kp = build_in(ts, 0.08, 10) * (1 - G.ease(sg(ts, 1.7, 2.2)))
+                tlabel(im, 'PAROLED · 2009', (ax + 36, ay + 100), size=72, color=G.INK, alpha=kp, anchor='ls', weight='SemiBold',
+                       display=True, tracking=0.03, upper=False, rise=12 * (1 - build_in(ts, 0.08, 10)))
                 kb = build_in(ts, T_ARC[1] - 0.05, 10)
                 tlabel(im, 'MILAN', (bx + 40, by - 6), size=40, color=G.INK, alpha=kb, anchor='lm', tracking=0.14,
                        weight='SemiBold', rise=8 * (1 - kb))
@@ -1701,15 +1701,15 @@ def m_map_paris(stills=None):
 
             def labels(im):
                 kt = build_in(ts, 0.08, 10)
-                tlabel(im, 'Parole broken', (250, 470), size=96, color=G.INK, alpha=kt, anchor='ls', weight='SemiBold',
-                       display=True, tracking=0.02, upper=False, rise=14 * (1 - kt))
+                tlabel(im, 'PAROLE BROKEN', (250, 360), size=96, color=G.INK, alpha=kt, anchor='ls', weight='SemiBold',
+                       display=True, tracking=0.03, upper=False, rise=14 * (1 - kt))
                 ks = build_in(ts, 0.45, 10)
-                tlabel(im, 'EUROPEAN ARREST WARRANT', (254, 540), size=34, color=G.DIM, alpha=ks, anchor='ls', tracking=0.16,
+                tlabel(im, 'EUROPEAN ARREST WARRANT', (254, 430), size=34, color=G.DIM, alpha=ks, anchor='ls', tracking=0.16,
                        rise=8 * (1 - ks))
                 ki = build_in(ts, 1.3, 10)
                 (ix, iy), _ = pos_on(inbound, 0.42)
                 X, Y = view.px(ix, iy)
-                tlabel(im, 'LAYOVER FROM THE US', (float(X), float(Y) - 40), size=26, color=G.DIM, alpha=0.9 * ki, anchor='mm',
+                tlabel(im, 'LAYOVER FROM THE US', (float(X), float(Y) + 46), size=26, color=G.DIM, alpha=0.9 * ki, anchor='mm',
                        tracking=0.14)
                 kp = build_in(ts, T_PIN + 0.02, 10)
                 tlabel(im, 'PARIS', (cx_ + 40, cy_ - 22), size=40, color=G.INK, alpha=kp, anchor='lm', tracking=0.14,
@@ -2308,12 +2308,14 @@ E_SLOTS = ['E_CENTRAAL', 'E_DISTRICT', 'E_ADC', 'E_DIAMONDS', 'E_WOODS', 'E_E19'
 E_BEATS = {'E_CENTRAAL': 'S04', 'E_DISTRICT': 'S04', 'E_ADC': 'S06', 'E_DIAMONDS': 'S05', 'E_WOODS': 'S33', 'E_E19': 'S31',
            'E_COURT': 'S40', 'E_MILAN': 'S49', 'E_CDG': 'S50'}
 # per-slot camera: (zoom start, zoom end, truck x, truck y, dolly) — truck in fractions of frame height, applied with depth
-E_MOVES = {'E_CENTRAAL': (1.05, 1.11, -0.020, 0.006, 0.07), 'E_DISTRICT': (1.06, 1.10, 0.024, 0.0, 0.06),
+E_MOVES = {'E_CENTRAAL': (1.04, 1.11, -0.010, 0.004, 0.09), 'E_DISTRICT': (1.06, 1.10, 0.024, 0.0, 0.06),
            'E_ADC': (1.05, 1.11, -0.012, 0.010, 0.07), 'E_DIAMONDS': (1.04, 1.12, 0.010, -0.008, 0.08),
            'E_WOODS': (1.05, 1.10, 0.026, 0.0, 0.06), 'E_E19': (1.05, 1.11, -0.018, 0.004, 0.07),
            'E_COURT': (1.05, 1.10, 0.016, 0.006, 0.06), 'E_MILAN': (1.05, 1.11, -0.016, 0.0, 0.07),
            'E_CDG': (1.05, 1.10, 0.020, 0.004, 0.06)}
-E_PICK = {}                     # slot -> filename override after looking at the candidates
+E_PICK = {'E_CENTRAAL': 'E_CENTRAAL_1.jpg'}      # slot -> chosen candidate (looked at each one; no identifiable faces)
+# v2 re-cut lengths (s); slots not in the cut (E_DIAMONDS, E_CDG, E_COURT, E_E19) are skipped
+E_DUR = {'E_DISTRICT': 2.1, 'E_CENTRAAL': 3.0, 'E_ADC': 3.5, 'E_MILAN': 2.6, 'E_WOODS': 4.4}
 MIDAS = os.path.expanduser('~/.cache/mg_maps/models/midas_small.onnx')
 MIDAS_URL = 'https://github.com/isl-org/MiDaS/releases/download/v2_1/model-small.onnx'
 
@@ -2418,7 +2420,7 @@ def e_photo(cid, stills=None, pick=None):
     rgb = np.asarray(img).astype(np.uint8)
     dep = depth_map(rgb)
     z0, z1, tx, ty, dolly = E_MOVES.get(cid, (1.05, 1.10, 0.02, 0.0, 0.06))
-    secs = 4.0
+    secs = E_DUR.get(cid, 4.0)
     yy, xx = np.mgrid[0:H2, 0:W2].astype(np.float32)
     qx, qy = (xx - W2 / 2) / H2, (yy - H2 / 2) / H2
     with make_clip(cid, secs, stills) as clip:
@@ -2446,7 +2448,7 @@ def e_photo(cid, stills=None, pick=None):
     return True
 
 
-E_CROP_Y = {}
+E_CROP_Y = {'E_CENTRAAL': 0.62}
 
 
 # ===================================================================================================== manifest
