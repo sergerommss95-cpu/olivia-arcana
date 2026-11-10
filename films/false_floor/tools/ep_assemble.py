@@ -53,7 +53,7 @@ def main():
             af.append(f'[{i}:a]aresample=48000,aformat=channel_layouts=stereo[a{i}]')
         elif p == end and os.path.exists(END_MUSIC[0]):   # the last chapter's score carries on under the end card
             mus = END_MUSIC[0].replace('\\', '/').replace(':', '\\:')
-            af.append(f"amovie='{mus}':seek_point={END_MUSIC[1]},atrim=0:{d:.3f},asetpts=PTS-STARTPTS,aresample=48000,"
+            af.append(f"amovie='{mus}':seek_point={END_MUSIC[1]},asetpts=PTS-STARTPTS,atrim=0:{d:.3f},asetpts=PTS-STARTPTS,aresample=48000,"
                       f"aformat=channel_layouts=stereo,volume={END_MUSIC[2]}dB,afade=t=in:d=0.8,"
                       f"afade=t=out:st={max(0.0, d - 4.0):.3f}:d=4.0[a{i}]")
         else:
@@ -74,7 +74,18 @@ def main():
           f"alimiter=limit=0.78:attack=1:release=60:level=false,aresample=48000")
     cat = ''.join(f'[v{i}][a{i}]' for i in range(n)) + f'concat=n={n}:v=1:a=1[vc][ac]'
     review = arg('--review')
-    if review:                               # one decode, two encodes: the master and a lighter review copy
+    if '--remux-audio' in sys.argv:          # picture already encoded: rebuild only the programme audio and swap it in
+        tmpa = os.path.join(FF, 'out', '_asm_audio.m4a')
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', *inputs, '-filter_complex',
+                        ';'.join(af + [''.join(f'[a{i}]' for i in range(n)) + f'concat=n={n}:v=0:a=1,{ln}[aout]']),
+                        '-map', '[aout]', '-c:a', 'aac', '-b:a', '256k', tmpa], check=True)
+        for v in [out] + ([review] if review else []):
+            tmpv = v + '.tmp.mp4'
+            subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', v, '-i', tmpa, '-map', '0:v', '-map', '1:a', '-c', 'copy',
+                            '-shortest', '-movflags', '+faststart', tmpv], check=True)
+            os.replace(tmpv, v)
+        os.remove(tmpa)
+    elif review:                               # one decode, two encodes: the master and a lighter review copy
         fc = ';'.join(vf + af + [cat, f'[ac]{ln},asplit=2[aout][arev]', '[vc]split=2[vm][vr]'])
         outs = ['-map', '[vm]', '-map', '[aout]', '-c:v', 'libx264', '-preset', 'medium', '-crf', crf, '-pix_fmt', 'yuv420p',
                 '-c:a', 'aac', '-b:a', '256k', '-movflags', '+faststart', out,
@@ -84,7 +95,8 @@ def main():
         fc = ';'.join(vf + af + [cat, f'[ac]{ln}[aout]'])
         outs = ['-map', '[vc]', '-map', '[aout]', '-c:v', 'libx264', '-preset', 'medium', '-crf', crf, '-pix_fmt', 'yuv420p',
                 '-c:a', 'aac', '-b:a', '256k', '-movflags', '+faststart', out]
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', *inputs, '-filter_complex', fc, *outs], check=True)
+    if '--remux-audio' not in sys.argv:
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', *inputs, '-filter_complex', fc, *outs], check=True)
     # subtitles: every word of George's VO, placed through each part's piece map
     words = words_on_vo_clock(VO)
     cues = []
@@ -106,10 +118,14 @@ def main():
                     line, ls = [], None
             if line:
                 cues.append((ls, t0 + at + (b - a), ' '.join(line)))
+    cues.sort()
+    for i in range(len(cues) - 1):                      # a cue never runs into the next one
+        a_, b_, t_ = cues[i]
+        cues[i] = (a_, min(max(b_, a_ + 0.8), cues[i + 1][0] - 0.04), t_)
     srt = os.path.splitext(out)[0] + '.srt'
     with open(srt, 'w') as f:
         for i, (a, b, txt) in enumerate(cues, 1):
-            f.write(f'{i}\n{ts(a)} --> {ts(max(b, a + 0.8))}\n{txt}\n\n')
+            f.write(f'{i}\n{ts(a)} --> {ts(b)}\n{txt}\n\n')
     print(f'[asm] wrote {out} ({dur(out):.1f}s), {srt} ({len(cues)} cues)', flush=True)
 
 
