@@ -987,7 +987,7 @@ def m_layers_b(stills=None):
            bg=backdrop(grid=True, glow=(0.32, 0.4)), stills=stills)
 
 
-@clip('M_17576', 4.0, 'S19', 'box lock: three letter wheels A-Z spin; counter rolls to 17,576 combinations per box (26x26x26); 189 boxes grid (VO S19)')
+@clip('M_17576', 6.0, 'S19', 'box lock: three letter wheels A-Z spin; 189 boxes grid; counter reaches 17,576 by 2.7 (26x26x26), "combinations", "PER BOX" at 4.0 (VO S19)')
 def m_17576(stills=None):
     ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     px0, py0, px1, py1 = 330, CY - 560, 1730, CY + 520          # lock face plate
@@ -998,11 +998,11 @@ def m_17576(stills=None):
 
     def vel(tt, j):
         v_fast, v_slow = 19.0 - 2.5 * j, 2.0 + 0.45 * j
-        return (v_slow + (v_fast - v_slow) * (1 - G.ease(G.seg(tt, 1.1, 2.5)))) * G.seg(tt, 0.0, 0.25)
+        return (v_slow + (v_fast - v_slow) * (1 - G.ease(G.seg(tt, 1.6, 3.0)))) * G.seg(tt, 0.0, 0.25)
 
     def wheel_pos(j, sec):
         """letters travelled: a fast spin easing down to a slow, stepping search that never settles."""
-        t_ = sec - (0.3 + 0.16 * j)
+        t_ = sec - (0.0 + 0.12 * j)
         if t_ <= 0:
             return 7.0 * j, 0.0
         n = max(1, int(t_ * 48))
@@ -1016,7 +1016,7 @@ def m_17576(stills=None):
         return 7.0 * j + stepped * (1 - w) + pos * w, v
 
     def fg(im, sec, u):
-        pa = p_in(sec, 0.0, 0.5)
+        pa = p_in(sec, -0.45, 0.5)
         rect(im, (px0, py0, px1, py1), fill=(30, 31, 36), alpha=0.95 * pa, radius=28)
         rect(im, (px0, py0, px1, py1), outline=(80, 84, 92), width=3, alpha=pa, radius=28)
         rect(im, (px0 + 28, py0 + 28, px1 - 28, py1 - 28), outline=(52, 55, 61), width=2, alpha=pa, radius=18)
@@ -1024,7 +1024,7 @@ def m_17576(stills=None):
         label(im, 'three-letter combination', (px1 - 80, py0 + 110), size=32, alpha=pa, tracking=0.16, anchor='rs')
         for j in range(3):
             x = wx0 + j * (ww + wg)
-            pw = p_in(sec, 0.12 + 0.08 * j, 0.4)
+            pw = p_in(sec, -0.4 + 0.06 * j, 0.4)
             if pw <= 0:
                 continue
             rect(im, (x, wy0, x + ww, wy0 + wh), fill=(11, 11, 13), alpha=pw, radius=12)
@@ -1051,7 +1051,7 @@ def m_17576(stills=None):
                 poly(im, [(sx_ - d_ * 14, wy0 + wh / 2 - 13), (sx_ + d_ * 6, wy0 + wh / 2), (sx_ - d_ * 14, wy0 + wh / 2 + 13)],
                      fill=AMBER, alpha=0.85 * pw)
         # keyhole: its own key
-        pk = p_in(sec, 0.45, 0.4)
+        pk = p_in(sec, -0.2, 0.4)
         kx, ky = (px0 + px1) / 2, wy0 + wh + 200
         if pk > 0:
             circle(im, (kx, ky - 24), 36, fill=(8, 8, 10), alpha=pk)
@@ -1061,25 +1061,26 @@ def m_17576(stills=None):
         # right column: 26 x 26 x 26 -> 17,576
         parts = []
         for j in range(3):
-            hot = G.seg(sec, 0.3 + 0.16 * j, 0.45) * (1 - G.seg(sec, 1.5, 2.2))
+            hot = G.seg(sec, 0.12 * j, 0.12 * j + 0.3) * (1 - G.seg(sec, 2.2, 2.9))
             parts.append(('26', mix(INK, AMBER, hot)))
             if j < 2:
                 parts.append((' × ', DIM))
-        rich(im, parts, (rx, CY - 400), size=104, anchor='rs', sec=sec, t0=0.3, stagger=0.08)
-        pc = G.ease_out(G.seg(sec, 0.55, 2.6))
-        if sec >= 0.55:
-            tabnum(im, f'{int(round(17576 * pc)):,}', (rx, CY - 70), size=300, color=AMBER, anchor='r',
-                   alpha=p_in(sec, 0.55, 0.25), glow=14 * pc)
-        build_text(im, 'combinations — per box', (rx, CY + 60), sec, 1.5, size=76, anchor='rs', color=INK)
-        # 189 boxes: a grid fills in
-        pb = p_in(sec, 2.45, 0.4)
+        rich(im, parts, (rx, CY - 430), size=104, anchor='rs', sec=sec, t0=0.15, stagger=0.08)
+        pc = G.ease_out(G.seg(sec, 0.6, 2.7))
+        if sec >= 0.6:
+            tabnum(im, f'{int(round(17576 * pc)):,}', (rx, CY - 110), size=300, color=AMBER, anchor='r',
+                   alpha=p_in(sec, 0.6, 0.25), glow=14 * pc)
+        build_text(im, 'combinations', (rx, CY + 20), sec, 2.55, size=76, anchor='rs', color=INK)
+        build_text(im, 'PER BOX', (rx, CY + 200), sec, 3.78, size=130, anchor='rs', color=INK)
+        # 189 boxes: a grid fills in (said just before this clip)
+        pb = p_in(sec, -0.2, 0.4)
         if pb > 0:
             cols, rows, cs, cg = 27, 7, 30, 10
-            gy0 = CY + 230
+            gy0 = CY + 330
             gx0 = rx - cols * (cs + cg) + cg
             for k in range(189):
                 c_, r_ = k % cols, k // cols
-                q = p_in(sec, 2.5 + 0.0045 * k, 0.2)
+                q = p_in(sec, -0.15 + 0.004 * k, 0.2)
                 if q <= 0:
                     continue
                 x = gx0 + c_ * (cs + cg)
@@ -1090,19 +1091,19 @@ def m_17576(stills=None):
             label(im, 'each its own key + combination', (gx0 - 50, gy0 + gh / 2 + 56), size=30, alpha=pb, anchor='rs',
                   tracking=0.1)
 
-    render('M_17576', 4.0, fg, cam=Cam(z=(1.0, 1.06), pan=((-0.008, 0.006), (0.01, -0.006))),
+    render('M_17576', 6.0, fg, cam=Cam(z=(1.0, 1.06), pan=((-0.008, 0.006), (0.01, -0.006))),
            bg=backdrop(grid=True, glow=(0.36, 0.48)), stills=stills)
 
 
 # ---------------------------------------------------------------------------- Ch4
 
-def embers(im, sec, n=46, seed=5, y0=None, alpha=1.0):
+def embers(im, sec, n=46, seed=5, y0=None, alpha=1.0, span=3.5):
     """slow sparks rising from the bottom of frame."""
     rng = np.random.default_rng(seed)
     y0 = H2 + 40 if y0 is None else y0
     for k in range(n):
         x = rng.uniform(300, W2 - 300)
-        t0 = rng.uniform(-3.0, 3.5)
+        t0 = rng.uniform(-3.0, span)
         life = rng.uniform(2.2, 3.6)
         vy = rng.uniform(260, 520)
         sway = rng.uniform(20, 70)
@@ -1118,51 +1119,56 @@ def embers(im, sec, n=46, seed=5, y0=None, alpha=1.0):
         circle(im, (xx, yy), r, fill=(255, 176, 92), alpha=a, glow=r * 2.5, glow_alpha=0.9)
 
 
-@clip('M_BURNLIST', 3.5, 'S30', '"THE PLAN: BURN EVERYTHING" (according to Notarbartolo): TAPE / TOOLS / PACKAGING / FOOD tick on; faint ember glow + sparks (VO S30)')
+@clip('M_BURNLIST', 8.7, 'S30', '"THE PLAN:" 0-0.8 (according to Notarbartolo), "BURN EVERYTHING" 1.8; TAPE 4.6 / TOOLS 5.3 / PACKAGING 6.0 / FOOD 6.9 tick on; ember glow + sparks, hold (VO S30)')
 def m_burnlist(stills=None):
-    tw = tsize('THE PLAN: BURN EVERYTHING', 132)[0]
+    size = 132
+    w1 = tsize('THE PLAN: ', size)[0]
+    tw = tsize('THE PLAN: BURN EVERYTHING', size)[0]
     x0 = CX - tw / 2
     y_t = CY - 300
     ITEMS = ['TAPE', 'TOOLS', 'PACKAGING', 'FOOD']
-    TT = [1.0, 1.45, 1.9, 2.35]
+    TT = [4.6, 5.3, 6.0, 6.9]
 
     def fg(im, sec, u):
         fl = 0.75 + 0.25 * math.sin(sec * 7.3) * math.sin(sec * 3.1 + 1)
-        glow_spot(im, (CX, H2 + 260), 1500, color=(232, 120, 40), alpha=0.21 * fl * p_in(sec, -0.4, 1.2))
-        glow_spot(im, (CX - 500, H2 + 200), 900, color=(232, 150, 60), alpha=0.08 * fl)
-        embers(im, sec, alpha=0.75)
-        build_label(im, 'according to Notarbartolo', (x0, y_t - 170), sec, 0.05, size=34, tracking=0.18)
-        build_text(im, 'THE PLAN: BURN EVERYTHING', (x0, y_t), sec, 0.15, size=132)
-        hline(im, x0, x0 + tw, y_t + 70, color=FAINT, width=3, p=p_io(sec, 0.45, 0.6))
+        heat = 0.7 + 0.3 * G.seg(sec, 1.6, 8.0)
+        glow_spot(im, (CX, H2 + 260), 1500, color=(232, 120, 40), alpha=0.21 * fl * heat * p_in(sec, -0.5, 1.2))
+        glow_spot(im, (CX - 500, H2 + 200), 900, color=(232, 150, 60), alpha=0.08 * fl * heat)
+        embers(im, sec, n=96, alpha=0.75, span=9.2)
+        build_label(im, 'according to Notarbartolo', (x0, y_t - 170), sec, -0.1, size=34, tracking=0.18)
+        build_text(im, 'THE PLAN:', (x0, y_t), sec, 0.05, size=size, dur=0.6)
+        build_text(im, 'BURN EVERYTHING', (x0 + w1, y_t), sec, 1.55, size=size, dur=0.5)
+        hline(im, x0, x0 + tw, y_t + 70, color=FAINT, width=3, p=p_io(sec, 1.9, 0.7))
         for j, it in enumerate(ITEMS):
             y = y_t + 220 + j * 140
-            pa = p_in(sec, 0.55 + 0.06 * j, 0.4)
+            pa = p_in(sec, 2.6 + 0.08 * j, 0.4)
             if pa <= 0:
                 continue
             bx = x0 + 6
             rect(im, (bx, y - 64, bx + 72, y + 8), outline=(120, 124, 132), width=3, alpha=pa, radius=6)
-            pt = p_io(sec, TT[j], 0.3)
-            on = p_in(sec, TT[j], 0.35)
-            text(im, it, (bx + 130, y), size=84, color=mix(DIM, INK, on), alpha=pa, dy=(1 - pa) * 14)
+            q = p_in(sec, TT[j] - 0.25, 0.35)
+            if q > 0:
+                text(im, it, (bx + 130, y), size=84, color=INK, alpha=q, dy=(1 - q) * 14, blur=(1 - q) * 5)
+            pt = p_io(sec, TT[j] - 0.2, 0.3)
             if pt > 0:
                 check(im, (bx + 38, y - 30), 56, color=AMBER, width=8, p=pt, glow=6)
 
-    render('M_BURNLIST', 3.5, fg, cam=Cam(z=(1.0, 1.07), pan=((0.0, 0.012), (0.0, -0.008))),
+    render('M_BURNLIST', 8.7, fg, cam=Cam(z=(1.0, 1.08), pan=((0.0, 0.012), (0.0, -0.008)), lin=0.5),
            bg=backdrop(grid=False, glow=(0.5, 0.85), warm=0.4), stills=stills)
 
 
-@clip('M_GHOSTS', 3.0, 'S32', 'the four crew dossier cards (M_CREW art) fade to grey silhouettes stamped UNKNOWN; DRAMATIZATION tag (VO S32 "the crew are ghosts")')
+@clip('M_GHOSTS', 3.6, 'S32', 'the four crew dossier cards (M_CREW art) fade to grey silhouettes stamped UNKNOWN by 1.8; DRAMATIZATION tag (VO S32 "the crew are ghosts")')
 def m_ghosts(stills=None):
     def fg(im, sec, u):
         crew_header(im, 99, title='THE SCHOOL OF TURIN', sub='')
-        build_label(im, 'to the detectives: ghosts', (CARD_X0, CARD_Y0 - 92), sec, 0.9, size=30, tracking=0.08,
+        build_label(im, 'to the detectives: ghosts', (CARD_X0, CARD_Y0 - 92), sec, 0.5, size=30, tracking=0.08,
                     weight='Regular')
         for k in range(4):
-            g = p_io(sec, 0.25 + 0.12 * k, 1.0)
-            crew_card(im, k, sec, 1.0, bright=1.0 - 0.15 * g, ghost=g, stamp_p=p_in(sec, 1.15 + 0.2 * k, 0.22),
-                      inner=0.5 + 0.5 * G.seg(sec, -0.5, 3.5))
+            g = p_io(sec, 0.15 + 0.1 * k, 0.9)
+            crew_card(im, k, 99, 1.0, bright=1.0 - 0.15 * g, ghost=g, stamp_p=p_in(sec, 1.0 + 0.15 * k, 0.22),
+                      inner=0.5 + 0.5 * G.seg(sec, -0.5, 4.1))
 
-    render('M_GHOSTS', 3.0, fg, cam=Cam(z=(1.0, 1.055), pan=((0.004, 0.006), (-0.004, -0.004))),
+    render('M_GHOSTS', 3.6, fg, cam=Cam(z=(1.0, 1.06), pan=((0.004, 0.006), (-0.004, -0.004))),
            bg=backdrop(grid=True, glow=(0.5, 0.5)), stills=stills, tag_text='DRAMATIZATION', tag_t0=-9)
 
 
@@ -1310,57 +1316,44 @@ def ev_tag(im, num, s, c, alpha=1.0, color=INK, size=30):
 
 # ---------------------------------------------------------------------------- Ch4: the bags in the woods
 
-@clip('M_EVIDENCE', 5.0, 'S36', 'evidence-board reconstruction: receipts, envelopes, loose stones, paperwork (-> an office in the Diamond Centre), half a salami sandwich; flat illustrations + tags, amber string; RECONSTRUCTION tag (VO S36)')
+@clip('M_EVIDENCE', 3.6, 'S36', 'evidence-board reconstruction: RECEIPTS 0 / ENVELOPES 1.0 / LOOSE STONES 1.9 (cut-away at 3.2); flat illustrations + tags, amber string; RECONSTRUCTION tag (VO S36)')
 def m_evidence(stills=None):
-    ITEMS = [('receipts', 'receipts', (840, 800), -4, 0.25),
-             ('envelopes', 'envelopes', (1820, 690), 3, 0.95),
-             ('stones', 'loose stones', (2880, 800), -2, 1.6),
-             ('paperwork', 'paperwork', (2820, 1530), 2, 2.25),
-             ('sandwich', 'half a salami sandwich', (1640, 1560), -3, 3.35)]
-    PIN = [-178, -140, -112, -190, -122]
+    ITEMS = [('receipts', 'receipts', (980, CY - 20), -4, 0.0),
+             ('envelopes', 'envelopes', (1930, CY - 150), 3, 1.0),
+             ('stones', 'loose stones', (2870, CY - 10), -2, 1.9)]
+    PIN = [-178, -140, -112]
 
     def fg(im, sec, u):
-        build_label(im, 'found in the woods', (440, 330), sec, 0.05, size=34, tracking=0.2, color=INK)
-        build_label(im, 'what the bags held', (440, 386), sec, 0.15, size=30, tracking=0.08, weight='Regular')
+        build_label(im, 'found in the woods', (520, 380), sec, -0.45, size=34, tracking=0.2, color=INK)
+        build_label(im, 'what the bags held', (520, 436), sec, -0.35, size=30, tracking=0.08, weight='Regular')
         pins = [(x + (12 if j % 2 else -10), y + PIN[j]) for j, (_, _, (x, y), _, _) in enumerate(ITEMS)]
-        # strings first (they run behind the items and tags): each new item ties back to the previous one
         for j in range(1, len(ITEMS)):
-            ps = p_io(sec, ITEMS[j][4] - 0.05, 0.55)
-            string(im, pins[j - 1], pins[j], p=ps, sag=70, alpha=0.8 if j < 4 else 1.0)
-        for j, (kind, name, (x, y), rot, t0) in enumerate(ITEMS):
-            p = p_in(sec, t0, 0.5)
+            string(im, pins[j - 1], pins[j], p=p_io(sec, ITEMS[j][4] - 0.45, 0.5), sag=70, alpha=0.85)
+        for j, (kind, name, (x, y), rot, tl) in enumerate(ITEMS):
+            p = p_in(sec, tl - 0.4, 0.5)
             if p <= 0:
                 continue
-            scale = 1.25 if kind == 'sandwich' else 1.0
-            tile = ill_tile(kind, scale=scale) if kind != 'sandwich' else ill_tile(kind, 760, 520, 1.25)
+            tile = ill_tile(kind)
             r = rot + (1 - p) * 6 * (1 if j % 2 else -1)
             k = 1.0 + 0.08 * (1 - p)
             t2 = tile.resize((int(tile.width * k), int(tile.height * k)), Image.BICUBIC).rotate(r, Image.BICUBIC, expand=True)
             composite(im, fade(t2, p), x - t2.width / 2, y - t2.height / 2 - (1 - p) * 30)
-            hot = kind == 'sandwich'
-            ev_tag(im, f'{j + 1:02d}', name, (x, y + (300 if hot else 250)), alpha=p, color=AMBER if hot else INK)
+            ev_tag(im, f'{j + 1:02d}', name, (x, y + 250), alpha=p)
         for j in range(len(ITEMS)):
-            pp = p_in(sec, ITEMS[j][4] + 0.15, 0.25)
+            pp = p_in(sec, ITEMS[j][4] - 0.2, 0.25)
             if pp > 0:
                 pin(im, pins[j], alpha=pp)
-        # paperwork points back to an office
-        pa = p_in(sec, 2.75, 0.45)
-        if pa > 0:
-            x, y = ITEMS[3][2]
-            label(im, '→ an office in the Diamond Centre', (x, y + 345), size=30, color=DIM, alpha=pa,
-                  tracking=0.08, weight='Regular', anchor='ms')
-        if sec > 3.4:
-            glow_spot(im, ITEMS[4][2], 520, color=AMBER, alpha=0.07 * p_in(sec, 3.4, 0.6))
 
-    render('M_EVIDENCE', 5.0, fg, cam=Cam(z=(1.0, 1.085), pan=((0.006, -0.01), (-0.006, 0.02)), lin=0.45),
-           bg=backdrop(grid=False, glow=(0.5, 0.55), warm=0.26), stills=stills, tag_text='RECONSTRUCTION')
+    render('M_EVIDENCE', 3.6, fg, cam=Cam(z=(1.0, 1.07), pan=((-0.008, 0.004), (0.008, -0.004))),
+           bg=backdrop(grid=False, glow=(0.5, 0.5), warm=0.26), stills=stills, tag_text='RECONSTRUCTION', tag_t0=-0.4)
 
 
-@clip('M_DNA', 4.0, 'S37', 'sandwich in an evidence bag -> swab -> DNA strand -> "CASE FILE" stamp (no percentages); RECONSTRUCTION tag (VO S37)')
+@clip('M_DNA', 4.9, 'S37', 'sandwich in an evidence bag -> swab -> DNA strand lands 0.8 -> "CASE FILE" stamp 3.3 (no percentages); RECONSTRUCTION tag (VO S37)')
 def m_dna(stills=None):
     XS = [760, 1560, 2380, 3180]
     LB = ['evidence bag', 'swab', 'DNA', 'case file']
-    TT = [0.1, 0.85, 1.6, 2.4]
+    TT = [-0.45, 0.15, 0.35, 2.7]
+    TL = [-0.25, 0.35, 0.6, 3.15]
 
     def bag(im, c, p):
         x, y = c
@@ -1448,10 +1441,10 @@ def m_dna(stills=None):
         if p0 > 0:
             bag(im, (XS[0], y), p0)
         swab(im, (XS[1], y), p_io(sec, TT[1], 0.6))
-        helix(im, (XS[2], y), p_io(sec, TT[2], 0.8), sec)
+        helix(im, (XS[2], y), p_io(sec, TT[2], 0.5), sec)
         p3 = p_in(sec, TT[3], 0.45)
         if p3 > 0:
-            folder(im, (XS[3], y), p3, p_in(sec, TT[3] + 0.55, 0.22))
+            folder(im, (XS[3], y), p3, p_in(sec, TT[3] + 0.42, 0.22))
         for j in range(3):
             pa = p_io(sec, TT[j + 1] - 0.25, 0.35)
             dashed(im, (XS[j] + 330, y), (XS[j + 1] - 330, y), color=AMBER, width=4, dash=16, gap=14, p=pa,
@@ -1460,107 +1453,145 @@ def m_dna(stills=None):
                 ex = XS[j + 1] - 330
                 poly(im, [(ex - 22, y - 16), (ex + 6, y), (ex - 22, y + 16)], fill=AMBER, alpha=0.9)
         for j in range(4):
-            build_label(im, LB[j], (XS[j], y + 470), sec, TT[j] + 0.2, size=32, tracking=0.2, anchor='ms',
+            build_label(im, LB[j], (XS[j], y + 470), sec, TL[j], size=32, tracking=0.2, anchor='ms',
                         color=AMBER if j == 3 else DIM)
 
-    render('M_DNA', 4.0, fg, cam=Cam(z=(1.12, 1.08), pan=((-0.045, 0.0), (0.035, -0.006)), lin=0.5),
-           bg=backdrop(grid=True, glow=(0.5, 0.5)), stills=stills, tag_text='RECONSTRUCTION')
+    render('M_DNA', 4.9, fg, cam=Cam(z=(1.02, 1.1), pan=((-0.01, 0.0), (0.03, -0.006)), lin=0.5),
+           bg=backdrop(grid=True, glow=(0.5, 0.5)), stills=stills, tag_text='RECONSTRUCTION', tag_t0=-0.4)
 
 
 # ---------------------------------------------------------------------------- Ch5: the tenant returns
 
-@clip('M_DETECTIVES', 3.5, 'S39', 'two name cards, no faces: AGIM DE BRUYCKER / PATRICK PEYS - diamond squad, Antwerp police; 21 February 2003 (VO S39)')
-def m_detectives(stills=None):
-    blocks = [(820, 'AGIM', 'DE BRUYCKER', 0.25), (2320, 'PATRICK', 'PEYS', 0.7)]
-    y0 = CY - 50
+@clip('M_DATE_21FEB', 2.8, 'S39', 'date card "FRIDAY · 21 FEBRUARY 2003" + "FIVE DAYS AFTER THE HEIST" in at 0.2; a week strip Sat 15 - Fri 21 counts +1..+5 from the heist weekend (FACTS 1, 28)')
+def m_date_21feb(stills=None):
+    DAYS = [('SAT', 15), ('SUN', 16), ('MON', 17), ('TUE', 18), ('WED', 19), ('THU', 20), ('FRI', 21)]
+    cw, gap, ch = 270, 26, 230
+    gx0 = CX - (7 * cw + 6 * gap) / 2
+    gy = CY + 120
 
     def fg(im, sec, u):
-        build_label(im, '21 february 2003 · the diamond centre', (760, y0 - 260), sec, 0.05, size=32, tracking=0.2)
-        for x, a, b, t0 in blocks:
-            vline(im, x - 60, y0 - 130, y0 + 400, color=AMBER, width=5, p=p_io(sec, t0 - 0.1, 0.5), glow=4)
-            build_label(im, 'detective', (x, y0 - 90), sec, t0, size=32, tracking=0.2)
-            build_text(im, a, (x, y0 + 50), sec, t0 + 0.08, size=124, color=INK)
-            build_text(im, b, (x, y0 + 200), sec, t0 + 0.16, size=124, color=INK)
-            build_text(im, 'diamond squad · Antwerp police', (x, y0 + 330), sec, t0 + 0.35, size=50, weight='Regular',
-                       display=False, color=INK, alpha=0.8)
+        build_text(im, 'FRIDAY · 21 FEBRUARY 2003', (CX, CY - 200), sec, -0.05, size=150, anchor='ms', color=INK)
+        build_label(im, 'five days after the heist', (CX, CY - 70), sec, 0.15, size=40, tracking=0.22, anchor='ms',
+                    color=AMBER)
+        for k, (dname, dd) in enumerate(DAYS):
+            x = gx0 + k * (cw + gap)
+            pc = p_in(sec, 0.3 + 0.04 * k, 0.35)
+            if pc <= 0:
+                continue
+            heist = k < 2
+            hot = k == 6
+            ph = p_in(sec, 0.75 + 0.16 * (k - 2), 0.3) if k >= 2 else 0.0
+            ha = p_in(sec, 1.4, 0.35) if hot else 0.0
+            rect(im, (x, gy, x + cw, gy + ch), fill=(40, 41, 47) if heist else BG2, alpha=0.95 * pc, radius=8)
+            rect(im, (x, gy, x + cw, gy + ch), outline=mix(FAINT, AMBER, ha), width=3, alpha=pc, radius=8, glow=10 * ha)
+            if hot:
+                rect(im, (x, gy, x + cw, gy + ch), fill=AMBER, alpha=0.12 * ha, radius=8)
+            label(im, dname, (x + 30, gy + 58), size=28, color=mix(DIM, AMBER, ha), alpha=pc, tracking=0.16)
+            text(im, str(dd), (x + 30, gy + 190), size=110, color=mix(INK if not heist else DIM, AMBER, ha), alpha=pc)
+            if ph > 0:
+                label(im, f'+{k - 1}', (x + cw - 28, gy + 58), size=28, color=AMBER if hot else DIM, alpha=ph,
+                      anchor='rs', tracking=0.06)
+        pb = p_io(sec, 0.6, 0.4)
+        hline(im, gx0, gx0 + 2 * cw + gap, gy + ch + 40, color=DIM, width=3, p=pb)
+        build_label(im, 'the heist', (gx0, gy + ch + 100), sec, 0.7, size=30, tracking=0.2)
 
-    render('M_DETECTIVES', 3.5, fg, cam=Cam(z=(1.0, 1.07), pan=((-0.012, 0.008), (0.01, -0.006))),
+    render('M_DATE_21FEB', 2.8, fg, cam=Cam(z=(1.0, 1.06), pan=((-0.006, 0.006), (0.006, -0.004))),
+           bg=backdrop(grid=True, glow=(0.5, 0.5)), stills=stills)
+
+
+@clip('M_DETECTIVES', 5.9, 'S39', 'two name cards, no faces: AGIM DE BRUYCKER 0.8 / PATRICK PEYS 2.0 / "DIAMOND SQUAD · ANTWERP POLICE" 3.0 (VO S39)')
+def m_detectives(stills=None):
+    blocks = [(820, 'AGIM', 'DE BRUYCKER', 0.8), (2320, 'PATRICK', 'PEYS', 2.0)]
+    y0 = CY - 120
+
+    def fg(im, sec, u):
+        for x, a, b, tl in blocks:
+            t0 = tl - 0.3
+            vline(im, x - 60, y0 - 130, y0 + 250, color=AMBER, width=5, p=p_io(sec, t0 - 0.1, 0.5), glow=4)
+            build_label(im, 'detective', (x, y0 - 90), sec, t0, size=32, tracking=0.2)
+            build_text(im, a, (x, y0 + 50), sec, t0 + 0.06, size=124, color=INK)
+            build_text(im, b, (x, y0 + 200), sec, t0 + 0.12, size=124, color=INK)
+        hline(im, 760, 3080, y0 + 360, color=FAINT, width=3, p=p_io(sec, 2.7, 0.6))
+        build_label(im, 'diamond squad · antwerp police', (760, y0 + 450), sec, 2.8, size=44, tracking=0.22, color=INK)
+
+    render('M_DETECTIVES', 5.9, fg, cam=Cam(z=(1.0, 1.07), pan=((-0.012, 0.008), (0.01, -0.006)), lin=0.5),
            bg=backdrop(grid=False, glow=(0.45, 0.5)), stills=stills)
 
 
-@clip('M_SENTENCES', 4.0, 'S40', '"2005 · APPEALS COURT, ANTWERP": Notarbartolo 10 years (organising the heist); three others 5 years each (Tavano, D\'Onorio, Finotto) as year blocks (VO S40, FACTS 30)')
+@clip('M_SENTENCES', 9.0, 'S40', '"2005 · APPEALS COURT, ANTWERP": tenant card 10 YEARS at 1.1; four cards enter at 3.7 as silhouettes, revealed SPEEDY 6.2 / THE MONSTER 7.0 / THE GENIUS 7.9, "5 YEARS EACH" by 8.0; King of Keys card stays blank; DRAMATIZATION tag (VO S40, FACTS 30)')
 def m_sentences(stills=None):
-    lx = 440
-    bx0, unit, gap = 1420, 130, 14
-    rx = bx0 + 10 * unit + 9 * gap + 90
-    y1 = CY - 170
-    ys = [CY + 250, CY + 370, CY + 490]
-    names = ['Tavano', 'D\'Onorio', 'Finotto']
+    cw, ph, th, gap = 560, 700, 300, 48
+    x0 = (W2 - (5 * cw + 4 * gap)) / 2
+    y0 = CY - (ph + th) / 2 + 110
+    CARDS = [('tenant', None, 1.1), ('speedy', 'SPEEDY', 6.2), ('monster', 'THE MONSTER', 7.0),
+             ('genius', 'THE GENIUS', 7.9), ('king', None, None)]
 
-    def blocks(im, y, n, h, sec, t0, color, step=0.08):
-        for k in range(n):
-            q = p_in(sec, t0 + step * k, 0.25)
-            x = bx0 + k * (unit + gap)
-            rect(im, (x, y - h, x + unit, y), outline=(70, 74, 82), width=2, alpha=0.9, radius=4)
+    def card(im, k, sec):
+        who, nick, tr = CARDS[k]
+        x = x0 + k * (cw + gap)
+        ta = p_in(sec, 0.55, 0.55) if k == 0 else p_in(sec, 3.3 + 0.08 * (k - 1), 0.5)
+        if ta <= 0:
+            return
+        y = y0 + (1 - ta) * 80
+        rv = 1.0 if k == 0 else (p_io(sec, tr - 0.4, 0.5) if tr else 0.0)
+        rect(im, (x, y, x + cw, y + ph + th), fill=BG2, alpha=0.96 * ta, radius=6)
+        composite(im, fade(face_tile(who, cw, ph, G.seg(sec, 0.0, 9.0), ghost=1.0 - rv), ta), x, y)
+        rect(im, (x, y, x + cw, y + ph + th), outline=FAINT, width=2, alpha=ta, radius=6)
+        if k == 0:
+            label(im, 'leonardo notarbartolo', (x + 34, y + ph + 64), size=28, color=INK, alpha=ta, tracking=0.12)
+            q = p_in(sec, 0.85, 0.35)
+            text(im, '10 YEARS', (x + 34, y + ph + 180), size=100, color=AMBER, alpha=q, dy=(1 - q) * 16, blur=(1 - q) * 5)
+            label(im, 'for organising the heist', (x + 34, y + ph + 240), size=26, alpha=q, tracking=0.08)
+        elif tr is None:
+            hline(im, x + 34, x + 200, y + ph + 150, color=(60, 63, 70), width=3, alpha=ta)     # stays blank
+        else:
+            hline(im, x + 34, x + 200, y + ph + 150, color=(60, 63, 70), width=3, alpha=ta * (1 - rv))
+            q = p_in(sec, tr - 0.25, 0.35)
             if q > 0:
-                rect(im, (x, y - h + (1 - q) * h, x + unit, y), fill=color, alpha=0.95, radius=4)
+                label(im, nick, (x + 34, y + ph + 64), size=30, color=INK, alpha=q, tracking=0.14)
+                text(im, '5 YEARS', (x + 34, y + ph + 180), size=100, color=INK, alpha=q, dy=(1 - q) * 16,
+                     blur=(1 - q) * 5)
 
     def fg(im, sec, u):
-        build_label(im, '2005 · appeals court, antwerp', (lx, y1 - 330), sec, 0.05, size=38, tracking=0.2, color=INK)
-        hline(im, lx, W2 - lx, y1 - 280, color=FAINT, width=3, p=p_io(sec, 0.15, 0.7))
-        # row 1
-        build_text(im, 'LEONARDO', (lx, y1 - 70), sec, 0.25, size=80)
-        build_text(im, 'NOTARBARTOLO', (lx, y1 + 22), sec, 0.32, size=80)
-        build_label(im, 'for organising the heist', (lx, y1 + 92), sec, 0.5, size=30, tracking=0.08, weight='Regular')
-        pa = p_in(sec, 0.35, 0.4)
-        if pa > 0:
-            blocks(im, y1 + 22, 10, 110, sec, 0.55, AMBER, 0.085)
-        n1 = sum(1 for k in range(10) if sec >= 0.55 + 0.085 * k + 0.12)
-        if sec > 0.55:
-            nw = tabnum_w('10', 150)
-            tabnum(im, str(max(1, n1)), (rx + nw, y1 + 22), size=150, color=AMBER, anchor='r')
-            text(im, 'YEARS', (rx + nw + 30, y1 + 22), size=64, color=AMBER, alpha=p_in(sec, 0.55, 0.3))
-        # rows 2-4
-        build_text(im, 'THREE OTHERS', (lx, ys[0] - 100), sec, 1.55, size=62)
-        for j, y in enumerate(ys):
-            pr = p_in(sec, 1.7 + 0.12 * j, 0.35)
-            if pr <= 0:
-                continue
-            text(im, names[j], (bx0 - 60, y - 4), size=44, weight='Regular', display=False, color=DIM, alpha=pr,
-                 anchor='rs')
-            blocks(im, y, 5, 64, sec, 1.85 + 0.12 * j, (200, 206, 214), 0.07)
-        pe = p_in(sec, 2.4, 0.4)
-        text(im, '5 YEARS EACH', (bx0 + 5 * (unit + gap) + 76, ys[1] - 6), size=64, color=INK, alpha=pe, anchor='ls',
-             dy=(1 - pe) * 14)
+        build_label(im, '2005 · appeals court, antwerp', (x0, y0 - 170), sec, -0.3, size=38, tracking=0.2, color=INK)
+        for k in range(5):
+            card(im, k, sec)
+        # the group bracket over the three
+        bx0, bx1 = x0 + (cw + gap), x0 + 4 * (cw + gap) - gap
+        pb = p_io(sec, 7.6, 0.5)
+        hline(im, bx0, bx1, y0 - 40, color=DIM, width=3, p=pb)
+        if pb > 0:
+            vline(im, bx0, y0 - 40, y0 - 10, color=DIM, width=3, p=pb)
+            vline(im, bx1, y0 - 40, y0 - 10, color=DIM, width=3, p=pb)
+        build_text(im, '5 YEARS EACH', (bx0, y0 - 80), sec, 7.75, size=64, color=INK)
 
-    render('M_SENTENCES', 4.0, fg, cam=Cam(z=(1.0, 1.065), pan=((-0.01, -0.006), (0.008, 0.01))),
-           bg=backdrop(grid=True, glow=(0.5, 0.45)), stills=stills)
+    render('M_SENTENCES', 9.0, fg, cam=Cam(z=(1.0, 1.06), pan=((-0.008, -0.004), (0.008, 0.006)), lin=0.5),
+           bg=backdrop(grid=True, glow=(0.5, 0.5)), stills=stills, tag_text='DRAMATIZATION', tag_t0=-0.4)
 
 
-@clip('M_NEVER', 3.5, 'S41', '"KING OF KEYS - NEVER IDENTIFIED" / "THE DIAMONDS - NEVER FOUND (almost all of them)" with red accents (VO S41)')
+@clip('M_NEVER', 4.5, 'S41', '"KING OF KEYS - NEVER IDENTIFIED" on at the start; "THE DIAMONDS" 1.0, "almost all of them" 1.8, "NEVER FOUND" (red) 2.6 (VO S41)')
 def m_never(stills=None):
     gx = CX - 40
-    rows = [('KING OF KEYS', 'NEVER IDENTIFIED', CY - 170, 0.2, ''),
-            ('THE DIAMONDS', 'NEVER FOUND', CY + 190, 1.35, 'almost all of them')]
+    rows = [('KING OF KEYS', 'NEVER IDENTIFIED', CY - 170, -0.45, -0.25, ''),
+            ('THE DIAMONDS', 'NEVER FOUND', CY + 190, 0.8, 2.2, 'almost all of them')]
 
     def fg(im, sec, u):
-        for subj, st, y, t0, sub in rows:
+        for subj, st, y, t0, ts, sub in rows:
             build_text(im, subj, (gx - 90, y), sec, t0, size=128, anchor='rs', color=INK)
-            pd = p_io(sec, t0 + 0.3, 0.3)
-            hline(im, gx - 30, gx + 30, y - 46, color=RED, width=8, p=pd, glow=6)
-            pw = p_io(sec, t0 + 0.45, 0.45)
+            hline(im, gx - 30, gx + 30, y - 46, color=RED, width=8, p=p_io(sec, ts - 0.15, 0.3), glow=6)
+            pw = p_io(sec, ts, 0.4)
             if pw > 0:
                 text(im, st, (gx + 90, y), size=128, color=RED, wipe=pw, alpha=1.0)
-                text(im, st, (gx + 90, y), size=128, color=RED, wipe=pw, alpha=0.35 * (1 - G.seg(sec, t0 + 0.9, 1.0)),
+                text(im, st, (gx + 90, y), size=128, color=RED, wipe=pw, alpha=0.35 * (1 - G.seg(sec, ts + 0.45, ts + 1.0)),
                      blur=14)
             if sub:
-                build_label(im, sub, (gx + 94, y + 80), sec, t0 + 0.9, size=36, tracking=0.12, weight='Regular')
+                build_label(im, sub, (gx - 94, y + 80), sec, 1.6, size=36, tracking=0.12, weight='Regular', anchor='rs')
 
-    render('M_NEVER', 3.5, fg, cam=Cam(z=(1.0, 1.075), pan=((0.0, -0.01), (0.0, 0.01))),
+    render('M_NEVER', 4.5, fg, cam=Cam(z=(1.0, 1.075), pan=((0.0, -0.01), (0.0, 0.01))),
            bg=backdrop(grid=False, glow=(0.5, 0.5), warm=0.18), stills=stills)
 
 
-@clip('M_CASECLOSED', 3.0, 'S42', '"CASE CLOSED" stamp lands, then the year rolls 2003 -> 2009 ("six years later") (VO S42)')
+@clip('M_CASECLOSED', 4.0, 'S42', '"CASE CLOSED" stamp 0.1, "SIX YEARS LATER" 1.6, year rolls 2003 -> 2009 at 2.5-3.4 (VO S42)')
 def m_caseclosed(stills=None):
     def roll(im, v, xy, size=260, color=AMBER):
         """2 0 0 + an odometer last digit at value v (3.0 .. 9.0)."""
@@ -1588,26 +1619,26 @@ def m_caseclosed(stills=None):
 
     def fg(im, sec, u):
         # the file under the stamp
-        pf = p_in(sec, -0.2, 0.5)
+        pf = p_in(sec, -0.5, 0.4)
         fx0, fy0, fx1, fy1 = CX - 1000, CY - 640, CX + 1000, CY + 120
         rect(im, (fx0, fy0, fx1, fy1), fill=(30, 31, 36), outline=(70, 74, 82), width=3, radius=10, alpha=pf)
         label(im, 'antwerp diamond centre · february 2003', (fx0 + 70, fy0 + 100), size=32, tracking=0.18, alpha=pf)
         for j in range(3):
             hline(im, fx0 + 70, fx1 - 70 - j * 260, fy0 + 180 + j * 56, color=(62, 66, 74), width=4, alpha=pf)
-        ps = p_in(sec, 0.3, 0.2)
+        ps = p_in(sec, -0.1, 0.2)
         if ps > 0:
             # a small jolt on impact
-            jolt = math.sin(G.seg(sec, 0.45, 0.75) * math.pi * 3) * (1 - G.seg(sec, 0.45, 0.75)) * 6
+            jolt = math.sin(G.seg(sec, 0.1, 0.4) * math.pi * 3) * (1 - G.seg(sec, 0.1, 0.4)) * 6
             stamp_big(im, 'CASE CLOSED', (CX, CY - 250 + jolt), ps)
-        pv = p_in(sec, 1.05, 0.35)
+        pv = p_in(sec, 1.15, 0.35)
         if pv > 0:
-            v = 3.0 + 6.0 * G.seg(sec, 1.25, 2.45)
+            v = 3.0 + 6.0 * G.seg(sec, 2.5, 3.4)
             b_ = math.floor(v)
             v = min(9.0, b_ + G.ease(G.seg(v - b_, 0.35, 1.0)))     # click from year to year
             roll(im, v, (CX, CY + 560))
-            build_label(im, 'six years later', (CX, CY + 700), sec, 2.2, size=36, tracking=0.2, anchor='ms')
+            build_label(im, 'six years later', (CX, CY + 700), sec, 1.4, size=40, tracking=0.22, anchor='ms', color=INK)
 
-    render('M_CASECLOSED', 3.0, fg, cam=Cam(z=(1.0, 1.07), pan=((0.0, -0.012), (0.0, 0.012))),
+    render('M_CASECLOSED', 4.0, fg, cam=Cam(z=(1.0, 1.07), pan=((0.0, -0.012), (0.0, 0.012))),
            bg=backdrop(grid=False, glow=(0.5, 0.5)), stills=stills)
 
 
@@ -1640,28 +1671,26 @@ def stamp_big(im, s, c, p, rot=-4.0):
 
 # ---------------------------------------------------------------------------- Ch6-7: two stories
 
-@clip('M_WIRED', 4.0, 'S43', 'typographic citation, no logo: "2009 - Notarbartolo talks to journalist Joshua Davis, for Wired" (VO S43)')
+@clip('M_WIRED', 6.6, 'S43', 'typographic citation, no logo: "2009" 0.6 / "Notarbartolo talks" / "to the journalist" / "Joshua Davis," 4.0 / "for Wired." 5.2 (VO S43)')
 def m_wired(stills=None):
     x0 = 1000
     y0 = CY - 300
+    WORDS = [('to', 2.9, 0.82), ('the', 3.0, 0.82), ('journalist', 3.15, 0.82), ('Joshua', 4.0, 1.0), ('Davis,', 4.1, 1.0),
+             ('for', 5.2, 0.82), ('Wired.', 5.3, 1.0)]
 
     def fg(im, sec, u):
-        vline(im, x0 - 90, y0 - 160, y0 + 560, color=AMBER, width=6, p=p_io(sec, 0.0, 0.6), glow=5)
-        pn = build_text(im, '2009', (x0, y0), sec, 0.1, size=170, color=AMBER)
-        words = 'Notarbartolo talks'.split(' ')
+        vline(im, x0 - 90, y0 - 160, y0 + 470, color=AMBER, width=6, p=p_io(sec, -0.3, 0.7), glow=5)
+        build_text(im, '2009', (x0, y0), sec, 0.4, size=170, color=AMBER)
         x = x0
-        for j, w_ in enumerate(words):
-            build_text(im, w_, (x, y0 + 230), sec, 0.5 + 0.14 * j, size=150, color=INK)
+        for j, w_ in enumerate(['Notarbartolo', 'talks']):
+            build_text(im, w_, (x, y0 + 230), sec, 1.3 + 0.3 * j, size=150, color=INK)
             x += tsize(w_ + ' ', 150)[0]
-        words2 = 'to the journalist Joshua Davis, for Wired.'.split(' ')
         x = x0
-        for j, w_ in enumerate(words2):
-            build_text(im, w_, (x, y0 + 380), sec, 1.0 + 0.1 * j, size=76, weight='Regular', display=False, color=INK,
-                       alpha=0.88)
+        for w_, tl, al in WORDS:
+            build_text(im, w_, (x, y0 + 380), sec, tl - 0.2, size=76, weight='Regular', display=False, color=INK, alpha=al)
             x += tsize(w_ + ' ', 76, 'Regular', False)[0]
-        build_label(im, 'interview · his side of the story', (x0, y0 + 520), sec, 1.9, size=32, tracking=0.2)
 
-    render('M_WIRED', 4.0, fg, cam=Cam(z=(1.0, 1.07), pan=((-0.01, 0.006), (0.008, -0.006))),
+    render('M_WIRED', 6.6, fg, cam=Cam(z=(1.0, 1.08), pan=((-0.01, 0.006), (0.008, -0.006)), lin=0.5),
            bg=backdrop(grid=False, glow=(0.4, 0.5)), stills=stills)
 
 
@@ -1727,50 +1756,45 @@ def evi_rows_placeholder(im, alpha=1.0):
         hline(im, x0 + 110, x1 - 110, y0 + 330 + j * 290 + 100, color=(50, 53, 60), width=2, alpha=alpha * 0.8)
 
 
-@clip('M_HISSTORY', 5.0, 'S44', 'split frame, left panel "HIS STORY" (according to Notarbartolo, 2009): insurance job / replica vault, dark / bags nearly empty / "20 million, not 100"; right panel waits (VO S44)')
+@clip('M_HISSTORY', 8.2, 'S44', 'split frame, left panel "HIS STORY" (according to Notarbartolo, 2009): HE SAYS he wasn\'t the mastermind 0.1 / HE SAYS a diamond dealer hired the crew to stage a robbery for the insurance 2.6; rows 3-4 wait; right panel waits (VO S44)')
 def m_hisstory(stills=None):
-    T = [0.6, 1.55, 2.5, 3.5]
-
     def fg(im, sec, u):
-        ph = p_in(sec, 0.0, 0.5)
-        story_panel(im, PANEL_L, 'HIS STORY', 'according to Notarbartolo, 2009', HIS, sec, T, p_head=ph, hot_row=3)
-        story_panel(im, PANEL_R, 'THE EVIDENCE', 'investigators', EVI, sec, None, alpha=0.28, active=False,
-                    p_head=p_in(sec, 0.2, 0.6))
+        ph = p_in(sec, -0.45, 0.4)
+        panel_frame(im, PANEL_L, 'HIS STORY', 'according to Notarbartolo, 2009', alpha=ph, p_head=ph)
+        his_rows(im, sec, [-0.2, 2.35, None, None], alpha=ph)
+        pr = p_in(sec, -0.3, 0.6)
+        panel_frame(im, PANEL_R, 'THE EVIDENCE', 'investigators', alpha=0.28 * pr, active=False)
+        evi_rows_placeholder(im, alpha=0.28 * pr)
 
-    render('M_HISSTORY', 5.0, fg, cam=Cam(z=(1.0, 1.045), pan=((-0.012, 0.004), (-0.006, -0.006)), lin=0.5),
+    render('M_HISSTORY', 8.2, fg, cam=Cam(z=(1.0, 1.05), pan=((-0.012, 0.004), (-0.006, -0.006)), lin=0.5),
            bg=backdrop(grid=True, glow=(0.3, 0.5)), stills=stills)
 
 
-@clip('M_20vs100', 3.0, 'S44', 'two bars to scale: HIS CLAIM ~EUR 18 M (FACTS 33) vs REPORTED LOSS at least $100 M, an estimate (FACTS 4); note: bars at 2003 exchange rates (VO S44 "Twenty million, he says. Not a hundred.")')
+@clip('M_20vs100', 3.9, 'S44', 'his words as two bars to scale: HE SAYS "20 MILLION" at 0 / "NOT 100" at 1.9 (reported loss: at least $100 million, an estimate, FACTS 4); footnote: his figure about EUR 18 million (FACTS 33) (VO S44)')
 def m_20vs100(stills=None):
     bx0, bx1 = 640, 2860
     ya, yb = CY - 200, CY + 330
-    frac = 18 * 1.10 / 100        # EUR 18 M at ~1.10 USD/EUR (2003) vs USD 100 M
+    frac = 20 / 100
 
     def fg(im, sec, u):
-        # his claim
-        build_label(im, 'his claim', (bx0, ya - 170), sec, 0.05, size=34, tracking=0.2, color=INK)
-        pa = p_io(sec, 0.25, 0.7)
-        rect(im, (bx0, ya - 110, bx1, ya), outline=(52, 55, 62), width=2, alpha=0.8, radius=4)
+        build_label(im, 'he says', (bx0, ya - 170), sec, -0.5, size=34, tracking=0.2, color=AMBER)
+        pa = p_io(sec, -0.45, 0.5)
+        rect(im, (bx0, ya - 110, bx1, ya), outline=(52, 55, 62), width=2, alpha=0.8 * p_in(sec, -0.5, 0.3), radius=4)
         if pa > 0:
             rect(im, (bx0, ya - 110, bx0 + (bx1 - bx0) * frac * pa, ya), fill=(200, 206, 214), alpha=0.95, radius=4)
-            v = 18 * pa
-            text(im, f'~€{v:.0f} M', (bx0 + (bx1 - bx0) * frac * pa + 50, ya - 8), size=140, color=INK)
-        # reported
-        build_label(im, 'reported loss · estimate', (bx0, yb - 170), sec, 0.75, size=34, tracking=0.2, color=INK)
-        pb = p_io(sec, 0.95, 1.1)
-        rect(im, (bx0, yb - 110, bx1, yb), outline=(52, 55, 62), width=2, alpha=0.8 * p_in(sec, 0.75, 0.3), radius=4)
+        build_text(im, '“20 MILLION”', (bx0 + (bx1 - bx0) * frac + 50, ya - 8), sec, -0.3, size=140, color=INK)
+        # not a hundred
+        rect(im, (bx0, yb - 110, bx1, yb), outline=(52, 55, 62), width=2, alpha=0.8 * p_in(sec, 1.4, 0.3), radius=4)
+        pb = p_io(sec, 1.6, 0.8)
         if pb > 0:
             rect(im, (bx0, yb - 110, bx0 + (bx1 - bx0) * pb, yb), fill=AMBER, alpha=0.95, radius=4, glow=10 * pb)
-            v = 100 * pb
-            xe = bx0 + (bx1 - bx0) * pb + 50                    # the counter rides the end of the bar
-            nw = tabnum(im, f'${v:.0f}', (xe, yb - 8), size=140, color=AMBER, anchor='l')
-            text(im, ' M+', (xe + nw, yb - 8), size=140, color=AMBER, alpha=p_in(sec, 1.8, 0.3))
-            label(im, 'at least', (xe + 6, yb - 150), size=32, alpha=p_in(sec, 1.8, 0.3), tracking=0.14)
-        build_label(im, 'his account (WIRED, 2009) vs. the estimated loss · bars to scale at 2003 exchange rates',
-                    (bx0, yb + 150), sec, 2.0, size=30, tracking=0.06, weight='Regular')
+        build_text(im, '“NOT 100”', (bx1 + 50, yb - 8), sec, 1.7, size=140, color=AMBER)
+        build_label(im, 'reported loss: at least $100 million · an estimate', (bx0, yb - 170), sec, 2.2, size=34,
+                    tracking=0.14, color=INK)
+        build_label(im, 'his figure: about €18 million (WIRED, 2009) · bars to scale', (bx0, yb + 150), sec, 2.6,
+                    size=30, tracking=0.06, weight='Regular')
 
-    render('M_20vs100', 3.0, fg, cam=Cam(z=(1.0, 1.06), pan=((-0.01, 0.006), (0.006, -0.004))),
+    render('M_20vs100', 3.9, fg, cam=Cam(z=(1.0, 1.06), pan=((-0.01, 0.006), (0.004, -0.004))),
            bg=backdrop(grid=True, glow=(0.45, 0.5)), stills=stills)
 
 
@@ -1780,59 +1804,75 @@ def tabnum_w(s, size, weight='SemiBold', display=True):
     return sum(dw if c.isdigit() else f.getlength(c) for c in s)
 
 
-@clip('M_EVIDENCESTORY', 4.0, 'S45', 'split frame, right panel "THE EVIDENCE": lights on / tape over the light sensor / loot sorted on the vault floor / jewels and passports left behind; his claims dimmed, contradicted ones struck (VO S45, FACTS 19/22/35)')
+@clip('M_EVIDENCESTORY', 3.2, 'S45', 'split frame: his claims dimmed left; "ONE PROBLEM" 0.6, then the right panel "THE EVIDENCE" (the crime scene) lights at 1.5 (VO S45)')
 def m_evidencestory(stills=None):
-    T = [0.45, 1.25, 2.05, 2.85]
+    x0, y0, x1, y1 = PANEL_R
 
     def fg(im, sec, u):
-        dimk = 1 - 0.55 * p_io(sec, 0.0, 0.6)
-        strikes = {1: p_io(sec, T[0] + 0.35, 0.3), 2: p_io(sec, T[2] + 0.35, 0.3)}
-        story_panel(im, PANEL_L, 'HIS STORY', 'according to Notarbartolo, 2009', HIS, 99, [0, 0, 0, 0], alpha=dimk,
-                    active=False, strikes=strikes)
-        story_panel(im, PANEL_R, 'THE EVIDENCE', 'investigators · the crime scene', EVI, sec, T,
-                    p_head=0.28 + 0.72 * p_in(sec, 0.0, 0.45))
+        dimk = 1 - 0.55 * p_io(sec, -0.4, 0.6)
+        panel_frame(im, PANEL_L, 'HIS STORY', 'according to Notarbartolo, 2009', alpha=dimk, active=False)
+        his_rows(im, 99, [0, 0, 0, 0], alpha=dimk)
+        pl = p_in(sec, 1.3, 0.45)
+        panel_frame(im, PANEL_R, '', '', alpha=0.3 + 0.7 * pl, active=pl > 0, accent=p_io(sec, 1.3, 0.5))
+        evi_rows_placeholder(im, alpha=0.3 + 0.4 * pl)
+        # "one problem" lands big, then steps up into the panel's kicker as THE EVIDENCE arrives
+        p1 = p_in(sec, 0.4, 0.4)
+        mv = p_io(sec, 1.25, 0.45)
+        if p1 > 0 and mv < 1:
+            text(im, 'ONE PROBLEM', (x0 + 110, y0 + 520 - mv * 120), size=120, color=INK, alpha=p1 * (1 - mv),
+                 dy=(1 - p1) * 20, blur=(1 - p1) * 5 + mv * 6)
+        label(im, 'one problem', (x0 + 110, y0 + 90), size=30, color=AMBER, alpha=mv, tracking=0.2)
+        build_text(im, 'THE EVIDENCE', (x0 + 110, y0 + 170), sec, 1.3, size=100, color=INK)
+        build_label(im, 'the crime scene', (x0 + 110, y0 + 235), sec, 1.55, size=30, tracking=0.14)
 
-    render('M_EVIDENCESTORY', 4.0, fg, cam=Cam(z=(1.0, 1.045), pan=((0.006, 0.004), (0.012, -0.006)), lin=0.5),
+    render('M_EVIDENCESTORY', 3.2, fg, cam=Cam(z=(1.0, 1.05), pan=((0.006, 0.004), (0.012, -0.006)), lin=0.5),
            bg=backdrop(grid=True, glow=(0.7, 0.5)), stills=stills)
 
 
-@clip('M_QUOTE', 5.0, 'S46', 'the detective\'s quote typeset (FACTS 34): "Not one detail of Leo\'s story can be confirmed by the facts in the investigation." - Agim De Bruycker, lead detective')
+@clip('M_QUOTE', 9.2, 'S46', 'attribution "AGIM DE BRUYCKER · lead detective" 0.4; the quote (FACTS 34) "Not one detail of Leo\'s story can be confirmed by the facts in the investigation." builds word by word 3.4-7.5')
 def m_quote(stills=None):
     lines = [[('Not one detail', AMBER), (' of Leo’s story', INK)],
              [('can be confirmed by the facts', INK)],
              [('in the investigation.', INK)]]
     size, lh = 128, 170
     x0 = 1020
-    y0 = CY - 180
+    y0 = CY - 60
+    words = []
+    for li, parts in enumerate(lines):
+        x = x0
+        for s_, col in parts:
+            for w_ in s_.strip().split(' '):
+                if x > x0:
+                    x += tsize(' ', size)[0]
+                words.append((w_, col, x, y0 + li * lh))
+                x += tsize(w_, size)[0]
+    T0, T1 = 3.4, 7.5
 
     def fg(im, sec, u):
-        pq = p_in(sec, 0.0, 0.5)
+        build_text(im, 'AGIM DE BRUYCKER', (x0, y0 - 380), sec, 0.15, size=80, color=INK)
+        wn = tsize('AGIM DE BRUYCKER ', 80)[0]
+        build_text(im, '· lead detective', (x0 + wn, y0 - 380), sec, 0.3, size=52, weight='Regular', display=False,
+                   color=DIM)
+        hline(im, x0, x0 + 200, y0 - 320, color=AMBER, width=5, p=p_io(sec, 0.4, 0.5), glow=4)
+        pq = p_in(sec, 3.0, 0.5)
         text(im, '“', (x0 - 50, y0 + 120), size=400, color=AMBER, alpha=0.9 * pq, anchor='rs', dy=(1 - pq) * 30)
-        # word-by-word at reading pace
-        t = 0.3
-        for li, parts in enumerate(lines):
-            x = x0
-            for s_, col in parts:
-                for w_ in s_.strip().split(' '):
-                    lead = ' ' if (s_.startswith(' ') or x > x0) else ''
-                    if lead and x > x0:
-                        x += tsize(' ', size)[0]
-                    build_text(im, w_, (x, y0 + li * lh), sec, t, size=size, color=col, dur=0.4)
-                    x += tsize(w_, size)[0]
-                    t += 0.2
-        build_text(im, '— Agim De Bruycker, lead detective', (x0, y0 + 3 * lh + 70), sec, t + 0.25, size=56,
-                   weight='Regular', display=False, color=INK, alpha=0.85)
-        build_label(im, 'quoted in the Columbia Journalism Review', (x0, y0 + 3 * lh + 150), sec, t + 0.5, size=28,
+        for k, (w_, col, x, y) in enumerate(words):
+            tl = T0 + (T1 - T0) * k / (len(words) - 1)
+            build_text(im, w_, (x, y), sec, tl - 0.25, size=size, color=col, dur=0.4)
+        build_label(im, 'quoted in the Columbia Journalism Review', (x0, y0 + 3 * lh + 30), sec, 7.9, size=28,
                     tracking=0.12)
 
-    render('M_QUOTE', 5.0, fg, cam=Cam(z=(1.0, 1.075), pan=((-0.008, 0.008), (0.008, -0.006))),
+    render('M_QUOTE', 9.2, fg, cam=Cam(z=(1.0, 1.08), pan=((-0.008, 0.008), (0.008, -0.006)), lin=0.5),
            bg=backdrop(grid=False, glow=(0.4, 0.45)), stills=stills)
 
 
-@clip('M_TWOPATHS', 4.5, 'S47', 'a path forks: IF TRUE -> he\'s the fall guy / IF FALSE -> a very convenient story (VO S47)')
+@clip('M_TWOPATHS', 16.3, 'S47', 'continuous fork (editor shows 0-7.3 and 11.0-15.9): "SO WHY TELL IT?" 0 / IF IT\'S TRUE -> the real crime happened inside the building 1.6 / -> HE\'S THE FALL GUY 6.2 / IF IT ISN\'T fully on by 11.0 / -> A VERY CONVENIENT STORY 11.5 / for the one man who knows where the rest went 14.4 (VO S47)')
 def m_twopaths(stills=None):
-    sx, fx, ex = 560, 1380, 2140
-    yu, yd = CY - 380, CY + 380
+    sx, fx, ex = 520, 1180, 1800
+    yt = CY + 110
+    yu, yd = CY - 250, CY + 500
+    tx = ex + 200
+    LINEC = (150, 156, 166)
 
     def curve(a, b, n=40):
         pts = []
@@ -1842,75 +1882,66 @@ def m_twopaths(stills=None):
             pts.append((lerp(a[0], b[0], t_), lerp(a[1], b[1], e)))
         return pts
 
-    def fg(im, sec, u):
-        build_label(im, 'his story', (sx, CY - 70), sec, 0.05, size=36, tracking=0.2, color=INK)
-        circle(im, (sx, CY), 14, fill=INK, alpha=p_in(sec, 0.0, 0.3))
-        polyline(im, [(sx, CY), (fx, CY)], color=(150, 156, 166), width=5, p=p_io(sec, 0.15, 0.6))
-        pf = p_in(sec, 0.7, 0.3)
-        if pf > 0:
-            pulse = 0.5 + 0.5 * math.sin(sec * 4.0)
-            circle(im, (fx, CY), 20, fill=AMBER, alpha=pf, glow=10 + 6 * pulse)
-        for j, (yy, t0, k1, h1, n1) in enumerate([
-                (yu, 0.85, 'if true', 'he’s the fall guy', 'the real crime happened inside the building'),
-                (yd, 2.15, 'if false', 'a very convenient story', 'for the one man who knows where the rest went')]):
-            pts = curve((fx, CY), (ex, yy))
-            pl = p_io(sec, t0, 0.7)
-            polyline(im, pts + [(ex + 120, yy)], color=(150, 156, 166), width=5, p=pl)
-            if pl >= 0.98:
-                poly(im, [(ex + 120, yy - 18), (ex + 150, yy), (ex + 120, yy + 18)], fill=(150, 156, 166))
-            tx = ex + 220
-            build_label(im, k1, (tx, yy - 78), sec, t0 + 0.45, size=34, tracking=0.2, color=AMBER)
-            build_text(im, h1, (tx, yy + 34), sec, t0 + 0.55, size=104, color=INK)
-            build_text(im, n1, (tx, yy + 124), sec, t0 + 0.8, size=44, weight='Regular', display=False, color=DIM)
+    def branch(im, sec, yy, t_draw):
+        pts = curve((fx, yt), (ex, yy))
+        pl = p_io(sec, t_draw, 0.7)
+        polyline(im, pts + [(ex + 120, yy)], color=LINEC, width=5, p=pl)
+        if pl >= 0.98:
+            poly(im, [(ex + 120, yy - 18), (ex + 150, yy), (ex + 120, yy + 18)], fill=LINEC)
 
-    render('M_TWOPATHS', 4.5, fg, cam=Cam(z=(1.0, 1.07), pan=((-0.012, 0.0), (0.012, 0.0))),
+    def fg(im, sec, u):
+        build_text(im, 'SO WHY TELL IT?', (440, 420), sec, -0.4, size=120, color=INK)
+        build_label(im, 'his story', (sx, yt - 60), sec, -0.3, size=34, tracking=0.2)
+        circle(im, (sx, yt), 14, fill=INK, alpha=p_in(sec, -0.4, 0.3))
+        polyline(im, [(sx, yt), (fx, yt)], color=LINEC, width=5, p=p_io(sec, -0.2, 0.9))
+        pf = p_in(sec, 0.6, 0.3)
+        if pf > 0:
+            pulse = 0.5 + 0.5 * math.sin(sec * 3.0)
+            circle(im, (fx, yt), 20, fill=AMBER, alpha=pf, glow=10 + 6 * pulse)
+        # path A
+        branch(im, sec, yu, 0.9)
+        build_label(im, 'if it’s true', (tx, yu - 130), sec, 1.35, size=36, tracking=0.2, color=AMBER)
+        build_text(im, 'the real crime happened inside the building', (tx, yu - 50), sec, 1.5, size=50,
+                   weight='Regular', display=False, color=INK, alpha=0.88)
+        build_text(im, '→ HE’S THE FALL GUY', (tx, yu + 90), sec, 5.95, size=100, color=INK)
+        # path B (on screen before the editor comes back at 11.0)
+        branch(im, sec, yd, 9.8)
+        build_label(im, 'if it isn’t', (tx, yd - 130), sec, 10.35, size=36, tracking=0.2, color=AMBER)
+        build_text(im, '→ A VERY CONVENIENT STORY', (tx, yd - 20), sec, 11.25, size=100, color=INK)
+        build_text(im, 'for the one man who knows where the rest went', (tx, yd + 80), sec, 14.15, size=50,
+                   weight='Regular', display=False, color=INK, alpha=0.88)
+
+    render('M_TWOPATHS', 16.3, fg, cam=Cam(z=(1.0, 1.07), pan=((-0.006, -0.008), (0.006, 0.012)), lin=0.6),
            bg=backdrop(grid=True, glow=(0.45, 0.5)), stills=stills)
 
 
-@clip('M_QUESTION', 5.0, 'S52', 'end question "MASTERMIND - OR FALL GUY?" with small "Tell us in the comments" (VO S52)')
+@clip('M_QUESTION', 9.0, 'S52', 'end question: "SO WHAT DO YOU THINK?" 0.4 / "THE MASTERMIND" 2.9 / "or" 3.9 / "THE FALL GUY?" 4.2; small "Tell us in the comments"; slow drift to the end (VO S52)')
 def m_question(stills=None):
-    s1, s2 = 'MASTERMIND —', 'OR FALL GUY?'
-    size = 250
+    size = 210
     f = G.font(size, 'SemiBold', True)
 
-    def letters(im, s, xc, y, sec, t0, colf):
-        w = f.getlength(s)
+    def letters(im, s_, xc, y, sec, t_land, colf):
+        w = f.getlength(s_)
         x0 = xc - w / 2
-        for i, ch in enumerate(s):
+        n = len(s_)
+        for i, ch in enumerate(s_):
             if ch == ' ':
                 continue
-            p = p_in(sec, t0 + 0.035 * i, 0.5)
+            p = p_in(sec, t_land - 0.42 + 0.018 * (i - n / 2), 0.45)
             if p <= 0:
                 continue
-            text(im, ch, (x0 + f.getlength(s[:i]), y), size=size, color=colf(i, ch), alpha=p, dy=(1 - p) * 60,
-                 blur=(1 - p) * 9)
+            text(im, ch, (x0 + f.getlength(s_[:i]), y), size=size, color=colf(i, ch), alpha=p, dy=(1 - p) * 50,
+                 blur=(1 - p) * 8)
 
     def fg(im, sec, u):
-        letters(im, s1, CX, CY - 60, sec, 0.15, lambda i, c: INK)
-        letters(im, s2, CX, CY + 230, sec, 0.85, lambda i, c: DIM if i < 2 else (AMBER if c == '?' else INK))
-        build_label(im, 'tell us in the comments', (CX, CY + 450), sec, 2.0, size=40, tracking=0.2, anchor='ms')
+        build_label(im, 'so what do you think?', (CX, CY - 400), sec, 0.2, size=48, tracking=0.24, anchor='ms', color=INK)
+        letters(im, 'THE MASTERMIND', CX, CY - 110, sec, 2.9, lambda i, c: INK)
+        build_text(im, 'or', (CX, CY + 40), sec, 3.7, size=90, anchor='ms', color=DIM)
+        letters(im, 'THE FALL GUY?', CX, CY + 290, sec, 4.2, lambda i, c: AMBER if c == '?' else INK)
+        build_label(im, 'tell us in the comments', (CX, CY + 470), sec, 5.6, size=36, tracking=0.2, anchor='ms')
 
-    render('M_QUESTION', 5.0, fg, cam=Cam(z=(1.0, 1.1), pan=((0.0, 0.01), (0.0, -0.006)), lin=0.5),
+    render('M_QUESTION', 9.0, fg, cam=Cam(z=(1.0, 1.1), pan=((0.0, 0.01), (0.0, -0.006)), lin=0.6),
            bg=backdrop(grid=False, glow=(0.5, 0.5), warm=0.26), stills=stills)
-
-# ============================================================================ main
-
-def main():
-    args = sys.argv[1:]
-    stills = None
-    if '--stills' in args:
-        i = args.index('--stills')
-        stills = [float(v) for v in args[i + 1].split(',')]
-        args = args[:i] + args[i + 2:]
-    ids = list(CLIPS) if (not args or args == ['all']) else args
-    for cid in ids:
-        if cid not in CLIPS:
-            print(f'[mg] unknown clip {cid}; known: {", ".join(CLIPS)}')
-            continue
-        fn, sec, beat, note = CLIPS[cid]
-        fn(stills=stills)
-        if not stills:
-            manifest(cid, sec, beat, note)
 
 
 if __name__ == '__main__':

@@ -43,5 +43,20 @@
     "downloaded_width": 3840,
     "downloaded_height": 2880,
     "description": "Antwerpen-Centraal domed exterior facade on Koningin Astridplein at night, floodlit; a few tiny distant figures only; E_CENTRAAL exterior."
+  },
+  "E_DISTRICT_1.jpg": {
+    "slot": "E_DISTRICT",
+    "title": "File:Antwerpen Hoveniersstraat.JPG",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Antwerpen_Hoveniersstraat.JPG",
+    "author": "Thorsten1997",
+    "license": "Public domain",
+    "license_url": "",
+    "attribution_required": false,
+    "share_alike": false,
+    "width": 2048,
+    "height": 1536,
+    "downloaded_width": 1920,
+    "downloaded_height": 1440,
+    "description": "Entry to Hoveniersstraat in the diamond district (2009): retractable bollards, no-entry signs and the police post booth, no people; E_DISTRICT security shot."
   }
 }

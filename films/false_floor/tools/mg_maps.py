@@ -1177,7 +1177,8 @@ def m_cameras(stills=None):
         th = math.radians(90 - street_bearing + 90)
         rows.append([(gx - D[0] + k * 1.7 * math.cos(th), gy - D[1] + k * 1.7 * math.sin(th)) for k in (-2.5, -1.5, -0.5, 0.5, 1.5, 2.5)])
     t_boll = [1.15, 1.35]
-    POL = P(4.41896, 51.21463)          # police post at the Hoveniersstraat / Schupstraat corner (illustrative)
+    POL = P(4.41790, 51.21430)          # police post booth at the Schupstraat entrance (Lange Herentalsestraat corner),
+                                        # as in the 2009 public-domain photo E_DISTRICT_1 (booth beside the bollards)
     t_pol = 1.75
     streets = [('Hoveniersstraat', 0.27, None), ('Schupstraat', 0.38, None), ('Rijfstraat', 0.5, None),
                ('Pelikaanstraat', 0.35, {'35429410'})]
@@ -1242,7 +1243,7 @@ def m_cameras(stills=None):
                 bx_, by_ = view.px(*(np.asarray(rows[0][0]) + D))
                 tlabel(im, 'BOLLARDS', (float(bx_) - 40, float(by_) + 44), size=30, color=G.INK, alpha=0.9 * build_in(ts, 1.4, 10),
                        anchor='rm', tracking=0.12, rise=8 * (1 - build_in(ts, 1.4, 10)))
-                tlabel(im, 'POLICE POST', (float(px_) + 44, float(py_) + 6), size=30, color=G.INK, alpha=0.95 * kp, anchor='lm',
+                tlabel(im, 'POLICE POST', (float(px_) + 40, float(py_) + 52), size=30, color=G.INK, alpha=0.95 * kp, anchor='lm',
                        tracking=0.12, rise=8 * (1 - kp))
                 credit_osm(im, alpha=0.6, extra='camera and barrier positions as mapped today')
             finish_frame(clip, fr, labels)
@@ -2308,7 +2309,7 @@ E_SLOTS = ['E_CENTRAAL', 'E_DISTRICT', 'E_ADC', 'E_DIAMONDS', 'E_WOODS', 'E_E19'
 E_BEATS = {'E_CENTRAAL': 'S04', 'E_DISTRICT': 'S04', 'E_ADC': 'S06', 'E_DIAMONDS': 'S05', 'E_WOODS': 'S33', 'E_E19': 'S31',
            'E_COURT': 'S40', 'E_MILAN': 'S49', 'E_CDG': 'S50'}
 # per-slot camera: (zoom start, zoom end, truck x, truck y, dolly) — truck in fractions of frame height, applied with depth
-E_MOVES = {'E_CENTRAAL': (1.04, 1.11, -0.010, 0.004, 0.09), 'E_DISTRICT': (1.06, 1.10, 0.024, 0.0, 0.06),
+E_MOVES = {'E_CENTRAAL': (1.04, 1.11, -0.010, 0.004, 0.09), 'E_DISTRICT': (1.12, 1.17, 0.022, 0.0, 0.07),
            'E_ADC': (1.05, 1.11, -0.012, 0.010, 0.07), 'E_DIAMONDS': (1.04, 1.12, 0.010, -0.008, 0.08),
            'E_WOODS': (1.05, 1.10, 0.026, 0.0, 0.06), 'E_E19': (1.05, 1.11, -0.018, 0.004, 0.07),
            'E_COURT': (1.05, 1.10, 0.016, 0.006, 0.06), 'E_MILAN': (1.05, 1.11, -0.016, 0.0, 0.07),
@@ -2448,7 +2449,7 @@ def e_photo(cid, stills=None, pick=None):
     return True
 
 
-E_CROP_Y = {'E_CENTRAAL': 0.62}
+E_CROP_Y = {'E_CENTRAAL': 0.62, 'E_DISTRICT': 0.30}
 
 
 # ===================================================================================================== manifest
@@ -2460,9 +2461,10 @@ META = {
                       'OSM buildings on Hoveniersstraat/Schupstraat/Rijfstraat + west side of Pelikaanstraat; street labels; '
                       'tilts to ~30° at street level.'),
     'M_CAMERAS': (5.1, 'S04', OSM_DATA,
-                  'District street plan: CCTV glyphs + amber view cones (cut to street space), bollard rows at the two '
-                  'pedestrian entrances (OSM lift gates), police-post marker at the Hoveniersstraat/Schupstraat corner. '
-                  'Camera/barrier positions are present-day OSM (caption says so); police-post position illustrative.'),
+                  'District street plan: CCTV glyphs + amber view cones (cut to street space) from 0.0, bollard rows at the '
+                  'two pedestrian entrances (OSM lift gates), police-post marker (lands 2.0) at the Schupstraat entrance on '
+                  'Lange Herentalsestraat, where the 2009 photo E_DISTRICT_1 shows the booth. Camera/barrier positions are '
+                  'present-day OSM (caption says so).'),
     'M_STOPWATCH': (4.2, 'S10', None,
                     'Vault-door glyph at 0 ("the door"), stopwatch dial + timeline; amber sweep runs from 0.9 (guard buzzes '
                     'him in → in the vault · level −2 → back upstairs at 3.85). No durations stated (none in FACTS).'),
