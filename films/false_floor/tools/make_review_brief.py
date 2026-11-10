@@ -38,7 +38,7 @@ D = {
     # --- 3D renders with the cast (the night) ---
     'N1': ('3D', 'The district street at night, wet, sodium light, empty; a fast low push toward the entrance.', ''),
     'N2': ('3D', 'Down the stairwell to Level −2 behind the crew, torch beams ahead.', ''),
-    'N3': ('3D', 'Low tracking shot behind the four crew walking through the grate toward the vault door.', 'The Monster wears light grey-beige dungarees over a T-shirt; from behind they can read as bare skin at a glance. Say how it reads.'),
+    'N3': ('3D', 'Low tracking shot behind the four crew walking through the grate toward the vault door.', 'The Monster wears navy dungarees over a grey-blue T-shirt.'),
     'N5': ('3D', "Over the Monster's shoulder: the King of Keys (hat, suit) at the vault door, hauling the handle; torch light on the door.", ''),
     'N8': ('3D', 'From inside the dark vault: the door swings open, the crew silhouetted in the doorway, torch beams into the lens.', ''),
     'N9': ('3D', 'The Monster at the wall of boxes, turning a hand-cranked forcing device clamped on one box.', ''),
@@ -57,7 +57,7 @@ D = {
     'S22': ('3D', 'Macro of the magnetic plates: screw heads, a strip of tape holding the plates in place.', ''),
     'S24': ('3D', 'An aluminium plate slides over the two magnetic plates; the field lines hold.', 'The field lines are an overlay, intended.'),
     'S25': ('3D', 'On the vault door: the combination dial and the keyhole, then the three-spoke handle turns and the door starts to swing.', 'No hands are shown, by design.'),
-    'S26': ('3D', 'The vault at night: a white polystyrene sheet glides in through the doorway and along the box wall, then the camera cranes up to the ceiling light sensor under a strip of black tape.', 'Nobody carries the sheet, by design (the Kling shot A_FOAM shows the carriers). Say whether the floating sheet reads as a mistake.'),
+    'S26': ('3D', 'The vault at night: a white polystyrene sheet glides in through the doorway and along the box wall, then the camera cranes up to the ceiling light sensor under a strip of black tape.', 'Shown after the Kling shot of the two carriers and reframed so the lower edge of the sheet is out of frame. Say whether it still reads as floating.'),
     'S27': ('3D', 'The vault at night: fluorescent tubes strike with a flicker, the crank device on one box turns, then box doors snap open in a wave down the wall.', 'The tube flicker in the first second is intended.'),
     'S31': ('3D', 'Night woods in fog: torn bags and scattered papers on the leaves, a faint glow between the trunks.', ''),
     'S34': ('3D', 'A torch beam sweeps the debris on the vault floor and finds the forced wall.', ''),
@@ -87,6 +87,8 @@ D = {
     'P_SPEEDY': ('3D still', 'Portrait of Speedy on a dark background: striped shirt.', ''),
     'P_CREWDOOR': ('3D still', 'The four crew at the vault door in the antechamber (approved style frame).', 'A 1080p frame pushed in, so slightly softer.'),
     'P_INTERVIEW': ('3D still', 'The older Tenant from behind at the office window.', ''),
+    'P_S20_TOP': ('3D still', 'Close crop of the closed vault door: the dial, the keyhole, the handle, lit from above.', 'A crop, so slightly softer.'),
+    'P_S33_PATH': ('3D still', 'Crop of the grey-morning woods: a muddy path, leaf litter, trunks in fog.', 'A crop, so slightly softer.'),
     # --- Kling AI clips (image-to-video from our own 3D stills, or text-to-video) ---
     'A_PARCEL': ('AI', 'Hands unfold a paper diamond parcel on a dark desk; a pile of polished stones inside.', "Contains Kling's own cut from the wide view to a close-up."),
     'A_HANDSHAKE': ('AI', 'Two men in suits shake hands over a desk with paper parcels; hands and forearms only.', ''),
@@ -97,7 +99,7 @@ D = {
     'A_E19_NIGHT': ('AI', 'A car with its tail lights on, driving away down a tree-lined road at dusk.', 'It is a two-lane road, not a motorway (the narration says E19).'),
     'A_THROW': ('AI', 'Night woods, headlights behind: a man hurls a bag into the trees.', ''),
     'A_TEAR': ('AI', 'The bag lands among the trunks and bursts; papers fly and settle.', ''),
-    'A_VANCAMP': ('AI', 'August Van Camp, an older man in a cap and dark jacket, walks through foggy woods looking at the ground.', "Contains Kling's own cut to a closer view."),
+    'A_VANCAMP': ('AI', 'August Van Camp, an older man in a hat and dark jacket, walks toward the camera through foggy woods, looking at the ground.', 'One continuous take.'),
     'A_BAGS': ('AI', 'Van Camp stands over the torn bags in the leaves and bends down to them.', ''),
     'A_COURT': ('AI', 'An empty wood-panelled courtroom, slow push down the aisle.', ''),
     'A_KING_FOG': ('AI', 'The King of Keys walks away down the foggy night street.', ''),
@@ -147,6 +149,8 @@ D = {
     'E_CENTRAAL': ('Photo', 'The great hall of Antwerp Central station, empty. Credit: T meltzer, CC BY-SA 4.0.', 'Two tiny seated figures were blurred.'),
     'E_ADC': ('Photo', 'Brick office fronts on Schupstraat with CCTV cameras and the street sign. Credit: Silver Dovelet, CC BY-SA 4.0.', 'Real Schupstraat, but not confirmed to be the Diamond Centre building; no caption names it.'),
     'E_WOODS': ('Photo', 'Beech trunks and leaf litter in a Belgian forest. Credit: Horst J. Meuter, CC BY-SA 4.0.', 'The Sonian Forest, used as generic woodland; not the real site.'),
+    'E_SHOPS': ('Photo', 'Antwerp at night: the lit arched windows of the station building and a tower. Credit on screen.', ''),
+    'E_CDG': ('Photo', 'Paris Charles de Gaulle at night: the roof of Terminal 2E and the apron. Credit on screen.', 'Part of an airline name is visible on one aircraft at the frame edge.'),
     'E_MILAN': ('Photo', 'Milano Centrale station at night: the train sheds and tracks. Credit: Pjhooker, CC BY-SA 3.0.', ''),
 }
 
@@ -156,6 +160,9 @@ WHY = {
     'C12': 'floor slabs wiping past the lens as the camera rises',
     'N1': 'a bollard passing close to the lens',
     'S26': 'the sheet crossing the light from the doorway',
+    'S21': 'the focus pull from the camera to the sensor',
+    'N2': 'torch light moving down the stairwell',
+    'N10': 'box doors bursting open',
     'S27': 'the fluorescent tubes striking (intended)',
     'A_TEAR': 'the bag flying through the frame',
     'A_COURT': 'a faint shimmer in the AI clip; check whether it is visible',
@@ -164,7 +171,7 @@ WHY = {
 CAST = [
     ('The Tenant (Leonardo Notarbartolo)', 'about 50, olive skin, short grey-brown hair; dark suit, white shirt, striped tie. In 2009 scenes he is older and greyer and is only seen from behind.'),
     ('The Genius', 'about 45, tall and slim, light skin, short dark hair; dark casual suit, gloves.'),
-    ('The Monster', 'about 40, very big and muscular, ruddy skin; beanie, light grey-beige work dungarees over a T-shirt.'),
+    ('The Monster', 'about 40, very big and muscular, ruddy skin; beanie, navy work dungarees over a grey-blue T-shirt.'),
     ('Speedy', 'about 55, shorter, olive skin, short greying hair; dark shirt with light and red stripes.'),
     ('The King of Keys', 'about 72, small and pale; fedora, tan-brown suit, striped tie.'),
     ('The guard', 'about 48, light skin, grey hair; navy uniform blazer and tie.'),
@@ -273,7 +280,7 @@ def main():
 
     L = []
     w = L.append
-    w('# FALSE FLOOR · Case No. 02 — review brief for the full episode (v3)')
+    w('# FALSE FLOOR · Case No. 02 — review brief for the full episode (v3.1)')
     w('')
     w('You are reviewing a finished cut of a YouTube documentary episode before it is published. Watch the attached '
       'video and find everything that is wrong or looks bad: broken renders, animation mistakes, AI artefacts, wrong or '
@@ -364,16 +371,26 @@ def main():
     w('### Known compromises: tell us how bad they read')
     w('')
     w('- **A_E19_NIGHT** shows a tree-lined two-lane road, while the narration says "E nineteen" (a motorway).')
-    w('- **C1** (a man in a dark blazer walking into the district) was made for the cold open with the guard; it is reused in '
-      'Chapters 1 and 5, where the narration is about dealers and the Tenant.')
-    w('- **N3**: the Monster\'s pale dungarees can read as bare skin from behind.')
-    w('- **S26**: the foam sheet moves with nobody carrying it.')
-    w('- **Crops** (P_S08_PLATE, P_S08_DESK, P_S11_LENS, P_S41_BOXES, P_S36_SANDWICH, P_CREWDOOR) are enlargements and may look soft.')
-    w('- **The end card** was made at 960×540 and scaled up; it may look soft.')
+    w('- **C7**: the close-up of the guard\'s face (smooth skin, dark eyes). Say how much it hurts.')
+    w('- **C3** (cold open): the open, lit vault is already visible at the bottom of the stairs before the reveal.')
+    w('- **N8** (the door opening from inside the vault) was rendered with the vault lit; it is darkened in the grade to read as unlit.')
+    w('- **S26**: the foam sheet has no visible carrier; it follows the shot of the two carriers and is reframed above its lower edge.')
+    w('- **Crops** (P_S08_PLATE, P_S08_DESK, P_S11_LENS, P_S41_BOXES, P_S36_SANDWICH, P_S20_TOP, P_S33_PATH) are enlargements and may look soft.')
+    w('- **The narrator** says the detective\'s first name, Agim, in two different ways (Chapter 5 and Chapter 6).')
     w('- **Two type families:** the date card, chapter cards, corner labels and end card use a condensed typeface; the '
       'graphics use Inter. Say whether the mix is noticeable.')
     w('- **Real photographs** are only about 2% of the running time; say where a real photo would serve better than a reconstruction.')
     w('- Some clips are reused several times (section 8).')
+    w('')
+    w('### Changed since the last review (v3): check these first')
+    w('')
+    w('- The score now carries across every join between parts and into the end card. Check all eight joins for any dip, click or clash of two cues.')
+    w('- Chapter 3 was re-ordered: the door opens in the dark, then the foam sheet, the tape, the lights, then the boxes. No shot should show forced boxes before that.')
+    w('- The box counter is timed to the narration and should read 109 on "a hundred and nine".')
+    w('- The Monster\'s dungarees are navy in every shot and on the crew cards.')
+    w('- New or replaced pictures: Van Camp\'s walk (new clip), the Paris airport and Antwerp night photographs, the "case closed" year, the evidence panel, the E19 route marker, the Turin arc, the Antwerp map label.')
+    w('- A dark gradient now sits under the corner labels and photo credits. Check that it is not visible as a band.')
+    w('- Quiet ticks were added under the graphics that count or stamp. Say if any is too loud or out of time.')
     w('')
     w('## 4. Cast sheet (original characters)')
     w('')
@@ -443,7 +460,7 @@ def main():
     w(f'| {num + 1} | {tc(end0)} | {tc(total)} | {(total - end0) / FPS:.1f} | {end0}–{total - 1} | END | Graphic | '
       'Channel end card: logo, FALSE FLOOR · THE STORY BENEATH; NEXT CASE / CASE No. 03 · COMING SOON; an empty SUBSCRIBE '
       'circle; two empty WATCH NEXT frames. | '
-      '(no narration; the score continues and fades) | Made at 960×540 and scaled up. |')
+      '(no narration; the score continues and fades) |  |')
     w('')
     w('## 8. Reused clips')
     w('')
