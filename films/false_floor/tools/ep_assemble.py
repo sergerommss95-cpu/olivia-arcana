@@ -64,7 +64,7 @@ def main():
                         '-f', 'null', '-'], capture_output=True, text=True).stderr
     js = json.loads(m[m.rindex('{'):m.rindex('}') + 1])
     ln = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:"
-          f"measured_LRA={js['input_lra']}:measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
+          f"measured_LRA={js['input_lra']}:measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true" + ',alimiter=limit=0.83:attack=1:release=60:level=false')
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', raw, '-c:v', 'copy', '-af', ln + ',aresample=48000', '-c:a', 'aac',
                     '-b:a', '256k', '-movflags', '+faststart', out], check=True)
     # subtitles: every word of George's VO, placed through each part's piece map
