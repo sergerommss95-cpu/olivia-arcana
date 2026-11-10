@@ -248,12 +248,14 @@ def main():
     m = subprocess.run(['ffmpeg', '-hide_banner', '-t', f'{total:.3f}', '-i', wav, '-af',
                         'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'], capture_output=True, text=True).stderr
     js = json.loads(m[m.rindex('{'):m.rindex('}') + 1])
-    gain_db = min(-14.0 - float(js['input_i']), -1.5 - float(js['input_tp']))
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pic, '-t', f'{total:.3f}', '-i', wav, '-map', '0:v', '-map', '1:a',
-                    '-c:v', 'copy', '-af', f'volume={gain_db:.2f}dB,aresample=48000', '-c:a', 'aac', '-b:a', '256k', '-shortest',
-                    '-movflags', '+faststart', out], check=True)
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', f'{total:.3f}', '-i', wav, '-af',
-                    f'volume={gain_db:.2f}dB,aresample=48000', '-c:a', 'pcm_s24le', os.path.splitext(out)[0] + '_tail.wav'], check=True)
+    gain_db = -14.0 - float(js['input_i'])           # constant gain to -14 LUFS; a limiter holds the few peaks above -1.5 dBFS
+    lim = f'volume={gain_db:.2f}dB,alimiter=limit=0.84:attack=2:release=60:level=false,aresample=48000'
+    vdur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', pic],
+                                capture_output=True, text=True).stdout.strip())      # the sound follows the picture's exact length
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pic, '-t', f'{vdur:.4f}', '-i', wav, '-map', '0:v', '-map', '1:a',
+                    '-c:v', 'copy', '-af', lim, '-c:a', 'aac', '-b:a', '256k', '-movflags', '+faststart', out], check=True)
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', f'{vdur:.4f}', '-i', wav, '-af', lim, '-c:a', 'pcm_s24le',
+                    os.path.splitext(out)[0] + '_tail.wav'], check=True)
     # VO piece map on this sequence's clock (for episode subtitles)
     json.dump({'name': name, 'total': total, 'pieces': [[a, b, at] for a, b, at in pieces],
                'cuts': [[e['id'], e['t0'], e['dur']] for e in shots]},
