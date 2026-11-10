@@ -158,9 +158,10 @@ elif SHOT == 'S33':
     contact.z = tz + 1.06
     foot = contact + (to_cam * 0.82 - side * 0.55).normalized() * 0.36
     foot.z = float(hf.sample_s(np.array([foot.x]), np.array([foot.y]))[0]) + 0.005
-    stick_root, stick = walking_stick('WalkingStick', tuple(foot), tuple(contact), M['stick'], M['rubber'], C_PROP,
-                                      r=0.0145)
-    stick_root.rotation_euler.rotate_axis('Z', math.radians(150))
+    if not WHO:        # the stick stands in for Van Camp only while he is not in the shot (with him it reads as a prop left behind)
+        stick_root, stick = walking_stick('WalkingStick', tuple(foot), tuple(contact), M['stick'], M['rubber'], C_PROP,
+                                          r=0.0145)
+        stick_root.rotation_euler.rotate_axis('Z', math.radians(150))
     # fallen branches along the path edges
     for i, (y, off, yaw, L, r) in enumerate([(3.4, -0.75, 0.3, 0.9, 0.012), (5.2, 0.7, 2.7, 1.2, 0.016),
                                              (6.8, -0.8, 1.2, 0.7, 0.01), (3.0, 1.2, 2.0, 0.6, 0.008)]):

@@ -65,7 +65,7 @@ CH = {
                       ('M_DNA', 37, 'Investigators'), ('S27@60', 37, 'Ten'), ('P_S36_SANDWICH', 37, 'and#2'),
                       ('M_LINK', 38, 'And'), ('S38', 38, 'Who')],
                 inoff={'C13': 0}, dim={'S34': 0.72}, noexp=['A_SPEEDY'],
-                crop={'A_THROW': (1.16, 0.6, 0.5), 'A_VANCAMP': (1.2, 0.0, 0.5)}),
+                crop={'A_THROW': (1.36, 1.0, 0.5)}),
     'ch5': dict(floor=('el__city_dusk', -25), title=('CHAPTER FIVE', 'THE TENANT RETURNS'), beats=[39, 40, 41, 42], music=('ff_5', 0.0, -16), tail=2.0,
                 beds=[('el__office_room', 'S08', 'M_DATE_21FEB', -24), ('el__city_dusk', 'A_RETURN', 'M_DETECTIVES', -21)],
                 cuts=[('S08', 39, 'If'), ('P_S08_DESK', 39, 'you'), ('M_DATE_21FEB', 39, 'So'), ('A_RETURN', 39, 'Leonardo'),
@@ -92,7 +92,7 @@ CH = {
                       ('S41', 51, 'More'), ('S52@20', 51, 'And'),
                       ('S01@120', 52, 'Ten'), ('S21@100', 52, 'beaten'), ('S22@60', 52, 'tape'), ('A_FOAM', 52, 'foam'),
                       ('A_VANCAMP@30', 52, 'undone'), ('P_S36', 52, 'and#3'), ('M_QUESTION', 52, 'So')],
-                inoff={}, speed={'A_FOAM': 0.94}, crop={'A_VANCAMP': (1.2, 0.0, 0.5)}, tailx=15.0, tail_fade=4.5),
+                inoff={}, speed={'A_FOAM': 0.94}, tailx=15.0, tail_fade=4.5),
 }
 
 
