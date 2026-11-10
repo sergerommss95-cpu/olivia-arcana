@@ -193,5 +193,35 @@
     "downloaded_width": 1920,
     "downloaded_height": 1440,
     "description": "The old Antwerp courthouse (Gerechtshof) on the Britselei, corner with Anselmostraat, full exterior; E_COURT period-accurate alt (trial era, before the 2006 move)."
+  },
+  "E_COURT_4.jpg": {
+    "slot": "E_COURT",
+    "title": "File:Gerechtshof Britselei - Hoofdingang.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Gerechtshof_Britselei_-_Hoofdingang.jpg",
+    "author": "IDD5000",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 3274,
+    "height": 2465,
+    "downloaded_width": 1920,
+    "downloaded_height": 1446,
+    "description": "Main entrance and steps of the old Antwerp courthouse on the Britselei, statue above the portal, no people; E_COURT entrance shot."
+  },
+  "E_MILAN_1.jpg": {
+    "slot": "E_MILAN",
+    "title": "File:Scenario notturno dell'arrivo a Milano, stazione Centrale.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Scenario_notturno_dell%27arrivo_a_Milano,_stazione_Centrale.jpg",
+    "author": "Pjhooker",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 4608,
+    "height": 3072,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Milano Centrale train shed and tracks at night with the Pirelli tower behind, no people; E_MILAN (arrival in Milan at night)."
   }
 }
