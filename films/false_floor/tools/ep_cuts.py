@@ -49,7 +49,7 @@ CH = {
                       ('S45b', 28, 'They'), ('C9', 28, 'diamonds'), ('S28', 28, 'securities'), ('M_LAYERS_B', 28, 'Ten'),
                       ('S51', 29, 'The'), ('S02@60', 29, 'All'), ('C10@100', 29, 'get')],
                 inoff={'S18': 40, 'S24': 16, 'N3': 24, 'N8': 14, 'S10': 1, 'S26': 1, 'S27': 1, 'S22': 1, 'S16': 1, 'S25': 1},
-                dim={'S26': 0.62}, crop={'S26': (1.35, 0.5, 0.40)},
+                dim={'S26': 0.62, 'N8': 0.5}, crop={'S26': (1.35, 0.5, 0.40)},
                 count={'N10': [(27, 'One', 1), (27, 'ten', 10), (27, 'fifty', 50), (27, 'nine', 109)]}),
     'ch4': dict(floor=('el__vault_room_tone', -25), title=('CHAPTER FOUR', 'TWO PLACES'), beats=list(range(30, 39)), music=('ff_4', 0.0, -16), tail=1.8,
                 beds=[('el__woods_night', 'A_E19_NIGHT', 'C8', -20), ('el__vault_room_tone', 'C8', 'E_WOODS', -23),
