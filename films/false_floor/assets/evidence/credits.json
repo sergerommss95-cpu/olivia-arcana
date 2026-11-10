@@ -268,5 +268,35 @@
     "downloaded_width": 3840,
     "downloaded_height": 2560,
     "description": "Paris-CDG Terminal 2E roof and airside at night seen from above, aircraft and lights, no people; E_CDG."
+  },
+  "E_CDG_2.jpg": {
+    "slot": "E_CDG",
+    "title": "File:Aeroport Charles de Gaulle (CDG) Terminal 2E, Roissy, France (52186296214).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Aeroport_Charles_de_Gaulle_(CDG)_Terminal_2E,_Roissy,_France_(52186296214).jpg",
+    "author": "Charles from Port Chester, New York",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 5509,
+    "height": 3673,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Paris-CDG Terminal 2E at night: glass terminal facade and orange 'TERMINAL 2E' road sign, no people; E_CDG."
+  },
+  "E_CDG_3.jpg": {
+    "slot": "E_CDG",
+    "title": "File:Paris Charles de Gaulle Airport (CDG) - View from Terminal 2E Gates K (45608361111).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Paris_Charles_de_Gaulle_Airport_(CDG)_-_View_from_Terminal_2E_Gates_K_(45608361111).jpg",
+    "author": "Charles from Port Chester, New York",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 6000,
+    "height": 3455,
+    "downloaded_width": 3840,
+    "downloaded_height": 2211,
+    "description": "Apron at Paris-CDG seen from Terminal 2E gates K: parked airliners and ground vehicles in daylight, no people visible; E_CDG alt."
   }
 }
