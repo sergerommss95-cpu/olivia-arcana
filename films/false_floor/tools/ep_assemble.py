@@ -54,10 +54,12 @@ def main():
         print(f'[asm] {os.path.basename(p)} at {t:.2f}s ({d:.2f}s)', flush=True)
         t += d
     n = len(parts)
-    acat = ''.join(f'[a{i}]' for i in range(n)) + f'concat=n={n}:v=0:a=1[aout]'
+    acat = (''.join(f'[a{i}]' for i in range(n)) + f'concat=n={n}:v=0:a=1,'
+            'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json[aout]')
     m = subprocess.run(['ffmpeg', '-hide_banner', *inputs, '-filter_complex', ';'.join(af + [acat]), '-map', '[aout]',
-                        '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'],
-                       capture_output=True, text=True).stderr
+                        '-f', 'null', '-'], capture_output=True, text=True).stderr
+    if '{' not in m:
+        raise SystemExit('[asm] loudness pass failed:\n' + m[-2000:])
     js = json.loads(m[m.rindex('{'):m.rindex('}') + 1])
     ln = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:"
           f"measured_LRA={js['input_lra']}:measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true,"
