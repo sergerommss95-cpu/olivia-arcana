@@ -223,5 +223,35 @@
     "downloaded_width": 3840,
     "downloaded_height": 2560,
     "description": "Milano Centrale train shed and tracks at night with the Pirelli tower behind, no people; E_MILAN (arrival in Milan at night)."
+  },
+  "E_MILAN_2.jpg": {
+    "slot": "E_MILAN",
+    "title": "File:Milano - Piazza Scala di notte - Foto Giovanni Dall'Orto - 30-dec-2006 - 01.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Milano_-_Piazza_Scala_di_notte_-_Foto_Giovanni_Dall%27Orto_-_30-dec-2006_-_01.jpg",
+    "author": "G.dallorto",
+    "license": "CC BY-SA 2.5 it",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.5/it/deed.en",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 2816,
+    "height": 2112,
+    "downloaded_width": 1920,
+    "downloaded_height": 1440,
+    "description": "Piazza della Scala and Teatro alla Scala at night, empty square, street lamps; E_MILAN street at night."
+  },
+  "E_MILAN_3.jpg": {
+    "slot": "E_MILAN",
+    "title": "File:Duomo in Milan at night 01.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Duomo_in_Milan_at_night_01.jpg",
+    "author": "Mattsjc",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 4032,
+    "height": 3024,
+    "downloaded_width": 3840,
+    "downloaded_height": 2880,
+    "description": "Milan Cathedral (Duomo) facade floodlit at night, only tiny distant figures at the base; E_MILAN establishing shot."
   }
 }
