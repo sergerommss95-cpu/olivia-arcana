@@ -11,7 +11,7 @@ from make_srt import words_on_vo_clock
 
 FF = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VO = os.path.join(FF, 'out', 'vo', 'vo_george_v4_v01')
-PARTS = ['out/FALSE_FLOOR_COLD_v2.mp4'] + [f'out/EP3_ch{i}.mp4' for i in range(1, 8)]
+PARTS = ['out/FALSE_FLOOR_COLD_v3.mp4'] + [f'out/EP3_ch{i}.mp4' for i in range(1, 8)]
 END_MUSIC = (os.path.join(os.path.dirname(FF), 'tumbler', 'audio', 'music', 'ff_7.wav'), 63.3, -9)
 
 

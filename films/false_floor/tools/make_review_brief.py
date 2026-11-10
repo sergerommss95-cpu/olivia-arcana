@@ -14,7 +14,7 @@ from make_srt import words_on_vo_clock
 FF = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VO = os.path.join(FF, 'out', 'vo', 'vo_george_v4_v01')
 FPS = 24
-PARTS = [('Cold open', 'out/FALSE_FLOOR_COLD_v2'), ('Chapter 1 · The Fortress', 'out/EP3_ch1'),
+PARTS = [('Cold open', 'out/FALSE_FLOOR_COLD_v3'), ('Chapter 1 · The Fortress', 'out/EP3_ch1'),
          ('Chapter 2 · The Tenant', 'out/EP3_ch2'), ('Chapter 3 · Lock and Key', 'out/EP3_ch3'),
          ('Chapter 4 · Two Places', 'out/EP3_ch4'), ('Chapter 5 · The Tenant Returns', 'out/EP3_ch5'),
          ('Chapter 6 · Two Stories', 'out/EP3_ch6'), ('Chapter 7 · Where Are the Diamonds?', 'out/EP3_ch7')]
