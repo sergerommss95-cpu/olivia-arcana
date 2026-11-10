@@ -379,6 +379,7 @@ SHOULDER_SET = ('LeftShoulder', 'LeftArm', 'RightShoulder', 'RightArm')   # Spin
 CLOTH_SMOOTH = int(os.environ.get('FF_CLOTH_SMOOTH', 8))   # Laplacian drape iterations on fitted clothes
 CLOTH_LAMBDA = float(os.environ.get('FF_CLOTH_LAMBDA', 0.6))
 CLOTH_VP = bool(int(os.environ.get('FF_CLOTH_VP', 0)))
+DRAPE_BONES = ('Hips', 'LowerBack', 'Spine', 'Spine1', 'Neck', 'LeftShoulder', 'RightShoulder')
 PRESERVE_VOLUME = False       # dual-quaternion skinning puffed shoulders into a hump on any forward reach
 
 
@@ -463,6 +464,15 @@ def wear_assets(name, rig, Vmh, Vbl_shift, weights, items):
             ls.lambda_border = 0.0
             ls.use_volume_preserve = CLOTH_VP
             ls.use_normalized = True
+            # only the torso drapes: smoothing the sleeves and legs shrank tight sleeves into the arm (skin poked out)
+            gidx = {g.name: g.index for g in ob.vertex_groups}
+            tor = {gidx[b] for b in DRAPE_BONES if b in gidx}
+            dg = ob.vertex_groups.new(name='Drape')
+            for v in me.vertices:
+                w = sum(x.weight for x in v.groups if x.group in tor)
+                if w > 0.02:
+                    dg.add([v.index], min(1.0, w), 'REPLACE')
+            ls.vertex_group = 'Drape'
         if not ('hair' in rel or 'eyebrow' in rel):
             push = ob.modifiers.new('Push', 'DISPLACE')      # garments sit a few mm off the body: no poke-through
             push.strength = 0.004 if 'shoes' not in rel else 0.002
