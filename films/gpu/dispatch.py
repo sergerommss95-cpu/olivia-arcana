@@ -18,6 +18,8 @@ FF = os.path.join(FILMS, 'false_floor')
 SHOTS = {s['id']: s for s in json.load(open(os.path.join(FF, 'script', 'SHOTS_v2.json')))['shots']}
 SHOTS.update({s['id']: s for s in json.load(open(os.path.join(FF, 'script', 'SEQ_NIGHT.json')))['shots'] if s['kind'] == '3D'})
 SHOTS.update({s['id']: s for s in json.load(open(os.path.join(FF, 'script', 'SEQ_COLD.json')))['shots'] if s['kind'] == '3D'})
+for _k in ('S45a', 'S45b'):
+    SHOTS.setdefault(_k, {'id': _k, 'kind': '3DS', 'owner': 'B_room', 'render_frames': 1})
 STATUS = os.path.join(FF, 'out', 'dispatch.json')
 LOG = os.path.join(FF, 'out', 'dispatch.log')
 

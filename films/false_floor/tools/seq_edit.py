@@ -96,7 +96,7 @@ def main():
     seq = ({s['id']: s for s in json.load(open(os.path.join(FF, 'script', CFG['plan'])))['shots']} if CFG.get('plan')
            else {})
     for sid, _b, _w in CUTS:
-        seq.setdefault(sid, {'id': sid, 'kind': '3D', 'shot': sid})
+        seq.setdefault(sid, dict(seq.get(sid.split('@')[0], {'id': sid, 'kind': '3D', 'shot': sid}), id=sid))
     seq.setdefault('S18', {'id': 'S18', 'kind': 'CLIP', 'shot': 'magnetic plates, field lines (A2 macro)'})
     seq.setdefault('S01', {'id': 'S01', 'kind': 'CLIP', 'shot': 'the open door (A1 reveal)'})
     for i, (sid, b, w) in enumerate(CUTS):
@@ -107,7 +107,11 @@ def main():
              'chapter': '3', 'vo_src': None}
         if sid == 'S17':
             e['src_kind'] = 'CLIP_RAW'          # rendered without handles (frames 60-130)
-        k = ep_cuts.kind_of(sid)
+        if '@' in sid:                          # 'C4@40': the same clip again, from another in-point
+            base, off = sid.split('@')
+            e['clip'] = base
+            INOFF[sid] = int(off)
+        k = ep_cuts.kind_of(e.get('clip', sid))
         e['ep_kind'] = k
         if k in ('AI', 'GFX'):
             e['src_kind'] = 'RAW'
@@ -116,8 +120,30 @@ def main():
         e['first'] = (i == 0)
         shots.append(e)
     print(f'[seq] {total:.1f}s, {len(shots)} shots: ' + ' '.join(f"{e['id']}={e['dur']:.1f}" for e in shots), flush=True)
+    if '--plan' in sys.argv:                    # timing check only: shot length vs the source's usable length
+        for e in shots:
+            cid = e.get('clip', e['id'])
+            src = None
+            for ext in ('.mkv', '.mp4', '.png'):
+                q = os.path.join(FF, 'out', 'clips', cid + ext)
+                if os.path.exists(q):
+                    src = q
+                    break
+            if src is None:
+                have = None
+            elif src.endswith('.png'):
+                have = 99.0
+            else:
+                d = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0',
+                                          src], capture_output=True, text=True).stdout.strip() or 0)
+                hand = 12 if e['ep_kind'] == 'GFX' else (6 if e['ep_kind'] == '3D' else 0)
+                have = (d * E.FPS - INOFF.get(e['id'], 0) - hand) / E.FPS / CFG.get('speed', {}).get(e['id'], 1.0)
+            flag = ('MISSING' if have is None else 'SHORT %.1f' % have if e['dur'] > have + 0.3 else '') + \
+                   (' <1.2s' if e['dur'] < 1.2 else '') + (' >7s' if e['dur'] > 7.0 and e['ep_kind'] != 'GFX' else '')
+            print(f"  {e['t0']:6.1f} {e['id']:16s} {e['dur']:5.1f}s  {flag}")
+        return
     # picture
-    work = os.path.join(FF, 'out', 'seq_segments')
+    work = os.path.join(FF, 'out', 'seq_segments', name)
     os.makedirs(work, exist_ok=True)
     segs = []
     for e in shots:
@@ -209,6 +235,10 @@ def main():
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pic, '-i', wav, '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
                     '-af', ln + ',aresample=48000', '-c:a', 'aac', '-b:a', '256k', '-shortest', '-movflags', '+faststart', out],
                    check=True)
+    # VO piece map on this sequence's clock (for episode subtitles)
+    json.dump({'name': name, 'total': total, 'pieces': [[a, b, at] for a, b, at in pieces],
+               'cuts': [[e['id'], e['t0'], e['dur']] for e in shots]},
+              open(os.path.splitext(out)[0] + '_map.json', 'w'), indent=1)
     print('[seq] wrote', out, flush=True)
 
 
@@ -365,7 +395,7 @@ def date_card(i, lines):
 def render_seg(e, path, n, preview):
     """One shot: clip frames from the in-point (hold the last frame if short; never blend frames), exposure balanced
     PER FRAME and smoothed over ~1 s so light changes inside a shot read naturally, label and overlays on top."""
-    src = E.Source(e)
+    src = E.Source(dict(e, id=e.get('clip', e['id'])) if e.get('clip') else e)
     if e['src_kind'] == 'CLIP_RAW' and src.mode == 'clip':
         src.e = dict(e, src_kind='RAW')
     rng = np.random.default_rng(abs(hash(e['id'])) % 1000)
@@ -432,9 +462,10 @@ def render_seg(e, path, n, preview):
             im = Image.alpha_composite(im, label)
         if e.get('first') and CFG.get('title'):
             im = Image.alpha_composite(im, chapter_card(i, CFG['title']))
-        if e['id'] in ('S24', 'S18') and src.mode == 'clip':
+        base_id = e.get('clip', e['id'])
+        if base_id in ('S24', 'S18') and src.mode == 'clip':
             cf = 7 + INOFF.get(e['id'], 0) + min(i, src.n_clip - 1)
-            o = E.field_lines(e['id'], cf, i, min(1.0, (i + 1) / 10) if e['id'] == 'S18' else 1.0)
+            o = E.field_lines(base_id, cf, i, min(1.0, (i + 1) / 10) if base_id == 'S18' else 1.0)
             if o:
                 im = Image.alpha_composite(im, o)
         if e['id'] == 'C1' and arg('--seq', 'night') == 'cold':

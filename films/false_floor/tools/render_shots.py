@@ -25,7 +25,7 @@ def arg(name, default):
 
 
 def main():
-    ids = [x for x in sys.argv[1:] if x[:1] in ('S', 'N', 'C') and x[1:].isdigit()]
+    ids = [x for x in sys.argv[1:] if x[:1] in ('S', 'N', 'C') and x[1:].rstrip('ab').isdigit()]
     samples = arg('--samples', '40')
     still_samples = arg('--still-samples', '96')
     shots = {s['id']: s for s in json.load(open(os.path.join(FF, 'script', 'SHOTS_v2.json')))['shots']}
@@ -33,6 +33,8 @@ def main():
                json.load(open(os.path.join(FF, 'script', 'SEQ_COLD.json')))['shots']):
         if s_['kind'] == '3D':
             shots[s_['id']] = s_
+    for k in ('S45a', 'S45b'):                    # S45 is delivered as two room.py inserts (notes/room.md)
+        shots.setdefault(k, {'id': k, 'kind': '3DS', 'owner': 'B_room', 'render_frames': 1})
     clips = os.path.join(FF, 'out', 'clips')
     os.makedirs(clips, exist_ok=True)
     log = open(os.path.join(clips, 'render.log'), 'a')
