@@ -448,5 +448,50 @@
     "downloaded_width": 3840,
     "downloaded_height": 2560,
     "description": "Safe-deposit vault seen through an open barred gate: walls of steel safe-deposit boxes, empty room, no people (Seattle); spare vault/boxes."
+  },
+  "SPARE_VAULT_2.jpg": {
+    "slot": "SPARE_VAULT",
+    "title": "File:Safe Deposit Boxes (5588034454).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Safe_Deposit_Boxes_(5588034454).jpg",
+    "author": "Noah Jeppson from San Francisco, United States",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 4000,
+    "height": 3000,
+    "downloaded_width": 3840,
+    "downloaded_height": 2880,
+    "description": "A wall of safe-deposit boxes with several compartments opened and empty; spare vault (aftermath feel)."
+  },
+  "SPARE_VAULT_3.jpg": {
+    "slot": "SPARE_VAULT",
+    "title": "File:University National Bank building - door to safe deposit room 02.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:University_National_Bank_building_-_door_to_safe_deposit_room_02.jpg",
+    "author": "Photo by Joe Mabel",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 6000,
+    "height": 4000,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Round steel vault door standing open, bolts and hinge mechanism visible, no people; spare vault door."
+  },
+  "SPARE_POLICE_1.jpg": {
+    "slot": "SPARE_POLICE",
+    "title": "File:Police car of Belgium 01.JPG",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Police_car_of_Belgium_01.JPG",
+    "author": "Dickelbers",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 3737,
+    "height": 2842,
+    "downloaded_width": 1920,
+    "downloaded_height": 1460,
+    "description": "Belgian federal police (Politie) Audi A6 Avant patrol car in a car park, no people; licence plate visible (blur if used); spare police car (model of c. 2005-2011)."
   }
 }
