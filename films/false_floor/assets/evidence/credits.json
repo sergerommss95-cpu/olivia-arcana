@@ -12,7 +12,9 @@
     "height": 4646,
     "downloaded_width": 3840,
     "downloaded_height": 2880,
-    "description": "Antwerpen-Centraal great hall (main concourse), empty, warm lit stone and glass dome; E_CENTRAAL hero shot."
+    "description": "Antwerpen-Centraal great hall (main concourse), empty, warm lit stone and glass dome; E_CENTRAAL hero shot.",
+    "credit_author": "T meltzer",
+    "credit_line": "Photo: T meltzer, CC BY-SA 4.0 via Wikimedia Commons"
   },
   "E_CENTRAAL_2.jpg": {
     "slot": "E_CENTRAAL",
@@ -27,7 +29,9 @@
     "height": 3491,
     "downloaded_width": 3840,
     "downloaded_height": 2560,
-    "description": "Antwerpen-Centraal internal facade at night, clock and arms above the arch, no people; E_CENTRAAL alt (dark, fits the grade)."
+    "description": "Antwerpen-Centraal internal facade at night, clock and arms above the arch, no people; E_CENTRAAL alt (dark, fits the grade).",
+    "credit_author": "Vasyatka1",
+    "credit_line": "Photo: Vasyatka1, CC BY-SA 4.0 via Wikimedia Commons"
   },
   "E_CENTRAAL_3.jpg": {
     "slot": "E_CENTRAAL",
@@ -42,7 +46,10 @@
     "height": 3072,
     "downloaded_width": 3840,
     "downloaded_height": 2880,
-    "description": "Antwerpen-Centraal domed exterior facade on Koningin Astridplein at night, floodlit; a few tiny distant figures only; E_CENTRAAL exterior."
+    "description": "Antwerpen-Centraal domed exterior facade on Koningin Astridplein at night, floodlit; a few tiny distant figures only; E_CENTRAAL exterior.",
+    "credit_author": "Ahrtaler2",
+    "credit_line": "Photo: Ahrtaler2, CC0 via Wikimedia Commons",
+    "usage_note": "Small figures at the fountain (bottom-left) and a man with a bicycle (bottom-right) are visible at full size. Crop to the upper ~65 % (the facade) or keep the plaza out of frame so no face is identifiable."
   },
   "E_DISTRICT_1.jpg": {
     "slot": "E_DISTRICT",
@@ -57,7 +64,10 @@
     "height": 1536,
     "downloaded_width": 1920,
     "downloaded_height": 1440,
-    "description": "Entry to Hoveniersstraat in the diamond district (2009): retractable bollards, no-entry signs and the police post booth, no people; E_DISTRICT security shot."
+    "description": "Entry to Hoveniersstraat in the diamond district (2009): retractable bollards, no-entry signs and the police post booth, no people; E_DISTRICT security shot.",
+    "credit_author": "Thorsten1997",
+    "credit_line": "Photo: Thorsten1997, Public domain via Wikimedia Commons",
+    "usage_note": "2009 photo, PD. Saved at 1920 px (original 2048 px). The booth with the 'Politie' sign is the police post at the district entrance."
   },
   "E_DISTRICT_2.jpg": {
     "slot": "E_DISTRICT",
@@ -72,7 +82,9 @@
     "height": 4000,
     "downloaded_width": 3840,
     "downloaded_height": 2560,
-    "description": "Pelikaanstraat at night beside the red railway viaduct/train shed of Antwerpen-Centraal, edge of the diamond district; E_DISTRICT viaduct shot."
+    "description": "Pelikaanstraat at night beside the red railway viaduct/train shed of Antwerpen-Centraal, edge of the diamond district; E_DISTRICT viaduct shot.",
+    "credit_author": "Vasyatka1",
+    "credit_line": "Photo: Vasyatka1, CC BY-SA 4.0 via Wikimedia Commons"
   },
   "E_DISTRICT_3.jpg": {
     "slot": "E_DISTRICT",
@@ -87,7 +99,9 @@
     "height": 2112,
     "downloaded_width": 1920,
     "downloaded_height": 1440,
-    "description": "Diamond and jewellery shop signs (Golden I, Paradise Diamond) under the railway viaduct on Pelikaanstraat (2009); E_DISTRICT atmosphere."
+    "description": "Diamond and jewellery shop signs (Golden I, Paradise Diamond) under the railway viaduct on Pelikaanstraat (2009); E_DISTRICT atmosphere.",
+    "credit_author": "Kristina D.C. Hoeppner",
+    "credit_line": "Photo: Kristina D.C. Hoeppner, CC BY-SA 2.0 via Wikimedia Commons"
   },
   "E_ADC_1.jpg": {
     "slot": "E_ADC",
@@ -102,7 +116,10 @@
     "height": 3000,
     "downloaded_width": 3840,
     "downloaded_height": 2880,
-    "description": "Schupstraat, the street of the Antwerp Diamond Centre: brick office blocks, security booth, CCTV cameras, bollards, tiny distant figures only; nearest free view of the ADC block (building not identified on the file page)."
+    "description": "Schupstraat, the street of the Antwerp Diamond Centre: brick office blocks, security booth, CCTV cameras, bollards, tiny distant figures only; nearest free view of the ADC block (building not identified on the file page).",
+    "credit_author": "Silver Dovelet",
+    "credit_line": "Photo: Silver Dovelet, CC BY-SA 4.0 via Wikimedia Commons",
+    "usage_note": "The file page identifies the street (Schupstraat), not the building. Do not caption it as the Antwerp Diamond Centre; use e.g. 'Schupstraat, Antwerp diamond district'. A few tiny distant pedestrians only."
   },
   "E_DIAMONDS_1.jpg": {
     "slot": "E_DIAMONDS",
@@ -117,7 +134,10 @@
     "height": 4160,
     "downloaded_width": 3840,
     "downloaded_height": 2560,
-    "description": "A polished round brilliant held in steel tweezers over a dark surface (fingertips only, no face); E_DIAMONDS / trading-tools shot."
+    "description": "A polished round brilliant held in steel tweezers over a dark surface (fingertips only, no face); E_DIAMONDS / trading-tools shot.",
+    "credit_author": "Davidmimay",
+    "credit_line": "Photo: Davidmimay, CC BY 4.0 via Wikimedia Commons",
+    "usage_note": "Generic stones, not the stolen goods; only fingertips visible."
   },
   "E_DIAMONDS_2.jpg": {
     "slot": "E_DIAMONDS",
@@ -132,7 +152,9 @@
     "height": 5792,
     "downloaded_width": 3840,
     "downloaded_height": 2560,
-    "description": "Several rough diamond crystals (octahedral, clear to brown and pink) on black, Auckland Museum geology collection; E_DIAMONDS rough stones."
+    "description": "Several rough diamond crystals (octahedral, clear to brown and pink) on black, Auckland Museum geology collection; E_DIAMONDS rough stones.",
+    "credit_author": "Auckland Museum Collections",
+    "credit_line": "Photo: Auckland Museum Collections, CC BY 2.0 via Wikimedia Commons"
   },
   "E_DIAMONDS_3.jpg": {
     "slot": "E_DIAMONDS",
@@ -147,157 +169,9 @@
     "height": 2304,
     "downloaded_width": 1920,
     "downloaded_height": 1440,
-    "description": "A pile of small loose polished solitaire diamonds (0.02-0.04 ct, 5.36 ct total) on dark blue, like an opened parcel; E_DIAMONDS polished stones."
-  },
-  "E_COURT_1.jpg": {
-    "slot": "E_COURT",
-    "title": "File:Antwerpen-Gerechtsgebouw.jpg",
-    "page_url": "https://commons.wikimedia.org/wiki/File:Antwerpen-Gerechtsgebouw.jpg",
-    "author": "Romaine",
-    "license": "CC0",
-    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
-    "attribution_required": false,
-    "share_alike": false,
-    "width": 5312,
-    "height": 2988,
-    "downloaded_width": 3840,
-    "downloaded_height": 2160,
-    "description": "The new Antwerp Justitiepaleis (law courts, Bolivarplaats, opened 2006) with its sail-shaped roofs, street view, overcast, no people; E_COURT."
-  },
-  "E_COURT_2.jpg": {
-    "slot": "E_COURT",
-    "title": "File:Antwerp Courts of Justice, Belguim September 8, 2012.jpg",
-    "page_url": "https://commons.wikimedia.org/wiki/File:Antwerp_Courts_of_Justice,_Belguim_September_8,_2012.jpg",
-    "author": "Rick Ligthelm",
-    "license": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "attribution_required": true,
-    "share_alike": false,
-    "width": 5616,
-    "height": 3744,
-    "downloaded_width": 3840,
-    "downloaded_height": 2560,
-    "description": "Close view of the steel sail roofs of the new Antwerp Justitiepaleis against blue sky, no people; E_COURT detail/alt."
-  },
-  "E_COURT_3.jpg": {
-    "slot": "E_COURT",
-    "title": "File:Gerechtshof Britselei (hoek met de Anselmostraat).jpg",
-    "page_url": "https://commons.wikimedia.org/wiki/File:Gerechtshof_Britselei_(hoek_met_de_Anselmostraat).jpg",
-    "author": "IDD5000",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-    "attribution_required": true,
-    "share_alike": true,
-    "width": 3491,
-    "height": 2618,
-    "downloaded_width": 1920,
-    "downloaded_height": 1440,
-    "description": "The old Antwerp courthouse (Gerechtshof) on the Britselei, corner with Anselmostraat, full exterior; E_COURT period-accurate alt (trial era, before the 2006 move)."
-  },
-  "E_COURT_4.jpg": {
-    "slot": "E_COURT",
-    "title": "File:Gerechtshof Britselei - Hoofdingang.jpg",
-    "page_url": "https://commons.wikimedia.org/wiki/File:Gerechtshof_Britselei_-_Hoofdingang.jpg",
-    "author": "IDD5000",
-    "license": "CC BY-SA 4.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
-    "attribution_required": true,
-    "share_alike": true,
-    "width": 3274,
-    "height": 2465,
-    "downloaded_width": 1920,
-    "downloaded_height": 1446,
-    "description": "Main entrance and steps of the old Antwerp courthouse on the Britselei, statue above the portal, no people; E_COURT entrance shot."
-  },
-  "E_MILAN_1.jpg": {
-    "slot": "E_MILAN",
-    "title": "File:Scenario notturno dell'arrivo a Milano, stazione Centrale.jpg",
-    "page_url": "https://commons.wikimedia.org/wiki/File:Scenario_notturno_dell%27arrivo_a_Milano,_stazione_Centrale.jpg",
-    "author": "Pjhooker",
-    "license": "CC BY-SA 3.0",
-    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
-    "attribution_required": true,
-    "share_alike": true,
-    "width": 4608,
-    "height": 3072,
-    "downloaded_width": 3840,
-    "downloaded_height": 2560,
-    "description": "Milano Centrale train shed and tracks at night with the Pirelli tower behind, no people; E_MILAN (arrival in Milan at night)."
-  },
-  "E_MILAN_2.jpg": {
-    "slot": "E_MILAN",
-    "title": "File:Milano - Piazza Scala di notte - Foto Giovanni Dall'Orto - 30-dec-2006 - 01.jpg",
-    "page_url": "https://commons.wikimedia.org/wiki/File:Milano_-_Piazza_Scala_di_notte_-_Foto_Giovanni_Dall%27Orto_-_30-dec-2006_-_01.jpg",
-    "author": "G.dallorto",
-    "license": "CC BY-SA 2.5 it",
-    "license_url": "https://creativecommons.org/licenses/by-sa/2.5/it/deed.en",
-    "attribution_required": true,
-    "share_alike": true,
-    "width": 2816,
-    "height": 2112,
-    "downloaded_width": 1920,
-    "downloaded_height": 1440,
-    "description": "Piazza della Scala and Teatro alla Scala at night, empty square, street lamps; E_MILAN street at night."
-  },
-  "E_MILAN_3.jpg": {
-    "slot": "E_MILAN",
-    "title": "File:Duomo in Milan at night 01.jpg",
-    "page_url": "https://commons.wikimedia.org/wiki/File:Duomo_in_Milan_at_night_01.jpg",
-    "author": "Mattsjc",
-    "license": "CC BY 4.0",
-    "license_url": "https://creativecommons.org/licenses/by/4.0",
-    "attribution_required": true,
-    "share_alike": false,
-    "width": 4032,
-    "height": 3024,
-    "downloaded_width": 3840,
-    "downloaded_height": 2880,
-    "description": "Milan Cathedral (Duomo) facade floodlit at night, only tiny distant figures at the base; E_MILAN establishing shot."
-  },
-  "E_CDG_1.jpg": {
-    "slot": "E_CDG",
-    "title": "File:Aeroport Charles de Gaulle (CDG) Terminal 2E, Roissy, France (52186047596).jpg",
-    "page_url": "https://commons.wikimedia.org/wiki/File:Aeroport_Charles_de_Gaulle_(CDG)_Terminal_2E,_Roissy,_France_(52186047596).jpg",
-    "author": "Charles from Port Chester, New York",
-    "license": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "attribution_required": true,
-    "share_alike": false,
-    "width": 6000,
-    "height": 4000,
-    "downloaded_width": 3840,
-    "downloaded_height": 2560,
-    "description": "Paris-CDG Terminal 2E roof and airside at night seen from above, aircraft and lights, no people; E_CDG."
-  },
-  "E_CDG_2.jpg": {
-    "slot": "E_CDG",
-    "title": "File:Aeroport Charles de Gaulle (CDG) Terminal 2E, Roissy, France (52186296214).jpg",
-    "page_url": "https://commons.wikimedia.org/wiki/File:Aeroport_Charles_de_Gaulle_(CDG)_Terminal_2E,_Roissy,_France_(52186296214).jpg",
-    "author": "Charles from Port Chester, New York",
-    "license": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "attribution_required": true,
-    "share_alike": false,
-    "width": 5509,
-    "height": 3673,
-    "downloaded_width": 3840,
-    "downloaded_height": 2560,
-    "description": "Paris-CDG Terminal 2E at night: glass terminal facade and orange 'TERMINAL 2E' road sign, no people; E_CDG."
-  },
-  "E_CDG_3.jpg": {
-    "slot": "E_CDG",
-    "title": "File:Paris Charles de Gaulle Airport (CDG) - View from Terminal 2E Gates K (45608361111).jpg",
-    "page_url": "https://commons.wikimedia.org/wiki/File:Paris_Charles_de_Gaulle_Airport_(CDG)_-_View_from_Terminal_2E_Gates_K_(45608361111).jpg",
-    "author": "Charles from Port Chester, New York",
-    "license": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "attribution_required": true,
-    "share_alike": false,
-    "width": 6000,
-    "height": 3455,
-    "downloaded_width": 3840,
-    "downloaded_height": 2211,
-    "description": "Apron at Paris-CDG seen from Terminal 2E gates K: parked airliners and ground vehicles in daylight, no people visible; E_CDG alt."
+    "description": "A pile of small loose polished solitaire diamonds (0.02-0.04 ct, 5.36 ct total) on dark blue, like an opened parcel; E_DIAMONDS polished stones.",
+    "credit_author": "Swamibu",
+    "credit_line": "Photo: Swamibu, CC BY 2.0 via Wikimedia Commons"
   },
   "E_WOODS_1.jpg": {
     "slot": "E_WOODS",
@@ -312,13 +186,16 @@
     "height": 2895,
     "downloaded_width": 3840,
     "downloaded_height": 2881,
-    "description": "Beech roots and a carpet of brown autumn leaves in the Sonian Forest (Zoniënwoud/Forêt de Soignes); E_WOODS (ground where the bags were thrown)."
+    "description": "Beech roots and a carpet of brown autumn leaves in the Sonian Forest (Zoniënwoud/Forêt de Soignes); E_WOODS (ground where the bags were thrown).",
+    "credit_author": "Horst J. Meuter",
+    "credit_line": "Photo: Horst J. Meuter, CC BY-SA 4.0 via Wikimedia Commons",
+    "usage_note": "Sonian Forest (Zonienwoud/Foret de Soignes), south-east of Brussels: a Belgian forest, not the actual dump site near the E19. Present as generic woodland."
   },
   "E_WOODS_2.jpg": {
     "slot": "E_WOODS",
     "title": "File:Brusel, Zoniënwoud, březnové odpoledne v lese.jpg",
     "page_url": "https://commons.wikimedia.org/wiki/File:Brusel,_Zoni%C3%ABnwoud,_b%C5%99eznov%C3%A9_odpoledne_v_lese.jpg",
-    "author": "I would appreciate being notified if you use my work outside Wikimedia.\nMore of my work can be found in my personal gallery.",
+    "author": "Aktron (Wikimedia Commons user, own work)",
     "license": "CC BY 3.0",
     "license_url": "https://creativecommons.org/licenses/by/3.0",
     "attribution_required": true,
@@ -327,7 +204,10 @@
     "height": 3178,
     "downloaded_width": 3840,
     "downloaded_height": 2558,
-    "description": "Bare beech wood in the Zoniënwoud in early March, big trunk, leaf litter, winter light; E_WOODS (February-like)."
+    "description": "Bare beech wood in the Zoniënwoud in early March, big trunk, leaf litter, winter light; E_WOODS (February-like).",
+    "credit_author": "Aktron",
+    "credit_line": "Photo: Aktron, CC BY 3.0 via Wikimedia Commons",
+    "usage_note": "Author (Commons user Aktron, own work) asks on the file page to be notified of reuse outside Wikimedia. This is a courtesy request, not a licence condition. Sonian Forest, not the actual dump site."
   },
   "E_WOODS_3.jpg": {
     "slot": "E_WOODS",
@@ -342,7 +222,10 @@
     "height": 4016,
     "downloaded_width": 3840,
     "downloaded_height": 2563,
-    "description": "Straight forest lane (Jachtdreef) through tall beeches in autumn colour, Sonian Forest; E_WOODS alt."
+    "description": "Straight forest lane (Jachtdreef) through tall beeches in autumn colour, Sonian Forest; E_WOODS alt.",
+    "credit_author": "Edison McCullen",
+    "credit_line": "Photo: Edison McCullen, CC BY-SA 4.0 via Wikimedia Commons",
+    "usage_note": "Sonian Forest avenue, colours very saturated in the original; grade down. Not the actual dump site."
   },
   "E_E19_1.jpg": {
     "slot": "E_E19",
@@ -357,7 +240,10 @@
     "height": 2304,
     "downloaded_width": 1920,
     "downloaded_height": 1440,
-    "description": "The A1/E19 motorway at Mechelen-Noord between Antwerp and Brussels, overhead gantry 'Antwerpen E19', light traffic, overcast (2008); E_E19."
+    "description": "The A1/E19 motorway at Mechelen-Noord between Antwerp and Brussels, overhead gantry 'Antwerpen E19', light traffic, overcast (2008); E_E19.",
+    "credit_author": "Rossano",
+    "credit_line": "Photo: Rossano, CC BY-SA 3.0 via Wikimedia Commons",
+    "usage_note": "Licence plate of the car in the left lane is readable at full size; blur it if used. Daytime, overcast (2008)."
   },
   "E_E19_2.jpg": {
     "slot": "E_E19",
@@ -372,7 +258,10 @@
     "height": 3712,
     "downloaded_width": 3840,
     "downloaded_height": 2560,
-    "description": "The E19 motorway beside railway line 25N at Zemst (between Mechelen and Brussels) seen from a bridge, daylight; E_E19 route shot."
+    "description": "The E19 motorway beside railway line 25N at Zemst (between Mechelen and Brussels) seen from a bridge, daylight; E_E19 route shot.",
+    "credit_author": "DimiTalen",
+    "credit_line": "Photo: DimiTalen, CC0 via Wikimedia Commons",
+    "usage_note": "Daytime, clear sky (2026). No dusk/night photo of the Antwerp-Brussels E19 was found on Commons; grade towards dusk."
   },
   "E_E19_3.jpg": {
     "slot": "E_E19",
@@ -387,7 +276,10 @@
     "height": 3000,
     "downloaded_width": 3840,
     "downloaded_height": 2880,
-    "description": "A1-E19 motorway with traffic at Schoten (Antwerp) next to the high-speed rail tunnel, seen from a bridge; E_E19 traffic shot."
+    "description": "A1-E19 motorway with traffic at Schoten (Antwerp) next to the high-speed rail tunnel, seen from a bridge; E_E19 traffic shot.",
+    "credit_author": "Rafaël Delaedt (Arafi)",
+    "credit_line": "Photo: Rafaël Delaedt (Arafi), CC BY-SA 3.0 via Wikimedia Commons",
+    "usage_note": "Schoten is on the A1/E19 north-east of Antwerp (towards the Netherlands), not on the Antwerp-Brussels stretch; use as generic E19 traffic. Vehicles too small for readable plates."
   },
   "E_E19_4.jpg": {
     "slot": "E_E19",
@@ -402,7 +294,183 @@
     "height": 1968,
     "downloaded_width": 1920,
     "downloaded_height": 1705,
-    "description": "Southern portal of the Craeybeckx tunnel, where the A1/E19 leaves Antwerp towards Mechelen and Brussels (2009); E_E19 departure from Antwerp."
+    "description": "Southern portal of the Craeybeckx tunnel, where the A1/E19 leaves Antwerp towards Mechelen and Brussels (2009); E_E19 departure from Antwerp.",
+    "credit_author": "Lode Gheys",
+    "credit_line": "Photo: Lode Gheys, CC BY 3.0 via Wikimedia Commons"
+  },
+  "E_COURT_1.jpg": {
+    "slot": "E_COURT",
+    "title": "File:Antwerpen-Gerechtsgebouw.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Antwerpen-Gerechtsgebouw.jpg",
+    "author": "Romaine",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "attribution_required": false,
+    "share_alike": false,
+    "width": 5312,
+    "height": 2988,
+    "downloaded_width": 3840,
+    "downloaded_height": 2160,
+    "description": "The new Antwerp Justitiepaleis (law courts, Bolivarplaats, opened 2006) with its sail-shaped roofs, street view, overcast, no people; E_COURT.",
+    "credit_author": "Romaine",
+    "credit_line": "Photo: Romaine, CC0 via Wikimedia Commons",
+    "usage_note": "New Justitiepaleis (opened 2006). Verify which court building the 2004-05 proceedings used before captioning a specific building as the place of sentencing."
+  },
+  "E_COURT_2.jpg": {
+    "slot": "E_COURT",
+    "title": "File:Antwerp Courts of Justice, Belguim September 8, 2012.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Antwerp_Courts_of_Justice,_Belguim_September_8,_2012.jpg",
+    "author": "Rick Ligthelm",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 5616,
+    "height": 3744,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Close view of the steel sail roofs of the new Antwerp Justitiepaleis against blue sky, no people; E_COURT detail/alt.",
+    "credit_author": "Rick Ligthelm",
+    "credit_line": "Photo: Rick Ligthelm, CC BY 2.0 via Wikimedia Commons"
+  },
+  "E_COURT_3.jpg": {
+    "slot": "E_COURT",
+    "title": "File:Gerechtshof Britselei (hoek met de Anselmostraat).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Gerechtshof_Britselei_(hoek_met_de_Anselmostraat).jpg",
+    "author": "IDD5000",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 3491,
+    "height": 2618,
+    "downloaded_width": 1920,
+    "downloaded_height": 1440,
+    "description": "The old Antwerp courthouse (Gerechtshof) on the Britselei, corner with Anselmostraat, full exterior; E_COURT period-accurate alt (trial era, before the 2006 move).",
+    "credit_author": "IDD5000",
+    "credit_line": "Photo: IDD5000, CC BY-SA 4.0 via Wikimedia Commons",
+    "usage_note": "Old courthouse on the Britselei. Verify which building the 2004-05 proceedings used before captioning it as the place of sentencing."
+  },
+  "E_COURT_4.jpg": {
+    "slot": "E_COURT",
+    "title": "File:Gerechtshof Britselei - Hoofdingang.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Gerechtshof_Britselei_-_Hoofdingang.jpg",
+    "author": "IDD5000",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 3274,
+    "height": 2465,
+    "downloaded_width": 1920,
+    "downloaded_height": 1446,
+    "description": "Main entrance and steps of the old Antwerp courthouse on the Britselei, statue above the portal, no people; E_COURT entrance shot.",
+    "credit_author": "IDD5000",
+    "credit_line": "Photo: IDD5000, CC BY-SA 4.0 via Wikimedia Commons",
+    "usage_note": "Old courthouse on the Britselei, main entrance. Same caption caveat as E_COURT_3."
+  },
+  "E_MILAN_1.jpg": {
+    "slot": "E_MILAN",
+    "title": "File:Scenario notturno dell'arrivo a Milano, stazione Centrale.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Scenario_notturno_dell%27arrivo_a_Milano,_stazione_Centrale.jpg",
+    "author": "Pjhooker",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 4608,
+    "height": 3072,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Milano Centrale train shed and tracks at night with the Pirelli tower behind, no people; E_MILAN (arrival in Milan at night).",
+    "credit_author": "Pjhooker",
+    "credit_line": "Photo: Pjhooker, CC BY-SA 3.0 via Wikimedia Commons"
+  },
+  "E_MILAN_2.jpg": {
+    "slot": "E_MILAN",
+    "title": "File:Milano - Piazza Scala di notte - Foto Giovanni Dall'Orto - 30-dec-2006 - 01.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Milano_-_Piazza_Scala_di_notte_-_Foto_Giovanni_Dall%27Orto_-_30-dec-2006_-_01.jpg",
+    "author": "G.dallorto",
+    "license": "CC BY-SA 2.5 it",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.5/it/deed.en",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 2816,
+    "height": 2112,
+    "downloaded_width": 1920,
+    "downloaded_height": 1440,
+    "description": "Piazza della Scala and Teatro alla Scala at night, empty square, street lamps; E_MILAN street at night.",
+    "credit_author": "Giovanni Dall'Orto",
+    "credit_line": "Photo: Giovanni Dall'Orto, CC BY-SA 2.5 it via Wikimedia Commons"
+  },
+  "E_MILAN_3.jpg": {
+    "slot": "E_MILAN",
+    "title": "File:Duomo in Milan at night 01.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Duomo_in_Milan_at_night_01.jpg",
+    "author": "Mattsjc",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 4032,
+    "height": 3024,
+    "downloaded_width": 3840,
+    "downloaded_height": 2880,
+    "description": "Milan Cathedral (Duomo) facade floodlit at night, only tiny distant figures at the base; E_MILAN establishing shot.",
+    "credit_author": "Mattsjc",
+    "credit_line": "Photo: Mattsjc, CC BY 4.0 via Wikimedia Commons",
+    "usage_note": "Only tiny, unidentifiable figures at the base of the cathedral."
+  },
+  "E_CDG_1.jpg": {
+    "slot": "E_CDG",
+    "title": "File:Aeroport Charles de Gaulle (CDG) Terminal 2E, Roissy, France (52186047596).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Aeroport_Charles_de_Gaulle_(CDG)_Terminal_2E,_Roissy,_France_(52186047596).jpg",
+    "author": "Charles from Port Chester, New York",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 6000,
+    "height": 4000,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Paris-CDG Terminal 2E roof and airside at night seen from above, aircraft and lights, no people; E_CDG.",
+    "credit_author": "Charles from Port Chester, New York",
+    "credit_line": "Photo: Charles from Port Chester, New York, CC BY 2.0 via Wikimedia Commons"
+  },
+  "E_CDG_2.jpg": {
+    "slot": "E_CDG",
+    "title": "File:Aeroport Charles de Gaulle (CDG) Terminal 2E, Roissy, France (52186296214).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Aeroport_Charles_de_Gaulle_(CDG)_Terminal_2E,_Roissy,_France_(52186296214).jpg",
+    "author": "Charles from Port Chester, New York",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 5509,
+    "height": 3673,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Paris-CDG Terminal 2E at night: glass terminal facade and orange 'TERMINAL 2E' road sign, no people; E_CDG.",
+    "credit_author": "Charles from Port Chester, New York",
+    "credit_line": "Photo: Charles from Port Chester, New York, CC BY 2.0 via Wikimedia Commons"
+  },
+  "E_CDG_3.jpg": {
+    "slot": "E_CDG",
+    "title": "File:Paris Charles de Gaulle Airport (CDG) - View from Terminal 2E Gates K (45608361111).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Paris_Charles_de_Gaulle_Airport_(CDG)_-_View_from_Terminal_2E_Gates_K_(45608361111).jpg",
+    "author": "Charles from Port Chester, New York",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 6000,
+    "height": 3455,
+    "downloaded_width": 3840,
+    "downloaded_height": 2211,
+    "description": "Apron at Paris-CDG seen from Terminal 2E gates K: parked airliners and ground vehicles in daylight, no people visible; E_CDG alt.",
+    "credit_author": "Charles from Port Chester, New York",
+    "credit_line": "Photo: Charles from Port Chester, New York, CC BY 2.0 via Wikimedia Commons"
   },
   "SPARE_SKYLINE_1.jpg": {
     "slot": "SPARE_SKYLINE",
@@ -417,7 +485,9 @@
     "height": 1736,
     "downloaded_width": 3840,
     "downloaded_height": 1410,
-    "description": "Antwerp skyline in misty black-and-white with the cathedral spire and the Boerentoren; spare skyline."
+    "description": "Antwerp skyline in misty black-and-white with the cathedral spire and the Boerentoren; spare skyline.",
+    "credit_author": "Kschotanus",
+    "credit_line": "Photo: Kschotanus, CC BY 3.0 via Wikimedia Commons"
   },
   "SPARE_SKYLINE_2.jpg": {
     "slot": "SPARE_SKYLINE",
@@ -432,7 +502,9 @@
     "height": 2916,
     "downloaded_width": 3840,
     "downloaded_height": 2160,
-    "description": "Antwerp riverside skyline with a moored minehunter (M477) and the Loodsgebouw tower; spare skyline."
+    "description": "Antwerp riverside skyline with a moored minehunter (M477) and the Loodsgebouw tower; spare skyline.",
+    "credit_author": "Bobo Boom",
+    "credit_line": "Photo: Bobo Boom, CC BY 2.0 via Wikimedia Commons"
   },
   "SPARE_VAULT_1.jpg": {
     "slot": "SPARE_VAULT",
@@ -447,7 +519,10 @@
     "height": 4000,
     "downloaded_width": 3840,
     "downloaded_height": 2560,
-    "description": "Safe-deposit vault seen through an open barred gate: walls of steel safe-deposit boxes, empty room, no people (Seattle); spare vault/boxes."
+    "description": "Safe-deposit vault seen through an open barred gate: walls of steel safe-deposit boxes, empty room, no people (Seattle); spare vault/boxes.",
+    "credit_author": "Joe Mabel",
+    "credit_line": "Photo: Joe Mabel, CC BY-SA 4.0 via Wikimedia Commons",
+    "usage_note": "A bank vault in Seattle (University National Bank building), not the Antwerp vault; use as illustrative."
   },
   "SPARE_VAULT_2.jpg": {
     "slot": "SPARE_VAULT",
@@ -462,7 +537,10 @@
     "height": 3000,
     "downloaded_width": 3840,
     "downloaded_height": 2880,
-    "description": "A wall of safe-deposit boxes with several compartments opened and empty; spare vault (aftermath feel)."
+    "description": "A wall of safe-deposit boxes with several compartments opened and empty; spare vault (aftermath feel).",
+    "credit_author": "Noah Jeppson",
+    "credit_line": "Photo: Noah Jeppson, CC BY-SA 2.0 via Wikimedia Commons",
+    "usage_note": "Generic safe-deposit boxes (not Antwerp); use as illustrative."
   },
   "SPARE_VAULT_3.jpg": {
     "slot": "SPARE_VAULT",
@@ -477,7 +555,10 @@
     "height": 4000,
     "downloaded_width": 3840,
     "downloaded_height": 2560,
-    "description": "Round steel vault door standing open, bolts and hinge mechanism visible, no people; spare vault door."
+    "description": "Round steel vault door standing open, bolts and hinge mechanism visible, no people; spare vault door.",
+    "credit_author": "Joe Mabel",
+    "credit_line": "Photo: Joe Mabel, CC BY-SA 4.0 via Wikimedia Commons",
+    "usage_note": "A bank vault door in Seattle, not the Antwerp door; use as illustrative."
   },
   "SPARE_POLICE_1.jpg": {
     "slot": "SPARE_POLICE",
@@ -492,6 +573,95 @@
     "height": 2842,
     "downloaded_width": 1920,
     "downloaded_height": 1460,
-    "description": "Belgian federal police (Politie) Audi A6 Avant patrol car in a car park, no people; licence plate visible (blur if used); spare police car (model of c. 2005-2011)."
+    "description": "Belgian federal police (Politie) Audi A6 Avant patrol car in a car park, no people; licence plate visible (blur if used); spare police car (model of c. 2005-2011).",
+    "credit_author": "Dickelbers",
+    "credit_line": "Photo: Dickelbers, CC BY-SA 3.0 via Wikimedia Commons",
+    "usage_note": "Licence plate is readable; blur it if used. Photo from 2013 of an Audi A6 (2004-2011 model generation)."
+  },
+  "SPARE_COMBINATION_1.jpg": {
+    "slot": "SPARE_COMBINATION",
+    "title": "File:Lock (48708595457).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Lock_(48708595457).jpg",
+    "author": "Auckland Museum  Collections from Auckland, Aotearoa New Zealand",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 8688,
+    "height": 5792,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Antique brass letter-combination padlock with rotating lettered rings on black (Auckland Museum); spare for the boxes' three-letter combinations.",
+    "credit_author": "Auckland Museum Collections",
+    "credit_line": "Photo: Auckland Museum Collections, CC BY 2.0 via Wikimedia Commons"
+  },
+  "SPARE_COMBINATION_2.jpg": {
+    "slot": "SPARE_COMBINATION",
+    "title": "File:Masterpadlock.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Masterpadlock.jpg",
+    "author": "Thegreenj",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 3000,
+    "height": 2000,
+    "downloaded_width": 1920,
+    "downloaded_height": 1280,
+    "description": "Close-up of a numbered rotary combination dial (padlock, 0-35 scale) on white; spare combination-dial insert (brand name on dial, crop if needed).",
+    "credit_author": "Thegreenj",
+    "credit_line": "Photo: Thegreenj, CC BY-SA 3.0 via Wikimedia Commons",
+    "usage_note": "Brand name 'Master' on the dial; crop or blur if you want it unbranded."
+  },
+  "SPARE_COMBINATION_3.jpg": {
+    "slot": "SPARE_COMBINATION",
+    "title": "File:Combination lock insides.agr.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Combination_lock_insides.agr.jpg",
+    "author": "ArnoldReinhold",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 2797,
+    "height": 2551,
+    "downloaded_width": 1920,
+    "downloaded_height": 1751,
+    "description": "Opened safe-style combination lock showing the wheel pack, drive cam and lever on black; spare for the vault's combination wheel.",
+    "credit_author": "ArnoldReinhold",
+    "credit_line": "Photo: ArnoldReinhold, CC BY-SA 3.0 via Wikimedia Commons"
+  },
+  "SPARE_MAGNET_1.jpg": {
+    "slot": "SPARE_MAGNET",
+    "title": "File:Magnet contact as burglary prevention-9294.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Magnet_contact_as_burglary_prevention-9294.jpg",
+    "author": "Raimond Spekking",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 4942,
+    "height": 2780,
+    "downloaded_width": 3840,
+    "downloaded_height": 2160,
+    "description": "A two-part magnetic door/window alarm contact (sensor body + separate magnet) on dark slate; spare for the vault door's magnetic plates.",
+    "credit_author": "Raimond Spekking",
+    "credit_line": "Photo: Raimond Spekking, CC BY-SA 4.0 via Wikimedia Commons"
+  },
+  "SPARE_MAGNET_2.jpg": {
+    "slot": "SPARE_MAGNET",
+    "title": "File:Magnet contact as burglary prevention-9300.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Magnet_contact_as_burglary_prevention-9300.jpg",
+    "author": "Raimond Spekking",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 5218,
+    "height": 2935,
+    "downloaded_width": 3840,
+    "downloaded_height": 2160,
+    "description": "Macro of the glass reed switch inside a magnetic alarm contact (the part a magnet keeps closed); spare for the magnetic-field explanation.",
+    "credit_author": "Raimond Spekking",
+    "credit_line": "Photo: Raimond Spekking, CC BY-SA 4.0 via Wikimedia Commons"
   }
 }

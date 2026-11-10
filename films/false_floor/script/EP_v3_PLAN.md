@@ -95,3 +95,11 @@ narration** (George v4, out/vo/vo_george_v4_v01, beats S00–S52, ≈12:25 + 15 
 - **Motion graphics (agent):** all M_* and the E_* photo moves, from FACTS.md, this file and the style above.
 - **Lead:** H_* 3D character shots (GPU), A_* Kling clips (≤ ~1,000 credits), the editor (chapters on George's
   words), QC frame by frame, mix, delivery chapter by chapter.
+
+## Licences / accuracy notes for the YouTube package (from the evidence + maps agents)
+- Photos: assets/evidence/credits.json + README.md (credit line per file). 24 of 38 files are CC BY-SA → the graded /
+  displaced versions are offered under the same licence; say so in the description, list every credit used in the cut.
+- Maps: Natural Earth (public domain) and OpenStreetMap (ODbL, "© OpenStreetMap contributors" is on screen).
+- E_ADC is a real Schupstraat photo (CCTV, offices), not verified as the Diamond Centre building: never caption it as the ADC.
+- E_WOODS is the Sonian Forest (Zoniënwoud) near Brussels, not the dump site: generic Belgian woodland, never captioned.
+- Camera / bollard positions in M_CAMERAS are as mapped today (stated on screen).
