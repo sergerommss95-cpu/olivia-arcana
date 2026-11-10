@@ -55,7 +55,7 @@ CH = {
                       ('el__woods_morning', 'E_WOODS', 'S34', -20), ('el__vault_room_tone', 'S34', 'A_BAGS', -23),
                       ('el__woods_morning', 'A_BAGS', 'S08', -20)],
                 cuts=[('C13', 30, 'According'), ('M_BURNLIST', 30, 'the'),
-                      ('M_ROUTE_E19', 31, 'Instead'), ('A_E19_NIGHT', 31, 'two'), ('A_SPEEDY@56', 31, 'And'),
+                      ('M_ROUTE_E19', 31, 'Instead'), ('A_E19_NIGHT', 31, 'two'), ('A_SPEEDY@53', 31, 'And'),
                       ('A_E19_NIGHT@46', 31, 'No'), ('A_THROW', 31, 'The'), ('A_TEAR', 31, 'torn'), ('S31@150', 31, 'scattered'),
                       ('C8', 32, 'In'), ('M_GHOSTS', 32, 'To'),
                       ('E_WOODS', 33, 'But'), ('A_VANCAMP', 33, 'And'), ('S33', 33, 'looking'),
