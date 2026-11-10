@@ -12,8 +12,9 @@ The RunPod API key is read from /root/.runpod/api_key (never from the repo). Pod
 """
 import base64, io, json, os, secrets, subprocess, sys, tarfile, time, urllib.request, urllib.error
 
-KEYF = '/root/.runpod/api_key'
-STATE = os.environ.get('RUNPOD_STATE', '/root/.runpod/state.json')
+RP = os.path.expanduser('~/.runpod')            # /root/.runpod on the cloud box, ~/.runpod on a Mac
+KEYF = os.path.join(RP, 'api_key')
+STATE = os.environ.get('RUNPOD_STATE', os.path.join(RP, 'state.json'))
 HERE = os.path.dirname(os.path.abspath(__file__))
 IMAGE = 'runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04'
 POD_NAME = 'claude-false-floor-render'      # every pod this client creates; terminate() refuses any other name

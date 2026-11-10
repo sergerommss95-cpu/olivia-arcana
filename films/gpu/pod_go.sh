@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage: RUNPOD_STATE=/root/.runpod/podN.json films/gpu/pod_go.sh setup | render S00 S01 ... | fetch
-cd /home/user/olivia-arcana/films
+cd "$(dirname "$0")/.."      # the films directory, wherever the repo is checked out
 C="python3 gpu/runpod_client.py"
 waitjob() { # poll a worker job until it ends; print the tail
   while true; do out=$($C job "$1" 2>&1); if ! echo "$out" | grep -q "^rc None"; then echo "$out" | tail -25; break; fi; sleep 20; done; }

@@ -1,7 +1,7 @@
 #!/bin/bash
 # usage: films/gpu/run_one.sh /root/.runpod/podN.json SHOT   -> force-renders one shot on that pod and fetches its clip
 set -e
-cd /home/user/olivia-arcana/films
+cd "$(dirname "$0")/.."
 export RUNPOD_STATE=$1
 SHOT=$2
 C="python3 gpu/runpod_client.py"

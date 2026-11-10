@@ -36,8 +36,8 @@ def setup_render(start=1, end=48, res=RES, samples=40, mb=True, shutter=0.5, ada
     sc.render.engine = 'CYCLES'
     cy = sc.cycles
     cy.device = 'CPU'
-    dev = os.environ.get('TUMBLER_DEVICE', 'CPU').upper()     # CPU | OPTIX | CUDA (rented GPU pods)
-    if dev in ('OPTIX', 'CUDA'):
+    dev = os.environ.get('TUMBLER_DEVICE', 'CPU').upper()     # CPU | OPTIX | CUDA (rented GPU pods) | METAL (a Mac's own GPU)
+    if dev in ('OPTIX', 'CUDA', 'METAL'):
         prefs = bpy.context.preferences.addons['cycles'].preferences
         prefs.compute_device_type = dev
         prefs.get_devices()

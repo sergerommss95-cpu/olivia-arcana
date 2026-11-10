@@ -8,7 +8,7 @@ D=makehuman_data
 [ -f $D/base.obj ] && [ -d $D/assets/clothes ] && exit 0
 mkdir -p $D/rigs $D/assets tmp
 curl -sSL -o tmp/mpfb.zip "https://extensions.blender.org/download/sha256:c075b3e9b94b8e5556a5f03f4653602d02ea306de08126e8f55ed6dee28a2dad/add-on-mpfb-v2.0.18.zip"
-echo "c075b3e9b94b8e5556a5f03f4653602d02ea306de08126e8f55ed6dee28a2dad  tmp/mpfb.zip" | sha256sum -c -
+echo "c075b3e9b94b8e5556a5f03f4653602d02ea306de08126e8f55ed6dee28a2dad  tmp/mpfb.zip" | (command -v sha256sum >/dev/null && sha256sum -c - || shasum -a 256 -c -)
 unzip -q -o tmp/mpfb.zip 'data/3dobjs/base.obj' 'data/rigs/standard/rig.cmu_mb.json' 'data/rigs/standard/weights.cmu_mb.json' 'data/targets/*' -d tmp/mpfb
 cp tmp/mpfb/data/3dobjs/base.obj $D/
 cp tmp/mpfb/data/rigs/standard/rig.cmu_mb.json tmp/mpfb/data/rigs/standard/weights.cmu_mb.json $D/rigs/

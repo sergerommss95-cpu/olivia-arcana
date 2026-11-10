@@ -29,7 +29,10 @@ AMBER = (232, 163, 61)       # the one accent: routes, highlights, counters
 RED = (217, 73, 59)          # alarms / never found
 GRID = (44, 46, 52)
 
-FONT_DIR = '/usr/share/fonts/opentype/inter'
+# Inter (static .otf files: Inter-*.otf and InterDisplay-*.otf). Set FF_INTER_DIR on a machine that keeps them elsewhere.
+FONT_DIR = next((d for d in [os.environ.get('FF_INTER_DIR', ''), os.path.join(FF, 'fonts', 'inter'), '/usr/share/fonts/opentype/inter',
+                             os.path.expanduser('~/Library/Fonts'), '/Library/Fonts'] if d and os.path.exists(os.path.join(d, 'Inter-Regular.otf'))),
+                '/usr/share/fonts/opentype/inter')
 _FONTS = {}
 
 
