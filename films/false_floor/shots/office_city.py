@@ -371,10 +371,144 @@ def shot_c13(frames=80):
         cam.data.dof.focus_object = foc
 
 
+
+# ============================================================================ EP v3: stills of the cast for Kling animation
+
+def _office_day(lamp=False, dusk=False):
+    setup_render(1, 1, res=STILL, samples=96, mb=False, look='Medium High Contrast', clamp=5.0, bounces=(3, 3, 4),
+                 exposure=-0.6 if not dusk else 0.4)
+    world_color((0.0, 0.0, 0.0), 0.0)
+    M = office_mats()
+    A = build_office(M, door_angle=72.0, blinds_tilt=38.0 if not dusk else 62.0, lamp_on=lamp, lamp_energy=26.0)
+    o = OFF
+    wx0, wx1, wz0, wz1 = o['win']
+    wxc, wzc = (wx0 + wx1) / 2, (wz0 + wz1) / 2
+    sky = (0.80, 0.88, 1.0) if not dusk else (0.30, 0.36, 0.55)
+    card = rbox('SkyCard', (14.0, 0.05, 9.0), (wxc, o['y1'] + 4.5, 2.0), mat_emission('Sky', sky, 1.6 if not dusk else 0.9), bev=0)
+    no_shadow(card)
+    if not dusk:
+        sun('Sun', (-0.22, -0.82, -0.5), 30.0, kelvin(4100), angle=0.25)
+    light('AREA', 'SkyFill', (wxc, o['y1'] + 0.7, wzc), (math.radians(-90), 0, 0), energy=260.0 if not dusk else 120.0,
+          color=kelvin(8500), size=wx1 - wx0, size_y=wz1 - wz0, shape='RECTANGLE')
+    light('AREA', 'RoomBounce', (1.4, 1.2, 2.5), energy=70.0, color=kelvin(4600), size=1.5)
+    if HAZE:
+        hz = mat_volume('OfficeHaze', density=0.016, color=(0.9, 0.9, 0.9), anisotropy=0.6, noise_scale=1.4, contrast=(0.3, 0.75))
+        volume_box('Haze', ((o['x0'] + o['x1']) / 2, o['y1'] / 2, o['H'] / 2),
+                   (o['x1'] - o['x0'] - 0.02, o['y1'] - 0.02, o['H'] - 0.02), hz)
+    return M, A
+
+
+def shot_epa_lease():
+    """S07 'you start with a lease': the Tenant, standing at his new desk, signs the lease (pen in hand)."""
+    import cast as CA
+    import human as HU
+    M, A = _office_day()
+    DX, DY, DZ = A['desk']
+    A['chair'].location = (DX + 1.4, DY + 1.2, 0.0)
+    sheet = rbox('Lease', (0.21, 0.297, 0.002), (DX - 0.05, DY + 0.05, DZ + 0.002), mat_paper('LeasePaper') if 'mat_paper' in globals()
+                 else mat_principled('LeasePaper', color=(0.82, 0.80, 0.74), rough=0.8), bev=0)
+    sheet.rotation_euler.z = math.radians(8)
+    t = CA.make('tenant')
+    HU.place(t, DX - 0.08, DY + 0.40, 0)
+    # lean over the desk from the ankles (feet stay put)
+    heel = Vector((DX - 0.08, DY + 0.46, 0.0))
+    t.rig.matrix_world = (Matrix.Translation(heel) @ Matrix.Rotation(math.radians(13), 4, 'X') @ Matrix.Translation(-heel) @
+                          Matrix.Translation(Vector((DX - 0.08, DY + 0.40, 0.0))))
+    bpy.context.view_layer.update()
+    tip = Vector((DX - 0.02, DY + 0.02, DZ + 0.03))
+    CA.reach(t, 'R', tip, 0.18)
+    CA.grip(t, 'R', 0.75)
+    CA.reach(t, 'L', Vector((DX - 0.22, DY + 0.12, DZ + 0.02)), 0.2)
+    CA.grip(t, 'L', 0.2)
+    CA.head_turn(t, 0, 24)
+    bpy.context.view_layer.update()
+    hp = t.rig.matrix_world @ t.rig.pose.bones['RightHand'].tail
+    pen = prim('cyl', 'Pen', loc=tuple(hp + Vector((0.0, -0.01, -0.02))), r=0.0045, depth=0.14)
+    pen.rotation_euler = (math.radians(35), 0, math.radians(20))
+    pen.data.materials.append(mat_principled('PenBlack', color=(0.01, 0.01, 0.012), rough=0.3))
+    foc = empty('FocusLease', tuple(tip))
+    cam_at('CamLease', (DX + 0.95, DY - 1.35, 1.48), (DX - 0.1, DY + 0.3, 1.16), 35.0, 2.8, foc, roll=0.0)
+
+
+def shot_epa_interview():
+    """S43 the 2009 interview: the Tenant (older) at the office window at dusk, seen from behind; a small recorder
+    with a red light on the desk in the foreground."""
+    import cast as CA
+    import human as HU
+    M, A = _office_day(lamp=True, dusk=True)
+    DX, DY, DZ = A['desk']
+    A['chair'].location = (-0.98, 3.22, 0.0)
+    t = HU.make_human('tenant_old', **dict(CA.SPEC['tenant'], age=58))
+    HU.place(t, -0.15, 3.70, 180)
+    CA.arms_down(t, 'L', 0.12)
+    CA.arms_down(t, 'R', 0.12)
+    CA.grip(t, 'L', 0.35)
+    CA.grip(t, 'R', 0.35)
+    CA.head_turn(t, -8, -4)
+    rec = rbox('Recorder', (0.11, 0.06, 0.022), (DX + 0.12, DY - 0.18, DZ + 0.011), mat_principled('RecBody', color=(0.03, 0.03, 0.035), rough=0.35), bev=0.004)
+    led = prim('cyl', 'RecLED', loc=(DX + 0.15, DY - 0.205, DZ + 0.023), r=0.0025, depth=0.002)
+    led.data.materials.append(mat_emission('LEDRed', (1.0, 0.05, 0.03), 18.0))
+    foc = empty('FocusInt', (-0.15, 3.6, 1.5))
+    cam_at('CamInt', (1.45, 1.05, 1.30), (-0.2, 3.85, 1.45), 32.0, 2.8, foc, roll=0.0)
+
+
+def _street_day(exposure=0.9):
+    setup_render(1, 1, res=STILL, samples=96, mb=False, look='Medium High Contrast', clamp=6.0, bounces=(2, 3, 4),
+                 exposure=exposure)
+    M = street_mats(night=False)
+    A = build_street(M, night=False)
+    world_sky((0.13, 0.17, 0.25), (0.24, 0.26, 0.29), strength=1.0, glow=((0.26, 0.26, 0.27), 0.2))
+    light('AREA', 'Overcast', (0.0, 18.0, 30.0), energy=9000.0, color=kelvin(7600), size=12.0, size_y=40.0, shape='RECTANGLE')
+    if HAZE:
+        hz = mat_volume('MorningMist', density=0.0022, color=(0.8, 0.84, 0.9), anisotropy=0.3)
+        volume_box('Mist', (0.0, 40.0, 4.5), (2 * ST['hw'] - 0.1, 90.0, 9.0), hz)
+    return M, A
+
+
+def shot_epa_return():
+    """S39 five days later: the Tenant walks back up the district street toward the Diamond Centre entrance (from behind)."""
+    import cast as CA
+    import mocap as MC
+    M, A = _street_day()
+    t = CA.make('tenant')
+    W = MC.load('02', '02_01')
+    yaw = heading_yaw(MC, W, 0, 342, want=(0.0, 1.0))
+    MC.apply(t, W, start_frame=1, src_range=(40, 60), step=4.0, pos=(0.6, 3.2), yaw_deg=yaw)
+    bpy.context.scene.frame_set(3)
+    foc = empty('FocusRet', (0.6, 4.2, 1.3))
+    cam_at('CamRet', (-0.35, -0.9, 1.25), (0.9, 14.0, 1.9), 35.0, 4.0, foc, roll=0.0)
+
+
+def shot_epa_king():
+    """S41 the King of Keys, never identified: walks away down the empty district street at night into the mist."""
+    import cast as CA
+    import mocap as MC
+    setup_render(1, 1, res=STILL, samples=96, mb=False, look='Medium High Contrast', clamp=6.0, bounces=(2, 3, 4), exposure=2.2)
+    M = street_mats(night=True)
+    A = build_street(M, night=True)
+    world_sky((0.006, 0.009, 0.018), (0.022, 0.017, 0.013), strength=1.0, glow=((0.035, 0.018, 0.006), 0.5))
+    hz = mat_volume('StreetFog', density=0.0045, color=(0.85, 0.85, 0.85), anisotropy=0.6)
+    volume_box('Fog', (0.0, 45.0, 6.0), (2 * ST['hw'] - 0.1, 100.0, 12.0), hz)
+    k = CA.make('king')
+    W = MC.load('02', '02_01')
+    yaw = heading_yaw(MC, W, 0, 342, want=(0.0, 1.0))
+    MC.apply(k, W, start_frame=1, src_range=(60, 80), step=4.0, pos=(0.3, 9.5), yaw_deg=yaw)
+    bpy.context.scene.frame_set(3)
+    foc = empty('FocusKing', (0.3, 10.0, 1.2))
+    cam_at('CamKing', (-0.6, 3.2, 1.35), (0.5, 30.0, 2.2), 35.0, 4.0, foc, roll=0.0)
+
 HAND_C13 = Vector((-0.02, 4.08, 1.58))
 
 reset()
-if SHOT == 'C1':
+if SHOT == 'EPA_LEASE':
+    shot_epa_lease()
+elif SHOT == 'EPA_INTERVIEW':
+    shot_epa_interview()
+elif SHOT == 'EPA_RETURN':
+    shot_epa_return()
+elif SHOT == 'EPA_KING':
+    shot_epa_king()
+elif SHOT == 'C1':
     shot_c1()
 elif SHOT == 'C13':
     shot_c13()

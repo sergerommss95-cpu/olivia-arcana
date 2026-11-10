@@ -18,7 +18,8 @@ SHOT = arg('--shot', 'S02')
 INFO = {'S02': ('3D', 252), 'S21': ('3D', 252), 'S26': ('3D', 252), 'S27': ('3D', 252), 'S34': ('3D', 98),
         'S28': ('3DS', 1), 'S41': ('3DS', 1), 'S45a': ('3DS', 1), 'S45b': ('3DS', 1), 'S51': ('3DS', 1),
         'N9': ('3D', 120), 'N10': ('3D', 170),        # v2 'The Night' (script/SEQ_NIGHT.json)
-        'C6': ('3D', 50), 'C8': ('3D', 90), 'C9': ('3D', 60), 'C10': ('3D', 150)}   # v2 cold open (SEQ_COLD.json)
+        'C6': ('3D', 50), 'C8': ('3D', 90), 'C9': ('3D', 60), 'C10': ('3D', 150),
+        'EPA_VAULT': ('3DS', 1)}   # v2 cold open (SEQ_COLD.json)
 KIND, N = INFO[SHOT]
 STILL_RES = (2560, 1440)
 
@@ -624,6 +625,31 @@ elif SHOT == 'N9':
     shake(cam, 0.007, 0.0045, scale=6, seed=9)
     shake(cam, 0.0, 0.006, scale=2.5, seed=19, start=POP - 1, end=POP + 10)      # flinch on the pop
     motes('Motes', 260, (-0.4, 1.4, 0.6), (1.2, 3.6, 2.4), r=(0.0007, 0.0016), seed=91, drift=(0.02, 0.03, 0.05), end=N)
+
+elif SHOT == 'EPA_VAULT':
+    # EP v3 still for Kling (S10): a daytime visit — the Tenant at the box wall, key raised to his box, eyes drifting up
+    # to the sensors. Lights on, sensors live (LEDs), no damage.
+    import human as HU
+    import cast as CA
+    build_room(M, door='open', ante_energy=40.0, ante_kelvin=4800)
+    right, left = walls('before')
+    sensors(taped=False, led=True)
+    fixtures(strength=2.6, energy=20.0, kelv=4400, tube_color=(1.0, 0.95, 0.88))
+    cream_key(pos=(-1.0, 0.6, 2.6), aim=(1.2, 3.0, 1.4), energy=55.0, name='KeyR')
+    light('AREA', 'RoomBounce', (0.0, 3.0, 2.85), energy=16.0, color=kelvin(4200), size=2.2, size_y=5.0,
+          shape='RECTANGLE', target=(0.0, 3.0, 0.0))
+    t = CA.make('tenant')
+    HU.place(t, 0.38, 2.75, 90)
+    HU.stand(t)
+    CA.reach(t, 'R', Vector((0.86, 2.72, 1.38)), 0.16)
+    CA.grip(t, 'R', 0.6)
+    CA.arms_down(t, 'L', 0.12)
+    CA.grip(t, 'L', 0.35)
+    CA.head_turn(t, 18, -24)
+    foc = empty('FocusEPV', (0.42, 2.75, 1.55))
+    cam = lens_cam('CamEPV', 28, 2.8, foc)
+    cam.location = (-0.55, 1.05, 1.62)
+    cam.rotation_euler = look_rot(Vector((-0.55, 1.05, 1.62)), Vector((0.65, 3.1, 1.75)), 0.0)
 
 elif SHOT == 'N10':
     # One box. Then ten. Then fifty. A hundred and nine. The camera rushes down the aisle as the doors burst open,

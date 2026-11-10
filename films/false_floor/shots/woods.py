@@ -16,6 +16,12 @@ from ff import *
 from woods import *
 
 SHOT = arg('--shot', 'S36')
+OUTNAME = SHOT
+WHO = None
+if SHOT == 'EPA_VANCAMP':          # EP v3 stills for Kling: August Van Camp walks his land (S33 woods)
+    SHOT, WHO = 'S33', 'walk'
+elif SHOT == 'EPA_BAGS':           # ... and stands over the torn bags (S35 woods)
+    SHOT, WHO = 'S35', 'look'
 DEBUG = bool(arg('--debuglight'))
 SEED = arg('--seed', 7, int)
 RES_3DS = (2560, 1440)
@@ -400,4 +406,42 @@ if SHOT == 'S31' and arg('--sf2'):
 if SHOT not in ('S36', 'S35', 'S33', 'S31'):
     raise SystemExit(f'unknown shot {SHOT}')
 
-finish(SHOT)
+if WHO:
+    import cast as CA
+    import human as HU
+    import mocap as MC
+    vc = CA.make('vancamp')
+    if WHO == 'walk':                       # on the path ~4 m out, walking toward the camera, eyes on the ground
+        py = 7.4
+        px = float(xc(py))
+        gz = float(hf.sample_s(np.array([px]), np.array([py]))[0]) - 0.01   # the real litter surface, not the base terrain
+        base = empty('VanCampGround', (0.0, 0.0, gz))
+        vc.rig.parent = base
+        W = MC.load('02', '02_01')
+        _, Pa, _ = MC.fk(W, 40)
+        _, Pb, _ = MC.fk(W, 200)
+        d = MC._zup(Pb['root']) - MC._zup(Pa['root'])
+        yaw = math.degrees(math.atan2(-1.0, 0.0) - math.atan2(d.y, d.x))
+        MC.apply(vc, W, start_frame=1, src_range=(40, 60), step=4.0, pos=(px, py), yaw_deg=yaw, root_motion=False)
+        bpy.context.scene.frame_set(3)
+    else:                                   # standing behind the bags, looking down at them
+        bx, by = G(0.16, 0.40)
+        gz = float(hf.sample_s(np.array([bx]), np.array([by]))[0]) - 0.01
+        to_cam = math.degrees(math.atan2(loc.y - by, loc.x - bx))
+        HU.place(vc, bx, by, to_cam + 90.0, z=gz)
+        HU.stand(vc)
+        CA.arms_down(vc, 'L', 0.14)
+        CA.arms_down(vc, 'R', 0.14)
+        CA.grip(vc, 'L', 0.35)
+        CA.grip(vc, 'R', 0.35)
+        CA.head_turn(vc, 0, 30)
+        # camera up at standing eye level so he reads standing over the bags (bags in the lower third)
+        bpy.context.view_layer.update()
+        chest = Vector((bx, by, gz + 1.15))
+        bagc = Vector((G(-0.10, -0.05)[0], G(-0.10, -0.05)[1], 0.1))
+        tgt2 = bagc.lerp(chest, 0.55)
+        loc2 = Vector((loc.x + 0.35, loc.y - 0.15, 1.45))
+        cam.location = loc2
+        cam.rotation_euler = look_rot(loc2, tgt2, 0.0)
+
+finish(OUTNAME)
