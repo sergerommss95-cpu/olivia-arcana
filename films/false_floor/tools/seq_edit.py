@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import episode_edit as E
 from make_srt import words_on_vo_clock
+import ep_cuts
 
 FF = E.FF
 VO = os.path.join(FF, 'out', 'vo', 'vo_george_v4_v01')
@@ -47,7 +48,9 @@ def arg(n, d=None):
 
 def main():
     global CFG, CUTS, INOFF, BEATS
-    CFG = SEQS[arg('--seq', 'night')]
+    name = arg('--seq', 'night')
+    CFG = SEQS[name] if name in SEQS else ep_cuts.CH[name]
+    CFG.setdefault('end_word', {})
     CUTS, INOFF, BEATS = CFG['cuts'], CFG['inoff'], CFG['beats']
     TAIL = CFG['tail']
     preview = '--preview' in sys.argv
@@ -90,7 +93,10 @@ def main():
         starts.append(max(0.0, st - 0.12))
     starts[0] = 0.0
     shots = []
-    seq = {s['id']: s for s in json.load(open(os.path.join(FF, 'script', CFG['plan'])))['shots']}
+    seq = ({s['id']: s for s in json.load(open(os.path.join(FF, 'script', CFG['plan'])))['shots']} if CFG.get('plan')
+           else {})
+    for sid, _b, _w in CUTS:
+        seq.setdefault(sid, {'id': sid, 'kind': '3D', 'shot': sid})
     seq.setdefault('S18', {'id': 'S18', 'kind': 'CLIP', 'shot': 'magnetic plates, field lines (A2 macro)'})
     seq.setdefault('S01', {'id': 'S01', 'kind': 'CLIP', 'shot': 'the open door (A1 reveal)'})
     for i, (sid, b, w) in enumerate(CUTS):
@@ -101,6 +107,13 @@ def main():
              'chapter': '3', 'vo_src': None}
         if sid == 'S17':
             e['src_kind'] = 'CLIP_RAW'          # rendered without handles (frames 60-130)
+        k = ep_cuts.kind_of(sid)
+        e['ep_kind'] = k
+        if k in ('AI', 'GFX'):
+            e['src_kind'] = 'RAW'
+        if k == 'GFX':
+            INOFF.setdefault(sid, 12)          # skip the graphic's lead-in handle
+        e['first'] = (i == 0)
         shots.append(e)
     print(f'[seq] {total:.1f}s, {len(shots)} shots: ' + ' '.join(f"{e['id']}={e['dur']:.1f}" for e in shots), flush=True)
     # picture
@@ -151,10 +164,12 @@ def main():
 
     st = {e['id']: e['t0'] for e in shots}
     end_vo = pieces[-1][2] + (pieces[-1][1] - pieces[-1][0])
-    if arg('--seq', 'night') == 'night':
+    if name == 'night':
         sfx_night(put, st, total, end_vo)
-    else:
+    elif name == 'cold':
         sfx_cold(put, st, total, end_vo, shots)
+    else:
+        sfx_chapter(put, shots, total, CFG)
     # music: the heist cue, smooth sidechain duck (attack 80 ms, release 700 ms, -4.5 dB), long ending
     trk, moff, mgain = CFG['music']
     bed = E.load_wav(os.path.join(MUS, trk + '.wav'))
@@ -232,6 +247,73 @@ def sfx_night(put, st, total, end_vo):
             put('el__box_forced_2' if k % 2 else 'el__box_door_open', t_, -12 - min(8, k * 0.08))
             last_t = t_
     put('boom__big_cinematic_impact', end_vo - 0.05, -9)
+
+
+def sfx_chapter(put, shots, total, cfg):
+    """Episode chapters: ambience beds between named cuts, a soft air whoosh when the picture changes medium
+    (3D/AI <-> graphics), a low knock under the chapter card."""
+    first = {}
+    for e in shots:
+        first.setdefault(e['id'], e['t0'])
+    put('boom__sub_knock', 0.15, -16)
+    for name, a, b, gain in cfg.get('beds', []):
+        t0 = first.get(a, 0.0) if a else 0.0
+        t1 = first.get(b, total) if b else total
+        if t1 > t0 + 0.5:
+            put(name, t0 - 0.2, gain, dur=t1 - t0 + 0.6, fin=0.6, fout=0.8)
+    prev = None
+    for e in shots:
+        k = 'G' if e.get('ep_kind') == 'GFX' else 'P'
+        if prev is not None and k != prev:
+            put('whoosh__deep_air', e['t0'] - 0.25, -21)
+        prev = k
+
+
+def chapter_card(i, lines):
+    """Chapter header, top-left: small tracked label + chapter name, builds on with a short slide, fades by 3.6 s."""
+    from PIL import ImageFont
+    W, H = E.W, E.H
+    k = H / 1080
+    if 'ch_big' not in _FONT:
+        _FONT['ch_big'] = ImageFont.truetype(os.path.join(FF, 'fonts', 'BarlowCondensed-SemiBold.ttf'), int(58 * k))
+        _FONT['ch_small'] = ImageFont.truetype(os.path.join(FF, 'fonts', 'BarlowCondensed-Medium.ttf'), int(26 * k))
+    lay = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(lay)
+    out = max(0.0, min(1.0, (i - 74) / 14))
+    for j, (txt, f) in enumerate(((lines[0], _FONT['ch_small']), (lines[1], _FONT['ch_big']))):
+        t = max(0.0, min(1.0, (i - 4 - j * 5) / 12))
+        a = int(255 * (t * t * (3 - 2 * t)) * (1 - out))
+        y = int((96 if j == 0 else 128) * k + (1 - t) * 12 * k)
+        d.text((int(100 * k), y), txt, font=f, fill=(236, 232, 223, a))
+    if i > 6:
+        t = max(0.0, min(1.0, (i - 6) / 14))
+        a = int(255 * t * (1 - out))
+        d.rectangle([int(100 * k), int(84 * k), int(100 * k + 64 * k * t), int(86 * k)], fill=(232, 163, 61, a))
+    return lay
+
+
+def vhs(im, i):
+    """Hidden-camera look: soft, chroma-shifted, scanlines, REC dot + running timecode."""
+    from PIL import ImageFilter
+    W, H = im.size
+    im = im.convert('RGB').resize((W // 3, H // 3), Image.BILINEAR).resize((W, H), Image.BILINEAR)
+    r, g, b = im.split()
+    r = r.transform(im.size, Image.AFFINE, (1, 0, 3, 0, 1, 0))
+    im = Image.merge('RGB', (r, g, b))
+    a = np.asarray(im).astype(np.float32)
+    a[::3] *= 0.86
+    a = a * 0.92 + 10
+    im = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8)).convert('RGBA')
+    d = ImageDraw.Draw(im)
+    from PIL import ImageFont
+    f = ImageFont.truetype(os.path.join(FF, 'fonts', 'BarlowCondensed-Medium.ttf'), int(34 * H / 1080))
+    if (i // 12) % 2 == 0:
+        d.ellipse([int(90 * W / 1920), int(80 * H / 1080), int(112 * W / 1920), int(102 * H / 1080)], fill=(220, 40, 30, 255))
+    d.text((int(124 * W / 1920), int(74 * H / 1080)), 'REC', font=f, fill=(235, 235, 235, 255))
+    sec = 41 + i // 24
+    d.text((W - int(100 * W / 1920), H - int(90 * H / 1080)), f'00:12:{sec:02d}:{i % 24:02d}', font=f,
+           fill=(235, 235, 235, 255), anchor='rs')
+    return im
 
 
 def sfx_cold(put, st, total, end_vo, shots):
@@ -319,6 +401,7 @@ def render_seg(e, path, n, preview):
         smp = src.samples() if not getattr(src, 'placeholder', False) else []
         expos = [E.shot_exposure(smp) if smp else (1.0, 1.0)] * n
     label = E.overlay('O_LABEL') or E.label_fallback()
+    gfx = e.get('ep_kind') == 'GFX'
     counter = None
     if e['id'] == 'N10' and os.path.exists(os.path.join(FF, 'notes', 'room_N10_counter.json')):
         cj = json.load(open(os.path.join(FF, 'notes', 'room_N10_counter.json')))
@@ -338,21 +421,30 @@ def render_seg(e, path, n, preview):
             w_, h_ = im.size
             cw, ch = w_ / (zz * 1.06), h_ / (zz * 1.06)
             im = im.resize((w_, h_), Image.BICUBIC, box=((w_ - cw) / 2, (h_ - ch) / 2, (w_ + cw) / 2, (h_ + ch) / 2))
-        im = E.grade(im, rng, expos[i]).convert('RGBA')
-        im = Image.alpha_composite(im, label)
+        if gfx:
+            im = im.convert('RGBA')
+            if im.size != (E.W, E.H):
+                im = im.resize((E.W, E.H), Image.LANCZOS)
+        else:
+            im = E.grade(im, rng, expos[i]).convert('RGBA')
+            if e['id'] in CFG.get('vhs', []):
+                im = vhs(im, i)
+            im = Image.alpha_composite(im, label)
+        if e.get('first') and CFG.get('title'):
+            im = Image.alpha_composite(im, chapter_card(i, CFG['title']))
         if e['id'] in ('S24', 'S18') and src.mode == 'clip':
             cf = 7 + INOFF.get(e['id'], 0) + min(i, src.n_clip - 1)
             o = E.field_lines(e['id'], cf, i, min(1.0, (i + 1) / 10) if e['id'] == 'S18' else 1.0)
             if o:
                 im = Image.alpha_composite(im, o)
-        if e['id'] == 'C1':
+        if e['id'] == 'C1' and arg('--seq', 'night') == 'cold':
             o = date_card(i, ['MONDAY 17 FEBRUARY 2003', 'ANTWERP · DIAMOND DISTRICT'])
             im = Image.alpha_composite(im, o)
-        if e['id'] == 'C8':
+        if e['id'] == 'C8' and arg('--seq', 'night') == 'cold':
             o = E.overlay('O_109', min(i, 251))
             if o:
                 im = Image.alpha_composite(im, o)
-        if e['id'] == 'C13':
+        if e['id'] == 'C13' and arg('--seq', 'night') == 'cold':
             o = E.overlay('O_TITLE', min(max(0, i - 10), 71))
             if o and i >= 10:
                 im = Image.alpha_composite(im, o)
