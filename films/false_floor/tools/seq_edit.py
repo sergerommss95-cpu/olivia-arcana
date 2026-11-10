@@ -118,6 +118,9 @@ def main():
         if k == 'GFX':
             INOFF.setdefault(sid, 12)          # skip the graphic's lead-in handle
         e['first'] = (i == 0)
+        sched = CFG.get('count', {}).get(sid)            # [(beat, word, value)]: the counter lands on the narration
+        if sched:
+            e['count_sched'] = [(int(round((wpos[(b_, w_)] - t0) * E.FPS)), v_) for b_, w_, v_ in sched]
         shots.append(e)
     print(f'[seq] {total:.1f}s, {len(shots)} shots: ' + ' '.join(f"{e['id']}={e['dur']:.1f}" for e in shots), flush=True)
     if '--plan' in sys.argv:                    # timing check only: shot length vs the source's usable length
@@ -172,7 +175,9 @@ def main():
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-c', 'copy', pic], check=True)
     # audio
     SR = E.SR
-    nS = int((total + 0.5) * SR)
+    TAILX = float(CFG.get('tailx', 1.8))               # seconds of score that ring on under the next part
+    nM = int(total * SR)
+    nS = nM + int(TAILX * SR)
     vo_bus = np.zeros((nS, 2), np.float32)
     for s0, s1, at in pieces:
         seg = vo[int(s0 * SR):int(s1 * SR)].copy()
@@ -229,7 +234,7 @@ def main():
     duck = 1.0 - (1 - 10 ** (-4.5 / 20)) * env
     fade = np.ones(nS, np.float32)
     fade[:int(0.6 * SR)] = np.linspace(0, 1, int(0.6 * SR))
-    fl = int(2.2 * SR)
+    fl = min(nS, int(float(CFG.get('tail_fade', TAILX + 0.8)) * SR))     # no dip to silence at the join
     fade[-fl:] = np.linspace(1, 0, fl) ** 1.5
     mix = vo_bus + fx + bed * (10 ** (mgain / 20)) * duck[:, None] * fade[:, None]
     mix = np.tanh(mix * 1.1) / 1.1
@@ -239,15 +244,16 @@ def main():
     p.stdin.write(mix.astype(np.float32).tobytes())
     p.stdin.close()
     p.wait()
-    # broadcast loudness, two-pass LINEAR (constant gain: no riding / drop-outs)
-    m = subprocess.run(['ffmpeg', '-hide_banner', '-i', wav, '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'],
-                       capture_output=True, text=True).stderr
+    # broadcast loudness: one constant gain measured on the part itself (no riding), the same gain on its tail
+    m = subprocess.run(['ffmpeg', '-hide_banner', '-t', f'{total:.3f}', '-i', wav, '-af',
+                        'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'], capture_output=True, text=True).stderr
     js = json.loads(m[m.rindex('{'):m.rindex('}') + 1])
-    ln = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:measured_LRA={js['input_lra']}"
-          f":measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pic, '-i', wav, '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
-                    '-af', ln + ',aresample=48000', '-c:a', 'aac', '-b:a', '256k', '-shortest', '-movflags', '+faststart', out],
-                   check=True)
+    gain_db = min(-14.0 - float(js['input_i']), -1.5 - float(js['input_tp']))
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pic, '-t', f'{total:.3f}', '-i', wav, '-map', '0:v', '-map', '1:a',
+                    '-c:v', 'copy', '-af', f'volume={gain_db:.2f}dB,aresample=48000', '-c:a', 'aac', '-b:a', '256k', '-shortest',
+                    '-movflags', '+faststart', out], check=True)
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', f'{total:.3f}', '-i', wav, '-af',
+                    f'volume={gain_db:.2f}dB,aresample=48000', '-c:a', 'pcm_s24le', os.path.splitext(out)[0] + '_tail.wav'], check=True)
     # VO piece map on this sequence's clock (for episode subtitles)
     json.dump({'name': name, 'total': total, 'pieces': [[a, b, at] for a, b, at in pieces],
                'cuts': [[e['id'], e['t0'], e['dur']] for e in shots]},
@@ -312,7 +318,7 @@ def sfx_chapter(put, shots, total, cfg):
         prev = k
     # a quiet floor under the whole chapter, so a breakdown in the score never leaves digital silence between words
     fl, fg = cfg.get('floor', ('el__vault_room_tone', -30))
-    put(fl, 0.0, fg, dur=total, fin=0.8, fout=1.6)
+    put(fl, 0.0, fg, dur=total, fin=0.15, fout=1.6 if float(cfg.get('tailx', 1.8)) > 5 else 0.15)
     # spot effects at events inside the source clips (clip seconds after the handles), only when the event is on screen
     for e in shots:
         base = e.get('clip', e['id'])
@@ -337,11 +343,26 @@ SPOTS = {
     'S16': [('el__dial_spin', 0.2, -14)],
     'S25': [('el__dial_click', 0.3, -14), ('el__key_turn', 2.6, -12), ('el__vault_door_unlock', 4.4, -10),
             ('el__vault_door_swing', 6.0, -11)],
-    'S17': [('el__key_turn', 0.3, -11)], 'S10': [('el__grate_buzz', 7.9, -12)], 'S34': [('el__torch_click', 0.1, -14)],
+    'S17': [('el__key_turn', 0.3, -11)], 'S10': [('el__grate_buzz', 7.9, -17)], 'S34': [('el__torch_click', 0.1, -14)],
     'A_THROW': [('el__bags_throw', 0.5, -10)], 'A_TEAR': [('el__paper_leaves', 0.2, -14)],
     'S52': [('el__vault_door_shut', 3.7, -10)],
-    'N5': [('el__vault_door_unlock', 0.2, -10), ('el__vault_door_swing', 1.0, -11)],
-    'N9': [('el__box_forced_1', 1.0, -13)], 'N10': [('el__box_forced_2', 0.5, -13), ('el__box_door_open', 2.0, -15)],
+    'N5': [('el__vault_door_unlock', 0.2, -13), ('el__vault_door_swing', 1.0, -14)],
+    'N9': [('el__box_forced_1', 1.0, -13)], 'N10': [('el__box_forced_2', 0.3, -13), ('el__box_door_open', 1.1, -15), ('el__box_door_open', 1.8, -15),
+                                                   ('el__box_forced_1', 2.4, -14), ('el__box_door_open', 2.9, -15), ('el__box_door_open', 3.3, -15),
+                                                   ('el__box_forced_2', 3.7, -14), ('el__box_door_open', 4.0, -15), ('el__box_door_open', 4.3, -15),
+                                                   ('el__box_door_open', 4.6, -15), ('el__box_forced_1', 4.9, -14), ('el__box_door_open', 5.2, -15)],
+    # quiet ticks under the graphics that count or stamp
+    'M_BURNLIST': [('mech__tool_click', 4.6, -18), ('mech__tool_click', 5.3, -18), ('mech__tool_click', 6.0, -18),
+                   ('mech__tool_click', 6.9, -18)],
+    'M_LAYERS_B': [('mech__tool_click', 1.6, -18), ('mech__tool_click', 2.5, -18), ('mech__tool_click', 3.2, -18),
+                   ('mech__tool_click', 4.9, -18)],
+    'M_SENTENCES': [('mech__tool_click', 1.1, -18), ('mech__tool_click', 6.2, -19), ('mech__tool_click', 7.0, -19),
+                    ('mech__tool_click', 7.9, -19)],
+    'M_17576': [('clock__watch_crown_spin', 0.2, -20), ('mech__tool_click', 2.7, -17)],
+    'M_MONTHS': [('clock__watch_crown_spin', 0.3, -20)],
+    'M_CASECLOSED': [('boom__bass_hit_short', 0.1, -16), ('clock__watch_crown_spin', 2.2, -19), ('mech__tool_click', 3.0, -17)],
+    'M_DNA': [('boom__bass_hit_short', 3.3, -18)],
+    'A_PARCEL': [('paper__rustle', 0.3, -18)],
 }
 
 
@@ -476,7 +497,23 @@ def render_seg(e, path, n, preview):
         frames = list(src.frame_iter(n))
         smp = src.samples() if not getattr(src, 'placeholder', False) else []
         expos = [E.shot_exposure(smp) if smp else (1.0, 1.0)] * n
+    base_ = e.get('clip', e['id'])
+    if base_ in CFG.get('noexp', ()):                    # studio portraits: keep their dark backdrop dark
+        expos = [(1.0, 1.0)] * len(expos)
+    crop = CFG.get('crop', {}).get(e['id']) or CFG.get('crop', {}).get(base_)
+    if crop:                                             # (zoom, centre x, centre y): a fixed reframing of the clip
+        z_, cx_, cy_ = crop
+        w_, h_ = frames[0].size
+        cw_, ch_ = w_ / z_, h_ / z_
+        x0_ = min(max(0.0, cx_ * w_ - cw_ / 2), w_ - cw_)
+        y0_ = min(max(0.0, cy_ * h_ - ch_ / 2), h_ - ch_)
+        frames = [f_.resize((w_, h_), Image.LANCZOS, box=(x0_, y0_, x0_ + cw_, y0_ + ch_)) for f_ in frames]
     label = E.overlay('O_LABEL') or E.label_fallback()
+    if 'grad' not in _FONT:                              # a soft dark foot so the corner labels read on bright picture
+        g_ = np.zeros((E.H, E.W, 4), np.uint8)
+        k_ = int(E.H * 0.13)
+        g_[-k_:, :, 3] = (np.linspace(0, 1, k_) ** 1.6 * 105).astype(np.uint8)[:, None]
+        _FONT['grad'] = Image.fromarray(g_, 'RGBA')
     gfx = e.get('ep_kind') == 'GFX'
     counter = None
     if e['id'] == 'N10' and os.path.exists(os.path.join(FF, 'notes', 'room_N10_counter.json')):
@@ -510,7 +547,8 @@ def render_seg(e, path, n, preview):
                 im = Image.fromarray(np.clip(a_, 0, 255).astype(np.uint8), 'RGBA')
             if e['id'] in CFG.get('vhs', []):
                 im = vhs(im, i)
-            im = Image.alpha_composite(im, label)
+            if not (e['id'] == 'C13' and arg('--seq', 'night') == 'cold' and i >= 8):   # the title stands alone
+                im = Image.alpha_composite(Image.alpha_composite(im, _FONT['grad']), label)
         if e.get('first') and CFG.get('title'):
             im = Image.alpha_composite(im, chapter_card(i, CFG['title']))
         base_id = e.get('clip', e['id'])
@@ -534,6 +572,9 @@ def render_seg(e, path, n, preview):
             snaps, c0 = counter
             render_f = c0 + INOFF.get('N10', 0) + min(i, getattr(src, 'n_clip', n) - 1)
             v = max(1, sum(1 for sf in snaps if sf <= render_f))
+            if e.get('count_sched'):
+                fs, vs = zip(*e['count_sched'])
+                v = max(1, int(round(float(np.interp(i, fs, vs)))))
             o = E.find_value_png('O_COUNT', 'count_', f'{v:03d}')
             if o:
                 im = Image.alpha_composite(im, o)

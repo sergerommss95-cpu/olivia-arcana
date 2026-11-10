@@ -38,7 +38,9 @@ def main():
     missing = [p for p in PARTS if not os.path.exists(p)]
     if missing:
         print('[asm] missing:', missing, flush=True)
-    end = os.path.join(FF, 'out', 'edit_segments', 'END.mp4')
+    end = os.path.join(FF, 'out', 'edit_segments', 'END_1080.mp4')      # the end card at full size (from out/renders/END)
+    if not os.path.exists(end):
+        end = os.path.join(FF, 'out', 'edit_segments', 'END.mp4')
     if os.path.exists(end):
         parts.append(end)
     # one decode of every part through the concat filter (no intermediate copies on disk): 1080p24 yuv420p + 48k stereo
@@ -49,12 +51,20 @@ def main():
                                                'csv=p=0', p], capture_output=True, text=True).stdout
         inputs += ['-i', p]
         vf.append(f'[{i}:v]scale=1920:1080:flags=lanczos,fps=24,format=yuv420p,setsar=1[v{i}]')
-        if has_audio:
+        # the score of the previous part rings on under the start of this one (its _tail.wav), so no join drops to silence
+        tail = os.path.splitext(parts[i - 1])[0] + '_tail.wav' if i else ''
+        tl = (f"amovie='{tail}',aresample=48000,aformat=channel_layouts=stereo" if tail and os.path.exists(tail) else '')
+        if has_audio and tl:
+            af.append(f'[{i}:a]aresample=48000,aformat=channel_layouts=stereo[m{i}];{tl}[t{i}];'
+                      f'[m{i}][t{i}]amix=inputs=2:duration=first:normalize=0[a{i}]')
+        elif has_audio:
             af.append(f'[{i}:a]aresample=48000,aformat=channel_layouts=stereo[a{i}]')
-        elif p == end and os.path.exists(END_MUSIC[0]):   # the last chapter's score carries on under the end card
-            mus = END_MUSIC[0].replace('\\', '/').replace(':', '\\:')
-            af.append(f"amovie='{mus}':seek_point={END_MUSIC[1]},asetpts=PTS-STARTPTS,atrim=0:{d:.3f},asetpts=PTS-STARTPTS,aresample=48000,"
-                      f"aformat=channel_layouts=stereo,volume={END_MUSIC[2]}dB,afade=t=in:d=0.8,"
+        elif tl:                                         # the end card: the last chapter's score carries on and fades
+            af.append(f'{tl},apad,atrim=0:{d:.3f},asetpts=PTS-STARTPTS[a{i}]')
+        elif p == end and os.path.exists(END_MUSIC[0]):
+            mus = END_MUSIC[0]
+            af.append(f"amovie='{mus}':seek_point={END_MUSIC[1]},asetpts=PTS-STARTPTS,atrim=0:{d:.3f},asetpts=PTS-STARTPTS,"
+                      f"aresample=48000,aformat=channel_layouts=stereo,volume={END_MUSIC[2]}dB,afade=t=in:d=0.8,"
                       f"afade=t=out:st={max(0.0, d - 4.0):.3f}:d=4.0[a{i}]")
         else:
             af.append(f'aevalsrc=0:d={d:.3f}:s=48000:c=stereo[a{i}]')

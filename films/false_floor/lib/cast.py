@@ -25,7 +25,7 @@ SPEC = {   # exactly the approved lineup (stills/v2/D_cast_lineup.jpg): each cha
                    assets=[('clothes/male_casualsuit05', DARK), ('clothes/shoes03', {}), ('hair/short04', {}),
                            ('eyebrows/eyebrow001', {})], outfit=[GLOVES]),
     'monster': dict(gender=1, age=40, muscle=0.85, weight=0.8, height=0.75, skin='ruddy',
-                    assets=[('clothes/male_worksuit01', dict(tint=(0.45, 0.42, 0.38), sat=0.35, val=0.75)), ('clothes/shoes03', {}),
+                    assets=[('clothes/male_worksuit01', dict(tint=(0.12, 0.15, 0.24), sat=0.55, val=0.42)), ('clothes/shoes03', {}),
                             ('eyebrows/eyebrow003', {})], outfit=[BEANIE]),
     'speedy': dict(gender=1, age=55, muscle=0.4, weight=0.55, height=0.4, skin='olive',
                    assets=[('clothes/male_casualsuit03', dict(sat=0.6, val=0.85)), ('clothes/shoes01', dict(tint=(0.16, 0.12, 0.1), sat=0.3)),
