@@ -2408,9 +2408,14 @@ def e_photo(cid, stills=None, pick=None):
     src = Image.open(os.path.join(EVID, fn)).convert('RGB')
     sw, sh = src.size
     from PIL import ImageFilter
-    for bx0, by0, bx1, by1 in E_BLUR.get(fn, []):          # soften any face-sized detail that stays in frame
-        box = (int(bx0 * sw), int(by0 * sh), int(bx1 * sw), int(by1 * sh))
-        src.paste(src.crop(box).filter(ImageFilter.GaussianBlur(sw / 160)), box[:2])
+    if E_BLUR.get(fn):                                     # soften any face-sized detail that stays in frame
+        from PIL import ImageDraw
+        mask = Image.new('L', (sw, sh), 0)
+        md = ImageDraw.Draw(mask)
+        for bx0, by0, bx1, by1 in E_BLUR[fn]:
+            md.rectangle((int(bx0 * sw), int(by0 * sh), int(bx1 * sw), int(by1 * sh)), fill=255)
+        mask = mask.filter(ImageFilter.GaussianBlur(sw / 400))           # feathered edge, no visible box
+        src = Image.composite(src.filter(ImageFilter.GaussianBlur(sw / 220)), src, mask)
     src = G.grade_photo(src)
     # 16:9 crop: E_CROP (x0, y0, x1 as fractions) or a cover crop with vertical bias E_CROP_Y; resized to the 2x canvas
     ar = W2 / H2
@@ -2448,6 +2453,7 @@ def e_photo(cid, stills=None, pick=None):
             sy = (qy - ty * (e - 0.5) * 2 * d) / z * H2 + H2 / 2
             out = cv2.remap(rgb, sx, sy, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
             im = Image.fromarray(out, 'RGB').convert('RGBA')
+            im.alpha_composite(_credit_shade())
             G.credit(im, line, alpha=0.7)
             clip.add(im)
     if not stills:
@@ -2457,8 +2463,23 @@ def e_photo(cid, stills=None, pick=None):
     return True
 
 
+_SHADE = None
+
+
+def _credit_shade():
+    """soft dark gradient in the lower-left corner so the credit line reads on bright photos."""
+    global _SHADE
+    if _SHADE is None:
+        yy, xx = np.mgrid[0:H2, 0:W2].astype(np.float32)
+        a = np.clip((yy - H2 * 0.80) / (H2 * 0.20), 0, 1) ** 1.5 * np.clip(1.15 - xx / (W2 * 0.55), 0, 1)
+        arr = np.zeros((H2, W2, 4), np.uint8)
+        arr[..., 3] = (a * 0.55 * 255).astype(np.uint8)
+        _SHADE = Image.fromarray(arr, 'RGBA')
+    return _SHADE
+
+
 E_CROP_Y = {'E_CENTRAAL': 0.62, 'E_DISTRICT': 0.30}
-E_CROP = {'E_ADC_1.jpg': (0.17, 0.27, 1.0)}                       # crops two passers-by out at the left edge
+E_CROP = {'E_ADC_1.jpg': (0.17, 0.20, 1.0)}                       # crops two passers-by out at the left edge
 E_BLUR = {'E_ADC_1.jpg': [(0.580, 0.745, 0.690, 0.860)],          # a reflection of a person in the glass door
           'E_CENTRAAL_1.jpg': [(0.612, 0.664, 0.643, 0.700), (0.687, 0.664, 0.713, 0.703)]}   # two tiny seated travellers
 

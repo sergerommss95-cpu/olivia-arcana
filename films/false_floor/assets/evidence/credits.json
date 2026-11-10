@@ -133,5 +133,35 @@
     "downloaded_width": 3840,
     "downloaded_height": 2560,
     "description": "Several rough diamond crystals (octahedral, clear to brown and pink) on black, Auckland Museum geology collection; E_DIAMONDS rough stones."
+  },
+  "E_DIAMONDS_3.jpg": {
+    "slot": "E_DIAMONDS",
+    "title": "File:Diamonds.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Diamonds.jpg",
+    "author": "Swamibu",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 3072,
+    "height": 2304,
+    "downloaded_width": 1920,
+    "downloaded_height": 1440,
+    "description": "A pile of small loose polished solitaire diamonds (0.02-0.04 ct, 5.36 ct total) on dark blue, like an opened parcel; E_DIAMONDS polished stones."
+  },
+  "E_COURT_1.jpg": {
+    "slot": "E_COURT",
+    "title": "File:Antwerpen-Gerechtsgebouw.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Antwerpen-Gerechtsgebouw.jpg",
+    "author": "Romaine",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "attribution_required": false,
+    "share_alike": false,
+    "width": 5312,
+    "height": 2988,
+    "downloaded_width": 3840,
+    "downloaded_height": 2160,
+    "description": "The new Antwerp Justitiepaleis (law courts, Bolivarplaats, opened 2006) with its sail-shaped roofs, street view, overcast, no people; E_COURT."
   }
 }
