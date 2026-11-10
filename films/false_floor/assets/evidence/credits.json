@@ -13,5 +13,20 @@
     "downloaded_width": 3840,
     "downloaded_height": 2880,
     "description": "Antwerpen-Centraal great hall (main concourse), empty, warm lit stone and glass dome; E_CENTRAAL hero shot."
+  },
+  "E_CENTRAAL_2.jpg": {
+    "slot": "E_CENTRAAL",
+    "title": "File:Nighttime interiors of Antwerp Central Station (20).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Nighttime_interiors_of_Antwerp_Central_Station_(20).jpg",
+    "author": "Vasyatka1",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 5237,
+    "height": 3491,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Antwerpen-Centraal internal facade at night, clock and arms above the arch, no people; E_CENTRAAL alt (dark, fits the grade)."
   }
 }

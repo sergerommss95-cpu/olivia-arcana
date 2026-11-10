@@ -1334,12 +1334,13 @@ class FlatFrame(Frame):
 
 # ===================================================================================================== M_STOPWATCH
 def m_stopwatch(stills=None):
-    secs = 3.0
+    secs = 4.2                                   # v2 re-cut: the door at 0, the buzz-in stopwatch runs from 0.9
     fr = FlatFrame()
     C = (1150.0, 1090.0)
     R = 390.0
-    TL = (1840.0, 3260.0, 1090.0)                # timeline x0, x1, y
-    T0, T1 = 0.42, 2.38                          # progress window (s)
+    TL = (2140.0, 3330.0, 1090.0)                # timeline x0, x1, y
+    DX = 1890.0                                  # vault-door glyph (left end of the timeline)
+    T0, T1 = 0.9, 3.85                           # progress window (s)
     nodes = [(f, txt, T0 + f * (T1 - T0) - 0.04) for f, txt in
              [(0.0, 'GUARD BUZZES HIM IN'), (0.5, 'IN THE VAULT  ·  LEVEL −2'), (1.0, 'BACK UPSTAIRS')]]
     with make_clip('M_STOPWATCH', secs, stills) as clip:
@@ -1388,8 +1389,22 @@ def m_stopwatch(stills=None):
             c.drawCircle(C[0], C[1], 4.5 * ka, spaint(G.BG, ka))
             # crown
             c.drawRRect(skia.RRect.MakeRectXY(skia.Rect(C[0] - 22, C[1] - R - 46, C[0] + 22, C[1] - R - 14), 5, 5), spaint(G.INK, 0.6 * k_d, stroke=3))
-            # timeline
+            # the vault door, at the start of the visit
             x0, x1, y = TL
+            kdoor = build_in(ts, -0.3, 12)
+            if kdoor > 0:
+                dp = trimmed(_rect_path(DX - 78, y - 116, DX + 78, y + 116), kdoor)
+                c.drawRect(skia.Rect(DX - 78, y - 116, DX + 78, y + 116), spaint(G.BG2, kdoor))
+                if dp is not None:
+                    c.drawPath(dp, spaint(G.INK, 0.9, stroke=3.5))
+                c.drawRect(skia.Rect(DX - 58, y - 96, DX + 58, y + 96), spaint(G.DIM, 0.5 * kdoor, stroke=2))
+                c.drawCircle(DX - 4, y - 18, 26, spaint(G.INK, 0.85 * kdoor, stroke=3))
+                for a_ in range(0, 360, 45):
+                    r_ = math.radians(a_ + 40 * ts)
+                    c.drawLine(DX - 4 + 18 * math.cos(r_), y - 18 + 18 * math.sin(r_), DX - 4 + 26 * math.cos(r_),
+                               y - 18 + 26 * math.sin(r_), spaint(G.INK, 0.6 * kdoor, stroke=2))
+                c.drawLine(DX + 34, y + 30, DX + 34, y + 70, spaint(G.INK, 0.85 * kdoor, stroke=5))
+                c.drawLine(DX + 78, y, x0 - 22, y, spaint(G.DIM, 0.5 * build_in(ts, 0.2, 10), stroke=3))
             k_l = build_in(ts, 0.1, 12)
             c.drawLine(x0, y, x0 + (x1 - x0) * k_l, y, spaint(G.DIM, 0.55, stroke=3))
             xp = x0 + (x1 - x0) * prog
@@ -1407,12 +1422,15 @@ def m_stopwatch(stills=None):
                     c.drawCircle(xn, y, 7, spaint(G.AMBER, kn))
 
             def labels(im):
-                kx, ky = map_pt(m, x0, 740)
+                kx, ky = map_pt(m, DX - 78, 740)
                 tlabel(im, 'MINUTES DOWNSTAIRS', (kx, ky), size=88, color=G.INK, alpha=build_in(ts, 0.0, 12), anchor='ls',
                        weight='SemiBold', display=True, tracking=0.02, upper=False, rise=12 * (1 - build_in(ts, 0.0, 12)))
-                kx, ky = map_pt(m, x0, 815)
+                kx, ky = map_pt(m, DX - 78, 815)
                 tlabel(im, 'A ROUTINE VISIT TO HIS OWN BOX', (kx, ky), size=34, color=G.DIM, alpha=0.9 * build_in(ts, 0.15, 12),
                        anchor='ls', tracking=0.12)
+                kdl = build_in(ts, -0.2, 10)
+                X, Y = map_pt(m, DX, 1090 + 172)
+                tlabel(im, 'THE DOOR', (X, Y), size=32, color=G.INK, alpha=0.9 * kdl, anchor='mm', tracking=0.14)
                 for k, (f, txt, tn) in enumerate(nodes):
                     xn = x0 + (x1 - x0) * f
                     kn = build_in(ts, tn + 0.05, 10)
@@ -1514,26 +1532,138 @@ def europe_arc_clip(cid, secs, stills, A, B, a_lbl, b_lbl, keys, t_arc=(0.55, 2.
 
 
 def m_turin(stills=None):
+    """v2 re-cut (5.8 s): a loose network of thieves builds over NW Italy from 0; it gathers on Turin and the Turin pin
+    lands 4.0-4.4 ("The School of Turin"); then the camera pulls back and the line runs Turin -> Antwerp."""
+    secs = 5.8
     A, B = (7.6869, 45.0703), (4.4025, 51.2194)
-    mid = ((A[0] + B[0]) / 2, (A[1] + B[1]) / 2)
-    keys = [(-0.6, 1.40e6, P(A[0] - 0.6, A[1] + 1.9)), (0.0, 1.45e6, P(A[0] - 0.7, A[1] + 2.0)),
-            (4.1, 2.08e6, P(mid[0] - 0.4, mid[1] - 0.35))]
-    europe_arc_clip('M_TURIN', 3.5, stills, A, B, 'TURIN', 'ANTWERP', keys, t_arc=(0.75, 2.25), hi=('ITA', 'BEL'),
-                    bow=0.2, side=-1, title='THE SCHOOL OF TURIN', sub='A LOOSE NETWORK OF ITALIAN THIEVES')
+    L = MapLayers((0.0, 0.0))
+    fr = Frame()
+    Aw, Bw = P(*A), P(*B)
+    route = arc_path(Aw, Bw, bow=0.2, side=-1)
+    zp = ZoomPath([(-0.6, 7.2e5, P(7.75, 45.25)), (0.0, 7.0e5, P(7.75, 45.22)), (4.3, 5.9e5, P(7.72, 45.12)),
+                   (5.55, 2.08e6, P(6.4, 48.0)), (6.4, 2.02e6, P(6.4, 48.0))])
+    rng = np.random.default_rng(23)
+    # the network is a diagram floating over the map (screen offsets from the Turin pin), not places
+    pts = []
+    while len(pts) < 15:
+        r = 170 + 560 * math.sqrt(rng.random())
+        a_ = rng.random() * 2 * math.pi
+        x, y = r * math.cos(a_) * 1.25, r * math.sin(a_) * 0.85
+        if all(math.hypot(x - u, y - v) > 150 for u, v in pts):
+            pts.append((x, y))
+    pts.sort(key=lambda q: math.hypot(*q))
+    t_node = [0.05 + 0.2 * k for k in range(len(pts))]
+    edges = []
+    for k, (x, y) in enumerate(pts):
+        near = sorted(range(k), key=lambda j: math.hypot(x - pts[j][0], y - pts[j][1]))[:2]
+        for j in near:
+            edges.append((j, k, t_node[k] + 0.05))
+    T_GATHER = (3.55, 4.15)
+    T_PIN = 3.95
+    T_ARC = (4.6, 5.45)
+    with make_clip('M_TURIN', secs, stills) as clip:
+        for i, t in clip.frames():
+            ts = i / FPS
+            w, (cx, cy) = zp(ts)
+            e = G.ease((ts + 0.5) / (secs + 1.0))
+            view = View(cx, cy, w, rot=lerp(1.0, -1.0, e))
+            fr.clear(OCEAN)
+            fr.begin(view)
+            draw_base(fr, L, view, t_hi=0.85, hi_iso=('ITA', 'BEL'), grat_a=1.0, hi_outline=0.3)
+            k = G.ease(sg(ts, *T_ARC))
+            head = draw_route(fr, route, k)
+            ax, ay = (float(v) for v in view.px(*Aw))
+            bx, by = (float(v) for v in view.px(*Bw))
+            # network (screen space around the Turin point)
+            fr.screen()
+            c = fr.c
+            g = G.ease(sg(ts, *T_GATHER))                     # links to the centre light up amber
+            fade_net = 1 - G.ease(sg(ts, 4.4, 5.0))
+            for j, kk, te in edges:
+                ke = G.ease(sg(ts, te, te + 0.35)) * fade_net
+                if ke <= 0:
+                    continue
+                (x0, y0), (x1, y1) = pts[j], pts[kk]
+                c.drawLine(ax + x0, ay + y0, ax + x0 + (x1 - x0) * ke, ay + y0 + (y1 - y0) * ke, spaint(G.INK, 0.32, stroke=2))
+            for kk, (x, y) in enumerate(pts):
+                kn = build_in(ts, t_node[kk], 8) * fade_net
+                if kn <= 0:
+                    continue
+                if g > 0:
+                    c.drawLine(ax + x, ay + y, ax + x * (1 - g), ay + y * (1 - g), spaint(G.AMBER, 0.55 * fade_net, stroke=2.4))
+                c.drawCircle(ax + x, ay + y, 9 * (0.5 + 0.5 * kn), spaint(G.BG, kn))
+                c.drawCircle(ax + x, ay + y, 9 * (0.5 + 0.5 * kn), spaint(G.INK, 0.9 * kn, stroke=2.6))
+                c.drawCircle(ax + x, ay + y, 3.5, spaint(G.INK, 0.9 * kn))
+            pin(fr, None, (ax, ay), T_PIN, ts, color=G.AMBER, r=11)
+            if head is not None and 0 < k < 1:
+                hx, hy = view.px(*head)
+                dot(fr, (float(hx), float(hy)), 1.0, G.AMBER, r=9)
+            pin(fr, None, (bx, by), T_ARC[1] - 0.05, ts, color=G.AMBER, r=10)
+
+            def labels(im):
+                kt = build_in(ts, T_PIN + 0.02, 10)
+                tlabel(im, 'TURIN', (ax + 40, ay), size=36, color=G.INK, alpha=kt, anchor='lm', tracking=0.14, rise=8 * (1 - kt))
+                kti = build_in(ts, T_PIN + 0.05, 12)
+                tlabel(im, 'THE SCHOOL OF TURIN', (ax - 70, ay + 8), size=64, color=G.INK, alpha=kti, anchor='rs',
+                       weight='SemiBold', display=True, tracking=0.03, upper=False, rise=12 * (1 - kti))
+                ks = build_in(ts, T_PIN + 0.2, 12)
+                tlabel(im, 'A LOOSE NETWORK OF ITALIAN THIEVES', (ax - 70, ay + 62), size=32, color=G.DIM, alpha=ks, anchor='rs',
+                       tracking=0.12, rise=8 * (1 - ks))
+                kb = build_in(ts, T_ARC[1], 10)
+                tlabel(im, 'ANTWERP', (bx + 36, by), size=36, color=G.INK, alpha=kb, anchor='lm', tracking=0.14, rise=8 * (1 - kb))
+                coord_readout(im, view, alpha=0.4)
+            finish_frame(clip, fr, labels)
 
 
 def m_map_milan(stills=None):
+    """v2 re-cut (5.0 s): "Paroled · 2009" at 0.3 over Antwerp; the map travels Antwerp -> Milan and lands by 4.4."""
+    secs = 5.0
     A, B = (4.4025, 51.2194), (9.1900, 45.4642)
-    mid = ((A[0] + B[0]) / 2, (A[1] + B[1]) / 2)
-    keys = [(-0.6, 1.45e6, P(A[0] + 0.6, A[1] - 2.2)), (0.0, 1.5e6, P(A[0] + 0.7, A[1] - 2.3)),
-            (4.6, 2.12e6, P(mid[0] + 0.3, mid[1] - 0.2))]
-    europe_arc_clip('M_MAP_MILAN', 4.0, stills, A, B, 'ANTWERP', 'MILAN', keys, t_arc=(0.45, 2.1), hi=('BEL', 'ITA'),
-                    bow=0.18, side=1, b_tag='2010', title_at='B')
+    L = MapLayers((0.0, 0.0))
+    fr = Frame()
+    Aw, Bw = P(*A), P(*B)
+    route = arc_path(Aw, Bw, bow=0.18, side=1)
+    zp = ZoomPath([(-0.6, 1.22e6, P(5.0, 50.35)), (0.0, 1.26e6, P(5.05, 50.25)), (0.9, 1.36e6, P(5.25, 49.95)),
+                   (4.4, 8.6e5, P(8.55, 45.95)), (5.6, 8.2e5, P(8.6, 45.9))])
+    T_ARC = (1.05, 3.6)
+    with make_clip('M_MAP_MILAN', secs, stills) as clip:
+        for i, t in clip.frames():
+            ts = i / FPS
+            w, (cx, cy) = zp(ts)
+            e = G.ease((ts + 0.5) / (secs + 1.0))
+            view = View(cx, cy, w, rot=lerp(-1.0, 1.0, e))
+            fr.clear(OCEAN)
+            fr.begin(view)
+            draw_base(fr, L, view, t_hi=0.85, hi_iso=('BEL', 'ITA'), grat_a=1.0, hi_outline=0.3)
+            k = G.ease(sg(ts, *T_ARC))
+            head = draw_route(fr, route, k)
+            ax, ay = (float(v) for v in view.px(*Aw))
+            bx, by = (float(v) for v in view.px(*Bw))
+            pin(fr, None, (ax, ay), -0.25, ts, color=G.INK, r=10)
+            if head is not None and 0 < k < 1:
+                hx, hy = view.px(*head)
+                dot(fr, (float(hx), float(hy)), 1.0, G.AMBER, r=9)
+            pin(fr, None, (bx, by), T_ARC[1] - 0.1, ts, color=G.AMBER, r=11)
+
+            def labels(im):
+                ka = build_in(ts, -0.2, 10)
+                tlabel(im, 'ANTWERP', (ax + 36, ay), size=36, color=G.INK, alpha=ka, anchor='lm', tracking=0.14)
+                kp = build_in(ts, 0.08, 10) * (1 - G.ease(sg(ts, 2.4, 3.0)))
+                tlabel(im, 'Paroled · 2009', (ax + 36, ay + 96), size=72, color=G.INK, alpha=kp, anchor='ls', weight='SemiBold',
+                       display=True, tracking=0.02, upper=False, rise=12 * (1 - build_in(ts, 0.08, 10)))
+                kb = build_in(ts, T_ARC[1] - 0.05, 10)
+                tlabel(im, 'MILAN', (bx + 40, by - 6), size=40, color=G.INK, alpha=kb, anchor='lm', tracking=0.14,
+                       weight='SemiBold', rise=8 * (1 - kb))
+                kt = build_in(ts, T_ARC[1] + 0.2, 10)
+                tlabel(im, '2010', (bx + 40, by + 86), size=92, color=G.AMBER, alpha=kt, anchor='ls', weight='SemiBold',
+                       display=True, tracking=0.02, upper=False, rise=12 * (1 - kt))
+                coord_readout(im, view, alpha=0.4)
+            finish_frame(clip, fr, labels)
 
 
 def m_map_paris(stills=None):
-    """CDG pin + "2013 — European arrest warrant"; the layover (from the US, onward to Turin) as dashed context legs."""
-    secs = 4.0
+    """v2 re-cut (3.8 s): "Parole broken" at 0.3; the layover leg arrives and the Paris (CDG) pin + "2013" land at 2.4."""
+    secs = 3.8
     L = MapLayers((0.0, 0.0))
     fr = Frame()
     CDG = tuple(data('ne_europe')['airports']['CDG']['xy'])
@@ -1541,7 +1671,8 @@ def m_map_paris(stills=None):
     WEST = P(-9.5, 50.2)                          # off-frame to the west: "from the US"
     inbound = arc_path(WEST, CDG, bow=0.12, side=-1)
     onward = arc_path(CDG, TUR, bow=0.16, side=-1)
-    zp = ZoomPath([(-0.6, 1.95e6, P(3.6, 48.0)), (0.0, 1.9e6, P(3.5, 48.0)), (4.6, 1.55e6, P(3.6, 47.9))])
+    zp = ZoomPath([(-0.6, 1.95e6, P(3.7, 47.9)), (0.0, 1.9e6, P(3.6, 47.95)), (4.4, 1.5e6, P(3.4, 48.1))])
+    T_PIN = 2.15
     with make_clip('M_MAP_PARIS', secs, stills) as clip:
         for i, t in clip.frames():
             ts = i / FPS
@@ -1551,36 +1682,45 @@ def m_map_paris(stills=None):
             fr.clear(OCEAN)
             fr.begin(view)
             draw_base(fr, L, view, t_hi=0.85, hi_iso=('FRA',), grat_a=1.0, hi_outline=0.3)
-            # inbound leg (dim dashed, drawn on), onward leg to Turin (never flown: dashed, fades)
-            k_in = G.ease(sg(ts, -0.2, 0.75))
+            k_in = G.ease(sg(ts, 1.15, 2.2))
             tp = trimmed(inbound, k_in)
             if tp is not None:
-                fr.stroke(tp, G.INK, 2.6, 0.55, dash=(14, 12), name='in')
-            k_on = G.ease(sg(ts, 1.0, 1.9))
+                fr.stroke(tp, G.INK, 2.6, 0.6, dash=(14, 12), name='in')
+            k_on = G.ease(sg(ts, 2.55, 3.4))
             tp = trimmed(onward, k_on)
             if tp is not None:
-                fr.stroke(tp, G.INK, 2.4, 0.5 * (1 - 0.45 * sg(ts, 2.6, 3.4)), dash=(10, 14), name='on')
-            cx_, cy_ = view.px(*CDG)
-            tx, ty = view.px(*TUR)
-            pin(fr, None, (float(cx_), float(cy_)), 0.6, ts, color=G.AMBER, r=11)
-            dot(fr, (float(tx), float(ty)), 0.75 * build_in(ts, 1.7, 10), G.DIM, r=6)
+                fr.stroke(tp, G.INK, 2.4, 0.45, dash=(10, 14), name='on')
+            cx_, cy_ = (float(v) for v in view.px(*CDG))
+            tx, ty = (float(v) for v in view.px(*TUR))
+            if 0 < k_in < 1:
+                (hx, hy), _ = pos_on(inbound, k_in)
+                X, Y = view.px(hx, hy)
+                dot(fr, (float(X), float(Y)), 0.9, G.INK, r=7)
+            pin(fr, None, (cx_, cy_), T_PIN, ts, color=G.AMBER, r=11)
+            dot(fr, (tx, ty), 0.75 * build_in(ts, 3.1, 10), G.DIM, r=6)
 
             def labels(im):
-                kp = build_in(ts, 0.7, 10)
-                tlabel(im, 'PARIS', (float(cx_) + 40, float(cy_) - 22), size=40, color=G.INK, alpha=kp, anchor='lm', tracking=0.14,
-                       weight='SemiBold', rise=8 * (1 - kp))
-                tlabel(im, 'CHARLES DE GAULLE AIRPORT', (float(cx_) + 40, float(cy_) + 26), size=28, color=G.DIM, alpha=kp, anchor='lm',
-                       tracking=0.12, rise=8 * (1 - kp))
-                kt = build_in(ts, 1.15, 12)
-                tlabel(im, '2013 — European arrest warrant', (float(cx_) + 40, float(cy_) + 110), size=60, color=G.AMBER, alpha=kt,
-                       anchor='lm', weight='SemiBold', display=True, tracking=0.02, upper=False, rise=12 * (1 - kt))
-                ki = build_in(ts, 0.25, 10)
+                kt = build_in(ts, 0.08, 10)
+                tlabel(im, 'Parole broken', (250, 470), size=96, color=G.INK, alpha=kt, anchor='ls', weight='SemiBold',
+                       display=True, tracking=0.02, upper=False, rise=14 * (1 - kt))
+                ks = build_in(ts, 0.45, 10)
+                tlabel(im, 'EUROPEAN ARREST WARRANT', (254, 540), size=34, color=G.DIM, alpha=ks, anchor='ls', tracking=0.16,
+                       rise=8 * (1 - ks))
+                ki = build_in(ts, 1.3, 10)
                 (ix, iy), _ = pos_on(inbound, 0.42)
                 X, Y = view.px(ix, iy)
                 tlabel(im, 'LAYOVER FROM THE US', (float(X), float(Y) - 40), size=26, color=G.DIM, alpha=0.9 * ki, anchor='mm',
                        tracking=0.14)
-                kto = build_in(ts, 1.8, 10)
-                tlabel(im, 'TURIN', (float(tx) + 26, float(ty)), size=28, color=G.DIM, alpha=0.85 * kto, anchor='lm', tracking=0.14)
+                kp = build_in(ts, T_PIN + 0.02, 10)
+                tlabel(im, 'PARIS', (cx_ + 40, cy_ - 22), size=40, color=G.INK, alpha=kp, anchor='lm', tracking=0.14,
+                       weight='SemiBold', rise=8 * (1 - kp))
+                tlabel(im, 'CHARLES DE GAULLE AIRPORT', (cx_ + 40, cy_ + 26), size=28, color=G.DIM, alpha=kp, anchor='lm',
+                       tracking=0.12, rise=8 * (1 - kp))
+                k3 = build_in(ts, T_PIN + 0.08, 10)
+                tlabel(im, '2013', (cx_ + 40, cy_ + 130), size=92, color=G.AMBER, alpha=k3, anchor='ls', weight='SemiBold',
+                       display=True, tracking=0.02, upper=False, rise=12 * (1 - k3))
+                kto = build_in(ts, 3.15, 10)
+                tlabel(im, 'TURIN', (tx + 26, ty), size=28, color=G.DIM, alpha=0.85 * kto, anchor='lm', tracking=0.14)
                 coord_readout(im, view, alpha=0.4)
             finish_frame(clip, fr, labels)
 
@@ -1609,15 +1749,15 @@ def grid_bg(c, a=0.30, step=80, color=G.GRID):
 
 
 def m_field(stills=None):
-    secs = 4.0
+    secs = 7.1                        # v2 re-cut: field breaks 2.6, pulse leaves 3.2, reaches the firm 4.8, hold
     fr = FlatFrame()
     SX = 1640.0                       # seam centre (x)
     G0 = 40.0                         # closed gap
     PY0, PY1 = 900.0, 1280.0          # plate top / bottom
-    T_OPEN = (1.25, 1.75)
-    T_BREAK = 1.62
-    T_SIG = (1.9, 2.7)
-    T_KEY = 2.95
+    T_OPEN = (1.95, 2.7)
+    T_BREAK = 2.5
+    T_SIG = (3.2, 4.8)
+    T_KEY = 5.45
     frame_x = SX + G0 / 2
     wire = skia.Path()
     wire.moveTo(frame_x + 160, 1090)
@@ -1631,7 +1771,7 @@ def m_field(stills=None):
             ts = i / FPS
             fr.clear(G.BG)
             c = fr.c
-            m = cam_matrix(ts, secs, zoom=(1.0, 1.06), drift=((20, 10), (-50, -10)), centre=(1980, 1080))
+            m = cam_matrix(ts, secs, zoom=(1.0, 1.085), drift=((20, 10), (-50, -10)), centre=(1980, 1080))
             c.setMatrix(m)
             grid_bg(c, a=0.22)
             bg_glow(fr, (1700, 1080), 1100, (24, 25, 30))
@@ -1654,7 +1794,7 @@ def m_field(stills=None):
             for yy in (dt + 300, db - 300):
                 c.drawLine(dl + 60, yy, dr - 60, yy, spaint(G.DIM, 0.3 * ki, stroke=1.6))
             # plates
-            kp = build_in(ts, 0.15, 10)
+            kp = build_in(ts, 0.1, 10)
             for (x0, x1) in ((edge - 160, edge - 12), (frame_x + 12, frame_x + 160)):
                 c.drawRect(skia.Rect(x0, PY0, x1, PY1), spaint(G.BG2, kp))
                 c.drawRect(skia.Rect(x0, PY0, x1, PY1), spaint(G.INK, kp, stroke=3))
@@ -1662,7 +1802,7 @@ def m_field(stills=None):
                     c.drawCircle(sx_, sy_, 9, spaint(G.INK, 0.8 * kp, stroke=2))
                     c.drawLine(sx_ - 6, sy_, sx_ + 6, sy_, spaint(G.INK, 0.8 * kp, stroke=2))
             # field lines (amber, flowing); stretch while the door opens, snap at T_BREAK
-            fa = build_in(ts, 0.45, 12) * (1 - G.ease(sg(ts, T_BREAK, T_BREAK + 0.22)))
+            fa = build_in(ts, 0.35, 12) * (1 - G.ease(sg(ts, T_BREAK, T_BREAK + 0.22)))
             if fa > 0.003:
                 xa, xb = edge - 12, frame_x + 12
                 flow = skia.Paint(AntiAlias=True, Color4f=sk_color(G.AMBER, fa), Style=skia.Paint.kStroke_Style, StrokeWidth=3)
@@ -1688,7 +1828,7 @@ def m_field(stills=None):
             if fl_a > 0:
                 c.drawCircle((edge + frame_x) / 2, 1090, 120, spaint(G.RED, 0.35 * fl_a, glow=60))
             # signal wire + red pulse to the outside firm
-            kw = build_in(ts, 0.55, 14)
+            kw = build_in(ts, 2.8, 10)
             wp = trimmed(wire, kw)
             if wp is not None:
                 c.drawPath(wp, spaint(G.DIM, 0.6, stroke=2.5))
@@ -1701,7 +1841,7 @@ def m_field(stills=None):
                 c.drawCircle(hx, hy, 12, spaint(G.RED, 1.0))
                 c.drawCircle(hx, hy, 34, spaint(G.RED, 0.35, glow=16))
             # outside security firm box
-            kbx = build_in(ts, 0.65, 12)
+            kbx = build_in(ts, 3.85, 12)
             arrived = sg(ts, T_SIG[1] - 0.02, T_SIG[1] + 0.08)
             pulse = 0.5 + 0.5 * math.cos((ts - T_SIG[1]) * 9.0) if ts > T_SIG[1] else 1.0
             bp = trimmed(_rect_path(*BOX), kbx)
@@ -1739,14 +1879,14 @@ def m_field(stills=None):
                     X, Y = map_pt(m, x, y)
                     tlabel(im, txt, (X, Y), size=size, color=color, alpha=a * k_, anchor=anchor, tracking=tr, weight=weight,
                            rise=8 * (1 - k_))
-                L_('VAULT DOOR', edge - 860, 330, 0.0, color=G.DIM)
-                L_('FRAME', frame_x + 30, 250, 0.05, color=G.DIM)
-                L_('MAGNETIC PLATES', (edge + frame_x) / 2, 1940, 0.3, anchor='mm')
-                L_('FIELD ACROSS THE SEAM', (edge + frame_x) / 2, 1994, 0.55, size=28, color=G.AMBER, anchor='mm',
+                L_('VAULT DOOR', edge - 860, 330, -0.2, color=G.DIM)
+                L_('FRAME', frame_x + 30, 250, -0.15, color=G.DIM)
+                L_('MAGNETIC PLATES', (edge + frame_x) / 2, 1940, 0.5, anchor='mm')
+                L_('FIELD ACROSS THE SEAM', (edge + frame_x) / 2, 1994, 0.9, size=28, color=G.AMBER, anchor='mm',
                    a=1 - sg(ts, T_BREAK, T_BREAK + 0.25))
                 L_('FIELD BROKEN', (edge + frame_x) / 2, 1994, T_BREAK + 0.05, size=28, color=G.RED, anchor='mm')
                 bx0, by0, bx1, by1 = BOX
-                L_('OUTSIDE SECURITY FIRM', (bx0 + bx1) / 2, (by0 + by1) / 2, 0.75, size=34, anchor='mm', weight='SemiBold')
+                L_('OUTSIDE SECURITY FIRM', (bx0 + bx1) / 2, (by0 + by1) / 2, 4.2, size=34, anchor='mm', weight='SemiBold')
                 L_('ALARM', bx0, by0 - 46, T_SIG[1] + 0.02, size=30, color=G.RED)
                 L_('KEYPAD', KP[2] + 40, KP[1] + 40, T_KEY + 0.08, size=34, weight='SemiBold')
                 L_('THE CODE SWITCHES THE FIELD OFF', KP[2] + 40, KP[1] + 96, T_KEY + 0.2, size=28, color=G.DIM)
@@ -1765,7 +1905,7 @@ def _rect_path(l, t, r, b):
 
 # ===================================================================================================== M_SENSORS
 def m_sensors(stills=None):
-    secs = 4.5
+    secs = 4.8                              # v2 re-cut: heat/motion lands 1.5, light sensor 3.3 (cut at 4.4)
     fr = Frame()
     RX, RY, WT = 5.0, 3.4, 0.45            # room half-size (m), wall thickness
     DOOR = (-1.1, 1.1)                      # door opening on the south wall (x range)
@@ -1780,10 +1920,10 @@ def m_sensors(stills=None):
             y0 = RY - 0.35 - d - (k + 1) * ((2 * RY - 1.6) / 18)
             x0 = -RX if side < 0 else RX - d
             cells.append((x0, y0, x0 + d, y0 + (2 * RY - 1.6) / 18, 0.12 + k * 0.012))
-    CAM = ((-RX + 0.35, -RY + 0.35), 46.0, 24, 8.0, 0.75)        # pos, bearing, half-angle, range, t
-    HM = ((RX - 0.35, RY - 0.75), 228.0, 38, 9.0, 1.45)
-    LS = ((0.4, 0.2), 2.15)
-    RAD = ((-RX + 0.5, -0.4), 90.0, 2.85)
+    CAM = ((-RX + 0.35, -RY + 0.35), 46.0, 24, 8.0, 0.45)        # pos, bearing, half-angle, range, t
+    HM = ((RX - 0.35, RY - 0.75), 228.0, 38, 9.0, 1.12)
+    LS = ((0.4, 0.2), 2.98)
+    RAD = ((-RX + 0.5, -0.4), 90.0, 3.55)
     with make_clip('M_SENSORS', secs, stills) as clip:
         for i, t in clip.frames():
             ts = i / FPS
@@ -1821,7 +1961,7 @@ def m_sensors(stills=None):
             c.drawRect(skia.Rect(DOOR[0], -RY - WT * 0.7, DOOR[1], -RY - WT * 0.35), spaint(G.INK, 0.5 * build_in(ts, 0.1, 10)))
             # box columns
             for (x0, y0, x1, y1, td) in cells:
-                kc = build_in(ts, 0.05 + td, 6)
+                kc = build_in(ts, -0.25 + td, 6)
                 if kc <= 0:
                     continue
                 c.drawRect(skia.Rect(x0 + 0.015, y0 + 0.015, x1 - 0.015, y1 - 0.015), spaint(G.BG2, kc))
@@ -1886,11 +2026,11 @@ def m_sensors(stills=None):
                 def at(wx, wy):
                     X, Y = view.px(wx, wy)
                     return float(X), float(Y)
-                k0 = build_in(ts, 0.3, 10)
+                k0 = build_in(ts, -0.05, 10)
                 X, Y = at(0, RY + WT)
                 tlabel(im, '189 SAFE-DEPOSIT BOXES', (X, Y - 40), size=34, color=G.INK, alpha=k0, anchor='ms', tracking=0.12,
                        rise=8 * (1 - k0))
-                kd = build_in(ts, 0.2, 10)
+                kd = build_in(ts, -0.15, 10)
                 X, Y = at(0, -RY - WT)
                 tlabel(im, 'VAULT DOOR', (X, Y + 52), size=30, color=G.DIM, alpha=kd, anchor='ma', tracking=0.14)
                 X, Y = at(*CAM[0])
@@ -2321,14 +2461,14 @@ META = {
                   'District street plan: CCTV glyphs + amber view cones (cut to street space), bollard rows at the two '
                   'pedestrian entrances (OSM lift gates), police-post marker at the Hoveniersstraat/Schupstraat corner. '
                   'Camera/barrier positions are present-day OSM (caption says so); police-post position illustrative.'),
-    'M_STOPWATCH': (3.0, 'S10', None,
-                    'Stopwatch dial + 3-node timeline (guard buzzes him in → in the vault · level −2 → back upstairs), '
-                    'amber sweep. No durations stated (none in FACTS).'),
-    'M_FIELD': (4.0, 'S18', None,
+    'M_STOPWATCH': (4.2, 'S10', None,
+                    'Vault-door glyph at 0 ("the door"), stopwatch dial + timeline; amber sweep runs from 0.9 (guard buzzes '
+                    'him in → in the vault · level −2 → back upstairs at 3.85). No durations stated (none in FACTS).'),
+    'M_FIELD': (7.1, 'S18', None,
                 'Technical drawing of the door seam: two magnetic plates (door/frame) with flowing amber field lines; the door '
-                'slides open, the field snaps, a red signal runs to an OUTSIDE SECURITY FIRM box; then the keypad '
-                '("the code switches the field off"). FACTS #12.'),
-    'M_SENSORS': (4.5, 'S19', None,
+                'slides open, the field snaps at 2.6, a red signal leaves at 3.2 and reaches an OUTSIDE SECURITY FIRM box at '
+                '4.8; then the keypad (5.5, "the code switches the field off"). FACTS #12.'),
+    'M_SENSORS': (4.8, 'S19', None,
                   'Schematic top-down vault-room plan (tilted): box columns along three walls ("189 safe-deposit boxes"), '
                   'camera cone, amber heat + motion sensor cone, light sensor on the ceiling, radar wavefronts — each labelled '
                   'as it appears. Layout illustrative; on-screen tag "SCHEMATIC — NOT TO SCALE". FACTS #3, #14.'),
@@ -2341,12 +2481,15 @@ META = {
                'Evidence → office link graph: five line-icon cards (receipts, envelopes, loose stones, paperwork, half a '
                'sandwich; "found in the woods") with amber links converging (0.2-1.4) on a building icon "Antwerp Diamond '
                'Centre / office" (one window lights at 1.4); "ONE TENANT" lands ~1.7. FACTS #6, #26, #27.'),
-    'M_MAP_MILAN': (4.0, 'S49', NE_CREDIT, 'Antwerp → amber arc → Milan pin + "2010". FACTS #31.'),
-    'M_MAP_PARIS': (4.0, 'S50', NE_CREDIT,
-                    'Paris CDG pin (Natural Earth airport point) + "2013 — European arrest warrant"; dashed inbound leg '
-                    '"layover from the US" from off-frame west and a dim dashed onward leg to Turin (the trip he was on). '
-                    'FACTS #32.'),
-    'M_TURIN': (3.5, 'S12', NE_CREDIT, 'Turin pin → amber arc to Antwerp; "The School of Turin / a loose network of Italian thieves".'),
+    'M_MAP_MILAN': (5.0, 'S49', NE_CREDIT, '"Paroled · 2009" over Antwerp at 0.3; amber arc Antwerp → Milan (1.05-3.6) while '
+                    'the camera travels and lands on Milan by 4.4; Milan pin + "2010". FACTS #31.'),
+    'M_MAP_PARIS': (3.8, 'S50', NE_CREDIT,
+                    '"Parole broken / European arrest warrant" at 0.3; dashed inbound leg "layover from the US" from '
+                    'off-frame west arrives at Paris CDG (Natural Earth airport point); pin + "2013" land at 2.4; dashed '
+                    'onward leg to Turin (the trip he was on). FACTS #32.'),
+    'M_TURIN': (5.8, 'S12', NE_CREDIT, 'A loose network (abstract node graph, not places) builds over NW Italy from 0, '
+                'gathers on Turin; Turin pin + "The School of Turin / a loose network of Italian thieves" land 4.0-4.4; '
+                'pull-back and amber arc Turin → Antwerp 4.6-5.45. FACTS #23.'),
 }
 
 
