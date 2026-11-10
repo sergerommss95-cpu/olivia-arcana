@@ -62,9 +62,10 @@ The cloud machine is temporary: what is not in git or in `ASSETS_MANIFEST.md` is
 | `false_floor/out/seq_segments/<part>/` | **no, deleted** | per-shot segment cache | `seq_edit.py` | `seq_edit.py --reuse` |
 | `false_floor/out/qc/` | **no** | QC sheets and `chapters_final_qc.txt` | `chapter_qc.py`, `frame_qc.py` | `make_review_brief.py` |
 | `vendor/makehuman_data`, `vendor/cmu` | **no** | MakeHuman base mesh, rig, clothes; CMU mocap | `vendor/fetch_vendor.sh`, `lib/mocap.py` | every character shot |
-| `false_floor/tests/` | **no** | low-res test stills | `rb.py --stills` | you |
+| `false_floor/tests/` | **no**, except the four files below | low-res test stills. In git: `S18_anchors.json`, `S24_anchors.json` (the editor draws the magnetic field lines of S18 and S24 from them; without them the lines silently disappear) and two style frames for `thumbnail.py` | `rb.py --stills`, `shots/door_macro.py` | you, `episode_edit.py` |
+| `false_floor/assets_private/ref/` | **no** | Collin's brand references (style guide, brand board, icon, sound logo); in `FF_EXTRAS.tar` | Collin | nobody |
 
-The untracked material you need comes as parts: see `ASSETS_MANIFEST.md`. The eight built parts were deleted to make room,
+The untracked material you need comes as parts (10 for the assets, 7 for the v3.1 master, one small extras file): see `ASSETS_MANIFEST.md`. The eight built parts were deleted to make room,
 so the first job on the Mac is to rebuild them (section 4).
 
 ## 3. Setup on the Mac
