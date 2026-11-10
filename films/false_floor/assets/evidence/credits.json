@@ -103,5 +103,20 @@
     "downloaded_width": 3840,
     "downloaded_height": 2880,
     "description": "Schupstraat, the street of the Antwerp Diamond Centre: brick office blocks, security booth, CCTV cameras, bollards, tiny distant figures only; nearest free view of the ADC block (building not identified on the file page)."
+  },
+  "E_DIAMONDS_1.jpg": {
+    "slot": "E_DIAMONDS",
+    "title": "File:Diamante con pinzas sobre fondo oscuro.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Diamante_con_pinzas_sobre_fondo_oscuro.jpg",
+    "author": "Davidmimay",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 6240,
+    "height": 4160,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "A polished round brilliant held in steel tweezers over a dark surface (fingertips only, no face); E_DIAMONDS / trading-tools shot."
   }
 }
