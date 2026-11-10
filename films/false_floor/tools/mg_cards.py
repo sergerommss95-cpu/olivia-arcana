@@ -1633,7 +1633,7 @@ def m_never(stills=None):
            bg=backdrop(grid=False, glow=(0.5, 0.5), warm=0.18), stills=stills)
 
 
-@clip('M_CASECLOSED', 4.0, 'S42', '"CASE CLOSED" stamp 0.1, "SIX YEARS LATER" 1.6, year rolls 2003 -> 2009 at 2.5-3.4 (VO S42)')
+@clip('M_CASECLOSED', 5.6, 'S42', '"CASE CLOSED" stamp 0.1, "SIX YEARS LATER" 1.6, year rolls 2003 -> 2009 at 2.2-3.0, then 2009 holds with a slow drift to the end (editor cuts ~4.1) (VO S42)')
 def m_caseclosed(stills=None):
     def roll(im, v, xy, size=260, color=AMBER):
         """2 0 0 + an odometer last digit at value v (3.0 .. 9.0)."""
@@ -1674,13 +1674,13 @@ def m_caseclosed(stills=None):
             stamp_big(im, 'CASE CLOSED', (CX, CY - 250 + jolt), ps)
         pv = p_in(sec, 1.15, 0.35)
         if pv > 0:
-            v = 3.0 + 6.0 * G.seg(sec, 2.5, 3.4)
+            v = 3.0 + 6.0 * G.seg(sec, 2.2, 3.0)
             b_ = math.floor(v)
             v = min(9.0, b_ + G.ease(G.seg(v - b_, 0.35, 1.0)))     # click from year to year
             roll(im, v, (CX, CY + 560))
             build_label(im, 'six years later', (CX, CY + 700), sec, 1.4, size=40, tracking=0.22, anchor='ms', color=INK)
 
-    render('M_CASECLOSED', 4.0, fg, cam=Cam(z=(1.0, 1.07), pan=((0.0, -0.012), (0.0, 0.012))),
+    render('M_CASECLOSED', 5.6, fg, cam=Cam(z=(1.0, 1.08), pan=((0.0, -0.012), (0.0, 0.014)), lin=0.5),
            bg=backdrop(grid=False, glow=(0.5, 0.5)), stills=stills)
 
 
@@ -1846,9 +1846,10 @@ def tabnum_w(s, size, weight='SemiBold', display=True):
     return sum(dw if c.isdigit() else f.getlength(c) for c in s)
 
 
-@clip('M_EVIDENCESTORY', 3.2, 'S45', 'split frame: his claims dimmed left; "ONE PROBLEM" 0.6, then the right panel "THE EVIDENCE" (the crime scene) lights at 1.5 (VO S45)')
+@clip('M_EVIDENCESTORY', 3.2, 'S45', 'split frame: his claims dimmed left; "ONE PROBLEM" 0.6, then the right panel lights at 1.5 as a title card: large "THE EVIDENCE" / "the crime scene" (no rows; the next shots show the evidence) (VO S45)')
 def m_evidencestory(stills=None):
     x0, y0, x1, y1 = PANEL_R
+    pcx, pcy = (x0 + x1) / 2, (y0 + y1) / 2
 
     def fg(im, sec, u):
         dimk = 1 - 0.55 * p_io(sec, -0.4, 0.6)
@@ -1856,16 +1857,17 @@ def m_evidencestory(stills=None):
         his_rows(im, 99, [0, 0, 0, 0], alpha=dimk)
         pl = p_in(sec, 1.3, 0.45)
         panel_frame(im, PANEL_R, '', '', alpha=0.3 + 0.7 * pl, active=pl > 0, accent=p_io(sec, 1.3, 0.5))
-        evi_rows_placeholder(im, alpha=0.3 + 0.4 * pl)
-        # "one problem" lands big, then steps up into the panel's kicker as THE EVIDENCE arrives
+        # "one problem" lands big in the empty panel, then steps up into its kicker as THE EVIDENCE arrives
         p1 = p_in(sec, 0.4, 0.4)
-        mv = p_io(sec, 1.25, 0.45)
+        mv = p_io(sec, 1.05, 0.4)
         if p1 > 0 and mv < 1:
-            text(im, 'ONE PROBLEM', (x0 + 110, y0 + 520 - mv * 120), size=120, color=INK, alpha=p1 * (1 - mv),
+            text(im, 'ONE PROBLEM', (pcx, pcy + 10 - mv * 160), size=130, color=INK, alpha=p1 * (1 - mv), anchor='ms',
                  dy=(1 - p1) * 20, blur=(1 - p1) * 5 + mv * 6)
         label(im, 'one problem', (x0 + 4, y0 - 36), size=30, color=AMBER, alpha=mv, tracking=0.2)
-        build_text(im, 'THE EVIDENCE', (x0 + 110, y0 + 170), sec, 1.3, size=100, color=INK)
-        build_label(im, 'the crime scene', (x0 + 110, y0 + 235), sec, 1.55, size=30, tracking=0.14)
+        # the panel is a title card: nothing else in it
+        build_text(im, 'THE EVIDENCE', (pcx, pcy + 10), sec, 1.3, size=176, color=INK, anchor='ms')
+        hline(im, pcx - 110, pcx + 110, pcy + 80, color=AMBER, width=5, p=p_io(sec, 1.5, 0.45), glow=4)
+        build_label(im, 'the crime scene', (pcx, pcy + 170), sec, 1.55, size=44, tracking=0.24, anchor='ms', color=INK)
 
     render('M_EVIDENCESTORY', 3.2, fg, cam=Cam(z=(1.0, 1.05), pan=((0.006, 0.004), (0.012, -0.006)), lin=0.5),
            bg=backdrop(grid=True, glow=(0.7, 0.5)), stills=stills)

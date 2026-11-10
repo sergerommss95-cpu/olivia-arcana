@@ -728,7 +728,8 @@ def coord_readout(im, view, alpha=0.5):
     """small lat/long readout bottom-right that follows the camera (precision cue)."""
     lon, lat = inv_proj(view.cx, view.cy)
     s = f"{abs(lat):.4f}° {'N' if lat >= 0 else 'S'}   {abs(lon):.4f}° {'E' if lon >= 0 else 'W'}"
-    tlabel(im, s, (W2 - 128, H2 - 56), size=28, color=G.DIM, alpha=alpha, anchor='rs', tracking=0.06)
+    # review fix: was DIM at 40 % (unreadable); now cold white ~80 %, 16 px at 1080p. `alpha` keeps the callers' fades.
+    tlabel(im, s, (W2 - 128, H2 - 56), size=32, color=G.INK, alpha=0.8 * min(1.0, alpha / 0.4), anchor='rs', tracking=0.06)
 
 
 def inv_proj(x, y):
@@ -1019,9 +1020,9 @@ def m_map_antwerp(stills=None):
             fr.fill(o['scheldt'], WATER, sch_a, name='scheldt')
             fr.stroke(o['scheldt_edge'], RIVER, 1.8, 0.7 * sch_a, name='scheldt_e')
             osm_a = G.ease(sg(lw, 4.55, 3.9))
-            dd = G.ease(sg(ts, 4.55, 5.35))
+            dd = G.ease(sg(ts, 4.45, 5.15))                  # outline complete at ~5.9 s (ts is design time, x K)
             draw_osm(fr, L, view, osm_a, (0.0, 0.0), r0=520, r1=980,
-                     district_a=fade(ts, 4.45, 4.6), district_draw=dd, station_a=fade(ts, 4.6, 5.2))
+                     district_a=fade(ts, 4.35, 4.5), district_draw=dd, station_a=fade(ts, 4.6, 5.2))
             # marks (screen space)
             ax, ay = view.px(*ant)
             bx, by = view.px(*bru)
@@ -1060,9 +1061,9 @@ def m_map_antwerp(stills=None):
                 dl = np.asarray(o_raw['district'])
                 west = dl[np.argmin(dl[:, 0])]
                 wx, wy = view.px(west[0] - 14, west[1])
-                da = fade(ts, 4.9, 5.2)
-                tlabel(im, 'DIAMOND DISTRICT', (wx - 18, wy), size=36, color=G.AMBER, alpha=da, anchor='rm', tracking=0.12,
-                       weight='SemiBold', rise=8 * (1 - build_in(ts, 4.9, 10)))
+                da = build_in(ts, 4.82, 9)                     # fully on by ~5.95 s
+                tlabel(im, 'DIAMOND DISTRICT', (wx - 34, wy), size=66, color=G.AMBER, alpha=da, anchor='rm', tracking=0.08,
+                       weight='SemiBold', display=True, rise=12 * (1 - da))
                 for nm, frac, t0, ids in streets:
                     an = street_label_anchor(o_raw, nm, frac, ids)
                     if an is None:
@@ -1541,8 +1542,8 @@ def m_turin(stills=None):
     fr = Frame()
     Aw, Bw = P(*A), P(*B)
     route = arc_path(Aw, Bw, bow=0.2, side=-1)
-    zp = ZoomPath([(-0.6, 7.2e5, P(7.75, 45.25)), (0.0, 7.0e5, P(7.75, 45.22)), (4.3, 5.9e5, P(7.72, 45.12)),
-                   (5.55, 2.08e6, P(6.4, 48.0)), (6.4, 2.02e6, P(6.4, 48.0))])
+    zp = ZoomPath([(-0.6, 7.2e5, P(7.75, 45.25)), (0.0, 7.0e5, P(7.75, 45.22)), (4.2, 5.9e5, P(7.72, 45.12)),
+                   (4.9, 2.3e6, P(6.3, 47.85)), (6.4, 2.16e6, P(6.25, 47.95))])   # Antwerp ~22 % from the top at the end
     rng = np.random.default_rng(23)
     # the network is a diagram floating over the map (screen offsets from the Turin pin), not places
     pts = []
@@ -1561,7 +1562,7 @@ def m_turin(stills=None):
             edges.append((j, k, t_node[k] + 0.05))
     T_GATHER = (3.55, 4.15)
     T_PIN = 3.95
-    T_ARC = (4.6, 5.45)
+    T_ARC = (4.22, 4.85)                # v3 review: the arc must end on a labelled Antwerp pin, held >= 0.8 s
     with make_clip('M_TURIN', secs, stills) as clip:
         for i, t in clip.frames():
             ts = i / FPS
@@ -1579,7 +1580,7 @@ def m_turin(stills=None):
             fr.screen()
             c = fr.c
             g = G.ease(sg(ts, *T_GATHER))                     # links to the centre light up amber
-            fade_net = 1 - G.ease(sg(ts, 4.4, 5.0))
+            fade_net = 1 - G.ease(sg(ts, 4.2, 4.7))
             for j, kk, te in edges:
                 ke = G.ease(sg(ts, te, te + 0.35)) * fade_net
                 if ke <= 0:
@@ -1599,7 +1600,7 @@ def m_turin(stills=None):
             if head is not None and 0 < k < 1:
                 hx, hy = view.px(*head)
                 dot(fr, (float(hx), float(hy)), 1.0, G.AMBER, r=9)
-            pin(fr, None, (bx, by), T_ARC[1] - 0.05, ts, color=G.AMBER, r=10)
+            pin(fr, None, (bx, by), T_ARC[1] - 0.1, ts, color=G.AMBER, r=12)
 
             def labels(im):
                 kt = build_in(ts, T_PIN + 0.02, 10)
@@ -1610,8 +1611,9 @@ def m_turin(stills=None):
                 ks = build_in(ts, T_PIN + 0.2, 12)
                 tlabel(im, 'A LOOSE NETWORK OF ITALIAN THIEVES', (ax - 70, ay + 62), size=32, color=G.DIM, alpha=ks, anchor='rs',
                        tracking=0.12, rise=8 * (1 - ks))
-                kb = build_in(ts, T_ARC[1], 10)
-                tlabel(im, 'ANTWERP', (bx + 36, by), size=36, color=G.INK, alpha=kb, anchor='lm', tracking=0.14, rise=8 * (1 - kb))
+                kb = build_in(ts, T_ARC[1] - 0.08, 8)
+                tlabel(im, 'ANTWERP', (bx + 42, by), size=44, color=G.INK, alpha=kb, anchor='lm', tracking=0.14,
+                       weight='SemiBold', rise=8 * (1 - kb))
                 coord_readout(im, view, alpha=0.4)
             finish_frame(clip, fr, labels)
 
@@ -2056,7 +2058,7 @@ def m_sensors(stills=None):
 
 # ===================================================================================================== M_ROUTE_E19
 def m_route_e19(stills=None):
-    secs = 4.9                                     # v2 re-cut: E19 tag 1.7, route 2.5-3.6, woods 4.0
+    secs = 4.9                    # v3 review: E19 tag by 1.0, route 0.6-2.2, woods marker + label on by 2.4 and held
     o_raw = data('osm_antwerp')
     ANT = P(4.4185, 51.2152)                       # the diamond district
     O = ANT
@@ -2071,9 +2073,10 @@ def m_route_e19(stills=None):
     MEC = P(4.4777, 51.0257)
     WOODS = P(4.4185, 51.0120)                     # approximate: "woods off the E19" (no precise place in FACTS)
     e19_lbl = pts[int(len(pts) * 0.30)]
-    zp = ZoomPath([(-0.6, 5.3e4, P(4.43, 51.175)), (0.0, 5.5e4, P(4.43, 51.165)), (2.55, 9.8e4, P(4.44, 51.03)),
-                   (5.5, 1.02e5, P(4.442, 51.022))])
-    T_R = (2.5, 3.6)
+    zp = ZoomPath([(-0.6, 6.0e4, P(4.43, 51.165)), (0.0, 6.3e4, P(4.43, 51.155)), (2.2, 1.0e5, P(4.44, 51.03)),
+                   (5.5, 9.3e4, P(4.432, 51.03))])                  # after the route lands: slow push, both cities stay in
+    T_R = (0.6, 2.2)
+    T_W = 1.95                                     # woods marker; label fully on by 2.4
     with make_clip('M_ROUTE_E19', secs, stills) as clip:
         for i, t in clip.frames():
             ts = i / FPS
@@ -2086,7 +2089,7 @@ def m_route_e19(stills=None):
             fr.stroke(L.roads, ROADC, 2.2, 0.45, name='roads')
             fr.stroke(L.prov_bel, BORDER, 1.6, 0.45, dash=(8, 8), name='prov')
             # the E19 itself, faint, before the route runs along it
-            fr.stroke(route, G.INK, 3.0, 0.3 * build_in(ts, 0.6, 14), name='e19')
+            fr.stroke(route, G.INK, 3.0, 0.3 * build_in(ts, -0.3, 14), name='e19')
             k = G.ease(sg(ts, *T_R))
             head = draw_route(fr, route, k, width=5.5, origin=O)
             # marks
@@ -2096,7 +2099,7 @@ def m_route_e19(stills=None):
                 hx, hy = view.px(*head)
                 dot(fr, (float(hx), float(hy)), 1.0, G.AMBER, r=9)
             wx, wy = view.px(*WOODS)
-            kw_ = build_in(ts, 3.72, 12)
+            kw_ = build_in(ts, T_W, 10)
             if kw_ > 0:
                 fr.screen()
                 rr = 3500 * view.s
@@ -2104,19 +2107,24 @@ def m_route_e19(stills=None):
                 pd = spaint(G.AMBER, 0.55 * kw_, stroke=2.5)
                 pd.setPathEffect(skia.DashPathEffect.Make([10, 9], -ts * 12))
                 fr.c.drawCircle(float(wx), float(wy), rr * (0.8 + 0.2 * kw_), pd)
-            pin(fr, None, (float(wx), float(wy)), 3.72, ts, color=G.AMBER, r=10)
+            pin(fr, None, (float(wx), float(wy)), T_W, ts, color=G.AMBER, r=11)
+            if ts > T_W + 1.0:                          # the marker keeps pulsing softly while it is held
+                ph = ((ts - T_W - 1.0) % 1.25) / 1.25
+                fr.screen()
+                fr.c.drawCircle(float(wx), float(wy), 11 * (1.6 + 4.5 * G.ease_out(ph)),
+                                spaint(G.AMBER, 0.45 * (1 - ph), stroke=3))
             bx, by = view.px(*BRU)
-            kb = build_in(ts, 3.4, 10)
+            kb = build_in(ts, 2.05, 10)
             dot(fr, (float(bx), float(by)), kb, G.INK, r=8)
             mx, my = view.px(*MEC)
-            dot(fr, (float(mx), float(my)), 0.7 * build_in(ts, 2.1, 10), G.DIM, r=6)
+            dot(fr, (float(mx), float(my)), 0.7 * build_in(ts, 1.2, 10), G.DIM, r=6)
 
             def labels(im):
                 ka = build_in(ts, -0.15, 10)
                 tlabel(im, 'ANTWERP', (float(ax) + 36, float(ay)), size=36, color=G.INK, alpha=ka, anchor='lm', tracking=0.14,
                        rise=8 * (1 - ka))
                 ex, ey = view.px(*e19_lbl)
-                ke = build_in(ts, 1.45, 10)
+                ke = build_in(ts, 0.62, 9)
                 if ke > 0:
                     sp = _text_img('E19', 30, 'SemiBold', G.BG, 0.08, False)
                     bw = sp[3] + 34
@@ -2126,13 +2134,13 @@ def m_route_e19(stills=None):
                     ImageDraw.Draw(lay).rounded_rectangle((2, 2, bw + 2, 52), radius=8, fill=G.INK + (int(230 * ke),))
                     im.alpha_composite(lay, (int(X), int(Y - 28)))
                     tlabel(im, 'E19', (X + bw / 2 + 2, Y), size=30, color=G.BG, alpha=ke, anchor='mm', weight='SemiBold', tracking=0.08)
-                    tlabel(im, 'MOTORWAY TO BRUSSELS', (X + bw + 22, Y), size=28, color=G.DIM, alpha=ke * (1 - sg(ts, 2.6, 3.0)),
+                    tlabel(im, 'MOTORWAY TO BRUSSELS', (X + bw + 22, Y), size=28, color=G.DIM, alpha=ke * (1 - sg(ts, 1.7, 2.0)),
                            anchor='lm', tracking=0.12)
-                tlabel(im, 'MECHELEN', (float(mx) + 26, float(my)), size=26, color=G.DIM, alpha=0.75 * build_in(ts, 2.2, 10),
+                tlabel(im, 'MECHELEN', (float(mx) + 26, float(my)), size=26, color=G.DIM, alpha=0.75 * build_in(ts, 1.3, 10),
                        anchor='lm', tracking=0.12)
-                kw2 = build_in(ts, 3.8, 10)
-                tlabel(im, 'WOODS OFF THE E19', (float(wx) - 40, float(wy)), size=36, color=G.AMBER, alpha=kw2, anchor='rm',
-                       tracking=0.12, weight='SemiBold', rise=8 * (1 - kw2))
+                kw2 = build_in(ts, T_W + 0.04, 9)
+                tlabel(im, 'WOODS OFF THE E19', (float(wx) - 62, float(wy)), size=48, color=G.AMBER, alpha=kw2, anchor='rm',
+                       tracking=0.1, weight='SemiBold', rise=8 * (1 - kw2))
                 tlabel(im, 'BRUSSELS', (float(bx) + 30, float(by)), size=36, color=G.INK, alpha=kb, anchor='lm', tracking=0.14,
                        rise=8 * (1 - kb))
                 credit_osm(im, alpha=0.6)
@@ -2307,16 +2315,21 @@ def m_link(stills=None):
 # ===================================================================================================== E_* photo moves
 E_SLOTS = ['E_CENTRAAL', 'E_DISTRICT', 'E_ADC', 'E_DIAMONDS', 'E_WOODS', 'E_E19', 'E_COURT', 'E_MILAN', 'E_CDG']
 E_BEATS = {'E_CENTRAAL': 'S04', 'E_DISTRICT': 'S04', 'E_ADC': 'S06', 'E_DIAMONDS': 'S05', 'E_WOODS': 'S33', 'E_E19': 'S31',
-           'E_COURT': 'S40', 'E_MILAN': 'S49', 'E_CDG': 'S50'}
+           'E_COURT': 'S40', 'E_MILAN': 'S49', 'E_CDG': 'S50', 'E_SHOPS': 'S05'}
 # per-slot camera: (zoom start, zoom end, truck x, truck y, dolly) — truck in fractions of frame height, applied with depth
 E_MOVES = {'E_CENTRAAL': (1.04, 1.11, -0.010, 0.004, 0.09), 'E_DISTRICT': (1.12, 1.17, 0.022, 0.0, 0.07),
            'E_ADC': (1.05, 1.11, -0.012, 0.010, 0.07), 'E_DIAMONDS': (1.04, 1.12, 0.010, -0.008, 0.08),
            'E_WOODS': (1.05, 1.10, 0.026, 0.0, 0.06), 'E_E19': (1.05, 1.11, -0.018, 0.004, 0.07),
            'E_COURT': (1.05, 1.10, 0.016, 0.006, 0.06), 'E_MILAN': (1.05, 1.11, -0.016, 0.0, 0.07),
-           'E_CDG': (1.05, 1.10, 0.020, 0.004, 0.06)}
-E_PICK = {'E_CENTRAAL': 'E_CENTRAAL_1.jpg', 'E_DISTRICT': 'E_DISTRICT_1.jpg', 'E_ADC': 'E_ADC_1.jpg'}      # slot -> chosen candidate (looked at each one; no identifiable faces)
+           'E_CDG': (1.04, 1.10, 0.018, 0.0, 0.08), 'E_SHOPS': (1.05, 1.11, -0.016, 0.006, 0.07)}
+E_PICK = {'E_CENTRAAL': 'E_CENTRAAL_1.jpg', 'E_DISTRICT': 'E_DISTRICT_1.jpg', 'E_ADC': 'E_ADC_1.jpg',
+          'E_WOODS': 'E_WOODS_1.jpg', 'E_MILAN': 'E_MILAN_1.jpg',
+          'E_CDG': 'E_CDG_1.jpg',      # Terminal 2E roof + airside at night: darkest, cleanest, no people at all
+          # E_SHOPS: E_DISTRICT_3 has readable shop names (Golden I / Paradise Diamond / Ordini) filling the centre of the
+          # frame, so the viaduct-at-night photo is used instead, as the brief asks
+          'E_SHOPS': 'E_DISTRICT_2.jpg'}      # slot -> chosen candidate (looked at each one; no identifiable faces)
 # v2 re-cut lengths (s); slots not in the cut (E_DIAMONDS, E_CDG, E_COURT, E_E19) are skipped
-E_DUR = {'E_DISTRICT': 2.1, 'E_CENTRAAL': 3.0, 'E_ADC': 3.5, 'E_MILAN': 2.6, 'E_WOODS': 4.4}
+E_DUR = {'E_DISTRICT': 2.1, 'E_CENTRAAL': 3.0, 'E_ADC': 3.5, 'E_MILAN': 2.6, 'E_WOODS': 4.4, 'E_CDG': 4.6, 'E_SHOPS': 3.6}
 MIDAS = os.path.expanduser('~/.cache/mg_maps/models/midas_small.onnx')
 MIDAS_URL = 'https://github.com/isl-org/MiDaS/releases/download/v2_1/model-small.onnx'
 
@@ -2395,11 +2408,11 @@ def depth_map(rgb):
 def e_photo(cid, stills=None, pick=None):
     import cv2
     cands = e_candidates(cid)
-    if not cands:
+    fn = pick or E_PICK.get(cid) or (cands[0] if cands else None)
+    if not fn or not os.path.exists(os.path.join(EVID, fn)):
         print(f'[mg_maps] {cid}: no photo in {EVID} — skipped', flush=True)
         return False
     credits = load_credits()
-    fn = pick or E_PICK.get(cid) or cands[0]
     entry = credits.get(fn)
     line = credit_line(entry)
     if line is None:
@@ -2453,7 +2466,7 @@ def e_photo(cid, stills=None, pick=None):
             sy = (qy - ty * (e - 0.5) * 2 * d) / z * H2 + H2 / 2
             out = cv2.remap(rgb, sx, sy, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT)
             im = Image.fromarray(out, 'RGB').convert('RGBA')
-            im.alpha_composite(_credit_shade())
+            im.alpha_composite(_credit_shade(line))
             G.credit(im, line, alpha=0.7)
             clip.add(im)
     if not stills:
@@ -2466,20 +2479,31 @@ def e_photo(cid, stills=None, pick=None):
 _SHADE = None
 
 
-def _credit_shade():
-    """soft dark gradient in the lower-left corner so the credit line reads on bright photos."""
+def _credit_shade(line=''):
+    """soft dark gradient behind the credit line (bottom-left corner, no hard box): a broad corner falloff plus a
+    blurred bar fitted to the text, so 70 % white type reads over leaves, paving or windows (review fix)."""
     global _SHADE
-    if _SHADE is None:
+    if _SHADE is None or _SHADE[0] != line:
+        import cv2
+        from PIL import ImageDraw
+        tw = ImageDraw.Draw(Image.new('L', (8, 8))).textlength(line, font=G.font(36, 'Regular', False))
         yy, xx = np.mgrid[0:H2, 0:W2].astype(np.float32)
-        a = np.clip((yy - H2 * 0.80) / (H2 * 0.20), 0, 1) ** 1.5 * np.clip(1.15 - xx / (W2 * 0.55), 0, 1)
+        corner = np.clip((yy - H2 * 0.78) / (H2 * 0.22), 0, 1) ** 1.4 * np.clip(1.2 - xx / (W2 * 0.6), 0, 1) * 0.6
+        bar = np.zeros((H2, W2), np.float32)
+        bar[H2 - 168:H2, 0:int(64 + tw + 150)] = 1.0
+        bar = cv2.GaussianBlur(bar, (0, 0), 52) * 0.9
+        a = np.clip(np.maximum(corner, bar), 0, 0.84)
         arr = np.zeros((H2, W2, 4), np.uint8)
-        arr[..., 3] = (a * 0.55 * 255).astype(np.uint8)
-        _SHADE = Image.fromarray(arr, 'RGBA')
-    return _SHADE
+        arr[..., :3] = (8, 8, 10)
+        arr[..., 3] = (a * 255).astype(np.uint8)
+        _SHADE = (line, Image.fromarray(arr, 'RGBA'))
+    return _SHADE[1]
 
 
-E_CROP_Y = {'E_CENTRAAL': 0.62, 'E_DISTRICT': 0.30}
-E_CROP = {'E_ADC_1.jpg': (0.17, 0.20, 1.0)}                       # crops two passers-by out at the left edge
+E_CROP_Y = {'E_CENTRAAL': 0.62, 'E_DISTRICT': 0.30, 'E_CDG': 0.35}
+E_CROP = {'E_ADC_1.jpg': (0.17, 0.20, 1.0),                      # crops two passers-by out at the left edge
+          # E_SHOPS: top 72 % only — leaves out two pedestrians, a number plate and the small "D&D" shop sign below
+          'E_DISTRICT_2.jpg': (0.14, 0.0, 1.0)}
 E_BLUR = {'E_ADC_1.jpg': [(0.580, 0.745, 0.690, 0.860)],          # a reflection of a person in the glass door
           'E_CENTRAAL_1.jpg': [(0.612, 0.664, 0.643, 0.700), (0.687, 0.664, 0.713, 0.703)]}   # two tiny seated travellers
 
@@ -2491,7 +2515,7 @@ META = {
     'M_MAP_ANTWERP': (6.9, 'S04', f'{NE_CREDIT}; {OSM_DATA}',
                       'Europe → Belgium → Antwerp (Scheldt) → diamond district beside Antwerpen-Centraal; district outline = '
                       'OSM buildings on Hoveniersstraat/Schupstraat/Rijfstraat + west side of Pelikaanstraat; street labels; '
-                      'tilts to ~30° at street level.'),
+                      'large amber "DIAMOND DISTRICT" label lands with the outline by 6.0; tilts to ~30° at street level.'),
     'M_CAMERAS': (5.1, 'S04', OSM_DATA,
                   'District street plan: CCTV glyphs + amber view cones (cut to street space) from 0.0, bollard rows at the '
                   'two pedestrian entrances (OSM lift gates), police-post marker (lands 2.0) at the Schupstraat entrance on '
@@ -2510,7 +2534,7 @@ META = {
                   'as it appears. Layout illustrative; on-screen tag "SCHEMATIC — NOT TO SCALE". FACTS #3, #14.'),
     'M_ROUTE_E19': (4.9, 'S31', f'{NE_CREDIT}; {OSM_DATA}',
                     'Antwerp (district) → amber route along the real A1/E19 geometry (OSM relation 86463) to the Brussels '
-                    'ring; "E19" tag, Mechelen for context, Brussels labelled. The woods pin + dashed halo is placed '
+                    'ring 0.6-2.2; "E19" tag by 1.0, Mechelen for context, Brussels labelled; woods pin + dashed halo + label on by 2.4 and held (slow push toward it). The woods pin is placed '
                     'APPROXIMATELY between the cities (FACTS gives no precise place) and labelled only "woods off the E19". '
                     'The short city leg from the district to the motorway is schematic.'),
     'M_LINK': (3.8, 'S38', None,
@@ -2525,7 +2549,7 @@ META = {
                     'onward leg to Turin (the trip he was on). FACTS #32.'),
     'M_TURIN': (5.8, 'S12', NE_CREDIT, 'A loose network (abstract node graph, not places) builds over NW Italy from 0, '
                 'gathers on Turin; Turin pin + "The School of Turin / a loose network of Italian thieves" land 4.0-4.4; '
-                'pull-back and amber arc Turin → Antwerp 4.6-5.45. FACTS #23.'),
+                'pull-back and amber arc Turin → Antwerp 4.2-4.85, ending on a labelled ANTWERP pin held 4.95-5.8. FACTS #23.'),
 }
 
 
