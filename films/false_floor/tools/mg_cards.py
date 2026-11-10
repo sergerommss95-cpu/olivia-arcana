@@ -1783,12 +1783,12 @@ def his_rows(im, sec, t_rows, alpha=1.0, strikes=None):
             hline(im, tx, x1 - 110, ys + 100, color=(50, 53, 60), width=2, alpha=alpha * 0.8)
             continue
         label(im, 'he says', (tx, ys + 30), size=28, color=AMBER if alpha > 0.7 else DIM, alpha=alpha * p, tracking=0.2)
-        lines = wrap(s_, 64, x1 - x0 - 220)
+        lines = wrap(s_, 62, x1 - x0 - 200)
         for li, ln in enumerate(lines):
-            text(im, ln, (tx, ys + 112 + li * 80), size=64, color=INK, alpha=alpha * p, dy=(1 - p) * 14, blur=(1 - p) * 5)
+            text(im, ln, (tx, ys + 112 + li * 80), size=62, color=INK, alpha=alpha * p, dy=(1 - p) * 14, blur=(1 - p) * 5)
         if strikes and strikes.get(j, 0) > 0:
             for li, ln in enumerate(lines):
-                hline(im, tx - 10, tx + 10 + tsize(ln, 64)[0], ys + 112 + li * 80 - 22, color=INK, width=5,
+                hline(im, tx - 10, tx + 10 + tsize(ln, 62)[0], ys + 112 + li * 80 - 22, color=INK, width=5,
                       p=strikes[j], alpha=0.85)
 
 
@@ -1977,7 +1977,7 @@ def m_question(stills=None):
 
     def fg(im, sec, u):
         pa = p_in(sec, 0.15, 0.45)
-        mv = p_io(sec, 2.2, 0.6)
+        mv = p_io(sec, 1.7, 0.55)
         wq = line_tile((('SO WHAT DO YOU THINK?', 140, 'SemiBold', True, INK),))[0].width - 80
         morph(im, (('SO WHAT DO YOU THINK?', 140, 'SemiBold', True, INK),), (CX, CY - 20), (CX - wq * 0.45 / 2, CY - 400),
               0.45, mv, alpha=pa, dy=(1 - pa) * 30, blur=(1 - pa) * 6)
