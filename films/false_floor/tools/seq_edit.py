@@ -141,6 +141,10 @@ def main():
             flag = ('MISSING' if have is None else 'SHORT %.1f' % have if e['dur'] > have + 0.3 else '') + \
                    (' <1.2s' if e['dur'] < 1.2 else '') + (' >7s' if e['dur'] > 7.0 and e['ep_kind'] != 'GFX' else '')
             print(f"  {e['t0']:6.1f} {e['id']:16s} {e['dur']:5.1f}s  {flag}")
+        if '--out' in sys.argv:                 # map only (for subtitles of a sequence rendered earlier)
+            json.dump({'name': name, 'total': total, 'pieces': [[a, b, at] for a, b, at in pieces],
+                       'cuts': [[e['id'], e['t0'], e['dur']] for e in shots]},
+                      open(os.path.splitext(out)[0] + '_map.json', 'w'), indent=1)
         return
     # picture
     work = os.path.join(FF, 'out', 'seq_segments', name)

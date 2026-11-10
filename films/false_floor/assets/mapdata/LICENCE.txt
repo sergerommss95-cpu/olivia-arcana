@@ -1,0 +1,19 @@
+Map data used by tools/mg_maps.py (built with `python3 tools/mg_maps.py prep`; raw downloads cached in ~/.cache/mg_maps)
+
+ne_europe.json
+  Natural Earth 1:10m vector data (https://www.naturalearthdata.com/, downloaded from naciscdn.org):
+  admin-0 countries, admin-1 provinces (Belgium), lakes, rivers + lake centerlines, rivers (Europe supplement),
+  roads (Belgium), populated places (simple), airports. Clipped to Europe, projected (spherical LAEA 50N 5E, metres).
+  Licence: public domain. No attribution required.
+
+osm_antwerp.json
+  OpenStreetMap data (https://www.openstreetmap.org/copyright), downloaded 2026-11-10 from api.openstreetmap.org:
+  /api/0.6/map for five small bboxes around the Antwerp diamond district (4.402-4.434 E, 51.206-51.225 N):
+  streets, buildings, rail, platforms, green, water, surveillance cameras, bollards, gates;
+  the Scheldt water polygons around Antwerp (ways walked from way 4358495);
+  the A1/E19 motorway Antwerp -> Brussels ring (relation 86463).
+  Licence: Open Database License (ODbL) 1.0. Clips that show this data carry the on-screen credit
+  "© OpenStreetMap contributors" (M_MAP_ANTWERP, M_CAMERAS, M_ROUTE_E19).
+  Camera / bollard / gate positions are as mapped today, not as of 2003.
+
+Blocked hosts (network proxy refused): overpass-api.de, overpass.kumi.systems, download.geofabrik.de.
