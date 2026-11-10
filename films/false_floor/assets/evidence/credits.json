@@ -403,5 +403,50 @@
     "downloaded_width": 1920,
     "downloaded_height": 1705,
     "description": "Southern portal of the Craeybeckx tunnel, where the A1/E19 leaves Antwerp towards Mechelen and Brussels (2009); E_E19 departure from Antwerp."
+  },
+  "SPARE_SKYLINE_1.jpg": {
+    "slot": "SPARE_SKYLINE",
+    "title": "File:Skyline antwerp with Big 3.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Skyline_antwerp_with_Big_3.jpg",
+    "author": "Kschotanus",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 4728,
+    "height": 1736,
+    "downloaded_width": 3840,
+    "downloaded_height": 1410,
+    "description": "Antwerp skyline in misty black-and-white with the cathedral spire and the Boerentoren; spare skyline."
+  },
+  "SPARE_SKYLINE_2.jpg": {
+    "slot": "SPARE_SKYLINE",
+    "title": "File:A ship and a skyline in Antwerp (34759978251).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:A_ship_and_a_skyline_in_Antwerp_(34759978251).jpg",
+    "author": "Bobo Boom",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "attribution_required": true,
+    "share_alike": false,
+    "width": 5184,
+    "height": 2916,
+    "downloaded_width": 3840,
+    "downloaded_height": 2160,
+    "description": "Antwerp riverside skyline with a moored minehunter (M477) and the Loodsgebouw tower; spare skyline."
+  },
+  "SPARE_VAULT_1.jpg": {
+    "slot": "SPARE_VAULT",
+    "title": "File:University National Bank building - safe deposit boxes 01.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:University_National_Bank_building_-_safe_deposit_boxes_01.jpg",
+    "author": "Photo by Joe Mabel",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 6000,
+    "height": 4000,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Safe-deposit vault seen through an open barred gate: walls of steel safe-deposit boxes, empty room, no people (Seattle); spare vault/boxes."
   }
 }
