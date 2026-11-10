@@ -461,6 +461,11 @@ def render_seg(e, path, n, preview):
                 im = im.resize((E.W, E.H), Image.LANCZOS)
         else:
             im = E.grade(im, rng, expos[i]).convert('RGBA')
+            dim = CFG.get('dim', {}).get(e.get('clip', e['id']))
+            if dim:                              # night shots rendered too bright: lower + deepen the mids
+                a_ = np.asarray(im).astype(np.float32)
+                a_[..., :3] = 255.0 * (a_[..., :3] / 255.0) ** 1.25 * dim
+                im = Image.fromarray(np.clip(a_, 0, 255).astype(np.uint8), 'RGBA')
             if e['id'] in CFG.get('vhs', []):
                 im = vhs(im, i)
             im = Image.alpha_composite(im, label)

@@ -48,7 +48,8 @@ CH = {
                       ('N8', 27, 'Then'), ('N9', 27, 'They#2'), ('N10', 27, 'One'),
                       ('S28', 28, 'They'), ('C9', 28, 'diamonds'), ('C10', 28, 'securities'), ('M_LAYERS_B', 28, 'Ten'),
                       ('C8', 29, 'The'), ('S02@60', 29, 'All'), ('C10@100', 29, 'get')],
-                inoff={'S18': 40, 'S24': 16, 'N3': 24, 'S10': 1, 'S26': 1, 'S27': 1, 'S22': 1, 'S16': 1, 'S25': 1}),
+                inoff={'S18': 40, 'S24': 16, 'N3': 24, 'S10': 1, 'S26': 1, 'S27': 1, 'S22': 1, 'S16': 1, 'S25': 1},
+                dim={'S26': 0.62}),
     'ch4': dict(title=('CHAPTER FOUR', 'TWO PLACES'), beats=list(range(30, 39)), music=('ff_4', 0.0, -16), tail=1.8,
                 beds=[('el__woods_night', 'A_E19_NIGHT', 'C8', -20), ('el__vault_room_tone', 'C8', 'E_WOODS', -23),
                       ('el__woods_morning', 'E_WOODS', 'S34', -20), ('el__vault_room_tone', 'S34', 'A_BAGS', -23),
@@ -80,7 +81,7 @@ CH = {
                       ('S27', 45, 'The#2'), ('S45a', 45, 'there'), ('C10@20', 45, 'And'), ('S28', 45, 'with'),
                       ('M_QUOTE', 46, 'As'), ('M_TWOPATHS', 47, 'So'), ('S27@150', 47, 'If#2'), ('M_TWOPATHS@276', 47, 'is'),
                       ('S23', 48, 'And'), ('A_BLUELIGHTS', 48, 'he')],
-                inoff={'N3': 6, 'C13': 0, 'S27': 1}),
+                inoff={'N3': 6, 'C13': 0, 'S27': 1}, dim={'S26': 0.62}),
     'ch7': dict(title=('CHAPTER SEVEN', 'WHERE ARE THE DIAMONDS?'), beats=[49, 50, 51, 52], music=('ff_7', 0.0, -15), tail=3.2,
                 beds=[('el__vault_room_tone', 'S41', 'S01@120', -23)],
                 cuts=[('M_MAP_MILAN', 49, 'Paroled'), ('E_MILAN', 49, 'In'), ('A_MILAN_STOP', 49, 'find'), ('S05', 49, 'He'),
@@ -89,7 +90,7 @@ CH = {
                       ('S41', 51, 'More'), ('S52@110', 51, 'And'),
                       ('S01@120', 52, 'Ten'), ('S21@100', 52, 'beaten'), ('S22@60', 52, 'tape'), ('S26@60', 52, 'foam'),
                       ('A_VANCAMP@30', 52, 'undone'), ('P_S36', 52, 'and#3'), ('M_QUESTION', 52, 'So')],
-                inoff={}),
+                inoff={}, dim={'S26': 0.62}),
 }
 
 
