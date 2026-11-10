@@ -12,6 +12,7 @@ from make_srt import words_on_vo_clock
 FF = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VO = os.path.join(FF, 'out', 'vo', 'vo_george_v4_v01')
 PARTS = ['out/FALSE_FLOOR_COLD_v2.mp4'] + [f'out/EP3_ch{i}.mp4' for i in range(1, 8)]
+END_MUSIC = (os.path.join(os.path.dirname(FF), 'tumbler', 'audio', 'music', 'ff_7.wav'), 63.3, -9)
 
 
 def arg(n, d=None):
@@ -48,8 +49,15 @@ def main():
                                                'csv=p=0', p], capture_output=True, text=True).stdout
         inputs += ['-i', p]
         vf.append(f'[{i}:v]scale=1920:1080:flags=lanczos,fps=24,format=yuv420p,setsar=1[v{i}]')
-        af.append(f'[{i}:a]aresample=48000,aformat=channel_layouts=stereo[a{i}]' if has_audio else
-                  f'aevalsrc=0:d={d:.3f}:s=48000:c=stereo[a{i}]')
+        if has_audio:
+            af.append(f'[{i}:a]aresample=48000,aformat=channel_layouts=stereo[a{i}]')
+        elif p == end and os.path.exists(END_MUSIC[0]):   # the last chapter's score carries on under the end card
+            mus = END_MUSIC[0].replace('\\', '/').replace(':', '\\:')
+            af.append(f"amovie='{mus}':seek_point={END_MUSIC[1]},atrim=0:{d:.3f},asetpts=PTS-STARTPTS,aresample=48000,"
+                      f"aformat=channel_layouts=stereo,volume={END_MUSIC[2]}dB,afade=t=in:d=0.8,"
+                      f"afade=t=out:st={max(0.0, d - 4.0):.3f}:d=4.0[a{i}]")
+        else:
+            af.append(f'aevalsrc=0:d={d:.3f}:s=48000:c=stereo[a{i}]')
         offs.append((p, t))
         print(f'[asm] {os.path.basename(p)} at {t:.2f}s ({d:.2f}s)', flush=True)
         t += d
@@ -63,12 +71,20 @@ def main():
     js = json.loads(m[m.rindex('{'):m.rindex('}') + 1])
     ln = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:"
           f"measured_LRA={js['input_lra']}:measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true,"
-          f"alimiter=limit=0.83:attack=1:release=60:level=false,aresample=48000")
+          f"alimiter=limit=0.78:attack=1:release=60:level=false,aresample=48000")
     cat = ''.join(f'[v{i}][a{i}]' for i in range(n)) + f'concat=n={n}:v=1:a=1[vc][ac]'
-    fc = ';'.join(vf + af + [cat, f'[ac]{ln}[aout]'])
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', *inputs, '-filter_complex', fc, '-map', '[vc]', '-map', '[aout]',
-                    '-c:v', 'libx264', '-preset', 'medium', '-crf', crf, '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k',
-                    '-movflags', '+faststart', out], check=True)
+    review = arg('--review')
+    if review:                               # one decode, two encodes: the master and a lighter review copy
+        fc = ';'.join(vf + af + [cat, f'[ac]{ln},asplit=2[aout][arev]', '[vc]split=2[vm][vr]'])
+        outs = ['-map', '[vm]', '-map', '[aout]', '-c:v', 'libx264', '-preset', 'medium', '-crf', crf, '-pix_fmt', 'yuv420p',
+                '-c:a', 'aac', '-b:a', '256k', '-movflags', '+faststart', out,
+                '-map', '[vr]', '-map', '[arev]', '-c:v', 'libx264', '-preset', 'medium', '-crf', '23', '-maxrate', '5M',
+                '-bufsize', '10M', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', review]
+    else:
+        fc = ';'.join(vf + af + [cat, f'[ac]{ln}[aout]'])
+        outs = ['-map', '[vc]', '-map', '[aout]', '-c:v', 'libx264', '-preset', 'medium', '-crf', crf, '-pix_fmt', 'yuv420p',
+                '-c:a', 'aac', '-b:a', '256k', '-movflags', '+faststart', out]
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', *inputs, '-filter_complex', fc, *outs], check=True)
     # subtitles: every word of George's VO, placed through each part's piece map
     words = words_on_vo_clock(VO)
     cues = []
