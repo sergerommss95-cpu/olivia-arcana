@@ -7,7 +7,13 @@ finished clip straight back into false_floor/out/clips/.
 Queue = IDs listed in false_floor/notes/ready_*.txt (one per line) + --extra, minus what is already done this run.
 A shot removed from its ready file before it starts is dropped; one re-listed after a builder change is re-rendered
 when its line reappears with a '!' suffix (e.g. "S25!"). 3D shots go first, longest first. Status:
-false_floor/out/dispatch.json, log: false_floor/out/dispatch.log. Stops when --until-empty and nothing is left.
+false_floor/out/dispatch.json, log: false_floor/out/dispatch.log.
+
+Idle pods cost money, so a pod that has run nothing for --idle-minutes (default 15) is TERMINATED: after the queue
+empties, when its starts keep failing, or when it stops answering. Only the pods in --pods are ever touched, and
+runpod_client.terminate() refuses any pod this project did not create (other work shares the account). The dispatcher
+exits when no pod is left; with --until-empty that is 15 idle minutes after the last shot (list more shots in that
+window and they are rendered on the same pods). --keep-pods switches the terminating off.
 """
 import glob, io, json, os, shutil, sys, tarfile, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -57,6 +63,36 @@ def main():
     st.setdefault('done', {})
     st['running'] = {}
     busy = {}                                    # pod -> (sid, job id, t0)
+    idle_limit = float(arg('--idle-minutes', '15')) * 60
+    keep = '--keep-pods' in sys.argv
+    idle_since, poll_bad, gone = {}, {}, set()   # pod -> since when it runs nothing / has not answered; pods we let go
+    told_empty = False
+
+    def pods_now():
+        return [p for p in read_pods() if p not in gone and os.path.exists(p)]
+
+    def rate(pods):
+        return sum(json.load(open(p)).get('cost_per_hr') or 0 for p in pods)
+
+    def retire(pod, why):
+        """Terminate one of OUR pods (terminate() checks the name) and drop it from the pod list."""
+        on(pod)
+        try:
+            msg = R.terminate()
+        except (SystemExit, Exception) as e:
+            msg = f'TERMINATE FAILED: {e}'
+        log(f'{os.path.basename(pod)} {why}: {msg}')
+        if msg.startswith('TERMINATE FAILED'):
+            idle_since[pod] = time.time() - idle_limit + 120      # try again in two minutes
+            return
+        gone.add(pod)                                             # terminated, already gone, or not ours (refused)
+        idle_since.pop(pod, None)
+        poll_bad.pop(pod, None)
+        st.setdefault('terminated', {})[os.path.basename(pod)] = {'at': time.strftime('%H:%M'), 'why': why, 'result': msg}
+        if pods_arg.endswith('.txt'):
+            keep_lines = [l.strip() for l in open(pods_arg) if l.strip() and l.strip() != pod]
+            open(pods_arg, 'w').write(''.join(l + '\n' for l in keep_lines))
+
     while True:
         # finished jobs
         for pod, (sid, jid, t0) in list(busy.items()):
@@ -65,7 +101,13 @@ def main():
                 j = R.worker('GET', f'/job?id={jid}&tail=3000')
             except Exception as e:
                 log(f'{pod[-10:-5]} poll error {sid}: {e}')
+                poll_bad.setdefault(pod, time.time())
+                if not keep and time.time() - poll_bad[pod] >= idle_limit:
+                    del busy[pod]                              # the shot goes back to the queue (it is not in 'done')
+                    st['running'].pop(sid, None)
+                    retire(pod, f'has not answered for {idle_limit / 60:g} min while rendering {sid}')
                 continue
+            poll_bad.pop(pod, None)
             if j['rc'] is None:
                 continue
             del busy[pod]
@@ -99,7 +141,7 @@ def main():
         queue = [w.rstrip('!') for w in want]
         queue = [s for i, s in enumerate(queue) if s not in queue[:i] and s not in st['done'] and s not in running]
         queue.sort(key=lambda s: (SHOTS[s]['kind'] != '3D', -(SHOTS[s].get('render_frames') or 1)))
-        for pod in read_pods():
+        for pod in pods_now():
             if pod in busy or not queue:
                 continue
             sid = queue.pop(0)
@@ -117,10 +159,30 @@ def main():
             st['running'][sid] = {'pod': pod, 'since': time.strftime('%H:%M')}
             log(f'START {sid} ({SHOTS[sid]["kind"]} {SHOTS[sid].get("render_frames")}f) on {R.state().get("gpu", "")[:24]}')
         st['queue'] = queue
+        # a pod that runs nothing costs the same as one that renders: let it go after idle_limit
+        now = time.time()
+        for pod in pods_now():
+            if pod in busy:
+                idle_since.pop(pod, None)
+                continue
+            idle_since.setdefault(pod, now)
+            if not keep and now - idle_since[pod] >= idle_limit:
+                retire(pod, f'idle for {idle_limit / 60:g} min')
+        left = pods_now()
         json.dump(st, open(STATUS, 'w'), indent=1)
-        if '--until-empty' in sys.argv and not busy and not queue:
-            log('queue empty, all pods idle')
+        if not left:
+            log('no pods left' + (f'; still queued: {" ".join(queue)}' if queue else ''))
             return
+        if not busy and not queue:
+            if keep and '--until-empty' in sys.argv:
+                log(f'queue empty; --keep-pods: {len(left)} pods LEFT RUNNING (~${rate(left):.2f}/h) - terminate them by hand')
+                return
+            if not told_empty and not keep:
+                log(f'queue empty, all pods idle (~${rate(left):.2f}/h): each is terminated after '
+                    f'{idle_limit / 60:g} idle minutes unless more shots are listed')
+            told_empty = True
+        else:
+            told_empty = False
         time.sleep(20)
 
 

@@ -16,6 +16,15 @@ KEYF = '/root/.runpod/api_key'
 STATE = os.environ.get('RUNPOD_STATE', '/root/.runpod/state.json')
 HERE = os.path.dirname(os.path.abspath(__file__))
 IMAGE = 'runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04'
+POD_NAME = 'claude-false-floor-render'      # every pod this client creates; terminate() refuses any other name
+
+
+class ApiError(SystemExit):
+    """A non-2xx answer from the RunPod API (still exits the CLI with the message; callers may catch it)."""
+
+    def __init__(self, status, msg):
+        super().__init__(msg)
+        self.status = status
 
 
 def key():
@@ -32,7 +41,7 @@ def api(method, path, body=None, graphql=False):
     r = subprocess.run(cmd, input=cfg, capture_output=True, text=True)
     txt, _, code = r.stdout.rpartition('\n')
     if not code.startswith('2'):
-        raise SystemExit(f'RunPod API {code}: {txt[:800]} {r.stderr[:300]}')
+        raise ApiError(int(code) if code.isdigit() else 0, f'RunPod API {code}: {txt[:800]} {r.stderr[:300]}')
     return json.loads(txt) if txt.strip() else {}
 
 
@@ -79,7 +88,7 @@ def create(gpu, cloud):
     start = ('apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq libxrender1 libxi6 libxkbcommon0 libsm6 '
              'libgl1 libxxf86vm1 libxfixes3 libegl1 xz-utils ffmpeg >/tmp/apt.log 2>&1; '
              'echo $AGENT_B64 | base64 -d > /agent.py && python3 /agent.py')
-    body = {'name': 'claude-false-floor-render', 'imageName': IMAGE, 'gpuTypeIds': [g.strip() for g in gpu.split(',')], 'gpuCount': 1, 'cloudType': cloud,
+    body = {'name': POD_NAME, 'imageName': IMAGE, 'gpuTypeIds': [g.strip() for g in gpu.split(',')], 'gpuCount': 1, 'cloudType': cloud,
             'containerDiskInGb': 40, 'volumeInGb': 0, 'ports': ['8000/http'],
             'env': {'AGENT_TOKEN': tok, 'AGENT_B64': agent, 'NVIDIA_DRIVER_CAPABILITIES': 'all'},
             'dockerStartCmd': ['bash', '-c', start]}
@@ -127,14 +136,24 @@ def fetch(remote, local):
 
 
 def terminate():
+    """Delete the pod recorded in STATE, but only a pod this client created (its name is POD_NAME). The account is
+    shared with other work: a pod with any other name is never deleted. Returns one line saying what happened."""
     s = state()
     if not s.get('pod'):
-        print('no pod recorded')
-        return
+        return 'no pod recorded'
+    try:
+        info = api('GET', f"/pods/{s['pod']}")
+    except ApiError as e:
+        if e.status != 404:
+            raise
+        os.remove(STATE)
+        return f"{s['pod']} is already gone; removed its state file"
+    if info.get('name') != POD_NAME:
+        return f"REFUSED: pod {s['pod']} is named {info.get('name')!r}, not {POD_NAME!r}; left as it is"
     api('DELETE', f"/pods/{s['pod']}")
     hrs = (time.time() - s['created']) / 3600
-    print(f"terminated {s['pod']} after {hrs * 60:.1f} min (~${hrs * (s.get('cost_per_hr') or 0):.2f})")
     os.remove(STATE)
+    return f"terminated {s['pod']} after {hrs * 60:.1f} min (~${hrs * (s.get('cost_per_hr') or 0):.2f})"
 
 
 if __name__ == '__main__':
@@ -154,7 +173,7 @@ if __name__ == '__main__':
     elif cmd == 'fetch':
         fetch(a[1], a[2])
     elif cmd == 'terminate':
-        terminate()
+        print(terminate())
     elif cmd == 'balance':
         print(api('POST', '', {'query': '{ myself { clientBalance currentSpendPerHr } }'}, graphql=True))
     else:
