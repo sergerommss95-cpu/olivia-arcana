@@ -6,7 +6,8 @@ waitjob() { # poll a worker job until it ends; print the tail
   while true; do out=$($C job "$1" 2>&1); if ! echo "$out" | grep -q "^rc None"; then echo "$out" | tail -25; break; fi; sleep 20; done; }
 case "$1" in
   setup)
-    $C wait && $C upload tumbler false_floor gpu && J=$($C run "bash /work/gpu/pod_setup.sh") && waitjob $J ;;
+    # vendor = MakeHuman base data + CMU mocap: every character shot needs it (it is uploaded once, here)
+    $C wait && $C upload tumbler false_floor gpu && $C upload vendor && J=$($C run "bash /work/gpu/pod_setup.sh && ls /work/vendor/makehuman_data/base.obj") && waitjob $J ;;
   render)
     shift
     $C upload tumbler false_floor gpu >/dev/null

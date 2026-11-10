@@ -2471,7 +2471,8 @@ def e_photo(cid, stills=None, pick=None):
             clip.add(im)
     if not stills:
         META[cid] = (secs, E_BEATS.get(cid, ''), line,
-                     f'{fn}: graded (mglib.grade_photo), MiDaS-small depth map -> 2.5D dolly/truck parallax; credit on screen.')
+                     f'{fn}: graded (mglib.grade_photo), MiDaS-small depth map -> 2.5D dolly/truck parallax; credit on screen '
+                     f'over a soft dark corner gradient.' + (' ' + E_NOTES[cid] if cid in E_NOTES else ''))
         write_manifest(cid)
     return True
 
@@ -2484,15 +2485,16 @@ def _credit_shade(line=''):
     blurred bar fitted to the text, so 70 % white type reads over leaves, paving or windows (review fix)."""
     global _SHADE
     if _SHADE is None or _SHADE[0] != line:
-        import cv2
         from PIL import ImageDraw
         tw = ImageDraw.Draw(Image.new('L', (8, 8))).textlength(line, font=G.font(36, 'Regular', False))
         yy, xx = np.mgrid[0:H2, 0:W2].astype(np.float32)
-        corner = np.clip((yy - H2 * 0.78) / (H2 * 0.22), 0, 1) ** 1.4 * np.clip(1.2 - xx / (W2 * 0.6), 0, 1) * 0.6
-        bar = np.zeros((H2, W2), np.float32)
-        bar[H2 - 168:H2, 0:int(64 + tw + 150)] = 1.0
-        bar = cv2.GaussianBlur(bar, (0, 0), 52) * 0.9
-        a = np.clip(np.maximum(corner, bar), 0, 0.84)
+
+        def smooth(v):
+            v = np.clip(v, 0, 1)
+            return v * v * (3 - 2 * v)
+        fy = smooth((yy - (H2 - 430)) / 330.0)                       # rises over ~165 px (1080p) to the bottom edge
+        fx = 1 - smooth((xx - (128 + tw + 40)) / 1300.0)             # full under the text, then a long 650 px fade
+        a = 0.84 * fy * fx
         arr = np.zeros((H2, W2, 4), np.uint8)
         arr[..., :3] = (8, 8, 10)
         arr[..., 3] = (a * 255).astype(np.uint8)
@@ -2500,6 +2502,17 @@ def _credit_shade(line=''):
     return _SHADE[1]
 
 
+E_NOTES = {
+    'E_SHOPS': 'Uses E_DISTRICT_2 (Pelikaanstraat viaduct at night) instead of E_DISTRICT_3, whose centre is readable shop '
+               'names (Golden I / Paradise Diamond / Ordini); top 72 % crop leaves out two pedestrians, a number plate and a '
+               'small "D&D" sign.',
+    'E_CDG': 'Picked E_CDG_1 (Terminal 2E roof and airside at night, no people); E_CDG_2 has the "TERMINAL 2E" road sign '
+             'but is soft and cluttered; E_CDG_3 is daylight.',
+    'E_ADC': 'Two passers-by cropped out at the left edge; a reflection of a person in a glass door is blurred. The file '
+             'page identifies the street (Schupstraat), not the building: do not caption it as the Antwerp Diamond Centre.',
+    'E_CENTRAAL': 'Two tiny seated travellers are blurred.',
+    'E_WOODS': 'Sonian Forest (generic Belgian woodland), not the actual dump site: do not caption it as the place.',
+}
 E_CROP_Y = {'E_CENTRAAL': 0.62, 'E_DISTRICT': 0.30, 'E_CDG': 0.35}
 E_CROP = {'E_ADC_1.jpg': (0.17, 0.20, 1.0),                      # crops two passers-by out at the left edge
           # E_SHOPS: top 72 % only — leaves out two pedestrians, a number plate and the small "D&D" shop sign below
@@ -2534,7 +2547,7 @@ META = {
                   'as it appears. Layout illustrative; on-screen tag "SCHEMATIC — NOT TO SCALE". FACTS #3, #14.'),
     'M_ROUTE_E19': (4.9, 'S31', f'{NE_CREDIT}; {OSM_DATA}',
                     'Antwerp (district) → amber route along the real A1/E19 geometry (OSM relation 86463) to the Brussels '
-                    'ring 0.6-2.2; "E19" tag by 1.0, Mechelen for context, Brussels labelled; woods pin + dashed halo + label on by 2.4 and held (slow push toward it). The woods pin is placed '
+                    'ring 0.6-2.2; "E19" tag by 1.0, Mechelen for context, Brussels labelled; woods pin + dashed halo + label on by 2.4 and held to the end (slow push, marker keeps pulsing). The woods pin is placed '
                     'APPROXIMATELY between the cities (FACTS gives no precise place) and labelled only "woods off the E19". '
                     'The short city leg from the district to the motorway is schematic.'),
     'M_LINK': (3.8, 'S38', None,
