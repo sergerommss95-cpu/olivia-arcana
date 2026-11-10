@@ -58,5 +58,50 @@
     "downloaded_width": 1920,
     "downloaded_height": 1440,
     "description": "Entry to Hoveniersstraat in the diamond district (2009): retractable bollards, no-entry signs and the police post booth, no people; E_DISTRICT security shot."
+  },
+  "E_DISTRICT_2.jpg": {
+    "slot": "E_DISTRICT",
+    "title": "File:Night-view of Pelikaanstraat in Antwerp (3).jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Night-view_of_Pelikaanstraat_in_Antwerp_(3).jpg",
+    "author": "Vasyatka1",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 6000,
+    "height": 4000,
+    "downloaded_width": 3840,
+    "downloaded_height": 2560,
+    "description": "Pelikaanstraat at night beside the red railway viaduct/train shed of Antwerpen-Centraal, edge of the diamond district; E_DISTRICT viaduct shot."
+  },
+  "E_DISTRICT_3.jpg": {
+    "slot": "E_DISTRICT",
+    "title": "File:Antwerp diamond district - shops.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Antwerp_diamond_district_-_shops.jpg",
+    "author": "Kristina D.C. Hoeppner",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 2816,
+    "height": 2112,
+    "downloaded_width": 1920,
+    "downloaded_height": 1440,
+    "description": "Diamond and jewellery shop signs (Golden I, Paradise Diamond) under the railway viaduct on Pelikaanstraat (2009); E_DISTRICT atmosphere."
+  },
+  "E_ADC_1.jpg": {
+    "slot": "E_ADC",
+    "title": "File:Schupstraat, Antwerp.jpg",
+    "page_url": "https://commons.wikimedia.org/wiki/File:Schupstraat,_Antwerp.jpg",
+    "author": "Silver Dovelet",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_required": true,
+    "share_alike": true,
+    "width": 4000,
+    "height": 3000,
+    "downloaded_width": 3840,
+    "downloaded_height": 2880,
+    "description": "Schupstraat, the street of the Antwerp Diamond Centre: brick office blocks, security booth, CCTV cameras, bollards, tiny distant figures only; nearest free view of the ADC block (building not identified on the file page)."
   }
 }

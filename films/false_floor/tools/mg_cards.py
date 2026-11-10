@@ -749,19 +749,19 @@ def face_tile(who, w, h, inner=0.0, ghost=0.0, bright=1.0):
     return base
 
 
-def role_lines(im, lines, x, y, sec, alpha=1.0, size=34, lh=56):
+def role_lines(im, lines, x, y, sec, alpha=1.0, size=38, lh=58):
     """tracked caps role words that land one by one on their times (sec >= 90: everything on)."""
     for li, words in enumerate(lines):
         xx = x
         for j, (w_, col, t_) in enumerate(words):
             q = 1.0 if sec >= 90 else p_in(sec, t_ - 0.2, 0.35)
             if j > 0 and not words[j - 1][0].endswith(' '):
-                label(im, '·', (xx + 10, y + li * lh), size=size, color=DIM, alpha=alpha * q, tracking=0.0)
-                xx += 36
+                label(im, '·', (xx + 8, y + li * lh), size=size, color=DIM, alpha=alpha * q, tracking=0.0)
+                xx += 32
             if q > 0:
-                label(im, w_, (xx, y + li * lh), size=size, color=col, alpha=alpha * q, tracking=0.08, dy=(1 - q) * 10,
+                label(im, w_, (xx, y + li * lh), size=size, color=col, alpha=alpha * q, tracking=0.05, dy=(1 - q) * 10,
                       blur=(1 - q) * 3)
-            xx += tsize(w_.upper(), size, 'Medium', False, 0.08)[0] + (6 if w_.endswith(' ') else 0)
+            xx += tsize(w_.upper(), size, 'Medium', False, 0.05)[0] + (6 if w_.endswith(' ') else 0)
 
 
 def crew_card(im, k, sec, appear, bright=1.0, ghost=0.0, stamp_p=0.0, inner=0.0, x=None):
@@ -825,6 +825,42 @@ def m_crew(stills=None):
 
     render('M_CREW', 10.9, fg, cam=Cam(z=(1.0, 1.06), pan=((-0.006, 0.006), (0.006, -0.004)), lin=0.5),
            bg=backdrop(grid=True, glow=(0.5, 0.5)), stills=stills, tag_text='DRAMATIZATION', tag_t0=-0.4)
+
+
+# ---------------------------------------------------------------------------- hero line that steps up into a header
+
+@functools.lru_cache(maxsize=16)
+def line_tile(parts):
+    """one line from parts ((text, size, weight, display, colour), ...) on a shared baseline -> (tile, cap_cx, cap_cy, x_left,
+    baseline) with tile-relative cap-centre, left edge and baseline."""
+    tiles = [_text_tile(t_, sz, wt, dp, 0.0, tuple(col)) for t_, sz, wt, dp, col in parts]
+    asc = max(t[3] for t in tiles)
+    desc = max(t[4] for t in tiles)
+    pad = 40
+    w = sum(t[2] for t in tiles)
+    out = Image.new('RGBA', (int(w + 2 * pad), int(asc + desc + 2 * pad)), (0, 0, 0, 0))
+    x = pad
+    for (tile, tp, tw, ta, td), (t_, sz, *_rest) in zip(tiles, parts):
+        out.alpha_composite(tile, (int(x - tp), int(pad + asc - ta - tp)))
+        x += tw
+    cap = 0.727 * parts[0][1]
+    return out, pad + w / 2, pad + asc - cap / 2, pad, pad + asc
+
+
+def morph(im, parts, big_c, small_left_base, k_small, mv, alpha=1.0, dy=0.0, blur=0.0):
+    """draw a line big with its cap-centre at big_c, moving (mv 0..1, eased) and scaling by k_small so that it ends
+    left-aligned on the baseline small_left_base."""
+    if alpha <= 0.003:
+        return
+    tile, ccx, ccy, xl, bl = line_tile(parts)
+    k = lerp(1.0, k_small, mv)
+    # anchor point inside the tile: cap-centre (big) -> left/baseline (small)
+    ax, ay = lerp(ccx, xl, mv), lerp(ccy, bl, mv)
+    tx_, ty_ = lerp(big_c[0], small_left_base[0], mv), lerp(big_c[1], small_left_base[1], mv) + dy
+    t = tile if abs(k - 1) < 1e-3 else tile.resize((max(1, int(tile.width * k)), max(1, int(tile.height * k))), Image.LANCZOS)
+    if blur > 0.3:
+        t = t.filter(ImageFilter.GaussianBlur(blur))
+    composite(im, fade(t, alpha), tx_ - ax * k, ty_ - ay * k)
 
 
 # ---------------------------------------------------------------------------- rich text + tabular numbers
@@ -926,7 +962,7 @@ def layer_row(im, i, sec, t0, hl=0.0, strike=0.0, beaten=0.0, show_det=True):
 
 @clip('M_LAYERS_A', 6.0, 'S14', '"TEN LAYERS" stack; the steel door lit, counter 1 / 10; "3 TONS" lands at 0, "12 HOURS" (of nonstop drilling) at 2.8 (VO S14)')
 def m_layers_a(stills=None):
-    cx = 2560
+    cx = 2420
 
     def fg(im, sec, u):
         build_label(im, 'the vault', (L_TX, L_Y0 - 300), sec, -0.5, size=34, tracking=0.2)
@@ -944,9 +980,9 @@ def m_layers_a(stills=None):
                    anchor='r', glow=8)
             text(im, ' / 10', (x1, L_Y0 - 170 + (1 - pc) * 20), size=120, color=DIM, alpha=pc, anchor='rs')
         # the door, in two numbers
-        p1 = build_text(im, '3 TONS', (cx, L_Y0 + 300), sec, -0.3, size=190, color=AMBER)
+        build_text(im, '3 TONS', (cx, L_Y0 + 300), sec, -0.3, size=170, color=AMBER)
         build_label(im, 'of steel', (cx + 6, L_Y0 + 380), sec, -0.1, size=34, tracking=0.2)
-        build_text(im, '12 HOURS', (cx, L_Y0 + 700), sec, 2.6, size=190, color=AMBER)
+        build_text(im, '12 HOURS', (cx, L_Y0 + 700), sec, 2.6, size=170, color=AMBER)
         build_label(im, 'of nonstop drilling', (cx + 6, L_Y0 + 780), sec, 2.8, size=34, tracking=0.2)
         hline(im, cx, cx + 700, L_Y0 + 470, color=FAINT, width=2, p=p_io(sec, 2.4, 0.5))
 
@@ -1321,7 +1357,7 @@ def m_evidence(stills=None):
     ITEMS = [('receipts', 'receipts', (980, CY - 20), -4, 0.0),
              ('envelopes', 'envelopes', (1930, CY - 150), 3, 1.0),
              ('stones', 'loose stones', (2870, CY - 10), -2, 1.9)]
-    PIN = [-178, -140, -112]
+    PIN = [-214, -168, -134]
 
     def fg(im, sec, u):
         build_label(im, 'found in the woods', (520, 380), sec, -0.45, size=34, tracking=0.2, color=INK)
@@ -1333,12 +1369,12 @@ def m_evidence(stills=None):
             p = p_in(sec, tl - 0.4, 0.5)
             if p <= 0:
                 continue
-            tile = ill_tile(kind)
+            tile = ill_tile(kind, 760, 590, 1.2)
             r = rot + (1 - p) * 6 * (1 if j % 2 else -1)
             k = 1.0 + 0.08 * (1 - p)
             t2 = tile.resize((int(tile.width * k), int(tile.height * k)), Image.BICUBIC).rotate(r, Image.BICUBIC, expand=True)
             composite(im, fade(t2, p), x - t2.width / 2, y - t2.height / 2 - (1 - p) * 30)
-            ev_tag(im, f'{j + 1:02d}', name, (x, y + 250), alpha=p)
+            ev_tag(im, f'{j + 1:02d}', name, (x, y + 300), alpha=p)
         for j in range(len(ITEMS)):
             pp = p_in(sec, ITEMS[j][4] - 0.2, 0.25)
             if pp > 0:
@@ -1471,7 +1507,7 @@ def m_date_21feb(stills=None):
 
     def fg(im, sec, u):
         build_text(im, 'FRIDAY · 21 FEBRUARY 2003', (CX, CY - 200), sec, -0.05, size=150, anchor='ms', color=INK)
-        build_label(im, 'five days after the heist', (CX, CY - 70), sec, 0.15, size=40, tracking=0.22, anchor='ms',
+        build_label(im, 'five days after the heist', (CX, CY - 70), sec, -0.05, size=40, tracking=0.22, anchor='ms',
                     color=AMBER)
         for k, (dname, dd) in enumerate(DAYS):
             x = gx0 + k * (cw + gap)
@@ -1522,13 +1558,17 @@ def m_detectives(stills=None):
 def m_sentences(stills=None):
     cw, ph, th, gap = 560, 700, 300, 48
     x0 = (W2 - (5 * cw + 4 * gap)) / 2
-    y0 = CY - (ph + th) / 2 + 110
+    y0 = CY - (ph + th) / 2 - 20
     CARDS = [('tenant', None, 1.1), ('speedy', 'SPEEDY', 6.2), ('monster', 'THE MONSTER', 7.0),
              ('genius', 'THE GENIUS', 7.9), ('king', None, None)]
 
+    def gx(k, sec):
+        n_eff = 1 + 4 * p_io(sec, 3.25, 0.75)          # the tenant card glides left as the four arrive
+        return CX - (n_eff * cw + (n_eff - 1) * gap) / 2 + k * (cw + gap)
+
     def card(im, k, sec):
         who, nick, tr = CARDS[k]
-        x = x0 + k * (cw + gap)
+        x = gx(k, sec)
         ta = p_in(sec, 0.55, 0.55) if k == 0 else p_in(sec, 3.3 + 0.08 * (k - 1), 0.5)
         if ta <= 0:
             return
@@ -1553,17 +1593,19 @@ def m_sentences(stills=None):
                      blur=(1 - q) * 5)
 
     def fg(im, sec, u):
-        build_label(im, '2005 · appeals court, antwerp', (x0, y0 - 170), sec, -0.3, size=38, tracking=0.2, color=INK)
+        build_label(im, '2005 · appeals court, antwerp', (gx(0, sec), y0 - 110), sec, -0.3, size=38, tracking=0.2,
+                    color=INK)
         for k in range(5):
             card(im, k, sec)
-        # the group bracket over the three
-        bx0, bx1 = x0 + (cw + gap), x0 + 4 * (cw + gap) - gap
-        pb = p_io(sec, 7.6, 0.5)
-        hline(im, bx0, bx1, y0 - 40, color=DIM, width=3, p=pb)
+        # the bracket under the three
+        bx0, bx1 = gx(1, sec), gx(4, sec) - gap
+        yb = y0 + ph + th + 50
+        pb = p_io(sec, 7.55, 0.5)
+        hline(im, bx0, bx1, yb, color=DIM, width=3, p=pb)
         if pb > 0:
-            vline(im, bx0, y0 - 40, y0 - 10, color=DIM, width=3, p=pb)
-            vline(im, bx1, y0 - 40, y0 - 10, color=DIM, width=3, p=pb)
-        build_text(im, '5 YEARS EACH', (bx0, y0 - 80), sec, 7.75, size=64, color=INK)
+            vline(im, bx0, yb - 30, yb, color=DIM, width=3, p=pb)
+            vline(im, bx1, yb - 30, yb, color=DIM, width=3, p=pb)
+        build_text(im, '5 YEARS EACH', ((bx0 + bx1) / 2, yb + 110), sec, 7.75, size=72, color=INK, anchor='ms')
 
     render('M_SENTENCES', 9.0, fg, cam=Cam(z=(1.0, 1.06), pan=((-0.008, -0.004), (0.008, 0.006)), lin=0.5),
            bg=backdrop(grid=True, glow=(0.5, 0.5)), stills=stills, tag_text='DRAMATIZATION', tag_t0=-0.4)
@@ -1602,7 +1644,7 @@ def m_caseclosed(stills=None):
             text(im, c, (x0 + (j + 0.5) * dw, xy[1]), size=size, color=color, anchor='ms')
         base = int(math.floor(v))
         fr = v - base
-        pitch = size * 0.95
+        pitch = size * 1.15
         tw, th = int(dw + 20), int(size * 1.6)
         tile = Image.new('RGBA', (tw, th), (0, 0, 0, 0))
         for m in (0, 1):
@@ -1613,7 +1655,7 @@ def m_caseclosed(stills=None):
             text(tile, str(dgt), (tw / 2, yb), size=size, color=color, anchor='ms')
         arr = np.asarray(tile).astype(np.float32)
         yy = np.abs(np.arange(th, dtype=np.float32) - th / 2) / (th / 2)
-        arr[..., 3] *= np.clip(1.6 - yy * 1.7, 0, 1)[:, None]
+        arr[..., 3] *= np.clip((0.8 - yy) / 0.3, 0, 1)[:, None]
         composite(im, Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8)), x0 + 3 * dw - 10,
                   xy[1] - size * 0.36 - th * 0.5)
 
@@ -1741,12 +1783,12 @@ def his_rows(im, sec, t_rows, alpha=1.0, strikes=None):
             hline(im, tx, x1 - 110, ys + 100, color=(50, 53, 60), width=2, alpha=alpha * 0.8)
             continue
         label(im, 'he says', (tx, ys + 30), size=28, color=AMBER if alpha > 0.7 else DIM, alpha=alpha * p, tracking=0.2)
-        lines = wrap(s_, 60, x1 - x0 - 230)
+        lines = wrap(s_, 64, x1 - x0 - 220)
         for li, ln in enumerate(lines):
-            text(im, ln, (tx, ys + 108 + li * 74), size=60, color=INK, alpha=alpha * p, dy=(1 - p) * 14, blur=(1 - p) * 5)
+            text(im, ln, (tx, ys + 112 + li * 80), size=64, color=INK, alpha=alpha * p, dy=(1 - p) * 14, blur=(1 - p) * 5)
         if strikes and strikes.get(j, 0) > 0:
             for li, ln in enumerate(lines):
-                hline(im, tx - 10, tx + 10 + tsize(ln, 60)[0], ys + 108 + li * 74 - 20, color=INK, width=5,
+                hline(im, tx - 10, tx + 10 + tsize(ln, 64)[0], ys + 112 + li * 80 - 22, color=INK, width=5,
                       p=strikes[j], alpha=0.85)
 
 
@@ -1772,7 +1814,7 @@ def m_hisstory(stills=None):
 
 @clip('M_20vs100', 3.9, 'S44', 'his words as two bars to scale: HE SAYS "20 MILLION" at 0 / "NOT 100" at 1.9 (reported loss: at least $100 million, an estimate, FACTS 4); footnote: his figure about EUR 18 million (FACTS 33) (VO S44)')
 def m_20vs100(stills=None):
-    bx0, bx1 = 640, 2860
+    bx0, bx1 = 640, 2700
     ya, yb = CY - 200, CY + 330
     frac = 20 / 100
 
@@ -1821,7 +1863,7 @@ def m_evidencestory(stills=None):
         if p1 > 0 and mv < 1:
             text(im, 'ONE PROBLEM', (x0 + 110, y0 + 520 - mv * 120), size=120, color=INK, alpha=p1 * (1 - mv),
                  dy=(1 - p1) * 20, blur=(1 - p1) * 5 + mv * 6)
-        label(im, 'one problem', (x0 + 110, y0 + 90), size=30, color=AMBER, alpha=mv, tracking=0.2)
+        label(im, 'one problem', (x0 + 4, y0 - 36), size=30, color=AMBER, alpha=mv, tracking=0.2)
         build_text(im, 'THE EVIDENCE', (x0 + 110, y0 + 170), sec, 1.3, size=100, color=INK)
         build_label(im, 'the crime scene', (x0 + 110, y0 + 235), sec, 1.55, size=30, tracking=0.14)
 
@@ -1849,11 +1891,11 @@ def m_quote(stills=None):
     T0, T1 = 3.4, 7.5
 
     def fg(im, sec, u):
-        build_text(im, 'AGIM DE BRUYCKER', (x0, y0 - 380), sec, 0.15, size=80, color=INK)
-        wn = tsize('AGIM DE BRUYCKER ', 80)[0]
-        build_text(im, '· lead detective', (x0 + wn, y0 - 380), sec, 0.3, size=52, weight='Regular', display=False,
-                   color=DIM)
-        hline(im, x0, x0 + 200, y0 - 320, color=AMBER, width=5, p=p_io(sec, 0.4, 0.5), glow=4)
+        pa = p_in(sec, 0.15, 0.45)
+        mv = p_io(sec, 2.75, 0.7)
+        morph(im, (('AGIM DE BRUYCKER ', 120, 'SemiBold', True, INK), ('· lead detective', 78, 'Regular', False, DIM)),
+              (CX, CY - 20), (x0, y0 - 380), 80 / 120, mv, alpha=pa, dy=(1 - pa) * 30, blur=(1 - pa) * 6)
+        hline(im, x0, x0 + 200, y0 - 320, color=AMBER, width=5, p=p_io(sec, 3.2, 0.5), glow=4)
         pq = p_in(sec, 3.0, 0.5)
         text(im, '“', (x0 - 50, y0 + 120), size=400, color=AMBER, alpha=0.9 * pq, anchor='rs', dy=(1 - pq) * 30)
         for k, (w_, col, x, y) in enumerate(words):
@@ -1869,8 +1911,8 @@ def m_quote(stills=None):
 @clip('M_TWOPATHS', 16.3, 'S47', 'continuous fork (editor shows 0-7.3 and 11.0-15.9): "SO WHY TELL IT?" 0 / IF IT\'S TRUE -> the real crime happened inside the building 1.6 / -> HE\'S THE FALL GUY 6.2 / IF IT ISN\'T fully on by 11.0 / -> A VERY CONVENIENT STORY 11.5 / for the one man who knows where the rest went 14.4 (VO S47)')
 def m_twopaths(stills=None):
     sx, fx, ex = 520, 1180, 1800
-    yt = CY + 110
-    yu, yd = CY - 250, CY + 500
+    yt = CY + 150
+    yu, yd = CY - 200, CY + 540
     tx = ex + 200
     LINEC = (150, 156, 166)
 
@@ -1890,7 +1932,7 @@ def m_twopaths(stills=None):
             poly(im, [(ex + 120, yy - 18), (ex + 150, yy), (ex + 120, yy + 18)], fill=LINEC)
 
     def fg(im, sec, u):
-        build_text(im, 'SO WHY TELL IT?', (440, 420), sec, -0.4, size=120, color=INK)
+        build_text(im, 'SO WHY TELL IT?', (440, 470), sec, -0.4, size=120, color=INK)
         build_label(im, 'his story', (sx, yt - 60), sec, -0.3, size=34, tracking=0.2)
         circle(im, (sx, yt), 14, fill=INK, alpha=p_in(sec, -0.4, 0.3))
         polyline(im, [(sx, yt), (fx, yt)], color=LINEC, width=5, p=p_io(sec, -0.2, 0.9))
@@ -1900,15 +1942,15 @@ def m_twopaths(stills=None):
             circle(im, (fx, yt), 20, fill=AMBER, alpha=pf, glow=10 + 6 * pulse)
         # path A
         branch(im, sec, yu, 0.9)
-        build_label(im, 'if it’s true', (tx, yu - 130), sec, 1.35, size=36, tracking=0.2, color=AMBER)
-        build_text(im, 'the real crime happened inside the building', (tx, yu - 50), sec, 1.5, size=50,
+        build_label(im, 'if it’s true', (tx, yu - 140), sec, 1.35, size=40, tracking=0.2, color=AMBER)
+        build_text(im, 'the real crime happened inside the building', (tx, yu - 52), sec, 1.5, size=56,
                    weight='Regular', display=False, color=INK, alpha=0.88)
         build_text(im, '→ HE’S THE FALL GUY', (tx, yu + 90), sec, 5.95, size=100, color=INK)
         # path B (on screen before the editor comes back at 11.0)
         branch(im, sec, yd, 9.8)
-        build_label(im, 'if it isn’t', (tx, yd - 130), sec, 10.35, size=36, tracking=0.2, color=AMBER)
+        build_label(im, 'if it isn’t', (tx, yd - 130), sec, 10.35, size=40, tracking=0.2, color=AMBER)
         build_text(im, '→ A VERY CONVENIENT STORY', (tx, yd - 20), sec, 11.25, size=100, color=INK)
-        build_text(im, 'for the one man who knows where the rest went', (tx, yd + 80), sec, 14.15, size=50,
+        build_text(im, 'for the one man who knows where the rest went', (tx, yd + 86), sec, 14.15, size=56,
                    weight='Regular', display=False, color=INK, alpha=0.88)
 
     render('M_TWOPATHS', 16.3, fg, cam=Cam(z=(1.0, 1.07), pan=((-0.006, -0.008), (0.006, 0.012)), lin=0.6),
@@ -1934,7 +1976,11 @@ def m_question(stills=None):
                  blur=(1 - p) * 8)
 
     def fg(im, sec, u):
-        build_label(im, 'so what do you think?', (CX, CY - 400), sec, 0.2, size=48, tracking=0.24, anchor='ms', color=INK)
+        pa = p_in(sec, 0.15, 0.45)
+        mv = p_io(sec, 2.2, 0.6)
+        wq = line_tile((('SO WHAT DO YOU THINK?', 140, 'SemiBold', True, INK),))[0].width - 80
+        morph(im, (('SO WHAT DO YOU THINK?', 140, 'SemiBold', True, INK),), (CX, CY - 20), (CX - wq * 0.45 / 2, CY - 400),
+              0.45, mv, alpha=pa, dy=(1 - pa) * 30, blur=(1 - pa) * 6)
         letters(im, 'THE MASTERMIND', CX, CY - 110, sec, 2.9, lambda i, c: INK)
         build_text(im, 'or', (CX, CY + 40), sec, 3.7, size=90, anchor='ms', color=DIM)
         letters(im, 'THE FALL GUY?', CX, CY + 290, sec, 4.2, lambda i, c: AMBER if c == '?' else INK)
@@ -1942,6 +1988,26 @@ def m_question(stills=None):
 
     render('M_QUESTION', 9.0, fg, cam=Cam(z=(1.0, 1.1), pan=((0.0, 0.01), (0.0, -0.006)), lin=0.6),
            bg=backdrop(grid=False, glow=(0.5, 0.5), warm=0.26), stills=stills)
+
+
+# ============================================================================ main
+
+def main():
+    args = sys.argv[1:]
+    stills = None
+    if '--stills' in args:
+        i = args.index('--stills')
+        stills = [float(v) for v in args[i + 1].split(',')]
+        args = args[:i] + args[i + 2:]
+    ids = list(CLIPS) if (not args or args == ['all']) else args
+    for cid in ids:
+        if cid not in CLIPS:
+            print(f'[mg] unknown clip {cid}; known: {", ".join(CLIPS)}')
+            continue
+        fn, sec, beat, note = CLIPS[cid]
+        fn(stills=stills)
+        if not stills:
+            manifest(cid, sec, beat, note)
 
 
 if __name__ == '__main__':

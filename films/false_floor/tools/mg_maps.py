@@ -2314,7 +2314,7 @@ E_MOVES = {'E_CENTRAAL': (1.04, 1.11, -0.010, 0.004, 0.09), 'E_DISTRICT': (1.12,
            'E_WOODS': (1.05, 1.10, 0.026, 0.0, 0.06), 'E_E19': (1.05, 1.11, -0.018, 0.004, 0.07),
            'E_COURT': (1.05, 1.10, 0.016, 0.006, 0.06), 'E_MILAN': (1.05, 1.11, -0.016, 0.0, 0.07),
            'E_CDG': (1.05, 1.10, 0.020, 0.004, 0.06)}
-E_PICK = {'E_CENTRAAL': 'E_CENTRAAL_1.jpg'}      # slot -> chosen candidate (looked at each one; no identifiable faces)
+E_PICK = {'E_CENTRAAL': 'E_CENTRAAL_1.jpg', 'E_DISTRICT': 'E_DISTRICT_1.jpg', 'E_ADC': 'E_ADC_1.jpg'}      # slot -> chosen candidate (looked at each one; no identifiable faces)
 # v2 re-cut lengths (s); slots not in the cut (E_DIAMONDS, E_CDG, E_COURT, E_E19) are skipped
 E_DUR = {'E_DISTRICT': 2.1, 'E_CENTRAAL': 3.0, 'E_ADC': 3.5, 'E_MILAN': 2.6, 'E_WOODS': 4.4}
 MIDAS = os.path.expanduser('~/.cache/mg_maps/models/midas_small.onnx')
@@ -2405,18 +2405,26 @@ def e_photo(cid, stills=None, pick=None):
     if line is None:
         print(f'[mg_maps] {cid}: no usable credit for {fn} in credits.json — skipped', flush=True)
         return False
-    src = Image.open(os.path.join(EVID, fn))
-    src = G.grade_photo(src.convert('RGB'))
-    # 16:9 cover crop (vertical bias from E_CROP_Y), resized to the 2x canvas
+    src = Image.open(os.path.join(EVID, fn)).convert('RGB')
     sw, sh = src.size
+    from PIL import ImageFilter
+    for bx0, by0, bx1, by1 in E_BLUR.get(fn, []):          # soften any face-sized detail that stays in frame
+        box = (int(bx0 * sw), int(by0 * sh), int(bx1 * sw), int(by1 * sh))
+        src.paste(src.crop(box).filter(ImageFilter.GaussianBlur(sw / 160)), box[:2])
+    src = G.grade_photo(src)
+    # 16:9 crop: E_CROP (x0, y0, x1 as fractions) or a cover crop with vertical bias E_CROP_Y; resized to the 2x canvas
     ar = W2 / H2
-    if sw / sh > ar:
-        cw, ch = sh * ar, sh
+    if fn in E_CROP:
+        fx0, fy0, fx1 = E_CROP[fn]
+        x0, y0, cw = fx0 * sw, fy0 * sh, (fx1 - fx0) * sw
+        ch = cw / ar
     else:
-        cw, ch = sw, sw / ar
-    cy_bias = E_CROP_Y.get(cid, 0.5)
-    x0 = (sw - cw) / 2
-    y0 = (sh - ch) * cy_bias
+        if sw / sh > ar:
+            cw, ch = sh * ar, sh
+        else:
+            cw, ch = sw, sw / ar
+        x0 = (sw - cw) / 2
+        y0 = (sh - ch) * E_CROP_Y.get(cid, 0.5)
     img = src.crop((int(x0), int(y0), int(x0 + cw), int(y0 + ch))).resize((W2, H2), Image.LANCZOS)
     rgb = np.asarray(img).astype(np.uint8)
     dep = depth_map(rgb)
@@ -2450,6 +2458,9 @@ def e_photo(cid, stills=None, pick=None):
 
 
 E_CROP_Y = {'E_CENTRAAL': 0.62, 'E_DISTRICT': 0.30}
+E_CROP = {'E_ADC_1.jpg': (0.17, 0.27, 1.0)}                       # crops two passers-by out at the left edge
+E_BLUR = {'E_ADC_1.jpg': [(0.580, 0.745, 0.690, 0.860)],          # a reflection of a person in the glass door
+          'E_CENTRAAL_1.jpg': [(0.612, 0.664, 0.643, 0.700), (0.687, 0.664, 0.713, 0.703)]}   # two tiny seated travellers
 
 
 # ===================================================================================================== manifest

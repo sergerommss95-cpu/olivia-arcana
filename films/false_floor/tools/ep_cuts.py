@@ -75,7 +75,7 @@ CH = {
     'ch6': dict(title=('CHAPTER SIX', 'TWO STORIES'), beats=[43, 44, 45, 46, 47, 48], music=('ff_6', 0.0, -16), tail=1.8,
                 beds=[('el__office_room', 'A_INTERVIEW', 'S51', -24), ('el__vault_room_tone', 'S27', 'M_QUOTE', -23)],
                 cuts=[('M_WIRED', 43, 'In'), ('A_INTERVIEW', 43, 'And'), ('S51', 43, 'It'),
-                      ('M_HISSTORY', 44, 'He'), ('N3', 44, 'He#3'), ('S26@20', 44, 'so'), ('S02@40', 44, 'And'),
+                      ('M_HISSTORY', 44, 'He'), ('N3', 44, 'He#3'), ('S26@20', 44, 'so'), ('S02@124', 44, 'And'),
                       ('S41', 44, 'the#6'), ('M_20vs100', 44, 'Twenty'),
                       ('C13', 45, "It's"), ('A_INTERVIEW@70', 45, 'books'), ('M_EVIDENCESTORY', 45, "There's"),
                       ('S27', 45, 'The#2'), ('S45a', 45, 'there'), ('C10@20', 45, 'And'), ('S28', 45, 'with'),
